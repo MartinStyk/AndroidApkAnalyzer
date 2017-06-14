@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             // If this view is present, then the
             // activity should be in two-pane mode.
             mTwoPane = true;
+        } else {
+            mTwoPane = false;
         }
 
         // only on first run redirect to default fragment
