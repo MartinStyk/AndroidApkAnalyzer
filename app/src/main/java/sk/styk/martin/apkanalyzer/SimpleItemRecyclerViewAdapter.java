@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,9 @@ import sk.styk.martin.apkanalyzer.dummy.DummyContent;
 import java.util.List;
 
 public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+
+    //track which is selected and highlight it
+    private int selectedPos = RecyclerView.NO_POSITION;
 
     private final List<DummyContent.DummyItem> mValues;
     private Context context;
@@ -30,10 +34,17 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
         holder.mIdView.setText(mValues.get(position).id);
         holder.mContentView.setText(mValues.get(position).content);
+
+        if(MainActivity.mTwoPane && selectedPos == position){
+            holder.itemView.setBackgroundColor(Color.BLUE);
+        }else{
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,6 +55,12 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
                     intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
                     context.startActivity(intent);
                 }else {
+                    // highlight current item in list
+                    notifyItemChanged(selectedPos);
+                    selectedPos = position;
+                    notifyItemChanged(selectedPos);
+
+                    // show details fragment
                     Bundle arguments = new Bundle();
                     arguments.putString(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
                     ItemDetailFragment fragment = new ItemDetailFragment();
