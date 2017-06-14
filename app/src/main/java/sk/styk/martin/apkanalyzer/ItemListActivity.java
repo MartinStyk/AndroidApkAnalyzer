@@ -39,24 +39,15 @@ public class ItemListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(sk.styk.martin.apkanalyzer.R.layout.activity_item_list);
 
-        Toolbar toolbar = (Toolbar) findViewById(sk.styk.martin.apkanalyzer.R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitle(getTitle());
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(sk.styk.martin.apkanalyzer.R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
-        View recyclerView = findViewById(sk.styk.martin.apkanalyzer.R.id.item_list);
+        View recyclerView = findViewById(R.id.item_list);
         assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
 
-        if (findViewById(sk.styk.martin.apkanalyzer.R.id.item_detail_container) != null) {
+        if (findViewById(R.id.item_detail_container) != null) {
             // The detail container view will be present only in the
             // large-screen layouts (res/values-w900dp).
             // If this view is present, then the
@@ -79,7 +70,7 @@ public class ItemListActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(sk.styk.martin.apkanalyzer.R.layout.item_list_content, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
             return new ViewHolder(view);
         }
 
@@ -97,7 +88,7 @@ public class ItemListActivity extends AppCompatActivity {
                         arguments.putString(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
                         ItemDetailFragment fragment = new ItemDetailFragment();
                         fragment.setArguments(arguments);
-                        getSupportFragmentManager().beginTransaction().replace(sk.styk.martin.apkanalyzer.R.id.item_detail_container, fragment).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
                     } else {
                         Context context = v.getContext();
                         Intent intent = new Intent(context, ItemDetailActivity.class);
@@ -123,8 +114,8 @@ public class ItemListActivity extends AppCompatActivity {
             public ViewHolder(View view) {
                 super(view);
                 mView = view;
-                mIdView = (TextView) view.findViewById(sk.styk.martin.apkanalyzer.R.id.id);
-                mContentView = (TextView) view.findViewById(sk.styk.martin.apkanalyzer.R.id.content);
+                mIdView = (TextView) view.findViewById(R.id.id);
+                mContentView = (TextView) view.findViewById(R.id.content);
             }
 
             @Override
