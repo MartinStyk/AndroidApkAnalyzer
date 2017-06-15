@@ -10,4 +10,9 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="intro">Analyze your installed apps!</string>
+
+    <string name="all_apps">All apps</string>
+    <string name="system_apps">System apps</string>
+    <string name="user_apps">User apps</string>
+
 </resources>
