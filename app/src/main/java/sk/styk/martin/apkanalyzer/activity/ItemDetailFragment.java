@@ -2,16 +2,15 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.app.Activity;
 import android.content.pm.ApplicationInfo;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import sk.styk.martin.apkanalyzer.business.InstalledAppsRepository;
-import sk.styk.martin.apkanalyzer.dummy.DummyContent;
+import sk.styk.martin.apkanalyzer.business.service.InstalledAppsService;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -27,7 +26,7 @@ public class ItemDetailFragment extends Fragment {
     public static final String ARG_ITEM_ID = "item_id";
 
     private ApplicationInfo mItem;
-    private InstalledAppsRepository installedAppsRepository;
+    private InstalledAppsService installedAppsRepository;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -36,7 +35,7 @@ public class ItemDetailFragment extends Fragment {
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             Activity activity = this.getActivity();
 
-            installedAppsRepository = new InstalledAppsRepository(activity);
+            installedAppsRepository = new InstalledAppsService(activity);
 
             mItem = installedAppsRepository.getAll().get(getArguments().getInt(ARG_ITEM_ID));
 

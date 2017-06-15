@@ -9,34 +9,48 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
-import sk.styk.martin.apkanalyzer.business.InstalledAppsRepository;
+import java.util.ArrayList;
+import java.util.List;
+
+import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.business.task.ItemListLoadTask;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemListFragment extends Fragment {
+public class ItemListFragment extends Fragment implements ItemListLoadTask.OnTaskCompleted {
 
-    private RecyclerView mRecycleView;
-    private SimpleItemRecyclerViewAdapter mSimpleItemRecyclerViewAdapter;
-    private InstalledAppsRepository installedAppsRepository;
+    private SimpleItemRecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
+    private ProgressBar loadingBar;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
-        installedAppsRepository = new InstalledAppsRepository(getActivity());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(sk.styk.martin.apkanalyzer.R.layout.fragment_item_list, container, false);
-        mRecycleView = (RecyclerView) view.findViewById(sk.styk.martin.apkanalyzer.R.id.item_list);
-        mSimpleItemRecyclerViewAdapter = new SimpleItemRecyclerViewAdapter(getActivity(), installedAppsRepository.getAll());
-        mRecycleView.setAdapter(mSimpleItemRecyclerViewAdapter);
+        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.item_list);
+        loadingBar = (ProgressBar) view.findViewById(R.id.item_list_loading);
+        adapter = new SimpleItemRecyclerViewAdapter(getActivity(), new ArrayList<ApplicationInfo>());
+        recyclerView.setAdapter(adapter);
 
+        new ItemListLoadTask(getActivity(), this).execute();
         return view;
     }
 
+    /**
+     * Callback from async task
+     */
+    @Override
+    public void onTaskCompleted(List<ApplicationInfo> applicationInfoList) {
+        adapter.dataChange(applicationInfoList);
+        loadingBar.setVisibility(View.GONE);
+        recyclerView.setVisibility(View.VISIBLE);
+    }
 }

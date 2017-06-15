@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import sk.styk.martin.apkanalyzer.dummy.DummyContent;
-
 import java.util.List;
 
 public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
@@ -20,12 +18,12 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     //track which is selected and highlight it
     private int selectedPos = RecyclerView.NO_POSITION;
 
-    private final List<ApplicationInfo> mValues;
+    private List<ApplicationInfo> items;
     private Context context;
 
     public SimpleItemRecyclerViewAdapter(Context context, List<ApplicationInfo> items) {
         this.context = context;
-        mValues = items;
+        this.items = items;
     }
 
     @Override
@@ -36,12 +34,12 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mItem = mValues.get(position);
-        holder.mPackageName.setText(mValues.get(position).packageName);
+        holder.mItem = items.get(position);
+        holder.mPackageName.setText(items.get(position).packageName);
 
-        if(MainActivity.mTwoPane && selectedPos == position){
+        if (MainActivity.mTwoPane && selectedPos == position) {
             holder.itemView.setBackgroundColor(Color.BLUE);
-        }else{
+        } else {
             holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
@@ -49,12 +47,12 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!MainActivity.mTwoPane){
+                if (!MainActivity.mTwoPane) {
                     Context context = v.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
                     intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, position);
                     context.startActivity(intent);
-                }else {
+                } else {
                     // highlight current item in list
                     notifyItemChanged(selectedPos);
                     selectedPos = position;
@@ -65,7 +63,7 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
                     arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, position);
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
-                    ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(sk.styk.martin.apkanalyzer.R.id.item_detail_container, fragment).commit();
+                    ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(sk.styk.martin.apkanalyzer.R.id.item_detail_container, fragment).commit();
                 }
             }
         });
@@ -73,7 +71,12 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return items.size();
+    }
+
+    public void dataChange(List<ApplicationInfo> items) {
+        this.items = items;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
