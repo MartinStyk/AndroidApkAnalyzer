@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.inducesmile.apkanalyzer.MainActivity"
+    tools:context="sk.styk.martin.apkanalyzer.activity.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
     <TextView

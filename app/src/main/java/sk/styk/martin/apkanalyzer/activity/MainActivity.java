@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer;
+package sk.styk.martin.apkanalyzer.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;

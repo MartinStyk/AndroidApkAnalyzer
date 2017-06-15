@@ -1,7 +1,8 @@
-package sk.styk.martin.apkanalyzer;
+package sk.styk.martin.apkanalyzer.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -19,10 +20,10 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     //track which is selected and highlight it
     private int selectedPos = RecyclerView.NO_POSITION;
 
-    private final List<DummyContent.DummyItem> mValues;
+    private final List<ApplicationInfo> mValues;
     private Context context;
 
-    public SimpleItemRecyclerViewAdapter(Context context, List<DummyContent.DummyItem> items) {
+    public SimpleItemRecyclerViewAdapter(Context context, List<ApplicationInfo> items) {
         this.context = context;
         mValues = items;
     }
@@ -36,8 +37,7 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
-        holder.mContentView.setText(mValues.get(position).content);
+        holder.mPackageName.setText(mValues.get(position).packageName);
 
         if(MainActivity.mTwoPane && selectedPos == position){
             holder.itemView.setBackgroundColor(Color.BLUE);
@@ -52,7 +52,7 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
                 if(!MainActivity.mTwoPane){
                     Context context = v.getContext();
                     Intent intent = new Intent(context, ItemDetailActivity.class);
-                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                    intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, position);
                     context.startActivity(intent);
                 }else {
                     // highlight current item in list
@@ -62,7 +62,7 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
 
                     // show details fragment
                     Bundle arguments = new Bundle();
-                    arguments.putString(ItemDetailFragment.ARG_ITEM_ID, holder.mItem.id);
+                    arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, position);
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
                     ((MainActivity)context).getSupportFragmentManager().beginTransaction().replace(sk.styk.martin.apkanalyzer.R.id.item_detail_container, fragment).commit();
@@ -78,20 +78,18 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
-        public DummyContent.DummyItem mItem;
+        public final TextView mPackageName;
+        public ApplicationInfo mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(sk.styk.martin.apkanalyzer.R.id.id);
-            mContentView = (TextView) view.findViewById(sk.styk.martin.apkanalyzer.R.id.content);
+            mPackageName = (TextView) view.findViewById(sk.styk.martin.apkanalyzer.R.id.package_name);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + mPackageName.getText() + "'";
         }
     }
 }

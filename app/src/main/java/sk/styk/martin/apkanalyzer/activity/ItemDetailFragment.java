@@ -1,6 +1,7 @@
-package sk.styk.martin.apkanalyzer;
+package sk.styk.martin.apkanalyzer.activity;
 
 import android.app.Activity;
+import android.content.pm.ApplicationInfo;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import sk.styk.martin.apkanalyzer.business.InstalledAppsRepository;
 import sk.styk.martin.apkanalyzer.dummy.DummyContent;
 
 /**
@@ -24,32 +26,23 @@ public class ItemDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    /**
-     * The dummy content this fragment is presenting.
-     */
-    private DummyContent.DummyItem mItem;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public ItemDetailFragment() {
-    }
+    private ApplicationInfo mItem;
+    private InstalledAppsRepository installedAppsRepository;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
-            // Load the dummy content specified by the fragment
-            // arguments. In a real-world scenario, use a Loader
-            // to load content from a content provider.
-            mItem = DummyContent.ITEM_MAP.get(getArguments().getString(ARG_ITEM_ID));
-
             Activity activity = this.getActivity();
+
+            installedAppsRepository = new InstalledAppsRepository(activity);
+
+            mItem = installedAppsRepository.getAll().get(getArguments().getInt(ARG_ITEM_ID));
+
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(sk.styk.martin.apkanalyzer.R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.content);
+                appBarLayout.setTitle(mItem.packageName);
             }
         }
     }
@@ -58,9 +51,8 @@ public class ItemDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(sk.styk.martin.apkanalyzer.R.layout.item_detail, container, false);
 
-        // Show the dummy content as text in a TextView.
         if (mItem != null) {
-            ((TextView) rootView.findViewById(sk.styk.martin.apkanalyzer.R.id.item_detail)).setText(mItem.details);
+            ((TextView) rootView.findViewById(sk.styk.martin.apkanalyzer.R.id.item_detail)).setText(mItem.toString());
         }
 
         return rootView;
