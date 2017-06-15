@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import sk.styk.martin.apkanalyzer.business.service.InstalledAppsService;
+import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -25,7 +26,7 @@ public class ItemDetailFragment extends Fragment {
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    private ApplicationInfo mItem;
+    private AppBasicInfo mItem;
     private InstalledAppsService installedAppsRepository;
 
     @Override
@@ -41,7 +42,7 @@ public class ItemDetailFragment extends Fragment {
 
             CollapsingToolbarLayout appBarLayout = (CollapsingToolbarLayout) activity.findViewById(sk.styk.martin.apkanalyzer.R.id.toolbar_layout);
             if (appBarLayout != null) {
-                appBarLayout.setTitle(mItem.packageName);
+                appBarLayout.setTitle(mItem.getPackageName());
             }
         }
     }

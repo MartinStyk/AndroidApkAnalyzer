@@ -11,6 +11,7 @@ import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.ItemListLoadTask;
+import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 
 /**
  * An activity representing a list of Items. This activity
@@ -40,7 +41,7 @@ public class ItemListActivity extends AppCompatActivity implements ItemListLoadT
         toolbar.setTitle(getTitle());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.item_list);
-        adapter = new sk.styk.martin.apkanalyzer.activity.SimpleItemRecyclerViewAdapter(this, new ArrayList<ApplicationInfo>());
+        adapter = new sk.styk.martin.apkanalyzer.activity.SimpleItemRecyclerViewAdapter(this, new ArrayList<AppBasicInfo>());
         recyclerView.setAdapter(adapter);
 
 
@@ -56,7 +57,7 @@ public class ItemListActivity extends AppCompatActivity implements ItemListLoadT
     }
 
     @Override
-    public void onTaskCompleted(List<ApplicationInfo> list) {
+    public void onTaskCompleted(List<AppBasicInfo> list) {
         adapter.dataChange(list);
     }
 //

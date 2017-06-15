@@ -18,6 +18,7 @@ import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.ItemListLoadTask;
+import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 
 
 /**
@@ -47,7 +48,7 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.OnTas
         listContainerView = view.findViewById(R.id.item_list_container);
         recyclerView = (RecyclerView) view.findViewById(R.id.item_list);
         loadingBar = (ProgressBar) view.findViewById(R.id.item_list_loading);
-        adapter = new SimpleItemRecyclerViewAdapter(getActivity(), new ArrayList<ApplicationInfo>());
+        adapter = new SimpleItemRecyclerViewAdapter(getActivity(), new ArrayList<AppBasicInfo>());
         recyclerView.setAdapter(adapter);
 
         new ItemListLoadTask(getActivity(), this).execute();
@@ -58,7 +59,7 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.OnTas
      * Callback from async task
      */
     @Override
-    public void onTaskCompleted(List<ApplicationInfo> applicationInfoList) {
+    public void onTaskCompleted(List<AppBasicInfo> applicationInfoList) {
         adapter.dataChange(applicationInfoList);
         loadingBar.setVisibility(View.GONE);
         listContainerView.setVisibility(View.VISIBLE);

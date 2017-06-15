@@ -13,29 +13,34 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.databinding.ItemListContentBinding;
+import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+
 public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
     //track which is selected and highlight it
     private int selectedPos = RecyclerView.NO_POSITION;
 
-    private List<ApplicationInfo> items;
+    private List<AppBasicInfo> items;
     private Context context;
 
-    public SimpleItemRecyclerViewAdapter(Context context, List<ApplicationInfo> items) {
+    public SimpleItemRecyclerViewAdapter(Context context, List<AppBasicInfo> items) {
         this.context = context;
         this.items = items;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(sk.styk.martin.apkanalyzer.R.layout.item_list_content, parent, false);
-        return new ViewHolder(view);
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        ItemListContentBinding itemBinding = ItemListContentBinding.inflate(layoutInflater, parent, false);
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
+        return new ViewHolder(itemBinding);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.mItem = items.get(position);
-        holder.mPackageName.setText(items.get(position).packageName);
+        holder.bind(items.get(position));
 
         if (MainActivity.mTwoPane && selectedPos == position) {
             holder.itemView.setBackgroundColor(Color.BLUE);
@@ -44,7 +49,7 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
         }
 
 
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!MainActivity.mTwoPane) {
@@ -63,7 +68,7 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
                     arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, position);
                     ItemDetailFragment fragment = new ItemDetailFragment();
                     fragment.setArguments(arguments);
-                    ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(sk.styk.martin.apkanalyzer.R.id.item_detail_container, fragment).commit();
+                    ((MainActivity) context).getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
                 }
             }
         });
@@ -74,25 +79,24 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
         return items.size();
     }
 
-    public void dataChange(List<ApplicationInfo> items) {
+    public void dataChange(List<AppBasicInfo> items) {
         this.items = items;
         notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
-        public final TextView mPackageName;
-        public ApplicationInfo mItem;
 
-        public ViewHolder(View view) {
-            super(view);
-            mView = view;
-            mPackageName = (TextView) view.findViewById(sk.styk.martin.apkanalyzer.R.id.package_name);
+        private final ItemListContentBinding binding;
+
+
+        public ViewHolder(ItemListContentBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
         }
 
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mPackageName.getText() + "'";
+        public void bind(AppBasicInfo item) {
+            binding.setAppInfo(item);
+            binding.executePendingBindings();
         }
     }
 }
