@@ -1,6 +1,8 @@
 package sk.styk.martin.apkanalyzer.activity;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DividerItemDecoration;
@@ -24,9 +26,9 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemListFragment extends Fragment implements ItemListLoadTask.Callback, View.OnClickListener {
+public class ItemListFragment extends Fragment implements ItemListLoadTask.Callback, AppListRecyclerViewAdapter.Callback, View.OnClickListener {
 
-    private SimpleItemRecyclerViewAdapter adapter;
+    private AppListRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private View listContainerView;
     private ProgressBar loadingBar;
@@ -56,7 +58,7 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.Callb
 
         // do not load data on configuration change
         if (savedInstanceState == null) {
-            adapter = new SimpleItemRecyclerViewAdapter(getActivity(), new ArrayList<AppBasicInfo>());
+            adapter = new AppListRecyclerViewAdapter(getActivity(), new ArrayList<AppBasicInfo>(), this);
             new ItemListLoadTask(getActivity(), this).execute();
         }
         // we need to set context for fragment manager
@@ -101,6 +103,24 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.Callb
                 if (checked)
                     Toast.makeText(getActivity(), "user", Toast.LENGTH_SHORT).show();
                 break;
+        }
+    }
+
+    // TODO remove positien and use only appBasicInfo
+    @Override
+    public void onItemClick(View view, AppBasicInfo appBasicInfo, int position) {
+        if (!MainActivity.mTwoPane) {
+            Context context = view.getContext();
+            Intent intent = new Intent(context, ItemDetailActivity.class);
+            intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, position);
+            context.startActivity(intent);
+        } else {
+            // show details fragment
+            Bundle arguments = new Bundle();
+            arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, position);
+            ItemDetailFragment fragment = new ItemDetailFragment();
+            fragment.setArguments(arguments);
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
         }
     }
 }

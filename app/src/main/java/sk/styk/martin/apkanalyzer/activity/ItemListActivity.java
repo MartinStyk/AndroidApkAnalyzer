@@ -1,9 +1,12 @@
 package sk.styk.martin.apkanalyzer.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,14 +23,14 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ItemListActivity extends AppCompatActivity implements ItemListLoadTask.Callback {
+public class ItemListActivity extends AppCompatActivity implements ItemListLoadTask.Callback, AppListRecyclerViewAdapter.Callback {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
      */
     private boolean mTwoPane;
-    private sk.styk.martin.apkanalyzer.activity.SimpleItemRecyclerViewAdapter adapter;
+    private AppListRecyclerViewAdapter adapter;
 
 
     @Override
@@ -40,7 +43,7 @@ public class ItemListActivity extends AppCompatActivity implements ItemListLoadT
         toolbar.setTitle(getTitle());
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.item_list);
-        adapter = new sk.styk.martin.apkanalyzer.activity.SimpleItemRecyclerViewAdapter(this, new ArrayList<AppBasicInfo>());
+        adapter = new AppListRecyclerViewAdapter(this, new ArrayList<AppBasicInfo>(), this);
         recyclerView.setAdapter(adapter);
 
 
@@ -64,12 +67,29 @@ public class ItemListActivity extends AppCompatActivity implements ItemListLoadT
     public void onTaskStart() {
     }
 
+    @Override
+    public void onItemClick(View view, AppBasicInfo appBasicInfo, int position) {
+        if (!MainActivity.mTwoPane) {
+            Context context = view.getContext();
+            Intent intent = new Intent(context, ItemDetailActivity.class);
+            intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, position);
+            context.startActivity(intent);
+        } else {
+            // show details fragment
+            Bundle arguments = new Bundle();
+            arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, position);
+            ItemDetailFragment fragment = new ItemDetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
+        }
+    }
+
 //
-//    public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
+//    public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecyclerViewAdapter.ViewHolder> {
 //
 //        private final List<ApplicationInfo> mValues;
 //
-//        public SimpleItemRecyclerViewAdapter(List<ApplicationInfo> items) {
+//        public AppListRecyclerViewAdapter(List<ApplicationInfo> items) {
 //            mValues = items;
 //        }
 //
