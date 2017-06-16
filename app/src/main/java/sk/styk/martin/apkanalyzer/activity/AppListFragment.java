@@ -42,7 +42,7 @@ public class AppListFragment extends Fragment implements ItemListLoadTask.Callba
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_app_list, container, false);
 
         // Set the onClick for each of our views as the one implemented by this Fragment
         view.findViewById(R.id.radio_all_apps).setOnClickListener(this);

@@ -25,21 +25,21 @@ public class InstalledAppsService {
     }
 
     public List<AppBasicInfo> getAll() {
-        if (packages == null) {
-            PackageManager pm = ctx.getPackageManager();
-            List<ApplicationInfo> applications = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
-            packages = new ArrayList<>(applications.size());
+        PackageManager pm = ctx.getPackageManager();
+        List<ApplicationInfo> applications = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
-            for (ApplicationInfo applicationInfo : applications) {
-                AppBasicInfo appBasicInfo = new AppBasicInfo();
-                appBasicInfo.setPackageName(applicationInfo.packageName);
-                appBasicInfo.setApplicationName(applicationInfo.name);
-                appBasicInfo.setPathToApk(applicationInfo.sourceDir);
-                appBasicInfo.setIcon(applicationInfo.loadIcon(pm));
-                packages.add(appBasicInfo);
-            }
+        packages = new ArrayList<>(applications.size());
+
+        for (ApplicationInfo applicationInfo : applications) {
+            AppBasicInfo appBasicInfo = new AppBasicInfo();
+            appBasicInfo.setPackageName(applicationInfo.packageName);
+            appBasicInfo.setApplicationName(applicationInfo.name);
+            appBasicInfo.setPathToApk(applicationInfo.sourceDir);
+            appBasicInfo.setIcon(applicationInfo.loadIcon(pm));
+            packages.add(appBasicInfo);
         }
+
         return packages;
     }
 }

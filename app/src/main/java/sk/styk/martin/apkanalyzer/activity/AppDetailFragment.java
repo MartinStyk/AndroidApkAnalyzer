@@ -48,7 +48,7 @@ public class AppDetailFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(sk.styk.martin.apkanalyzer.R.layout.item_detail, container, false);
+        View rootView = inflater.inflate(sk.styk.martin.apkanalyzer.R.layout.fragment_app_detail, container, false);
 
         if (mItem != null) {
             ((TextView) rootView.findViewById(sk.styk.martin.apkanalyzer.R.id.item_detail)).setText(mItem.toString());

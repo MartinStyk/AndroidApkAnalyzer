@@ -36,7 +36,7 @@ public class AppListActivity extends AppCompatActivity implements ItemListLoadTa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(sk.styk.martin.apkanalyzer.R.layout.activity_item_list);
+        setContentView(sk.styk.martin.apkanalyzer.R.layout.activity_app_list);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -95,7 +95,7 @@ public class AppListActivity extends AppCompatActivity implements ItemListLoadTa
 //
 //        @Override
 //        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list_content, parent, false);
+//            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.app_list_content, parent, false);
 //            return new ViewHolder(view);
 //        }
 //

@@ -24,7 +24,7 @@ public class AppDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(sk.styk.martin.apkanalyzer.R.layout.activity_item_detail);
+        setContentView(sk.styk.martin.apkanalyzer.R.layout.activity_app_detail);
         Toolbar toolbar = (Toolbar) findViewById(sk.styk.martin.apkanalyzer.R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 

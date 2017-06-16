@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.databinding.ItemListContentBinding;
+import sk.styk.martin.apkanalyzer.databinding.AppListContentBinding;
 import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 import sk.styk.martin.apkanalyzer.util.ResolveResource;
 
@@ -42,7 +42,7 @@ public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecy
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        ItemListContentBinding itemBinding = ItemListContentBinding.inflate(layoutInflater, parent, false);
+        AppListContentBinding itemBinding = AppListContentBinding.inflate(layoutInflater, parent, false);
         return new ViewHolder(itemBinding);
     }
 
@@ -99,9 +99,9 @@ public class AppListRecyclerViewAdapter extends RecyclerView.Adapter<AppListRecy
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private final ItemListContentBinding binding;
+        private final AppListContentBinding binding;
 
-        public ViewHolder(ItemListContentBinding binding) {
+        public ViewHolder(AppListContentBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
