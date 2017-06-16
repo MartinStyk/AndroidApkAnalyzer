@@ -36,12 +36,6 @@ public class ItemListLoadTask extends AsyncTask<Object, Void, List<AppBasicInfo>
 
     @Override
     protected List<AppBasicInfo> doInBackground(Object... params) {
-        try {
-            //TODO remove simulate long duration
-            Thread.sleep(2000);
-        } catch (Exception e) {
-
-        }
         return new InstalledAppsService(context).getAll();
     }
 
