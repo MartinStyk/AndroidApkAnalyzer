@@ -26,7 +26,7 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemListFragment extends Fragment implements ItemListLoadTask.Callback, AppListRecyclerViewAdapter.Callback, View.OnClickListener {
+public class AppListFragment extends Fragment implements ItemListLoadTask.Callback, AppListRecyclerViewAdapter.Callback, View.OnClickListener {
 
     private AppListRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
@@ -111,14 +111,14 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.Callb
     public void onItemClick(View view, AppBasicInfo appBasicInfo, int position) {
         if (!MainActivity.mTwoPane) {
             Context context = view.getContext();
-            Intent intent = new Intent(context, ItemDetailActivity.class);
-            intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, position);
+            Intent intent = new Intent(context, AppDetailActivity.class);
+            intent.putExtra(AppDetailFragment.ARG_ITEM_ID, position);
             context.startActivity(intent);
         } else {
             // show details fragment
             Bundle arguments = new Bundle();
-            arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, position);
-            ItemDetailFragment fragment = new ItemDetailFragment();
+            arguments.putInt(AppDetailFragment.ARG_ITEM_ID, position);
+            AppDetailFragment fragment = new AppDetailFragment();
             fragment.setArguments(arguments);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
         }

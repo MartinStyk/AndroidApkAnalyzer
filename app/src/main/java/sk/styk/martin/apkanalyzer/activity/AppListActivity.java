@@ -19,11 +19,11 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
  * An activity representing a list of Items. This activity
  * has different presentations for handset and tablet-size devices. On
  * handsets, the activity presents a list of items, which when touched,
- * lead to a {@link ItemDetailActivity} representing
+ * lead to a {@link AppDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ItemListActivity extends AppCompatActivity implements ItemListLoadTask.Callback, AppListRecyclerViewAdapter.Callback {
+public class AppListActivity extends AppCompatActivity implements ItemListLoadTask.Callback, AppListRecyclerViewAdapter.Callback {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -71,14 +71,14 @@ public class ItemListActivity extends AppCompatActivity implements ItemListLoadT
     public void onItemClick(View view, AppBasicInfo appBasicInfo, int position) {
         if (!MainActivity.mTwoPane) {
             Context context = view.getContext();
-            Intent intent = new Intent(context, ItemDetailActivity.class);
-            intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, position);
+            Intent intent = new Intent(context, AppDetailActivity.class);
+            intent.putExtra(AppDetailFragment.ARG_ITEM_ID, position);
             context.startActivity(intent);
         } else {
             // show details fragment
             Bundle arguments = new Bundle();
-            arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, position);
-            ItemDetailFragment fragment = new ItemDetailFragment();
+            arguments.putInt(AppDetailFragment.ARG_ITEM_ID, position);
+            AppDetailFragment fragment = new AppDetailFragment();
             fragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
         }
@@ -109,14 +109,14 @@ public class ItemListActivity extends AppCompatActivity implements ItemListLoadT
 //                public void onClick(View v) {
 //                    if (mTwoPane) {
 //                        Bundle arguments = new Bundle();
-//                        arguments.putInt(ItemDetailFragment.ARG_ITEM_ID, position);
-//                        ItemDetailFragment fragment = new ItemDetailFragment();
+//                        arguments.putInt(AppDetailFragment.ARG_ITEM_ID, position);
+//                        AppDetailFragment fragment = new AppDetailFragment();
 //                        fragment.setArguments(arguments);
 //                        getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
 //                    } else {
 //                        Context context = v.getContext();
-//                        Intent intent = new Intent(context, ItemDetailActivity.class);
-//                        intent.putExtra(ItemDetailFragment.ARG_ITEM_ID, position);
+//                        Intent intent = new Intent(context, AppDetailActivity.class);
+//                        intent.putExtra(AppDetailFragment.ARG_ITEM_ID, position);
 //
 //                        context.startActivity(intent);
 //                    }

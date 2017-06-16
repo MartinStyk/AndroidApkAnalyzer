@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentManager.beginTransaction().replace(sk.styk.martin.apkanalyzer.R.id.first_container, fragment).commit();
 
         } else if (id == sk.styk.martin.apkanalyzer.R.id.nav_gallery) {
-            fragment = new ItemListFragment();
+            fragment = new AppListFragment();
             fragmentManager.beginTransaction().replace(sk.styk.martin.apkanalyzer.R.id.first_container, fragment).commit();
 
         } else if (id == sk.styk.martin.apkanalyzer.R.id.nav_slideshow) {

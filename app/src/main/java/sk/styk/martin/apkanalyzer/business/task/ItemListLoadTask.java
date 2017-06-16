@@ -9,7 +9,7 @@ import sk.styk.martin.apkanalyzer.business.service.InstalledAppsService;
 import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 
 /**
- * Async task for loading recycler view on ItemListFragment
+ * Async task for loading recycler view on AppListFragment
  * <p>
  * Created by Martin Styk on 15.06.2017.
  */
