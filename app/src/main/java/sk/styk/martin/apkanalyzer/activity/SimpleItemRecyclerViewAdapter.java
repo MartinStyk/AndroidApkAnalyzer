@@ -2,8 +2,10 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +16,14 @@ import java.util.List;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.databinding.ItemListContentBinding;
 import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+import sk.styk.martin.apkanalyzer.util.ResolveResource;
 
 public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 
     //track which is selected and highlight it
     private int selectedPos = RecyclerView.NO_POSITION;
+    private Drawable itemBackgroundSelector;
+    private int selectedRowColor = -1;
 
     private List<AppBasicInfo> items;
     private Context context;
@@ -26,7 +31,10 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     public SimpleItemRecyclerViewAdapter(Context context, List<AppBasicInfo> items) {
         this.context = context;
         this.items = items;
+        itemBackgroundSelector = ContextCompat.getDrawable(context, R.drawable.item_list_content_selector);
+        selectedRowColor = ResolveResource.getColor(context, R.attr.colorAccent);
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,12 +48,9 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.bind(items.get(position));
 
-        if (MainActivity.mTwoPane && selectedPos == position) {
-            holder.itemView.setBackgroundColor(Color.BLUE);
-        } else {
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
-        }
-
+        // highligh selected item in large screen
+        if (MainActivity.mTwoPane)
+            handleItemColoring(holder, position);
 
         holder.binding.getRoot().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +89,20 @@ public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleIt
     public void dataChange(List<AppBasicInfo> items) {
         this.items = items;
         notifyDataSetChanged();
+    }
+
+    // selected app stays highlighted
+    private void handleItemColoring(final ViewHolder holder, final int position) {
+        if (MainActivity.mTwoPane && selectedPos == position) {
+            holder.itemView.setBackgroundColor(selectedRowColor);
+        } else {
+            // for API 15 compatibility
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                holder.itemView.setBackground(itemBackgroundSelector);
+            } else {
+                holder.itemView.setBackgroundDrawable(itemBackgroundSelector);
+            }
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

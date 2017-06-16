@@ -23,8 +23,6 @@
         android:name="sk.styk.martin.apkanalyzer.activity.ItemListFragment"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
         tools:context="sk.styk.martin.apkanalyzer.activity.ItemListActivity"
         tools:listitem="@layout/item_list_content" />
