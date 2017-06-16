@@ -54,6 +54,8 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.Callb
             adapter = new SimpleItemRecyclerViewAdapter(getActivity(), new ArrayList<AppBasicInfo>());
             new ItemListLoadTask(getActivity(), this).execute();
         }
+        // we need to set context for fragment manager
+        adapter.setContext(getActivity());
         recyclerView.setAdapter(adapter);
 
         return view;
@@ -85,14 +87,15 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.Callb
             case R.id.radio_all_apps:
                 if (checked)
                     Toast.makeText(getActivity(), "All", Toast.LENGTH_SHORT).show();
-
+                break;
             case R.id.radio_system_apps:
                 if (checked)
                     Toast.makeText(getActivity(), "System", Toast.LENGTH_SHORT).show();
-
+                break;
             case R.id.radio_user_apps:
                 if (checked)
                     Toast.makeText(getActivity(), "user", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 }
