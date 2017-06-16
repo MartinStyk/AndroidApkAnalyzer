@@ -1,8 +1,6 @@
 package sk.styk.martin.apkanalyzer.activity;
 
 
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -24,16 +22,18 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemListFragment extends Fragment implements ItemListLoadTask.OnTaskCompleted, View.OnClickListener {
+public class ItemListFragment extends Fragment implements ItemListLoadTask.Callback, View.OnClickListener {
 
     private SimpleItemRecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private View listContainerView;
     private ProgressBar loadingBar;
 
+    // this method is only called once for this fragment
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRetainInstance(true);
     }
 
     @Override
@@ -48,10 +48,14 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.OnTas
         listContainerView = view.findViewById(R.id.item_list_container);
         recyclerView = (RecyclerView) view.findViewById(R.id.item_list);
         loadingBar = (ProgressBar) view.findViewById(R.id.item_list_loading);
-        adapter = new SimpleItemRecyclerViewAdapter(getActivity(), new ArrayList<AppBasicInfo>());
+
+        // do not load data on configuration change
+        if (savedInstanceState == null) {
+            adapter = new SimpleItemRecyclerViewAdapter(getActivity(), new ArrayList<AppBasicInfo>());
+            new ItemListLoadTask(getActivity(), this).execute();
+        }
         recyclerView.setAdapter(adapter);
 
-        new ItemListLoadTask(getActivity(), this).execute();
         return view;
     }
 
@@ -65,6 +69,12 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.OnTas
         listContainerView.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void onTaskStart() {
+        loadingBar.setVisibility(View.VISIBLE);
+        listContainerView.setVisibility(View.GONE);
+    }
+
     /**
      * Handle click events from radio button
      */
@@ -72,15 +82,17 @@ public class ItemListFragment extends Fragment implements ItemListLoadTask.OnTas
     public void onClick(View v) {
         boolean checked = ((RadioButton) v).isChecked();
         switch (v.getId()) {
-
             case R.id.radio_all_apps:
-                Toast.makeText(getActivity(), "All", Toast.LENGTH_LONG).show();
+                if (checked)
+                    Toast.makeText(getActivity(), "All", Toast.LENGTH_SHORT).show();
 
             case R.id.radio_system_apps:
-                Toast.makeText(getActivity(), "System", Toast.LENGTH_LONG).show();
+                if (checked)
+                    Toast.makeText(getActivity(), "System", Toast.LENGTH_SHORT).show();
 
             case R.id.radio_user_apps:
-                Toast.makeText(getActivity(), "user", Toast.LENGTH_LONG).show();
+                if (checked)
+                    Toast.makeText(getActivity(), "user", Toast.LENGTH_SHORT).show();
         }
     }
 }

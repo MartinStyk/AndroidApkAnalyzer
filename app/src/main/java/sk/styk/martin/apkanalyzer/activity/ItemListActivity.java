@@ -1,10 +1,10 @@
 package sk.styk.martin.apkanalyzer.activity;
 
-import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
  */
-public class ItemListActivity extends AppCompatActivity implements ItemListLoadTask.OnTaskCompleted {
+public class ItemListActivity extends AppCompatActivity implements ItemListLoadTask.Callback {
 
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
@@ -60,6 +60,11 @@ public class ItemListActivity extends AppCompatActivity implements ItemListLoadT
     public void onTaskCompleted(List<AppBasicInfo> list) {
         adapter.dataChange(list);
     }
+
+    @Override
+    public void onTaskStart() {
+    }
+
 //
 //    public class SimpleItemRecyclerViewAdapter extends RecyclerView.Adapter<SimpleItemRecyclerViewAdapter.ViewHolder> {
 //
