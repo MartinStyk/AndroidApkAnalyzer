@@ -1,10 +1,10 @@
 package sk.styk.martin.apkanalyzer.activity;
 
-import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.business.task.ItemDetailLoadTask;
+import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 
 /**
@@ -21,7 +21,7 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
  * in two-pane mode (on tablets) or a {@link AppDetailActivity}
  * on handsets.
  */
-public class AppDetailFragment extends Fragment implements ItemDetailLoadTask.Callback {
+public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppBasicInfo> {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
@@ -35,16 +35,11 @@ public class AppDetailFragment extends Fragment implements ItemDetailLoadTask.Ca
     private CollapsingToolbarLayout appBarLayout;
     private TextView textView;
 
-    private ItemDetailLoadTask itemDetailLoadTask;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments().containsKey(ARG_ITEM_ID)) {
-            Activity activity = this.getActivity();
-            itemDetailLoadTask = new ItemDetailLoadTask(activity, this);
-            itemDetailLoadTask.execute(getArguments().get(ARG_ITEM_ID));
-        }
+
+        getLoaderManager().initLoader(0, getArguments(), this);
     }
 
     @Override
@@ -57,23 +52,19 @@ public class AppDetailFragment extends Fragment implements ItemDetailLoadTask.Ca
         appBarLayout = (CollapsingToolbarLayout) getActivity().findViewById(sk.styk.martin.apkanalyzer.R.id.toolbar_layout);
 
         if (data != null) {
-            onTaskCompleted(data);
+            onLoadFinished(null, data);
         }
+
         return rootView;
     }
 
-    public void onStop() {
-        super.onStop();
-
-        if (itemDetailLoadTask != null && itemDetailLoadTask.getStatus() == AsyncTask.Status.RUNNING)
-            itemDetailLoadTask.cancel(true);
+    @Override
+    public Loader<AppBasicInfo> onCreateLoader(int id, Bundle args) {
+        return new AppDetailLoader(getActivity(), args.getInt(ARG_ITEM_ID));
     }
 
-    /**
-     * Callback from async task
-     */
     @Override
-    public void onTaskCompleted(AppBasicInfo data) {
+    public void onLoadFinished(Loader<AppBasicInfo> loader, AppBasicInfo data) {
         this.data = data;
         if (appBarLayout != null) {
             appBarLayout.setTitle(data.getPackageName());
@@ -84,6 +75,8 @@ public class AppDetailFragment extends Fragment implements ItemDetailLoadTask.Ca
     }
 
     @Override
-    public void onTaskStart() {
+    public void onLoaderReset(Loader<AppBasicInfo> loader) {
+        this.data = null;
     }
+
 }
