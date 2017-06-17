@@ -5,117 +5,109 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
+import android.support.v4.app.ListFragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.RadioButton;
-import android.widget.Toast;
+import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.business.task.ItemListLoadTask;
+import sk.styk.martin.apkanalyzer.business.task.AppListLoader;
 import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AppListFragment extends Fragment implements ItemListLoadTask.Callback, AppListRecyclerViewAdapter.Callback, View.OnClickListener {
+public class AppListFragment extends ListFragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener,
+        LoaderManager.LoaderCallbacks<List<AppBasicInfo>> {
 
-    private AppListRecyclerViewAdapter adapter;
-    private RecyclerView recyclerView;
-    private View listContainerView;
-    private ProgressBar loadingBar;
+    // This is the Adapter being used to display the list's data.
+    AppListAdapter mAdapter;
 
-    // this method is only called once for this fragment
+    // The SearchView for doing filtering.
+    SearchView mSearchView;
+
+    // If non-null, this is the current filter the user has provided.
+    String mCurFilter;
+
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_app_list, container, false);
+        if(savedInstanceState == null) {
+            // Give some text to display if there is no data.  In a real
+            // application this would come from a resource.
+            setEmptyText(getResources().getString(R.string.app_list_empty));
 
-        // Set the onClick for each of our views as the one implemented by this Fragment
-        view.findViewById(R.id.radio_all_apps).setOnClickListener(this);
-        view.findViewById(R.id.radio_system_apps).setOnClickListener(this);
-        view.findViewById(R.id.radio_user_apps).setOnClickListener(this);
+            // We have a menu item to show in action bar.
+            setHasOptionsMenu(true);
 
-        listContainerView = view.findViewById(R.id.item_list_container);
-        loadingBar = (ProgressBar) view.findViewById(R.id.item_list_loading);
-        recyclerView = (RecyclerView) view.findViewById(R.id.item_list);
+            // Create an empty adapter we will use to display the loaded data.
+            mAdapter = new AppListAdapter(getActivity());
+            setListAdapter(mAdapter);
 
-        recyclerView.addItemDecoration(new DividerItemDecoration(recyclerView.getContext(),
-                ((LinearLayoutManager) recyclerView.getLayoutManager()).getOrientation()));
+            // Start out with a progress indicator.
+            setListShown(false);
 
-        // do not load data on configuration change
-        if (savedInstanceState == null) {
-            adapter = new AppListRecyclerViewAdapter(getActivity(), new ArrayList<AppBasicInfo>(), this);
-            new ItemListLoadTask(getActivity(), this).execute();
-        }
-        // we need to set context for fragment manager
-        adapter.setContext(getActivity());
-        recyclerView.setAdapter(adapter);
-
-        return view;
-    }
-
-    /**
-     * Callback from async task
-     */
-    @Override
-    public void onTaskCompleted(List<AppBasicInfo> applicationInfoList) {
-        adapter.dataChange(applicationInfoList);
-        loadingBar.setVisibility(View.GONE);
-        listContainerView.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void onTaskStart() {
-        loadingBar.setVisibility(View.VISIBLE);
-        listContainerView.setVisibility(View.GONE);
-    }
-
-    /**
-     * Handle click events from radio button
-     */
-    @Override
-    public void onClick(View v) {
-        boolean checked = ((RadioButton) v).isChecked();
-        switch (v.getId()) {
-            case R.id.radio_all_apps:
-                if (checked)
-                    Toast.makeText(getActivity(), "All", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.radio_system_apps:
-                if (checked)
-                    Toast.makeText(getActivity(), "System", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.radio_user_apps:
-                if (checked)
-                    Toast.makeText(getActivity(), "user", Toast.LENGTH_SHORT).show();
-                break;
+            // Prepare the loader.  Either re-connect with an existing one,
+            // or start a new one.
+            getLoaderManager().initLoader(0, null, this);
         }
     }
 
-    // TODO remove positien and use only appBasicInfo
     @Override
-    public void onItemClick(View view, AppBasicInfo appBasicInfo, int position) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Place an action bar item for searching.
+        MenuItem item = menu.add("Search");
+        item.setIcon(android.R.drawable.ic_menu_search);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM
+                | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        mSearchView = new SearchView(getActivity());
+        mSearchView.setOnQueryTextListener(this);
+        mSearchView.setOnCloseListener(this);
+        mSearchView.setIconifiedByDefault(true);
+        item.setActionView(mSearchView);
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        // Called when the action bar search text has changed.  Since this
+        // is a simple array adapter, we can just have it do the filtering.
+        mCurFilter = !TextUtils.isEmpty(newText) ? newText : null;
+        mAdapter.getFilter().filter(mCurFilter);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return true;
+    }
+
+    @Override
+    public boolean onClose() {
+        if (!TextUtils.isEmpty(mSearchView.getQuery())) {
+            mSearchView.setQuery(null, true);
+        }
+        return true;
+    }
+
+
+    @Override
+    public void onListItemClick(ListView listView, View view, int position, long id) {
         if (!MainActivity.mTwoPane) {
             Context context = view.getContext();
             Intent intent = new Intent(context, AppDetailActivity.class);
             intent.putExtra(AppDetailFragment.ARG_ITEM_ID, position);
             context.startActivity(intent);
         } else {
-            // show details fragment
             Bundle arguments = new Bundle();
             arguments.putInt(AppDetailFragment.ARG_ITEM_ID, position);
             AppDetailFragment fragment = new AppDetailFragment();
@@ -123,4 +115,31 @@ public class AppListFragment extends Fragment implements ItemListLoadTask.Callba
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
         }
     }
+
+    @Override
+    public Loader<List<AppBasicInfo>> onCreateLoader(int id, Bundle args) {
+        // This is called when a new Loader needs to be created.  This
+        // sample only has one Loader with no arguments, so it is simple.
+        return new AppListLoader(getActivity());
+    }
+
+    @Override
+    public void onLoadFinished(Loader<List<AppBasicInfo>> loader, List<AppBasicInfo> data) {
+        // Set the new data in the adapter.
+        mAdapter.setData(data);
+
+        // The list should now be shown.
+        if (isResumed()) {
+            setListShown(true);
+        } else {
+            setListShownNoAnimation(true);
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<List<AppBasicInfo>> loader) {
+        // Clear the data in the adapter.
+        mAdapter.setData(null);
+    }
+
 }

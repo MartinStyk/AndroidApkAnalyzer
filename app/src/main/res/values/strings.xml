@@ -16,5 +16,6 @@
     <string name="all_apps">All apps</string>
     <string name="system_apps">System apps</string>
     <string name="user_apps">User apps</string>
+    <string name="app_list_empty">No applications installed</string>
 
 </resources>

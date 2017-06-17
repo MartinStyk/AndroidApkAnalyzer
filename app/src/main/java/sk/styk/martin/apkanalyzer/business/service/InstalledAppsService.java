@@ -6,9 +6,11 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+import sk.styk.martin.apkanalyzer.util.AppBasicInfoComparator;
 
 /**
  * Retrieve apps installed on device
@@ -17,29 +19,44 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
  */
 public class InstalledAppsService {
 
-    private Context ctx;
-    private static List<AppBasicInfo> packages;
+    private PackageManager packageManager;
+    private List<AppBasicInfo> packages;
 
-    public InstalledAppsService(@NonNull Context ctx) {
-        this.ctx = ctx;
+    public InstalledAppsService(@NonNull PackageManager packageManager) {
+        this.packageManager = packageManager;
     }
 
+    public InstalledAppsService(@NonNull Context context) {
+        this.packageManager = context.getPackageManager();
+    }
+
+    @NonNull
     public List<AppBasicInfo> getAll() {
 
-        PackageManager pm = ctx.getPackageManager();
-        List<ApplicationInfo> applications = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        List<ApplicationInfo> applications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
         packages = new ArrayList<>(applications.size());
 
         for (ApplicationInfo applicationInfo : applications) {
             AppBasicInfo appBasicInfo = new AppBasicInfo();
             appBasicInfo.setPackageName(applicationInfo.packageName);
-            appBasicInfo.setApplicationName(applicationInfo.name);
+            appBasicInfo.setApplicationName(loadLabel(applicationInfo));
             appBasicInfo.setPathToApk(applicationInfo.sourceDir);
-            appBasicInfo.setIcon(applicationInfo.loadIcon(pm));
+            appBasicInfo.setIcon(applicationInfo.loadIcon(packageManager));
             packages.add(appBasicInfo);
         }
 
+        Collections.sort(packages, AppBasicInfoComparator.INSTANCE);
+
         return packages;
     }
+
+    private String loadLabel(ApplicationInfo applicationInfo) {
+
+        CharSequence label = applicationInfo.loadLabel(packageManager);
+        String finalResult = label != null ? label.toString() : applicationInfo.packageName;
+
+        return finalResult;
+    }
+
 }
