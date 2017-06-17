@@ -1,14 +1,9 @@
 package sk.styk.martin.apkanalyzer.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
 
 /**
  * An activity representing a list of Items. This activity

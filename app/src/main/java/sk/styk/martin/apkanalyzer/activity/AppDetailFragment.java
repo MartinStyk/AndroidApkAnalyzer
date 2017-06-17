@@ -65,7 +65,7 @@ public class AppDetailFragment extends Fragment implements ItemDetailLoadTask.Ca
     public void onStop() {
         super.onStop();
 
-        if(itemDetailLoadTask != null && itemDetailLoadTask.getStatus() == AsyncTask.Status.RUNNING)
+        if (itemDetailLoadTask != null && itemDetailLoadTask.getStatus() == AsyncTask.Status.RUNNING)
             itemDetailLoadTask.cancel(true);
     }
 

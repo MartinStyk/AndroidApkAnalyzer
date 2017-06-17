@@ -29,20 +29,20 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         LoaderManager.LoaderCallbacks<List<AppBasicInfo>> {
 
     // This is the Adapter being used to display the list's data.
-    AppListAdapter mAdapter;
+    private AppListAdapter mAdapter;
 
     // The SearchView for doing filtering.
-    SearchView mSearchView;
+    private SearchView mSearchView;
 
     // If non-null, this is the current filter the user has provided.
-    String mCurFilter;
+    private String mCurFilter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
 
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             // Give some text to display if there is no data.  In a real
             // application this would come from a resource.
             setEmptyText(getResources().getString(R.string.app_list_empty));
@@ -138,7 +138,6 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public void onLoaderReset(Loader<List<AppBasicInfo>> loader) {
-        // Clear the data in the adapter.
         mAdapter.setData(null);
     }
 
