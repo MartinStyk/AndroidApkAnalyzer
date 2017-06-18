@@ -21,8 +21,17 @@
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:toolbarId="@+id/toolbar"
-            app:title="@string/loading">
+            app:title="@string/loading"
+            app:toolbarId="@+id/toolbar">
+
+            <ImageView
+                android:id="@+id/toolbar_layout_image"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:minHeight="90dp"
+                android:paddingTop="20dp"
+                app:layout_collapseMode="pin" />
+
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/detail_toolbar"
@@ -35,11 +44,11 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
         android:id="@+id/item_detail_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"></FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

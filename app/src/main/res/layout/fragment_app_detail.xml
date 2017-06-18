@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
 
-    <LinearLayout
-        android:id="@+id/item_detail_container"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_navigation"
+        android:layout_alignParentTop="true"
+        android:visibility="gone" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:id="@+id/item_detail"
-            style="?android:attr/textAppearanceLarge"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp"
-            android:textIsSelectable="true"
-            tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailFragment" />
-    </LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"
+        app:itemIconTint="@color/colorAccent"
+        app:itemTextColor="@color/colorWhite"
+        app:menu="@menu/bottom_menu_app_detail" />
 
     <ProgressBar
         android:id="@+id/item_detail_loading"
