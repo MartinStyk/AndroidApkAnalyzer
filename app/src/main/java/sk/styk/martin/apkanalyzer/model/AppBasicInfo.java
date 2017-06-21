@@ -1,11 +1,13 @@
 package sk.styk.martin.apkanalyzer.model;
 
 import android.graphics.drawable.Drawable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 /**
  * Created by Martin Styk on 15.06.2017.
  */
-public class AppBasicInfo {
+public class AppBasicInfo implements Parcelable {
 
     private String packageName;
 
@@ -93,4 +95,39 @@ public class AppBasicInfo {
         result = 31 * result + (isSystemApp ? 1 : 0);
         return result;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.packageName);
+        dest.writeString(this.applicationName);
+        dest.writeString(this.pathToApk);
+        dest.writeByte(this.isSystemApp ? (byte) 1 : (byte) 0);
+    }
+
+    public AppBasicInfo() {
+    }
+
+    protected AppBasicInfo(Parcel in) {
+        this.packageName = in.readString();
+        this.applicationName = in.readString();
+        this.pathToApk = in.readString();
+        this.isSystemApp = in.readByte() != 0;
+    }
+
+    public static final Parcelable.Creator<AppBasicInfo> CREATOR = new Parcelable.Creator<AppBasicInfo>() {
+        @Override
+        public AppBasicInfo createFromParcel(Parcel source) {
+            return new AppBasicInfo(source);
+        }
+
+        @Override
+        public AppBasicInfo[] newArray(int size) {
+            return new AppBasicInfo[size];
+        }
+    };
 }
