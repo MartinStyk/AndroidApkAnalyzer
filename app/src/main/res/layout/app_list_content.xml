@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="false"
@@ -10,13 +10,32 @@
     <ImageView
         android:id="@+id/package_img"
         android:layout_width="50dp"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true" />
 
 
     <TextView
         android:id="@+id/application_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/text_margin"
-        android:textAppearance="?attr/textAppearanceListItem" />
-</LinearLayout>
+        android:layout_toEndOf="@id/package_img"
+        android:layout_toRightOf="@id/package_img"
+        android:layout_marginLeft="@dimen/text_margin_right_left"
+        android:layout_marginRight="@dimen/text_margin_right_left"
+        android:layout_marginTop="@dimen/text_margin_top_bottom"
+        android:layout_marginBottom="4dp"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/package_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/package_img"
+        android:layout_toRightOf="@id/package_img"
+        android:layout_below="@id/application_name"
+        android:layout_marginLeft="@dimen/text_margin_right_left"
+        android:layout_marginRight="@dimen/text_margin_right_left"
+        android:layout_marginBottom="@dimen/text_margin_top_bottom"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+</RelativeLayout>
