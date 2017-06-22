@@ -85,6 +85,9 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
         }
         loadingBar.setVisibility(View.GONE);
         viewPager.setVisibility(View.VISIBLE);
+
+        adapter.dataChange(data);
+
     }
 
     @Override

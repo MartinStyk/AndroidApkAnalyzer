@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+
 /**
  * Created by Martin Styk on 18.06.2017.
  */
@@ -15,6 +17,8 @@ import java.util.List;
 public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragments = new ArrayList<>(getCount());
+
+    private AppBasicInfo data;
 
     public AppDetailAdapter(FragmentManager fm) {
         super(fm);
@@ -29,7 +33,11 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-       return fragments.get(position);
+        Fragment fragment = fragments.get(position);
+        Bundle args = new Bundle();
+        args.putParcelable(AppDetailFragment_Basic.ARG, data);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -40,6 +48,10 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return "FRAGMENT " + (position + 1);
+    }
+
+    public void dataChange(AppBasicInfo data){
+        this.data = data;
     }
 
 }
