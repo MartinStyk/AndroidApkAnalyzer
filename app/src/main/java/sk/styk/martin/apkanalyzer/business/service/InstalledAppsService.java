@@ -43,6 +43,7 @@ public class InstalledAppsService {
             appBasicInfo.setApplicationName(loadLabel(applicationInfo));
             appBasicInfo.setPathToApk(applicationInfo.sourceDir);
             appBasicInfo.setIcon(applicationInfo.loadIcon(packageManager));
+            appBasicInfo.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
             packages.add(appBasicInfo);
         }
 
