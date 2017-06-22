@@ -8,7 +8,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+import sk.styk.martin.apkanalyzer.model.AppBasicData;
+import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**
  * Created by Martin Styk on 18.06.2017.
@@ -18,7 +19,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> fragments = new ArrayList<>(getCount());
 
-    private AppBasicInfo data;
+    private AppDetailData data;
 
     public AppDetailAdapter(FragmentManager fm) {
         super(fm);
@@ -50,7 +51,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
         return "FRAGMENT " + (position + 1);
     }
 
-    public void dataChange(AppBasicInfo data){
+    public void dataChange(AppDetailData data){
         this.data = data;
     }
 

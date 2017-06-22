@@ -6,27 +6,29 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.v4.content.AsyncTaskLoader;
 
-import sk.styk.martin.apkanalyzer.business.service.InstalledAppsService;
-import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
+import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
+import sk.styk.martin.apkanalyzer.model.AppBasicData;
+import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**
  * Loader async task for item for AppDetailFragment and AppDetailActivity
  * <p>
  * Created by Martin Styk on 15.06.2017.
  */
-public class AppDetailLoader extends AsyncTaskLoader<AppBasicInfo> {
+public class AppDetailLoader extends AsyncTaskLoader<AppDetailData> {
     private final InterestingConfigChanges mLastConfig = new InterestingConfigChanges();
 
-    private final InstalledAppsService installedAppsService;
+    private final AppDetailDataService appDetailDataService;
 
-    private AppBasicInfo item;
+    private AppDetailData item;
 
-    private int numberOfApp;
+    private String packageName;
 
-    public AppDetailLoader(Context context, int numberOfApp) {
+    public AppDetailLoader(Context context, String packageName) {
         super(context);
-        this.numberOfApp = numberOfApp;
-        installedAppsService = new InstalledAppsService(context.getPackageManager());
+        this.packageName = packageName;
+        appDetailDataService = new AppDetailDataService(context.getPackageManager());
     }
 
     /**
@@ -35,13 +37,13 @@ public class AppDetailLoader extends AsyncTaskLoader<AppBasicInfo> {
      * data to be published by the loader.
      */
     @Override
-    public AppBasicInfo loadInBackground() {
+    public AppDetailData loadInBackground() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1000); // todo simulate long laoding, remove when not needed
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return installedAppsService.getAll().get(numberOfApp);
+        return appDetailDataService.get(packageName);
     }
 
 
@@ -51,7 +53,7 @@ public class AppDetailLoader extends AsyncTaskLoader<AppBasicInfo> {
      * here just adds a little more logic.
      */
     @Override
-    public void deliverResult(AppBasicInfo app) {
+    public void deliverResult(AppDetailData app) {
         if (isReset()) {
             // An async query came in while the loader is stopped.  We
             // don't need the result.
@@ -59,7 +61,7 @@ public class AppDetailLoader extends AsyncTaskLoader<AppBasicInfo> {
                 onReleaseResources(app);
             }
         }
-        AppBasicInfo oldApp = item;
+        AppDetailData oldApp = item;
         item = app;
 
         if (isStarted()) {
@@ -111,7 +113,7 @@ public class AppDetailLoader extends AsyncTaskLoader<AppBasicInfo> {
      * Handles a request to cancel a load.
      */
     @Override
-    public void onCanceled(AppBasicInfo app) {
+    public void onCanceled(AppDetailData app) {
         super.onCanceled(app);
 
         // At this point we can release the resources associated with 'apps'
@@ -141,7 +143,7 @@ public class AppDetailLoader extends AsyncTaskLoader<AppBasicInfo> {
      * Helper function to take care of releasing resources associated
      * with an actively loaded data set.
      */
-    protected void onReleaseResources(AppBasicInfo apps) {
+    protected void onReleaseResources(AppDetailData apps) {
         // For a simple List<> there is nothing to do.  For something
         // like a Cursor, we would close it here.
     }

@@ -16,7 +16,8 @@ import android.widget.ProgressBar;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
-import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+import sk.styk.martin.apkanalyzer.model.AppBasicData;
+import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -24,14 +25,14 @@ import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
  * in two-pane mode (on tablets) or a {@link AppDetailActivity}
  * on handsets.
  */
-public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppBasicInfo> {
+public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppDetailData> {
     /**
      * The fragment argument representing the item ID that this fragment
      * represents.
      */
     public static final String ARG_ITEM_ID = "item_id";
 
-    private AppBasicInfo data;
+    private AppDetailData data;
 
     private CollapsingToolbarLayout appBarLayout;
     private ImageView appBarLayuotImageView;
@@ -72,16 +73,16 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public Loader<AppBasicInfo> onCreateLoader(int id, Bundle args) {
-        return new AppDetailLoader(getActivity(), args.getInt(ARG_ITEM_ID));
+    public Loader<AppDetailData> onCreateLoader(int id, Bundle args) {
+        return new AppDetailLoader(getActivity(), args.getString(ARG_ITEM_ID));
     }
 
     @Override
-    public void onLoadFinished(Loader<AppBasicInfo> loader, AppBasicInfo data) {
+    public void onLoadFinished(Loader<AppDetailData> loader, AppDetailData data) {
         this.data = data;
         if (appBarLayout != null) {
-            appBarLayout.setTitle(data.getPackageName());
-            appBarLayuotImageView.setImageDrawable(data.getIcon());
+            appBarLayout.setTitle(data.getAppBasicData().getPackageName());
+            appBarLayuotImageView.setImageDrawable(data.getAppBasicData().getIcon());
         }
         loadingBar.setVisibility(View.GONE);
         viewPager.setVisibility(View.VISIBLE);
@@ -91,7 +92,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
-    public void onLoaderReset(Loader<AppBasicInfo> loader) {
+    public void onLoaderReset(Loader<AppDetailData> loader) {
         this.data = null;
     }
 

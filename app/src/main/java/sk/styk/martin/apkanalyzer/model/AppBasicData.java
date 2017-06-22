@@ -5,9 +5,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
+ * Class holding basic application metadata used in list view of all apps
+ * For more detailed application metadata see {@link AppDetailData}
+ *
  * Created by Martin Styk on 15.06.2017.
  */
-public class AppBasicInfo implements Parcelable {
+public class AppBasicData implements Parcelable {
 
     private String packageName;
 
@@ -64,7 +67,7 @@ public class AppBasicInfo implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AppBasicInfo that = (AppBasicInfo) o;
+        AppBasicData that = (AppBasicData) o;
 
         if (isSystemApp != that.isSystemApp) return false;
         if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null)
@@ -78,7 +81,7 @@ public class AppBasicInfo implements Parcelable {
 
     @Override
     public String toString() {
-        return "AppBasicInfo{" +
+        return "AppBasicData{" +
                 "packageName='" + packageName + '\'' +
                 ", applicationName='" + applicationName + '\'' +
                 ", pathToApk='" + pathToApk + '\'' +
@@ -109,25 +112,25 @@ public class AppBasicInfo implements Parcelable {
         dest.writeByte(this.isSystemApp ? (byte) 1 : (byte) 0);
     }
 
-    public AppBasicInfo() {
+    public AppBasicData() {
     }
 
-    protected AppBasicInfo(Parcel in) {
+    protected AppBasicData(Parcel in) {
         this.packageName = in.readString();
         this.applicationName = in.readString();
         this.pathToApk = in.readString();
         this.isSystemApp = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<AppBasicInfo> CREATOR = new Parcelable.Creator<AppBasicInfo>() {
+    public static final Parcelable.Creator<AppBasicData> CREATOR = new Parcelable.Creator<AppBasicData>() {
         @Override
-        public AppBasicInfo createFromParcel(Parcel source) {
-            return new AppBasicInfo(source);
+        public AppBasicData createFromParcel(Parcel source) {
+            return new AppBasicData(source);
         }
 
         @Override
-        public AppBasicInfo[] newArray(int size) {
-            return new AppBasicInfo[size];
+        public AppBasicData[] newArray(int size) {
+            return new AppBasicData[size];
         }
     };
 }

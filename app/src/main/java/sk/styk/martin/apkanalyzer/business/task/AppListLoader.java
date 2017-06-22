@@ -12,27 +12,27 @@ import android.support.v4.content.AsyncTaskLoader;
 
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.business.service.InstalledAppsService;
-import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
+import sk.styk.martin.apkanalyzer.model.AppBasicData;
 
 /**
  * Loader async task for items for list view on AppListFragment
  * <p>
  * Created by Martin Styk on 15.06.2017.
  */
-public class AppListLoader extends AsyncTaskLoader<List<AppBasicInfo>> {
+public class AppListLoader extends AsyncTaskLoader<List<AppBasicData>> {
     private final InterestingConfigChanges mLastConfig = new InterestingConfigChanges();
     private final PackageManager mPackageManager;
-    private final InstalledAppsService installedAppsService;
+    private final AppBasicDataService installedAppsService;
 
-    private List<AppBasicInfo> mApps;
+    private List<AppBasicData> mApps;
     PackageIntentReceiver mPackageObserver;
 
     public AppListLoader(Context context) {
         super(context);
 
         mPackageManager = getContext().getPackageManager();
-        installedAppsService = new InstalledAppsService(mPackageManager);
+        installedAppsService = new AppBasicDataService(mPackageManager);
     }
 
     /**
@@ -41,7 +41,7 @@ public class AppListLoader extends AsyncTaskLoader<List<AppBasicInfo>> {
      * data to be published by the loader.
      */
     @Override
-    public List<AppBasicInfo> loadInBackground() {
+    public List<AppBasicData> loadInBackground() {
 
         return installedAppsService.getAll();
     }
@@ -53,7 +53,7 @@ public class AppListLoader extends AsyncTaskLoader<List<AppBasicInfo>> {
      * here just adds a little more logic.
      */
     @Override
-    public void deliverResult(List<AppBasicInfo> apps) {
+    public void deliverResult(List<AppBasicData> apps) {
         if (isReset()) {
             // An async query came in while the loader is stopped.  We
             // don't need the result.
@@ -61,7 +61,7 @@ public class AppListLoader extends AsyncTaskLoader<List<AppBasicInfo>> {
                 onReleaseResources(apps);
             }
         }
-        List<AppBasicInfo> oldApps = mApps;
+        List<AppBasicData> oldApps = mApps;
         mApps = apps;
 
         if (isStarted()) {
@@ -118,7 +118,7 @@ public class AppListLoader extends AsyncTaskLoader<List<AppBasicInfo>> {
      * Handles a request to cancel a load.
      */
     @Override
-    public void onCanceled(List<AppBasicInfo> apps) {
+    public void onCanceled(List<AppBasicData> apps) {
         super.onCanceled(apps);
 
         // At this point we can release the resources associated with 'apps'
@@ -154,7 +154,7 @@ public class AppListLoader extends AsyncTaskLoader<List<AppBasicInfo>> {
      * Helper function to take care of releasing resources associated
      * with an actively loaded data set.
      */
-    protected void onReleaseResources(List<AppBasicInfo> apps) {
+    protected void onReleaseResources(List<AppBasicData> apps) {
         // For a simple List<> there is nothing to do.  For something
         // like a Cursor, we would close it here.
     }

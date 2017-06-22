@@ -20,13 +20,13 @@ import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.AppListLoader;
-import sk.styk.martin.apkanalyzer.model.AppBasicInfo;
+import sk.styk.martin.apkanalyzer.model.AppBasicData;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AppListFragment extends ListFragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener,
-        LoaderManager.LoaderCallbacks<List<AppBasicInfo>> {
+        LoaderManager.LoaderCallbacks<List<AppBasicData>> {
 
     // This is the Adapter being used to display the list's data.
     private AppListAdapter mAdapter;
@@ -102,14 +102,15 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
+        String packageName = view.getTag().toString();
         if (!MainActivity.mTwoPane) {
             Context context = view.getContext();
             Intent intent = new Intent(context, AppDetailActivity.class);
-            intent.putExtra(AppDetailFragment.ARG_ITEM_ID, position);
+            intent.putExtra(AppDetailFragment.ARG_ITEM_ID, packageName);
             context.startActivity(intent);
         } else {
             Bundle arguments = new Bundle();
-            arguments.putInt(AppDetailFragment.ARG_ITEM_ID, position);
+            arguments.putString(AppDetailFragment.ARG_ITEM_ID, packageName);
             AppDetailFragment fragment = new AppDetailFragment();
             fragment.setArguments(arguments);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
@@ -117,14 +118,14 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
     }
 
     @Override
-    public Loader<List<AppBasicInfo>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<AppBasicData>> onCreateLoader(int id, Bundle args) {
         // This is called when a new Loader needs to be created.  This
         // sample only has one Loader with no arguments, so it is simple.
         return new AppListLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<List<AppBasicInfo>> loader, List<AppBasicInfo> data) {
+    public void onLoadFinished(Loader<List<AppBasicData>> loader, List<AppBasicData> data) {
         // Set the new data in the adapter.
         mAdapter.setData(data);
 
@@ -137,7 +138,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
     }
 
     @Override
-    public void onLoaderReset(Loader<List<AppBasicInfo>> loader) {
+    public void onLoaderReset(Loader<List<AppBasicData>> loader) {
         mAdapter.setData(null);
     }
 
