@@ -1,14 +1,14 @@
 package sk.styk.martin.apkanalyzer.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import sk.styk.martin.apkanalyzer.model.AppBasicData;
+import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Basic;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**
@@ -17,41 +17,46 @@ import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
-    private List<Fragment> fragments = new ArrayList<>(getCount());
-
+    private Fragment[] fragments = new Fragment[getCount()];
+    private Context context;
     private AppDetailData data;
 
-    public AppDetailAdapter(FragmentManager fm) {
+    public AppDetailAdapter(Context context, FragmentManager fm) {
         super(fm);
-        for (int i = 0; i < getCount(); i++) {
-            Fragment fragment = new AppDetailFragment_Basic();
-            Bundle args = new Bundle();
-            args.putInt(AppDetailFragment_Basic.ARG, i + 1);
-            fragment.setArguments(args);
-            fragments.add(fragment);
-        }
+        this.context = context;
+        fragments[0] = new AppDetailFragment_Basic();
+        fragments[1] = new AppDetailFragment_Certificate();
+        fragments[2] = new AppDetailFragment_Basic();
+        fragments[3] = new AppDetailFragment_Basic();
+        fragments[4] = new AppDetailFragment_Basic();
+        fragments[5] = new AppDetailFragment_Basic();
+        fragments[6] = new AppDetailFragment_Basic();
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = fragments.get(position);
+        Fragment fragment = fragments[position];
         Bundle args = new Bundle();
-        args.putParcelable(AppDetailFragment_Basic.ARG, data);
+        args.putParcelable(AppDetailFragment.ARG_CHILD, data);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return fragments.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
+        switch (position) {
+            case 1:
+                return context.getResources().getString(R.string.certificate);
+        }
         return "FRAGMENT " + (position + 1);
     }
 
-    public void dataChange(AppDetailData data){
+    public void dataChange(AppDetailData data) {
         this.data = data;
     }
 

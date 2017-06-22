@@ -3,6 +3,8 @@ package sk.styk.martin.apkanalyzer.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.List;
+
 /**
  * Class holding basic application metadata used application detail view
  *
@@ -13,6 +15,8 @@ public class AppDetailData implements Parcelable {
 
     private AppBasicData appBasicData;
 
+    private CertificateData certificateData;
+
     public AppDetailData(){
     }
 
@@ -22,6 +26,14 @@ public class AppDetailData implements Parcelable {
 
     public void setAppBasicData(AppBasicData appBasicData) {
         this.appBasicData = appBasicData;
+    }
+
+    public CertificateData getCertificateData() {
+        return certificateData;
+    }
+
+    public void setCertificateData(CertificateData certificateData) {
+        this.certificateData = certificateData;
     }
 
     @Override
@@ -54,6 +66,7 @@ public class AppDetailData implements Parcelable {
     public String toString() {
         return "AppDetailData{" +
                 "appBasicData=" + appBasicData +
+                ", certificateData=" + certificateData +
                 '}';
     }
 }

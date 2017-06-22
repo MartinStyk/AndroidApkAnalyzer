@@ -6,9 +6,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.v4.content.AsyncTaskLoader;
 
-import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
 import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
-import sk.styk.martin.apkanalyzer.model.AppBasicData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**
@@ -24,10 +22,12 @@ public class AppDetailLoader extends AsyncTaskLoader<AppDetailData> {
     private AppDetailData item;
 
     private String packageName;
+    private String archivePath;
 
-    public AppDetailLoader(Context context, String packageName) {
+    public AppDetailLoader(Context context, String packageName, String archivePath) {
         super(context);
         this.packageName = packageName;
+        this.archivePath = archivePath;
         appDetailDataService = new AppDetailDataService(context.getPackageManager());
     }
 
@@ -38,12 +38,7 @@ public class AppDetailLoader extends AsyncTaskLoader<AppDetailData> {
      */
     @Override
     public AppDetailData loadInBackground() {
-        try {
-            Thread.sleep(1000); // todo simulate long laoding, remove when not needed
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        return appDetailDataService.get(packageName);
+        return appDetailDataService.get(packageName, archivePath);
     }
 
 

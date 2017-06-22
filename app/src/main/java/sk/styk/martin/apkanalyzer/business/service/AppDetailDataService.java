@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.business.service;
 
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
@@ -16,22 +15,19 @@ public class AppDetailDataService {
     private PackageManager packageManager;
 
     private AppBasicDataService basicDataService;
+    private CertificateService certificateService;
 
     public AppDetailDataService(@NonNull PackageManager packageManager) {
         this.packageManager = packageManager;
         this.basicDataService = new AppBasicDataService(packageManager);
-    }
-
-    public AppDetailDataService(@NonNull Context context) {
-        this.packageManager = context.getPackageManager();
-        this.basicDataService = new AppBasicDataService(packageManager);
+        this.certificateService = new CertificateService(packageManager);
     }
 
     @NonNull
-    public AppDetailData get(@NonNull String packageName) {
+    public AppDetailData get(@NonNull String packageName, @NonNull String archivePath) {
         AppDetailData data = new AppDetailData();
         data.setAppBasicData(basicDataService.get(packageName));
-
+        data.setCertificateData(certificateService.get(archivePath));
         return data;
     }
 

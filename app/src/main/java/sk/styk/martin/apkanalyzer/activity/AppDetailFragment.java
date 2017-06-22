@@ -8,7 +8,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -16,7 +15,6 @@ import android.widget.ProgressBar;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
-import sk.styk.martin.apkanalyzer.model.AppBasicData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**
@@ -26,11 +24,10 @@ import sk.styk.martin.apkanalyzer.model.AppDetailData;
  * on handsets.
  */
 public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppDetailData> {
-    /**
-     * The fragment argument representing the item ID that this fragment
-     * represents.
-     */
-    public static final String ARG_ITEM_ID = "item_id";
+
+    public static final String ARG_PACKAGE_NAME = "packageName";
+    public static final String ARG_ARCHIVE_PATH = "archivePath";
+    public static final String ARG_CHILD = "dataForChild";
 
     private AppDetailData data;
 
@@ -40,13 +37,12 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     private AppDetailAdapter adapter;
     private ProgressBar loadingBar;
     private ViewPager viewPager;
-    private MenuItem prevMenuItem;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        adapter = new AppDetailAdapter(getFragmentManager());
+        adapter = new AppDetailAdapter(getActivity(), getFragmentManager());
         getLoaderManager().initLoader(0, getArguments(), this);
     }
 
@@ -74,7 +70,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<AppDetailData> onCreateLoader(int id, Bundle args) {
-        return new AppDetailLoader(getActivity(), args.getString(ARG_ITEM_ID));
+        return new AppDetailLoader(getActivity(), args.getString(ARG_PACKAGE_NAME), args.getString(ARG_ARCHIVE_PATH));
     }
 
     @Override

@@ -102,15 +102,18 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        String packageName = view.getTag().toString();
+        AppBasicData appBasicData = AppBasicData.class.cast(view.getTag());
         if (!MainActivity.mTwoPane) {
             Context context = view.getContext();
             Intent intent = new Intent(context, AppDetailActivity.class);
-            intent.putExtra(AppDetailFragment.ARG_ITEM_ID, packageName);
+            intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, appBasicData.getPackageName());
+            intent.putExtra(AppDetailFragment.ARG_ARCHIVE_PATH, appBasicData.getPathToApk());
             context.startActivity(intent);
         } else {
             Bundle arguments = new Bundle();
-            arguments.putString(AppDetailFragment.ARG_ITEM_ID, packageName);
+            arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, appBasicData.getPackageName());
+            arguments.putString(AppDetailFragment.ARG_ARCHIVE_PATH, appBasicData.getPathToApk());
+
             AppDetailFragment fragment = new AppDetailFragment();
             fragment.setArguments(arguments);
             getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();

@@ -48,8 +48,7 @@ public class AppListAdapter extends ArrayAdapter<AppBasicData> {
         ((ImageView)view.findViewById(R.id.package_img)).setImageDrawable(item.getIcon());
         ((TextView)view.findViewById(R.id.application_name)).setText(item.getApplicationName());
         ((TextView)view.findViewById(R.id.package_name)).setText(item.getPackageName());
-        view.setTag(item.getPackageName());
-
+        view.setTag(item);
         return view;
     }
 }
