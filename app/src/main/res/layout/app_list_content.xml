@@ -25,7 +25,9 @@
         android:layout_marginRight="@dimen/text_margin_right_left"
         android:layout_marginTop="@dimen/text_margin_top_bottom"
         android:layout_marginBottom="4dp"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:ellipsize="end"
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/package_name"
@@ -37,5 +39,7 @@
         android:layout_marginLeft="@dimen/text_margin_right_left"
         android:layout_marginRight="@dimen/text_margin_right_left"
         android:layout_marginBottom="@dimen/text_margin_top_bottom"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:ellipsize="end"
+        android:maxLines="1"/>
 </RelativeLayout>
