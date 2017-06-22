@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -58,6 +59,10 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
+
+        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
 
         if (data != null) {
             onLoadFinished(null, data);
