@@ -44,7 +44,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return fragments.length;
+        return 7;
     }
 
     @Override
