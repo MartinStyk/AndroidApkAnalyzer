@@ -81,12 +81,7 @@ public class AppBasicData implements Parcelable {
 
     @Override
     public String toString() {
-        return "AppBasicData{" +
-                "packageName='" + packageName + '\'' +
-                ", applicationName='" + applicationName + '\'' +
-                ", pathToApk='" + pathToApk + '\'' +
-                ", isSystemApp=" + isSystemApp +
-                '}';
+        return applicationName + " " + packageName;
     }
 
     @Override
