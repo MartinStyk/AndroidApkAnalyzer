@@ -31,7 +31,8 @@ public class AppDetailDataService {
         PackageInfo packageInfo = packageManager.getPackageArchiveInfo(archivePath,
                 PackageManager.GET_SIGNATURES |
                 PackageManager.GET_ACTIVITIES |
-                PackageManager.GET_SERVICES );
+                PackageManager.GET_SERVICES |
+                PackageManager.GET_PROVIDERS);
 
 
         AppDetailData data = new AppDetailData();
@@ -39,6 +40,7 @@ public class AppDetailDataService {
         data.setCertificateData(certificateService.get(packageInfo));
         data.setActivityData(appComponentsService.getActivities(packageInfo));
         data.setServiceData(appComponentsService.getServices(packageInfo));
+        data.setContentProviderData(appComponentsService.getContentProviders(packageInfo));
 
         return data;
     }

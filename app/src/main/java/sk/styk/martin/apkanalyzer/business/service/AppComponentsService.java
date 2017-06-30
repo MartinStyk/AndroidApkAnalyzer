@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.service;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
 import android.support.annotation.NonNull;
 
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.model.ActivityData;
+import sk.styk.martin.apkanalyzer.model.ContentProviderData;
 import sk.styk.martin.apkanalyzer.model.ServiceData;
 
 /**
@@ -61,6 +63,28 @@ public class AppComponentsService {
             myData.setIsolatedProcess((serviceInfo.flags & ServiceInfo.FLAG_ISOLATED_PROCESS) > 0);
             myData.setSingleUser((serviceInfo.flags & ServiceInfo.FLAG_SINGLE_USER) > 0);
             myData.setStopWithTask((serviceInfo.flags & ServiceInfo.FLAG_STOP_WITH_TASK) > 0);
+
+            myDataList.add(myData);
+        }
+
+        return myDataList;
+    }
+
+    public List<ContentProviderData> getContentProviders(@NonNull PackageInfo packageInfo) {
+
+        ProviderInfo[] providerInfos = packageInfo.providers;
+        if (providerInfos == null || providerInfos.length == 0) {
+            return new ArrayList<>(0);
+        }
+        List<ContentProviderData> myDataList = new ArrayList<>(providerInfos.length);
+
+        for (ProviderInfo providerInfo : providerInfos) {
+            ContentProviderData myData = new ContentProviderData();
+            myData.setName(providerInfo.name);
+            myData.setExported(providerInfo.exported);
+            myData.setAuthority(providerInfo.authority);
+            myData.setReadPermission(providerInfo.readPermission);
+            myData.setWritePermission(providerInfo.writePermission);
 
             myDataList.add(myData);
         }

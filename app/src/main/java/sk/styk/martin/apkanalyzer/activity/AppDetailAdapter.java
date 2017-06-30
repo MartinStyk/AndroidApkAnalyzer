@@ -12,9 +12,11 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Basic;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Provider;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Service;
 import sk.styk.martin.apkanalyzer.model.ActivityData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
+import sk.styk.martin.apkanalyzer.model.ContentProviderData;
 import sk.styk.martin.apkanalyzer.model.ServiceData;
 
 /**
@@ -34,7 +36,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
         fragments[1] = new AppDetailFragment_Certificate();
         fragments[2] = new AppDetailFragment_Activity();
         fragments[3] = new AppDetailFragment_Service();
-        fragments[4] = new AppDetailFragment_Basic();
+        fragments[4] = new AppDetailFragment_Provider();
         fragments[5] = new AppDetailFragment_Basic();
         fragments[6] = new AppDetailFragment_Basic();
     }
@@ -52,6 +54,9 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
                 break;
             case 3:
                 args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<ServiceData>) data.getServiceData());
+                break;
+            case 4:
+                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<ContentProviderData>) data.getContentProviderData());
                 break;
             default:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data);
@@ -75,6 +80,8 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
                 return context.getResources().getString(R.string.activities);
             case 3:
                 return context.getResources().getString(R.string.services);
+            case 4:
+                return context.getResources().getString(R.string.content_providers);
         }
         return "FRAGMENT " + (position + 1);
     }
