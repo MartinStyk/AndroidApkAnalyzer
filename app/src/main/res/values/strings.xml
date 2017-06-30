@@ -19,6 +19,6 @@
     <string name="app_list_empty">No applications installed</string>
 
     <string name="certificate">Certificate</string>
-
+    <string name="activities">Activities</string>
 
 </resources>

@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.service;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.support.annotation.NonNull;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -31,11 +32,10 @@ public class CertificateService {
         this.packageManager = packageManager;
     }
 
-    public CertificateData get(String apkPath) {
+    public CertificateData get(@NonNull PackageInfo packageInfo) {
 
         CertificateData data = new CertificateData();
 
-        PackageInfo packageInfo = packageManager.getPackageArchiveInfo(apkPath, PackageManager.GET_SIGNATURES);
         Signature sig = packageInfo.signatures[0];
 
         byte[] rawCert = sig.toByteArray();

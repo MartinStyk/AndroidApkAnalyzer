@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Basic;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
@@ -26,7 +27,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
         this.context = context;
         fragments[0] = new AppDetailFragment_Basic();
         fragments[1] = new AppDetailFragment_Certificate();
-        fragments[2] = new AppDetailFragment_Basic();
+        fragments[2] = new AppDetailFragment_Activity();
         fragments[3] = new AppDetailFragment_Basic();
         fragments[4] = new AppDetailFragment_Basic();
         fragments[5] = new AppDetailFragment_Basic();
@@ -52,6 +53,8 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 1:
                 return context.getResources().getString(R.string.certificate);
+            case 2:
+                return context.getResources().getString(R.string.activities);
         }
         return "FRAGMENT " + (position + 1);
     }

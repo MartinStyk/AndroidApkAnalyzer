@@ -17,6 +17,8 @@ public class AppDetailData implements Parcelable {
 
     private CertificateData certificateData;
 
+    private List<ActivityData> activityData;
+
     public AppDetailData(){
     }
 
@@ -36,6 +38,23 @@ public class AppDetailData implements Parcelable {
         this.certificateData = certificateData;
     }
 
+    public List<ActivityData> getActivityData() {
+        return activityData;
+    }
+
+    public void setActivityData(List<ActivityData> activityData) {
+        this.activityData = activityData;
+    }
+
+    @Override
+    public String toString() {
+        return "AppDetailData{" +
+                "appBasicData=" + appBasicData +
+                ", certificateData=" + certificateData +
+                ", activityData=" + activityData +
+                '}';
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -44,13 +63,17 @@ public class AppDetailData implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(this.appBasicData, flags);
+        dest.writeParcelable(this.certificateData, flags);
+        dest.writeTypedList(this.activityData);
     }
 
     protected AppDetailData(Parcel in) {
         this.appBasicData = in.readParcelable(AppBasicData.class.getClassLoader());
+        this.certificateData = in.readParcelable(CertificateData.class.getClassLoader());
+        this.activityData = in.createTypedArrayList(ActivityData.CREATOR);
     }
 
-    public static final Parcelable.Creator<AppDetailData> CREATOR = new Parcelable.Creator<AppDetailData>() {
+    public static final Creator<AppDetailData> CREATOR = new Creator<AppDetailData>() {
         @Override
         public AppDetailData createFromParcel(Parcel source) {
             return new AppDetailData(source);
@@ -61,12 +84,4 @@ public class AppDetailData implements Parcelable {
             return new AppDetailData[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "AppDetailData{" +
-                "appBasicData=" + appBasicData +
-                ", certificateData=" + certificateData +
-                '}';
-    }
 }
