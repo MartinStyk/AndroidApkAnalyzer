@@ -17,24 +17,28 @@ public class AppDetailDataService {
 
     private AppBasicDataService basicDataService;
     private CertificateService certificateService;
-    private AppComponentsService appComponentsServce;
+    private AppComponentsService appComponentsService;
 
     public AppDetailDataService(@NonNull PackageManager packageManager) {
         this.packageManager = packageManager;
         this.basicDataService = new AppBasicDataService(packageManager);
         this.certificateService = new CertificateService(packageManager);
-        this.appComponentsServce = new AppComponentsService(packageManager);
+        this.appComponentsService = new AppComponentsService(packageManager);
     }
 
     @NonNull
     public AppDetailData get(@NonNull String packageName, @NonNull String archivePath) {
-        PackageInfo packageInfo = packageManager.getPackageArchiveInfo(archivePath, PackageManager.GET_SIGNATURES |
-                PackageManager.GET_ACTIVITIES);
+        PackageInfo packageInfo = packageManager.getPackageArchiveInfo(archivePath,
+                PackageManager.GET_SIGNATURES |
+                PackageManager.GET_ACTIVITIES |
+                PackageManager.GET_SERVICES );
+
 
         AppDetailData data = new AppDetailData();
         data.setAppBasicData(basicDataService.get(packageName));
         data.setCertificateData(certificateService.get(packageInfo));
-        data.setActivityData(appComponentsServce.getActivities(packageInfo));
+        data.setActivityData(appComponentsService.getActivities(packageInfo));
+        data.setServiceData(appComponentsService.getServices(packageInfo));
 
         return data;
     }

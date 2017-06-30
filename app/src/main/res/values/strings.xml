@@ -20,5 +20,6 @@
 
     <string name="certificate">Certificate</string>
     <string name="activities">Activities</string>
+    <string name="services">Services</string>
 
 </resources>

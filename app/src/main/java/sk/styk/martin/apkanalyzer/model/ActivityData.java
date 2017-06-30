@@ -4,8 +4,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Represents data obtained from certificate file
- * <p>
  * Created by Martin Styk on 22.06.2017.
  */
 public class ActivityData implements Parcelable {
