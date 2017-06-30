@@ -32,7 +32,8 @@ public class AppDetailDataService {
                 PackageManager.GET_SIGNATURES |
                 PackageManager.GET_ACTIVITIES |
                 PackageManager.GET_SERVICES |
-                PackageManager.GET_PROVIDERS);
+                PackageManager.GET_PROVIDERS |
+                PackageManager.GET_RECEIVERS);
 
 
         AppDetailData data = new AppDetailData();
@@ -41,6 +42,7 @@ public class AppDetailDataService {
         data.setActivityData(appComponentsService.getActivities(packageInfo));
         data.setServiceData(appComponentsService.getServices(packageInfo));
         data.setContentProviderData(appComponentsService.getContentProviders(packageInfo));
+        data.setBroadcastReceiverData(appComponentsService.getBroadcastReceivers(packageInfo));
 
         return data;
     }

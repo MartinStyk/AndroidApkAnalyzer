@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.model.ActivityData;
+import sk.styk.martin.apkanalyzer.model.BroadcastReceiverData;
 import sk.styk.martin.apkanalyzer.model.ContentProviderData;
 import sk.styk.martin.apkanalyzer.model.ServiceData;
 
@@ -85,6 +86,25 @@ public class AppComponentsService {
             myData.setAuthority(providerInfo.authority);
             myData.setReadPermission(providerInfo.readPermission);
             myData.setWritePermission(providerInfo.writePermission);
+
+            myDataList.add(myData);
+        }
+
+        return myDataList;
+    }
+
+    public List<BroadcastReceiverData> getBroadcastReceivers(@NonNull PackageInfo packageInfo) {
+
+        ActivityInfo[] receiverInfos = packageInfo.receivers;
+        if (receiverInfos == null || receiverInfos.length == 0) {
+            return new ArrayList<>(0);
+        }
+        List<BroadcastReceiverData> myDataList = new ArrayList<>(receiverInfos.length);
+
+        for (ActivityInfo receiverInfo : receiverInfos) {
+            BroadcastReceiverData myData = new BroadcastReceiverData();
+            myData.setName(receiverInfo.name);
+            myData.setExported(receiverInfo.exported);
 
             myDataList.add(myData);
         }

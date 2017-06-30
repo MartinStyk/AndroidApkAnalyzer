@@ -22,6 +22,6 @@
     <string name="activities">Activities</string>
     <string name="services">Services</string>
     <string name="content_providers">Content Providers</string>
-
+    <string name="broadcast_receivers">Broadcast Receivers</string>
 
 </resources>

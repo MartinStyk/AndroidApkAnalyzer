@@ -19,7 +19,6 @@ public class ContentProviderData implements Parcelable {
     //Optional permission required for read/write access this content provider
     private String writePermission;
 
-
     //May be called by another activity
     private boolean exported;
 
