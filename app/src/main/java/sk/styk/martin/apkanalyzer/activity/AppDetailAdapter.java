@@ -6,10 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Basic;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
+import sk.styk.martin.apkanalyzer.model.ActivityData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**
@@ -38,7 +41,17 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment = fragments[position];
         Bundle args = new Bundle();
-        args.putParcelable(AppDetailFragment.ARG_CHILD, data);
+        switch (position) {
+            case 1:
+                args.putParcelable(AppDetailFragment.ARG_CHILD, data.getCertificateData());
+                break;
+            case 2:
+                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<ActivityData>)data.getActivityData());
+                break;
+            default:
+                args.putParcelable(AppDetailFragment.ARG_CHILD, data);
+        }
+
         fragment.setArguments(args);
         return fragment;
     }

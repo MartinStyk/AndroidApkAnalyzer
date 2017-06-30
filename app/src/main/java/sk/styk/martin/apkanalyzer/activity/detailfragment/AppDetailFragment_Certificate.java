@@ -10,6 +10,7 @@ import android.widget.TextView;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
+import sk.styk.martin.apkanalyzer.model.CertificateData;
 
 /**
  * Created by Martin Styk on 22.06.2017.
@@ -23,9 +24,9 @@ public class AppDetailFragment_Certificate extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_app_detail_page1, container, false);
-        AppDetailData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
+        CertificateData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
         textView = (TextView) rootView.findViewById(R.id.item_detail);
-        textView.setText(data.getCertificateData().toString());
+        textView.setText(data.toString());
         return rootView;
     }
 }

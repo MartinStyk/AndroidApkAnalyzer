@@ -7,8 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.List;
+
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
+import sk.styk.martin.apkanalyzer.model.ActivityData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**
@@ -23,9 +26,9 @@ public class AppDetailFragment_Activity extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_app_detail_page1, container, false);
-        AppDetailData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
+        List<ActivityData> data = getArguments().getParcelableArrayList(AppDetailFragment.ARG_CHILD);
         textView = (TextView) rootView.findViewById(R.id.item_detail);
-        textView.setText(data.getActivityData().toString());
+        textView.setText(data.toString());
         return rootView;
     }
 }
