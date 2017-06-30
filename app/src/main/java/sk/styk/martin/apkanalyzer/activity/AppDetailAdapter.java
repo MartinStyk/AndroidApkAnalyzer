@@ -12,6 +12,7 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Basic;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Permission;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Provider;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Receiver;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Service;
@@ -19,6 +20,7 @@ import sk.styk.martin.apkanalyzer.model.ActivityData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.BroadcastReceiverData;
 import sk.styk.martin.apkanalyzer.model.ContentProviderData;
+import sk.styk.martin.apkanalyzer.model.PermissionData;
 import sk.styk.martin.apkanalyzer.model.ServiceData;
 
 /**
@@ -40,7 +42,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
         fragments[3] = new AppDetailFragment_Service();
         fragments[4] = new AppDetailFragment_Provider();
         fragments[5] = new AppDetailFragment_Receiver();
-        fragments[6] = new AppDetailFragment_Basic();
+        fragments[6] = new AppDetailFragment_Permission();
     }
 
     @Override
@@ -62,6 +64,9 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
                 break;
             case 5:
                 args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<BroadcastReceiverData>) data.getBroadcastReceiverData());
+                break;
+            case 6:
+                args.putParcelable(AppDetailFragment.ARG_CHILD, data.getPermissionData());
                 break;
             default:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data);
@@ -89,6 +94,8 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
                 return context.getResources().getString(R.string.content_providers);
             case 5:
                 return context.getResources().getString(R.string.broadcast_receivers);
+            case 6:
+                return context.getResources().getString(R.string.permissions);
         }
         return "FRAGMENT " + (position + 1);
     }

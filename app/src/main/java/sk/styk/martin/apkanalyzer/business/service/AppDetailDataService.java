@@ -18,12 +18,14 @@ public class AppDetailDataService {
     private AppBasicDataService basicDataService;
     private CertificateService certificateService;
     private AppComponentsService appComponentsService;
+    private PermissionsService permissionsService;
 
     public AppDetailDataService(@NonNull PackageManager packageManager) {
         this.packageManager = packageManager;
         this.basicDataService = new AppBasicDataService(packageManager);
         this.certificateService = new CertificateService(packageManager);
         this.appComponentsService = new AppComponentsService(packageManager);
+        this.permissionsService = new PermissionsService(packageManager);
     }
 
     @NonNull
@@ -33,7 +35,8 @@ public class AppDetailDataService {
                 PackageManager.GET_ACTIVITIES |
                 PackageManager.GET_SERVICES |
                 PackageManager.GET_PROVIDERS |
-                PackageManager.GET_RECEIVERS);
+                PackageManager.GET_RECEIVERS |
+                PackageManager.GET_PERMISSIONS);
 
 
         AppDetailData data = new AppDetailData();
@@ -43,6 +46,7 @@ public class AppDetailDataService {
         data.setServiceData(appComponentsService.getServices(packageInfo));
         data.setContentProviderData(appComponentsService.getContentProviders(packageInfo));
         data.setBroadcastReceiverData(appComponentsService.getBroadcastReceivers(packageInfo));
+        data.setPermissionData(permissionsService.get(packageInfo));
 
         return data;
     }

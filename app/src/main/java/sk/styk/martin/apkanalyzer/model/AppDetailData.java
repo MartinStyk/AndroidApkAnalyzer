@@ -25,6 +25,8 @@ public class AppDetailData implements Parcelable {
 
     private List<BroadcastReceiverData> broadcastReceiverData;
 
+    private PermissionData permissionData;
+
     public AppDetailData(){
     }
 
@@ -76,6 +78,14 @@ public class AppDetailData implements Parcelable {
         this.broadcastReceiverData = broadcastReceiverData;
     }
 
+    public PermissionData getPermissionData() {
+        return permissionData;
+    }
+
+    public void setPermissionData(PermissionData permissionData) {
+        this.permissionData = permissionData;
+    }
+
     @Override
     public String toString() {
         return "AppDetailData{" +
@@ -85,6 +95,7 @@ public class AppDetailData implements Parcelable {
                 ", serviceData=" + serviceData +
                 ", contentProviderData=" + contentProviderData +
                 ", broadcastReceiverData=" + broadcastReceiverData +
+                ", permissionData=" + permissionData +
                 '}';
     }
 
@@ -101,6 +112,7 @@ public class AppDetailData implements Parcelable {
         dest.writeTypedList(this.serviceData);
         dest.writeTypedList(this.contentProviderData);
         dest.writeTypedList(this.broadcastReceiverData);
+        dest.writeParcelable(this.permissionData, flags);
     }
 
     protected AppDetailData(Parcel in) {
@@ -110,6 +122,7 @@ public class AppDetailData implements Parcelable {
         this.serviceData = in.createTypedArrayList(ServiceData.CREATOR);
         this.contentProviderData = in.createTypedArrayList(ContentProviderData.CREATOR);
         this.broadcastReceiverData = in.createTypedArrayList(BroadcastReceiverData.CREATOR);
+        this.permissionData = in.readParcelable(PermissionData.class.getClassLoader());
     }
 
     public static final Creator<AppDetailData> CREATOR = new Creator<AppDetailData>() {

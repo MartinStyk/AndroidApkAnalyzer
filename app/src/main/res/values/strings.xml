@@ -23,5 +23,6 @@
     <string name="services">Services</string>
     <string name="content_providers">Content Providers</string>
     <string name="broadcast_receivers">Broadcast Receivers</string>
+    <string name="permissions">Permissions</string>
 
 </resources>
