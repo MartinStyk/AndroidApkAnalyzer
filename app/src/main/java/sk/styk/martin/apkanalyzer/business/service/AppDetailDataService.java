@@ -30,13 +30,19 @@ public class AppDetailDataService {
 
     @NonNull
     public AppDetailData get(@NonNull String packageName, @NonNull String archivePath) {
-        PackageInfo packageInfo = packageManager.getPackageArchiveInfo(archivePath,
-                PackageManager.GET_SIGNATURES |
-                PackageManager.GET_ACTIVITIES |
-                PackageManager.GET_SERVICES |
-                PackageManager.GET_PROVIDERS |
-                PackageManager.GET_RECEIVERS |
-                PackageManager.GET_PERMISSIONS);
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = packageManager.getPackageInfo(packageName,
+                    PackageManager.GET_SIGNATURES |
+                    PackageManager.GET_ACTIVITIES |
+                    PackageManager.GET_SERVICES |
+                    PackageManager.GET_PROVIDERS |
+                    PackageManager.GET_RECEIVERS |
+                    PackageManager.GET_PERMISSIONS);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
 
 
         AppDetailData data = new AppDetailData();
