@@ -62,6 +62,12 @@ public class AppBasicDataService {
             return null;
         }
 
+        return get(applicationInfo);
+    }
+
+    @NonNull
+    public AppListData get(@NonNull ApplicationInfo applicationInfo) {
+
         AppListData appBasicData = new AppListData();
         appBasicData.setPackageName(applicationInfo.packageName);
         appBasicData.setApplicationName(loadLabel(applicationInfo));

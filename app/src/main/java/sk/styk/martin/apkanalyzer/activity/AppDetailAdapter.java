@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity;
-import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Basic;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_General;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Permission;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Provider;
@@ -20,7 +20,6 @@ import sk.styk.martin.apkanalyzer.model.ActivityData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.BroadcastReceiverData;
 import sk.styk.martin.apkanalyzer.model.ContentProviderData;
-import sk.styk.martin.apkanalyzer.model.PermissionData;
 import sk.styk.martin.apkanalyzer.model.ServiceData;
 
 /**
@@ -36,7 +35,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
     public AppDetailAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
-        fragments[0] = new AppDetailFragment_Basic();
+        fragments[0] = new AppDetailFragment_General();
         fragments[1] = new AppDetailFragment_Certificate();
         fragments[2] = new AppDetailFragment_Activity();
         fragments[3] = new AppDetailFragment_Service();
@@ -50,6 +49,9 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = fragments[position];
         Bundle args = new Bundle();
         switch (position) {
+            case 0:
+                args.putParcelable(AppDetailFragment.ARG_CHILD, data.getGeneralData());
+                break;
             case 1:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getCertificateData());
                 break;
@@ -84,6 +86,8 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
+            case 0:
+                return context.getResources().getString(R.string.general);
             case 1:
                 return context.getResources().getString(R.string.certificate);
             case 2:

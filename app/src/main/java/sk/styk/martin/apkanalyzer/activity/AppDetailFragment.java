@@ -77,8 +77,8 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     public void onLoadFinished(Loader<AppDetailData> loader, AppDetailData data) {
         this.data = data;
         if (appBarLayout != null) {
-            appBarLayout.setTitle(data.getAppBasicData().getPackageName());
-            appBarLayuotImageView.setImageDrawable(data.getAppBasicData().getIcon());
+            appBarLayout.setTitle(data.getGeneralData().getPackageName());
+            appBarLayuotImageView.setImageDrawable(data.getGeneralData().getIcon());
         }
         loadingBar.setVisibility(View.GONE);
         viewPager.setVisibility(View.VISIBLE);

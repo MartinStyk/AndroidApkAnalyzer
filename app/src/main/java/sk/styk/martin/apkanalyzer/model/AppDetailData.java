@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AppDetailData implements Parcelable {
 
-    private AppListData appBasicData;
+    private GeneralData generalData;
 
     private CertificateData certificateData;
 
@@ -30,12 +30,12 @@ public class AppDetailData implements Parcelable {
     public AppDetailData(){
     }
 
-    public AppListData getAppBasicData() {
-        return appBasicData;
+    public GeneralData getGeneralData() {
+        return generalData;
     }
 
-    public void setAppBasicData(AppListData appBasicData) {
-        this.appBasicData = appBasicData;
+    public void setGeneralData(GeneralData generalData) {
+        this.generalData = generalData;
     }
 
     public CertificateData getCertificateData() {
@@ -89,7 +89,7 @@ public class AppDetailData implements Parcelable {
     @Override
     public String toString() {
         return "AppDetailData{" +
-                "appBasicData=" + appBasicData +
+                ", generalData=" + generalData +
                 ", certificateData=" + certificateData +
                 ", activityData=" + activityData +
                 ", serviceData=" + serviceData +
@@ -106,7 +106,7 @@ public class AppDetailData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeParcelable(this.appBasicData, flags);
+        dest.writeParcelable(this.generalData, flags);
         dest.writeParcelable(this.certificateData, flags);
         dest.writeTypedList(this.activityData);
         dest.writeTypedList(this.serviceData);
@@ -116,7 +116,7 @@ public class AppDetailData implements Parcelable {
     }
 
     protected AppDetailData(Parcel in) {
-        this.appBasicData = in.readParcelable(AppListData.class.getClassLoader());
+        this.generalData = in.readParcelable(GeneralData.class.getClassLoader());
         this.certificateData = in.readParcelable(CertificateData.class.getClassLoader());
         this.activityData = in.createTypedArrayList(ActivityData.CREATOR);
         this.serviceData = in.createTypedArrayList(ServiceData.CREATOR);

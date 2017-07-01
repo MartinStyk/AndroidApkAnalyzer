@@ -15,14 +15,14 @@ public class AppDetailDataService {
 
     private PackageManager packageManager;
 
-    private AppBasicDataService basicDataService;
+    private GeneralDataService generalDataService;
     private CertificateService certificateService;
     private AppComponentsService appComponentsService;
     private PermissionsService permissionsService;
 
     public AppDetailDataService(@NonNull PackageManager packageManager) {
         this.packageManager = packageManager;
-        this.basicDataService = new AppBasicDataService(packageManager);
+        this.generalDataService = new GeneralDataService(packageManager);
         this.certificateService = new CertificateService(packageManager);
         this.appComponentsService = new AppComponentsService(packageManager);
         this.permissionsService = new PermissionsService(packageManager);
@@ -34,11 +34,11 @@ public class AppDetailDataService {
         try {
             packageInfo = packageManager.getPackageInfo(packageName,
                     PackageManager.GET_SIGNATURES |
-                    PackageManager.GET_ACTIVITIES |
-                    PackageManager.GET_SERVICES |
-                    PackageManager.GET_PROVIDERS |
-                    PackageManager.GET_RECEIVERS |
-                    PackageManager.GET_PERMISSIONS);
+                            PackageManager.GET_ACTIVITIES |
+                            PackageManager.GET_SERVICES |
+                            PackageManager.GET_PROVIDERS |
+                            PackageManager.GET_RECEIVERS |
+                            PackageManager.GET_PERMISSIONS );
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return null;
@@ -46,7 +46,7 @@ public class AppDetailDataService {
 
 
         AppDetailData data = new AppDetailData();
-        data.setAppBasicData(basicDataService.get(packageName));
+        data.setGeneralData(generalDataService.get(packageInfo));
         data.setCertificateData(certificateService.get(packageInfo));
         data.setActivityData(appComponentsService.getActivities(packageInfo));
         data.setServiceData(appComponentsService.getServices(packageInfo));
@@ -61,7 +61,10 @@ public class AppDetailDataService {
     public String toString() {
         return "AppDetailDataService{" +
                 "packageManager=" + packageManager +
-                ", basicDataService=" + basicDataService +
+                ", generalDataService=" + generalDataService +
+                ", certificateService=" + certificateService +
+                ", appComponentsService=" + appComponentsService +
+                ", permissionsService=" + permissionsService +
                 '}';
     }
 }

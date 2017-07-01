@@ -10,12 +10,13 @@ import android.widget.TextView;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
+import sk.styk.martin.apkanalyzer.model.GeneralData;
 
 /**
  * Created by Martin Styk on 18.06.2017.
  */
 
-public class AppDetailFragment_Basic extends Fragment {
+public class AppDetailFragment_General extends Fragment {
 
     private TextView textView;
 
@@ -24,7 +25,7 @@ public class AppDetailFragment_Basic extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(
                 R.layout.fragment_app_detail_page1, container, false);
-        AppDetailData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
+        GeneralData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
         textView = (TextView) rootView.findViewById(R.id.item_detail);
         textView.setText(data.toString());
         return rootView;
