@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
-import sk.styk.martin.apkanalyzer.model.AppBasicData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 
 /**

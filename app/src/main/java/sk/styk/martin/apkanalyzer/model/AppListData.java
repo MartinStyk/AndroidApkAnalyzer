@@ -10,7 +10,7 @@ import android.os.Parcelable;
  *
  * Created by Martin Styk on 15.06.2017.
  */
-public class AppBasicData implements Parcelable {
+public class AppListData implements Parcelable {
 
     private String packageName;
 
@@ -67,7 +67,7 @@ public class AppBasicData implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AppBasicData that = (AppBasicData) o;
+        AppListData that = (AppListData) o;
 
         if (isSystemApp != that.isSystemApp) return false;
         if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null)
@@ -107,25 +107,25 @@ public class AppBasicData implements Parcelable {
         dest.writeByte(this.isSystemApp ? (byte) 1 : (byte) 0);
     }
 
-    public AppBasicData() {
+    public AppListData() {
     }
 
-    protected AppBasicData(Parcel in) {
+    protected AppListData(Parcel in) {
         this.packageName = in.readString();
         this.applicationName = in.readString();
         this.pathToApk = in.readString();
         this.isSystemApp = in.readByte() != 0;
     }
 
-    public static final Parcelable.Creator<AppBasicData> CREATOR = new Parcelable.Creator<AppBasicData>() {
+    public static final Parcelable.Creator<AppListData> CREATOR = new Parcelable.Creator<AppListData>() {
         @Override
-        public AppBasicData createFromParcel(Parcel source) {
-            return new AppBasicData(source);
+        public AppListData createFromParcel(Parcel source) {
+            return new AppListData(source);
         }
 
         @Override
-        public AppBasicData[] newArray(int size) {
-            return new AppBasicData[size];
+        public AppListData[] newArray(int size) {
+            return new AppListData[size];
         }
     };
 }

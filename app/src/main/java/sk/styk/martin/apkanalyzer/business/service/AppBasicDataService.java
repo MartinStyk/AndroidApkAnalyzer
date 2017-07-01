@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.model.AppBasicData;
+import sk.styk.martin.apkanalyzer.model.AppListData;
 import sk.styk.martin.apkanalyzer.util.AppBasicInfoComparator;
 
 /**
@@ -30,14 +30,14 @@ public class AppBasicDataService {
     }
 
     @NonNull
-    public List<AppBasicData> getAll() {
+    public List<AppListData> getAll() {
 
         List<ApplicationInfo> applications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 
-        List<AppBasicData> packages = new ArrayList<>(applications.size());
+        List<AppListData> packages = new ArrayList<>(applications.size());
 
         for (ApplicationInfo applicationInfo : applications) {
-            AppBasicData appBasicData = new AppBasicData();
+            AppListData appBasicData = new AppListData();
             appBasicData.setPackageName(applicationInfo.packageName);
             appBasicData.setApplicationName(loadLabel(applicationInfo));
             appBasicData.setPathToApk(applicationInfo.sourceDir);
@@ -52,7 +52,7 @@ public class AppBasicDataService {
     }
 
     @NonNull
-    public AppBasicData get(@NonNull String packageName) {
+    public AppListData get(@NonNull String packageName) {
 
         ApplicationInfo applicationInfo;
 
@@ -62,7 +62,7 @@ public class AppBasicDataService {
             return null;
         }
 
-        AppBasicData appBasicData = new AppBasicData();
+        AppListData appBasicData = new AppListData();
         appBasicData.setPackageName(applicationInfo.packageName);
         appBasicData.setApplicationName(loadLabel(applicationInfo));
         appBasicData.setPathToApk(applicationInfo.sourceDir);

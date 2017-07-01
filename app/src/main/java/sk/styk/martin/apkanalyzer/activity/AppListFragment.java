@@ -20,13 +20,13 @@ import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.AppListLoader;
-import sk.styk.martin.apkanalyzer.model.AppBasicData;
+import sk.styk.martin.apkanalyzer.model.AppListData;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AppListFragment extends ListFragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener,
-        LoaderManager.LoaderCallbacks<List<AppBasicData>> {
+        LoaderManager.LoaderCallbacks<List<AppListData>> {
 
     // This is the Adapter being used to display the list's data.
     private AppListAdapter mAdapter;
@@ -102,7 +102,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
-        AppBasicData appBasicData = AppBasicData.class.cast(view.getTag());
+        AppListData appBasicData = AppListData.class.cast(view.getTag());
         if (!MainActivity.mTwoPane) {
             Context context = view.getContext();
             Intent intent = new Intent(context, AppDetailActivity.class);
@@ -121,14 +121,14 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
     }
 
     @Override
-    public Loader<List<AppBasicData>> onCreateLoader(int id, Bundle args) {
+    public Loader<List<AppListData>> onCreateLoader(int id, Bundle args) {
         // This is called when a new Loader needs to be created.  This
         // sample only has one Loader with no arguments, so it is simple.
         return new AppListLoader(getActivity());
     }
 
     @Override
-    public void onLoadFinished(Loader<List<AppBasicData>> loader, List<AppBasicData> data) {
+    public void onLoadFinished(Loader<List<AppListData>> loader, List<AppListData> data) {
         // Set the new data in the adapter.
         mAdapter.setData(data);
 
@@ -141,7 +141,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
     }
 
     @Override
-    public void onLoaderReset(Loader<List<AppBasicData>> loader) {
+    public void onLoaderReset(Loader<List<AppListData>> loader) {
         mAdapter.setData(null);
     }
 

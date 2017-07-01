@@ -11,12 +11,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.model.AppBasicData;
+import sk.styk.martin.apkanalyzer.model.AppListData;
 
 /**
  * Adapter for list of applications
  */
-public class AppListAdapter extends ArrayAdapter<AppBasicData> {
+public class AppListAdapter extends ArrayAdapter<AppListData> {
     private final LayoutInflater mInflater;
 
     public AppListAdapter(Context context) {
@@ -24,7 +24,7 @@ public class AppListAdapter extends ArrayAdapter<AppBasicData> {
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setData(List<AppBasicData> data) {
+    public void setData(List<AppListData> data) {
         clear();
         if (data != null) {
             addAll(data);
@@ -44,7 +44,7 @@ public class AppListAdapter extends ArrayAdapter<AppBasicData> {
             view = convertView;
         }
 
-        AppBasicData item = getItem(position);
+        AppListData item = getItem(position);
         ((ImageView)view.findViewById(R.id.package_img)).setImageDrawable(item.getIcon());
         ((TextView)view.findViewById(R.id.application_name)).setText(item.getApplicationName());
         ((TextView)view.findViewById(R.id.package_name)).setText(item.getPackageName());

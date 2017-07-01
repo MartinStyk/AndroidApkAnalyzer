@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AppDetailData implements Parcelable {
 
-    private AppBasicData appBasicData;
+    private AppListData appBasicData;
 
     private CertificateData certificateData;
 
@@ -30,11 +30,11 @@ public class AppDetailData implements Parcelable {
     public AppDetailData(){
     }
 
-    public AppBasicData getAppBasicData() {
+    public AppListData getAppBasicData() {
         return appBasicData;
     }
 
-    public void setAppBasicData(AppBasicData appBasicData) {
+    public void setAppBasicData(AppListData appBasicData) {
         this.appBasicData = appBasicData;
     }
 
@@ -116,7 +116,7 @@ public class AppDetailData implements Parcelable {
     }
 
     protected AppDetailData(Parcel in) {
-        this.appBasicData = in.readParcelable(AppBasicData.class.getClassLoader());
+        this.appBasicData = in.readParcelable(AppListData.class.getClassLoader());
         this.certificateData = in.readParcelable(CertificateData.class.getClassLoader());
         this.activityData = in.createTypedArrayList(ActivityData.CREATOR);
         this.serviceData = in.createTypedArrayList(ServiceData.CREATOR);
