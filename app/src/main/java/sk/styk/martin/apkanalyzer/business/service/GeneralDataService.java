@@ -1,12 +1,13 @@
 package sk.styk.martin.apkanalyzer.business.service;
 
-import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.support.annotation.NonNull;
+
+import java.io.File;
 
 import sk.styk.martin.apkanalyzer.model.GeneralData;
 
@@ -37,12 +38,13 @@ public class GeneralDataService {
         if (applicationInfo != null) {
             generalData.setIcon(applicationInfo.loadIcon(packageManager));
             CharSequence description = applicationInfo.loadLabel(packageManager);
-            generalData.setDescription(description !=null ? description.toString() : null);
+            generalData.setDescription(description != null ? description.toString() : null);
             CharSequence label = applicationInfo.loadLabel(packageManager);
             generalData.setApplicationName(label != null ? label.toString() : applicationInfo.packageName);
             generalData.setProcessName(applicationInfo.processName);
             generalData.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
             generalData.setApkDirectory(applicationInfo.sourceDir);
+            generalData.setApkSize(new File(applicationInfo.sourceDir).length());
             generalData.setDataDirectory(applicationInfo.dataDir);
             generalData.setMinSdkVersion(getMinSdkVersion(packageInfo.packageName));
             generalData.setMinSdkLabel(resolveVersion(generalData.getMinSdkVersion()));

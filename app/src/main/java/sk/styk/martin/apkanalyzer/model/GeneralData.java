@@ -24,11 +24,10 @@ public class GeneralData implements Parcelable {
     private String dataDirectory;
     private String installLocation;
 
-    //TODO
-    private Long apkSize;
-    private Long dexSize;
-    private Long arscSize;
+    //bytes
+    private long apkSize;
 
+    //timestamp
     private long firstInstallTime;
     private long lastUpdateTime;
 
@@ -110,28 +109,12 @@ public class GeneralData implements Parcelable {
         this.installLocation = installLocation;
     }
 
-    public Long getApkSize() {
+    public long getApkSize() {
         return apkSize;
     }
 
-    public void setApkSize(Long apkSize) {
+    public void setApkSize(long apkSize) {
         this.apkSize = apkSize;
-    }
-
-    public Long getDexSize() {
-        return dexSize;
-    }
-
-    public void setDexSize(Long dexSize) {
-        this.dexSize = dexSize;
-    }
-
-    public Long getArscSize() {
-        return arscSize;
-    }
-
-    public void setArscSize(Long arscSize) {
-        this.arscSize = arscSize;
     }
 
     public long getFirstInstallTime() {
@@ -211,6 +194,7 @@ public class GeneralData implements Parcelable {
         if (lastUpdateTime != that.lastUpdateTime) return false;
         if (minSdkVersion != that.minSdkVersion) return false;
         if (targetSdkVersion != that.targetSdkVersion) return false;
+        if (apkSize != that.apkSize) return false;
         if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null)
             return false;
         if (applicationName != null ? !applicationName.equals(that.applicationName) : that.applicationName != null)
@@ -227,10 +211,6 @@ public class GeneralData implements Parcelable {
         if (dataDirectory != null ? !dataDirectory.equals(that.dataDirectory) : that.dataDirectory != null)
             return false;
         if (installLocation != null ? !installLocation.equals(that.installLocation) : that.installLocation != null)
-            return false;
-        if (apkSize != null ? !apkSize.equals(that.apkSize) : that.apkSize != null) return false;
-        if (dexSize != null ? !dexSize.equals(that.dexSize) : that.dexSize != null) return false;
-        if (arscSize != null ? !arscSize.equals(that.arscSize) : that.arscSize != null)
             return false;
         if (minSdkLabel != null ? !minSdkLabel.equals(that.minSdkLabel) : that.minSdkLabel != null)
             return false;
@@ -251,9 +231,7 @@ public class GeneralData implements Parcelable {
         result = 31 * result + (apkDirectory != null ? apkDirectory.hashCode() : 0);
         result = 31 * result + (dataDirectory != null ? dataDirectory.hashCode() : 0);
         result = 31 * result + (installLocation != null ? installLocation.hashCode() : 0);
-        result = 31 * result + (apkSize != null ? apkSize.hashCode() : 0);
-        result = 31 * result + (dexSize != null ? dexSize.hashCode() : 0);
-        result = 31 * result + (arscSize != null ? arscSize.hashCode() : 0);
+        result = 31 * result + (int)apkSize;
         result = 31 * result + (int) (firstInstallTime ^ (firstInstallTime >>> 32));
         result = 31 * result + (int) (lastUpdateTime ^ (lastUpdateTime >>> 32));
         result = 31 * result + minSdkVersion;
@@ -277,8 +255,6 @@ public class GeneralData implements Parcelable {
                 ", dataDirectory='" + dataDirectory + '\'' +
                 ", installLocation='" + installLocation + '\'' +
                 ", apkSize=" + apkSize +
-                ", dexSize=" + dexSize +
-                ", arscSize=" + arscSize +
                 ", firstInstallTime=" + firstInstallTime +
                 ", lastUpdateTime=" + lastUpdateTime +
                 ", minSdkVersion=" + minSdkVersion +
@@ -309,8 +285,6 @@ public class GeneralData implements Parcelable {
         dest.writeString(this.dataDirectory);
         dest.writeString(this.installLocation);
         dest.writeValue(this.apkSize);
-        dest.writeValue(this.dexSize);
-        dest.writeValue(this.arscSize);
         dest.writeLong(this.firstInstallTime);
         dest.writeLong(this.lastUpdateTime);
         dest.writeInt(this.minSdkVersion);
@@ -331,8 +305,6 @@ public class GeneralData implements Parcelable {
         this.dataDirectory = in.readString();
         this.installLocation = in.readString();
         this.apkSize = (Long) in.readValue(Long.class.getClassLoader());
-        this.dexSize = (Long) in.readValue(Long.class.getClassLoader());
-        this.arscSize = (Long) in.readValue(Long.class.getClassLoader());
         this.firstInstallTime = in.readLong();
         this.lastUpdateTime = in.readLong();
         this.minSdkVersion = in.readInt();
