@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_File;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_General;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Permission;
@@ -42,6 +43,8 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
         fragments[4] = new AppDetailFragment_Provider();
         fragments[5] = new AppDetailFragment_Receiver();
         fragments[6] = new AppDetailFragment_Permission();
+        fragments[7] = new AppDetailFragment_File();
+
     }
 
     @Override
@@ -70,6 +73,9 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
             case 6:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getPermissionData());
                 break;
+            case 7:
+                args.putParcelable(AppDetailFragment.ARG_CHILD, data.getFileData());
+                break;
             default:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data);
         }
@@ -80,7 +86,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 7;
+        return 8;
     }
 
     @Override
@@ -100,6 +106,8 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
                 return context.getResources().getString(R.string.broadcast_receivers);
             case 6:
                 return context.getResources().getString(R.string.permissions);
+            case 7:
+                return context.getResources().getString(R.string.files);
         }
         return "FRAGMENT " + (position + 1);
     }

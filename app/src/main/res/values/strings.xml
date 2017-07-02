@@ -25,6 +25,8 @@
     <string name="content_providers">Content Providers</string>
     <string name="broadcast_receivers">Broadcast Receivers</string>
     <string name="permissions">Permissions</string>
+    <string name="files">Files</string>
+
 
     <string name="install_loc_auto">Automatic</string>
     <string name="install_loc_internal_only">Internal storage only</string>

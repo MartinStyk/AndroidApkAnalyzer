@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Class holding basic application metadata used application detail view
- *
+ * <p>
  * Created by Martin Styk on 22.06.2017.
  */
 
@@ -27,7 +27,9 @@ public class AppDetailData implements Parcelable {
 
     private PermissionData permissionData;
 
-    public AppDetailData(){
+    private FileData fileData;
+
+    public AppDetailData() {
     }
 
     public GeneralData getGeneralData() {
@@ -86,16 +88,25 @@ public class AppDetailData implements Parcelable {
         this.permissionData = permissionData;
     }
 
+    public FileData getFileData() {
+        return fileData;
+    }
+
+    public void setFileData(FileData fileData) {
+        this.fileData = fileData;
+    }
+
     @Override
     public String toString() {
         return "AppDetailData{" +
-                ", generalData=" + generalData +
+                "generalData=" + generalData +
                 ", certificateData=" + certificateData +
                 ", activityData=" + activityData +
                 ", serviceData=" + serviceData +
                 ", contentProviderData=" + contentProviderData +
                 ", broadcastReceiverData=" + broadcastReceiverData +
                 ", permissionData=" + permissionData +
+                ", fileData=" + fileData +
                 '}';
     }
 
@@ -113,6 +124,7 @@ public class AppDetailData implements Parcelable {
         dest.writeTypedList(this.contentProviderData);
         dest.writeTypedList(this.broadcastReceiverData);
         dest.writeParcelable(this.permissionData, flags);
+        dest.writeParcelable(this.fileData, flags);
     }
 
     protected AppDetailData(Parcel in) {
@@ -123,6 +135,7 @@ public class AppDetailData implements Parcelable {
         this.contentProviderData = in.createTypedArrayList(ContentProviderData.CREATOR);
         this.broadcastReceiverData = in.createTypedArrayList(BroadcastReceiverData.CREATOR);
         this.permissionData = in.readParcelable(PermissionData.class.getClassLoader());
+        this.fileData = in.readParcelable(FileData.class.getClassLoader());
     }
 
     public static final Creator<AppDetailData> CREATOR = new Creator<AppDetailData>() {
