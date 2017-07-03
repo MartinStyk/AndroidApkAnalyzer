@@ -12,9 +12,6 @@ import java.util.List;
 
 public class ResourceData implements Parcelable {
 
-    //versions of string.xml file
-    private List<String> locale;
-
     //types of drawables
     private int pngDrawables;
     private int ninePatchDrawables;
@@ -39,14 +36,6 @@ public class ResourceData implements Parcelable {
     private int layouts;
     //number of layouts with different name (i.e. /res/layout/a.xml == /res/layout-land/a.xml)
     private String[] differentLayouts;
-
-    public List<String> getLocale() {
-        return locale;
-    }
-
-    public void setLocale(List<String> locale) {
-        this.locale = locale;
-    }
 
     public int getPngDrawables() {
         return pngDrawables;
@@ -206,22 +195,21 @@ public class ResourceData implements Parcelable {
         if (tvdpiDrawables != that.tvdpiDrawables) return false;
         if (unspecifiedDpiDrawables != that.unspecifiedDpiDrawables) return false;
         if (layouts != that.layouts) return false;
-        if (locale != null ? !locale.equals(that.locale) : that.locale != null) return false;
-        if (differentDrawables != null ? !differentDrawables.equals(that.differentDrawables) : that.differentDrawables != null)
-            return false;
-        return differentLayouts != null ? differentLayouts.equals(that.differentLayouts) : that.differentLayouts == null;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        if (!Arrays.equals(differentDrawables, that.differentDrawables)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(differentLayouts, that.differentLayouts);
 
     }
 
     @Override
     public int hashCode() {
-        int result = locale != null ? locale.hashCode() : 0;
-        result = 31 * result + pngDrawables;
+        int result = pngDrawables;
         result = 31 * result + ninePatchDrawables;
         result = 31 * result + jpgDrawables;
         result = 31 * result + gifDrawables;
         result = 31 * result + xmlDrawables;
-        result = 31 * result + (differentDrawables != null ? differentDrawables.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(differentDrawables);
         result = 31 * result + ldpiDrawables;
         result = 31 * result + mdpiDrawables;
         result = 31 * result + hdpiDrawables;
@@ -232,15 +220,14 @@ public class ResourceData implements Parcelable {
         result = 31 * result + tvdpiDrawables;
         result = 31 * result + unspecifiedDpiDrawables;
         result = 31 * result + layouts;
-        result = 31 * result + (differentLayouts != null ? differentLayouts.hashCode() : 0);
+        result = 31 * result + Arrays.hashCode(differentLayouts);
         return result;
     }
 
     @Override
     public String toString() {
         return "ResourceData{" +
-                "locale=" + locale +
-                ", pngDrawables=" + pngDrawables +
+                "pngDrawables=" + pngDrawables +
                 ", ninePatchDrawables=" + ninePatchDrawables +
                 ", jpgDrawables=" + jpgDrawables +
                 ", gifDrawables=" + gifDrawables +
@@ -270,7 +257,6 @@ public class ResourceData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringList(this.locale);
         dest.writeInt(this.pngDrawables);
         dest.writeInt(this.ninePatchDrawables);
         dest.writeInt(this.jpgDrawables);
@@ -291,7 +277,6 @@ public class ResourceData implements Parcelable {
     }
 
     protected ResourceData(Parcel in) {
-        this.locale = in.createStringArrayList();
         this.pngDrawables = in.readInt();
         this.ninePatchDrawables = in.readInt();
         this.jpgDrawables = in.readInt();

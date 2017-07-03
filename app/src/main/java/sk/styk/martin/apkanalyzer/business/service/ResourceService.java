@@ -47,7 +47,6 @@ public class ResourceService {
         Set<String> drawables = new HashSet<>();
         Set<String> layouts = new HashSet<>();
 
-
         for (Map.Entry<String, String> file : allFiles.entrySet()) {
             String name = file.getKey();
 
@@ -78,10 +77,7 @@ public class ResourceService {
                 String fileName = name.substring(startIndexName, name.length());
                 layouts.add(fileName);
             }
-
-
         }
-        data.setLocale(null);
         data.setPngDrawables(numPng);
         data.setNinePatchDrawables(numNinePatchPng);
         data.setJpgDrawables(numJpg);
