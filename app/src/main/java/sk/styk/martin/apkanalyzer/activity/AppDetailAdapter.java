@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -18,11 +19,7 @@ import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Prov
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Receiver;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Resource;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Service;
-import sk.styk.martin.apkanalyzer.model.ActivityData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
-import sk.styk.martin.apkanalyzer.model.BroadcastReceiverData;
-import sk.styk.martin.apkanalyzer.model.ContentProviderData;
-import sk.styk.martin.apkanalyzer.model.ServiceData;
 
 /**
  * Created by Martin Styk on 18.06.2017.
@@ -34,56 +31,68 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
     private Context context;
     private AppDetailData data;
 
+    public interface AppDetailDataConsumer {
+        void setData(AppDetailData data);
+    }
+
     public AppDetailAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
-        fragments[0] = new AppDetailFragment_General();
-        fragments[1] = new AppDetailFragment_Certificate();
-        fragments[2] = new AppDetailFragment_Activity();
-        fragments[3] = new AppDetailFragment_Service();
-        fragments[4] = new AppDetailFragment_Provider();
-        fragments[5] = new AppDetailFragment_Receiver();
-        fragments[6] = new AppDetailFragment_Permission();
-        fragments[7] = new AppDetailFragment_File();
-        fragments[8] = new AppDetailFragment_Resource();
+
     }
 
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment = fragments[position];
+        Fragment fragment;
         Bundle args = new Bundle();
         switch (position) {
             case 0:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getGeneralData());
+                fragment = new AppDetailFragment_General();
                 break;
+
             case 1:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getCertificateData());
+                fragment = new AppDetailFragment_Certificate();
                 break;
+
             case 2:
-                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<ActivityData>) data.getActivityData());
+                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<? extends Parcelable>) data.getActivityData());
+                fragment = new AppDetailFragment_Activity();
                 break;
+
             case 3:
-                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<ServiceData>) data.getServiceData());
+                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<? extends Parcelable>) data.getServiceData());
+                fragment = new AppDetailFragment_Service();
                 break;
+
             case 4:
-                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<ContentProviderData>) data.getContentProviderData());
+                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<? extends Parcelable>) data.getContentProviderData());
+                fragment = new AppDetailFragment_Provider();
                 break;
+
             case 5:
-                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<BroadcastReceiverData>) data.getBroadcastReceiverData());
+                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<? extends Parcelable>) data.getBroadcastReceiverData());
+                fragment = new AppDetailFragment_Receiver();
                 break;
+
             case 6:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getPermissionData());
+                fragment = new AppDetailFragment_Permission();
                 break;
+
             case 7:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getFileData());
+                fragment = new AppDetailFragment_File();
                 break;
+
             case 8:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getResourceData());
+                fragment = new AppDetailFragment_Resource();
                 break;
             default:
-                args.putParcelable(AppDetailFragment.ARG_CHILD, data);
+                return null;
         }
-
         fragment.setArguments(args);
         return fragment;
     }
@@ -115,7 +124,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
             case 8:
                 return context.getResources().getString(R.string.resources);
         }
-        return "FRAGMENT " + (position + 1);
+        return "TODO";
     }
 
     public void dataChange(AppDetailData data) {
