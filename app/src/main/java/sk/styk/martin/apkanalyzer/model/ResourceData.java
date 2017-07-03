@@ -20,7 +20,7 @@ public class ResourceData implements Parcelable {
     private int xmlDrawables;
 
     //number of drawables with different name (i.e. /res/hdpi/a.png == /res/xhdpi/a.png)
-    private String[] differentDrawables;
+    private int differentDrawables;
 
     //drawables according to dimensions
     private int ldpiDrawables;
@@ -35,7 +35,7 @@ public class ResourceData implements Parcelable {
 
     private int layouts;
     //number of layouts with different name (i.e. /res/layout/a.xml == /res/layout-land/a.xml)
-    private String[] differentLayouts;
+    private int differentLayouts;
 
     public int getPngDrawables() {
         return pngDrawables;
@@ -77,11 +77,11 @@ public class ResourceData implements Parcelable {
         this.xmlDrawables = xmlDrawables;
     }
 
-    public String[] getDifferentDrawables() {
+    public int getDifferentDrawables() {
         return differentDrawables;
     }
 
-    public void setDifferentDrawables(String[] differentDrawables) {
+    public void setDifferentDrawables(int differentDrawables) {
         this.differentDrawables = differentDrawables;
     }
 
@@ -165,11 +165,11 @@ public class ResourceData implements Parcelable {
         this.layouts = layouts;
     }
 
-    public String[] getDifferentLayouts() {
+    public int getDifferentLayouts() {
         return differentLayouts;
     }
 
-    public void setDifferentLayouts(String[] differentLayouts) {
+    public void setDifferentLayouts(int differentLayouts) {
         this.differentLayouts = differentLayouts;
     }
 
@@ -185,6 +185,7 @@ public class ResourceData implements Parcelable {
         if (jpgDrawables != that.jpgDrawables) return false;
         if (gifDrawables != that.gifDrawables) return false;
         if (xmlDrawables != that.xmlDrawables) return false;
+        if (differentDrawables != that.differentDrawables) return false;
         if (ldpiDrawables != that.ldpiDrawables) return false;
         if (mdpiDrawables != that.mdpiDrawables) return false;
         if (hdpiDrawables != that.hdpiDrawables) return false;
@@ -195,10 +196,7 @@ public class ResourceData implements Parcelable {
         if (tvdpiDrawables != that.tvdpiDrawables) return false;
         if (unspecifiedDpiDrawables != that.unspecifiedDpiDrawables) return false;
         if (layouts != that.layouts) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        if (!Arrays.equals(differentDrawables, that.differentDrawables)) return false;
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(differentLayouts, that.differentLayouts);
+        return differentLayouts == that.differentLayouts;
 
     }
 
@@ -209,7 +207,7 @@ public class ResourceData implements Parcelable {
         result = 31 * result + jpgDrawables;
         result = 31 * result + gifDrawables;
         result = 31 * result + xmlDrawables;
-        result = 31 * result + Arrays.hashCode(differentDrawables);
+        result = 31 * result + differentDrawables;
         result = 31 * result + ldpiDrawables;
         result = 31 * result + mdpiDrawables;
         result = 31 * result + hdpiDrawables;
@@ -220,7 +218,7 @@ public class ResourceData implements Parcelable {
         result = 31 * result + tvdpiDrawables;
         result = 31 * result + unspecifiedDpiDrawables;
         result = 31 * result + layouts;
-        result = 31 * result + Arrays.hashCode(differentLayouts);
+        result = 31 * result + differentLayouts;
         return result;
     }
 
@@ -232,7 +230,7 @@ public class ResourceData implements Parcelable {
                 ", jpgDrawables=" + jpgDrawables +
                 ", gifDrawables=" + gifDrawables +
                 ", xmlDrawables=" + xmlDrawables +
-                ", differentDrawables=" + Arrays.toString(differentDrawables) +
+                ", differentDrawables=" + differentDrawables +
                 ", ldpiDrawables=" + ldpiDrawables +
                 ", mdpiDrawables=" + mdpiDrawables +
                 ", hdpiDrawables=" + hdpiDrawables +
@@ -243,7 +241,7 @@ public class ResourceData implements Parcelable {
                 ", tvdpiDrawables=" + tvdpiDrawables +
                 ", unspecifiedDpiDrawables=" + unspecifiedDpiDrawables +
                 ", layouts=" + layouts +
-                ", differentLayouts=" + Arrays.toString(differentLayouts) +
+                ", differentLayouts=" + differentLayouts +
                 '}';
     }
 
@@ -262,7 +260,7 @@ public class ResourceData implements Parcelable {
         dest.writeInt(this.jpgDrawables);
         dest.writeInt(this.gifDrawables);
         dest.writeInt(this.xmlDrawables);
-        dest.writeStringArray(this.differentDrawables);
+        dest.writeInt(this.differentDrawables);
         dest.writeInt(this.ldpiDrawables);
         dest.writeInt(this.mdpiDrawables);
         dest.writeInt(this.hdpiDrawables);
@@ -273,7 +271,7 @@ public class ResourceData implements Parcelable {
         dest.writeInt(this.tvdpiDrawables);
         dest.writeInt(this.unspecifiedDpiDrawables);
         dest.writeInt(this.layouts);
-        dest.writeStringArray(this.differentLayouts);
+        dest.writeInt(this.differentLayouts);
     }
 
     protected ResourceData(Parcel in) {
@@ -282,7 +280,7 @@ public class ResourceData implements Parcelable {
         this.jpgDrawables = in.readInt();
         this.gifDrawables = in.readInt();
         this.xmlDrawables = in.readInt();
-        this.differentDrawables = in.createStringArray();
+        this.differentDrawables = in.readInt();
         this.ldpiDrawables = in.readInt();
         this.mdpiDrawables = in.readInt();
         this.hdpiDrawables = in.readInt();
@@ -293,7 +291,7 @@ public class ResourceData implements Parcelable {
         this.tvdpiDrawables = in.readInt();
         this.unspecifiedDpiDrawables = in.readInt();
         this.layouts = in.readInt();
-        this.differentLayouts = in.createStringArray();
+        this.differentLayouts = in.readInt();
     }
 
     public static final Creator<ResourceData> CREATOR = new Creator<ResourceData>() {

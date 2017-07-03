@@ -93,14 +93,8 @@ public class ResourceService {
         data.setTvdpiDrawables(tvdpi);
         data.setUnspecifiedDpiDrawables(withoutDpi);
         data.setLayouts(numLayouts);
-
-        String[] drawablesArray = new String[drawables.size()];
-        drawables.toArray(drawablesArray);
-        data.setDifferentDrawables(drawablesArray);
-
-        String[] layoutArray = new String[layouts.size()];
-        layouts.toArray(layoutArray);
-        data.setDifferentLayouts(layoutArray);
+        data.setDifferentDrawables(drawables.size());
+        data.setDifferentLayouts(layouts.size());
 
         return data;
     }
