@@ -26,6 +26,8 @@
     <string name="broadcast_receivers">Broadcast Receivers</string>
     <string name="permissions">Permissions</string>
     <string name="files">Files</string>
+    <string name="resources">Resources</string>
+
 
 
     <string name="install_loc_auto">Automatic</string>

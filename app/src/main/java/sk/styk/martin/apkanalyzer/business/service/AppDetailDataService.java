@@ -20,6 +20,7 @@ public class AppDetailDataService {
     private AppComponentsService appComponentsService;
     private PermissionsService permissionsService;
     private FileDataService fileDataService;
+    private ResourceService resourceService;
 
     public AppDetailDataService(@NonNull PackageManager packageManager) {
         this.packageManager = packageManager;
@@ -28,6 +29,7 @@ public class AppDetailDataService {
         this.appComponentsService = new AppComponentsService(packageManager);
         this.permissionsService = new PermissionsService(packageManager);
         this.fileDataService = new FileDataService(packageManager);
+        this.resourceService = new ResourceService(packageManager);
     }
 
     @NonNull
@@ -40,12 +42,11 @@ public class AppDetailDataService {
                             PackageManager.GET_SERVICES |
                             PackageManager.GET_PROVIDERS |
                             PackageManager.GET_RECEIVERS |
-                            PackageManager.GET_PERMISSIONS );
+                            PackageManager.GET_PERMISSIONS);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
             return null;
         }
-
 
         AppDetailData data = new AppDetailData();
         data.setGeneralData(generalDataService.get(packageInfo));
@@ -56,6 +57,8 @@ public class AppDetailDataService {
         data.setBroadcastReceiverData(appComponentsService.getBroadcastReceivers(packageInfo));
         data.setPermissionData(permissionsService.get(packageInfo));
         data.setFileData(fileDataService.get(packageInfo));
+        data.setResourceData(resourceService.get(data.getFileData()));
+
         return data;
     }
 

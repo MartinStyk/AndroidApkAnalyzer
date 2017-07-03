@@ -10,12 +10,13 @@ import java.util.ArrayList;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_File;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_General;
-import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Permission;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Provider;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Receiver;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Resource;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Service;
 import sk.styk.martin.apkanalyzer.model.ActivityData;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
@@ -44,7 +45,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
         fragments[5] = new AppDetailFragment_Receiver();
         fragments[6] = new AppDetailFragment_Permission();
         fragments[7] = new AppDetailFragment_File();
-
+        fragments[8] = new AppDetailFragment_Resource();
     }
 
     @Override
@@ -76,6 +77,9 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
             case 7:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getFileData());
                 break;
+            case 8:
+                args.putParcelable(AppDetailFragment.ARG_CHILD, data.getResourceData());
+                break;
             default:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data);
         }
@@ -86,7 +90,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 8;
+        return 9;
     }
 
     @Override
@@ -108,6 +112,8 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
                 return context.getResources().getString(R.string.permissions);
             case 7:
                 return context.getResources().getString(R.string.files);
+            case 8:
+                return context.getResources().getString(R.string.resources);
         }
         return "FRAGMENT " + (position + 1);
     }

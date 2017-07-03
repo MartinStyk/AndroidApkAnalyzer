@@ -29,6 +29,8 @@ public class AppDetailData implements Parcelable {
 
     private FileData fileData;
 
+    private ResourceData resourceData;
+
     public AppDetailData() {
     }
 
@@ -96,6 +98,14 @@ public class AppDetailData implements Parcelable {
         this.fileData = fileData;
     }
 
+    public ResourceData getResourceData() {
+        return resourceData;
+    }
+
+    public void setResourceData(ResourceData resourceData) {
+        this.resourceData = resourceData;
+    }
+
     @Override
     public String toString() {
         return "AppDetailData{" +
@@ -107,7 +117,49 @@ public class AppDetailData implements Parcelable {
                 ", broadcastReceiverData=" + broadcastReceiverData +
                 ", permissionData=" + permissionData +
                 ", fileData=" + fileData +
+                ", resourceData=" + resourceData +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AppDetailData data = (AppDetailData) o;
+
+        if (generalData != null ? !generalData.equals(data.generalData) : data.generalData != null)
+            return false;
+        if (certificateData != null ? !certificateData.equals(data.certificateData) : data.certificateData != null)
+            return false;
+        if (activityData != null ? !activityData.equals(data.activityData) : data.activityData != null)
+            return false;
+        if (serviceData != null ? !serviceData.equals(data.serviceData) : data.serviceData != null)
+            return false;
+        if (contentProviderData != null ? !contentProviderData.equals(data.contentProviderData) : data.contentProviderData != null)
+            return false;
+        if (broadcastReceiverData != null ? !broadcastReceiverData.equals(data.broadcastReceiverData) : data.broadcastReceiverData != null)
+            return false;
+        if (permissionData != null ? !permissionData.equals(data.permissionData) : data.permissionData != null)
+            return false;
+        if (fileData != null ? !fileData.equals(data.fileData) : data.fileData != null)
+            return false;
+        return resourceData != null ? resourceData.equals(data.resourceData) : data.resourceData == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = generalData != null ? generalData.hashCode() : 0;
+        result = 31 * result + (certificateData != null ? certificateData.hashCode() : 0);
+        result = 31 * result + (activityData != null ? activityData.hashCode() : 0);
+        result = 31 * result + (serviceData != null ? serviceData.hashCode() : 0);
+        result = 31 * result + (contentProviderData != null ? contentProviderData.hashCode() : 0);
+        result = 31 * result + (broadcastReceiverData != null ? broadcastReceiverData.hashCode() : 0);
+        result = 31 * result + (permissionData != null ? permissionData.hashCode() : 0);
+        result = 31 * result + (fileData != null ? fileData.hashCode() : 0);
+        result = 31 * result + (resourceData != null ? resourceData.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -125,6 +177,7 @@ public class AppDetailData implements Parcelable {
         dest.writeTypedList(this.broadcastReceiverData);
         dest.writeParcelable(this.permissionData, flags);
         dest.writeParcelable(this.fileData, flags);
+        dest.writeParcelable(this.resourceData, flags);
     }
 
     protected AppDetailData(Parcel in) {
@@ -136,6 +189,7 @@ public class AppDetailData implements Parcelable {
         this.broadcastReceiverData = in.createTypedArrayList(BroadcastReceiverData.CREATOR);
         this.permissionData = in.readParcelable(PermissionData.class.getClassLoader());
         this.fileData = in.readParcelable(FileData.class.getClassLoader());
+        this.resourceData = in.readParcelable(ResourceData.class.getClassLoader());
     }
 
     public static final Creator<AppDetailData> CREATOR = new Creator<AppDetailData>() {
