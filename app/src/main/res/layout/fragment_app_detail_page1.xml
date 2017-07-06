@@ -9,9 +9,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="?android:attr/listDivider"
-        android:orientation="vertical"
-        android:showDividers="middle"
+        style="@style/ItemDetailLayout"
         tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
