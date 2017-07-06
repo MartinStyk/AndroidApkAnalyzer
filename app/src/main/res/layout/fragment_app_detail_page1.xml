@@ -7,11 +7,11 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <TextView
+    <WebView
         android:id="@+id/item_detail"
         style="?android:attr/textAppearanceLarge"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="16dp"
         android:textIsSelectable="true"
         tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailFragment" />

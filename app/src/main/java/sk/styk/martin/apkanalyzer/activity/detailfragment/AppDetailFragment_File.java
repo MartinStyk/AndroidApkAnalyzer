@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import sk.styk.martin.apkanalyzer.model.ServiceData;
  */
 public class AppDetailFragment_File extends Fragment {
 
-    private TextView textView;
+    private WebView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -27,8 +28,9 @@ public class AppDetailFragment_File extends Fragment {
         View rootView = inflater.inflate(
                 R.layout.fragment_app_detail_page1, container, false);
         FileData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
-        textView = (TextView) rootView.findViewById(R.id.item_detail);
-        textView.setText(data.toString());
+        textView = (WebView) rootView.findViewById(R.id.item_detail);
+        String string = String.format("<html><body> %s </body></html>", data.toString());
+        textView.loadData(string, "text/html; charset=utf-8", "utf-8");
         return rootView;
     }
 }
