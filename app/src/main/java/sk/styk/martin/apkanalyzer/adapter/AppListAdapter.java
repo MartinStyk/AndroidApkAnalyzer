@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.activity;
+package sk.styk.martin.apkanalyzer.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

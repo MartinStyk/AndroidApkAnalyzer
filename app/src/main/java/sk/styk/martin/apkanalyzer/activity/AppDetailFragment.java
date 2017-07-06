@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.adapter.AppDetailAdapter;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 

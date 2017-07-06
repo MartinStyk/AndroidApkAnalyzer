@@ -19,6 +19,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.adapter.AppListAdapter;
 import sk.styk.martin.apkanalyzer.business.task.AppListLoader;
 import sk.styk.martin.apkanalyzer.model.AppListData;
 
