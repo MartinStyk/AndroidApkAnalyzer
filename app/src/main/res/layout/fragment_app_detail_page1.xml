@@ -17,20 +17,17 @@
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_detail"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            android:background="?android:selectableItemBackground" />
+            android:layout_height="?android:attr/listPreferredItemHeight" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_detail2"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            android:background="?android:selectableItemBackground" />
+            android:layout_height="?android:attr/listPreferredItemHeight" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_detail3"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            android:background="?android:selectableItemBackground" />
+            android:layout_height="?android:attr/listPreferredItemHeight" />
 
     </LinearLayout>
 

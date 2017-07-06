@@ -18,12 +18,10 @@ public class DetailItemView extends LinearLayout {
     private TextView title;
     private TextView value;
 
-
     public DetailItemView(Context context, AttributeSet attrs) {
-        super(context, attrs);
+        super(context, attrs, R.attr.detailItemViewStyle);
 
-        TypedArray a = context.obtainStyledAttributes(attrs,
-                R.styleable.DetailItemView, 0, 0);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.DetailItemView, 0, 0);
         String titleText = a.getString(R.styleable.DetailItemView_titleText);
         String valueText = a.getString(R.styleable.DetailItemView_valueText);
 
@@ -31,7 +29,6 @@ public class DetailItemView extends LinearLayout {
 
         setOrientation(LinearLayout.HORIZONTAL);
         setGravity(Gravity.CENTER_VERTICAL);
-        setClickable(true);
 
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);

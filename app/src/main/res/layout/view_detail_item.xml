@@ -17,7 +17,7 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/text_margin_right_left"
         android:layout_marginRight="@dimen/text_margin_right_left"
-        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
         android:maxLines="2"
         android:ellipsize="end"
         android:layout_weight = "1"
