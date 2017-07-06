@@ -27,6 +27,8 @@ public class GeneralData implements Parcelable {
     //bytes
     private long apkSize;
 
+    //todo whole size, data size, cahce size
+
     //timestamp
     private long firstInstallTime;
     private long lastUpdateTime;

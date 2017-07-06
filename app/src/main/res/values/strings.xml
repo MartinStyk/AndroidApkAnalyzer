@@ -8,7 +8,8 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="loading">Loading</string>
-
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="intro">Analyze your installed apps!</string>
@@ -29,11 +30,30 @@
     <string name="resources">Resources</string>
 
 
-
     <string name="install_loc_auto">Automatic</string>
     <string name="install_loc_internal_only">Internal storage only</string>
     <string name="install_loc_preffer_external">Preffer external storage</string>
     <string name="install_loc_unspecified">Unspecified</string>
+
+
+    <string name="application_name">Application name</string>
+    <string name="package_name">Package name</string>
+    <string name="process_name">Process name</string>
+    <string name="version_name">Version name</string>
+    <string name="version_code">Version code</string>
+    <string name="system_application">System application</string>
+    <string name="description">Description</string>
+    <string name="target_sdk">Target SDK</string>
+    <string name="target_version">Target version</string>
+    <string name="min_sdk">Min SDK</string>
+    <string name="min_version">Min version</string>
+    <string name="apk_directory">Apk path</string>
+    <string name="data_directory">Data path</string>
+    <string name="install_loc">Install location</string>
+    <string name="apk_size">Apk size</string>
+    <string name="first_install">First install</string>
+    <string name="last_update">Last update</string>
+
 
     <string-array name="android_versions">
         <item>item</item>

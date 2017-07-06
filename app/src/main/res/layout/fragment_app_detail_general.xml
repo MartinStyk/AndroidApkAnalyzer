@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/ItemDetailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_application_name"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/application_name"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_package_name"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/package_name"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_process_name"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/process_name"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_version_name"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/version_name"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_version_code"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/version_code"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_system_application"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/system_application"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_application_description"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/description"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_target_sdk"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/target_sdk"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_target_android_version"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/target_version"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_min_sdk"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/min_sdk"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_min_android_version"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/min_version"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_apk_directory"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/apk_directory"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_data_directory"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/data_directory"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_install_location"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/install_loc"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_apk_size"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/apk_size"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_first_install_time"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/first_install"/>
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_last_update_time"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/last_update"/>
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>
