@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DetailItemView">
+        <attr name="titleText" format="string" localization="suggested" />
+        <attr name="valueText" format="string" localization="suggested" />
+    </declare-styleable>
+</resources>

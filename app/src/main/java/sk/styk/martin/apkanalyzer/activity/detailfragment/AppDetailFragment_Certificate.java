@@ -12,13 +12,14 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.model.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.CertificateData;
+import sk.styk.martin.apkanalyzer.view.DetailItemView;
 
 /**
  * Created by Martin Styk on 22.06.2017.
  */
 public class AppDetailFragment_Certificate extends Fragment {
 
-    private WebView textView;
+    private DetailItemView detailView;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -26,9 +27,9 @@ public class AppDetailFragment_Certificate extends Fragment {
         View rootView = inflater.inflate(
                 R.layout.fragment_app_detail_page1, container, false);
         CertificateData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
-        textView = (WebView) rootView.findViewById(R.id.item_detail);
-        String string = String.format("<html><body> %s </body></html>", data.toString());
-        textView.loadData(string, "text/html; charset=utf-8", "utf-8");
+        detailView = (DetailItemView) rootView.findViewById(R.id.item_detail);
+        detailView.setTitle("Title");
+        detailView.setValue(data.toString());
         return rootView;
     }
 }

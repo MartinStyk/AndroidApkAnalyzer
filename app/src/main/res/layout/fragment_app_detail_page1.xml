@@ -1,19 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-    <WebView
-        android:id="@+id/item_detail"
-        style="?android:attr/textAppearanceLarge"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textIsSelectable="true"
-        tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailFragment" />
+        android:layout_height="match_parent"
+        android:divider="?android:attr/listDivider"
+        android:orientation="vertical"
+        android:showDividers="middle"
+        tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_detail"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:background="?android:selectableItemBackground" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_detail2"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:background="?android:selectableItemBackground" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_detail3"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:background="?android:selectableItemBackground" />
+
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
