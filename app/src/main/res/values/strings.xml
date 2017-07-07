@@ -54,6 +54,24 @@
     <string name="first_install">First install</string>
     <string name="last_update">Last update</string>
 
+    <string name="application_name_description">The name of this application. This name is displayed to users. Internally, Android uses package name attribute as a unique identifier of application. </string>
+    <string name="package_name_description">The name of this package. From the Android Manifest tag\'s "name" attribute. The package name serves as a unique identifier for the application. It\'s also the default name for the application process and the default task affinity of an activity.</string>
+    <string name="process_name_description">The name of the process this application should run in. From the "process" attribute or, if not set, the same as package name.</string>
+    <string name="version_name_description">The version number shown to users. The attribute has no other purpose than to be displayed to users. The Version code attribute holds the significant version number used internally.</string>
+    <string name="version_code_description">An internal version number. This number is used only to determine whether one version is more recent than another, with higher numbers indicating more recent versions. This is not the version number shown to users; that number is set by the Version name attribute.</string>
+    <string name="system_application_description">If set tot rue, this application is installed in the device\'s system image.</string>
+    <string name="description_description">The application\'s description specified by application developer.</string>
+    <string name="target_sdk_description">A number designating the Android API Level that the application targets. This attribute informs the system that application is tested against the target version and the system should not enable any compatibility behaviors to maintain app\'s forward-compatibility with the target version. The application is still able to run on older versions (down to Min Sdk Version).</string>
+    <string name="target_version_description">Value of Target SDK attribute resolved to the version of Android</string>
+    <string name="min_sdk_description">A number designating the minimum Android API Level required for the application to run. The Android system will prevent the user from installing the application if the system\'s API Level is lower than the value specified in this attribute. Google Play uses the this attributes to filter app from devices that do not meet it\'s platform version requirements.</string>
+    <string name="min_version_description">Value of Min SDK attribute resolved to the version of Android</string>
+    <string name="apk_directory_description">Android applications are distributed as an Android Application Packages (APK). Once installed, APK file is saved in storage. This attribute represents path to APK file of given application.</string>
+    <string name="data_directory_description">Full path to the default directory assigned to the package for its persistent data.</string>
+    <string name="install_loc_description">The default install location for the application. The following values are accepted:\n\n<b>Internal Only</b> - The application must be installed on the internal device storage only. If this is set, the application will never be installed on the external storage. If the internal storage is full, then the system will not install the application. This is also the default behavior. \n\n<b>Auto</b> - The application may be installed on the external storage, but the system will install the application on the internal storage by default. If the internal storage is full, then the system will install it on the external storage. Once installed, the user can move the application to either internal or external storage through the system settings. \n\n<b>Prefer External</b> - The application prefers to be installed on the external storage (SD card). There is no guarantee that the system will honor this request. The application might be installed on internal storage if the external media is unavailable or full. Once installed, the user can move the application to either internal or external storage through the system settings.</string>
+    <string name="apk_size_description">Size of APK file</string>
+    <string name="first_install_description">The time at which the app was first installed.</string>
+    <string name="last_update_description">The time at which the app was last updated.</string>
+
     <string name="sign_algorithm">Sign algorithm</string>
     <string name="start_date">Valid from</string>
     <string name="end_date">Valid to</string>
@@ -66,6 +84,19 @@
     <string name="subject_name">Subject name</string>
     <string name="subject_organization">Subject organization</string>
     <string name="subject_country">Subject country</string>
+
+    <string name="sign_algorithm_description">The signature algorithm name for the certificate signature algorithm. An example is the string \"SHA256withRSA\"</string>
+    <string name="start_date_description">Start of validity period of the certificate.</string>
+    <string name="end_date_description">End of validity period of the certificate.</string>
+    <string name="public_key_md5_description">MD5 hash of public key of the certificate.</string>
+    <string name="cert_md5_description">MD5 hash of the certificate.</string>
+    <string name="serial_number_description">Serial Number value from the certificate. The serial number is an integer assigned by the certification authority to each certificate. It must be unique for each certificate issued by a given CA (i.e., the issuer name and serial number identify a unique certificate).</string>
+    <string name="issuer_name_description">Name of issuer of the certificate</string>
+    <string name="issuer_organization_description">Name of organization of issuer of the certificate</string>
+    <string name="issuer_country_description">Country of issuer of the certificate</string>
+    <string name="subject_name_description">Name of subject of the certificate</string>
+    <string name="subject_organization_description">Name of organization of subject of the certificate</string>
+    <string name="subject_country_description">Country of subject of the certificate</string>
 
     <string name="all_drawables">Total drawables</string>
     <string name="different_drawables">Different drawables</string>
@@ -82,9 +113,27 @@
     <string name="xxxhdpi_drawables">xxxhdpi drawables</string>
     <string name="nodpi_drawables">nodpi drawables</string>
     <string name="tvdpi_drawables">tvdpi drawables</string>
-    <string name="unspecifieddpi_drawables">Unspecified dpi drawables</string>
     <string name="all_layouts">All layouts</string>
     <string name="different_layouts">Different layouts</string>
+
+    <string name="all_drawables_description">Total number of drawables contained in APK file. This includes all files in /res/drawable directory. Files from support libraries are included as well. If drawable is provided multiple times, e.g. in different resolution, it is counted multiple times.</string>
+    <string name="different_drawables_description">Number of logically unique drawables contained in APK file. Files from support libraries are included as well. If drawable is provided multiple times, e.g. in different resolution, it is counted only once.</string>
+    <string name="png_drawables_description">Number of png drawables included in APK file.</string>
+    <string name="nine_patch_drawables_description">Number of nine patch (9.png) drawables included in APK file. A nine patch drawable graphic is a stretchable bitmap image that you can use as the background of a view. Android automatically resizes the graphic to accommodate the contents of the view. </string>
+    <string name="jpg_drawables_description">Number of jpg drawables included in APK file.</string>
+    <string name="gif_drawables_description">Number of gif drawables included in APK file.</string>
+    <string name="xml_drawables_description">Number of xml drawables included in APK file. Xml drawables are marker files containing data about shapes etc.</string>
+    <string name="ldpi_drawables_description">Number of drawables optimized for screens with low pixel density ~120dpi</string>
+    <string name="mdpi_drawables_description">Number of drawables optimized for screens with medium pixel density ~160dpi</string>
+    <string name="hdpi_drawables_description">Number of drawables optimized for screens with high pixel density ~240dpi</string>
+    <string name="xhdpi_drawables_description">Number of drawables optimized for screens with extra high pixel density ~320dpi</string>
+    <string name="xxhdpi_drawables_description">Number of drawables optimized for screens with extra extra high pixel density ~480dpi</string>
+    <string name="xxxhdpi_drawables_description">Number of drawables optimized for screens with extra extra extra high pixel density ~640dpi</string>
+    <string name="nodpi_drawables_description">Number of drawables for all densities. These are density-independent resources. The system does not scale resources tagged with this qualifier, regardless of the current screen\'s density.</string>
+    <string name="tvdpi_drawables_description">Resources for screens somewhere between mdpi and hdpi; approximately 213dpi. This is not considered a "primary" density group. It is mostly intended for televisions and most apps shouldn\'t need it—providing mdpi and hdpi resources is sufficient for most apps and the system will scale them as appropriate.</string>
+    <string name="all_layouts_description">Total number of layouts contained in APK file. This includes all files in /res/layouts directory. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted multiple times.</string>
+    <string name="different_layouts_description">Number of logically unique layouts contained in APK file. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted only once.</string>
+
 
 
     <string-array name="android_versions">

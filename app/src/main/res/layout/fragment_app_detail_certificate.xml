@@ -16,72 +16,84 @@
             android:id="@+id/item_sign_algorithm"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/sign_algorithm_description"
             app:titleText="@string/sign_algorithm" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_start_date"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/start_date_description"
             app:titleText="@string/start_date" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_end_date"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/end_date_description"
             app:titleText="@string/end_date" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_public_key_md5"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/public_key_md5_description"
             app:titleText="@string/public_key_md5" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_cert_md5"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/cert_md5_description"
             app:titleText="@string/cert_md5" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_serial_number"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/serial_number_description"
             app:titleText="@string/serial_number" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_issuer_name"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/issuer_name_description"
             app:titleText="@string/issuer_name" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_issuer_organization"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/issuer_organization_description"
             app:titleText="@string/issuer_organization" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_issuer_country"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/issuer_country_description"
             app:titleText="@string/issuer_country" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_subject_name"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/subject_name_description"
             app:titleText="@string/subject_name" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_subject_organization"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/subject_organization_description"
             app:titleText="@string/subject_organization" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_subject_country"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/subject_country_description"
             app:titleText="@string/subject_country" />
     </LinearLayout>
 

@@ -34,7 +34,6 @@ public class ResourceService {
 
         int numDrawables = 0;
 
-        int withoutDpi = 0;
         int ldpi = 0;
         int mdpi = 0;
         int hdpi = 0;
@@ -72,7 +71,7 @@ public class ResourceService {
                 else if (name.contains("hdpi")) hdpi++;
                 else if (name.contains("nodpi")) nodpi++;
                 else if (name.contains("tvdpi")) tvdpi++;
-                else withoutDpi++;
+                else mdpi++;
 
             } else if (name.startsWith("res/layout")) {
                 numLayouts++;
@@ -96,7 +95,6 @@ public class ResourceService {
         data.setXxxhdpiDrawables(xxxhdpi);
         data.setNodpiDrawables(nodpi);
         data.setTvdpiDrawables(tvdpi);
-        data.setUnspecifiedDpiDrawables(withoutDpi);
         data.setLayouts(numLayouts);
         data.setDifferentDrawables(drawables.size());
         data.setDifferentLayouts(layouts.size());

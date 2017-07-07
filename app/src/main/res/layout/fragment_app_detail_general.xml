@@ -16,103 +16,120 @@
             android:id="@+id/item_application_name"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/application_name"/>
+            app:descriptionText="@string/application_name_description"
+            app:titleText="@string/application_name" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_package_name"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/package_name"/>
+            app:descriptionText="@string/package_name_description"
+            app:titleText="@string/package_name" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_process_name"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/process_name"/>
+            app:descriptionText="@string/process_name_description"
+            app:titleText="@string/process_name" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_version_name"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/version_name"/>
+            app:descriptionText="@string/version_name_description"
+            app:titleText="@string/version_name" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_version_code"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/version_code"/>
+            app:descriptionText="@string/version_code_description"
+            app:titleText="@string/version_code" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_system_application"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/system_application"/>
+            app:descriptionText="@string/system_application_description"
+            app:titleText="@string/system_application" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_application_description"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/description"/>
+            app:descriptionText="@string/description_description"
+            app:titleText="@string/description" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_target_sdk"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/target_sdk"/>
+            app:descriptionText="@string/target_sdk_description"
+            app:titleText="@string/target_sdk" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_target_android_version"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/target_version"/>
+            app:descriptionText="@string/target_version_description"
+            app:titleText="@string/target_version" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_min_sdk"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/min_sdk"/>
+            app:descriptionText="@string/min_sdk_description"
+            app:titleText="@string/min_sdk" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_min_android_version"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/min_version"/>
+            app:descriptionText="@string/min_version_description"
+            app:titleText="@string/min_version" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_apk_directory"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/apk_directory"/>
+            app:descriptionText="@string/apk_directory_description"
+            app:titleText="@string/apk_directory" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_data_directory"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/data_directory"/>
+            app:descriptionText="@string/data_directory_description"
+            app:titleText="@string/data_directory" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_install_location"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/install_loc"/>
+            app:descriptionText="@string/install_loc_description"
+            app:titleText="@string/install_loc" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_apk_size"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/apk_size"/>
+            app:descriptionText="@string/apk_size_description"
+            app:titleText="@string/apk_size" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_first_install_time"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/first_install"/>
+            app:descriptionText="@string/first_install_description"
+            app:titleText="@string/first_install" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_last_update_time"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
-            app:titleText="@string/last_update"/>
+            app:descriptionText="@string/last_update_description"
+            app:titleText="@string/last_update" />
 
     </LinearLayout>
 

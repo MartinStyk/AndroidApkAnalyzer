@@ -39,7 +39,6 @@ public class AppDetailFragment_Resource extends Fragment {
         ((DetailItemView) rootView.findViewById(R.id.item_xxxhdpi_drawables)).setValue(String.valueOf(data.getXxxhdpiDrawables()));
         ((DetailItemView) rootView.findViewById(R.id.item_nodpi_drawables)).setValue(String.valueOf(data.getNodpiDrawables()));
         ((DetailItemView) rootView.findViewById(R.id.item_tvdpi_drawables)).setValue(String.valueOf(data.getTvdpiDrawables()));
-        ((DetailItemView) rootView.findViewById(R.id.item_unspecifieddpi_drawables)).setValue(String.valueOf(data.getUnspecifiedDpiDrawables()));
 
         ((DetailItemView) rootView.findViewById(R.id.item_all_layouts)).setValue(String.valueOf(data.getLayouts()));
         ((DetailItemView) rootView.findViewById(R.id.item_different_layouts)).setValue(String.valueOf(data.getDifferentLayouts()));
