@@ -7,6 +7,9 @@ import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
+import android.widget.ViewFlipper;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
@@ -22,7 +25,7 @@ public class AppDetailFragment_General extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(
+        final View rootView = inflater.inflate(
                 R.layout.fragment_app_detail_general, container, false);
 
         GeneralData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);

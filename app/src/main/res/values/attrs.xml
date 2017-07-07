@@ -3,6 +3,7 @@
     <declare-styleable name="DetailItemView">
         <attr name="titleText" format="string" localization="suggested" />
         <attr name="valueText" format="string" localization="suggested" />
+        <attr name="descriptionText" format="string" localization="suggested" />
     </declare-styleable>
     <declare-styleable name="DetailItemViewStyle">
         <attr name="detailItemViewStyle" format="reference"/>
