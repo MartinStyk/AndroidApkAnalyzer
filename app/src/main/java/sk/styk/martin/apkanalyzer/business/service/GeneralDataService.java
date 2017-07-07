@@ -37,7 +37,7 @@ public class GeneralDataService {
 
         if (applicationInfo != null) {
             generalData.setIcon(applicationInfo.loadIcon(packageManager));
-            CharSequence description = applicationInfo.loadLabel(packageManager);
+            CharSequence description = applicationInfo.loadDescription(packageManager);
             generalData.setDescription(description != null ? description.toString() : null);
             CharSequence label = applicationInfo.loadLabel(packageManager);
             generalData.setApplicationName(label != null ? label.toString() : applicationInfo.packageName);
@@ -85,12 +85,10 @@ public class GeneralDataService {
         switch (installLocation) {
             case PackageInfo.INSTALL_LOCATION_AUTO:
                 return "Auto";
-            case PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY:
-                return "Internal Only";
             case PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL:
                 return "Prefer External";
             default:
-                return "Unspecified";
+                return "Internal Only";
         }
     }
 
