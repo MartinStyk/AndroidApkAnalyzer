@@ -18,10 +18,6 @@ public class AppListData implements Parcelable {
 
     private Drawable icon;
 
-    private String pathToApk;
-
-    private boolean isSystemApp;
-
     public String getApplicationName() {
         return applicationName;
     }
@@ -46,36 +42,18 @@ public class AppListData implements Parcelable {
         this.icon = icon;
     }
 
-    public String getPathToApk() {
-        return pathToApk;
-    }
-
-    public void setPathToApk(String pathToApk) {
-        this.pathToApk = pathToApk;
-    }
-
-    public boolean isSystemApp() {
-        return isSystemApp;
-    }
-
-    public void setSystemApp(boolean systemApp) {
-        isSystemApp = systemApp;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AppListData that = (AppListData) o;
+        AppListData listData = (AppListData) o;
 
-        if (isSystemApp != that.isSystemApp) return false;
-        if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null)
+        if (packageName != null ? !packageName.equals(listData.packageName) : listData.packageName != null)
             return false;
-        if (applicationName != null ? !applicationName.equals(that.applicationName) : that.applicationName != null)
+        if (applicationName != null ? !applicationName.equals(listData.applicationName) : listData.applicationName != null)
             return false;
-        if (icon != null ? !icon.equals(that.icon) : that.icon != null) return false;
-        return pathToApk != null ? pathToApk.equals(that.pathToApk) : that.pathToApk == null;
+        return icon != null ? icon.equals(listData.icon) : listData.icon == null;
 
     }
 
@@ -89,8 +67,6 @@ public class AppListData implements Parcelable {
         int result = packageName != null ? packageName.hashCode() : 0;
         result = 31 * result + (applicationName != null ? applicationName.hashCode() : 0);
         result = 31 * result + (icon != null ? icon.hashCode() : 0);
-        result = 31 * result + (pathToApk != null ? pathToApk.hashCode() : 0);
-        result = 31 * result + (isSystemApp ? 1 : 0);
         return result;
     }
 
@@ -103,8 +79,6 @@ public class AppListData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.packageName);
         dest.writeString(this.applicationName);
-        dest.writeString(this.pathToApk);
-        dest.writeByte(this.isSystemApp ? (byte) 1 : (byte) 0);
     }
 
     public AppListData() {
@@ -113,8 +87,6 @@ public class AppListData implements Parcelable {
     protected AppListData(Parcel in) {
         this.packageName = in.readString();
         this.applicationName = in.readString();
-        this.pathToApk = in.readString();
-        this.isSystemApp = in.readByte() != 0;
     }
 
     public static final Parcelable.Creator<AppListData> CREATOR = new Parcelable.Creator<AppListData>() {

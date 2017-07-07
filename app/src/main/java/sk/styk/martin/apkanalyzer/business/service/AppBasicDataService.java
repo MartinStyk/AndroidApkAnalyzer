@@ -5,6 +5,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,42 +41,13 @@ public class AppBasicDataService {
             AppListData appBasicData = new AppListData();
             appBasicData.setPackageName(applicationInfo.packageName);
             appBasicData.setApplicationName(loadLabel(applicationInfo));
-            appBasicData.setPathToApk(applicationInfo.sourceDir);
             appBasicData.setIcon(applicationInfo.loadIcon(packageManager));
-            appBasicData.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
             packages.add(appBasicData);
         }
 
         Collections.sort(packages, AppBasicInfoComparator.INSTANCE);
 
         return packages;
-    }
-
-    @NonNull
-    public AppListData get(@NonNull String packageName) {
-
-        ApplicationInfo applicationInfo;
-
-        try {
-            applicationInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
-        } catch (PackageManager.NameNotFoundException e) {
-            return null;
-        }
-
-        return get(applicationInfo);
-    }
-
-    @NonNull
-    public AppListData get(@NonNull ApplicationInfo applicationInfo) {
-
-        AppListData appBasicData = new AppListData();
-        appBasicData.setPackageName(applicationInfo.packageName);
-        appBasicData.setApplicationName(loadLabel(applicationInfo));
-        appBasicData.setPathToApk(applicationInfo.sourceDir);
-        appBasicData.setIcon(applicationInfo.loadIcon(packageManager));
-        appBasicData.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
-
-        return appBasicData;
     }
 
     private String loadLabel(ApplicationInfo applicationInfo) {

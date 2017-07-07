@@ -33,7 +33,7 @@ public class AppDetailDataService {
     }
 
     @NonNull
-    public AppDetailData get(@NonNull String packageName, @NonNull String archivePath) {
+    public AppDetailData get(@NonNull String packageName) {
         PackageInfo packageInfo = null;
         try {
             packageInfo = packageManager.getPackageInfo(packageName,

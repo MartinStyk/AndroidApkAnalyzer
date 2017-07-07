@@ -22,12 +22,10 @@ public class AppDetailLoader extends AsyncTaskLoader<AppDetailData> {
     private AppDetailData item;
 
     private String packageName;
-    private String archivePath;
 
-    public AppDetailLoader(Context context, String packageName, String archivePath) {
+    public AppDetailLoader(Context context, String packageName) {
         super(context);
         this.packageName = packageName;
-        this.archivePath = archivePath;
         appDetailDataService = new AppDetailDataService(context.getPackageManager());
     }
 
@@ -38,7 +36,7 @@ public class AppDetailLoader extends AsyncTaskLoader<AppDetailData> {
      */
     @Override
     public AppDetailData loadInBackground() {
-        return appDetailDataService.get(packageName, archivePath);
+        return appDetailDataService.get(packageName);
     }
 
 

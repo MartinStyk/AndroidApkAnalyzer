@@ -27,7 +27,6 @@ import sk.styk.martin.apkanalyzer.model.AppDetailData;
 public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppDetailData> {
 
     public static final String ARG_PACKAGE_NAME = "packageName";
-    public static final String ARG_ARCHIVE_PATH = "archivePath";
     public static final String ARG_CHILD = "dataForChild";
 
     private AppDetailData data;
@@ -71,7 +70,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<AppDetailData> onCreateLoader(int id, Bundle args) {
-        return new AppDetailLoader(getActivity(), args.getString(ARG_PACKAGE_NAME), args.getString(ARG_ARCHIVE_PATH));
+        return new AppDetailLoader(getActivity(), args.getString(ARG_PACKAGE_NAME));
     }
 
     @Override
