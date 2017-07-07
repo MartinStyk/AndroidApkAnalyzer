@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/ItemDetailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_sign_algorithm"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/sign_algorithm" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/start_date" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_end_date"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/end_date" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_public_key_md5"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/public_key_md5" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_cert_md5"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/cert_md5" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_serial_number"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/serial_number" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_issuer_name"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/issuer_name" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_issuer_organization"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/issuer_organization" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_issuer_country"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/issuer_country" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_subject_name"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/subject_name" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_subject_organization"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/subject_organization" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_subject_country"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:titleText="@string/subject_country" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

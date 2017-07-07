@@ -54,6 +54,19 @@
     <string name="first_install">First install</string>
     <string name="last_update">Last update</string>
 
+    <string name="sign_algorithm">Sign algorithm</string>
+    <string name="start_date">Valid from</string>
+    <string name="end_date">Valid to</string>
+    <string name="public_key_md5">Public key MD5</string>
+    <string name="cert_md5">Certificate MD5</string>
+    <string name="serial_number">Serial number</string>
+    <string name="issuer_name">Issuer name</string>
+    <string name="issuer_organization">Issuer organization</string>
+    <string name="issuer_country">Issuer country</string>
+    <string name="subject_name">Subject name</string>
+    <string name="subject_organization">Subject organization</string>
+    <string name="subject_country">Subject country</string>
+
 
     <string-array name="android_versions">
         <item>item</item>
