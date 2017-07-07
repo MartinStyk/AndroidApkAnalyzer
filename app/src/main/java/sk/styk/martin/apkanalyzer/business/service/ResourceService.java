@@ -32,6 +32,8 @@ public class ResourceService {
         int numXml = 0;
         int numNinePatchPng = 0;
 
+        int numDrawables = 0;
+
         int withoutDpi = 0;
         int ldpi = 0;
         int mdpi = 0;
@@ -54,6 +56,7 @@ public class ResourceService {
                 int startIndexName = name.lastIndexOf("/");
                 String fileName = name.substring(startIndexName, name.length());
                 drawables.add(fileName);
+                numDrawables ++;
 
                 if (name.endsWith(".jpg")) numJpg++;
                 else if (name.endsWith(".gif")) numGif++;
@@ -69,7 +72,7 @@ public class ResourceService {
                 else if (name.contains("hdpi")) hdpi++;
                 else if (name.contains("nodpi")) nodpi++;
                 else if (name.contains("tvdpi")) tvdpi++;
-                else if (name.contains("drawable")) withoutDpi++;
+                else withoutDpi++;
 
             } else if (name.startsWith("res/layout")) {
                 numLayouts++;
@@ -78,6 +81,8 @@ public class ResourceService {
                 layouts.add(fileName);
             }
         }
+
+        data.setDrawables(numDrawables);
         data.setPngDrawables(numPng);
         data.setNinePatchDrawables(numNinePatchPng);
         data.setJpgDrawables(numJpg);

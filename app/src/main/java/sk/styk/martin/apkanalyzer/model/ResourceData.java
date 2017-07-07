@@ -19,6 +19,8 @@ public class ResourceData implements Parcelable {
     private int gifDrawables;
     private int xmlDrawables;
 
+
+    private int drawables;
     //number of drawables with different name (i.e. /res/hdpi/a.png == /res/xhdpi/a.png)
     private int differentDrawables;
 
@@ -83,6 +85,14 @@ public class ResourceData implements Parcelable {
 
     public void setDifferentDrawables(int differentDrawables) {
         this.differentDrawables = differentDrawables;
+    }
+
+    public int getDrawables() {
+        return drawables;
+    }
+
+    public void setDrawables(int drawables) {
+        this.drawables = drawables;
     }
 
     public int getLdpiDrawables() {
@@ -185,6 +195,7 @@ public class ResourceData implements Parcelable {
         if (jpgDrawables != that.jpgDrawables) return false;
         if (gifDrawables != that.gifDrawables) return false;
         if (xmlDrawables != that.xmlDrawables) return false;
+        if (drawables != that.drawables) return false;
         if (differentDrawables != that.differentDrawables) return false;
         if (ldpiDrawables != that.ldpiDrawables) return false;
         if (mdpiDrawables != that.mdpiDrawables) return false;
@@ -207,6 +218,7 @@ public class ResourceData implements Parcelable {
         result = 31 * result + jpgDrawables;
         result = 31 * result + gifDrawables;
         result = 31 * result + xmlDrawables;
+        result = 31 * result + drawables;
         result = 31 * result + differentDrawables;
         result = 31 * result + ldpiDrawables;
         result = 31 * result + mdpiDrawables;
@@ -230,6 +242,7 @@ public class ResourceData implements Parcelable {
                 ", jpgDrawables=" + jpgDrawables +
                 ", gifDrawables=" + gifDrawables +
                 ", xmlDrawables=" + xmlDrawables +
+                ", drawables=" + drawables +
                 ", differentDrawables=" + differentDrawables +
                 ", ldpiDrawables=" + ldpiDrawables +
                 ", mdpiDrawables=" + mdpiDrawables +
@@ -260,6 +273,7 @@ public class ResourceData implements Parcelable {
         dest.writeInt(this.jpgDrawables);
         dest.writeInt(this.gifDrawables);
         dest.writeInt(this.xmlDrawables);
+        dest.writeInt(this.drawables);
         dest.writeInt(this.differentDrawables);
         dest.writeInt(this.ldpiDrawables);
         dest.writeInt(this.mdpiDrawables);
@@ -280,6 +294,7 @@ public class ResourceData implements Parcelable {
         this.jpgDrawables = in.readInt();
         this.gifDrawables = in.readInt();
         this.xmlDrawables = in.readInt();
+        this.drawables = in.readInt();
         this.differentDrawables = in.readInt();
         this.ldpiDrawables = in.readInt();
         this.mdpiDrawables = in.readInt();

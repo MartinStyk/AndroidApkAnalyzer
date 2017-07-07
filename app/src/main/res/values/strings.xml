@@ -67,6 +67,25 @@
     <string name="subject_organization">Subject organization</string>
     <string name="subject_country">Subject country</string>
 
+    <string name="all_drawables">Total drawables</string>
+    <string name="different_drawables">Different drawables</string>
+    <string name="png_drawables">png drawables</string>
+    <string name="nine_patch_drawables">9.png drawables</string>
+    <string name="jpg_drawables">jpg drawables</string>
+    <string name="gif_drawables">gif drawables</string>
+    <string name="xml_drawables">xml drawables</string>
+    <string name="ldpi_drawables">ldpi drawables</string>
+    <string name="mdpi_drawables">png drawables</string>
+    <string name="hdpi_drawables">mdpi drawables</string>
+    <string name="xhdpi_drawables">xhdpi drawables</string>
+    <string name="xxhdpi_drawables">xxhdpi drawables</string>
+    <string name="xxxhdpi_drawables">xxxhdpi drawables</string>
+    <string name="nodpi_drawables">nodpi drawables</string>
+    <string name="tvdpi_drawables">tvdpi drawables</string>
+    <string name="unspecifieddpi_drawables">Unspecified dpi drawables</string>
+    <string name="all_layouts">All layouts</string>
+    <string name="different_layouts">Different layouts</string>
+
 
     <string-array name="android_versions">
         <item>item</item>
