@@ -7,12 +7,14 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="detailItemViewStyle">@style/ItemDetail</item>
+        <item name="detailListItemViewStyle">@style/ListItemDetail</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="detailItemViewStyle">@style/ItemDetail</item>
+        <item name="detailListItemViewStyle">@style/ListItemDetail</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -28,6 +30,18 @@
         <item name="android:divider">?android:attr/listDivider</item>
         <item name="android:orientation">vertical</item>
         <item name="android:showDividers">middle</item>
+    </style>
+
+    <style name="ListItemDetail"  parent="ItemDetail">
+        <item name="android:padding">@dimen/padding_default</item>
+    </style>
+
+    <style name="ItemDetailCardViewHeader">
+        <item name="android:paddingLeft">@dimen/text_margin_right_left</item>
+        <item name="android:paddingRight">@dimen/text_margin_right_left</item>
+        <item name="android:paddingTop">@dimen/padding_cardview_header</item>
+        <item name="android:paddingBottom">@dimen/padding_cardview_header</item>
+        <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
     </style>
 
 </resources>

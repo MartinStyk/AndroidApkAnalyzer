@@ -4,10 +4,14 @@
     <dimen name="nav_header_height">160dp</dimen>
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
+
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="app_bar_height">200dp</dimen>
     <dimen name="item_width">300dp</dimen>
     <dimen name="text_margin_right_left">16dp</dimen>
     <dimen name="text_margin_top_bottom">6dp</dimen>
+    <dimen name="padding_default">4dp</dimen>
+    <dimen name="padding_cardview_header">8dp</dimen>
+
 </resources>

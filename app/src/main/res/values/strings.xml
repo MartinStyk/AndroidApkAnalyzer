@@ -10,6 +10,9 @@
     <string name="loading">Loading</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="NA">N/A</string>
+    <string name="none">none</string>
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="intro">Analyze your installed apps!</string>
@@ -133,6 +136,10 @@
     <string name="tvdpi_drawables_description">Resources for screens somewhere between mdpi and hdpi; approximately 213dpi. This is not considered a "primary" density group. It is mostly intended for televisions and most apps shouldn\'t need it—providing mdpi and hdpi resources is sufficient for most apps and the system will scale them as appropriate.</string>
     <string name="all_layouts_description">Total number of layouts contained in APK file. This includes all files in /res/layouts directory. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted multiple times.</string>
     <string name="different_layouts_description">Number of logically unique layouts contained in APK file. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted only once.</string>
+
+    <string name="activity_label">Label</string>
+    <string name="activity_parent">Parent</string>
+    <string name="activity_permission">Permission</string>
 
 
 

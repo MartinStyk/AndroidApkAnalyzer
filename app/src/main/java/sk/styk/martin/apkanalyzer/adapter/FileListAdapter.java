@@ -28,7 +28,7 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-        View view = LayoutInflater.from(this.context).inflate(R.layout.list_item_fragment_app_detail_files, parent, false);
+        View view = LayoutInflater.from(this.context).inflate(R.layout.list_item_files_detail, parent, false);
         return new ViewHolder(view);
     }
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/padding_default"
+    card_view:cardPreventCornerOverlap="false">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        style="@style/ItemDetailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_activity_name"
+            style="@style/ItemDetailCardViewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_cardview_header" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            android:id="@+id/item_activity_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/activity_label"
+            app:valueText="@string/NA" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            android:id="@+id/item_activity_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/activity_parent"
+            app:valueText="@string/NA" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            android:id="@+id/item_activity_permission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/activity_permission"
+            app:valueText="@string/none" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
