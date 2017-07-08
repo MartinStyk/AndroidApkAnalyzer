@@ -141,6 +141,19 @@
     <string name="activity_parent">Parent</string>
     <string name="activity_permission">Permission</string>
 
+    <string name="service_exported">Exported</string>
+    <string name="service_stop_with_task">Stop with task</string>
+    <string name="service_single_user">Single user</string>
+    <string name="service_isolated_process">Isolated process</string>
+    <string name="service_external_service">External</string>
+
+    <string name="service_permission_description">Optional name of a permission required to be able to access this Service.</string>
+    <string name="service_exported_description">If true, service may be called by another activity.</string>
+    <string name="service_stop_with_task_description">The service will automatically be stopped by the system if the user removes a task that is rooted in one of the application\'s activities.</string>
+    <string name="service_single_user_description">Single instance of the service will run for all users on the device.</string>
+    <string name="service_isolated_process_description">The service will run in its own isolated process.</string>
+    <string name="service_external_service_description">The service can be bound and run in the calling application\'s package, rather than the package in which it is declared.</string>
+
 
 
     <string-array name="android_versions">

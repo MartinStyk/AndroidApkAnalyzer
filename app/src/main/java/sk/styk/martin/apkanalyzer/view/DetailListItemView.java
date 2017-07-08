@@ -66,6 +66,10 @@ public class DetailListItemView extends LinearLayout implements View.OnClickList
         }
     }
 
+    public void setValue(boolean value) {
+        setValue(value ? getContext().getString(R.string.yes) : getContext().getString(R.string.no));
+    }
+
     @Override
     public void onClick(View v) {
         InfoDialog.newInstance(titleText, valueText, descriptionText)
