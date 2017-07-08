@@ -154,6 +154,15 @@
     <string name="service_isolated_process_description">The service will run in its own isolated process.</string>
     <string name="service_external_service_description">The service can be bound and run in the calling application\'s package, rather than the package in which it is declared.</string>
 
+    <string name="provider_authority">Authority</string>
+    <string name="provider_read_permission">Read permission</string>
+    <string name="provider_write_permission">Write permission</string>
+    <string name="provider_exported">Exported</string>
+
+    <string name="provider_authority_description">Authorities that identify data offered by the content provider. Data offered by this content provider are published under this identification.</string>
+    <string name="provider_read_permission_description">Optional permission required for read-only access this content provider.</string>
+    <string name="provider_write_permission_description">Optional permission required for read/write access this content provider.</string>
+    <string name="provider_exported_description">Whether the content provider is available for other applications to use:\n\ntrue: The provider is available to other applications. Any application can use the provider\'s content URI to access it, subject to the permissions specified for the provider. \n\nfalse: The provider is not available to other applications. Set android:exported="false" to limit access to the provider to your applications. Only applications that have the same user ID (UID) as the provider will have access to it.</string>
 
 
     <string-array name="android_versions">
