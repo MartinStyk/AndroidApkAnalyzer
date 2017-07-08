@@ -1,57 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/padding_default"
-    card_view:cardUseCompatPadding="true">
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@style/ItemDetailLayout"
+    <TextView
+        android:id="@+id/item_permission_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_height="wrap_content" />
 
-        <TextView
-            android:id="@+id/item_permission_name"
-            style="@style/ItemDetailCardViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_cardview_text" />
+</LinearLayout>
 
-        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-            android:id="@+id/item_provider_authority"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/provider_authority_description"
-            app:titleText="@string/provider_authority"
-            app:valueText="@string/none" />
-
-        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-            android:id="@+id/item_provider_read_permission"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/provider_read_permission_description"
-            app:titleText="@string/provider_read_permission"
-            app:valueText="@string/none" />
-
-        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-            android:id="@+id/item_provider_write_permission"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/provider_write_permission_description"
-            app:titleText="@string/provider_write_permission"
-            app:valueText="@string/none" />
-
-        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-            android:id="@+id/item_provider_exported"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/provider_exported_description"
-            app:titleText="@string/provider_exported" />
-
-    </LinearLayout>
-
-</android.support.v7.widget.CardView>
