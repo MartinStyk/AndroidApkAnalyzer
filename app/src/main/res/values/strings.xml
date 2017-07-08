@@ -164,6 +164,12 @@
     <string name="provider_write_permission_description">Optional permission required for read/write access this content provider.</string>
     <string name="provider_exported_description">Whether the content provider is available for other applications to use:\n\ntrue: The provider is available to other applications. Any application can use the provider\'s content URI to access it, subject to the permissions specified for the provider. \n\nfalse: The provider is not available to other applications. Set android:exported="false" to limit access to the provider to your applications. Only applications that have the same user ID (UID) as the provider will have access to it.</string>
 
+    <string name="receiver_permission">Permission</string>
+    <string name="receiver_exported">Exported</string>
+
+    <string name="receiver_permission_description">The name of a permission that broadcasters must have to send a message to the broadcast receiver. If this attribute is not set, the permission set by the application element\'s permission attribute applies to the broadcast receiver. If neither attribute is set, the receiver is not protected by a permission.</string>
+    <string name="receiver_exported_descritpion">Whether or not the broadcast receiver can receive messages from sources outside its application - \"yes\" if it can, and \"no\" if not. If no, the only messages the broadcast receiver can receive are those sent by components of the same application or applications with the same user ID.</string>
+
 
     <string-array name="android_versions">
         <item>item</item>
