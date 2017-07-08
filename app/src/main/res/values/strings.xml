@@ -28,7 +28,8 @@
     <string name="services">Services</string>
     <string name="content_providers">Content Providers</string>
     <string name="broadcast_receivers">Broadcast Receivers</string>
-    <string name="permissions">Permissions</string>
+    <string name="permissions">Used Permissions</string>
+    <string name="defined_permissions">Defined Permissions</string>
     <string name="files">Files</string>
     <string name="resources">Resources</string>
 

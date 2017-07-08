@@ -8,10 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.adapter.PermissionListAdapter;
-import sk.styk.martin.apkanalyzer.model.PermissionData;
 
 /**
  * Created by Martin Styk on 30.06.2017.
@@ -22,13 +23,13 @@ public class AppDetailFragment_Permission extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_app_detail_permission, container, false);
 
-        PermissionData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
+        List data = getArguments().getStringArrayList(AppDetailFragment.ARG_CHILD);
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_permission);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        RecyclerView.Adapter adapter = new PermissionListAdapter(data.getUsesPermissions());
+        RecyclerView.Adapter adapter = new PermissionListAdapter(data);
         recyclerView.setAdapter(adapter);
         recyclerView.setHasFixedSize(true);
 

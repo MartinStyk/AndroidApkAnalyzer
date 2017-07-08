@@ -6,12 +6,9 @@ import android.content.pm.PermissionInfo;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.model.PermissionData;
-
-import static android.content.pm.PermissionInfo.PROTECTION_MASK_BASE;
 
 /**
  * Created by Martin Styk on 30.06.2017.
@@ -38,7 +35,12 @@ public class PermissionsService {
             }
         }
 
-        List<String> requestedPermissions = packageInfo.requestedPermissions == null ? new ArrayList<String>(0) : Arrays.asList(packageInfo.requestedPermissions);
+        String[] requestedPermissionInfos = packageInfo.requestedPermissions;
+        List<String> requestedPermissions = new ArrayList<>(requestedPermissionInfos.length);
+
+        for (String perm : requestedPermissionInfos) {
+            requestedPermissions.add(perm);
+        }
 
         PermissionData myData = new PermissionData();
         myData.setDefinesPermissions(definedPermissions);

@@ -78,16 +78,21 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
                 break;
 
             case 6:
-                args.putParcelable(AppDetailFragment.ARG_CHILD, data.getPermissionData());
+                args.putStringArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<String>) data.getPermissionData().getUsesPermissions());
                 fragment = new AppDetailFragment_Permission();
                 break;
 
             case 7:
+                args.putStringArrayList(AppDetailFragment.ARG_CHILD,(ArrayList<String>) data.getPermissionData().getDefinesPermissions());
+                fragment = new AppDetailFragment_Permission();
+                break;
+
+            case 8:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getFileData());
                 fragment = new AppDetailFragment_File();
                 break;
 
-            case 8:
+            case 9:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getResourceData());
                 fragment = new AppDetailFragment_Resource();
                 break;
@@ -100,7 +105,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 9;
+        return 10;
     }
 
     @Override
@@ -121,8 +126,10 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
             case 6:
                 return context.getResources().getString(R.string.permissions);
             case 7:
-                return context.getResources().getString(R.string.files);
+                return context.getResources().getString(R.string.defined_permissions);
             case 8:
+                return context.getResources().getString(R.string.files);
+            case 9:
                 return context.getResources().getString(R.string.resources);
         }
         return "TODO";
