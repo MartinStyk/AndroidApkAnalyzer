@@ -3,8 +3,8 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -24,19 +24,16 @@ import sk.styk.martin.apkanalyzer.business.task.AppListLoader;
 import sk.styk.martin.apkanalyzer.model.AppListData;
 
 /**
- * A simple {@link Fragment} subclass.
+ * List of all applications
  */
 public class AppListFragment extends ListFragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener,
         LoaderManager.LoaderCallbacks<List<AppListData>> {
 
-    // This is the Adapter being used to display the list's data.
-    private AppListAdapter mAdapter;
+    private AppListAdapter listAdapter;
 
-    // The SearchView for doing filtering.
-    private SearchView mSearchView;
+    private SearchView searchView;
 
-    // If non-null, this is the current filter the user has provided.
-    private String mCurFilter;
+    private String currentFilter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -44,23 +41,16 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         setRetainInstance(true);
 
         if (savedInstanceState == null) {
-            // Give some text to display if there is no data.  In a real
-            // application this would come from a resource.
             setEmptyText(getResources().getString(R.string.app_list_empty));
 
-            // We have a menu item to show in action bar.
             setHasOptionsMenu(true);
 
-            // Create an empty adapter we will use to display the loaded data.
-            mAdapter = new AppListAdapter(getActivity());
-            setListAdapter(mAdapter);
+            listAdapter = new AppListAdapter(getActivity());
+            setListAdapter(listAdapter);
 
-            // Start out with a progress indicator.
             setListShown(false);
 
-            // Prepare the loader.  Either re-connect with an existing one,
-            // or start a new one.
-            getLoaderManager().initLoader(0, null, this);
+            getLoaderManager().initLoader(AppListLoader.ID, null, this);
         }
     }
 
@@ -70,19 +60,20 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         MenuItem item = menu.add("Search");
         item.setIcon(android.R.drawable.ic_menu_search);
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        mSearchView = new SearchView(getActivity());
-        mSearchView.setOnQueryTextListener(this);
-        mSearchView.setOnCloseListener(this);
-        mSearchView.setIconifiedByDefault(true);
-        item.setActionView(mSearchView);
+        searchView = new SearchView(getActivity());
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(this);
+        searchView.setIconifiedByDefault(true);
+
+        searchView.setBackgroundColor(Color.WHITE);
+
+        item.setActionView(searchView);
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        // Called when the action bar search text has changed.  Since this
-        // is a simple array adapter, we can just have it do the filtering.
-        mCurFilter = !TextUtils.isEmpty(newText) ? newText : null;
-        mAdapter.getFilter().filter(mCurFilter);
+        currentFilter = !TextUtils.isEmpty(newText) ? newText : null;
+        listAdapter.getFilter().filter(currentFilter);
         return true;
     }
 
@@ -93,8 +84,8 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public boolean onClose() {
-        if (!TextUtils.isEmpty(mSearchView.getQuery())) {
-            mSearchView.setQuery(null, true);
+        if (!TextUtils.isEmpty(searchView.getQuery())) {
+            searchView.setQuery(null, true);
         }
         return true;
     }
@@ -119,17 +110,13 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public Loader<List<AppListData>> onCreateLoader(int id, Bundle args) {
-        // This is called when a new Loader needs to be created.  This
-        // sample only has one Loader with no arguments, so it is simple.
         return new AppListLoader(getActivity());
     }
 
     @Override
     public void onLoadFinished(Loader<List<AppListData>> loader, List<AppListData> data) {
-        // Set the new data in the adapter.
-        mAdapter.setData(data);
+        listAdapter.setData(data);
 
-        // The list should now be shown.
         if (isResumed()) {
             setListShown(true);
         } else {
@@ -139,7 +126,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public void onLoaderReset(Loader<List<AppListData>> loader) {
-        mAdapter.setData(null);
+        listAdapter.setData(null);
     }
 
 }

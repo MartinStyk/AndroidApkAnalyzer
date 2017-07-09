@@ -32,14 +32,9 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
     private Context context;
     private AppDetailData data;
 
-    public interface AppDetailDataConsumer {
-        void setData(AppDetailData data);
-    }
-
     public AppDetailAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
-
     }
 
     @Override

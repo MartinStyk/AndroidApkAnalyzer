@@ -21,6 +21,8 @@ import sk.styk.martin.apkanalyzer.model.AppListData;
  * Created by Martin Styk on 15.06.2017.
  */
 public class AppListLoader extends AsyncTaskLoader<List<AppListData>> {
+    public static final int ID = 1;
+
     private final InterestingConfigChanges mLastConfig = new InterestingConfigChanges();
     private final PackageManager mPackageManager;
     private final AppBasicDataService installedAppsService;

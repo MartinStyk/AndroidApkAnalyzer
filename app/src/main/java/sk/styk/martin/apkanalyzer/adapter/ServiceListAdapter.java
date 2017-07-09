@@ -50,7 +50,6 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-        final View view;
         final TextView name;
         final DetailListItemView permission;
         final DetailListItemView exported;
@@ -62,7 +61,6 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
 
         ViewHolder(View v) {
             super(v);
-            view = v;
             name = (TextView) v.findViewById(R.id.item_service_name);
             permission = (DetailListItemView) v.findViewById(R.id.item_service_permission);
             exported = (DetailListItemView) v.findViewById(R.id.item_service_exported);

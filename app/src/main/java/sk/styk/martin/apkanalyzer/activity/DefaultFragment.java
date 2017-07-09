@@ -10,14 +10,9 @@ import sk.styk.martin.apkanalyzer.R;
 
 
 /**
- * A simple {@link Fragment} subclass.
+ * Empty screen
  */
 public class DefaultFragment extends Fragment {
-
-
-    public DefaultFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

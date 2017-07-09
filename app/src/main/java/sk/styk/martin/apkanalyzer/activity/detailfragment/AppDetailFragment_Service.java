@@ -20,8 +20,7 @@ import sk.styk.martin.apkanalyzer.model.ServiceData;
 public class AppDetailFragment_Service extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_app_detail_service, container, false);
 
         List<ServiceData> data = getArguments().getParcelableArrayList(AppDetailFragment.ARG_CHILD);

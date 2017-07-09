@@ -18,10 +18,8 @@ import sk.styk.martin.apkanalyzer.view.DetailItemView;
 public class AppDetailFragment_Certificate extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(
-                R.layout.fragment_app_detail_certificate, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_app_detail_certificate, container, false);
 
         CertificateData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
 

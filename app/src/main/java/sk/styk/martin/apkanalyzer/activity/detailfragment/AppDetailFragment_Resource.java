@@ -17,8 +17,7 @@ import sk.styk.martin.apkanalyzer.view.DetailItemView;
 public class AppDetailFragment_Resource extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_app_detail_resource, container, false);
 
         ResourceData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);

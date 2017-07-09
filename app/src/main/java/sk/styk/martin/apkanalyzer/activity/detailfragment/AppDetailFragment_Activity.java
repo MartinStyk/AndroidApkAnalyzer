@@ -20,8 +20,7 @@ import sk.styk.martin.apkanalyzer.model.ActivityData;
 public class AppDetailFragment_Activity extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_app_detail_activity, container, false);
 
         List<ActivityData> data = getArguments().getParcelableArrayList(AppDetailFragment.ARG_CHILD);

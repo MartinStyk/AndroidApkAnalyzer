@@ -29,22 +29,11 @@ public class AppDetailLoader extends AsyncTaskLoader<AppDetailData> {
         appDetailDataService = new AppDetailDataService(context.getPackageManager());
     }
 
-    /**
-     * This is where the bulk of our work is done.  This function is
-     * called in a background thread and should generate a new set of
-     * data to be published by the loader.
-     */
     @Override
     public AppDetailData loadInBackground() {
         return appDetailDataService.get(packageName);
     }
 
-
-    /**
-     * Called when there is new data to deliver to the client.  The
-     * super class will take care of delivering it; the implementation
-     * here just adds a little more logic.
-     */
     @Override
     public void deliverResult(AppDetailData app) {
         if (isReset()) {
