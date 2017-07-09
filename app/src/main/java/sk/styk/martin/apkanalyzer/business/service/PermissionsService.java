@@ -36,10 +36,15 @@ public class PermissionsService {
         }
 
         String[] requestedPermissionInfos = packageInfo.requestedPermissions;
-        List<String> requestedPermissions = new ArrayList<>(requestedPermissionInfos.length);
+        List<String> requestedPermissions;
 
-        for (String perm : requestedPermissionInfos) {
-            requestedPermissions.add(perm);
+        if (requestedPermissionInfos == null) {
+            requestedPermissions = new ArrayList<>(0);
+        } else {
+            requestedPermissions = new ArrayList<>(requestedPermissionInfos.length);
+            for (String perm : requestedPermissionInfos) {
+                requestedPermissions.add(perm);
+            }
         }
 
         PermissionData myData = new PermissionData();
