@@ -69,8 +69,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         // Place an action bar item for searching.
         MenuItem item = menu.add("Search");
         item.setIcon(android.R.drawable.ic_menu_search);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM
-                | MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW);
+        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         mSearchView = new SearchView(getActivity());
         mSearchView.setOnQueryTextListener(this);
         mSearchView.setOnCloseListener(this);
