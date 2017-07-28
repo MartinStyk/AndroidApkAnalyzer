@@ -10,10 +10,10 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.model.ActivityData;
-import sk.styk.martin.apkanalyzer.model.BroadcastReceiverData;
-import sk.styk.martin.apkanalyzer.model.ContentProviderData;
-import sk.styk.martin.apkanalyzer.model.ServiceData;
+import sk.styk.martin.apkanalyzer.model.detail.ActivityData;
+import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData;
+import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData;
+import sk.styk.martin.apkanalyzer.model.detail.ServiceData;
 
 /**
  * Created by Martin Styk on 30.06.2017.

@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.model;
+package sk.styk.martin.apkanalyzer.model.detail;
 
 import android.os.Parcel;
 import android.os.Parcelable;

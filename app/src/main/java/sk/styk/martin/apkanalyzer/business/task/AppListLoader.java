@@ -13,7 +13,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
-import sk.styk.martin.apkanalyzer.model.AppListData;
+import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**
  * Loader async task for items for list view on AppListFragment

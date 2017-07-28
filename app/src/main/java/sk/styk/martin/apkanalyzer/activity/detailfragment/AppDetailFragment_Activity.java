@@ -12,7 +12,7 @@ import java.util.List;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.adapter.ActivityListAdapter;
-import sk.styk.martin.apkanalyzer.model.ActivityData;
+import sk.styk.martin.apkanalyzer.model.detail.ActivityData;
 
 /**
  * Created by Martin Styk on 30.06.2017.

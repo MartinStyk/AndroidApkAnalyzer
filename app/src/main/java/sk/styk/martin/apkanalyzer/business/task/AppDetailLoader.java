@@ -7,7 +7,7 @@ import android.content.res.Resources;
 import android.support.v4.content.AsyncTaskLoader;
 
 import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
-import sk.styk.martin.apkanalyzer.model.AppDetailData;
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**
  * Loader async task for item for AppDetailFragment and AppDetailActivity

@@ -5,12 +5,11 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.model.AppListData;
+import sk.styk.martin.apkanalyzer.model.list.AppListData;
 import sk.styk.martin.apkanalyzer.util.AppBasicInfoComparator;
 
 /**

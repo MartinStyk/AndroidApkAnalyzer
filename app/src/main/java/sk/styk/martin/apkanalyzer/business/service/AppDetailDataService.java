@@ -4,7 +4,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
-import sk.styk.martin.apkanalyzer.model.AppDetailData;
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**
  * Retrieve apps installed on device

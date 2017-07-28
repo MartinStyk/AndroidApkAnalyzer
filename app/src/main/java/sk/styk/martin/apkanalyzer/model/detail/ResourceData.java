@@ -1,10 +1,7 @@
-package sk.styk.martin.apkanalyzer.model;
+package sk.styk.martin.apkanalyzer.model.detail;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Created by Martin Styk on 03.07.2017.

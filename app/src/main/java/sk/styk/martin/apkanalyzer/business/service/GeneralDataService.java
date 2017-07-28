@@ -9,7 +9,7 @@ import android.support.annotation.NonNull;
 
 import java.io.File;
 
-import sk.styk.martin.apkanalyzer.model.GeneralData;
+import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 
 /**
  * Created by Martin Styk on 30.06.2017.

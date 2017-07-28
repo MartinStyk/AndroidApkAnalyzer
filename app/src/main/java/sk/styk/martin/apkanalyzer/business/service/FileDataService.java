@@ -12,7 +12,7 @@ import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
-import sk.styk.martin.apkanalyzer.model.FileData;
+import sk.styk.martin.apkanalyzer.model.detail.FileData;
 
 /**
  * Created by Martin Styk on 30.06.2017.

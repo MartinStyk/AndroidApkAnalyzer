@@ -1,8 +1,6 @@
 package sk.styk.martin.apkanalyzer.activity;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -21,7 +19,7 @@ import java.util.List;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.adapter.AppListAdapter;
 import sk.styk.martin.apkanalyzer.business.task.AppListLoader;
-import sk.styk.martin.apkanalyzer.model.AppListData;
+import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**
  * List of all applications

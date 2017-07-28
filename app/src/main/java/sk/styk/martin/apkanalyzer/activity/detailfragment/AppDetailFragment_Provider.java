@@ -6,17 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.TextView;
 
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
-import sk.styk.martin.apkanalyzer.adapter.ActivityListAdapter;
 import sk.styk.martin.apkanalyzer.adapter.ProviderListAdapter;
-import sk.styk.martin.apkanalyzer.model.ContentProviderData;
-import sk.styk.martin.apkanalyzer.view.DetailItemView;
+import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData;
 
 /**
  * Created by Martin Styk on 30.06.2017.

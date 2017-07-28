@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.model.AppListData;
+import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**
  * Adapter for list of applications

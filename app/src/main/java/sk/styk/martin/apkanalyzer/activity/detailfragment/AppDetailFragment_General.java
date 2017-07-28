@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
-import sk.styk.martin.apkanalyzer.model.GeneralData;
+import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 import sk.styk.martin.apkanalyzer.view.DetailItemView;
 
 /**

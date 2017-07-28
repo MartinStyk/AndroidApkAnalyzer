@@ -10,8 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.model.ActivityData;
-import sk.styk.martin.apkanalyzer.view.DetailItemView;
+import sk.styk.martin.apkanalyzer.model.detail.ActivityData;
 import sk.styk.martin.apkanalyzer.view.DetailListItemView;
 
 /**

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.model.BroadcastReceiverData;
+import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData;
 import sk.styk.martin.apkanalyzer.view.DetailListItemView;
 
 /**

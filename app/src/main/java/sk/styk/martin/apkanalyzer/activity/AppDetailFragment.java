@@ -16,7 +16,7 @@ import android.widget.ProgressBar;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.adapter.AppDetailAdapter;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
-import sk.styk.martin.apkanalyzer.model.AppDetailData;
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**
  * A fragment representing a single Item detail screen.

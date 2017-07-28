@@ -14,7 +14,7 @@ import java.util.List;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.adapter.FileListAdapter;
-import sk.styk.martin.apkanalyzer.model.FileData;
+import sk.styk.martin.apkanalyzer.model.detail.FileData;
 
 /**
  * Created by Martin Styk on 30.06.2017.

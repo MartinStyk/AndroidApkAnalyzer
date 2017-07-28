@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
-import sk.styk.martin.apkanalyzer.model.ResourceData;
+import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
 import sk.styk.martin.apkanalyzer.view.DetailItemView;
 
 /**

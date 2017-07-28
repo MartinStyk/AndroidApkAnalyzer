@@ -16,7 +16,7 @@ import java.security.cert.X509Certificate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import sk.styk.martin.apkanalyzer.model.CertificateData;
+import sk.styk.martin.apkanalyzer.model.detail.CertificateData;
 
 import static javax.security.auth.x500.X500Principal.RFC1779;
 

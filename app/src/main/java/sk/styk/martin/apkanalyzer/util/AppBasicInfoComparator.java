@@ -3,7 +3,7 @@ package sk.styk.martin.apkanalyzer.util;
 import java.text.Collator;
 import java.util.Comparator;
 
-import sk.styk.martin.apkanalyzer.model.AppListData;
+import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**
  * Created by Martin Styk on 17.06.2017.

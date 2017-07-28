@@ -1,8 +1,10 @@
-package sk.styk.martin.apkanalyzer.model;
+package sk.styk.martin.apkanalyzer.model.list;
 
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**
  * Class holding basic application metadata used in list view of all apps

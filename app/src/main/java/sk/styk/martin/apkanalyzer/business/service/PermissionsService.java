@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.model.PermissionData;
+import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
 
 /**
  * Created by Martin Styk on 30.06.2017.

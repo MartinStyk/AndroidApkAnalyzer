@@ -1,6 +1,5 @@
-package sk.styk.martin.apkanalyzer.model;
+package sk.styk.martin.apkanalyzer.model.detail;
 
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 

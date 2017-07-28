@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import sk.styk.martin.apkanalyzer.model.FileData;
-import sk.styk.martin.apkanalyzer.model.ResourceData;
+import sk.styk.martin.apkanalyzer.model.detail.FileData;
+import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
 
 /**
  * Created by Martin Styk on 22.06.2017.

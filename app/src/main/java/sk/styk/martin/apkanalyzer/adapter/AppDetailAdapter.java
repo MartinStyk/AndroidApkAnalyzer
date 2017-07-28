@@ -20,7 +20,7 @@ import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Prov
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Receiver;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Resource;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Service;
-import sk.styk.martin.apkanalyzer.model.AppDetailData;
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**
  * Created by Martin Styk on 18.06.2017.

@@ -12,7 +12,7 @@ import java.util.List;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.adapter.ReceiverListAdapter;
-import sk.styk.martin.apkanalyzer.model.BroadcastReceiverData;
+import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData;
 
 /**
  * Created by Martin Styk on 30.06.2017.
