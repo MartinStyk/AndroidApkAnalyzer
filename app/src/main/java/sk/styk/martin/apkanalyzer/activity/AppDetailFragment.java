@@ -43,7 +43,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
         super.onCreate(savedInstanceState);
 
         adapter = new AppDetailAdapter(getActivity(), getFragmentManager());
-        getLoaderManager().initLoader(0, getArguments(), this);
+        getLoaderManager().initLoader(AppDetailLoader.ID, getArguments(), this);
     }
 
     @Override
