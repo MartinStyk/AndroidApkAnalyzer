@@ -39,7 +39,7 @@ public class AppListAdapter extends ArrayAdapter<AppListData> {
         View view;
 
         if (convertView == null) {
-            view = mInflater.inflate(R.layout.app_list_content, parent, false);
+            view = mInflater.inflate(R.layout.list_item_application, parent, false);
         } else {
             view = convertView;
         }
