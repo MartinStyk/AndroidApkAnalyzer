@@ -90,22 +90,11 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         return true;
     }
 
-
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
+        AnalyzeFragment parentFragment = (AnalyzeFragment) getParentFragment();
         AppListData appBasicData = AppListData.class.cast(view.getTag());
-        if (!MainActivity.mTwoPane) {
-            Context context = view.getContext();
-            Intent intent = new Intent(context, AppDetailActivity.class);
-            intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, appBasicData.getPackageName());
-            context.startActivity(intent);
-        } else {
-            Bundle arguments = new Bundle();
-            arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, appBasicData.getPackageName());
-            AppDetailFragment fragment = new AppDetailFragment();
-            fragment.setArguments(arguments);
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.item_detail_container, fragment).commit();
-        }
+        parentFragment.itemClicked(appBasicData.getPackageName());
     }
 
     @Override

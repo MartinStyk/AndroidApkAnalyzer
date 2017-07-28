@@ -16,8 +16,6 @@ import sk.styk.martin.apkanalyzer.R;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static boolean mTwoPane;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,22 +32,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        if (findViewById(R.id.item_detail_container) != null) {
-            // The detail container view will be present only in the
-            // large-screen layouts (res/values-w900dp).
-            // If this view is present, then the
-            // activity should be in two-pane mode.
-            mTwoPane = true;
-        } else {
-            mTwoPane = false;
-        }
-
         // only on first run redirect to default fragment
         if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_gallery);
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            Fragment fragment = new AppListFragment();
-            fragmentManager.beginTransaction().replace(R.id.first_container, fragment).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_placeholder, new AnalyzeFragment()).commit();
         }
     }
 
@@ -88,8 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (id == R.id.nav_gallery) {
-            fragment = new AppListFragment();
-            fragmentManager.beginTransaction().replace(R.id.first_container, fragment).commit();
+            fragment = new AnalyzeFragment();
+            fragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, fragment).commit();
 
         } else if (id == R.id.nav_slideshow) {
 
