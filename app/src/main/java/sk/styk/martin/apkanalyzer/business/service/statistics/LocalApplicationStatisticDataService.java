@@ -60,7 +60,7 @@ public class LocalApplicationStatisticDataService {
 
         data.setSignAlgorithm(certificateService.getSignAlgorithm(packageInfo));
 
-        data.setActivites(packageInfo.activities.length);
+        data.setActivities(packageInfo.activities.length);
         data.setServices(packageInfo.services.length);
         data.setProviders(packageInfo.providers.length);
         data.setReceivers(packageInfo.receivers.length);

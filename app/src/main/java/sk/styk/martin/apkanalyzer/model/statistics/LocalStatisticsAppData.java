@@ -18,7 +18,7 @@ public class LocalStatisticsAppData implements Parcelable {
 
     private String signAlgorithm;
 
-    private int activites;
+    private int activities;
     private int services;
     private int providers;
     private int receivers;
@@ -82,12 +82,12 @@ public class LocalStatisticsAppData implements Parcelable {
         this.signAlgorithm = signAlgorithm;
     }
 
-    public int getActivites() {
-        return activites;
+    public int getActivities() {
+        return activities;
     }
 
-    public void setActivites(int activites) {
-        this.activites = activites;
+    public void setActivities(int activities) {
+        this.activities = activities;
     }
 
     public int getServices() {
@@ -181,7 +181,7 @@ public class LocalStatisticsAppData implements Parcelable {
         if (targetSdk != that.targetSdk) return false;
         if (minSdk != that.minSdk) return false;
         if (apkSize != that.apkSize) return false;
-        if (activites != that.activites) return false;
+        if (activities != that.activities) return false;
         if (services != that.services) return false;
         if (providers != that.providers) return false;
         if (receivers != that.receivers) return false;
@@ -203,7 +203,7 @@ public class LocalStatisticsAppData implements Parcelable {
         result = 31 * result + minSdk;
         result = 31 * result + (int) (apkSize ^ (apkSize >>> 32));
         result = 31 * result + (signAlgorithm != null ? signAlgorithm.hashCode() : 0);
-        result = 31 * result + activites;
+        result = 31 * result + activities;
         result = 31 * result + services;
         result = 31 * result + providers;
         result = 31 * result + receivers;
@@ -233,7 +233,7 @@ public class LocalStatisticsAppData implements Parcelable {
         dest.writeInt(this.minSdk);
         dest.writeLong(this.apkSize);
         dest.writeString(this.signAlgorithm);
-        dest.writeInt(this.activites);
+        dest.writeInt(this.activities);
         dest.writeInt(this.services);
         dest.writeInt(this.providers);
         dest.writeInt(this.receivers);
@@ -253,7 +253,7 @@ public class LocalStatisticsAppData implements Parcelable {
         this.minSdk = in.readInt();
         this.apkSize = in.readLong();
         this.signAlgorithm = in.readString();
-        this.activites = in.readInt();
+        this.activities = in.readInt();
         this.services = in.readInt();
         this.providers = in.readInt();
         this.receivers = in.readInt();
