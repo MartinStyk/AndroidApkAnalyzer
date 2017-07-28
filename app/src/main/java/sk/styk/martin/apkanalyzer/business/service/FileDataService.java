@@ -27,17 +27,7 @@ public class FileDataService {
 
     public FileData get(@NonNull PackageInfo packageInfo) {
 
-        String source = packageInfo.applicationInfo.sourceDir;
-
-        JarFile jar = null;
-        Manifest mf = null;
-        try {
-            jar = new JarFile(source);
-            mf = jar.getManifest();
-        } catch (IOException e) {
-            Log.e(FileDataService.class.getSimpleName(), "Unable to find manifest", e);
-            return null;
-        }
+        Manifest mf = openManifest(packageInfo.applicationInfo.sourceDir);
 
         FileData fileData = new FileData();
         Map<String, Attributes> map = mf.getEntries();
@@ -57,5 +47,22 @@ public class FileDataService {
         fileData.setAllHashes(hashData);
 
         return fileData;
+    }
+
+    public int getNumberOfFiles(@NonNull PackageInfo packageInfo) {
+        Manifest mf = openManifest(packageInfo.applicationInfo.sourceDir);
+
+        return mf == null ? 0 : mf.getEntries().size();
+    }
+
+    private Manifest openManifest(String source) {
+        Manifest mf = null;
+        try {
+            JarFile jar = new JarFile(source);
+            mf = jar.getManifest();
+        } catch (IOException e) {
+            Log.e(FileDataService.class.getSimpleName(), "Unable to find manifest", e);
+        }
+        return mf;
     }
 }

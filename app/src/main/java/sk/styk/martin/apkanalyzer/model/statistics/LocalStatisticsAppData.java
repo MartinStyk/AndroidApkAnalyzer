@@ -11,6 +11,7 @@ import android.os.Parcelable;
 public class LocalStatisticsAppData implements Parcelable {
 
     private boolean systemApp;
+    private int installLocation;
     private int targetSdk;
     private int minSdk;
     private long apkSize;
@@ -39,6 +40,14 @@ public class LocalStatisticsAppData implements Parcelable {
 
     public void setSystemApp(boolean systemApp) {
         this.systemApp = systemApp;
+    }
+
+    public int getInstallLocation() {
+        return installLocation;
+    }
+
+    public void setInstallLocation(int installLocation) {
+        this.installLocation = installLocation;
     }
 
     public int getTargetSdk() {
@@ -208,6 +217,9 @@ public class LocalStatisticsAppData implements Parcelable {
         return result;
     }
 
+    public LocalStatisticsAppData() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -216,6 +228,7 @@ public class LocalStatisticsAppData implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeByte(this.systemApp ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.installLocation);
         dest.writeInt(this.targetSdk);
         dest.writeInt(this.minSdk);
         dest.writeLong(this.apkSize);
@@ -233,11 +246,9 @@ public class LocalStatisticsAppData implements Parcelable {
         dest.writeInt(this.differentLayouts);
     }
 
-    public LocalStatisticsAppData() {
-    }
-
     protected LocalStatisticsAppData(Parcel in) {
         this.systemApp = in.readByte() != 0;
+        this.installLocation = in.readInt();
         this.targetSdk = in.readInt();
         this.minSdk = in.readInt();
         this.apkSize = in.readLong();
@@ -255,7 +266,7 @@ public class LocalStatisticsAppData implements Parcelable {
         this.differentLayouts = in.readInt();
     }
 
-    public static final Parcelable.Creator<LocalStatisticsAppData> CREATOR = new Parcelable.Creator<LocalStatisticsAppData>() {
+    public static final Creator<LocalStatisticsAppData> CREATOR = new Creator<LocalStatisticsAppData>() {
         @Override
         public LocalStatisticsAppData createFromParcel(Parcel source) {
             return new LocalStatisticsAppData(source);

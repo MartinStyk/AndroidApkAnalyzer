@@ -49,6 +49,22 @@ public class AppBasicDataService {
         return packages;
     }
 
+    @NonNull
+    public List<String> getAllPackageNames() {
+
+        List<ApplicationInfo> applications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+
+        List<String> packages = new ArrayList<>(applications.size());
+
+        for (ApplicationInfo applicationInfo : applications) {
+            packages.add(applicationInfo.packageName);
+        }
+
+        Collections.sort(packages);
+
+        return packages;
+    }
+
     private String loadLabel(ApplicationInfo applicationInfo) {
 
         CharSequence label = applicationInfo.loadLabel(packageManager);

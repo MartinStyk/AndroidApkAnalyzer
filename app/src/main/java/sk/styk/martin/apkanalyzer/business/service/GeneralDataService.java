@@ -44,7 +44,7 @@ public class GeneralDataService {
             generalData.setProcessName(applicationInfo.processName);
             generalData.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
             generalData.setApkDirectory(applicationInfo.sourceDir);
-            generalData.setApkSize(new File(applicationInfo.sourceDir).length());
+            generalData.setApkSize(getApkSize(applicationInfo.sourceDir));
             generalData.setDataDirectory(applicationInfo.dataDir);
             generalData.setMinSdkVersion(getMinSdkVersion(packageInfo.packageName));
             generalData.setMinSdkLabel(resolveVersion(generalData.getMinSdkVersion()));
@@ -58,7 +58,7 @@ public class GeneralDataService {
     /**
      * It is not possible to get minSdkVersions using Android PackageManager - parse AndroidManifest of app
      */
-    private int getMinSdkVersion(String packageName) {
+    public int getMinSdkVersion(String packageName) {
         Resources mApk1Resources = null;
         try {
             mApk1Resources = packageManager.getResourcesForApplication(packageName);
@@ -79,6 +79,10 @@ public class GeneralDataService {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public long getApkSize(String sourceDir) {
+        return new File(sourceDir).length();
     }
 
     private String resolveInstallLocation(int installLocation) {

@@ -82,6 +82,31 @@ public class CertificateService {
         return null;
     }
 
+    public String getSignAlgorithm(@NonNull PackageInfo packageInfo){
+        Signature sig = packageInfo.signatures[0];
+        byte[] rawCert = sig.toByteArray();
+        InputStream certStream = new ByteArrayInputStream(rawCert);
+        try {
+            CertificateFactory certFactory = CertificateFactory.getInstance("X509");
+            X509Certificate certificate = (X509Certificate) certFactory.generateCertificate(certStream);
+
+            return certificate.getSigAlgName();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (certStream != null) {
+                try {
+                    certStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return null;
+    }
+
     private String md5Digest(byte[] input) throws IOException {
         MessageDigest digest = this.getDigest("Md5");
         digest.update(input);
