@@ -124,7 +124,8 @@ public class GeneralDataService {
                 "Android 5.1.1 Lollipop",
                 "Android 6.0 Marshmallow",
                 "Android 7.0 Nougat",
-                "Android 7.1.2 Nougat"
+                "Android 7.1.2 Nougat",
+                "Android 8.0 \"O\""
         };
         return (index >= 0 && index < version.length) ? version[index] : null;
     }
