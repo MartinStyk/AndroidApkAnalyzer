@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -71,14 +70,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         Fragment fragment = null;
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
         if (id == R.id.nav_gallery) {
             fragment = new AnalyzeFragment();
-            fragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, fragment).commit();
-
         } else if (id == R.id.nav_slideshow) {
-
+            fragment = new LocalStatisticsFragment();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -86,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_send) {
 
         }
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_placeholder, fragment).commit();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

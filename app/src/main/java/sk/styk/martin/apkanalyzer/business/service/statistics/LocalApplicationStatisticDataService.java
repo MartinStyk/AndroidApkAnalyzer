@@ -60,13 +60,13 @@ public class LocalApplicationStatisticDataService {
 
         data.setSignAlgorithm(certificateService.getSignAlgorithm(packageInfo));
 
-        data.setActivities(packageInfo.activities.length);
-        data.setServices(packageInfo.services.length);
-        data.setProviders(packageInfo.providers.length);
-        data.setReceivers(packageInfo.receivers.length);
+        data.setActivities(packageInfo.activities == null ? 0 : packageInfo.activities.length);
+        data.setServices(packageInfo.services == null ? 0 : packageInfo.services.length);
+        data.setProviders(packageInfo.providers == null ? 0 : packageInfo.providers.length);
+        data.setReceivers(packageInfo.receivers == null ? 0 : packageInfo.receivers.length);
 
-        data.setDefinedPermissions(packageInfo.permissions.length);
-        data.setUsedPermissions(packageInfo.requestedPermissions.length);
+        data.setDefinedPermissions(packageInfo.permissions == null ? 0 :packageInfo.permissions.length);
+        data.setUsedPermissions(packageInfo.requestedPermissions == null ? 0 :packageInfo.requestedPermissions.length);
 
         FileData fileData = fileService.get(packageInfo);
         data.setFiles(fileData.getAllHashes().size());

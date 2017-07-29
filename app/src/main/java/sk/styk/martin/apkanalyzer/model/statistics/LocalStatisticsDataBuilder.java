@@ -38,18 +38,19 @@ public class LocalStatisticsDataBuilder {
     private float[] differentLayouts;
 
     public LocalStatisticsDataBuilder(int datasetSize) {
-        apkSize = new float[datasetSize];
-        activities = new float[datasetSize];
-        services = new float[datasetSize];
-        providers = new float[datasetSize];
-        receivers = new float[datasetSize];
-        usedPermissions = new float[datasetSize];
-        definedPermissions = new float[datasetSize];
-        files = new float[datasetSize];
-        drawables = new float[datasetSize];
-        differentDrawables = new float[datasetSize];
-        layouts = new float[datasetSize];
-        differentLayouts = new float[datasetSize];
+        int arraySize = datasetSize + 1;
+        apkSize = new float[arraySize];
+        activities = new float[arraySize];
+        services = new float[arraySize];
+        providers = new float[arraySize];
+        receivers = new float[arraySize];
+        usedPermissions = new float[arraySize];
+        definedPermissions = new float[arraySize];
+        files = new float[arraySize];
+        drawables = new float[arraySize];
+        differentDrawables = new float[arraySize];
+        layouts = new float[arraySize];
+        differentLayouts = new float[arraySize];
     }
 
     public LocalStatisticsData build() {
