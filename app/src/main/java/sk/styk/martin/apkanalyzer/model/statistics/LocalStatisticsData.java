@@ -15,7 +15,9 @@ import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
 public class LocalStatisticsData implements Parcelable {
 
-    private int totalApplications;
+    private int analyzeSucces;
+    private int analyzeFailed;
+
 
     private PercentagePair systemApps;
     private Map<Integer, PercentagePair> installLocation;
@@ -41,12 +43,20 @@ public class LocalStatisticsData implements Parcelable {
     private MathStatistics layouts;
     private MathStatistics differentLayouts;
 
-    public int getTotalApplications() {
-        return totalApplications;
+    public int getAnalyzeSucces() {
+        return analyzeSucces;
     }
 
-    public void setTotalApplications(int totalApplications) {
-        this.totalApplications = totalApplications;
+    public void setAnalyzeSucces(int analyzeSucces) {
+        this.analyzeSucces = analyzeSucces;
+    }
+
+    public int getAnalyzeFailed() {
+        return analyzeFailed;
+    }
+
+    public void setAnalyzeFailed(int analyzeFailed) {
+        this.analyzeFailed = analyzeFailed;
     }
 
     public PercentagePair getSystemApps() {
@@ -192,7 +202,8 @@ public class LocalStatisticsData implements Parcelable {
 
         LocalStatisticsData data = (LocalStatisticsData) o;
 
-        if (totalApplications != data.totalApplications) return false;
+        if (analyzeSucces != data.analyzeSucces) return false;
+        if (analyzeFailed != data.analyzeFailed) return false;
         if (systemApps != null ? !systemApps.equals(data.systemApps) : data.systemApps != null)
             return false;
         if (installLocation != null ? !installLocation.equals(data.installLocation) : data.installLocation != null)
@@ -227,7 +238,8 @@ public class LocalStatisticsData implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = totalApplications;
+        int result = analyzeSucces;
+        result = 31 * result + analyzeFailed;
         result = 31 * result + (systemApps != null ? systemApps.hashCode() : 0);
         result = 31 * result + (installLocation != null ? installLocation.hashCode() : 0);
         result = 31 * result + (targetSdk != null ? targetSdk.hashCode() : 0);
@@ -248,6 +260,33 @@ public class LocalStatisticsData implements Parcelable {
         return result;
     }
 
+    public LocalStatisticsData() {
+    }
+
+    @Override
+    public String toString() {
+        return "LocalStatisticsData{" +
+                "analyzeSucces=" + analyzeSucces +
+                ", systemApps=" + systemApps +
+                ", installLocation=" + installLocation +
+                ", targetSdk=" + targetSdk +
+                ", minSdk=" + minSdk +
+                ", apkSize=" + apkSize +
+                ", signAlgorithm=" + signAlgorithm +
+                ", activites=" + activites +
+                ", services=" + services +
+                ", providers=" + providers +
+                ", receivers=" + receivers +
+                ", usedPermissions=" + usedPermissions +
+                ", definedPermissions=" + definedPermissions +
+                ", files=" + files +
+                ", drawables=" + drawables +
+                ", differentDrawables=" + differentDrawables +
+                ", layouts=" + layouts +
+                ", differentLayouts=" + differentLayouts +
+                '}';
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -255,7 +294,8 @@ public class LocalStatisticsData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.totalApplications);
+        dest.writeInt(this.analyzeSucces);
+        dest.writeInt(this.analyzeFailed);
         dest.writeParcelable(this.systemApps, flags);
         dest.writeInt(this.installLocation.size());
         for (Map.Entry<Integer, PercentagePair> entry : this.installLocation.entrySet()) {
@@ -291,11 +331,9 @@ public class LocalStatisticsData implements Parcelable {
         dest.writeParcelable(this.differentLayouts, flags);
     }
 
-    public LocalStatisticsData() {
-    }
-
     protected LocalStatisticsData(Parcel in) {
-        this.totalApplications = in.readInt();
+        this.analyzeSucces = in.readInt();
+        this.analyzeFailed = in.readInt();
         this.systemApps = in.readParcelable(PercentagePair.class.getClassLoader());
         int installLocationSize = in.readInt();
         this.installLocation = new HashMap<Integer, PercentagePair>(installLocationSize);
@@ -339,7 +377,7 @@ public class LocalStatisticsData implements Parcelable {
         this.differentLayouts = in.readParcelable(MathStatistics.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<LocalStatisticsData> CREATOR = new Parcelable.Creator<LocalStatisticsData>() {
+    public static final Creator<LocalStatisticsData> CREATOR = new Creator<LocalStatisticsData>() {
         @Override
         public LocalStatisticsData createFromParcel(Parcel source) {
             return new LocalStatisticsData(source);
@@ -350,28 +388,4 @@ public class LocalStatisticsData implements Parcelable {
             return new LocalStatisticsData[size];
         }
     };
-
-    @Override
-    public String toString() {
-        return "LocalStatisticsData{" +
-                "totalApplications=" + totalApplications +
-                ", systemApps=" + systemApps +
-                ", installLocation=" + installLocation +
-                ", targetSdk=" + targetSdk +
-                ", minSdk=" + minSdk +
-                ", apkSize=" + apkSize +
-                ", signAlgorithm=" + signAlgorithm +
-                ", activites=" + activites +
-                ", services=" + services +
-                ", providers=" + providers +
-                ", receivers=" + receivers +
-                ", usedPermissions=" + usedPermissions +
-                ", definedPermissions=" + definedPermissions +
-                ", files=" + files +
-                ", drawables=" + drawables +
-                ", differentDrawables=" + differentDrawables +
-                ", layouts=" + layouts +
-                ", differentLayouts=" + differentLayouts +
-                '}';
-    }
 }

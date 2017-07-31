@@ -11,7 +11,8 @@ import sk.styk.martin.apkanalyzer.util.PercentagePair;
  */
 public class LocalStatisticsDataBuilder {
 
-    private int totalApplications = 0;
+    private int analyzeSuccess = 0;
+    private int analyzeFailed = 0;
 
     private int systemApps;
     private Map<Integer, Integer> installLocation = new HashMap<>(3);
@@ -55,8 +56,8 @@ public class LocalStatisticsDataBuilder {
 
     public LocalStatisticsData build() {
         LocalStatisticsData data = new LocalStatisticsData();
-        data.setTotalApplications(totalApplications);
-        data.setSystemApps(new PercentagePair(totalApplications, systemApps));
+        data.setAnalyzeSucces(analyzeSuccess);
+        data.setSystemApps(new PercentagePair(analyzeSuccess, systemApps));
         data.setInstallLocation(getPercentagePairMap(installLocation));
         data.setTargetSdk(getPercentagePairMap(targetSdk));
         data.setMinSdk(getPercentagePairMap(minSdk));
@@ -84,32 +85,33 @@ public class LocalStatisticsDataBuilder {
     }
 
     public void add(LocalStatisticsAppData appData) {
-        if(appData == null)
+        if (appData == null) {
+            analyzeFailed++;
             return;
-
-        totalApplications++;
+        }
+        analyzeSuccess++;
         if (appData.isSystemApp()) systemApps++;
         addToMap(installLocation, Integer.valueOf(appData.getInstallLocation()));
         addToMap(targetSdk, appData.getTargetSdk());
         addToMap(minSdk, appData.getMinSdk());
-        apkSize[totalApplications] = appData.getApkSize();
+        apkSize[analyzeSuccess] = appData.getApkSize();
         addToMap(signAlgorithm, appData.getSignAlgorithm());
 
-        activities[totalApplications] = appData.getActivities();
-        services[totalApplications] = appData.getServices();
-        providers[totalApplications] = appData.getProviders();
-        receivers[totalApplications] = appData.getReceivers();
+        activities[analyzeSuccess] = appData.getActivities();
+        services[analyzeSuccess] = appData.getServices();
+        providers[analyzeSuccess] = appData.getProviders();
+        receivers[analyzeSuccess] = appData.getReceivers();
 
-        usedPermissions[totalApplications] = appData.getUsedPermissions();
-        definedPermissions[totalApplications] = appData.getDefinedPermissions();
+        usedPermissions[analyzeSuccess] = appData.getUsedPermissions();
+        definedPermissions[analyzeSuccess] = appData.getDefinedPermissions();
 
-        files[totalApplications] = appData.getFiles();
+        files[analyzeSuccess] = appData.getFiles();
 
-        drawables[totalApplications] = appData.getDrawables();
-        differentDrawables[totalApplications] = appData.getDifferentDrawables();
+        drawables[analyzeSuccess] = appData.getDrawables();
+        differentDrawables[analyzeSuccess] = appData.getDifferentDrawables();
 
-        layouts[totalApplications] = appData.getLayouts();
-        differentLayouts[totalApplications] = appData.getDifferentLayouts();
+        layouts[analyzeSuccess] = appData.getLayouts();
+        differentLayouts[analyzeSuccess] = appData.getDifferentLayouts();
     }
 
     private <T> void addToMap(Map<T, Integer> map, T key) {
@@ -125,7 +127,7 @@ public class LocalStatisticsDataBuilder {
     private <T> Map<T, PercentagePair> getPercentagePairMap(Map<T, Integer> map) {
         Map<T, PercentagePair> finalMap = new HashMap<>(map.size());
         for (Map.Entry<T, Integer> entry : map.entrySet()) {
-            finalMap.put(entry.getKey(), new PercentagePair(entry.getValue(), totalApplications));
+            finalMap.put(entry.getKey(), new PercentagePair(entry.getValue(), analyzeSuccess));
         }
         return finalMap;
     }

@@ -17,8 +17,7 @@ import java.util.List;
 public class MathStatistics implements Parcelable {
 
     private BigDecimal arithmeticMean;
-    private Long median;
-    private List<Long> modus;
+    private BigDecimal median;
     private BigDecimal max;
     private BigDecimal min;
     private BigDecimal variance;
@@ -44,8 +43,7 @@ public class MathStatistics implements Parcelable {
         Double deviation = Math.sqrt(variance);
 
         this.arithmeticMean = new BigDecimal(mean);
-        this.median = median.longValue();
-        this.modus = ConversionHelper.toLongList(modus);
+        this.median = new BigDecimal(median);
         this.min = new BigDecimal(minimum);
         this.max = new BigDecimal(maximum);
         this.variance = new BigDecimal(variance);
@@ -61,20 +59,12 @@ public class MathStatistics implements Parcelable {
         this.arithmeticMean = arithmeticMean;
     }
 
-    public Long getMedian() {
+    public BigDecimal getMedian() {
         return median;
     }
 
-    public void setMedian(Long median) {
+    public void setMedian(BigDecimal median) {
         this.median = median;
-    }
-
-    public List<Long> getModus() {
-        return modus;
-    }
-
-    public void setModus(List<Long> modus) {
-        this.modus = modus;
     }
 
     public BigDecimal getMax() {
@@ -119,7 +109,6 @@ public class MathStatistics implements Parcelable {
         if (arithmeticMean != null ? !arithmeticMean.equals(that.arithmeticMean) : that.arithmeticMean != null)
             return false;
         if (median != null ? !median.equals(that.median) : that.median != null) return false;
-        if (modus != null ? !modus.equals(that.modus) : that.modus != null) return false;
         if (max != null ? !max.equals(that.max) : that.max != null) return false;
         if (min != null ? !min.equals(that.min) : that.min != null) return false;
         if (variance != null ? !variance.equals(that.variance) : that.variance != null)
@@ -132,7 +121,6 @@ public class MathStatistics implements Parcelable {
     public int hashCode() {
         int result = arithmeticMean != null ? arithmeticMean.hashCode() : 0;
         result = 31 * result + (median != null ? median.hashCode() : 0);
-        result = 31 * result + (modus != null ? modus.hashCode() : 0);
         result = 31 * result + (max != null ? max.hashCode() : 0);
         result = 31 * result + (min != null ? min.hashCode() : 0);
         result = 31 * result + (variance != null ? variance.hashCode() : 0);
@@ -145,7 +133,6 @@ public class MathStatistics implements Parcelable {
         return "MathStatistics{" +
                 "arithmeticMean=" + arithmeticMean +
                 ", median=" + median +
-                ", modus=" + modus +
                 ", max=" + max +
                 ", min=" + min +
                 ", variance=" + variance +
@@ -162,7 +149,6 @@ public class MathStatistics implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeSerializable(this.arithmeticMean);
         dest.writeValue(this.median);
-        dest.writeList(this.modus);
         dest.writeSerializable(this.max);
         dest.writeSerializable(this.min);
         dest.writeSerializable(this.variance);
@@ -171,9 +157,7 @@ public class MathStatistics implements Parcelable {
 
     protected MathStatistics(Parcel in) {
         this.arithmeticMean = (BigDecimal) in.readSerializable();
-        this.median = (Long) in.readValue(Long.class.getClassLoader());
-        this.modus = new ArrayList<Long>();
-        in.readList(this.modus, Long.class.getClassLoader());
+        this.median = (BigDecimal) in.readValue(Long.class.getClassLoader());
         this.max = (BigDecimal) in.readSerializable();
         this.min = (BigDecimal) in.readSerializable();
         this.variance = (BigDecimal) in.readSerializable();

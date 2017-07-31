@@ -44,7 +44,6 @@ public class MathStatisticsCardView extends CardView {
     public void setStatistics(MathStatistics statistics) {
         ((DetailItemView) findViewById(R.id.item_arithmetic_mean)).setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getArithmeticMean()));
         ((DetailItemView) findViewById(R.id.item_median)).setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getMedian()));
-        ((DetailItemView) findViewById(R.id.item_modus)).setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getModus().get(0)));
         ((DetailItemView) findViewById(R.id.item_min)).setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getMin()));
         ((DetailItemView) findViewById(R.id.item_max)).setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getMax()));
         ((DetailItemView) findViewById(R.id.item_deviation)).setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getDeviation()));

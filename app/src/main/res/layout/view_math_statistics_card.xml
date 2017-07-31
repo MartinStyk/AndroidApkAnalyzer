@@ -31,14 +31,6 @@
             app:valueText="@string/NA" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_modus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleText="@string/modus"
-            app:valueText="@string/NA" />
-
-
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_max"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

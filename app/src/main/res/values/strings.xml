@@ -173,7 +173,6 @@
 
     <string name="arithmetic_mean">Arithmetic mean</string>
     <string name="median">Median</string>
-    <string name="modus">Modus</string>
     <string name="max">Max</string>
     <string name="min">Min</string>
     <string name="variance">Variance</string>
