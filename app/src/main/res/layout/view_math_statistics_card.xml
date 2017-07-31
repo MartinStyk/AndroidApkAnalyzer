@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        style="@style/ItemDetailLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_title"
+            style="@style/ItemDetailCardViewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_cardview_text" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_arithmetic_mean"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/arithmetic_mean"
+            app:valueText="@string/NA" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_median"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/median"
+            app:valueText="@string/NA" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_modus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/modus"
+            app:valueText="@string/NA" />
+
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_max"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/max"
+            app:valueText="@string/NA" />
+
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_min"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/min"
+            app:valueText="@string/NA" />
+
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_variance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/variance"
+            app:valueText="@string/NA" />
+
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_deviation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleText="@string/deviation"
+            app:valueText="@string/NA" />
+
+
+    </LinearLayout>
+
+</merge>

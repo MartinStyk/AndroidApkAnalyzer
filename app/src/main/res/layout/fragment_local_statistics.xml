@@ -2,9 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/local_statistics"
-        layout_height="wrap_content"
-        layout_width="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+            android:id="@+id/statistics_activities"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/activities"/>
+
+    </LinearLayout>
+
 </layout>

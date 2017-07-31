@@ -34,7 +34,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
     @Override
     public void onLoadFinished(Loader<LocalStatisticsData> loader, LocalStatisticsData data) {
         this.data = data;
-        binding.localStatistics.setText(data.toString());
+        binding.statisticsActivities.setStatistics(data.getActivites());
     }
 
     @Override

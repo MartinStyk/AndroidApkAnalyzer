@@ -135,8 +135,8 @@
     <string name="xxxhdpi_drawables_description">Number of drawables optimized for screens with extra extra extra high pixel density ~640dpi</string>
     <string name="nodpi_drawables_description">Number of drawables for all densities. These are density-independent resources. The system does not scale resources tagged with this qualifier, regardless of the current screen\'s density.</string>
     <string name="tvdpi_drawables_description">Resources for screens somewhere between mdpi and hdpi; approximately 213dpi. This is not considered a "primary" density group. It is mostly intended for televisions and most apps shouldn\'t need it—providing mdpi and hdpi resources is sufficient for most apps and the system will scale them as appropriate.</string>
-    <string name="all_layouts_description">Total number of layouts contained in APK file. This includes all files in /res/layouts directory. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted multiple times.</string>
-    <string name="different_layouts_description">Number of logically unique layouts contained in APK file. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted only once.</string>
+    <string name="all_layouts_description">Total number of layouts contained in APK file. This includes all files in /res/layouts directory. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait modus, it is counted multiple times.</string>
+    <string name="different_layouts_description">Number of logically unique layouts contained in APK file. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait modus, it is counted only once.</string>
 
     <string name="activity_label">Label</string>
     <string name="activity_parent">Parent</string>
@@ -171,6 +171,13 @@
     <string name="receiver_permission_description">The name of a permission that broadcasters must have to send a message to the broadcast receiver. If this attribute is not set, the permission set by the application element\'s permission attribute applies to the broadcast receiver. If neither attribute is set, the receiver is not protected by a permission.</string>
     <string name="receiver_exported_descritpion">Whether or not the broadcast receiver can receive messages from sources outside its application - \"yes\" if it can, and \"no\" if not. If no, the only messages the broadcast receiver can receive are those sent by components of the same application or applications with the same user ID.</string>
 
+    <string name="arithmetic_mean">Arithmetic mean</string>
+    <string name="median">Median</string>
+    <string name="modus">Modus</string>
+    <string name="max">Max</string>
+    <string name="min">Min</string>
+    <string name="variance">Variance</string>
+    <string name="deviation">Deviation</string>
 
     <string-array name="android_versions">
         <item>item</item>
