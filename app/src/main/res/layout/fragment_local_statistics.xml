@@ -2,20 +2,101 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="match_parent">
 
-
-        <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-            android:id="@+id/statistics_activities"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@string/activities"
-            app:type="integral"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </LinearLayout>
 
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_apk_size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/apk_size"
+                app:type="size" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_activities"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/activities"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_services"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/services"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_providers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/content_providers"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_receivers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/broadcast_receivers"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_used_permissions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/permissions"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_defined_permissions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/defined_permissions"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_files"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/files"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/all_drawables"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_drawables_different"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/different_drawables"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_layouts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/all_layouts"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                android:id="@+id/statistics_layouts_different"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/different_layouts"
+                app:type="integral" />
+
+        </LinearLayout>
+    </ScrollView>   
 </layout>

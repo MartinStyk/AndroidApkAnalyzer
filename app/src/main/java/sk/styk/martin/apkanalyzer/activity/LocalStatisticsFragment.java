@@ -34,7 +34,18 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
     @Override
     public void onLoadFinished(Loader<LocalStatisticsData> loader, LocalStatisticsData data) {
         this.data = data;
+        binding.statisticsApkSize.setStatistics(data.getApkSize());
         binding.statisticsActivities.setStatistics(data.getActivites());
+        binding.statisticsServices.setStatistics(data.getServices());
+        binding.statisticsProviders.setStatistics(data.getProviders());
+        binding.statisticsReceivers.setStatistics(data.getReceivers());
+        binding.statisticsUsedPermissions.setStatistics(data.getUsedPermissions());
+        binding.statisticsDefinedPermissions.setStatistics(data.getDefinedPermissions());
+        binding.statisticsFiles.setStatistics(data.getFiles());
+        binding.statisticsDrawables.setStatistics(data.getDrawables());
+        binding.statisticsDrawablesDifferent.setStatistics(data.getDifferentDrawables());
+        binding.statisticsLayouts.setStatistics(data.getLayouts());
+        binding.statisticsLayoutsDifferent.setStatistics(data.getDifferentLayouts());
     }
 
     @Override
