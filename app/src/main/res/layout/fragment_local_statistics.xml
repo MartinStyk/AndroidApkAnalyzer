@@ -13,7 +13,8 @@
             android:id="@+id/statistics_activities"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="@string/activities"/>
+            app:title="@string/activities"
+            app:type="integral"/>
 
     </LinearLayout>
 

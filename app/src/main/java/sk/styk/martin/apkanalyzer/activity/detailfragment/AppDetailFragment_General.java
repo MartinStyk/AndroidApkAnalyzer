@@ -39,7 +39,7 @@ public class AppDetailFragment_General extends Fragment {
         ((DetailItemView) rootView.findViewById(R.id.item_apk_directory)).setValue(data.getApkDirectory());
         ((DetailItemView) rootView.findViewById(R.id.item_data_directory)).setValue(data.getDataDirectory());
         ((DetailItemView) rootView.findViewById(R.id.item_install_location)).setValue(data.getInstallLocation());
-        ((DetailItemView) rootView.findViewById(R.id.item_apk_size)).setValue(String.valueOf(Formatter.formatShortFileSize(getActivity(), data.getApkSize())));
+        ((DetailItemView) rootView.findViewById(R.id.item_apk_size)).setValue(Formatter.formatShortFileSize(getActivity(), data.getApkSize()));
 
         String installTime = DateUtils.formatDateTime(getActivity(), data.getFirstInstallTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
         ((DetailItemView) rootView.findViewById(R.id.item_first_install_time)).setValue(installTime);
