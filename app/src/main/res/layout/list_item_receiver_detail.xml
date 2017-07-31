@@ -18,8 +18,7 @@
             android:id="@+id/item_receiver_name"
             style="@style/ItemDetailCardViewHeader"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/padding_cardview_text" />
+            android:layout_height="wrap_content" />
 
         <sk.styk.martin.apkanalyzer.view.DetailListItemView
             android:id="@+id/item_receiver_permission"

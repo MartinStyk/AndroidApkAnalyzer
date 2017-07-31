@@ -29,7 +29,6 @@ public class MathStatisticsCardView extends CardView {
         a.recycle();
 
         setUseCompatPadding(true);
-        setPadding(4, 4, 4, 4);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.view_math_statistics_card, this, true);
