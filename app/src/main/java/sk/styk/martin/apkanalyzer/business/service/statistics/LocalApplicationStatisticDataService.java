@@ -42,7 +42,7 @@ public class LocalApplicationStatisticDataService {
                             PackageManager.GET_PROVIDERS |
                             PackageManager.GET_RECEIVERS |
                             PackageManager.GET_PERMISSIONS);
-        } catch (PackageManager.NameNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

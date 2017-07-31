@@ -84,6 +84,9 @@ public class LocalStatisticsDataBuilder {
     }
 
     public void add(LocalStatisticsAppData appData) {
+        if(appData == null)
+            return;
+
         totalApplications++;
         if (appData.isSystemApp()) systemApps++;
         addToMap(installLocation, Integer.valueOf(appData.getInstallLocation()));
