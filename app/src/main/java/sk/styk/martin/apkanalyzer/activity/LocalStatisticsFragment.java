@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import sk.styk.martin.apkanalyzer.business.task.LocalStatisticsLoader;
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding;
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData;
+import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter;
 
 public class LocalStatisticsFragment extends Fragment implements LoaderManager.LoaderCallbacks<LocalStatisticsData> {
 
@@ -34,6 +35,11 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
     @Override
     public void onLoadFinished(Loader<LocalStatisticsData> loader, LocalStatisticsData data) {
         this.data = data;
+
+        binding.itemAnalyzeSuccess.setValue(data.getAnalyzeSuccess().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getAnalyzeSuccess().getPercentage()) + "%)");
+        binding.itemAnalyzeFailed.setValue(data.getAnalyzeFailed().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getAnalyzeFailed().getPercentage()) + "%)");
+        binding.itemSystemApps.setValue(data.getSystemApps().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getSystemApps().getPercentage()) + "%)");
+
         binding.statisticsApkSize.setStatistics(data.getApkSize());
         binding.statisticsActivities.setStatistics(data.getActivites());
         binding.statisticsServices.setStatistics(data.getServices());

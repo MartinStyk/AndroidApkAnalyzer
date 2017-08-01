@@ -178,6 +178,11 @@
     <string name="variance">Variance</string>
     <string name="deviation">Deviation</string>
 
+    <string name="analyze_results">Analyze results</string>
+    <string name="analyze_results_success">Successfully analyzed</string>
+    <string name="analyze_results_failed">Analyze failed</string>
+
+
     <string-array name="android_versions">
         <item>item</item>
         <item>Android 1</item>
