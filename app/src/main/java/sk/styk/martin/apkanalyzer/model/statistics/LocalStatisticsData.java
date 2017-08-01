@@ -15,14 +15,14 @@ import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
 public class LocalStatisticsData implements Parcelable {
 
-    private int analyzeSucces;
-    private int analyzeFailed;
-
-
+    private PercentagePair analyzeSuccess;
+    private PercentagePair analyzeFailed;
     private PercentagePair systemApps;
+
     private Map<Integer, PercentagePair> installLocation;
     private Map<Integer, PercentagePair> targetSdk;
     private Map<Integer, PercentagePair> minSdk;
+
     private MathStatistics apkSize;
 
     private Map<String, PercentagePair> signAlgorithm;
@@ -43,19 +43,19 @@ public class LocalStatisticsData implements Parcelable {
     private MathStatistics layouts;
     private MathStatistics differentLayouts;
 
-    public int getAnalyzeSucces() {
-        return analyzeSucces;
+    public PercentagePair getAnalyzeSuccess() {
+        return analyzeSuccess;
     }
 
-    public void setAnalyzeSucces(int analyzeSucces) {
-        this.analyzeSucces = analyzeSucces;
+    public void setAnalyzeSuccess(PercentagePair analyzeSuccess) {
+        this.analyzeSuccess = analyzeSuccess;
     }
 
-    public int getAnalyzeFailed() {
+    public PercentagePair getAnalyzeFailed() {
         return analyzeFailed;
     }
 
-    public void setAnalyzeFailed(int analyzeFailed) {
+    public void setAnalyzeFailed(PercentagePair analyzeFailed) {
         this.analyzeFailed = analyzeFailed;
     }
 
@@ -202,8 +202,10 @@ public class LocalStatisticsData implements Parcelable {
 
         LocalStatisticsData data = (LocalStatisticsData) o;
 
-        if (analyzeSucces != data.analyzeSucces) return false;
-        if (analyzeFailed != data.analyzeFailed) return false;
+        if (analyzeSuccess != null ? !analyzeSuccess.equals(data.analyzeSuccess) : data.analyzeSuccess != null)
+            return false;
+        if (analyzeFailed != null ? !analyzeFailed.equals(data.analyzeFailed) : data.analyzeFailed != null)
+            return false;
         if (systemApps != null ? !systemApps.equals(data.systemApps) : data.systemApps != null)
             return false;
         if (installLocation != null ? !installLocation.equals(data.installLocation) : data.installLocation != null)
@@ -238,8 +240,8 @@ public class LocalStatisticsData implements Parcelable {
 
     @Override
     public int hashCode() {
-        int result = analyzeSucces;
-        result = 31 * result + analyzeFailed;
+        int result = analyzeSuccess != null ? analyzeSuccess.hashCode() : 0;
+        result = 31 * result + (analyzeFailed != null ? analyzeFailed.hashCode() : 0);
         result = 31 * result + (systemApps != null ? systemApps.hashCode() : 0);
         result = 31 * result + (installLocation != null ? installLocation.hashCode() : 0);
         result = 31 * result + (targetSdk != null ? targetSdk.hashCode() : 0);
@@ -266,7 +268,7 @@ public class LocalStatisticsData implements Parcelable {
     @Override
     public String toString() {
         return "LocalStatisticsData{" +
-                "analyzeSucces=" + analyzeSucces +
+                "analyzeSuccess=" + analyzeSuccess +
                 ", systemApps=" + systemApps +
                 ", installLocation=" + installLocation +
                 ", targetSdk=" + targetSdk +
@@ -294,8 +296,8 @@ public class LocalStatisticsData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.analyzeSucces);
-        dest.writeInt(this.analyzeFailed);
+        dest.writeParcelable(this.analyzeSuccess, flags);
+        dest.writeParcelable(this.analyzeFailed, flags);
         dest.writeParcelable(this.systemApps, flags);
         dest.writeInt(this.installLocation.size());
         for (Map.Entry<Integer, PercentagePair> entry : this.installLocation.entrySet()) {
@@ -332,8 +334,8 @@ public class LocalStatisticsData implements Parcelable {
     }
 
     protected LocalStatisticsData(Parcel in) {
-        this.analyzeSucces = in.readInt();
-        this.analyzeFailed = in.readInt();
+        this.analyzeSuccess = in.readParcelable(PercentagePair.class.getClassLoader());
+        this.analyzeFailed = in.readParcelable(PercentagePair.class.getClassLoader());
         this.systemApps = in.readParcelable(PercentagePair.class.getClassLoader());
         int installLocationSize = in.readInt();
         this.installLocation = new HashMap<Integer, PercentagePair>(installLocationSize);

@@ -56,8 +56,9 @@ public class LocalStatisticsDataBuilder {
 
     public LocalStatisticsData build() {
         LocalStatisticsData data = new LocalStatisticsData();
-        data.setAnalyzeSucces(analyzeSuccess);
-        data.setSystemApps(new PercentagePair(analyzeSuccess, systemApps));
+        data.setAnalyzeSuccess(new PercentagePair(analyzeSuccess, analyzeSuccess + analyzeFailed));
+        data.setAnalyzeFailed(new PercentagePair(analyzeFailed, analyzeSuccess + analyzeFailed));
+        data.setSystemApps(new PercentagePair(systemApps, analyzeSuccess));
         data.setInstallLocation(getPercentagePairMap(installLocation));
         data.setTargetSdk(getPercentagePairMap(targetSdk));
         data.setMinSdk(getPercentagePairMap(minSdk));
