@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -61,7 +62,9 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
         binding.chartMinSdk.setColumnChartData(getSdkColumnChart(data.getMinSdk(), getResources().getColor(R.color.colorPrimary)));
         binding.chartTargetSdk.setColumnChartData(getSdkColumnChart(data.getTargetSdk(), getResources().getColor(R.color.colorPrimary)));
-        binding.chartInstallLocation.setColumnChartData(getInstallLocationColumnChart(data.getInstallLocation(), getResources().getColor(R.color.colorPrimary)));
+        binding.chartInstallLocation.setColumnChartData(getStringBasedColumnChart(data.getInstallLocation(), R.string.install_loc, getResources().getColor(R.color.colorPrimary)));
+        binding.chartSignAlgorithm.setColumnChartData(getStringBasedColumnChart(data.getSignAlgorithm(), R.string.sign_algorithm, getResources().getColor(R.color.colorPrimary)));
+
 
         binding.statisticsApkSize.setStatistics(data.getApkSize());
         binding.statisticsActivities.setStatistics(data.getActivites());
@@ -111,7 +114,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
     }
 
-    private ColumnChartData getInstallLocationColumnChart(Map<String, PercentagePair> map, @ColorInt int columnColor) {
+    private ColumnChartData getStringBasedColumnChart(Map<String, PercentagePair> map, @StringRes int axisName, @ColorInt int columnColor) {
 
         List<Column> columns = new ArrayList<>(map.size());
         List<AxisValue> axisValues = new ArrayList<>(map.size());
@@ -132,8 +135,8 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
         }
 
         ColumnChartData data = new ColumnChartData(columns);
-        data.setAxisXBottom(new Axis(axisValues).setName(getResources().getString(R.string.install_loc))
-                .setMaxLabelChars(3));
+        data.setAxisXBottom(new Axis(axisValues).setName(getResources().getString(axisName))
+                .setMaxLabelChars(10));
         return data;
 
     }
