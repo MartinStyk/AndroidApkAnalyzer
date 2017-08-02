@@ -19,7 +19,7 @@ public class LocalStatisticsData implements Parcelable {
     private PercentagePair analyzeFailed;
     private PercentagePair systemApps;
 
-    private Map<Integer, PercentagePair> installLocation;
+    private Map<String, PercentagePair> installLocation;
     private Map<Integer, PercentagePair> targetSdk;
     private Map<Integer, PercentagePair> minSdk;
 
@@ -67,11 +67,11 @@ public class LocalStatisticsData implements Parcelable {
         this.systemApps = systemApps;
     }
 
-    public Map<Integer, PercentagePair> getInstallLocation() {
+    public Map<String, PercentagePair> getInstallLocation() {
         return installLocation;
     }
 
-    public void setInstallLocation(Map<Integer, PercentagePair> installLocation) {
+    public void setInstallLocation(Map<String, PercentagePair> installLocation) {
         this.installLocation = installLocation;
     }
 
@@ -300,7 +300,7 @@ public class LocalStatisticsData implements Parcelable {
         dest.writeParcelable(this.analyzeFailed, flags);
         dest.writeParcelable(this.systemApps, flags);
         dest.writeInt(this.installLocation.size());
-        for (Map.Entry<Integer, PercentagePair> entry : this.installLocation.entrySet()) {
+        for (Map.Entry<String, PercentagePair> entry : this.installLocation.entrySet()) {
             dest.writeValue(entry.getKey());
             dest.writeParcelable(entry.getValue(), flags);
         }
@@ -338,9 +338,9 @@ public class LocalStatisticsData implements Parcelable {
         this.analyzeFailed = in.readParcelable(PercentagePair.class.getClassLoader());
         this.systemApps = in.readParcelable(PercentagePair.class.getClassLoader());
         int installLocationSize = in.readInt();
-        this.installLocation = new HashMap<Integer, PercentagePair>(installLocationSize);
+        this.installLocation = new HashMap<String, PercentagePair>(installLocationSize);
         for (int i = 0; i < installLocationSize; i++) {
-            Integer key = (Integer) in.readValue(Integer.class.getClassLoader());
+            String key = in.readString();
             PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
             this.installLocation.put(key, value);
         }

@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.model.statistics;
 import java.util.HashMap;
 import java.util.Map;
 
+import sk.styk.martin.apkanalyzer.util.InstallLocationHelper;
 import sk.styk.martin.apkanalyzer.util.MathStatistics;
 import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
@@ -15,7 +16,7 @@ public class LocalStatisticsDataBuilder {
     private int analyzeFailed = 0;
 
     private int systemApps;
-    private Map<Integer, Integer> installLocation = new HashMap<>(3);
+    private Map<String, Integer> installLocation = new HashMap<>(3);
     private Map<Integer, Integer> targetSdk = new HashMap<>(26);
     private Map<Integer, Integer> minSdk = new HashMap<>(26);
     private float[] apkSize;
@@ -92,7 +93,7 @@ public class LocalStatisticsDataBuilder {
         }
         analyzeSuccess++;
         if (appData.isSystemApp()) systemApps++;
-        addToMap(installLocation, Integer.valueOf(appData.getInstallLocation()));
+        addToMap(installLocation, InstallLocationHelper.resolveInstallLocation(appData.getInstallLocation()));
         addToMap(targetSdk, appData.getTargetSdk());
         addToMap(minSdk, appData.getMinSdk());
         apkSize[analyzeSuccess] = appData.getApkSize();

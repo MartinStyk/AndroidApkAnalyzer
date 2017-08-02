@@ -11,6 +11,7 @@ import java.io.File;
 
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper;
+import sk.styk.martin.apkanalyzer.util.InstallLocationHelper;
 
 /**
  * Created by Martin Styk on 30.06.2017.
@@ -32,7 +33,7 @@ public class GeneralDataService {
         generalData.setPackageName(packageInfo.packageName);
         generalData.setVersionCode(packageInfo.versionCode);
         generalData.setVersionName(packageInfo.versionName);
-        generalData.setInstallLocation(resolveInstallLocation(packageInfo.installLocation));
+        generalData.setInstallLocation(InstallLocationHelper.resolveInstallLocation(packageInfo.installLocation));
         generalData.setFirstInstallTime(packageInfo.firstInstallTime);
         generalData.setLastUpdateTime(packageInfo.lastUpdateTime);
 
@@ -85,17 +86,5 @@ public class GeneralDataService {
     public long getApkSize(String sourceDir) {
         return new File(sourceDir).length();
     }
-
-    private String resolveInstallLocation(int installLocation) {
-        switch (installLocation) {
-            case PackageInfo.INSTALL_LOCATION_AUTO:
-                return "Auto";
-            case PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL:
-                return "Prefer External";
-            default:
-                return "Internal Only";
-        }
-    }
-
 
 }

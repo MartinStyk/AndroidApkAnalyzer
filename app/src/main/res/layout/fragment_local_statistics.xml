@@ -115,6 +115,35 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 
+            <!--Install locaiton chart -->
+            <android.support.v7.widget.CardView
+                style="@style/DetailCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/install_loc" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart_install_location"
+                        android:padding="@dimen/padding_default"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="300dp"/>
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
 
             <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
                 android:id="@+id/statistics_apk_size"

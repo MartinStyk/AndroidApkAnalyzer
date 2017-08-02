@@ -61,6 +61,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
         binding.chartMinSdk.setColumnChartData(getSdkColumnChart(data.getMinSdk(), getResources().getColor(R.color.colorPrimary)));
         binding.chartTargetSdk.setColumnChartData(getSdkColumnChart(data.getTargetSdk(), getResources().getColor(R.color.colorPrimary)));
+        binding.chartInstallLocation.setColumnChartData(getInstallLocationColumnChart(data.getInstallLocation(), getResources().getColor(R.color.colorPrimary)));
 
         binding.statisticsApkSize.setStatistics(data.getApkSize());
         binding.statisticsActivities.setStatistics(data.getActivites());
@@ -105,6 +106,33 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
         ColumnChartData data = new ColumnChartData(columns);
         data.setAxisXBottom(new Axis(axisValues).setName(getResources().getString(R.string.sdk))
+                .setMaxLabelChars(3));
+        return data;
+
+    }
+
+    private ColumnChartData getInstallLocationColumnChart(Map<String, PercentagePair> map, @ColorInt int columnColor) {
+
+        List<Column> columns = new ArrayList<>(map.size());
+        List<AxisValue> axisValues = new ArrayList<>(map.size());
+        List<SubcolumnValue> values;
+
+        int axisValue = 0;
+        for (Map.Entry<String, PercentagePair> entry : map.entrySet()) {
+
+            int applicationCount = entry.getValue().getCount().intValue();
+
+            values = new ArrayList<>();
+            values.add(new SubcolumnValue(applicationCount, columnColor));
+            Column column = new Column(values);
+            column.setHasLabels(true);
+            columns.add(column);
+
+            axisValues.add(new AxisValue(axisValue++).setLabel(entry.getKey()));
+        }
+
+        ColumnChartData data = new ColumnChartData(columns);
+        data.setAxisXBottom(new Axis(axisValues).setName(getResources().getString(R.string.install_loc))
                 .setMaxLabelChars(3));
         return data;
 
