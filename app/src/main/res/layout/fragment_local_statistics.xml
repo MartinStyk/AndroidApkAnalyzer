@@ -12,10 +12,12 @@
             android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <!--Analyze results -->
             <android.support.v7.widget.CardView
                 style="@style/DetailCardView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true">
 
                 <LinearLayout
                     style="@style/ItemDetailLayout"
@@ -53,6 +55,35 @@
                 </LinearLayout>
 
 
+            </android.support.v7.widget.CardView>
+
+            <!--MinSdk chart -->
+            <android.support.v7.widget.CardView
+                style="@style/DetailCardView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/min_sdk" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart_min_sdk"
+                        android:padding="@dimen/padding_default"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="300dp"/>
+
+                </LinearLayout>
             </android.support.v7.widget.CardView>
 
 

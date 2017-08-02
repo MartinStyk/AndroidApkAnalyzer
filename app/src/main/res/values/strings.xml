@@ -47,6 +47,7 @@
     <string name="version_code">Version code</string>
     <string name="system_application">System application</string>
     <string name="description">Description</string>
+    <string name="sdk">SDK</string>
     <string name="target_sdk">Target SDK</string>
     <string name="target_version">Target version</string>
     <string name="min_sdk">Min SDK</string>

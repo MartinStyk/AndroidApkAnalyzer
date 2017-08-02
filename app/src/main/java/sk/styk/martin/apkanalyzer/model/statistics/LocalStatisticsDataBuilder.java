@@ -121,7 +121,7 @@ public class LocalStatisticsDataBuilder {
             value++;
             map.put(key, value);
         } else {
-            map.put(key, 0);
+            map.put(key, 1);
         }
     }
 
