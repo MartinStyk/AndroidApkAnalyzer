@@ -78,6 +78,9 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
         binding.statisticsDrawablesDifferent.setStatistics(data.getDifferentDrawables());
         binding.statisticsLayouts.setStatistics(data.getLayouts());
         binding.statisticsLayoutsDifferent.setStatistics(data.getDifferentLayouts());
+
+        binding.localStatisticsContent.setVisibility(View.VISIBLE);
+        binding.localStatisticsLoading.setVisibility(View.GONE);
     }
 
     @Override
