@@ -15,21 +15,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
             android:id="@+id/item_arithmetic_mean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleText="@string/arithmetic_mean"
             app:valueText="@string/NA" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
             android:id="@+id/item_median"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleText="@string/median"
             app:valueText="@string/NA" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
             android:id="@+id/item_max"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             app:valueText="@string/NA" />
 
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
             android:id="@+id/item_min"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
             app:valueText="@string/NA" />
 
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
             android:id="@+id/item_variance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,13 +53,12 @@
             app:valueText="@string/NA" />
 
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
+        <sk.styk.martin.apkanalyzer.view.DetailListItemView
             android:id="@+id/item_deviation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleText="@string/deviation"
             app:valueText="@string/NA" />
-
 
     </LinearLayout>
 

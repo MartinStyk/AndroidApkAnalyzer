@@ -29,7 +29,7 @@
     <style name="ItemDetailLayout"  parent="Widget.AppCompat.ListView">
         <item name="android:divider">?android:attr/listDivider</item>
         <item name="android:orientation">vertical</item>
-        <item name="android:showDividers">middle</item>
+        <item name="android:showDividers">beginning|middle</item>
     </style>
 
     <style name="ListItemDetail"  parent="ItemDetail">

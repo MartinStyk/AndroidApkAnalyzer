@@ -14,6 +14,8 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.dialog.InfoDialog;
 
 /**
+ * Key value pair view
+ *
  * Created by Martin Styk on 06.07.2017.
  */
 public class DetailItemView extends LinearLayout implements View.OnClickListener {

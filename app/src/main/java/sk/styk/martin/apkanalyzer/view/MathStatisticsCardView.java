@@ -13,6 +13,9 @@ import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter;
 import sk.styk.martin.apkanalyzer.util.MathStatistics;
 
 /**
+ * Used in local statistics layout
+ * Contains name of attribute and available statistics - mean, median, max, min, deviation, variance
+ *
  * Created by Martin Styk on 06.07.2017.
  */
 public class MathStatisticsCardView extends CardView {
@@ -46,18 +49,18 @@ public class MathStatisticsCardView extends CardView {
 
     public void setStatistics(MathStatistics statistics) {
         type.setStatistics(statistics,
-                (DetailItemView) findViewById(R.id.item_arithmetic_mean),
-                (DetailItemView) findViewById(R.id.item_median),
-                (DetailItemView) findViewById(R.id.item_min),
-                (DetailItemView) findViewById(R.id.item_max),
-                (DetailItemView) findViewById(R.id.item_deviation),
-                (DetailItemView) findViewById(R.id.item_variance));
+                (DetailListItemView) findViewById(R.id.item_arithmetic_mean),
+                (DetailListItemView) findViewById(R.id.item_median),
+                (DetailListItemView) findViewById(R.id.item_min),
+                (DetailListItemView) findViewById(R.id.item_max),
+                (DetailListItemView) findViewById(R.id.item_deviation),
+                (DetailListItemView) findViewById(R.id.item_variance));
     }
 
     enum Type {
         INTEGRAL {
             @Override
-            void setStatistics(MathStatistics statistics, DetailItemView mean, DetailItemView median, DetailItemView min, DetailItemView max, DetailItemView deviation, DetailItemView variance) {
+            void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance) {
                 mean.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getArithmeticMean()));
                 median.setValue(BigDecimalFormatter.getFormat(0, 0).format(statistics.getMedian()));
                 min.setValue(BigDecimalFormatter.getFormat(0, 0).format(statistics.getMin()));
@@ -68,7 +71,7 @@ public class MathStatisticsCardView extends CardView {
         },
         DECIMAL{
             @Override
-            void setStatistics(MathStatistics statistics, DetailItemView mean, DetailItemView median, DetailItemView min, DetailItemView max, DetailItemView deviation, DetailItemView variance) {
+            void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance) {
                 mean.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getArithmeticMean()));
                 median.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getMedian()));
                 min.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getMin()));
@@ -79,7 +82,7 @@ public class MathStatisticsCardView extends CardView {
         },
         SIZE{
             @Override
-            void setStatistics(MathStatistics statistics, DetailItemView mean, DetailItemView median, DetailItemView min, DetailItemView max, DetailItemView deviation, DetailItemView variance) {
+            void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance) {
                 mean.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getArithmeticMean().longValue()));
                 median.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getMedian().longValue()));
                 min.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getMin().longValue()));
@@ -89,7 +92,7 @@ public class MathStatisticsCardView extends CardView {
             }
         };
 
-        abstract void setStatistics(MathStatistics statistics, DetailItemView mean, DetailItemView median, DetailItemView min, DetailItemView max, DetailItemView deviation, DetailItemView variance);
+        abstract void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance);
 
     }
 

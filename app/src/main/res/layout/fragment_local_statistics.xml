@@ -45,21 +45,21 @@
                             android:layout_height="wrap_content"
                             android:text="@string/analyze_results" />
 
-                        <sk.styk.martin.apkanalyzer.view.DetailItemView
+                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
                             android:id="@+id/item_analyze_success"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:titleText="@string/analyze_results_success"
                             app:valueText="@string/NA" />
 
-                        <sk.styk.martin.apkanalyzer.view.DetailItemView
+                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
                             android:id="@+id/item_analyze_failed"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:titleText="@string/analyze_results_failed"
                             app:valueText="@string/NA" />
 
-                        <sk.styk.martin.apkanalyzer.view.DetailItemView
+                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
                             android:id="@+id/item_system_apps"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

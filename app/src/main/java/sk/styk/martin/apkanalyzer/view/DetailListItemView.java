@@ -14,6 +14,8 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.dialog.InfoDialog;
 
 /**
+ * View used inside cardview - representing key value pair placed in cardview creating list of pairs
+ *
  * Created by Martin Styk on 06.07.2017.
  */
 public class DetailListItemView extends LinearLayout implements View.OnClickListener {
