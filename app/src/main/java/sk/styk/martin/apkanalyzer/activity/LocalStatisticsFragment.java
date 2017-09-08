@@ -78,10 +78,10 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
         binding.itemAnalyzeFailed.setValue(data.getAnalyzeFailed().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getAnalyzeFailed().getPercentage()) + "%)");
         binding.itemSystemApps.setValue(data.getSystemApps().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getSystemApps().getPercentage()) + "%)");
 
-        binding.chartMinSdk.setColumnChartData(getSdkColumnChart(data.getMinSdk(), getResources().getColor(R.color.colorPrimary)));
-        binding.chartTargetSdk.setColumnChartData(getSdkColumnChart(data.getTargetSdk(), getResources().getColor(R.color.colorPrimary)));
-        binding.chartInstallLocation.setColumnChartData(getStringBasedColumnChart(data.getInstallLocation(), R.string.install_loc, getResources().getColor(R.color.colorPrimary)));
-        binding.chartSignAlgorithm.setColumnChartData(getStringBasedColumnChart(data.getSignAlgorithm(), R.string.sign_algorithm, getResources().getColor(R.color.colorPrimary)));
+        binding.chartMinSdk.setColumnChartData(getSdkColumnChart(data.getMinSdk(), getResources().getColor(R.color.primary)));
+        binding.chartTargetSdk.setColumnChartData(getSdkColumnChart(data.getTargetSdk(), getResources().getColor(R.color.primary)));
+        binding.chartInstallLocation.setColumnChartData(getStringBasedColumnChart(data.getInstallLocation(), R.string.install_loc, getResources().getColor(R.color.primary)));
+        binding.chartSignAlgorithm.setColumnChartData(getStringBasedColumnChart(data.getSignAlgorithm(), R.string.sign_algorithm, getResources().getColor(R.color.primary)));
 
 
         binding.statisticsApkSize.setStatistics(data.getApkSize());

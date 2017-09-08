@@ -3,9 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+
         <item name="detailItemViewStyle">@style/ItemDetail</item>
         <item name="detailListItemViewStyle">@style/ListItemDetail</item>
     </style>
@@ -43,6 +44,7 @@
         <item name="android:paddingTop">@dimen/padding_cardview_text</item>
         <item name="android:paddingBottom">@dimen/padding_cardview_text</item>
         <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
+        <item name="android:background">@color/colorLightGrey</item>
     </style>
 
     <style name="DetailCardView" parent="CardView">
