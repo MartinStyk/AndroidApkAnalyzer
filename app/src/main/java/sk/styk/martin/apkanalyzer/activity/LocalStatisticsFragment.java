@@ -47,7 +47,11 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
         binding.chartMinSdk.setZoomType(ZoomType.HORIZONTAL);
         binding.chartMinSdk.setScrollEnabled(true);
-        binding.chartMinSdk.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
+        binding.chartMinSdk.setContainerScrollEnabled(true, ContainerScrollType.VERTICAL);
+
+        binding.chartTargetSdk.setZoomType(ZoomType.HORIZONTAL);
+        binding.chartTargetSdk.setScrollEnabled(true);
+        binding.chartTargetSdk.setContainerScrollEnabled(true, ContainerScrollType.VERTICAL);
 
         return binding.getRoot();
     }
