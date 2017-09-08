@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.activity;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -54,18 +53,18 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        // Place an action bar item for searching.
-        MenuItem item = menu.add("Search");
-        item.setIcon(android.R.drawable.ic_menu_search);
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        // Show an action bar item for searching.
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.setEnabled(true).setVisible(true);
+
         searchView = new SearchView(getActivity());
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
         searchView.setIconifiedByDefault(true);
 
-        searchView.setBackgroundColor(Color.WHITE);
+        searchItem.setActionView(searchView);
 
-        item.setActionView(searchView);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

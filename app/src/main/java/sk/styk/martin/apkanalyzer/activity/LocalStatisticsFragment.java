@@ -7,6 +7,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,11 +43,22 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
         binding = FragmentLocalStatisticsBinding.inflate(inflater);
         getLoaderManager().initLoader(LocalStatisticsLoader.ID, null, this);
 
+        setHasOptionsMenu(true);
+
         binding.chartMinSdk.setZoomType(ZoomType.HORIZONTAL);
         binding.chartMinSdk.setScrollEnabled(true);
         binding.chartMinSdk.setContainerScrollEnabled(true, ContainerScrollType.HORIZONTAL);
 
         return binding.getRoot();
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        // Hide action bar item for searching
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+        searchItem.setEnabled(false).setVisible(false);
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
