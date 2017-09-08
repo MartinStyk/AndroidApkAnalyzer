@@ -12,5 +12,6 @@
         android:orderInCategory="1"
         android:title="@string/action_search"
         app:showAsAction="ifRoom"
+        app:actionViewClass="android.widget.SearchView"
         android:icon="@android:drawable/ic_menu_search"/>
 </menu>

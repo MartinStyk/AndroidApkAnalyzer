@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.SearchView;
+import android.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,12 +57,9 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         MenuItem searchItem = menu.findItem(R.id.action_search);
         searchItem.setEnabled(true).setVisible(true);
 
-        searchView = new SearchView(getActivity());
+        searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setOnCloseListener(this);
-        searchView.setIconifiedByDefault(true);
-
-        searchItem.setActionView(searchView);
+        searchView.setQueryHint("Search");
 
         super.onCreateOptionsMenu(menu, inflater);
     }
