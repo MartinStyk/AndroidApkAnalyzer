@@ -74,6 +74,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = new AnalyzeFragment();
         } else if (id == R.id.nav_local_stats) {
             fragment = new LocalStatisticsFragment();
+        } else if (id == R.id.nav_about) {
+            fragment = new AboutFragment();
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_placeholder, fragment).commit();
