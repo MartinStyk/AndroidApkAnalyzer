@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Apk Analyzer</string>
+    <string name="app_author">Martin Styk</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -14,6 +15,8 @@
     <string name="NA">N/A</string>
     <string name="none">none</string>
 
+    <string name="nav_application_list">Applications</string>
+    <string name="nav_local_statistics">Local Statistics</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="intro">Analyze your installed apps!</string>

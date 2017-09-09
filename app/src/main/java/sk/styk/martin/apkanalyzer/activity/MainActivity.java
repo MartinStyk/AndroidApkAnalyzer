@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         // only on first run redirect to default fragment
         if (savedInstanceState == null) {
-            navigationView.setCheckedItem(R.id.nav_gallery);
+            navigationView.setCheckedItem(R.id.nav_app_list);
             getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_placeholder, new AnalyzeFragment()).commit();
         }
     }
@@ -70,16 +70,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
 
         Fragment fragment = null;
-        if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_app_list) {
             fragment = new AnalyzeFragment();
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_local_stats) {
             fragment = new LocalStatisticsFragment();
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
         }
 
         getSupportFragmentManager().beginTransaction().replace(R.id.main_activity_placeholder, fragment).commit();
