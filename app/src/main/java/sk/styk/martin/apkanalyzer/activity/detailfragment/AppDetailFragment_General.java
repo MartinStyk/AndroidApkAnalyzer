@@ -1,29 +1,43 @@
 package sk.styk.martin.apkanalyzer.activity.detailfragment;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import java.io.File;
+import java.io.IOException;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
+import sk.styk.martin.apkanalyzer.util.ApkFileOperations;
+import sk.styk.martin.apkanalyzer.util.ApkFileOperationsImpl;
 import sk.styk.martin.apkanalyzer.view.DetailItemView;
 
 /**
  * Created by Martin Styk on 18.06.2017.
  */
 
-public class AppDetailFragment_General extends Fragment {
+public class AppDetailFragment_General extends Fragment implements View.OnClickListener {
+
+    private GeneralData data;
+    private Button copyBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_app_detail_general, container, false);
 
-        GeneralData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
+        data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
 
         ((DetailItemView) rootView.findViewById(R.id.item_application_name)).setValue(data.getApplicationName());
         ((DetailItemView) rootView.findViewById(R.id.item_package_name)).setValue(data.getPackageName());
@@ -47,6 +61,34 @@ public class AppDetailFragment_General extends Fragment {
         String updateTime = DateUtils.formatDateTime(getActivity(), data.getLastUpdateTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
         ((DetailItemView) rootView.findViewById(R.id.item_last_update_time)).setValue(updateTime);
 
+        copyBtn = (Button) rootView.findViewById(R.id.btn_copy);
+        copyBtn.setOnClickListener(this);
+
         return rootView;
     }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == copyBtn.getId()) {
+
+            //check permission
+            if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 11);
+            } else {
+
+                ApkFileOperations fileUtils = new ApkFileOperationsImpl();
+
+                File source = new File(data.getApkDirectory());
+                File target = fileUtils.getFileApkFileOnExternalStorage(data.getPackageName());
+                try {
+                    fileUtils.copy(source, target);
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_success, target.getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.copy_apk_fail, Snackbar.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
 }

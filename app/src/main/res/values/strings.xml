@@ -63,6 +63,11 @@
     <string name="apk_size">Apk size</string>
     <string name="first_install">First install</string>
     <string name="last_update">Last update</string>
+    <string name="copy_apk">Copy APK file</string>
+    <string name="copy_apk_fail">Can not copy APK file</string>
+    <string name="copy_apk_success">APK file copied to %s</string>
+
+
 
     <string name="application_name_description">The name of this application. This name is displayed to users. Internally, Android uses package name attribute as a unique identifier of application. </string>
     <string name="package_name_description">The name of this package. From the Android Manifest tag\'s "name" attribute. The package name serves as a unique identifier for the application. It\'s also the default name for the application process and the default task affinity of an activity.</string>

@@ -131,6 +131,14 @@
             app:descriptionText="@string/last_update_description"
             app:titleText="@string/last_update" />
 
+        <Button
+            android:id="@+id/btn_copy"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:text="@string/copy_apk"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
