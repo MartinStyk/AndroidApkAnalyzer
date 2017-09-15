@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -30,7 +31,18 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
         codeView = (TextView) findViewById(R.id.code_view);
         loadingBar = (ProgressBar) findViewById(R.id.code_loading);
 
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         getSupportLoaderManager().initLoader(AndroidManifestLoader.ID, getIntent().getExtras(), this);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return true;
     }
 
 
