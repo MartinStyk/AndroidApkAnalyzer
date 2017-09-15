@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ public class AppListAdapter extends ArrayAdapter<AppListData> {
     private final LayoutInflater mInflater;
 
     public AppListAdapter(Context context) {
-        super(context, android.R.layout.simple_list_item_2);
+        super(context, R.layout.list_item_application);
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,11 +38,7 @@ public class AppBasicDataService {
         List<AppListData> packages = new ArrayList<>(applications.size());
 
         for (ApplicationInfo applicationInfo : applications) {
-            AppListData appBasicData = new AppListData();
-            appBasicData.setPackageName(applicationInfo.packageName);
-            appBasicData.setApplicationName(loadLabel(applicationInfo));
-            appBasicData.setIcon(applicationInfo.loadIcon(packageManager));
-            packages.add(appBasicData);
+            packages.add(new AppListData(applicationInfo, packageManager));
         }
 
         Collections.sort(packages, AppBasicInfoComparator.INSTANCE);
@@ -63,14 +60,6 @@ public class AppBasicDataService {
         Collections.sort(packages);
 
         return packages;
-    }
-
-    private String loadLabel(ApplicationInfo applicationInfo) {
-
-        CharSequence label = applicationInfo.loadLabel(packageManager);
-        String finalResult = label != null ? label.toString() : applicationInfo.packageName;
-
-        return finalResult;
     }
 
 }

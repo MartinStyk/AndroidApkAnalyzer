@@ -1,5 +1,7 @@
 package sk.styk.martin.apkanalyzer.model.list;
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -9,39 +11,41 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 /**
  * Class holding basic application metadata used in list view of all apps
  * For more detailed application metadata see {@link AppDetailData}
- *
+ * <p>
  * Created by Martin Styk on 15.06.2017.
  */
 public class AppListData implements Parcelable {
 
     private String packageName;
-
     private String applicationName;
-
     private Drawable icon;
 
+    private PackageManager packageManager;
+
+    private ApplicationInfo applicationInfo;
+
+    public AppListData(ApplicationInfo applicationInfo, PackageManager packageManager) {
+        this.packageManager = packageManager;
+        this.applicationInfo = applicationInfo;
+    }
+
     public String getApplicationName() {
+        if (applicationName == null) {
+            CharSequence label = applicationInfo.loadLabel(packageManager);
+            applicationName = label != null ? label.toString() : applicationInfo.packageName;
+        }
         return applicationName;
     }
 
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
-    }
-
     public String getPackageName() {
-        return packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+        return applicationInfo.packageName;
     }
 
     public Drawable getIcon() {
+        if (icon == null) {
+            icon = applicationInfo.loadIcon(packageManager);
+        }
         return icon;
-    }
-
-    public void setIcon(Drawable icon) {
-        this.icon = icon;
     }
 
     @Override
