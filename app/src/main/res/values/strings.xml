@@ -7,6 +7,7 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
+    <string name="action_save">Save</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_manifest">AndroidManifest</string>
@@ -67,6 +68,8 @@
     <string name="copy_apk">Copy APK file</string>
     <string name="copy_apk_background">Copying to %s</string>
     <string name="show_manifest">View AndroidManifest.xml</string>
+    <string name="save_manifest_background">Saving to %s</string>
+    <string name="save_manifest_fail">Manifest is not loaded yet</string>
 
 
     <string name="application_name_description">The name of this application. This name is displayed to users. Internally, Android uses package name attribute as a unique identifier of application. </string>
