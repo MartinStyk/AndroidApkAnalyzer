@@ -64,8 +64,7 @@
     <string name="first_install">First install</string>
     <string name="last_update">Last update</string>
     <string name="copy_apk">Copy APK file</string>
-    <string name="copy_apk_fail">Can not copy APK file</string>
-    <string name="copy_apk_success">APK file copied to %s</string>
+    <string name="copy_apk_background">Copying to %s</string>
 
 
 

@@ -1,8 +1,10 @@
 package sk.styk.martin.apkanalyzer.activity.detailfragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -15,13 +17,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import java.io.File;
-import java.io.IOException;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
+import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
-import sk.styk.martin.apkanalyzer.util.ApkFileOperations;
-import sk.styk.martin.apkanalyzer.util.ApkFileOperationsImpl;
 import sk.styk.martin.apkanalyzer.view.DetailItemView;
 
 /**
@@ -76,17 +76,16 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 11);
             } else {
 
-                ApkFileOperations fileUtils = new ApkFileOperationsImpl();
-
                 File source = new File(data.getApkDirectory());
-                File target = fileUtils.getFileApkFileOnExternalStorage(data.getPackageName());
-                try {
-                    fileUtils.copy(source, target);
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_success, target.getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.copy_apk_fail, Snackbar.LENGTH_SHORT).show();
-                }
+                File target = new File(Environment.getExternalStorageDirectory(), data.getPackageName() + ".apk");
+
+                Intent intent = new Intent(getActivity(), FileCopyService.class);
+                intent.putExtra(FileCopyService.SOURCE_FILE, source.getAbsolutePath());
+                intent.putExtra(FileCopyService.TARGET_FILE, target.getAbsolutePath());
+
+                getActivity().startService(intent);
+
+                Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, target.getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
             }
         }
     }

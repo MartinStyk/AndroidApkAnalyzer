@@ -29,6 +29,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sk.styk.martin.apkanalyzer.activity.AppListActivity" />
         </activity>
+        <service android:name=".business.task.FileCopyService" />
     </application>
 
 </manifest>
