@@ -3,8 +3,6 @@ package sk.styk.martin.apkanalyzer.business.service;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.content.res.XmlResourceParser;
 import android.support.annotation.NonNull;
 
 import java.io.File;
@@ -48,7 +46,7 @@ public class GeneralDataService {
             generalData.setApkDirectory(applicationInfo.sourceDir);
             generalData.setApkSize(getApkSize(applicationInfo.sourceDir));
             generalData.setDataDirectory(applicationInfo.dataDir);
-            generalData.setMinSdkVersion(getMinSdkVersion(packageInfo.packageName));
+            generalData.setMinSdkVersion(AndroidManifestService.getMinSdkVersion(packageInfo.packageName, packageManager));
             generalData.setMinSdkLabel(AndroidVersionHelper.resolveVersion(generalData.getMinSdkVersion()));
             generalData.setTargetSdkVersion(applicationInfo.targetSdkVersion);
             generalData.setTargetSdkLabel(AndroidVersionHelper.resolveVersion(applicationInfo.targetSdkVersion));
@@ -57,31 +55,6 @@ public class GeneralDataService {
         return generalData;
     }
 
-    /**
-     * It is not possible to get minSdkVersions using Android PackageManager - parse AndroidManifest of app
-     */
-    public int getMinSdkVersion(String packageName) {
-        Resources mApk1Resources = null;
-        try {
-            mApk1Resources = packageManager.getResourcesForApplication(packageName);
-            XmlResourceParser parser = mApk1Resources.getAssets().openXmlResourceParser("AndroidManifest.xml");
-            int eventType = -1;
-
-            while (eventType != parser.END_DOCUMENT) {
-                if (eventType == XmlResourceParser.START_TAG) {
-                    String tagValue = parser.getName();
-                    if (tagValue.equals("uses-sdk")) {
-                        return parser.getAttributeIntValue("http://schemas.android.com/apk/res/android", "minSdkVersion", 0);
-                    }
-                }
-                eventType = parser.next();
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
 
     public long getApkSize(String sourceDir) {
         return new File(sourceDir).length();

@@ -4,6 +4,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import sk.styk.martin.apkanalyzer.business.service.AndroidManifestService;
 import sk.styk.martin.apkanalyzer.business.service.CertificateService;
 import sk.styk.martin.apkanalyzer.business.service.FileDataService;
 import sk.styk.martin.apkanalyzer.business.service.GeneralDataService;
@@ -55,7 +56,7 @@ public class LocalApplicationStatisticDataService {
         data.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
         data.setInstallLocation(packageInfo.installLocation);
         data.setTargetSdk(applicationInfo.targetSdkVersion);
-        data.setMinSdk(generalDataService.getMinSdkVersion(packageName));
+        data.setMinSdk(AndroidManifestService.getMinSdkVersion(packageName, packageManager));
         data.setApkSize(generalDataService.getApkSize(applicationInfo.sourceDir));
 
         data.setSignAlgorithm(certificateService.getSignAlgorithm(packageInfo));

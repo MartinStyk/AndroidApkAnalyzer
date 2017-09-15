@@ -139,6 +139,14 @@
             android:text="@string/copy_apk"
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
+        <Button
+            android:id="@+id/btn_show_manifest"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:text="@string/show_manifest"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
+
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

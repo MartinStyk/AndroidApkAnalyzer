@@ -32,6 +32,7 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
 
     private GeneralData data;
     private Button copyBtn;
+    private Button manifestBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,6 +65,9 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
         copyBtn = (Button) rootView.findViewById(R.id.btn_copy);
         copyBtn.setOnClickListener(this);
 
+        manifestBtn = (Button) rootView.findViewById(R.id.btn_show_manifest);
+        manifestBtn.setOnClickListener(this);
+
         return rootView;
     }
 
@@ -87,6 +91,10 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
 
                 Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, target.getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
             }
+        } else if (v.getId() == manifestBtn.getId()) {
+            Intent intent = new Intent(getActivity(), ManifestActivity.class);
+            intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, data.getPackageName());
+            startActivity(intent);
         }
     }
 
