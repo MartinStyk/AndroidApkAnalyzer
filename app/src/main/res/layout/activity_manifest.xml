@@ -4,15 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.pddstudio.highlightjs.HighlightJsView
+        android:id="@+id/code_view"
+        android:layout_marginTop="0dp"
+        android:padding="0dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/code_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+        android:layout_height="wrap_content" />
 
     <ProgressBar
         android:id="@+id/code_loading"

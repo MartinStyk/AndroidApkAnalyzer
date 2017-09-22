@@ -17,7 +17,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import com.pddstudio.highlightjs.HighlightJsView;
+import com.pddstudio.highlightjs.models.Language;
+import com.pddstudio.highlightjs.models.Theme;
 
 import java.io.File;
 
@@ -34,7 +37,7 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
     public static final String PACKAGE_NAME_FOR_MANIFEST_REQUEST = "packageNameForManifestRequest";
     private static final int REQUEST_STORAGE_PERMISSION = 11;
 
-    private TextView codeView;
+    private HighlightJsView codeView;
     private ProgressBar loadingBar;
 
     private String manifest;
@@ -47,7 +50,10 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
 
         packageName = getIntent().getStringExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST);
 
-        codeView = (TextView) findViewById(R.id.code_view);
+        codeView = (HighlightJsView) findViewById(R.id.code_view);
+        codeView.setHighlightLanguage(Language.XML);
+        codeView.setTheme(Theme.ATOM_ONE_LIGHT);
+
         loadingBar = (ProgressBar) findViewById(R.id.code_loading);
 
         ActionBar actionBar = getSupportActionBar();
@@ -66,14 +72,14 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
     @Override
     public void onLoadFinished(Loader<String> loader, String data) {
         manifest = data;
-        codeView.setText(manifest);
+        codeView.setSource(manifest);
         loadingBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onLoaderReset(Loader<String> loader) {
         manifest = "";
-        codeView.setText(manifest);
+        codeView.setSource("");
     }
 
     @Override
