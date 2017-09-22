@@ -1,9 +1,12 @@
 package sk.styk.martin.apkanalyzer.activity.dialog;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+
+import sk.styk.martin.apkanalyzer.R;
 
 /**
  * @author Martin Styk
@@ -35,6 +38,12 @@ public class InfoDialog extends DialogFragment {
         return new AlertDialog.Builder(getActivity())
                 .setTitle(title + ": " + value)
                 .setMessage(description)
+                .setNegativeButton(R.string.dismiss, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dismiss();
+                    }
+                })
                 .create();
     }
 
