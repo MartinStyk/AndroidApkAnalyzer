@@ -1,11 +1,15 @@
 package sk.styk.martin.apkanalyzer.activity.detailfragment;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +32,7 @@ import sk.styk.martin.apkanalyzer.business.task.StringToFileSaveService;
 public class ManifestActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 
     public static final String PACKAGE_NAME_FOR_MANIFEST_REQUEST = "packageNameForManifestRequest";
+    private static final int REQUEST_STORAGE_PERMISSION = 11;
 
     private TextView codeView;
     private ProgressBar loadingBar;
@@ -81,7 +86,7 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                return saveManifestToFile();
+                return saveWithPermissionCheck();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -93,12 +98,33 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
         return true;
     }
 
-    private boolean saveManifestToFile() {
+    private boolean saveWithPermissionCheck() {
         if (manifest == null || manifest.isEmpty()) {
             Snackbar.make(findViewById(android.R.id.content), R.string.save_manifest_fail, Snackbar.LENGTH_SHORT);
             return false;
         }
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
+        } else {
+            exportManifestFile();
+        }
+
+        return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                exportManifestFile();
+            } else {
+                Snackbar.make(findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void exportManifestFile() {
         File target = new File(Environment.getExternalStorageDirectory(), "AndroidManifest_" + packageName + ".xml");
 
         Intent intent = new Intent(this, StringToFileSaveService.class);
@@ -108,7 +134,5 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
         startService(intent);
 
         Snackbar.make(findViewById(android.R.id.content), getString(R.string.save_manifest_background, target.getAbsolutePath()), Snackbar.LENGTH_LONG).show();
-
-        return true;
     }
 }

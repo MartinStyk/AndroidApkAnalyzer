@@ -30,6 +30,8 @@ import sk.styk.martin.apkanalyzer.view.DetailItemView;
 
 public class AppDetailFragment_General extends Fragment implements View.OnClickListener {
 
+    private static final int REQUEST_STORAGE_PERMISSION = 11;
+
     private GeneralData data;
     private Button copyBtn;
     private Button manifestBtn;
@@ -75,27 +77,42 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
     public void onClick(View v) {
         if (v.getId() == copyBtn.getId()) {
 
-            //check permission
+            //request permission and handle result
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 11);
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
             } else {
-
-                File source = new File(data.getApkDirectory());
-                File target = new File(Environment.getExternalStorageDirectory(), data.getPackageName() + ".apk");
-
-                Intent intent = new Intent(getActivity(), FileCopyService.class);
-                intent.putExtra(FileCopyService.SOURCE_FILE, source.getAbsolutePath());
-                intent.putExtra(FileCopyService.TARGET_FILE, target.getAbsolutePath());
-
-                getActivity().startService(intent);
-
-                Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, target.getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
+                exportApkFile();
             }
         } else if (v.getId() == manifestBtn.getId()) {
             Intent intent = new Intent(getActivity(), ManifestActivity.class);
             intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, data.getPackageName());
             startActivity(intent);
         }
+    }
+
+    //TODO this is not executed
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                exportApkFile();
+            } else {
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void exportApkFile() {
+        File source = new File(data.getApkDirectory());
+        File target = new File(Environment.getExternalStorageDirectory(), data.getPackageName() + ".apk");
+
+        Intent intent = new Intent(getActivity(), FileCopyService.class);
+        intent.putExtra(FileCopyService.SOURCE_FILE, source.getAbsolutePath());
+        intent.putExtra(FileCopyService.TARGET_FILE, target.getAbsolutePath());
+
+        getActivity().startService(intent);
+
+        Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, target.getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
     }
 
 }
