@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.service;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
+import android.text.TextUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
@@ -21,7 +22,16 @@ import javax.xml.transform.stream.StreamSource;
  */
 public class AndroidManifestService {
 
-    public String loadAndroidManifest(PackageManager packageManager, String packageName) {
+
+    private PackageManager packageManager;
+    private String packageName;
+
+    public AndroidManifestService(PackageManager packageManager, String packageName) {
+        this.packageManager = packageManager;
+        this.packageName = packageName;
+    }
+
+    public String loadAndroidManifest() {
         String manifest = readManifest(packageManager, packageName);
         String formatted = formatManifest(manifest);
         return formatted;
@@ -38,6 +48,7 @@ public class AndroidManifestService {
             String xmlString = result.getWriter().toString();
             return xmlString;
         } catch (Exception e) {
+            e.printStackTrace();
             return "";
         }
     }
@@ -59,7 +70,10 @@ public class AndroidManifestService {
 
                     //for each attribute in given element append attrName="attrValue"
                     for (int attribute = 0; attribute < parser.getAttributeCount(); attribute++) {
-                        stringBuilder.append(" " + parser.getAttributeName(attribute) + "=\"" + parser.getAttributeValue(attribute) + "\"");
+                        String attributeName = parser.getAttributeName(attribute);
+                        String attributeValue = getAttributeValue(attributeName, parser.getAttributeValue(attribute));
+
+                        stringBuilder.append(" " + attributeName + "=\"" + attributeValue + "\"");
                     }
 
                     stringBuilder.append(">");
@@ -78,6 +92,33 @@ public class AndroidManifestService {
             e.printStackTrace();
         }
         return stringBuilder.toString();
+    }
+
+    private String getAttributeValue(String attributeName, String attributeValue) {
+        if (attributeValue.startsWith("@")) {
+            Resources resources = null;
+            try {
+                int id = Integer.valueOf(attributeValue.substring(1));
+                resources = packageManager.getResourcesForApplication(packageName);
+
+                String value;
+
+                switch (attributeName){
+                    case "theme":
+                    case "resource":
+                        value = resources.getResourceEntryName(id);
+                        break;
+                    default:
+                        value = resources.getString(id);
+                }
+
+                String escaped = TextUtils.htmlEncode(value);
+                return escaped;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return attributeValue;
     }
 
     /**

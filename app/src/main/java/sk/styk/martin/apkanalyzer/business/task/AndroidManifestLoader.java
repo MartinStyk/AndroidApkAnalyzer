@@ -14,7 +14,6 @@ import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
 public class AndroidManifestLoader extends ApkAnalyzerAbstractAsyncLoader<String> {
 
     public static final int ID = 4;
-    private final AppDetailDataService appDetailDataService;
 
     private PackageManager packageManager;
     private String packageName;
@@ -23,12 +22,11 @@ public class AndroidManifestLoader extends ApkAnalyzerAbstractAsyncLoader<String
         super(context);
         this.packageManager = context.getPackageManager();
         this.packageName = packageName;
-        appDetailDataService = new AppDetailDataService(context.getPackageManager());
     }
 
     @Override
     public String loadInBackground() {
-        return new AndroidManifestService().loadAndroidManifest(packageManager, packageName);
+        return new AndroidManifestService(packageManager, packageName).loadAndroidManifest();
     }
 
 
