@@ -79,7 +79,7 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
 
             //request permission and handle result
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
             } else {
                 exportApkFile();
             }
@@ -90,7 +90,6 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
         }
     }
 
-    //TODO this is not executed
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         if (requestCode == REQUEST_STORAGE_PERMISSION) {
