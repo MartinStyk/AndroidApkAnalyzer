@@ -24,7 +24,7 @@
             android:id="@+id/item_receiver_permission"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:descriptionText="@string/receiver_exported_descritpion"
+            app:descriptionText="@string/receiver_exported_description"
             app:titleText="@string/receiver_permission"
             app:valueText="@string/none" />
 
@@ -32,7 +32,7 @@
             android:id="@+id/item_receiver_exported"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:descriptionText="@string/receiver_exported_descritpion"
+            app:descriptionText="@string/receiver_exported_description"
             app:titleText="@string/receiver_exported" />
 
     </LinearLayout>

@@ -26,7 +26,7 @@ public class InstallLocationHelper {
             case PackageInfo.INSTALL_LOCATION_INTERNAL_ONLY:
                 return context != null ? context.getString(R.string.install_loc_internal_only) : INSTALL_LOCATION_INTERNAL_ONLY;
             case PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL:
-                return context != null ? context.getString(R.string.install_loc_preffer_external) : INSTALL_LOCATION_PREFER_EXTERNAL;
+                return context != null ? context.getString(R.string.install_loc_prefer_external) : INSTALL_LOCATION_PREFER_EXTERNAL;
             default:
                 return context != null ? context.getString(R.string.install_loc_internal_only) : INSTALL_LOCATION_INTERNAL_ONLY;
         }

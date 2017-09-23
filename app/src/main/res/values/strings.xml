@@ -23,9 +23,6 @@
     <string name="nav_local_statistics">Local Statistics</string>
     <string name="nav_about">About</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="intro">Analyze your installed apps!</string>
-
     <string name="all_apps">All apps</string>
     <string name="system_apps">System apps</string>
     <string name="user_apps">User apps</string>
@@ -45,7 +42,7 @@
 
     <string name="install_loc_auto">Automatic</string>
     <string name="install_loc_internal_only">Internal storage only</string>
-    <string name="install_loc_preffer_external">Preffer external storage</string>
+    <string name="install_loc_prefer_external">Prefer external storage</string>
     <string name="install_loc_unspecified">Unspecified</string>
 
 
@@ -140,7 +137,7 @@
     <string name="all_drawables_description">Total number of drawables contained in APK file. This includes all files in /res/drawable directory. Files from support libraries are included as well. If drawable is provided multiple times, e.g. in different resolution, it is counted multiple times.</string>
     <string name="different_drawables_description">Number of logically unique drawables contained in APK file. Files from support libraries are included as well. If drawable is provided multiple times, e.g. in different resolution, it is counted only once.</string>
     <string name="png_drawables_description">Number of png drawables included in APK file.</string>
-    <string name="nine_patch_drawables_description">Number of nine patch (9.png) drawables included in APK file. A nine patch drawable graphic is a stretchable bitmap image that you can use as the background of a view. Android automatically resizes the graphic to accommodate the contents of the view. </string>
+    <string name="nine_patch_drawables_description">Number of nine patch (9.png) drawables included in APK file. A nine patch drawable graphic is a stretchable bitmap image that you can use as the background of a view. Android automatically resize the graphic to accommodate the contents of the view. </string>
     <string name="jpg_drawables_description">Number of jpg drawables included in APK file.</string>
     <string name="gif_drawables_description">Number of gif drawables included in APK file.</string>
     <string name="xml_drawables_description">Number of xml drawables included in APK file. Xml drawables are marker files containing data about shapes etc.</string>
@@ -152,8 +149,8 @@
     <string name="xxxhdpi_drawables_description">Number of drawables optimized for screens with extra extra extra high pixel density ~640dpi</string>
     <string name="nodpi_drawables_description">Number of drawables for all densities. These are density-independent resources. The system does not scale resources tagged with this qualifier, regardless of the current screen\'s density.</string>
     <string name="tvdpi_drawables_description">Resources for screens somewhere between mdpi and hdpi; approximately 213dpi. This is not considered a "primary" density group. It is mostly intended for televisions and most apps shouldn\'t need it—providing mdpi and hdpi resources is sufficient for most apps and the system will scale them as appropriate.</string>
-    <string name="all_layouts_description">Total number of layouts contained in APK file. This includes all files in /res/layouts directory. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait modus, it is counted multiple times.</string>
-    <string name="different_layouts_description">Number of logically unique layouts contained in APK file. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait modus, it is counted only once.</string>
+    <string name="all_layouts_description">Total number of layouts contained in APK file. This includes all files in /res/layouts directory. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted multiple times.</string>
+    <string name="different_layouts_description">Number of logically unique layouts contained in APK file. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted only once.</string>
 
     <string name="activity_label">Label</string>
     <string name="activity_parent">Parent</string>
@@ -190,7 +187,7 @@
     <string name="receiver_exported">Exported</string>
 
     <string name="receiver_permission_description">The name of a permission that broadcasters must have to send a message to the broadcast receiver. If this attribute is not set, the permission set by the application element\'s permission attribute applies to the broadcast receiver. If neither attribute is set, the receiver is not protected by a permission.</string>
-    <string name="receiver_exported_descritpion">Whether or not the broadcast receiver can receive messages from sources outside its application - \"yes\" if it can, and \"no\" if not. If no, the only messages the broadcast receiver can receive are those sent by components of the same application or applications with the same user ID.</string>
+    <string name="receiver_exported_description">Whether or not the broadcast receiver can receive messages from sources outside its application - \"yes\" if it can, and \"no\" if not. If no, the only messages the broadcast receiver can receive are those sent by components of the same application or applications with the same user ID.</string>
 
     <string name="arithmetic_mean">Arithmetic mean</string>
     <string name="median">Median</string>
