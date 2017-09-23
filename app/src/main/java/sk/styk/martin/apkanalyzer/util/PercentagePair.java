@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 /**
  * Pair of number and its percentage part of total count
  * Used in statistics task
- *
+ * <p>
  * Created by Martin Styk on 21.01.2016.
  */
 public class PercentagePair implements Parcelable {
@@ -36,10 +36,10 @@ public class PercentagePair implements Parcelable {
         if (other instanceof PercentagePair) {
             PercentagePair otherPair = (PercentagePair) other;
             return
-                    ((this.count == otherPair.count ||
+                    ((this.count.equals(otherPair.count) ||
                             (this.count != null && otherPair.count != null &&
                                     this.count.equals(otherPair.count))) &&
-                            (this.percentage == otherPair.percentage ||
+                            (this.percentage.equals(otherPair.percentage) ||
                                     (this.percentage != null && otherPair.percentage != null &&
                                             this.percentage.equals(otherPair.percentage))));
         }

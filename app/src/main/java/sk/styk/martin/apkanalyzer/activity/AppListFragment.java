@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -30,8 +29,6 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
     private AppListAdapter listAdapter;
 
     private SearchView searchView;
-
-    private String currentFilter;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -67,7 +64,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        currentFilter = !TextUtils.isEmpty(newText) ? newText : null;
+        String currentFilter = !TextUtils.isEmpty(newText) ? newText : null;
         listAdapter.getFilter().filter(currentFilter);
         return true;
     }

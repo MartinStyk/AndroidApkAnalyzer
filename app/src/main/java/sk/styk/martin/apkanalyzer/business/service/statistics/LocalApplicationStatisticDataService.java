@@ -28,13 +28,13 @@ public class LocalApplicationStatisticDataService {
     public LocalApplicationStatisticDataService(PackageManager packageManager) {
         this.packageManager = packageManager;
         this.generalDataService = new GeneralDataService(packageManager);
-        this.certificateService = new CertificateService(packageManager);
-        this.fileService = new FileDataService(packageManager);
-        this.resourceService = new ResourceService(packageManager);
+        this.certificateService = new CertificateService();
+        this.fileService = new FileDataService();
+        this.resourceService = new ResourceService();
     }
 
     public LocalStatisticsAppData get(String packageName) {
-        PackageInfo packageInfo = null;
+        PackageInfo packageInfo;
         try {
             packageInfo = packageManager.getPackageInfo(packageName,
                     PackageManager.GET_SIGNATURES |
@@ -66,8 +66,8 @@ public class LocalApplicationStatisticDataService {
         data.setProviders(packageInfo.providers == null ? 0 : packageInfo.providers.length);
         data.setReceivers(packageInfo.receivers == null ? 0 : packageInfo.receivers.length);
 
-        data.setDefinedPermissions(packageInfo.permissions == null ? 0 :packageInfo.permissions.length);
-        data.setUsedPermissions(packageInfo.requestedPermissions == null ? 0 :packageInfo.requestedPermissions.length);
+        data.setDefinedPermissions(packageInfo.permissions == null ? 0 : packageInfo.permissions.length);
+        data.setUsedPermissions(packageInfo.requestedPermissions == null ? 0 : packageInfo.requestedPermissions.length);
 
         FileData fileData = fileService.get(packageInfo);
         data.setFiles(fileData.getAllHashes().size());

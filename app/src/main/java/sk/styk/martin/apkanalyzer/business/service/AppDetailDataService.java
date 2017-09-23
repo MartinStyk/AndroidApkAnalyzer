@@ -25,16 +25,16 @@ public class AppDetailDataService {
     public AppDetailDataService(@NonNull PackageManager packageManager) {
         this.packageManager = packageManager;
         this.generalDataService = new GeneralDataService(packageManager);
-        this.certificateService = new CertificateService(packageManager);
+        this.certificateService = new CertificateService();
         this.appComponentsService = new AppComponentsService(packageManager);
-        this.permissionsService = new PermissionsService(packageManager);
-        this.fileDataService = new FileDataService(packageManager);
-        this.resourceService = new ResourceService(packageManager);
+        this.permissionsService = new PermissionsService();
+        this.fileDataService = new FileDataService();
+        this.resourceService = new ResourceService();
     }
 
     @NonNull
     public AppDetailData get(@NonNull String packageName) {
-        PackageInfo packageInfo = null;
+        PackageInfo packageInfo;
         try {
             packageInfo = packageManager.getPackageInfo(packageName,
                     PackageManager.GET_SIGNATURES |

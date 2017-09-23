@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 
 import java.util.List;
 
@@ -19,7 +18,6 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData;
 public class AppListLoader extends ApkAnalyzerAbstractAsyncLoader<List<AppListData>> {
     public static final int ID = 1;
 
-    private final PackageManager mPackageManager;
     private final AppBasicDataService installedAppsService;
 
     PackageIntentReceiver mPackageObserver;
@@ -27,8 +25,7 @@ public class AppListLoader extends ApkAnalyzerAbstractAsyncLoader<List<AppListDa
     public AppListLoader(Context context) {
         super(context);
 
-        mPackageManager = getContext().getPackageManager();
-        installedAppsService = new AppBasicDataService(mPackageManager);
+        installedAppsService = new AppBasicDataService(getContext().getPackageManager());
     }
 
     /**

@@ -54,26 +54,26 @@ public class AndroidManifestService {
     }
 
     private String readManifest(PackageManager packageManager, String packageName) {
-        Resources mApk1Resources = null;
+        Resources apkResources;
         StringBuilder stringBuilder = new StringBuilder();
         try {
-            mApk1Resources = packageManager.getResourcesForApplication(packageName);
-            XmlResourceParser parser = mApk1Resources.getAssets().openXmlResourceParser("AndroidManifest.xml");
+            apkResources = packageManager.getResourcesForApplication(packageName);
+            XmlResourceParser parser = apkResources.getAssets().openXmlResourceParser("AndroidManifest.xml");
             int eventType;
 
-            while ((eventType = parser.next()) != parser.END_DOCUMENT) {
+            while ((eventType = parser.next()) != XmlResourceParser.END_DOCUMENT) {
 
                 // start tag found
                 if (eventType == XmlResourceParser.START_TAG) {
                     //start with opening element and writing its name
-                    stringBuilder.append("<" + parser.getName());
+                    stringBuilder.append("<").append(parser.getName());
 
                     //for each attribute in given element append attrName="attrValue"
                     for (int attribute = 0; attribute < parser.getAttributeCount(); attribute++) {
                         String attributeName = parser.getAttributeName(attribute);
                         String attributeValue = getAttributeValue(attributeName, parser.getAttributeValue(attribute));
 
-                        stringBuilder.append(" " + attributeName + "=\"" + attributeValue + "\"");
+                        stringBuilder.append(" ").append(attributeName).append("=\"").append(attributeValue).append("\"");
                     }
 
                     stringBuilder.append(">");
@@ -83,7 +83,7 @@ public class AndroidManifestService {
                         stringBuilder.append(parser.getText());
                     }
                 } else if (eventType == XmlResourceParser.END_TAG) {
-                    stringBuilder.append("</" + parser.getName() + ">");
+                    stringBuilder.append("</").append(parser.getName()).append(">");
 
                 }
             }
@@ -96,7 +96,7 @@ public class AndroidManifestService {
 
     private String getAttributeValue(String attributeName, String attributeValue) {
         if (attributeValue.startsWith("@")) {
-            Resources resources = null;
+            Resources resources;
             try {
                 int id = Integer.valueOf(attributeValue.substring(1));
                 resources = packageManager.getResourcesForApplication(packageName);
@@ -112,8 +112,7 @@ public class AndroidManifestService {
                         value = resources.getString(id);
                 }
 
-                String escaped = TextUtils.htmlEncode(value);
-                return escaped;
+                return TextUtils.htmlEncode(value);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -125,13 +124,13 @@ public class AndroidManifestService {
      * It is not possible to get minSdkVersions using Android PackageManager - parse AndroidManifest of app
      */
     public static int getMinSdkVersion(String packageName, PackageManager packageManager) {
-        Resources mApk1Resources = null;
+        Resources apkResources;
         try {
-            mApk1Resources = packageManager.getResourcesForApplication(packageName);
-            XmlResourceParser parser = mApk1Resources.getAssets().openXmlResourceParser("AndroidManifest.xml");
+            apkResources = packageManager.getResourcesForApplication(packageName);
+            XmlResourceParser parser = apkResources.getAssets().openXmlResourceParser("AndroidManifest.xml");
             int eventType = -1;
 
-            while (eventType != parser.END_DOCUMENT) {
+            while (eventType != XmlResourceParser.END_DOCUMENT) {
                 if (eventType == XmlResourceParser.START_TAG) {
                     String tagValue = parser.getName();
                     if (tagValue.equals("uses-sdk")) {

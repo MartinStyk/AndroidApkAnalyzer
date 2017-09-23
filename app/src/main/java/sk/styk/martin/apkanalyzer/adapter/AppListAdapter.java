@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.adapter;
 
 import android.content.Context;
-import android.util.Log;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +35,9 @@ public class AppListAdapter extends ArrayAdapter<AppListData> {
     /**
      * Populate new items in the list.
      */
+    @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
         View view;
 
         if (convertView == null) {

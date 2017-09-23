@@ -12,7 +12,7 @@ public class ConversionHelper {
     public static double[] toDoubleArray(List<Double> numbers) {
         double[] target = new double[numbers.size()];
         for (int i = 0; i < target.length; i++) {
-            target[i] = numbers.get(i).doubleValue();
+            target[i] = numbers.get(i);
         }
         return target;
     }
@@ -26,9 +26,8 @@ public class ConversionHelper {
     }
 
     public static List<Integer> toIntegerList(double[] arr) {
-        List<Integer> toReturn = new ArrayList<Integer>();
-        for (int i = 0; i < arr.length; i++) {
-            Double d = arr[i];
+        List<Integer> toReturn = new ArrayList<>();
+        for (Double d : arr) {
             toReturn.add(d.intValue());
         }
         return toReturn;
@@ -38,9 +37,8 @@ public class ConversionHelper {
         if (arr == null)
             return null;
 
-        List<Long> toReturn = new ArrayList<Long>();
-        for (int i = 0; i < arr.length; i++) {
-            Double d = arr[i];
+        List<Long> toReturn = new ArrayList<>();
+        for (Double d : arr) {
             toReturn.add(d.longValue());
         }
         return toReturn;
@@ -50,10 +48,10 @@ public class ConversionHelper {
         if (arr == null)
             return null;
 
-        List<Long> toReturn = new ArrayList<Long>();
-        for (int i = 0; i < arr.size(); i++) {
-            Long d = arr.get(i).longValue();
-            toReturn.add(d);
+        List<Long> toReturn = new ArrayList<>();
+
+        for(Number n : arr){
+            toReturn.add(n.longValue());
         }
         return toReturn;
     }

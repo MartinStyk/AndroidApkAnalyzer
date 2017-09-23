@@ -19,12 +19,6 @@ import sk.styk.martin.apkanalyzer.model.detail.FileData;
  */
 public class FileDataService {
 
-    private PackageManager packageManager;
-
-    public FileDataService(PackageManager packageManager) {
-        this.packageManager = packageManager;
-    }
-
     public FileData get(@NonNull PackageInfo packageInfo) {
 
         Manifest mf = openManifest(packageInfo.applicationInfo.sourceDir);
@@ -36,12 +30,17 @@ public class FileDataService {
         for (Map.Entry<String, Attributes> entry : map.entrySet()) {
             String fileName = entry.getKey();
             String hash = (entry.getValue() == null) ? null : entry.getValue().getValue("SHA1-Digest");
-            if (fileName.equals("classes.dex")) {
-                fileData.setDexHash(hash);
-            } else if (fileName.equals("resources.arsc")) {
-                fileData.setArscHash(hash);
-            } else {
-                hashData.put(fileName, hash);
+
+            switch (fileName) {
+                case "classes.dex":
+                    fileData.setDexHash(hash);
+                    break;
+                case "resources.arsc":
+                    fileData.setArscHash(hash);
+                    break;
+                default:
+                    hashData.put(fileName, hash);
+                    break;
             }
         }
         fileData.setAllHashes(hashData);

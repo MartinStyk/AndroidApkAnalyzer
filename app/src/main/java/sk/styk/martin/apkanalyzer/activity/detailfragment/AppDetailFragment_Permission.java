@@ -23,7 +23,7 @@ public class AppDetailFragment_Permission extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_app_detail_permission, container, false);
 
-        List data = getArguments().getStringArrayList(AppDetailFragment.ARG_CHILD);
+        List<String> data = getArguments().getStringArrayList(AppDetailFragment.ARG_CHILD);
 
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_permission);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);

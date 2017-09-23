@@ -338,21 +338,21 @@ public class LocalStatisticsData implements Parcelable {
         this.analyzeFailed = in.readParcelable(PercentagePair.class.getClassLoader());
         this.systemApps = in.readParcelable(PercentagePair.class.getClassLoader());
         int installLocationSize = in.readInt();
-        this.installLocation = new HashMap<String, PercentagePair>(installLocationSize);
+        this.installLocation = new HashMap<>(installLocationSize);
         for (int i = 0; i < installLocationSize; i++) {
             String key = in.readString();
             PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
             this.installLocation.put(key, value);
         }
         int targetSdkSize = in.readInt();
-        this.targetSdk = new HashMap<Integer, PercentagePair>(targetSdkSize);
+        this.targetSdk = new HashMap<>(targetSdkSize);
         for (int i = 0; i < targetSdkSize; i++) {
             Integer key = (Integer) in.readValue(Integer.class.getClassLoader());
             PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
             this.targetSdk.put(key, value);
         }
         int minSdkSize = in.readInt();
-        this.minSdk = new HashMap<Integer, PercentagePair>(minSdkSize);
+        this.minSdk = new HashMap<>(minSdkSize);
         for (int i = 0; i < minSdkSize; i++) {
             Integer key = (Integer) in.readValue(Integer.class.getClassLoader());
             PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
@@ -360,7 +360,7 @@ public class LocalStatisticsData implements Parcelable {
         }
         this.apkSize = in.readParcelable(MathStatistics.class.getClassLoader());
         int signAlgorithmSize = in.readInt();
-        this.signAlgorithm = new HashMap<String, PercentagePair>(signAlgorithmSize);
+        this.signAlgorithm = new HashMap<>(signAlgorithmSize);
         for (int i = 0; i < signAlgorithmSize; i++) {
             String key = in.readString();
             PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());

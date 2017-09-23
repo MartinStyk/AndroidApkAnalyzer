@@ -12,34 +12,35 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true" />
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/app_icon" />
 
 
     <TextView
         android:id="@+id/application_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/package_img"
-        android:layout_toRightOf="@id/package_img"
+        android:layout_marginBottom="4dp"
         android:layout_marginLeft="@dimen/text_margin_right_left"
         android:layout_marginRight="@dimen/text_margin_right_left"
         android:layout_marginTop="@dimen/text_margin_top_bottom"
-        android:layout_marginBottom="4dp"
-        android:textAppearance="?android:attr/textAppearanceListItem"
+        android:layout_toEndOf="@id/package_img"
+        android:layout_toRightOf="@id/package_img"
         android:ellipsize="end"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
 
     <TextView
         android:id="@+id/package_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/package_img"
-        android:layout_toRightOf="@id/package_img"
         android:layout_below="@id/application_name"
+        android:layout_marginBottom="@dimen/text_margin_top_bottom"
         android:layout_marginLeft="@dimen/text_margin_right_left"
         android:layout_marginRight="@dimen/text_margin_right_left"
-        android:layout_marginBottom="@dimen/text_margin_top_bottom"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:layout_toEndOf="@id/package_img"
+        android:layout_toRightOf="@id/package_img"
         android:ellipsize="end"
-        android:maxLines="1"/>
+        android:maxLines="1"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 </RelativeLayout>

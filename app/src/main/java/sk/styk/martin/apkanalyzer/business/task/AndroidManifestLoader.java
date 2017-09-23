@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 
 import sk.styk.martin.apkanalyzer.business.service.AndroidManifestService;
-import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
 
 /**
  * Loader async task for loadinf android manifest content

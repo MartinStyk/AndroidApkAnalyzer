@@ -6,8 +6,6 @@ import android.os.Parcelable;
 import org.apache.commons.math3.stat.StatUtils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Math Statistics collected about attributes of Apk file
@@ -36,7 +34,6 @@ public class MathStatistics implements Parcelable {
 
         Double mean = StatUtils.mean(array);
         Double median = StatUtils.percentile(array, 50);
-        double[] modus = StatUtils.mode(array);
         Double minimum = StatUtils.min(array);
         Double maximum = StatUtils.max(array);
         Double variance = StatUtils.variance(array);

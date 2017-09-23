@@ -1,11 +1,11 @@
 package sk.styk.martin.apkanalyzer.business.service;
 
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
@@ -14,12 +14,6 @@ import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
  * Created by Martin Styk on 30.06.2017.
  */
 public class PermissionsService {
-
-    private PackageManager packageManager;
-
-    public PermissionsService(PackageManager packageManager) {
-        this.packageManager = packageManager;
-    }
 
     public PermissionData get(@NonNull PackageInfo packageInfo) {
 
@@ -42,9 +36,7 @@ public class PermissionsService {
             requestedPermissions = new ArrayList<>(0);
         } else {
             requestedPermissions = new ArrayList<>(requestedPermissionInfos.length);
-            for (String perm : requestedPermissionInfos) {
-                requestedPermissions.add(perm);
-            }
+            Collections.addAll(requestedPermissions, requestedPermissionInfos);
         }
 
         PermissionData myData = new PermissionData();

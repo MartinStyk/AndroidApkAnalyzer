@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,7 +33,7 @@ public class AnalyzeFragment extends Fragment {
         return rootView;
     }
 
-    public boolean isTwoPane() {
+    private boolean isTwoPane() {
         return (rootView != null && rootView.findViewById(R.id.app_detail_container) != null);
     }
 

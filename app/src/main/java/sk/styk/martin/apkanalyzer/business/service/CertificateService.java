@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.business.service;
 
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.support.annotation.NonNull;
 
@@ -25,12 +24,6 @@ import static javax.security.auth.x500.X500Principal.RFC1779;
  */
 
 public class CertificateService {
-
-    private PackageManager packageManager;
-
-    public CertificateService(PackageManager packageManager) {
-        this.packageManager = packageManager;
-    }
 
     public CertificateData get(@NonNull PackageInfo packageInfo) {
 
@@ -70,19 +63,17 @@ public class CertificateService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (certStream != null) {
-                try {
-                    certStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                certStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 
         return null;
     }
 
-    public String getSignAlgorithm(@NonNull PackageInfo packageInfo){
+    public String getSignAlgorithm(@NonNull PackageInfo packageInfo) {
         Signature sig = packageInfo.signatures[0];
         byte[] rawCert = sig.toByteArray();
         InputStream certStream = new ByteArrayInputStream(rawCert);
@@ -95,12 +86,10 @@ public class CertificateService {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (certStream != null) {
-                try {
-                    certStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                certStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
 

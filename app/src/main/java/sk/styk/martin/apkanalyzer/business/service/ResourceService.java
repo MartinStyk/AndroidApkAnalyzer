@@ -16,12 +16,6 @@ import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
 
 public class ResourceService {
 
-    private PackageManager packageManager;
-
-    public ResourceService(@NonNull PackageManager packageManager) {
-        this.packageManager = packageManager;
-    }
-
     public ResourceData get(@NonNull FileData fileData) {
         ResourceData data = new ResourceData();
         Map<String, String> allFiles = fileData.getAllHashes();

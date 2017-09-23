@@ -1,4 +1,4 @@
-package com.inducesmile.apkanalyzer;
+package sk.styk.martin.apkanalyzer;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

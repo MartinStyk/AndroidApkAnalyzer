@@ -14,11 +14,11 @@ import android.support.v4.content.AsyncTaskLoader;
  * <p>
  * Created by Martin Styk on 15.06.2017.
  */
-public abstract class ApkAnalyzerAbstractAsyncLoader<T> extends AsyncTaskLoader<T> {
+abstract class ApkAnalyzerAbstractAsyncLoader<T> extends AsyncTaskLoader<T> {
 
-    protected T items;
+    T items;
 
-    public ApkAnalyzerAbstractAsyncLoader(Context context) {
+    ApkAnalyzerAbstractAsyncLoader(Context context) {
         super(context);
     }
 
@@ -116,7 +116,7 @@ public abstract class ApkAnalyzerAbstractAsyncLoader<T> extends AsyncTaskLoader<
      * Helper function to take care of releasing resources associated
      * with an actively loaded data set.
      */
-    protected void onReleaseResources(T param) {
+    void onReleaseResources(T param) {
         // For a simple List<> there is nothing to do.  For something
         // like a Cursor, we would close it here.
     }

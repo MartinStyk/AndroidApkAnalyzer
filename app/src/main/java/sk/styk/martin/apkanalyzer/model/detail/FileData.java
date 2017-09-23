@@ -103,7 +103,7 @@ public class FileData implements Parcelable {
         this.dexHash = in.readString();
         this.arscHash = in.readString();
         int allHashesSize = in.readInt();
-        this.allHashes = new HashMap<String, String>(allHashesSize);
+        this.allHashes = new HashMap<>(allHashesSize);
         for (int i = 0; i < allHashesSize; i++) {
             String key = in.readString();
             String value = in.readString();
