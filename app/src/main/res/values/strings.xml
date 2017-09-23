@@ -199,6 +199,14 @@
     <string name="variance">Variance</string>
     <string name="deviation">Deviation</string>
 
+    <string name="arithmetic_mean_description">Sum of a collection of numbers divided by the number of numbers in the collection.</string>
+    <string name="median_description">The median is the value separating the higher half of a data sample from the lower half. For a data set, it may be thought of as the middle value.</string>
+    <string name="max_description">The highest value.</string>
+    <string name="min_description">The lowest value.</string>
+    <string name="variance_description">Variance measures how far a set of numbers are spread out from their average value.</string>
+    <string name="deviation_description">Deviation is a measure that is used to quantify the amount of variation or dispersion of a set of data values.</string>
+
+
     <string name="analyze_results">Analyze results</string>
     <string name="analyze_results_success">Successfully analyzed</string>
     <string name="analyze_results_failed">Analyze failed</string>

@@ -19,6 +19,7 @@
             android:id="@+id/item_arithmetic_mean"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/arithmetic_mean_description"
             app:titleText="@string/arithmetic_mean"
             app:valueText="@string/NA" />
 
@@ -26,6 +27,7 @@
             android:id="@+id/item_median"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/median_description"
             app:titleText="@string/median"
             app:valueText="@string/NA" />
 
@@ -33,6 +35,7 @@
             android:id="@+id/item_max"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/max_description"
             app:titleText="@string/max"
             app:valueText="@string/NA" />
 
@@ -41,6 +44,7 @@
             android:id="@+id/item_min"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/min_description"
             app:titleText="@string/min"
             app:valueText="@string/NA" />
 
@@ -49,6 +53,7 @@
             android:id="@+id/item_variance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/variance_description"
             app:titleText="@string/variance"
             app:valueText="@string/NA" />
 
@@ -57,6 +62,7 @@
             android:id="@+id/item_deviation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/deviation_description"
             app:titleText="@string/deviation"
             app:valueText="@string/NA" />
 
