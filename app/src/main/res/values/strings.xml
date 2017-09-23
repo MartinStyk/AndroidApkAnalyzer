@@ -159,6 +159,10 @@
     <string name="activity_parent">Parent</string>
     <string name="activity_permission">Permission</string>
 
+    <string name="activity_label_description">A user-readable label for the activity. The label is displayed on-screen when the activity must be represented to the user. It\'s often displayed along with the activity icon.</string>
+    <string name="activity_parent_description">Specify the parent activity. When the user selects the Up button, the app navigates to the parent activity.</string>
+    <string name="activity_permission_description">The name of a permission that clients must have to launch the activity or otherwise get it to respond to an intent.</string>
+
     <string name="service_exported">Exported</string>
     <string name="service_stop_with_task">Stop with task</string>
     <string name="service_single_user">Single user</string>

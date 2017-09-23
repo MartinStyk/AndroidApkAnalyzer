@@ -18,13 +18,13 @@
             android:id="@+id/item_activity_name"
             style="@style/ItemDetailCardViewHeader"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-           />
+            android:layout_height="wrap_content" />
 
         <sk.styk.martin.apkanalyzer.view.DetailListItemView
             android:id="@+id/item_activity_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/activity_label_description"
             app:titleText="@string/activity_label"
             app:valueText="@string/NA" />
 
@@ -32,6 +32,7 @@
             android:id="@+id/item_activity_parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/activity_parent_description"
             app:titleText="@string/activity_parent"
             app:valueText="@string/NA" />
 
@@ -39,6 +40,7 @@
             android:id="@+id/item_activity_permission"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:descriptionText="@string/activity_permission_description"
             app:titleText="@string/activity_permission"
             app:valueText="@string/none" />
 
