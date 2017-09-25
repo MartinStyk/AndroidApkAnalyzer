@@ -47,6 +47,16 @@ public class ProviderListAdapter extends RecyclerView.Adapter<ProviderListAdapte
         return items.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         final TextView name;
         final DetailListItemView authority;

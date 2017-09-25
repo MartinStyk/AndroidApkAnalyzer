@@ -40,6 +40,16 @@ public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHo
         return items.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         final TextView name;
 

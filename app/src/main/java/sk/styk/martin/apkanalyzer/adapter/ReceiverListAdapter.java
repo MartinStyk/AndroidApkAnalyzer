@@ -46,6 +46,16 @@ public class ReceiverListAdapter extends RecyclerView.Adapter<ReceiverListAdapte
         return items.size();
     }
 
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
         final TextView name;
         final DetailListItemView permission;
