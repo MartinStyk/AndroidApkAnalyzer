@@ -40,6 +40,8 @@ public class AppComponentsService {
             myData.setLabel(activityInfo.loadLabel(packageManager).toString());
             myData.setParentName(activityInfo.parentActivityName);
             myData.setPermission(activityInfo.permission);
+            myData.setExported(activityInfo.exported);
+            myData.setPackageName(activityInfo.packageName);
 
             myDataList.add(myData);
         }

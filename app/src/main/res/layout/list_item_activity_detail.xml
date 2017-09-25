@@ -44,6 +44,14 @@
             app:titleText="@string/activity_permission"
             app:valueText="@string/none" />
 
+        <Button
+            android:id="@+id/item_activity_run"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/activity_run"
+            android:background="@null"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
+
     </LinearLayout>
 
 </android.support.v7.widget.CardView>

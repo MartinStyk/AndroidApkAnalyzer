@@ -9,6 +9,7 @@ import android.os.Parcelable;
 public class ActivityData implements Parcelable {
 
     private String name;
+    private String packageName;
     private String label;
 
     // If this is an activity alias, this is the real activity class to run for it.
@@ -19,6 +20,11 @@ public class ActivityData implements Parcelable {
 
     // If defined, the activity named here is the logical parent of this activity
     private String parentName;
+
+    /**
+     * Set to true if this component is available for use by other applications.
+     */
+    private boolean exported;
 
     public String getName() {
         return name;
@@ -60,6 +66,22 @@ public class ActivityData implements Parcelable {
         this.parentName = parentName;
     }
 
+    public boolean isExported() {
+        return exported;
+    }
+
+    public void setExported(boolean exported) {
+        this.exported = exported;
+    }
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,7 +89,10 @@ public class ActivityData implements Parcelable {
 
         ActivityData that = (ActivityData) o;
 
+        if (exported != that.exported) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null)
+            return false;
         if (label != null ? !label.equals(that.label) : that.label != null) return false;
         if (targetActivity != null ? !targetActivity.equals(that.targetActivity) : that.targetActivity != null)
             return false;
@@ -78,24 +103,31 @@ public class ActivityData implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "ActivityData{" +
-                "name='" + name + '\'' +
-                ", label='" + label + '\'' +
-                ", targetActivity='" + targetActivity + '\'' +
-                ", permission='" + permission + '\'' +
-                ", parentName='" + parentName + '\'' +
-                '}';
-    }
-
-    @Override
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (packageName != null ? packageName.hashCode() : 0);
         result = 31 * result + (label != null ? label.hashCode() : 0);
         result = 31 * result + (targetActivity != null ? targetActivity.hashCode() : 0);
         result = 31 * result + (permission != null ? permission.hashCode() : 0);
         result = 31 * result + (parentName != null ? parentName.hashCode() : 0);
+        result = 31 * result + (exported ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "ActivityData{" +
+                "name='" + name + '\'' +
+                ", packageName='" + packageName + '\'' +
+                ", label='" + label + '\'' +
+                ", targetActivity='" + targetActivity + '\'' +
+                ", permission='" + permission + '\'' +
+                ", parentName='" + parentName + '\'' +
+                ", exported=" + exported +
+                '}';
+    }
+
+    public ActivityData() {
     }
 
     @Override
@@ -106,21 +138,22 @@ public class ActivityData implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
+        dest.writeString(this.packageName);
         dest.writeString(this.label);
         dest.writeString(this.targetActivity);
         dest.writeString(this.permission);
         dest.writeString(this.parentName);
-    }
-
-    public ActivityData() {
+        dest.writeByte(this.exported ? (byte) 1 : (byte) 0);
     }
 
     protected ActivityData(Parcel in) {
         this.name = in.readString();
+        this.packageName = in.readString();
         this.label = in.readString();
         this.targetActivity = in.readString();
         this.permission = in.readString();
         this.parentName = in.readString();
+        this.exported = in.readByte() != 0;
     }
 
     public static final Creator<ActivityData> CREATOR = new Creator<ActivityData>() {
