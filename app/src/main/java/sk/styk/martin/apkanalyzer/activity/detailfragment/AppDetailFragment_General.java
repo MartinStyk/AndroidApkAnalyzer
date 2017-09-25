@@ -37,6 +37,7 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
     private Button copyBtn;
     private Button manifestBtn;
     private Button systemAppPageBtn;
+    private Button shareBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -75,6 +76,9 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
         systemAppPageBtn = (Button) rootView.findViewById(R.id.btn_show_app_system_page);
         systemAppPageBtn.setOnClickListener(this);
 
+        shareBtn = (Button) rootView.findViewById(R.id.btn_share_apk);
+        shareBtn.setOnClickListener(this);
+
         return rootView;
     }
 
@@ -98,6 +102,14 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
             intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
             intent.setData(Uri.parse("package:" + data.getPackageName()));
             startActivity(intent);
+        } else if (v.getId() == shareBtn.getId()) {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            Uri uri = Uri.fromFile(new File(data.getApkDirectory()));
+
+            shareIntent.putExtra(Intent.EXTRA_STREAM, uri );
+            shareIntent.setType("application/vnd.android.package-archive");
+            startActivity(Intent.createChooser(shareIntent, "Send using"));
         }
     }
 

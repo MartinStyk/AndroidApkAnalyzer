@@ -64,12 +64,14 @@
     <string name="apk_size">Apk size</string>
     <string name="first_install">First install</string>
     <string name="last_update">Last update</string>
-    <string name="copy_apk">Copy APK file</string>
+    <string name="copy_apk">Copy APK</string>
     <string name="copy_apk_background">Copying to %s</string>
     <string name="show_manifest">View AndroidManifest.xml</string>
     <string name="save_manifest_background">Saving to %s</string>
     <string name="save_manifest_fail">Manifest is not loaded yet</string>
     <string name="show_app_system_page">Built-in app info</string>
+    <string name="share_apk">Share APK</string>
+
 
     <string name="online_scan">Perform online apk scan - TODO</string>
     <string name="app_icon">Application icon</string>

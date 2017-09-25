@@ -140,6 +140,14 @@
             android:textAppearance="?android:attr/textAppearanceListItem"/>
 
         <Button
+            android:id="@+id/btn_share_apk"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            android:text="@string/share_apk"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+        <Button
             android:id="@+id/btn_show_manifest"
             android:background="@null"
             android:layout_width="match_parent"
