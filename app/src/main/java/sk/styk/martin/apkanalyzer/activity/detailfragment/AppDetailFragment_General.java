@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.activity.detailfragment;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
@@ -35,6 +36,7 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
     private GeneralData data;
     private Button copyBtn;
     private Button manifestBtn;
+    private Button systemAppPageBtn;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -70,13 +72,15 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
         manifestBtn = (Button) rootView.findViewById(R.id.btn_show_manifest);
         manifestBtn.setOnClickListener(this);
 
+        systemAppPageBtn = (Button) rootView.findViewById(R.id.btn_show_app_system_page);
+        systemAppPageBtn.setOnClickListener(this);
+
         return rootView;
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == copyBtn.getId()) {
-
             //request permission and handle result
             if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
@@ -84,8 +88,15 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
                 exportApkFile();
             }
         } else if (v.getId() == manifestBtn.getId()) {
+            //start manifest activity
             Intent intent = new Intent(getActivity(), ManifestActivity.class);
             intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, data.getPackageName());
+            startActivity(intent);
+        } else if (v.getId() == systemAppPageBtn.getId()) {
+            //start system app page
+            Intent intent = new Intent();
+            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.parse("package:" + data.getPackageName()));
             startActivity(intent);
         }
     }
