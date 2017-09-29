@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -57,6 +58,8 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     private ProgressBar loadingBar;
     private ViewPager viewPager;
 
+    private boolean isDialogShowing;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +96,27 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     @Override
+    public void onStart() {
+        if (isDialogShowing) {
+            showActionDialog();
+        }
+        super.onStart();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("isDialogShowing", isDialogShowing);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null)
+            isDialogShowing = savedInstanceState.getBoolean("isDialogShowing");
+    }
+
+    @Override
     public Loader<AppDetailData> onCreateLoader(int id, Bundle args) {
         return new AppDetailLoader(getActivity(), args.getString(ARG_PACKAGE_NAME));
     }
@@ -118,6 +142,21 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onClick(View view) {
+        showActionDialog();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        if (requestCode == REQUEST_STORAGE_PERMISSION) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                exportApkFile();
+            } else {
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show();
+            }
+        }
+    }
+
+    private void showActionDialog() {
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View dialogView = factory.inflate(R.layout.dialog_apk_actions, null);
 
@@ -129,13 +168,23 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.dismiss();
                     }
+                })
+                .setOnDismissListener(new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialog) {
+                        isDialogShowing = false;
+                    }
+                }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        isDialogShowing = false;
+                    }
                 }).create();
 
         dialogView.findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-
                 if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_STORAGE_PERMISSION);
                 } else {
@@ -155,7 +204,6 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
                 shareIntent.setType("application/vnd.android.package-archive");
 
                 dialog.dismiss();
-
                 startActivity(Intent.createChooser(shareIntent, "Send using"));
             }
         });
@@ -166,6 +214,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
                 //start manifest activity
                 Intent intent = new Intent(getActivity(), ManifestActivity.class);
                 intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, data.getGeneralData().getPackageName());
+
                 dialog.dismiss();
                 startActivity(intent);
             }
@@ -178,23 +227,14 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
                 Intent systemInfoIntent = new Intent();
                 systemInfoIntent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                 systemInfoIntent.setData(Uri.parse("package:" + data.getGeneralData().getPackageName()));
+
                 dialog.dismiss();
                 startActivity(systemInfoIntent);
             }
         });
 
+        isDialogShowing = true;
         dialog.show();
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_STORAGE_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                exportApkFile();
-            } else {
-                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show();
-            }
-        }
     }
 
     private void exportApkFile() {
