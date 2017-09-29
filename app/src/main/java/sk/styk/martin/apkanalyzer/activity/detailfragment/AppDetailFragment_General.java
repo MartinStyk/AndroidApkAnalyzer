@@ -119,7 +119,7 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 exportApkFile();
             } else {
-                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show();
             }
         }
     }
@@ -134,7 +134,7 @@ public class AppDetailFragment_General extends Fragment implements View.OnClickL
 
         getActivity().startService(intent);
 
-        Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, target.getAbsolutePath()), Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, target.getAbsolutePath()), Snackbar.LENGTH_LONG).show();
     }
 
 }
