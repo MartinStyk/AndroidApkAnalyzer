@@ -52,14 +52,13 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/btn_security_analysis"
+        android:id="@+id/btn_actions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_security"
+        android:src="@drawable/ic_menu_dots"
         app:layout_anchor="@+id/item_detail_container"
-        app:layout_anchorGravity="top|end"
-        android:visibility="gone"/>
+        app:layout_anchorGravity="top|end" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -3,7 +3,7 @@ package sk.styk.martin.apkanalyzer.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -33,24 +33,28 @@ public class AppDetailActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_security_analysis);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, getString(R.string.online_scan), Snackbar.LENGTH_LONG).show();
-            }
-        });
 
         if (savedInstanceState == null) {
 
             Bundle arguments = new Bundle();
             arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, getIntent().getStringExtra(AppDetailFragment.ARG_PACKAGE_NAME));
-            AppDetailFragment fragment = new AppDetailFragment();
-            fragment.setArguments(arguments);
+            Fragment detailFragment = new AppDetailFragment();
+            detailFragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()
-                    .add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, fragment)
+                    .add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
                     .commit();
         }
+
+        FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.btn_actions);
+        actionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //delegate to fragment
+                ((AppDetailFragment) getSupportFragmentManager().findFragmentByTag(AppDetailFragment.TAG)).onClick(view);
+            }
+        });
+
+
     }
 
     @Override

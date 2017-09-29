@@ -2,6 +2,8 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -24,7 +26,9 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
  * in two-pane mode (on tablets) or a {@link AppDetailActivity}
  * on handsets.
  */
-public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppDetailData> {
+public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppDetailData>, View.OnClickListener{
+
+    public static final String TAG = AppDetailFragment.class.getSimpleName();
 
     public static final String ARG_PACKAGE_NAME = "packageName";
     public static final String ARG_CHILD = "dataForChild";
@@ -60,6 +64,11 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
         TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        // if we are in 2-pane mode initialize floating button
+        FloatingActionButton actionButton = (FloatingActionButton) rootView.findViewById(R.id.btn_actions);
+        if(actionButton != null){
+            actionButton.setOnClickListener(this);
+        }
 
         if (data != null) {
             onLoadFinished(null, data);
@@ -92,4 +101,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
         this.data = null;
     }
 
+    public void onClick(View view) {
+        Snackbar.make(view, getString(R.string.online_scan), Snackbar.LENGTH_LONG).show();
+    }
 }
