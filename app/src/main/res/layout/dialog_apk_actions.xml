@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/ItemDetailLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:showDividers="beginning|end|middle">
+
+    <Button
+        android:id="@+id/btn_copy"
+        style="@style/ApkActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/copy_apk" />
+
+    <Button
+        android:id="@+id/btn_share_apk"
+        style="@style/ApkActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/share_apk" />
+
+    <Button
+        android:id="@+id/btn_show_manifest"
+        style="@style/ApkActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_manifest" />
+
+    <Button
+        android:id="@+id/btn_show_app_system_page"
+        style="@style/ApkActionButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/show_app_system_page" />
+
+</LinearLayout>

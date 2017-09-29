@@ -57,4 +57,11 @@
         <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
     </style>
 
+    <style name="ApkActionButton" parent="Base.Widget.AppCompat.Button">
+        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
+        <item name="android:gravity">start|center_vertical</item>
+        <item name="android:padding">@dimen/activity_vertical_margin</item>
+        <item name="android:background">?android:selectableItemBackground</item>
+    </style>
+
 </resources>

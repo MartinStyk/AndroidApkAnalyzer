@@ -48,7 +48,7 @@ public class AnalyzeFragment extends Fragment {
             arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, packageName);
             AppDetailFragment fragment = new AppDetailFragment();
             fragment.setArguments(arguments);
-            fragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailFragment.TAG).commit();
         }
     }
 }
