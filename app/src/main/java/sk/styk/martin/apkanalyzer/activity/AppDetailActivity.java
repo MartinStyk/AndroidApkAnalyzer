@@ -33,7 +33,7 @@ public class AppDetailActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.btn_security_analysis);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
