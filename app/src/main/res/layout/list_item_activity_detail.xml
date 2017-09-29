@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:text="@string/activity_run"
             android:background="@null"
-            android:textAppearance="?android:attr/textAppearanceListItem"/>
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     </LinearLayout>
 

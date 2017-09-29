@@ -44,7 +44,7 @@
         <item name="android:paddingTop">@dimen/padding_cardview_text</item>
         <item name="android:paddingBottom">@dimen/padding_cardview_text</item>
         <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
-        <item name="android:background">@color/colorLightGrey</item>
+        <item name="android:background">@color/primary_light</item>
     </style>
 
     <style name="DetailCardView" parent="CardView">
