@@ -1,0 +1,36 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="5dip" />
+            <gradient
+                android:centerColor="@color/cardview_shadow_start_color"
+                android:endColor="@color/cardview_shadow_start_color"
+                android:startColor="@color/cardview_shadow_start_color" />
+        </shape>
+    </item>
+
+    <item android:id="@android:id/secondaryProgress">
+        <clip>
+            <shape>
+                <corners android:radius="5dip" />
+                <gradient
+                    android:centerColor="@color/primary"
+                    android:endColor="@color/primary"
+                    android:startColor="@color/primary" />
+            </shape>
+        </clip>
+    </item>
+
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <corners android:radius="5dip" />
+                <gradient
+                    android:endColor="@color/accent"
+                    android:startColor="@color/accent" />
+            </shape>
+        </clip>
+    </item>
+
+</layer-list>

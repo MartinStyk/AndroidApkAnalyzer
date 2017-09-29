@@ -32,7 +32,7 @@ import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper;
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter;
 import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
-public class LocalStatisticsFragment extends Fragment implements LoaderManager.LoaderCallbacks<LocalStatisticsData> {
+public class LocalStatisticsFragment extends Fragment implements LoaderManager.LoaderCallbacks<LocalStatisticsData>, LocalStatisticsLoader.ProgressCallback {
 
     FragmentLocalStatisticsBinding binding;
     LocalStatisticsData data;
@@ -41,7 +41,12 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = FragmentLocalStatisticsBinding.inflate(inflater);
-        getLoaderManager().initLoader(LocalStatisticsLoader.ID, null, this);
+
+        // We need to re-set callback of loader in case of configuration change
+        LocalStatisticsLoader loader = (LocalStatisticsLoader) getLoaderManager().initLoader(LocalStatisticsLoader.ID, null, this);
+        if(loader != null){
+            loader.setCallbackReference(this);
+        }
 
         setHasOptionsMenu(true);
 
@@ -67,7 +72,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
     @Override
     public Loader<LocalStatisticsData> onCreateLoader(int id, Bundle args) {
-        return new LocalStatisticsLoader(getContext());
+        return new LocalStatisticsLoader(getContext(), this);
     }
 
     @Override
@@ -160,5 +165,11 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
                 .setMaxLabelChars(10));
         return data;
 
+    }
+
+    @Override
+    public void onProgressChanged(int currentProgress, int maxProgress) {
+        binding.localStatisticsLoadingBar.setMax(maxProgress);
+        binding.localStatisticsLoadingBar.setProgress(currentProgress);
     }
 }

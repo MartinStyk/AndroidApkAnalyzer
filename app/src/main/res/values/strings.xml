@@ -11,7 +11,7 @@
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_manifest">AndroidManifest</string>
-    <string name="loading">Loading</string>
+    <string name="loading">Loading...</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="NA">N/A</string>

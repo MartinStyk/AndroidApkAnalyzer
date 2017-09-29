@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.business.service.statistics;
+package sk.styk.martin.apkanalyzer.business.service;
 
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
