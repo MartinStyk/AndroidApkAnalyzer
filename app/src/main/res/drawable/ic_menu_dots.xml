@@ -1,8 +1,9 @@
-<vector android:height="24dp" android:viewportHeight="124"
-    android:viewportWidth="124" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#fff" android:name="Rounded Rectangle 1" android:pathData="m50 2h24c1.1 0 2 0.9 2 2v24c0 1.1 -0.9 2 -2 2h-24c-1.1 0 -2 -0.9 -2 -2v-24c0 -1.1 0.9 -2 2 -2z"/>
-    <path android:fillColor="#fff"
-        android:name="Rounded Rectangle 1 copy" android:pathData="m50 47h24c1.1 0 2 0.9 2 2v24c0 1.1 -0.9 2 -2 2h-24c-1.1 0 -2 -0.9 -2 -2v-24c0 -1.1 0.9 -2 2 -2z"/>
-    <path android:fillColor="#fff"
-        android:name="Rounded Rectangle 1 copy 2" android:pathData="m50 91h24c1.1 0 2 0.9 2 2v24c0 1.1 -0.9 2 -2 2h-24c-1.1 0 -2 -0.9 -2 -2v-24c0 -1.1 0.9 -2 2 -2z"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+        android:width="24dp"
+        android:height="24dp"
+        android:viewportWidth="24.0"
+        android:viewportHeight="24.0">
+    <path
+        android:pathData="M12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,10c-1.1,0 -2,0.9 -2,2s0.9,2 2,2 2,-0.9 2,-2 -0.9,-2 -2,-2zM12,16c-1.1,0 -2,0.9 -2,2s0.9,2 2,2 2,-0.9 2,-2 -0.9,-2 -2,-2z"
+        android:fillColor="#FFFFFF"/>
 </vector>
