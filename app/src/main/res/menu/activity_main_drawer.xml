@@ -9,7 +9,7 @@
         <item
             android:id="@+id/nav_local_stats"
             android:icon="@drawable/ic_more"
-            android:title="@string/nav_local_statistics" />
+            android:title="@string/nav_statistics" />
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_info"
