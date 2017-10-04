@@ -1,4 +1,6 @@
 # AndroidApkAnalyzer
+![pic1](https://github.com/MartinStyk/AndroidApkAnalyzer/blob/21f5db2aeff997b2b5409b03bf2cfdf747a5a3bd/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
+
 Android application which analyze apps installed on device. 
 App is useful for everyone who want's to see under the hood of software content of his Android device.
 
