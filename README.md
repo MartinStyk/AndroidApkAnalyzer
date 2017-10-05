@@ -1,14 +1,25 @@
 # AndroidApkAnalyzer
 ![pic1](https://github.com/MartinStyk/AndroidApkAnalyzer/blob/21f5db2aeff997b2b5409b03bf2cfdf747a5a3bd/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
 
-Android application which analyze apps installed on device. 
-App is useful for everyone who want's to see under the hood of software content of his Android device.
+Apk Analyer allows you to explore apps installed on your device. It provides detailed report about application packages.
 
-## Key features
-* View details of every installed application - target version, security certificate, used and defined permissions, application components, storage requirements and much more
-* View decoded AndroidManifest.xml file
-* Export application package to SD card
-* Share application package using Google Drive, Gmail or others
-* View statistics about installed apps
+Key features:
+View Details of installed application packages
+Explore your applications. Apk Analyzer shows you details including target Android version, security certificate, used and defined permissions, application components, storage requirements, resources and much more
 
-This application is developed as a part of my Master's Thesis.
+View AndroidManifest.xml file
+Decode main metadata file of Android app. Save readable Android Manifest to external storage
+
+View statistics about installed apps
+Interested in statistics data of your app collection? Find out the average number of activities, permissions, or distribution of Android and certificate versions
+
+Export application package to external storage
+
+Share application package using Google Drive, Gmail or others
+
+Run publicly available activities
+
+Search application by name
+
+
+Application doesn't require rooted device.
