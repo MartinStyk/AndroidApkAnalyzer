@@ -49,6 +49,24 @@
             android:gravity="center"
             android:text="@string/app_author"
             android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/about_app_github_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/about_app_authors"
+            android:gravity="center"
+            android:text="@string/app_github"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/about_app_dependencies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="@string/app_dependencies"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
     </RelativeLayout>
 
 </LinearLayout>

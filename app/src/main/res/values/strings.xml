@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Apk Analyzer</string>
     <string name="app_author">Martin Styk</string>
+    <string name="app_github">Source code available on <a href="https://github.com/MartinStyk/AndroidApkAnalyzer">GitHub</a> </string>
+    <string name="app_dependencies">Dependencies:\n org.apache.commons:commons-math3\n com.github.lecho:hellocharts-library\n com.pddstudio:highlightjs-android</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
