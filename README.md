@@ -1,4 +1,4 @@
-# AndroidApkAnalyzer
+# ApkAnalyzer
 ![pic1](https://github.com/MartinStyk/AndroidApkAnalyzer/blob/21f5db2aeff997b2b5409b03bf2cfdf747a5a3bd/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
 
 _Take a look under the hood of apps installed on your device!_
@@ -7,7 +7,7 @@ Apk Analyer allows you to explore apps installed on your device. It provides det
 
 ### Key features
 
-* View Details of installed application packages.
+* View details of installed application packages.
 Explore your applications. Apk Analyzer shows you details including target Android version, security certificate, used and defined permissions, application components, storage requirements, resources and much more.
 
 * View AndroidManifest.xml file.
