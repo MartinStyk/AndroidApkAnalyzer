@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.NavUtils;
@@ -34,6 +35,8 @@ public class AppDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+
         if (savedInstanceState == null) {
 
             Bundle arguments = new Bundle();
@@ -46,14 +49,19 @@ public class AppDetailActivity extends AppCompatActivity {
         }
 
         FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.btn_actions);
-        actionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //delegate to fragment
-                ((AppDetailFragment) getSupportFragmentManager().findFragmentByTag(AppDetailFragment.TAG)).onClick(view);
-            }
-        });
 
+        // this happens only in tablet mode when this activity is rotated from horizontal to vertical orientation
+        if (actionButton == null) {
+            appBarLayout.setExpanded(false);
+        } else {
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //delegate to fragment
+                    ((AppDetailFragment) getSupportFragmentManager().findFragmentByTag(AppDetailFragment.TAG)).onClick(view);
+                }
+            });
+        }
 
     }
 
