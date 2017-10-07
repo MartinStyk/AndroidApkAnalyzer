@@ -1,7 +1,7 @@
 # ApkAnalyzer
-![pic1](https://github.com/MartinStyk/AndroidApkAnalyzer/blob/21f5db2aeff997b2b5409b03bf2cfdf747a5a3bd/app/src/main/res/mipmap-xxhdpi/ic_launcher.png)
+![pic1](https://github.com/MartinStyk/AndroidApkAnalyzer/blob/21f5db2aeff997b2b5409b03bf2cfdf747a5a3bd/app/src/main/res/mipmap-xxhdpi/ic_launcher.png) <a href='https://play.google.com/store/apps/details?id=sk.styk.martin.apkanalyzer&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' height="150"  src='https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png'/></a>
 
-_Take a look under the hood of apps installed on your device!_
+*Take a look under the hood of apps installed on your device!*
 
 Apk Analyer allows you to explore apps installed on your device. It provides detailed report about application packages.
 
