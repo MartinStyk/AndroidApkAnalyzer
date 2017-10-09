@@ -62,6 +62,13 @@
             app:titleText="@string/description" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_application_app_source"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/description_app_source"
+            app:titleText="@string/app_source" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_target_sdk"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
@@ -80,8 +87,8 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             app:descriptionText="@string/min_sdk_description"
-            app:titleText="@string/min_sdk"
-            app:notShownExpression="0" />
+            app:notShownExpression="0"
+            app:titleText="@string/min_sdk" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_min_android_version"
@@ -123,16 +130,16 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             app:descriptionText="@string/first_install_description"
-            app:titleText="@string/first_install"
-            app:notShownExpression="0" />
+            app:notShownExpression="0"
+            app:titleText="@string/first_install" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_last_update_time"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             app:descriptionText="@string/last_update_description"
-            app:titleText="@string/last_update"
-            app:notShownExpression="0" />
+            app:notShownExpression="0"
+            app:titleText="@string/last_update" />
 
     </LinearLayout>
 

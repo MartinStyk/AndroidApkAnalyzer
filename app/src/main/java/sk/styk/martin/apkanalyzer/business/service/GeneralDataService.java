@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 
 import java.io.File;
 
+import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper;
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper;
@@ -52,7 +53,20 @@ public class GeneralDataService {
             generalData.setTargetSdkLabel(AndroidVersionHelper.resolveVersion(applicationInfo.targetSdkVersion));
         }
 
+        generalData.setSource(getAppSource(packageInfo.packageName, generalData.isSystemApp()));
+
         return generalData;
+    }
+
+    private AppSource getAppSource(String packageName, boolean isSystem) {
+        String installer;
+        try {
+            installer = packageManager.getInstallerPackageName(packageName);
+        } catch (Exception e) {
+            //this means package is not installed, we consider it unknown
+            return AppSource.UNKNOWN;
+        }
+        return AppSource.fromInstallerPackage(installer, isSystem);
     }
 
 

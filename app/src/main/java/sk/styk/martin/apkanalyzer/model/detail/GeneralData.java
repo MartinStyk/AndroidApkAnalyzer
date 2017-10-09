@@ -17,6 +17,7 @@ public class GeneralData implements Parcelable {
     private int versionCode;
     private boolean isSystemApp;
     private String description;
+    private AppSource source;
 
     private Drawable icon;
 
@@ -53,6 +54,14 @@ public class GeneralData implements Parcelable {
 
     public void setApplicationName(String applicationName) {
         this.applicationName = applicationName;
+    }
+
+    public AppSource getSource() {
+        return source;
+    }
+
+    public void setSource(AppSource source) {
+        this.source = source;
     }
 
     public String getProcessName() {
@@ -192,11 +201,11 @@ public class GeneralData implements Parcelable {
 
         if (versionCode != that.versionCode) return false;
         if (isSystemApp != that.isSystemApp) return false;
+        if (apkSize != that.apkSize) return false;
         if (firstInstallTime != that.firstInstallTime) return false;
         if (lastUpdateTime != that.lastUpdateTime) return false;
         if (minSdkVersion != that.minSdkVersion) return false;
         if (targetSdkVersion != that.targetSdkVersion) return false;
-        if (apkSize != that.apkSize) return false;
         if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null)
             return false;
         if (applicationName != null ? !applicationName.equals(that.applicationName) : that.applicationName != null)
@@ -207,6 +216,7 @@ public class GeneralData implements Parcelable {
             return false;
         if (description != null ? !description.equals(that.description) : that.description != null)
             return false;
+        if (source != that.source) return false;
         if (icon != null ? !icon.equals(that.icon) : that.icon != null) return false;
         if (apkDirectory != null ? !apkDirectory.equals(that.apkDirectory) : that.apkDirectory != null)
             return false;
@@ -229,11 +239,12 @@ public class GeneralData implements Parcelable {
         result = 31 * result + versionCode;
         result = 31 * result + (isSystemApp ? 1 : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (source != null ? source.hashCode() : 0);
         result = 31 * result + (icon != null ? icon.hashCode() : 0);
         result = 31 * result + (apkDirectory != null ? apkDirectory.hashCode() : 0);
         result = 31 * result + (dataDirectory != null ? dataDirectory.hashCode() : 0);
         result = 31 * result + (installLocation != null ? installLocation.hashCode() : 0);
-        result = 31 * result + (int)apkSize;
+        result = 31 * result + (int) (apkSize ^ (apkSize >>> 32));
         result = 31 * result + (int) (firstInstallTime ^ (firstInstallTime >>> 32));
         result = 31 * result + (int) (lastUpdateTime ^ (lastUpdateTime >>> 32));
         result = 31 * result + minSdkVersion;
@@ -253,6 +264,8 @@ public class GeneralData implements Parcelable {
                 ", versionCode=" + versionCode +
                 ", isSystemApp=" + isSystemApp +
                 ", description='" + description + '\'' +
+                ", source=" + source +
+                ", icon=" + icon +
                 ", apkDirectory='" + apkDirectory + '\'' +
                 ", dataDirectory='" + dataDirectory + '\'' +
                 ", installLocation='" + installLocation + '\'' +
@@ -283,10 +296,11 @@ public class GeneralData implements Parcelable {
         dest.writeInt(this.versionCode);
         dest.writeByte(this.isSystemApp ? (byte) 1 : (byte) 0);
         dest.writeString(this.description);
+        dest.writeInt(this.source == null ? -1 : this.source.ordinal());
         dest.writeString(this.apkDirectory);
         dest.writeString(this.dataDirectory);
         dest.writeString(this.installLocation);
-        dest.writeValue(this.apkSize);
+        dest.writeLong(this.apkSize);
         dest.writeLong(this.firstInstallTime);
         dest.writeLong(this.lastUpdateTime);
         dest.writeInt(this.minSdkVersion);
@@ -303,10 +317,12 @@ public class GeneralData implements Parcelable {
         this.versionCode = in.readInt();
         this.isSystemApp = in.readByte() != 0;
         this.description = in.readString();
+        int tmpSource = in.readInt();
+        this.source = tmpSource == -1 ? null : AppSource.values()[tmpSource];
         this.apkDirectory = in.readString();
         this.dataDirectory = in.readString();
         this.installLocation = in.readString();
-        this.apkSize = (Long) in.readValue(Long.class.getClassLoader());
+        this.apkSize = in.readLong();
         this.firstInstallTime = in.readLong();
         this.lastUpdateTime = in.readLong();
         this.minSdkVersion = in.readInt();
