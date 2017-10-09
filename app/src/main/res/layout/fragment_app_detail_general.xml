@@ -80,7 +80,8 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             app:descriptionText="@string/min_sdk_description"
-            app:titleText="@string/min_sdk" />
+            app:titleText="@string/min_sdk"
+            app:notShownExpression="0" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_min_android_version"
@@ -122,14 +123,16 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             app:descriptionText="@string/first_install_description"
-            app:titleText="@string/first_install" />
+            app:titleText="@string/first_install"
+            app:notShownExpression="0" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_last_update_time"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
             app:descriptionText="@string/last_update_description"
-            app:titleText="@string/last_update" />
+            app:titleText="@string/last_update"
+            app:notShownExpression="0" />
 
     </LinearLayout>
 

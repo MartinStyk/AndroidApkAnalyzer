@@ -56,7 +56,7 @@ public class LocalApplicationStatisticDataService {
         data.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
         data.setInstallLocation(packageInfo.installLocation);
         data.setTargetSdk(applicationInfo.targetSdkVersion);
-        data.setMinSdk(AndroidManifestService.getMinSdkVersion(packageName, packageManager));
+        data.setMinSdk(AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager));
         data.setApkSize(generalDataService.getApkSize(applicationInfo.sourceDir));
 
         data.setSignAlgorithm(certificateService.getSignAlgorithm(packageInfo));

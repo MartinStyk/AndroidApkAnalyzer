@@ -4,9 +4,15 @@
 
     <item
         android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_white"
         android:orderInCategory="1"
         android:title="@string/action_search"
-        app:showAsAction="ifRoom"
         app:actionViewClass="android.widget.SearchView"
-        android:icon="@drawable/ic_search_white" />
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_analyze_not_installed"
+        android:orderInCategory="1"
+        android:title="@string/action_analyze_apk_from_file"
+        app:showAsAction="never" />
 </menu>

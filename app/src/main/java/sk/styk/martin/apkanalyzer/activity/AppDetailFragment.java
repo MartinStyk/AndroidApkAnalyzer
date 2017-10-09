@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import java.io.File;
 
@@ -43,12 +44,10 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppDetailData>, View.OnClickListener {
 
     public static final String TAG = AppDetailFragment.class.getSimpleName();
-
-    private static final int REQUEST_STORAGE_PERMISSION = 11;
-
     public static final String ARG_PACKAGE_NAME = "packageName";
+    public static final String ARG_PACKAGE_PATH = "packagePath";
     public static final String ARG_CHILD = "dataForChild";
-
+    private static final int REQUEST_STORAGE_PERMISSION = 11;
     private AppDetailData data;
 
     private CollapsingToolbarLayout appBarLayout;
@@ -57,6 +56,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     private AppDetailAdapter adapter;
     private ProgressBar loadingBar;
     private ViewPager viewPager;
+    private TextView errorLoadingText;
 
     private boolean isDialogShowing;
 
@@ -75,6 +75,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
         loadingBar = (ProgressBar) rootView.findViewById(R.id.item_detail_loading);
         appBarLayout = (CollapsingToolbarLayout) getActivity().findViewById(sk.styk.martin.apkanalyzer.R.id.toolbar_layout);
         appBarLayuotImageView = (ImageView) getActivity().findViewById(R.id.toolbar_layout_image);
+        errorLoadingText = (TextView) rootView.findViewById(R.id.item_detail_error);
 
         viewPager = (ViewPager) rootView.findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
@@ -118,21 +119,29 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public Loader<AppDetailData> onCreateLoader(int id, Bundle args) {
-        return new AppDetailLoader(getActivity(), args.getString(ARG_PACKAGE_NAME));
+        return new AppDetailLoader(getActivity(), args.getString(ARG_PACKAGE_NAME), args.getString(ARG_PACKAGE_PATH));
     }
 
     @Override
     public void onLoadFinished(Loader<AppDetailData> loader, AppDetailData data) {
         this.data = data;
-        if (appBarLayout != null) {
-            appBarLayout.setTitle(data.getGeneralData().getPackageName());
-            appBarLayuotImageView.setImageDrawable(data.getGeneralData().getIcon());
-        }
         loadingBar.setVisibility(View.GONE);
-        viewPager.setVisibility(View.VISIBLE);
 
-        adapter.dataChange(data);
+        if (data == null) {
+            errorLoadingText.setVisibility(View.VISIBLE);
+            if (appBarLayout != null) {
+                appBarLayout.setTitle(getString(R.string.loading_failed));
+                appBarLayuotImageView.setImageDrawable(data.getGeneralData().getIcon());
+            }
+        } else {
+            if (appBarLayout != null) {
+                appBarLayout.setTitle(data.getGeneralData().getPackageName());
+                appBarLayuotImageView.setImageDrawable(data.getGeneralData().getIcon());
+            }
+            viewPager.setVisibility(View.VISIBLE);
 
+            adapter.dataChange(data);
+        }
     }
 
     @Override
@@ -142,7 +151,9 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
     @Override
     public void onClick(View view) {
-        showActionDialog();
+        // show actions only when data is loaded
+        if (data != null)
+            showActionDialog();
     }
 
     @Override
@@ -160,6 +171,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View dialogView = factory.inflate(R.layout.dialog_apk_actions, null);
 
+        // setup dialog
         final AlertDialog dialog = new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.pick_action))
                 .setView(dialogView)
@@ -181,6 +193,8 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
                     }
                 }).create();
 
+
+        // setup buttons
         dialogView.findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,30 +222,35 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
             }
         });
 
-        dialogView.findViewById(R.id.btn_show_manifest).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //start manifest activity
-                Intent intent = new Intent(getActivity(), ManifestActivity.class);
-                intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, data.getGeneralData().getPackageName());
+        // allow manifest and built-in app info only for installed packages
+        if (data.isAnalyzedInstalledPackage()) {
+            dialogView.findViewById(R.id.btn_show_manifest).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //start manifest activity
+                    Intent intent = new Intent(getActivity(), ManifestActivity.class);
+                    intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, data.getGeneralData().getPackageName());
 
-                dialog.dismiss();
-                startActivity(intent);
-            }
-        });
+                    dialog.dismiss();
+                    startActivity(intent);
+                }
+            });
 
+            dialogView.findViewById(R.id.btn_show_app_system_page).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent systemInfoIntent = new Intent();
+                    systemInfoIntent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    systemInfoIntent.setData(Uri.parse("package:" + data.getGeneralData().getPackageName()));
 
-        dialogView.findViewById(R.id.btn_show_app_system_page).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent systemInfoIntent = new Intent();
-                systemInfoIntent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                systemInfoIntent.setData(Uri.parse("package:" + data.getGeneralData().getPackageName()));
-
-                dialog.dismiss();
-                startActivity(systemInfoIntent);
-            }
-        });
+                    dialog.dismiss();
+                    startActivity(systemInfoIntent);
+                }
+            });
+        } else if (data.isAnalyzedApkFile()) {
+            dialogView.findViewById(R.id.btn_show_manifest).setVisibility(View.GONE);
+            dialogView.findViewById(R.id.btn_show_app_system_page).setVisibility(View.GONE);
+        }
 
         isDialogShowing = true;
         dialog.show();

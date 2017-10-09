@@ -26,6 +26,7 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
     private String titleText;
     private String valueText;
     private String descriptionText;
+    private String notShownExpression;
 
     public DetailItemView(Context context, AttributeSet attrs) {
         super(context, attrs, R.attr.detailItemViewStyle);
@@ -34,7 +35,7 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
         titleText = a.getString(R.styleable.DetailItemView_titleText);
         valueText = a.getString(R.styleable.DetailItemView_valueText);
         descriptionText = a.getString(R.styleable.DetailItemView_descriptionText);
-
+        notShownExpression = a.getString(R.styleable.DetailItemView_notShownExpression);
         a.recycle();
 
         setOrientation(LinearLayout.HORIZONTAL);
@@ -63,7 +64,7 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
 
     public void setValue(String value) {
         this.valueText = value;
-        if (value == null) {
+        if (value == null || value.equals(notShownExpression)) {
             setVisibility(GONE);
         } else {
             this.value.setText(value);

@@ -46,7 +46,7 @@ public class GeneralDataService {
             generalData.setApkDirectory(applicationInfo.sourceDir);
             generalData.setApkSize(getApkSize(applicationInfo.sourceDir));
             generalData.setDataDirectory(applicationInfo.dataDir);
-            generalData.setMinSdkVersion(AndroidManifestService.getMinSdkVersion(packageInfo.packageName, packageManager));
+            generalData.setMinSdkVersion(AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager));
             generalData.setMinSdkLabel(AndroidVersionHelper.resolveVersion(generalData.getMinSdkVersion()));
             generalData.setTargetSdkVersion(applicationInfo.targetSdkVersion);
             generalData.setTargetSdkLabel(AndroidVersionHelper.resolveVersion(applicationInfo.targetSdkVersion));

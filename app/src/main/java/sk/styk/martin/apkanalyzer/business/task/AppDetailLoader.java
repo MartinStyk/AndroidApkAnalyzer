@@ -16,16 +16,18 @@ public class AppDetailLoader extends ApkAnalyzerAbstractAsyncLoader<AppDetailDat
     private final AppDetailDataService appDetailDataService;
 
     private String packageName;
+    private String pathToPackage;
 
-    public AppDetailLoader(Context context, String packageName) {
+    public AppDetailLoader(Context context, String packageName, String pathToPackage) {
         super(context);
         this.packageName = packageName;
+        this.pathToPackage = pathToPackage;
         appDetailDataService = new AppDetailDataService(context.getPackageManager());
     }
 
     @Override
     public AppDetailData loadInBackground() {
-        return appDetailDataService.get(packageName);
+        return appDetailDataService.get(packageName, pathToPackage);
     }
 
 }

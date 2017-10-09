@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.business.service;
 
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
@@ -123,10 +124,10 @@ public class AndroidManifestService {
     /**
      * It is not possible to get minSdkVersions using Android PackageManager - parse AndroidManifest of app
      */
-    public static int getMinSdkVersion(String packageName, PackageManager packageManager) {
+    public static int getMinSdkVersion(ApplicationInfo applicationInfo, PackageManager packageManager) {
         Resources apkResources;
         try {
-            apkResources = packageManager.getResourcesForApplication(packageName);
+            apkResources = packageManager.getResourcesForApplication(applicationInfo);
             XmlResourceParser parser = apkResources.getAssets().openXmlResourceParser("AndroidManifest.xml");
             int eventType = -1;
 

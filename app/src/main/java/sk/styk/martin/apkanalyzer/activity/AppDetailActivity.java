@@ -41,6 +41,7 @@ public class AppDetailActivity extends AppCompatActivity {
 
             Bundle arguments = new Bundle();
             arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, getIntent().getStringExtra(AppDetailFragment.ARG_PACKAGE_NAME));
+            arguments.putString(AppDetailFragment.ARG_PACKAGE_PATH, getIntent().getStringExtra(AppDetailFragment.ARG_PACKAGE_PATH));
             Fragment detailFragment = new AppDetailFragment();
             detailFragment.setArguments(arguments);
             getSupportFragmentManager().beginTransaction()

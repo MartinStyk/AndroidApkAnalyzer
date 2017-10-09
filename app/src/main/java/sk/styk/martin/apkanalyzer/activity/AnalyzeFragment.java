@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,18 +38,20 @@ public class AnalyzeFragment extends Fragment {
         return (rootView != null && rootView.findViewById(R.id.app_detail_container) != null);
     }
 
-    public void itemClicked(String packageName) {
+    public void itemClicked(String packageName, String pathToPackage) {
         if (!isTwoPane()) {
             Context context = getContext();
             Intent intent = new Intent(context, AppDetailActivity.class);
             intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, packageName);
+            intent.putExtra(AppDetailFragment.ARG_PACKAGE_PATH, pathToPackage);
             context.startActivity(intent);
         } else {
             Bundle arguments = new Bundle();
             arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, packageName);
+            arguments.putString(AppDetailFragment.ARG_PACKAGE_PATH, pathToPackage);
             AppDetailFragment fragment = new AppDetailFragment();
             fragment.setArguments(arguments);
-            fragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailFragment.TAG).commit();
+            getChildFragmentManager().beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailFragment.TAG).commitAllowingStateLoss();
         }
     }
 }

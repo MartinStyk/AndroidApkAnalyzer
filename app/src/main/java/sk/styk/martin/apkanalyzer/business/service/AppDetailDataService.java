@@ -13,6 +13,13 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
  */
 public class AppDetailDataService {
 
+    private final int ANALYSIS_FLAGS = PackageManager.GET_SIGNATURES |
+            PackageManager.GET_ACTIVITIES |
+            PackageManager.GET_SERVICES |
+            PackageManager.GET_PROVIDERS |
+            PackageManager.GET_RECEIVERS |
+            PackageManager.GET_PERMISSIONS;
+
     private PackageManager packageManager;
 
     private GeneralDataService generalDataService;
@@ -32,23 +39,32 @@ public class AppDetailDataService {
         this.resourceService = new ResourceService();
     }
 
-    @NonNull
-    public AppDetailData get(@NonNull String packageName) {
-        PackageInfo packageInfo;
-        try {
-            packageInfo = packageManager.getPackageInfo(packageName,
-                    PackageManager.GET_SIGNATURES |
-                            PackageManager.GET_ACTIVITIES |
-                            PackageManager.GET_SERVICES |
-                            PackageManager.GET_PROVIDERS |
-                            PackageManager.GET_RECEIVERS |
-                            PackageManager.GET_PERMISSIONS);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return null;
+
+    public AppDetailData get(String packageName, String pathToPackage) {
+        PackageInfo packageInfo = null;
+        AppDetailData data = null;
+        // decide whether we analyze installed app or only apk file
+        if (packageName != null && pathToPackage == null) {
+            data = new AppDetailData(AppDetailData.AnalysisMode.INSTALLED_PACKAGE);
+
+            try {
+                packageInfo = packageManager.getPackageInfo(packageName, ANALYSIS_FLAGS);
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            }
+        } else if (packageName == null && pathToPackage != null) {
+            data = new AppDetailData(AppDetailData.AnalysisMode.APK_FILE);
+
+            packageInfo = packageManager.getPackageArchiveInfo(pathToPackage, ANALYSIS_FLAGS);
+            if (packageInfo != null) packageInfo.applicationInfo.sourceDir = pathToPackage;
+        } else {
+            throw new RuntimeException("Only one of parameters can be specified - packageName = " + packageName +
+                    "pathToPackage = " + pathToPackage);
         }
 
-        AppDetailData data = new AppDetailData();
+        if (packageInfo == null)
+            return null;
+
         data.setGeneralData(generalDataService.get(packageInfo));
         data.setCertificateData(certificateService.get(packageInfo));
         data.setActivityData(appComponentsService.getActivities(packageInfo));

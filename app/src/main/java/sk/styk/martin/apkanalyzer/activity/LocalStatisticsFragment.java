@@ -64,8 +64,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         // Hide action bar item for searching
-        MenuItem searchItem = menu.findItem(R.id.action_search);
-        searchItem.setEnabled(false).setVisible(false);
+        menu.clear();
 
         super.onCreateOptionsMenu(menu, inflater);
     }
