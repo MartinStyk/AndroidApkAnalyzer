@@ -1,21 +1,7 @@
 apply plugin: 'com.android.application'
 
-// Load app signing properties from file.
-// This is intended to use only in Martin Styk environment for automated app singing
-// Remove signingConfigs to get it working on other envs.
-def keystorePropertiesFile = rootProject.file("keystore.properties")
-def keystoreProperties = new Properties()
-keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
-
 android {
-    signingConfigs {
-        config {
-            keyAlias keystoreProperties['keyAlias']
-            keyPassword keystoreProperties['keyPassword']
-            storeFile file(keystoreProperties['storeFile'])
-            storePassword keystoreProperties['storePassword']
-        }
-    }
+
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
@@ -29,10 +15,8 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
         debug {
-            signingConfig signingConfigs.config
         }
     }
     dataBinding {
