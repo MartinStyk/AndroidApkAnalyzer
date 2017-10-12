@@ -12,7 +12,7 @@ public enum AppSource {
 
     GOOGLE_PLAY("Google Play", "com.android.vending"),
     AMAZON_STORE("Amazon App Store", "com.amazon.venezia"),
-    SYSTEM_PREINSTALED("Pre-installed"),
+    SYSTEM_PREINSTALED("Pre-installed", "system"),
     UNKNOWN("Unknown");
 
     private String installerPackageName;
@@ -44,7 +44,7 @@ public enum AppSource {
             return GOOGLE_PLAY;
         else if (AMAZON_STORE.installerPackageName.equals(actualInstaller))
             return AMAZON_STORE;
-        else if (isSystem)
+        else if (isSystem || SYSTEM_PREINSTALED.installerPackageName.equals(actualInstaller))
             return SYSTEM_PREINSTALED;
         else
             return UNKNOWN;
