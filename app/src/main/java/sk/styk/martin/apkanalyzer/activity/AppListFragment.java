@@ -27,6 +27,7 @@ import java.util.List;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.adapter.AppListAdapter;
 import sk.styk.martin.apkanalyzer.business.task.AppListLoader;
+import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 import sk.styk.martin.apkanalyzer.util.ApkFilePicker;
 
@@ -83,7 +84,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
         searchView = (SearchView) searchItem.getActionView();
         searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("Search");
+        searchView.setQueryHint(getString(R.string.action_search));
 
         super.onCreateOptionsMenu(menu, inflater);
     }
@@ -91,7 +92,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
     @Override
     public boolean onQueryTextChange(String newText) {
         String currentFilter = !TextUtils.isEmpty(newText) ? newText : null;
-        listAdapter.getFilter().filter(currentFilter);
+        listAdapter.filterOnAppName(currentFilter);
         return true;
     }
 
@@ -122,7 +123,8 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public void onLoadFinished(Loader<List<AppListData>> loader, List<AppListData> data) {
-        listAdapter.setData(data);
+        listAdapter.clear();
+        listAdapter.addAll(data);
 
         if (isResumed()) {
             setListShown(true);
@@ -133,7 +135,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
     @Override
     public void onLoaderReset(Loader<List<AppListData>> loader) {
-        listAdapter.setData(null);
+        listAdapter.clear();
     }
 
     @Override
@@ -141,8 +143,28 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
 
         switch (item.getItemId()) {
             case R.id.action_analyze_not_installed:
-                // show file picker
                 startFilePicker(true);
+                break;
+            case R.id.menu_show_all_apps:
+                item.setChecked(true);
+                listAdapter.filterOnAppSource(null);
+                break;
+            case R.id.menu_show_google_play_apps:
+                item.setChecked(true);
+                listAdapter.filterOnAppSource(AppSource.GOOGLE_PLAY);
+                break;
+            case R.id.menu_show_amazon_store_apps:
+                item.setChecked(true);
+                listAdapter.filterOnAppSource(AppSource.AMAZON_STORE);
+                break;
+            case R.id.menu_show_system_pre_installed_apps:
+                item.setChecked(true);
+                listAdapter.filterOnAppSource(AppSource.SYSTEM_PREINSTALED);
+                break;
+            case R.id.menu_show_unknown_source_apps:
+                item.setChecked(true);
+                listAdapter.filterOnAppSource(AppSource.UNKNOWN);
+                break;
         }
 
         return super.onOptionsItemSelected(item);

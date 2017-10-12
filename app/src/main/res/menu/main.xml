@@ -15,4 +15,35 @@
         android:orderInCategory="1"
         android:title="@string/action_analyze_apk_from_file"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_filter"
+        android:icon="@drawable/ic_filter_list"
+        android:title="@string/action_filter"
+        app:showAsAction="ifRoom">
+        <menu>
+            <group
+                android:checkableBehavior="single"
+                android:title="@string/action_filter"
+                app:showAsAction="ifRoom|withText">
+                <item
+                    android:id="@+id/menu_show_all_apps"
+                    android:checked="true"
+                    android:title="@string/all_apps" />
+                <item
+                    android:id="@+id/menu_show_google_play_apps"
+                    android:title="@string/google_play" />
+                <item
+                    android:id="@+id/menu_show_amazon_store_apps"
+                    android:title="@string/amazon_store" />
+                <item
+                    android:id="@+id/menu_show_system_pre_installed_apps"
+                    android:title="@string/system_pre_installed" />
+                <item
+                    android:id="@+id/menu_show_unknown_source_apps"
+                    android:title="@string/unknown_source" />
+            </group>
+        </menu>
+    </item>
+
 </menu>

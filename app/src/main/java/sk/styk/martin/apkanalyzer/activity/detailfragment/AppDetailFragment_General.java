@@ -34,7 +34,7 @@ public class AppDetailFragment_General extends Fragment {
         ((DetailItemView) rootView.findViewById(R.id.item_version_code)).setValue(String.valueOf(data.getVersionCode()));
         ((DetailItemView) rootView.findViewById(R.id.item_system_application)).setValue(data.isSystemApp() ? getString(R.string.yes) : getString(R.string.no));
         ((DetailItemView) rootView.findViewById(R.id.item_application_description)).setValue(data.getDescription());
-        ((DetailItemView) rootView.findViewById(R.id.item_application_app_source)).setValue(data.getSource().toString());
+        ((DetailItemView) rootView.findViewById(R.id.item_application_app_source)).setValue(data.getSource() == null ? null : data.getSource().toString());
         ((DetailItemView) rootView.findViewById(R.id.item_target_sdk)).setValue(String.valueOf(data.getTargetSdkVersion()));
         ((DetailItemView) rootView.findViewById(R.id.item_target_android_version)).setValue(data.getTargetSdkLabel());
         ((DetailItemView) rootView.findViewById(R.id.item_min_sdk)).setValue(String.valueOf(data.getMinSdkVersion()));

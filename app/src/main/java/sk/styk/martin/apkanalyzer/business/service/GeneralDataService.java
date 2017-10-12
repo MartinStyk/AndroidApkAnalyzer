@@ -53,20 +53,9 @@ public class GeneralDataService {
             generalData.setTargetSdkLabel(AndroidVersionHelper.resolveVersion(applicationInfo.targetSdkVersion));
         }
 
-        generalData.setSource(getAppSource(packageInfo.packageName, generalData.isSystemApp()));
+        generalData.setSource(AppSource.get(packageManager, packageInfo.packageName, generalData.isSystemApp()));
 
         return generalData;
-    }
-
-    private AppSource getAppSource(String packageName, boolean isSystem) {
-        String installer;
-        try {
-            installer = packageManager.getInstallerPackageName(packageName);
-        } catch (Exception e) {
-            //this means package is not installed, we consider it unknown
-            return AppSource.UNKNOWN;
-        }
-        return AppSource.fromInstallerPackage(installer, isSystem);
     }
 
 
