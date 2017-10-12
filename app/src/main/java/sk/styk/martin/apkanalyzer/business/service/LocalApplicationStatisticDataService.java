@@ -9,6 +9,7 @@ import sk.styk.martin.apkanalyzer.business.service.CertificateService;
 import sk.styk.martin.apkanalyzer.business.service.FileDataService;
 import sk.styk.martin.apkanalyzer.business.service.GeneralDataService;
 import sk.styk.martin.apkanalyzer.business.service.ResourceService;
+import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.detail.FileData;
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsAppData;
@@ -58,6 +59,7 @@ public class LocalApplicationStatisticDataService {
         data.setTargetSdk(applicationInfo.targetSdkVersion);
         data.setMinSdk(AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager));
         data.setApkSize(generalDataService.getApkSize(applicationInfo.sourceDir));
+        data.setAppSource(AppSource.get(packageManager, packageName, data.isSystemApp()));
 
         data.setSignAlgorithm(certificateService.getSignAlgorithm(packageInfo));
 

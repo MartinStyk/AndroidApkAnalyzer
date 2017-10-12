@@ -84,9 +84,9 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
         binding.chartMinSdk.setColumnChartData(getSdkColumnChart(data.getMinSdk(), getResources().getColor(R.color.primary)));
         binding.chartTargetSdk.setColumnChartData(getSdkColumnChart(data.getTargetSdk(), getResources().getColor(R.color.primary)));
-        binding.chartInstallLocation.setColumnChartData(getStringBasedColumnChart(data.getInstallLocation(), R.string.install_loc, getResources().getColor(R.color.primary)));
-        binding.chartSignAlgorithm.setColumnChartData(getStringBasedColumnChart(data.getSignAlgorithm(), R.string.sign_algorithm, getResources().getColor(R.color.primary)));
-
+        binding.chartInstallLocation.setColumnChartData(getColumnChart(data.getInstallLocation(), R.string.install_loc, getResources().getColor(R.color.primary)));
+        binding.chartSignAlgorithm.setColumnChartData(getColumnChart(data.getSignAlgorithm(), R.string.sign_algorithm, getResources().getColor(R.color.primary)));
+        binding.chartAppSource.setColumnChartData(getColumnChart(data.getAppSource(), R.string.app_source, getResources().getColor(R.color.primary)));
 
         binding.statisticsApkSize.setStatistics(data.getApkSize());
         binding.statisticsActivities.setStatistics(data.getActivites());
@@ -139,14 +139,14 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
     }
 
-    private ColumnChartData getStringBasedColumnChart(Map<String, PercentagePair> map, @StringRes int axisName, @ColorInt int columnColor) {
+    private ColumnChartData getColumnChart(Map<?, PercentagePair> map, @StringRes int axisName, @ColorInt int columnColor) {
 
         List<Column> columns = new ArrayList<>(map.size());
         List<AxisValue> axisValues = new ArrayList<>(map.size());
         List<SubcolumnValue> values;
 
         int axisValue = 0;
-        for (Map.Entry<String, PercentagePair> entry : map.entrySet()) {
+        for (Map.Entry<?, PercentagePair> entry : map.entrySet()) {
 
             int applicationCount = entry.getValue().getCount().intValue();
 
@@ -156,7 +156,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
             column.setHasLabels(true);
             columns.add(column);
 
-            axisValues.add(new AxisValue(axisValue++).setLabel(entry.getKey()));
+            axisValues.add(new AxisValue(axisValue++).setLabel(entry.getKey().toString()));
         }
 
         ColumnChartData data = new ColumnChartData(columns);

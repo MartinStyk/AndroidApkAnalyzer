@@ -205,6 +205,35 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
+                <!--Application source chart -->
+                <android.support.v7.widget.CardView
+                    style="@style/DetailCardView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        style="@style/ItemDetailLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            style="@style/ItemDetailCardViewHeader"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/app_source" />
+
+                        <lecho.lib.hellocharts.view.ColumnChartView
+                            android:id="@+id/chart_app_source"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="300dp"
+                            android:padding="@dimen/padding_default" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
                 <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
                     android:id="@+id/statistics_apk_size"
                     style="@style/DetailCardView"

@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import java.util.HashMap;
 import java.util.Map;
 
+import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.util.MathStatistics;
 import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
@@ -22,6 +23,8 @@ public class LocalStatisticsData implements Parcelable {
     private Map<String, PercentagePair> installLocation;
     private Map<Integer, PercentagePair> targetSdk;
     private Map<Integer, PercentagePair> minSdk;
+
+    private Map<AppSource, PercentagePair> appSource;
 
     private MathStatistics apkSize;
 
@@ -113,6 +116,14 @@ public class LocalStatisticsData implements Parcelable {
 
     public void setActivites(MathStatistics activites) {
         this.activites = activites;
+    }
+
+    public Map<AppSource, PercentagePair> getAppSource() {
+        return appSource;
+    }
+
+    public void setAppSource(Map<AppSource, PercentagePair> appSource) {
+        this.appSource = appSource;
     }
 
     public MathStatistics getServices() {
@@ -213,6 +224,8 @@ public class LocalStatisticsData implements Parcelable {
         if (targetSdk != null ? !targetSdk.equals(data.targetSdk) : data.targetSdk != null)
             return false;
         if (minSdk != null ? !minSdk.equals(data.minSdk) : data.minSdk != null) return false;
+        if (appSource != null ? !appSource.equals(data.appSource) : data.appSource != null)
+            return false;
         if (apkSize != null ? !apkSize.equals(data.apkSize) : data.apkSize != null) return false;
         if (signAlgorithm != null ? !signAlgorithm.equals(data.signAlgorithm) : data.signAlgorithm != null)
             return false;
@@ -246,6 +259,7 @@ public class LocalStatisticsData implements Parcelable {
         result = 31 * result + (installLocation != null ? installLocation.hashCode() : 0);
         result = 31 * result + (targetSdk != null ? targetSdk.hashCode() : 0);
         result = 31 * result + (minSdk != null ? minSdk.hashCode() : 0);
+        result = 31 * result + (appSource != null ? appSource.hashCode() : 0);
         result = 31 * result + (apkSize != null ? apkSize.hashCode() : 0);
         result = 31 * result + (signAlgorithm != null ? signAlgorithm.hashCode() : 0);
         result = 31 * result + (activites != null ? activites.hashCode() : 0);
@@ -269,10 +283,12 @@ public class LocalStatisticsData implements Parcelable {
     public String toString() {
         return "LocalStatisticsData{" +
                 "analyzeSuccess=" + analyzeSuccess +
+                ", analyzeFailed=" + analyzeFailed +
                 ", systemApps=" + systemApps +
                 ", installLocation=" + installLocation +
                 ", targetSdk=" + targetSdk +
                 ", minSdk=" + minSdk +
+                ", appSource=" + appSource +
                 ", apkSize=" + apkSize +
                 ", signAlgorithm=" + signAlgorithm +
                 ", activites=" + activites +
@@ -301,7 +317,7 @@ public class LocalStatisticsData implements Parcelable {
         dest.writeParcelable(this.systemApps, flags);
         dest.writeInt(this.installLocation.size());
         for (Map.Entry<String, PercentagePair> entry : this.installLocation.entrySet()) {
-            dest.writeValue(entry.getKey());
+            dest.writeString(entry.getKey());
             dest.writeParcelable(entry.getValue(), flags);
         }
         dest.writeInt(this.targetSdk.size());
@@ -312,6 +328,11 @@ public class LocalStatisticsData implements Parcelable {
         dest.writeInt(this.minSdk.size());
         for (Map.Entry<Integer, PercentagePair> entry : this.minSdk.entrySet()) {
             dest.writeValue(entry.getKey());
+            dest.writeParcelable(entry.getValue(), flags);
+        }
+        dest.writeInt(this.appSource.size());
+        for (Map.Entry<AppSource, PercentagePair> entry : this.appSource.entrySet()) {
+            dest.writeInt(entry.getKey() == null ? -1 : entry.getKey().ordinal());
             dest.writeParcelable(entry.getValue(), flags);
         }
         dest.writeParcelable(this.apkSize, flags);
@@ -338,7 +359,7 @@ public class LocalStatisticsData implements Parcelable {
         this.analyzeFailed = in.readParcelable(PercentagePair.class.getClassLoader());
         this.systemApps = in.readParcelable(PercentagePair.class.getClassLoader());
         int installLocationSize = in.readInt();
-        this.installLocation = new HashMap<>(installLocationSize);
+        this.installLocation = new HashMap<String, PercentagePair>(installLocationSize);
         for (int i = 0; i < installLocationSize; i++) {
             String key = in.readString();
             PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
@@ -358,9 +379,17 @@ public class LocalStatisticsData implements Parcelable {
             PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
             this.minSdk.put(key, value);
         }
+        int appSourceSize = in.readInt();
+        this.appSource = new HashMap<AppSource, PercentagePair>(appSourceSize);
+        for (int i = 0; i < appSourceSize; i++) {
+            int tmpKey = in.readInt();
+            AppSource key = tmpKey == -1 ? null : AppSource.values()[tmpKey];
+            PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
+            this.appSource.put(key, value);
+        }
         this.apkSize = in.readParcelable(MathStatistics.class.getClassLoader());
         int signAlgorithmSize = in.readInt();
-        this.signAlgorithm = new HashMap<>(signAlgorithmSize);
+        this.signAlgorithm = new HashMap<String, PercentagePair>(signAlgorithmSize);
         for (int i = 0; i < signAlgorithmSize; i++) {
             String key = in.readString();
             PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());

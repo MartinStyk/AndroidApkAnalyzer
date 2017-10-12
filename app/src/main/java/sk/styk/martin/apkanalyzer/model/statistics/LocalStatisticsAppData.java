@@ -3,6 +3,8 @@ package sk.styk.martin.apkanalyzer.model.statistics;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import sk.styk.martin.apkanalyzer.model.detail.AppSource;
+
 /**
  * Represents single app data for statistics computation.
  * <p>
@@ -15,6 +17,8 @@ public class LocalStatisticsAppData implements Parcelable {
     private int targetSdk;
     private int minSdk;
     private long apkSize;
+
+    private AppSource appSource;
 
     private String signAlgorithm;
 
@@ -64,6 +68,14 @@ public class LocalStatisticsAppData implements Parcelable {
 
     public void setMinSdk(int minSdk) {
         this.minSdk = minSdk;
+    }
+
+    public AppSource getAppSource() {
+        return appSource;
+    }
+
+    public void setAppSource(AppSource appSource) {
+        this.appSource = appSource;
     }
 
     public long getApkSize() {
@@ -175,33 +187,37 @@ public class LocalStatisticsAppData implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LocalStatisticsAppData that = (LocalStatisticsAppData) o;
+        LocalStatisticsAppData data = (LocalStatisticsAppData) o;
 
-        if (systemApp != that.systemApp) return false;
-        if (targetSdk != that.targetSdk) return false;
-        if (minSdk != that.minSdk) return false;
-        if (apkSize != that.apkSize) return false;
-        if (activities != that.activities) return false;
-        if (services != that.services) return false;
-        if (providers != that.providers) return false;
-        if (receivers != that.receivers) return false;
-        if (usedPermissions != that.usedPermissions) return false;
-        if (definedPermissions != that.definedPermissions) return false;
-        if (files != that.files) return false;
-        if (drawables != that.drawables) return false;
-        if (differentDrawables != that.differentDrawables) return false;
-        if (layouts != that.layouts) return false;
-        if (differentLayouts != that.differentLayouts) return false;
-        return signAlgorithm != null ? signAlgorithm.equals(that.signAlgorithm) : that.signAlgorithm == null;
+        if (systemApp != data.systemApp) return false;
+        if (installLocation != data.installLocation) return false;
+        if (targetSdk != data.targetSdk) return false;
+        if (minSdk != data.minSdk) return false;
+        if (apkSize != data.apkSize) return false;
+        if (activities != data.activities) return false;
+        if (services != data.services) return false;
+        if (providers != data.providers) return false;
+        if (receivers != data.receivers) return false;
+        if (usedPermissions != data.usedPermissions) return false;
+        if (definedPermissions != data.definedPermissions) return false;
+        if (files != data.files) return false;
+        if (drawables != data.drawables) return false;
+        if (differentDrawables != data.differentDrawables) return false;
+        if (layouts != data.layouts) return false;
+        if (differentLayouts != data.differentLayouts) return false;
+        if (appSource != data.appSource) return false;
+        return signAlgorithm != null ? signAlgorithm.equals(data.signAlgorithm) : data.signAlgorithm == null;
 
     }
 
     @Override
     public int hashCode() {
         int result = (systemApp ? 1 : 0);
+        result = 31 * result + installLocation;
         result = 31 * result + targetSdk;
         result = 31 * result + minSdk;
         result = 31 * result + (int) (apkSize ^ (apkSize >>> 32));
+        result = 31 * result + (appSource != null ? appSource.hashCode() : 0);
         result = 31 * result + (signAlgorithm != null ? signAlgorithm.hashCode() : 0);
         result = 31 * result + activities;
         result = 31 * result + services;
@@ -232,6 +248,7 @@ public class LocalStatisticsAppData implements Parcelable {
         dest.writeInt(this.targetSdk);
         dest.writeInt(this.minSdk);
         dest.writeLong(this.apkSize);
+        dest.writeInt(this.appSource == null ? -1 : this.appSource.ordinal());
         dest.writeString(this.signAlgorithm);
         dest.writeInt(this.activities);
         dest.writeInt(this.services);
@@ -252,6 +269,8 @@ public class LocalStatisticsAppData implements Parcelable {
         this.targetSdk = in.readInt();
         this.minSdk = in.readInt();
         this.apkSize = in.readLong();
+        int tmpAppSource = in.readInt();
+        this.appSource = tmpAppSource == -1 ? null : AppSource.values()[tmpAppSource];
         this.signAlgorithm = in.readString();
         this.activities = in.readInt();
         this.services = in.readInt();

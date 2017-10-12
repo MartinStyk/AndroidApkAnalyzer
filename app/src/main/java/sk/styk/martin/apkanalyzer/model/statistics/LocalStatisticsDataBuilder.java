@@ -3,6 +3,8 @@ package sk.styk.martin.apkanalyzer.model.statistics;
 import java.util.HashMap;
 import java.util.Map;
 
+import sk.styk.martin.apkanalyzer.model.detail.AppSource;
+import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper;
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper;
 import sk.styk.martin.apkanalyzer.util.MathStatistics;
 import sk.styk.martin.apkanalyzer.util.PercentagePair;
@@ -17,8 +19,10 @@ public class LocalStatisticsDataBuilder {
 
     private int systemApps;
     private Map<String, Integer> installLocation = new HashMap<>(3);
-    private Map<Integer, Integer> targetSdk = new HashMap<>(26);
-    private Map<Integer, Integer> minSdk = new HashMap<>(26);
+    private Map<Integer, Integer> targetSdk = new HashMap<>(AndroidVersionHelper.MAX_SDK_VERSION);
+    private Map<Integer, Integer> minSdk = new HashMap<>(AndroidVersionHelper.MAX_SDK_VERSION);
+    private Map<AppSource, Integer> appSource = new HashMap<>(AppSource.values().length);
+
     private float[] apkSize;
 
     private Map<String, Integer> signAlgorithm = new HashMap<>(5);
@@ -64,6 +68,8 @@ public class LocalStatisticsDataBuilder {
         data.setTargetSdk(getPercentagePairMap(targetSdk));
         data.setMinSdk(getPercentagePairMap(minSdk));
 
+        data.setAppSource(getPercentagePairMap(appSource));
+
         data.setApkSize(new MathStatistics(apkSize));
 
         data.setSignAlgorithm(getPercentagePairMap(signAlgorithm));
@@ -98,6 +104,7 @@ public class LocalStatisticsDataBuilder {
         addToMap(minSdk, appData.getMinSdk());
         apkSize[analyzeSuccess] = appData.getApkSize();
         addToMap(signAlgorithm, appData.getSignAlgorithm());
+        addToMap(appSource, appData.getAppSource());
 
         activities[analyzeSuccess] = appData.getActivities();
         services[analyzeSuccess] = appData.getServices();
