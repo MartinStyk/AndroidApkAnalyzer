@@ -78,18 +78,18 @@ public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
                 break;
 
             case 7:
+                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<? extends Parcelable>) data.getFeatureData());
+                fragment = new AppDetailFragment_Feature();
+                break;
+
+            case 8:
                 args.putStringArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<String>) data.getPermissionData().getUsesPermissions());
                 fragment = new AppDetailFragment_Permission();
                 break;
 
-            case 8:
-                args.putStringArrayList(AppDetailFragment.ARG_CHILD,(ArrayList<String>) data.getPermissionData().getDefinesPermissions());
-                fragment = new AppDetailFragment_Permission();
-                break;
-
             case 9:
-                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<? extends Parcelable>) data.getFeatureData());
-                fragment = new AppDetailFragment_Feature();
+                args.putStringArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<String>) data.getPermissionData().getDefinesPermissions());
+                fragment = new AppDetailFragment_Permission();
                 break;
 
             case 10:
@@ -127,11 +127,11 @@ public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
             case 6:
                 return context.getResources().getString(R.string.broadcast_receivers);
             case 7:
-                return context.getResources().getString(R.string.permissions);
-            case 8:
-                return context.getResources().getString(R.string.defined_permissions);
-            case 9:
                 return context.getResources().getString(R.string.features);
+            case 8:
+                return context.getResources().getString(R.string.permissions);
+            case 9:
+                return context.getResources().getString(R.string.defined_permissions);
             case 10:
                 return context.getResources().getString(R.string.files);
         }
