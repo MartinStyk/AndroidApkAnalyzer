@@ -11,9 +11,7 @@ import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
-import sk.styk.martin.apkanalyzer.adapter.ActivityListAdapter;
-import sk.styk.martin.apkanalyzer.adapter.FeatureListAdapter;
-import sk.styk.martin.apkanalyzer.model.detail.ActivityData;
+import sk.styk.martin.apkanalyzer.adapter.detaillist.FeatureListAdapter;
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData;
 
 /**

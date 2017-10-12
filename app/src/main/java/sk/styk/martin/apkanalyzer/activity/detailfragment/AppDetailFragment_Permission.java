@@ -12,7 +12,7 @@ import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
-import sk.styk.martin.apkanalyzer.adapter.PermissionListAdapter;
+import sk.styk.martin.apkanalyzer.adapter.detaillist.PermissionListAdapter;
 
 /**
  * Created by Martin Styk on 30.06.2017.

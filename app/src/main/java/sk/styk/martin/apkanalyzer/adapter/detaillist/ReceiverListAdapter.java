@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.adapter;
+package sk.styk.martin.apkanalyzer.adapter.detaillist;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +16,10 @@ import sk.styk.martin.apkanalyzer.view.DetailListItemView;
 /**
  * Created by Martin Styk on 07.07.2017.
  */
-public class ReceiverListAdapter extends RecyclerView.Adapter<ReceiverListAdapter.ViewHolder> {
-
-    private final List<BroadcastReceiverData> items;
+public class ReceiverListAdapter extends GenericDetailListAdapter<BroadcastReceiverData, ReceiverListAdapter.ViewHolder> {
 
     public ReceiverListAdapter(@NonNull List<BroadcastReceiverData> items) {
-        super();
-        setHasStableIds(true);
-        this.items = items;
+        super(items);
     }
 
     @Override
@@ -34,26 +30,11 @@ public class ReceiverListAdapter extends RecyclerView.Adapter<ReceiverListAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        BroadcastReceiverData data = items.get(position);
+        BroadcastReceiverData data = getItem(position);
         holder.name.setText(data.getName());
         holder.permission.setValue(data.getPermission());
         holder.exported.setValue(data.isExported());
 
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.adapter;
+package sk.styk.martin.apkanalyzer.adapter.detaillist;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,40 +14,21 @@ import sk.styk.martin.apkanalyzer.R;
 /**
  * Created by Martin Styk on 08.07.2017.
  */
-public class FileListAdapter extends RecyclerView.Adapter<FileListAdapter.ViewHolder> {
-
-    private final List<String> items;
+public class FileListAdapter extends GenericDetailListAdapter<String, FileListAdapter.ViewHolder> {
 
     public FileListAdapter(@NonNull List<String> items) {
-        super();
-        setHasStableIds(true);
-        this.items = items;
+        super(items);
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FileListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_files_detail, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.name.setText(items.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
+        holder.name.setText(getItem(position));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

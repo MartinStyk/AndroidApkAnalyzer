@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.adapter;
+package sk.styk.martin.apkanalyzer.adapter.pager;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -27,12 +27,12 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
  * Created by Martin Styk on 18.06.2017.
  */
 
-public class AppDetailAdapter extends FragmentStatePagerAdapter {
+public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context context;
     private AppDetailData data;
 
-    public AppDetailAdapter(Context context, FragmentManager fm) {
+    public AppDetailPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
         this.context = context;
     }

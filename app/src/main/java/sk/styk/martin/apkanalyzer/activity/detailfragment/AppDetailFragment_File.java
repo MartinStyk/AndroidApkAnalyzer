@@ -13,7 +13,7 @@ import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
-import sk.styk.martin.apkanalyzer.adapter.FileListAdapter;
+import sk.styk.martin.apkanalyzer.adapter.detaillist.FileListAdapter;
 import sk.styk.martin.apkanalyzer.model.detail.FileData;
 
 /**

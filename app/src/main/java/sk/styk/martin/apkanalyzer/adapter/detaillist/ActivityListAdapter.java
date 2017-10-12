@@ -1,9 +1,8 @@
-package sk.styk.martin.apkanalyzer.adapter;
+package sk.styk.martin.apkanalyzer.adapter.detaillist;
 
 import android.content.ComponentName;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,14 +20,10 @@ import sk.styk.martin.apkanalyzer.view.DetailListItemView;
 /**
  * Created by Martin Styk on 07.07.2017.
  */
-public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapter.ViewHolder> {
-
-    private final List<ActivityData> items;
+public class ActivityListAdapter extends GenericDetailListAdapter<ActivityData, ActivityListAdapter.ViewHolder> {
 
     public ActivityListAdapter(@NonNull List<ActivityData> items) {
-        super();
-        setHasStableIds(true);
-        this.items = items;
+        super(items);
     }
 
     @Override
@@ -39,7 +34,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final ActivityData data = items.get(position);
+        final ActivityData data = getItem(position);
         holder.name.setText(data.getName());
         holder.label.setValue(data.getLabel());
         holder.parent.setValue(data.getParentName());
@@ -54,7 +49,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
                     intent.setComponent(new ComponentName(data.getPackageName(), data.getName()));
                     try {
                         v.getContext().startActivity(intent);
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         Toast.makeText(v.getContext(), R.string.activity_run_failed, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -62,21 +57,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
         } else {
             holder.run.setEnabled(false);
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

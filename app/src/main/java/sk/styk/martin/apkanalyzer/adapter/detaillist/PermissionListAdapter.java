@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.adapter;
+package sk.styk.martin.apkanalyzer.adapter.detaillist;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -14,14 +14,10 @@ import sk.styk.martin.apkanalyzer.R;
 /**
  * Created by Martin Styk on 07.07.2017.
  */
-public class PermissionListAdapter extends RecyclerView.Adapter<PermissionListAdapter.ViewHolder> {
-
-    private final List<String> items;
+public class PermissionListAdapter extends GenericDetailListAdapter<String, PermissionListAdapter.ViewHolder> {
 
     public PermissionListAdapter(@NonNull List<String> items) {
-        super();
-        setHasStableIds(true);
-        this.items = items;
+        super(items);
     }
 
     @Override
@@ -32,22 +28,7 @@ public class PermissionListAdapter extends RecyclerView.Adapter<PermissionListAd
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        holder.name.setText(items.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
+        holder.name.setText(getItem(position));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

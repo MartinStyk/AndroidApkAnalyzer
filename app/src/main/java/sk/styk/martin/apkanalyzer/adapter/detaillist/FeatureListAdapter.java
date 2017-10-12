@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.adapter;
+package sk.styk.martin.apkanalyzer.adapter.detaillist;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +16,10 @@ import sk.styk.martin.apkanalyzer.view.DetailListItemView;
 /**
  * Created by Martin Styk on 12.10.2017.
  */
-public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.ViewHolder> {
-
-    private final List<FeatureData> items;
+public class FeatureListAdapter extends GenericDetailListAdapter<FeatureData, FeatureListAdapter.ViewHolder> {
 
     public FeatureListAdapter(@NonNull List<FeatureData> items) {
-        super();
-        setHasStableIds(true);
-        this.items = items;
+        super(items);
     }
 
     @Override
@@ -34,24 +30,9 @@ public class FeatureListAdapter extends RecyclerView.Adapter<FeatureListAdapter.
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final FeatureData data = items.get(position);
+        final FeatureData data = getItem(position);
         holder.name.setText(data.getName());
         holder.required.setValue(data.isRequired());
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

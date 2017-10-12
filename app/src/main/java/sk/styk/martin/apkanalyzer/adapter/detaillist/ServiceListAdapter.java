@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.adapter;
+package sk.styk.martin.apkanalyzer.adapter.detaillist;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +16,10 @@ import sk.styk.martin.apkanalyzer.view.DetailListItemView;
 /**
  * Created by Martin Styk on 07.07.2017.
  */
-public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.ViewHolder> {
-
-    private final List<ServiceData> items;
+public class ServiceListAdapter extends GenericDetailListAdapter<ServiceData, ServiceListAdapter.ViewHolder> {
 
     public ServiceListAdapter(@NonNull List<ServiceData> items) {
-        super();
-        setHasStableIds(true);
-        this.items = items;
+        super(items);
     }
 
     @Override
@@ -34,7 +30,7 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        ServiceData data = items.get(position);
+        ServiceData data = getItem(position);
         holder.name.setText(data.getName());
         holder.permission.setValue(data.getPermission());
         holder.exported.setValue(data.isExported());
@@ -42,21 +38,6 @@ public class ServiceListAdapter extends RecyclerView.Adapter<ServiceListAdapter.
         holder.singleUser.setValue(data.isSingleUser());
         holder.isolatedProcess.setValue(data.isolatedProcess());
         holder.external.setValue(data.isExternalService());
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

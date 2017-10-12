@@ -11,7 +11,7 @@ import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
-import sk.styk.martin.apkanalyzer.adapter.ReceiverListAdapter;
+import sk.styk.martin.apkanalyzer.adapter.detaillist.ReceiverListAdapter;
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData;
 
 /**

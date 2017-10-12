@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.adapter;
+package sk.styk.martin.apkanalyzer.adapter.detaillist;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -16,14 +16,10 @@ import sk.styk.martin.apkanalyzer.view.DetailListItemView;
 /**
  * Created by Martin Styk on 07.07.2017.
  */
-public class ProviderListAdapter extends RecyclerView.Adapter<ProviderListAdapter.ViewHolder> {
-
-    private final List<ContentProviderData> items;
+public class ProviderListAdapter extends GenericDetailListAdapter<ContentProviderData, ProviderListAdapter.ViewHolder> {
 
     public ProviderListAdapter(@NonNull List<ContentProviderData> items) {
-        super();
-        setHasStableIds(true);
-        this.items = items;
+        super(items);
     }
 
     @Override
@@ -34,27 +30,12 @@ public class ProviderListAdapter extends RecyclerView.Adapter<ProviderListAdapte
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        ContentProviderData data = items.get(position);
+        ContentProviderData data = getItem(position);
         holder.name.setText(data.getName());
         holder.authority.setValue(data.getAuthority());
         holder.readPermission.setValue(data.getReadPermission());
         holder.writePermission.setValue(data.getWritePermission());
         holder.exported.setValue(data.isExported());
-    }
-
-    @Override
-    public int getItemCount() {
-        return items.size();
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return position;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

@@ -30,7 +30,7 @@ import java.io.File;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.ManifestActivity;
-import sk.styk.martin.apkanalyzer.adapter.AppDetailAdapter;
+import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
@@ -53,7 +53,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     private CollapsingToolbarLayout appBarLayout;
     private ImageView appBarLayuotImageView;
 
-    private AppDetailAdapter adapter;
+    private AppDetailPagerAdapter adapter;
     private ProgressBar loadingBar;
     private ViewPager viewPager;
     private TextView errorLoadingText;
@@ -64,7 +64,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        adapter = new AppDetailAdapter(getActivity(), getFragmentManager());
+        adapter = new AppDetailPagerAdapter(getActivity(), getFragmentManager());
         getLoaderManager().initLoader(AppDetailLoader.ID, getArguments(), this);
     }
 
