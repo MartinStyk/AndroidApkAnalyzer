@@ -13,6 +13,7 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
+import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Feature;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_File;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_General;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Permission;
@@ -87,6 +88,11 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
                 break;
 
             case 9:
+                args.putParcelableArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<? extends Parcelable>) data.getFeatureData());
+                fragment = new AppDetailFragment_Feature();
+                break;
+
+            case 10:
                 args.putParcelable(AppDetailFragment.ARG_CHILD, data.getFileData());
                 fragment = new AppDetailFragment_File();
                 break;
@@ -100,7 +106,7 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 10;
+        return 11;
     }
 
     @Override
@@ -125,6 +131,8 @@ public class AppDetailAdapter extends FragmentStatePagerAdapter {
             case 8:
                 return context.getResources().getString(R.string.defined_permissions);
             case 9:
+                return context.getResources().getString(R.string.features);
+            case 10:
                 return context.getResources().getString(R.string.files);
         }
         return "TODO";

@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
+import sk.styk.martin.apkanalyzer.model.detail.FeatureData;
 
 /**
  * Retrieve apps installed on device
@@ -18,7 +19,8 @@ public class AppDetailDataService {
             PackageManager.GET_SERVICES |
             PackageManager.GET_PROVIDERS |
             PackageManager.GET_RECEIVERS |
-            PackageManager.GET_PERMISSIONS;
+            PackageManager.GET_PERMISSIONS |
+            PackageManager.GET_CONFIGURATIONS;
 
     private PackageManager packageManager;
 
@@ -26,6 +28,7 @@ public class AppDetailDataService {
     private CertificateService certificateService;
     private AppComponentsService appComponentsService;
     private PermissionsService permissionsService;
+    private FeaturesService featuresService;
     private FileDataService fileDataService;
     private ResourceService resourceService;
 
@@ -35,6 +38,7 @@ public class AppDetailDataService {
         this.certificateService = new CertificateService();
         this.appComponentsService = new AppComponentsService(packageManager);
         this.permissionsService = new PermissionsService();
+        this.featuresService = new FeaturesService();
         this.fileDataService = new FileDataService();
         this.resourceService = new ResourceService();
     }
@@ -72,6 +76,7 @@ public class AppDetailDataService {
         data.setContentProviderData(appComponentsService.getContentProviders(packageInfo));
         data.setBroadcastReceiverData(appComponentsService.getBroadcastReceivers(packageInfo));
         data.setPermissionData(permissionsService.get(packageInfo));
+        data.setFeatureData(featuresService.get(packageInfo));
         data.setFileData(fileDataService.get(packageInfo));
         data.setResourceData(resourceService.get(data.getFileData()));
 
@@ -81,11 +86,15 @@ public class AppDetailDataService {
     @Override
     public String toString() {
         return "AppDetailDataService{" +
-                "packageManager=" + packageManager +
+                "ANALYSIS_FLAGS=" + ANALYSIS_FLAGS +
+                ", packageManager=" + packageManager +
                 ", generalDataService=" + generalDataService +
                 ", certificateService=" + certificateService +
                 ", appComponentsService=" + appComponentsService +
                 ", permissionsService=" + permissionsService +
+                ", featuresService=" + featuresService +
+                ", fileDataService=" + fileDataService +
+                ", resourceService=" + resourceService +
                 '}';
     }
 }

@@ -47,6 +47,7 @@
     <string name="broadcast_receivers">Broadcast Receivers</string>
     <string name="permissions">Used Permissions</string>
     <string name="defined_permissions">Defined Permissions</string>
+    <string name="features">Features</string>
     <string name="files">Files</string>
     <string name="resources">Resources</string>
 
@@ -210,6 +211,11 @@
 
     <string name="receiver_permission_description">The name of a permission that broadcasters must have to send a message to the broadcast receiver. If this attribute is not set, the permission set by the application element\'s permission attribute applies to the broadcast receiver. If neither attribute is set, the receiver is not protected by a permission.</string>
     <string name="receiver_exported_description">Whether or not the broadcast receiver can receive messages from sources outside its application - \"yes\" if it can, and \"no\" if not. If no, the only messages the broadcast receiver can receive are those sent by components of the same application or applications with the same user ID.</string>
+
+    <string name="feature_required">Required</string>
+
+    <string name="feature_required_description">This feature is required by the application</string>
+
 
     <string name="arithmetic_mean">Arithmetic mean</string>
     <string name="median">Median</string>

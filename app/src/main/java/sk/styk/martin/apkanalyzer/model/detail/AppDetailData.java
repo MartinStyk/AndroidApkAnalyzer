@@ -21,25 +21,12 @@ public class AppDetailData implements Parcelable {
     private List<ContentProviderData> contentProviderData;
     private List<BroadcastReceiverData> broadcastReceiverData;
     private PermissionData permissionData;
+    private List<FeatureData> featureData;
     private FileData fileData;
     private ResourceData resourceData;
 
     public AppDetailData(AnalysisMode analysisMode) {
         this.analysisMode = analysisMode;
-    }
-
-    protected AppDetailData(Parcel in) {
-        int tmpAnalysisMode = in.readInt();
-        this.analysisMode = tmpAnalysisMode == -1 ? null : AnalysisMode.values()[tmpAnalysisMode];
-        this.generalData = in.readParcelable(GeneralData.class.getClassLoader());
-        this.certificateData = in.readParcelable(CertificateData.class.getClassLoader());
-        this.activityData = in.createTypedArrayList(ActivityData.CREATOR);
-        this.serviceData = in.createTypedArrayList(ServiceData.CREATOR);
-        this.contentProviderData = in.createTypedArrayList(ContentProviderData.CREATOR);
-        this.broadcastReceiverData = in.createTypedArrayList(BroadcastReceiverData.CREATOR);
-        this.permissionData = in.readParcelable(PermissionData.class.getClassLoader());
-        this.fileData = in.readParcelable(FileData.class.getClassLoader());
-        this.resourceData = in.readParcelable(ResourceData.class.getClassLoader());
     }
 
     public AnalysisMode getAnalysisMode() {
@@ -130,6 +117,14 @@ public class AppDetailData implements Parcelable {
         this.resourceData = resourceData;
     }
 
+    public List<FeatureData> getFeatureData() {
+        return featureData;
+    }
+
+    public void setFeatureData(List<FeatureData> featureData) {
+        this.featureData = featureData;
+    }
+
     @Override
     public String toString() {
         return "AppDetailData{" +
@@ -141,6 +136,7 @@ public class AppDetailData implements Parcelable {
                 ", contentProviderData=" + contentProviderData +
                 ", broadcastReceiverData=" + broadcastReceiverData +
                 ", permissionData=" + permissionData +
+                ", featureData=" + featureData +
                 ", fileData=" + fileData +
                 ", resourceData=" + resourceData +
                 '}';
@@ -168,6 +164,8 @@ public class AppDetailData implements Parcelable {
             return false;
         if (permissionData != null ? !permissionData.equals(data.permissionData) : data.permissionData != null)
             return false;
+        if (featureData != null ? !featureData.equals(data.featureData) : data.featureData != null)
+            return false;
         if (fileData != null ? !fileData.equals(data.fileData) : data.fileData != null)
             return false;
         return resourceData != null ? resourceData.equals(data.resourceData) : data.resourceData == null;
@@ -184,9 +182,15 @@ public class AppDetailData implements Parcelable {
         result = 31 * result + (contentProviderData != null ? contentProviderData.hashCode() : 0);
         result = 31 * result + (broadcastReceiverData != null ? broadcastReceiverData.hashCode() : 0);
         result = 31 * result + (permissionData != null ? permissionData.hashCode() : 0);
+        result = 31 * result + (featureData != null ? featureData.hashCode() : 0);
         result = 31 * result + (fileData != null ? fileData.hashCode() : 0);
         result = 31 * result + (resourceData != null ? resourceData.hashCode() : 0);
         return result;
+    }
+
+    public enum AnalysisMode {
+        INSTALLED_PACKAGE,
+        APK_FILE
     }
 
     @Override
@@ -204,8 +208,24 @@ public class AppDetailData implements Parcelable {
         dest.writeTypedList(this.contentProviderData);
         dest.writeTypedList(this.broadcastReceiverData);
         dest.writeParcelable(this.permissionData, flags);
+        dest.writeTypedList(this.featureData);
         dest.writeParcelable(this.fileData, flags);
         dest.writeParcelable(this.resourceData, flags);
+    }
+
+    protected AppDetailData(Parcel in) {
+        int tmpAnalysisMode = in.readInt();
+        this.analysisMode = tmpAnalysisMode == -1 ? null : AnalysisMode.values()[tmpAnalysisMode];
+        this.generalData = in.readParcelable(GeneralData.class.getClassLoader());
+        this.certificateData = in.readParcelable(CertificateData.class.getClassLoader());
+        this.activityData = in.createTypedArrayList(ActivityData.CREATOR);
+        this.serviceData = in.createTypedArrayList(ServiceData.CREATOR);
+        this.contentProviderData = in.createTypedArrayList(ContentProviderData.CREATOR);
+        this.broadcastReceiverData = in.createTypedArrayList(BroadcastReceiverData.CREATOR);
+        this.permissionData = in.readParcelable(PermissionData.class.getClassLoader());
+        this.featureData = in.createTypedArrayList(FeatureData.CREATOR);
+        this.fileData = in.readParcelable(FileData.class.getClassLoader());
+        this.resourceData = in.readParcelable(ResourceData.class.getClassLoader());
     }
 
     public static final Creator<AppDetailData> CREATOR = new Creator<AppDetailData>() {
@@ -219,9 +239,4 @@ public class AppDetailData implements Parcelable {
             return new AppDetailData[size];
         }
     };
-
-    public enum AnalysisMode {
-        INSTALLED_PACKAGE,
-        APK_FILE
-    }
 }
