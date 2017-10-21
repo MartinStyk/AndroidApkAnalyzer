@@ -44,6 +44,7 @@ public class GeneralDataService {
             generalData.setApplicationName(label != null ? label.toString() : applicationInfo.packageName);
             generalData.setProcessName(applicationInfo.processName);
             generalData.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
+            generalData.setUid(applicationInfo.uid);
             generalData.setApkDirectory(applicationInfo.sourceDir);
             generalData.setApkSize(getApkSize(applicationInfo.sourceDir));
             generalData.setDataDirectory(applicationInfo.dataDir);

@@ -64,6 +64,7 @@
     <string name="version_name">Version name</string>
     <string name="version_code">Version code</string>
     <string name="system_application">System application</string>
+    <string name="uid">UID</string>
     <string name="description">Description</string>
     <string name="app_source">Application source</string>
     <string name="sdk">SDK</string>
@@ -96,7 +97,8 @@
     <string name="process_name_description">The name of the process this application should run in. From the "process" attribute or, if not set, the same as package name.</string>
     <string name="version_name_description">The version number shown to users. The attribute has no other purpose than to be displayed to users. The Version code attribute holds the significant version number used internally.</string>
     <string name="version_code_description">An internal version number. This number is used only to determine whether one version is more recent than another, with higher numbers indicating more recent versions. This is not the version number shown to users; that number is set by the Version name attribute.</string>
-    <string name="system_application_description">If set tot rue, this application is installed in the device\'s system image.</string>
+    <string name="system_application_description">If set to true, this application is installed in the device\'s system image.</string>
+    <string name="uid_description">The kernel user-ID that has been assigned to this application. Currently this is not a unique ID as multiple applications can have the same uid.</string>
     <string name="description_description">The application\'s description specified by application developer.</string>
     <string name="description_app_source">Location from which was APK file installed</string>
     <string name="target_sdk_description">A number designating the Android API Level that the application targets. This attribute informs the system that application is tested against the target version and the system should not enable any compatibility behaviors to maintain app\'s forward-compatibility with the target version. The application is still able to run on older versions (down to Min Sdk Version).</string>

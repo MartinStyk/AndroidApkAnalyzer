@@ -16,6 +16,7 @@ public class GeneralData implements Parcelable {
     private String versionName;
     private int versionCode;
     private boolean isSystemApp;
+    private int uid;
     private String description;
     private AppSource source;
 
@@ -192,6 +193,14 @@ public class GeneralData implements Parcelable {
         this.description = description;
     }
 
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -201,6 +210,7 @@ public class GeneralData implements Parcelable {
 
         if (versionCode != that.versionCode) return false;
         if (isSystemApp != that.isSystemApp) return false;
+        if (uid != that.uid) return false;
         if (apkSize != that.apkSize) return false;
         if (firstInstallTime != that.firstInstallTime) return false;
         if (lastUpdateTime != that.lastUpdateTime) return false;
@@ -238,6 +248,7 @@ public class GeneralData implements Parcelable {
         result = 31 * result + (versionName != null ? versionName.hashCode() : 0);
         result = 31 * result + versionCode;
         result = 31 * result + (isSystemApp ? 1 : 0);
+        result = 31 * result + uid;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (source != null ? source.hashCode() : 0);
         result = 31 * result + (icon != null ? icon.hashCode() : 0);
@@ -263,6 +274,7 @@ public class GeneralData implements Parcelable {
                 ", versionName='" + versionName + '\'' +
                 ", versionCode=" + versionCode +
                 ", isSystemApp=" + isSystemApp +
+                ", uid=" + uid +
                 ", description='" + description + '\'' +
                 ", source=" + source +
                 ", icon=" + icon +
@@ -295,6 +307,7 @@ public class GeneralData implements Parcelable {
         dest.writeString(this.versionName);
         dest.writeInt(this.versionCode);
         dest.writeByte(this.isSystemApp ? (byte) 1 : (byte) 0);
+        dest.writeInt(this.uid);
         dest.writeString(this.description);
         dest.writeInt(this.source == null ? -1 : this.source.ordinal());
         dest.writeString(this.apkDirectory);
@@ -316,6 +329,7 @@ public class GeneralData implements Parcelable {
         this.versionName = in.readString();
         this.versionCode = in.readInt();
         this.isSystemApp = in.readByte() != 0;
+        this.uid = in.readInt();
         this.description = in.readString();
         int tmpSource = in.readInt();
         this.source = tmpSource == -1 ? null : AppSource.values()[tmpSource];

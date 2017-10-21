@@ -55,6 +55,13 @@
             app:titleText="@string/system_application" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_uid"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/uid_description"
+            app:titleText="@string/uid" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_application_description"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"
