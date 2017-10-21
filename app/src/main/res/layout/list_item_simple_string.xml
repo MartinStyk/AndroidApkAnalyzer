@@ -6,9 +6,8 @@
     android:padding="@dimen/text_list_item_margin">
 
     <TextView
-        android:id="@+id/item_permission_name"
+        android:id="@+id/item_detail_string"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>
-

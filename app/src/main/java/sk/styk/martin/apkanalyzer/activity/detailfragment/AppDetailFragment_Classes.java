@@ -17,7 +17,7 @@ import sk.styk.martin.apkanalyzer.adapter.detaillist.SimpleStringListAdapter;
 /**
  * Created by Martin Styk on 30.06.2017.
  */
-public class AppDetailFragment_Permission extends Fragment {
+public class AppDetailFragment_Classes extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

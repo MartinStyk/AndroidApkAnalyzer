@@ -14,15 +14,15 @@ import sk.styk.martin.apkanalyzer.R;
 /**
  * Created by Martin Styk on 07.07.2017.
  */
-public class PermissionListAdapter extends GenericDetailListAdapter<String, PermissionListAdapter.ViewHolder> {
+public class SimpleStringListAdapter extends GenericDetailListAdapter<String, SimpleStringListAdapter.ViewHolder> {
 
-    public PermissionListAdapter(@NonNull List<String> items) {
+    public SimpleStringListAdapter(@NonNull List<String> items) {
         super(items);
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_permission_detail, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_simple_string, parent, false);
         return new ViewHolder(view);
     }
 
@@ -36,7 +36,7 @@ public class PermissionListAdapter extends GenericDetailListAdapter<String, Perm
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.item_permission_name);
+            name = (TextView) v.findViewById(R.id.item_detail_string);
         }
     }
 }

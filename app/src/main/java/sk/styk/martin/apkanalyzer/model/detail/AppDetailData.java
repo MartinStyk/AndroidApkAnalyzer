@@ -6,11 +6,10 @@ import android.os.Parcelable;
 import java.util.List;
 
 /**
- * Class holding basic application metadata used application detail view
+ * Class holding basic application metadata used in application detail view
  * <p>
  * Created by Martin Styk on 22.06.2017.
  */
-
 public class AppDetailData implements Parcelable {
 
     private AnalysisMode analysisMode;
@@ -24,6 +23,7 @@ public class AppDetailData implements Parcelable {
     private List<FeatureData> featureData;
     private FileData fileData;
     private ResourceData resourceData;
+    private List<String> classes;
 
     public AppDetailData(AnalysisMode analysisMode) {
         this.analysisMode = analysisMode;
@@ -125,6 +125,14 @@ public class AppDetailData implements Parcelable {
         this.featureData = featureData;
     }
 
+    public List<String> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(List<String> classes) {
+        this.classes = classes;
+    }
+
     @Override
     public String toString() {
         return "AppDetailData{" +
@@ -139,6 +147,7 @@ public class AppDetailData implements Parcelable {
                 ", featureData=" + featureData +
                 ", fileData=" + fileData +
                 ", resourceData=" + resourceData +
+                ", classes=" + classes +
                 '}';
     }
 
@@ -168,7 +177,9 @@ public class AppDetailData implements Parcelable {
             return false;
         if (fileData != null ? !fileData.equals(data.fileData) : data.fileData != null)
             return false;
-        return resourceData != null ? resourceData.equals(data.resourceData) : data.resourceData == null;
+        if (resourceData != null ? !resourceData.equals(data.resourceData) : data.resourceData != null)
+            return false;
+        return classes != null ? classes.equals(data.classes) : data.classes == null;
 
     }
 
@@ -185,6 +196,7 @@ public class AppDetailData implements Parcelable {
         result = 31 * result + (featureData != null ? featureData.hashCode() : 0);
         result = 31 * result + (fileData != null ? fileData.hashCode() : 0);
         result = 31 * result + (resourceData != null ? resourceData.hashCode() : 0);
+        result = 31 * result + (classes != null ? classes.hashCode() : 0);
         return result;
     }
 
@@ -211,6 +223,7 @@ public class AppDetailData implements Parcelable {
         dest.writeTypedList(this.featureData);
         dest.writeParcelable(this.fileData, flags);
         dest.writeParcelable(this.resourceData, flags);
+        dest.writeStringList(this.classes);
     }
 
     protected AppDetailData(Parcel in) {
@@ -226,6 +239,7 @@ public class AppDetailData implements Parcelable {
         this.featureData = in.createTypedArrayList(FeatureData.CREATOR);
         this.fileData = in.readParcelable(FileData.class.getClassLoader());
         this.resourceData = in.readParcelable(ResourceData.class.getClassLoader());
+        this.classes = in.createStringArrayList();
     }
 
     public static final Creator<AppDetailData> CREATOR = new Creator<AppDetailData>() {

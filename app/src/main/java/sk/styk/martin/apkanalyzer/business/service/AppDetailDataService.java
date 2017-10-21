@@ -4,6 +4,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
+import sk.styk.martin.apkanalyzer.activity.MainActivity;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData;
 
@@ -31,6 +32,7 @@ public class AppDetailDataService {
     private FeaturesService featuresService;
     private FileDataService fileDataService;
     private ResourceService resourceService;
+    private DexService dexService;
 
     public AppDetailDataService(@NonNull PackageManager packageManager) {
         this.packageManager = packageManager;
@@ -41,6 +43,7 @@ public class AppDetailDataService {
         this.featuresService = new FeaturesService();
         this.fileDataService = new FileDataService();
         this.resourceService = new ResourceService();
+        this.dexService = new DexService();
     }
 
 
@@ -79,6 +82,7 @@ public class AppDetailDataService {
         data.setFeatureData(featuresService.get(packageInfo));
         data.setFileData(fileDataService.get(packageInfo));
         data.setResourceData(resourceService.get(data.getFileData()));
+        data.setClasses(dexService.get(packageInfo));;
 
         return data;
     }
@@ -95,6 +99,7 @@ public class AppDetailDataService {
                 ", featuresService=" + featuresService +
                 ", fileDataService=" + fileDataService +
                 ", resourceService=" + resourceService +
+                ", dexService=" + dexService +
                 '}';
     }
 }
