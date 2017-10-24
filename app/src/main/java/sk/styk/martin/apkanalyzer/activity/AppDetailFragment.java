@@ -131,7 +131,6 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
             errorLoadingText.setVisibility(View.VISIBLE);
             if (appBarLayout != null) {
                 appBarLayout.setTitle(getString(R.string.loading_failed));
-                appBarLayuotImageView.setImageDrawable(data.getGeneralData().getIcon());
             }
         } else {
             if (appBarLayout != null) {
