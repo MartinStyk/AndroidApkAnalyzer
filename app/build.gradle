@@ -7,9 +7,9 @@ android {
     defaultConfig {
         applicationId "sk.styk.martin.apkanalyzer"
         minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 3
-        versionName "1.1.0"
+        targetSdkVersion 26
+        versionCode 4
+        versionName "1.1.1"
     }
     buildTypes {
         release {
