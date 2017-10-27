@@ -187,7 +187,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         // handle picked apk file and
         if (requestCode == ApkFilePicker.REQUEST_PICK_APK && resultCode == RESULT_OK) {
             AnalyzeFragment parentFragment = (AnalyzeFragment) getParentFragment();
-            parentFragment.itemClicked(null, ApkFilePicker.getPathOnActivityResult(data, getContext()));
+            parentFragment.itemClicked(null, ApkFilePicker.getPathFromIntentData(data, getContext()));
         }
     }
 

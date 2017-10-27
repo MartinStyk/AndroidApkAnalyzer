@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.util;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 
 import java.io.File;
 
@@ -20,7 +21,7 @@ public class ApkFilePicker {
         return mediaIntent;
     }
 
-    public static String getPathOnActivityResult(Intent data, Context context) {
+    public static String getPathFromIntentData(@NonNull Intent data, @NonNull Context context) {
         Uri apkUri = data.getData();
         File fileFromPath = new File(apkUri.getPath());
         if (fileFromPath.exists()) {
@@ -28,11 +29,12 @@ public class ApkFilePicker {
         }
 
         String pathFromRealPathUtils = RealPathUtils.getPathFromUri(context, apkUri);
-        File fileFromRealPathUtils = new File(pathFromRealPathUtils);
-        if (fileFromRealPathUtils.exists()) {
-            return fileFromRealPathUtils.getAbsolutePath();
+        if(pathFromRealPathUtils != null){
+            File fileFromRealPathUtils = new File(pathFromRealPathUtils);
+            if (fileFromRealPathUtils.exists()) {
+                return fileFromRealPathUtils.getAbsolutePath();
+            }
         }
-
         //we failed, return anything
         return apkUri.toString();
     }
