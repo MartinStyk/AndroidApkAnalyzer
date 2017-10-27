@@ -88,6 +88,7 @@
     <string name="save_manifest_fail">Manifest is not loaded yet</string>
     <string name="show_app_system_page">Built-in app info</string>
     <string name="share_apk">Share APK</string>
+    <string name="install_failed">Apk Analyzer failed to install your APK. Please do it manually</string>
 
     <string name="online_scan">Perform online apk scan - TODO</string>
     <string name="app_icon">Application icon</string>
