@@ -46,6 +46,7 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
         }
 
         intent = getIntent();
+        apkPath = ApkFilePicker.getPathFromIntentData(intent, this);
 
         if (savedInstanceState == null) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
@@ -57,7 +58,8 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
         }
 
         FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.btn_actions);
-        actionButton.setVisibility(View.GONE);
+        if (actionButton != null) //action button exists only in < w900
+            actionButton.setVisibility(View.GONE);
 
         FloatingActionButton installButton = (FloatingActionButton) findViewById(R.id.btn_install);
         installButton.setVisibility(View.VISIBLE);
@@ -77,7 +79,6 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
 
     private void setupDetailFragment() {
         Bundle arguments = new Bundle();
-        apkPath = ApkFilePicker.getPathFromIntentData(intent, this);
         arguments.putString(AppDetailFragment.ARG_PACKAGE_PATH, apkPath);
         Fragment detailFragment = new AppDetailFragment();
         detailFragment.setArguments(arguments);
@@ -91,10 +92,10 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
         Intent intent = new Intent(Intent.ACTION_VIEW);
 
         Uri apkUri = null;
-        try{
+        try {
             apkUri = FileProvider.getUriForFile(this, GenericFileProvider.AUTHORITY, new File(apkPath));
-        } catch (Exception e){
-            Log.e(OnInstallAppDetailActivity.class.getSimpleName(), e.getLocalizedMessage());
+        } catch (Exception e) {
+            Log.e(OnInstallAppDetailActivity.class.getSimpleName(), e.toString());
             Toast.makeText(this, getString(R.string.install_failed), Toast.LENGTH_LONG).show();
             return;
         }
