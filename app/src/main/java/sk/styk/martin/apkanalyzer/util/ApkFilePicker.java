@@ -30,10 +30,17 @@ public class ApkFilePicker {
 
         String pathFromRealPathUtils = RealPathUtils.getPathFromUri(context, apkUri);
         if(pathFromRealPathUtils != null){
-            File fileFromRealPathUtils = new File(pathFromRealPathUtils);
-            if (fileFromRealPathUtils.exists()) {
-                return fileFromRealPathUtils.getAbsolutePath();
+            try {
+                File fileFromRealPathUtils = new File(pathFromRealPathUtils);
+                if (fileFromRealPathUtils.exists()) {
+                    return fileFromRealPathUtils.getAbsolutePath();
+                }
+            } catch (Exception e){
+                // sometimes new File call might throw an exception
+                //we failed, return anything
+                return apkUri.toString();
             }
+
         }
         //we failed, return anything
         return apkUri.toString();
