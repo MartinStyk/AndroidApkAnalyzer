@@ -24,6 +24,8 @@
     <string name="none">none</string>
     <string name="dismiss">Dismiss</string>
     <string name="permission_not_granted">Permission not granted</string>
+    <string name="activity_not_found">No application for file browsing found on your device</string>
+
 
     <string name="nav_application_list">Applications</string>
     <string name="nav_statistics">Statistics</string>

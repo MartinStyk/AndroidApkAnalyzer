@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.activity;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -219,7 +220,11 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
                 startFilePicker(false);
             }
         } else {
-            startActivityForResult(ApkFilePicker.getFilePickerIntent(), ApkFilePicker.REQUEST_PICK_APK);
+            try {
+                startActivityForResult(ApkFilePicker.getFilePickerIntent(), ApkFilePicker.REQUEST_PICK_APK);
+            } catch (ActivityNotFoundException exception){
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.activity_not_found, Snackbar.LENGTH_LONG).show();
+            }
         }
     }
 
