@@ -3,15 +3,12 @@ package sk.styk.martin.apkanalyzer.util;
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
-import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-
-import java.io.File;
 
 /**
  * Created by Martin Styk on 09.10.2017.
@@ -62,7 +59,7 @@ public class RealPathUtils {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
+                final String[] selectionArgs = new String[]{
                         split[1]
                 };
 
@@ -86,7 +83,7 @@ public class RealPathUtils {
         return null;
     }
 
-    public static String getDataColumn(Context context, Uri uri, String selection,
+    private static String getDataColumn(Context context, Uri uri, String selection,
                                        String[] selectionArgs) {
 
         Cursor cursor = null;
@@ -102,6 +99,8 @@ public class RealPathUtils {
                 final int index = cursor.getColumnIndexOrThrow(column);
                 return cursor.getString(index);
             }
+        } catch (Exception e) {
+            return null;
         } finally {
             if (cursor != null)
                 cursor.close();
