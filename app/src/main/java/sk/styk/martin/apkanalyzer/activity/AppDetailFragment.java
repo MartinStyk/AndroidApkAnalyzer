@@ -16,6 +16,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -34,6 +35,7 @@ import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
+import sk.styk.martin.apkanalyzer.util.GenericFileProvider;
 
 /**
  * A fragment representing a single Item detail screen.
