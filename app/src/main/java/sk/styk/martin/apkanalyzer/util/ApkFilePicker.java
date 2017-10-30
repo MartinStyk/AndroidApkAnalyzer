@@ -23,6 +23,9 @@ public class ApkFilePicker {
 
     public static String getPathFromIntentData(@NonNull Intent data, @NonNull Context context) {
         Uri apkUri = data.getData();
+        if (apkUri == null)
+            return null;
+
         File fileFromPath = new File(apkUri.getPath());
         if (fileFromPath.exists()) {
             return fileFromPath.getAbsolutePath();

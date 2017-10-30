@@ -64,9 +64,6 @@ public class AppDetailDataService {
 
             packageInfo = packageManager.getPackageArchiveInfo(pathToPackage, ANALYSIS_FLAGS);
             if (packageInfo != null) packageInfo.applicationInfo.sourceDir = pathToPackage;
-        } else {
-            throw new RuntimeException("Only one of parameters can be specified - packageName = " + packageName +
-                    "pathToPackage = " + pathToPackage);
         }
 
         if (packageInfo == null)
