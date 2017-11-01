@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.business.service;
 
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.IOException;
@@ -19,11 +19,17 @@ import sk.styk.martin.apkanalyzer.model.detail.FileData;
  */
 public class FileDataService {
 
+    @NonNull
     public FileData get(@NonNull PackageInfo packageInfo) {
+
+        FileData fileData = new FileData();
 
         Manifest mf = openManifest(packageInfo.applicationInfo.sourceDir);
 
-        FileData fileData = new FileData();
+        if (mf == null) {
+            return fileData;
+        }
+
         Map<String, Attributes> map = mf.getEntries();
         Map<String, String> hashData = new HashMap<>(map.size());
 
@@ -54,6 +60,13 @@ public class FileDataService {
         return mf == null ? 0 : mf.getEntries().size();
     }
 
+    /**
+     * Gets all entries from application manifest file
+     *
+     * @param source APK package location
+     * @return all entries on manifest file or null, manifest is not found
+     */
+    @Nullable
     private Manifest openManifest(String source) {
         Manifest mf = null;
         try {

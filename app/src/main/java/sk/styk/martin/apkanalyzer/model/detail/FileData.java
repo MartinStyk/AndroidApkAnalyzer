@@ -22,7 +22,7 @@ public class FileData implements Parcelable {
     private String arscHash;
 
 
-    private Map<String, String> allHashes;
+    private Map<String, String> allHashes = new HashMap<>(0);
 
     public String getDexHash() {
         return dexHash;
