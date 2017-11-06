@@ -16,7 +16,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -32,12 +31,10 @@ import java.io.File;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.ManifestActivity;
 import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter;
-import sk.styk.martin.apkanalyzer.business.task.AppDataSaveService;
+import sk.styk.martin.apkanalyzer.business.task.AppDataSaveTask;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
-import sk.styk.martin.apkanalyzer.business.task.StringToFileSaveService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
-import sk.styk.martin.apkanalyzer.util.GenericFileProvider;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -145,18 +142,8 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
             adapter.dataChange(data);
 
-            saveData(data);
+            new AppDataSaveTask(getContext()).execute(data);
         }
-    }
-
-    private void saveData(AppDetailData data) {
-        File target = new File(Environment.getExternalStorageDirectory(), "data_" + System.currentTimeMillis() + ".json");
-
-        Intent intent = new Intent(getActivity(), AppDataSaveService.class);
-        intent.putExtra(AppDataSaveService.APP_DETAIL_DATA, data);
-        intent.putExtra(AppDataSaveService.TARGET_FILE, target.getAbsolutePath());
-
-        getActivity().startService(intent);
     }
 
     @Override

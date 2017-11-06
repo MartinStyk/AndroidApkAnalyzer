@@ -1,15 +1,16 @@
 package sk.styk.martin.apkanalyzer.business.task;
 
-import android.app.IntentService;
-import android.content.Intent;
-import android.os.Parcelable;
+import android.content.Context;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.ref.WeakReference;
 
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
-import sk.styk.martin.apkanalyzer.model.detail.FileData;
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData;
 import sk.styk.martin.apkanalyzer.util.AndroidIdHelper;
 import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils;
@@ -17,40 +18,37 @@ import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils;
 /**
  * Created by Martin Styk on 6.11.2017.
  */
-public class AppDataSaveService extends IntentService {
+public class AppDataSaveTask extends AsyncTask<AppDetailData, Void, Void> {
+    private static final String TAG = AppDataSaveTask.class.getSimpleName();
 
-    private static final String TAG = AppDataSaveService.class.getSimpleName();
-
-    public static final String APP_DETAIL_DATA = "app_detail_data";
-    public static final String TARGET_FILE = "t_file";
-
+    private WeakReference<Context> contextWeakReference;
     private JsonSerializationUtils jsonSerializationUtils;
 
-    public AppDataSaveService() {
-        super(AppDataSaveService.class.getSimpleName());
+
+    public AppDataSaveTask(Context context) {
+        this.contextWeakReference = new WeakReference<Context>(context);
         jsonSerializationUtils = new JsonSerializationUtils();
     }
 
-    @Override
-    protected void onHandleIntent(Intent intent) {
+    public Void doInBackground(AppDetailData... inputData) {
         Log.i(TAG, "Starting");
-        AppDetailData data = intent.getParcelableExtra(APP_DETAIL_DATA);
-        String targetPath = intent.getStringExtra(TARGET_FILE);
+        AppDetailData data = inputData[0];
 
-        if (data == null || targetPath == null) {
-            Log.e(TAG, "source string or target path not specified");
-            throw new IllegalArgumentException("source string or target path not specified");
+        if (data == null) {
+            throw new IllegalArgumentException("data not specified");
         }
 
-        ServerSideAppData uploadData = new ServerSideAppData(data, AndroidIdHelper.getAndroidId(getApplicationContext()));
+        ServerSideAppData uploadData = new ServerSideAppData(data, AndroidIdHelper.getAndroidId(contextWeakReference.get()));
         Log.i(TAG, "Converted to ServerSideAppData");
 
         String json = jsonSerializationUtils.serialize(uploadData);
         Log.i(TAG, "Serialized to json");
 
-        PrintWriter printWriter = null;
 
+        String targetPath = new File(Environment.getExternalStorageDirectory(), "data_" + System.currentTimeMillis() + ".json").getAbsolutePath();
         Log.i(TAG, "Start printing to " + targetPath);
+
+        PrintWriter printWriter = null;
 
         try {
             printWriter = new PrintWriter(targetPath);
@@ -64,6 +62,7 @@ public class AppDataSaveService extends IntentService {
 
         Log.i(TAG, "Finished");
 
+        return null;
     }
 
 }
