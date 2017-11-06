@@ -15,6 +15,7 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.adapter.detaillist.SimpleStringListAdapter;
 import sk.styk.martin.apkanalyzer.model.detail.FileData;
+import sk.styk.martin.apkanalyzer.model.detail.FileEntry;
 
 /**
  * Created by Martin Styk on 30.06.2017.
@@ -26,9 +27,9 @@ public class AppDetailFragment_File extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_app_detail_simple_string_list, container, false);
 
         FileData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
-        List<String> allFiles = new ArrayList<>(data.getAllHashes().keySet());
+        List<String> allFiles = mergeFileData(data);
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_simple_string_list);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_simple_string_list);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
@@ -37,6 +38,30 @@ public class AppDetailFragment_File extends Fragment {
         recyclerView.setHasFixedSize(true);
 
         return rootView;
+    }
+
+    private List<String> mergeFileData(FileData data) {
+        if (data == null) {
+            return new ArrayList<>(0);
+        }
+
+        List<String> allFiles = new ArrayList<>(data.getAssetHashes().size() +
+                data.getDrawableHashes().size() +
+                data.getLayoutHashes().size() +
+                data.getOtherHashes().size());
+
+        addInternal(allFiles, data.getDrawableHashes());
+        addInternal(allFiles, data.getLayoutHashes());
+        addInternal(allFiles, data.getAssetHashes());
+        addInternal(allFiles, data.getOtherHashes());
+
+        return  allFiles;
+    }
+
+    private void addInternal(List<String> allFiles, List<FileEntry> fileEntries) {
+        for (FileEntry fileEntry : fileEntries) {
+            allFiles.add(fileEntry.getPath());
+        }
     }
 
 }

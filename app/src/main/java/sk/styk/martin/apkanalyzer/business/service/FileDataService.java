@@ -6,13 +6,15 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
 import sk.styk.martin.apkanalyzer.model.detail.FileData;
+import sk.styk.martin.apkanalyzer.model.detail.FileEntry;
 
 /**
  * Created by Martin Styk on 30.06.2017.
@@ -30,26 +32,43 @@ public class FileDataService {
             return fileData;
         }
 
+        List<FileEntry> drawables = new ArrayList<>();
+        List<FileEntry> layouts = new ArrayList<>();
+        List<FileEntry> assets = new ArrayList<>();
+        List<FileEntry> others = new ArrayList<>();
+
         Map<String, Attributes> map = mf.getEntries();
-        Map<String, String> hashData = new HashMap<>(map.size());
 
         for (Map.Entry<String, Attributes> entry : map.entrySet()) {
             String fileName = entry.getKey();
             String hash = (entry.getValue() == null) ? null : entry.getValue().getValue("SHA1-Digest");
+            FileEntry fileEntry = new FileEntry(fileName, hash);
 
-            switch (fileName) {
-                case "classes.dex":
-                    fileData.setDexHash(hash);
-                    break;
-                case "resources.arsc":
-                    fileData.setArscHash(hash);
-                    break;
-                default:
-                    hashData.put(fileName, hash);
-                    break;
+            if (fileName.equals("classes.dex")) {
+                fileData.setDexHash(hash);
+
+            } else if (fileName.equals("resources.arsc")) {
+                fileData.setArscHash(hash);
+
+            } else if (fileName.startsWith("res/drawable")) {
+                drawables.add(fileEntry);
+
+            } else if (fileName.startsWith("res/layout")) {
+                layouts.add(fileEntry);
+
+            } else if (fileName.startsWith("assets")) {
+                assets.add(fileEntry);
+
+            } else {
+                others.add(fileEntry);
+
             }
         }
-        fileData.setAllHashes(hashData);
+
+        fileData.setDrawableHashes(drawables);
+        fileData.setLayoutHashes(layouts);
+        fileData.setAssetHashes(assets);
+        fileData.setOtherHashes(others);
 
         return fileData;
     }

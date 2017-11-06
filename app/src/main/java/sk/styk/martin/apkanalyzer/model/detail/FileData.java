@@ -3,7 +3,9 @@ package sk.styk.martin.apkanalyzer.model.detail;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -21,8 +23,25 @@ public class FileData implements Parcelable {
      */
     private String arscHash;
 
+    /**
+     * Files in res/drawable* directories
+     */
+    private List<FileEntry> drawableHashes = new ArrayList<>(0);
 
-    private Map<String, String> allHashes = new HashMap<>(0);
+    /**
+     * Files in res/layout* directories
+     */
+    private List<FileEntry> layoutHashes = new ArrayList<>(0);
+
+    /**
+     * Files in assets/* directories
+     */
+    private List<FileEntry> assetHashes = new ArrayList<>(0);
+
+    /**
+     * All remaining files
+     */
+    private List<FileEntry> otherHashes = new ArrayList<>(0);
 
     public String getDexHash() {
         return dexHash;
@@ -40,12 +59,36 @@ public class FileData implements Parcelable {
         this.arscHash = arscHash;
     }
 
-    public Map<String, String> getAllHashes() {
-        return allHashes;
+    public List<FileEntry> getDrawableHashes() {
+        return drawableHashes;
     }
 
-    public void setAllHashes(Map<String, String> allHashes) {
-        this.allHashes = allHashes;
+    public void setDrawableHashes(List<FileEntry> drawableHashes) {
+        this.drawableHashes = drawableHashes;
+    }
+
+    public List<FileEntry> getLayoutHashes() {
+        return layoutHashes;
+    }
+
+    public void setLayoutHashes(List<FileEntry> layoutHashes) {
+        this.layoutHashes = layoutHashes;
+    }
+
+    public List<FileEntry> getAssetHashes() {
+        return assetHashes;
+    }
+
+    public void setAssetHashes(List<FileEntry> assetHashes) {
+        this.assetHashes = assetHashes;
+    }
+
+    public List<FileEntry> getOtherHashes() {
+        return otherHashes;
+    }
+
+    public void setOtherHashes(List<FileEntry> otherHashes) {
+        this.otherHashes = otherHashes;
     }
 
     @Override
@@ -59,15 +102,23 @@ public class FileData implements Parcelable {
             return false;
         if (arscHash != null ? !arscHash.equals(fileData.arscHash) : fileData.arscHash != null)
             return false;
-        return allHashes != null ? allHashes.equals(fileData.allHashes) : fileData.allHashes == null;
-
+        if (drawableHashes != null ? !drawableHashes.equals(fileData.drawableHashes) : fileData.drawableHashes != null)
+            return false;
+        if (layoutHashes != null ? !layoutHashes.equals(fileData.layoutHashes) : fileData.layoutHashes != null)
+            return false;
+        if (assetHashes != null ? !assetHashes.equals(fileData.assetHashes) : fileData.assetHashes != null)
+            return false;
+        return otherHashes != null ? otherHashes.equals(fileData.otherHashes) : fileData.otherHashes == null;
     }
 
     @Override
     public int hashCode() {
         int result = dexHash != null ? dexHash.hashCode() : 0;
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
-        result = 31 * result + (allHashes != null ? allHashes.hashCode() : 0);
+        result = 31 * result + (drawableHashes != null ? drawableHashes.hashCode() : 0);
+        result = 31 * result + (layoutHashes != null ? layoutHashes.hashCode() : 0);
+        result = 31 * result + (assetHashes != null ? assetHashes.hashCode() : 0);
+        result = 31 * result + (otherHashes != null ? otherHashes.hashCode() : 0);
         return result;
     }
 
@@ -76,7 +127,10 @@ public class FileData implements Parcelable {
         return "FileData{" +
                 "dexHash='" + dexHash + '\'' +
                 ", arscHash='" + arscHash + '\'' +
-                ", allHashes=" + allHashes +
+                ", drawableHashes=" + drawableHashes +
+                ", layoutHashes=" + layoutHashes +
+                ", assetHashes=" + assetHashes +
+                ", otherHashes=" + otherHashes +
                 '}';
     }
 
@@ -89,11 +143,10 @@ public class FileData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.dexHash);
         dest.writeString(this.arscHash);
-        dest.writeInt(this.allHashes.size());
-        for (Map.Entry<String, String> entry : this.allHashes.entrySet()) {
-            dest.writeString(entry.getKey());
-            dest.writeString(entry.getValue());
-        }
+        dest.writeTypedList(this.drawableHashes);
+        dest.writeTypedList(this.layoutHashes);
+        dest.writeTypedList(this.assetHashes);
+        dest.writeTypedList(this.otherHashes);
     }
 
     public FileData() {
@@ -102,13 +155,10 @@ public class FileData implements Parcelable {
     protected FileData(Parcel in) {
         this.dexHash = in.readString();
         this.arscHash = in.readString();
-        int allHashesSize = in.readInt();
-        this.allHashes = new HashMap<>(allHashesSize);
-        for (int i = 0; i < allHashesSize; i++) {
-            String key = in.readString();
-            String value = in.readString();
-            this.allHashes.put(key, value);
-        }
+        this.drawableHashes = in.createTypedArrayList(FileEntry.CREATOR);
+        this.layoutHashes = in.createTypedArrayList(FileEntry.CREATOR);
+        this.assetHashes = in.createTypedArrayList(FileEntry.CREATOR);
+        this.otherHashes = in.createTypedArrayList(FileEntry.CREATOR);
     }
 
     public static final Creator<FileData> CREATOR = new Creator<FileData>() {

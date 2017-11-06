@@ -72,7 +72,10 @@ public class LocalApplicationStatisticDataService {
         data.setUsedPermissions(packageInfo.requestedPermissions == null ? 0 : packageInfo.requestedPermissions.length);
 
         FileData fileData = fileService.get(packageInfo);
-        data.setFiles(fileData.getAllHashes().size());
+        data.setFiles(fileData.getAssetHashes().size() +
+                fileData.getDrawableHashes().size() +
+                fileData.getLayoutHashes().size() +
+                fileData.getOtherHashes().size() + 2); // +2 for arsc and dex
 
         ResourceData resourceData = resourceService.get(fileData);
         data.setDrawables(resourceData.getDrawables());
