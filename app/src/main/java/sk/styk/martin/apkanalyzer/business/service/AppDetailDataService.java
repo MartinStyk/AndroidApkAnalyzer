@@ -79,7 +79,7 @@ public class AppDetailDataService {
         data.setFeatureData(featuresService.get(packageInfo));
         data.setFileData(fileDataService.get(packageInfo));
         data.setResourceData(resourceService.get(data.getFileData()));
-        data.setClasses(dexService.get(packageInfo));;
+        data.setClassPathData(dexService.get(packageInfo));;
 
         return data;
     }

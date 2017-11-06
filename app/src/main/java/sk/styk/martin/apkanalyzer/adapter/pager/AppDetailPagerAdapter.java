@@ -94,7 +94,7 @@ public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
                 break;
 
             case 10:
-                args.putStringArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<String>) data.getClasses());
+                args.putParcelable(AppDetailFragment.ARG_CHILD, data.getClassPathData());
                 fragment = new AppDetailFragment_Classes();
                 break;
 
