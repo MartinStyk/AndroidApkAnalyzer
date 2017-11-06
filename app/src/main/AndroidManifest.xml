@@ -55,6 +55,7 @@
                 android:value="sk.styk.martin.apkanalyzer.activity.AppListActivity" />
         </activity>
         <service android:name=".business.task.FileCopyService" />
+        <service android:name=".business.task.AppDataSaveService" />
         <service android:name=".business.task.StringToFileSaveService" />
         <provider
             android:name=".util.GenericFileProvider"

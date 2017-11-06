@@ -32,8 +32,10 @@ import java.io.File;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.ManifestActivity;
 import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter;
+import sk.styk.martin.apkanalyzer.business.task.AppDataSaveService;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
+import sk.styk.martin.apkanalyzer.business.task.StringToFileSaveService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.util.GenericFileProvider;
 
@@ -142,7 +144,19 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
             viewPager.setVisibility(View.VISIBLE);
 
             adapter.dataChange(data);
+
+            saveData(data);
         }
+    }
+
+    private void saveData(AppDetailData data) {
+        File target = new File(Environment.getExternalStorageDirectory(), "data_" + System.currentTimeMillis() + ".json");
+
+        Intent intent = new Intent(getActivity(), AppDataSaveService.class);
+        intent.putExtra(AppDataSaveService.APP_DETAIL_DATA, data);
+        intent.putExtra(AppDataSaveService.TARGET_FILE, target.getAbsolutePath());
+
+        getActivity().startService(intent);
     }
 
     @Override
