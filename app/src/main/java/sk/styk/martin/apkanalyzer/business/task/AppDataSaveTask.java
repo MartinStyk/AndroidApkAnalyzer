@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
 
+import sk.styk.martin.apkanalyzer.database.service.SendDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData;
 import sk.styk.martin.apkanalyzer.util.AndroidIdHelper;
@@ -31,6 +32,7 @@ public class AppDataSaveTask extends AsyncTask<AppDetailData, Void, Void> {
     }
 
     public Void doInBackground(AppDetailData... inputData) {
+
         Log.i(TAG, "Starting");
         AppDetailData data = inputData[0];
 
@@ -38,12 +40,21 @@ public class AppDataSaveTask extends AsyncTask<AppDetailData, Void, Void> {
             throw new IllegalArgumentException("data not specified");
         }
 
-        ServerSideAppData uploadData = new ServerSideAppData(data, AndroidIdHelper.getAndroidId(contextWeakReference.get()));
+        Context context = contextWeakReference.get();
+        if (context == null)
+            return null;
+        Log.i(TAG, "hash " + data.hashCode());
+
+        if (SendDataService.isAlreadyUploaded(data, context)) {
+            Log.i(TAG, "Data already uploaded");
+            return null;
+        }
+
+
+        ServerSideAppData uploadData = new ServerSideAppData(data, AndroidIdHelper.getAndroidId(context));
         Log.i(TAG, "Converted to ServerSideAppData");
 
         String json = jsonSerializationUtils.serialize(uploadData);
-        Log.i(TAG, "Serialized to json");
-
 
         String targetPath = new File(Environment.getExternalStorageDirectory(), "data_" + System.currentTimeMillis() + ".json").getAbsolutePath();
         Log.i(TAG, "Start printing to " + targetPath);
@@ -53,6 +64,9 @@ public class AppDataSaveTask extends AsyncTask<AppDetailData, Void, Void> {
         try {
             printWriter = new PrintWriter(targetPath);
             printWriter.print(json);
+            Log.i(TAG, "Saved to DB " + targetPath);
+            SendDataService.insert(data, context);
+            context = null;
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

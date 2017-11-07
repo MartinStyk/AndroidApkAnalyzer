@@ -251,7 +251,6 @@ public class GeneralData implements Parcelable {
         result = 31 * result + uid;
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (source != null ? source.hashCode() : 0);
-        result = 31 * result + (icon != null ? icon.hashCode() : 0);
         result = 31 * result + (apkDirectory != null ? apkDirectory.hashCode() : 0);
         result = 31 * result + (dataDirectory != null ? dataDirectory.hashCode() : 0);
         result = 31 * result + (installLocation != null ? installLocation.hashCode() : 0);
