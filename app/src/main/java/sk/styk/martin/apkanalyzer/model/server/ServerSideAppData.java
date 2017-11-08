@@ -113,6 +113,7 @@ public class ServerSideAppData {
     private int unspecifiedDpiDrawables;
 
     // ClassPathData
+    private List<String> packageClasses;
     private int numberPackageClasses;
     private int numberOtherClasses;
 
@@ -214,7 +215,9 @@ public class ServerSideAppData {
         // ClassPathData
         ClassPathData classPathData = appDetailData.getClassPathData();
 
-        numberPackageClasses = classPathData.getPackageClasses().size();
+        packageClasses = classPathData.getPackageClasses();
+
+        numberPackageClasses = packageClasses.size();
         numberOtherClasses = classPathData.getOtherClasses().size();
     }
 }
