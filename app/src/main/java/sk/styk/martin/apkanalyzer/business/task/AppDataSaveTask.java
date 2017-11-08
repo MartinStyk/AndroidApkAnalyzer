@@ -4,11 +4,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
+import android.util.TimeUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.ref.WeakReference;
+import java.util.concurrent.TimeUnit;
 
 import sk.styk.martin.apkanalyzer.database.service.SendDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
@@ -64,10 +66,11 @@ public class AppDataSaveTask extends AsyncTask<AppDetailData, Void, Void> {
         try {
             printWriter = new PrintWriter(targetPath);
             printWriter.print(json);
+            Thread.sleep(TimeUnit.SECONDS.toMillis(15));
             Log.i(TAG, "Saved to DB " + targetPath);
             SendDataService.insert(data, context);
             context = null;
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             if (printWriter != null)
