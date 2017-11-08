@@ -6,9 +6,11 @@ import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 import sk.styk.martin.apkanalyzer.util.AppBasicInfoComparator;
 
@@ -43,6 +45,22 @@ public class AppBasicDataService {
         Collections.sort(packages, AppBasicInfoComparator.INSTANCE);
 
         return packages;
+    }
+
+    @NonNull
+    public List<AppListData> getForSources(@NonNull AppSource... appSources) {
+
+        List<AppListData> appListData = getAll();
+        List<AppListData> results = new ArrayList<>();
+        List<AppSource> appSourceList = Arrays.asList(appSources);
+
+        for (AppListData data : appListData) {
+            if (appSourceList.contains(data.getSource())) {
+                results.add(data);
+            }
+        }
+
+        return results;
     }
 
     @NonNull
