@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.task;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.util.TimeUtils;
 
@@ -33,33 +34,31 @@ public class AppDataSaveTask extends AsyncTask<AppDetailData, Void, Void> {
         jsonSerializationUtils = new JsonSerializationUtils();
     }
 
-    public Void doInBackground(AppDetailData... inputData) {
-
-        Log.i(TAG, "Starting");
+    public Void doInBackground(@NonNull AppDetailData... inputData) {
         AppDetailData data = inputData[0];
-
         if (data == null) {
             throw new IllegalArgumentException("data not specified");
         }
 
+        String packageName = data.getGeneralData().getPackageName();
+
+        Log.i(TAG, "Starting save task for " + packageName);
+
+
         Context context = contextWeakReference.get();
         if (context == null)
             return null;
-        Log.i(TAG, "hash " + data.hashCode());
+        Log.i(TAG, String.format("Using hash %03d for package %s", data.hashCode(), packageName));
 
         if (SendDataService.isAlreadyUploaded(data, context)) {
-            Log.i(TAG, "Data already uploaded");
+            Log.i(TAG, String.format("Package %s already uploaded", packageName));
             return null;
         }
 
-
         ServerSideAppData uploadData = new ServerSideAppData(data, AndroidIdHelper.getAndroidId(context));
-        Log.i(TAG, "Converted to ServerSideAppData");
-
         String json = jsonSerializationUtils.serialize(uploadData);
-
         String targetPath = new File(Environment.getExternalStorageDirectory(), "data_" + System.currentTimeMillis() + ".json").getAbsolutePath();
-        Log.i(TAG, "Start printing to " + targetPath);
+        Log.i(TAG, String.format("Start uploading package %s to %s", packageName, targetPath));
 
         PrintWriter printWriter = null;
 
@@ -67,8 +66,8 @@ public class AppDataSaveTask extends AsyncTask<AppDetailData, Void, Void> {
             printWriter = new PrintWriter(targetPath);
             printWriter.print(json);
             Thread.sleep(TimeUnit.SECONDS.toMillis(15));
-            Log.i(TAG, "Saved to DB " + targetPath);
             SendDataService.insert(data, context);
+            Log.i(TAG, String.format("Finished uploading package %s to %s", packageName, targetPath));
             context = null;
         } catch (Exception e) {
             e.printStackTrace();
@@ -77,7 +76,7 @@ public class AppDataSaveTask extends AsyncTask<AppDetailData, Void, Void> {
                 printWriter.close();
         }
 
-        Log.i(TAG, "Finished");
+        Log.i(TAG, "Finishing save task for " + packageName);
 
         return null;
     }
