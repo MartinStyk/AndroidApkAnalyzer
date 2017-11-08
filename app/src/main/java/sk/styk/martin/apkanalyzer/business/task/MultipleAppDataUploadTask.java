@@ -2,6 +2,8 @@ package sk.styk.martin.apkanalyzer.business.task;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.support.v4.os.AsyncTaskCompat;
 
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class MultipleAppDataUploadTask extends IntentService {
         for (AppListData app : apps) {
             AppDetailData appDetailData = detailDataService.get(app.getPackageName(), null);
             AppDataSaveTask appDataSaveTask = new AppDataSaveTask(this);
-            appDataSaveTask.doInBackground(appDetailData);
+            AsyncTaskCompat.executeParallel(appDataSaveTask,appDetailData);
         }
 
     }
