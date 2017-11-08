@@ -114,9 +114,7 @@ public class ServerSideAppData {
 
     // ClassPathData
     private int numberPackageClasses;
-    private List<String> packageClasses;
     private int numberOtherClasses;
-    private List<String> otherClasses;
 
     public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
 
@@ -216,10 +214,7 @@ public class ServerSideAppData {
         // ClassPathData
         ClassPathData classPathData = appDetailData.getClassPathData();
 
-        packageClasses = classPathData.getPackageClasses();
-        otherClasses = classPathData.getOtherClasses();
-
-        numberPackageClasses = packageClasses.size();
-        numberOtherClasses = otherClasses.size();
+        numberPackageClasses = classPathData.getPackageClasses().size();
+        numberOtherClasses = classPathData.getOtherClasses().size();
     }
 }
