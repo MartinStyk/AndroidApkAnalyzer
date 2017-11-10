@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.business.service;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 
@@ -34,12 +35,13 @@ public class AppBasicDataService {
     @NonNull
     public List<AppListData> getAll() {
 
-        List<ApplicationInfo> applications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+        List<PackageInfo> applications = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
 
         List<AppListData> packages = new ArrayList<>(applications.size());
 
-        for (ApplicationInfo applicationInfo : applications) {
-            packages.add(new AppListData(applicationInfo, packageManager));
+        for (PackageInfo packageInfo : applications) {
+            if (packageInfo.applicationInfo != null)
+                packages.add(new AppListData(packageInfo, packageManager));
         }
 
         Collections.sort(packages, AppBasicInfoComparator.INSTANCE);

@@ -3,14 +3,12 @@ package sk.styk.martin.apkanalyzer.business.task;
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v4.os.AsyncTaskCompat;
 
 import java.util.List;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
 
 import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
 import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
+import sk.styk.martin.apkanalyzer.database.service.SendDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
@@ -26,6 +24,11 @@ public class MultipleAppDataUploadTask extends IntentService {
         super(MultipleAppDataUploadTask.class.getSimpleName());
     }
 
+    /**
+     * Uploads all not uploaded not pre-installed apps to server.
+     * Starts only if internet connection is available.
+     * Uploads only previously not uploaded data.
+     */
     @Override
     protected void onHandleIntent(Intent intent) {
 
@@ -36,9 +39,13 @@ public class MultipleAppDataUploadTask extends IntentService {
         AppDetailDataService detailDataService = new AppDetailDataService(getPackageManager());
 
         for (AppListData app : apps) {
-            AppDetailData appDetailData = detailDataService.get(app.getPackageName(), null);
-            AppDataSaveTask appDataSaveTask = new AppDataSaveTask(this);
-            appDataSaveTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, appDetailData);
+
+            if (!SendDataService.isAlreadyUploaded(app.getPackageName(), app.getVersion(), this)) {
+                AppDetailData appDetailData = detailDataService.get(app.getPackageName(), null);
+                AppDataSaveTask appDataSaveTask = new AppDataSaveTask(this);
+                appDataSaveTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, appDetailData);
+            }
+
         }
 
     }

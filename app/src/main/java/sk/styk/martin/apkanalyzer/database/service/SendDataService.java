@@ -41,4 +41,22 @@ public class SendDataService {
                 cursor.close();
         }
     }
+
+    public static boolean isAlreadyUploaded(String packageName, int packageVersion, Context context) {
+        String[] selectionArgs = {packageName, String.valueOf(packageVersion)};
+
+        Cursor cursor = null;
+        try {
+            cursor = context.getContentResolver().query(ApkAnalyzerContract.SendDataEntry.CONTENT_URI,
+                    new String[]{SendDataEntry.COLUMN_HASH},
+                    SendDataEntry.COLUMN_PACKAGE_NAME + "=? AND " + SendDataEntry.COLUMN_VERSION + "=?",
+                    selectionArgs, null);
+
+            return cursor != null && cursor.getCount() > 0;
+        } finally {
+            if (cursor != null)
+                cursor.close();
+        }
+    }
+
 }

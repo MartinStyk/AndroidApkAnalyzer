@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.model.list;
 
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
@@ -19,6 +20,7 @@ public class AppListData implements Parcelable {
 
     private String packageName;
     private String applicationName;
+    private int version;
     private boolean isSystemApp;
     private AppSource source;
     private Drawable icon;
@@ -27,9 +29,10 @@ public class AppListData implements Parcelable {
 
     private ApplicationInfo applicationInfo;
 
-    public AppListData(ApplicationInfo applicationInfo, PackageManager packageManager) {
+    public AppListData(PackageInfo packageInfo, PackageManager packageManager) {
         this.packageManager = packageManager;
-        this.applicationInfo = applicationInfo;
+        this.applicationInfo = packageInfo.applicationInfo;
+        this.version = packageInfo.versionCode;
         this.isSystemApp = (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
         this.source = AppSource.get(packageManager, getPackageName(), isSystemApp);
     }
@@ -44,6 +47,10 @@ public class AppListData implements Parcelable {
 
     public String getPackageName() {
         return applicationInfo.packageName;
+    }
+
+    public int getVersion() {
+        return version;
     }
 
     public AppSource getSource() {
@@ -62,27 +69,35 @@ public class AppListData implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        AppListData listData = (AppListData) o;
+        AppListData that = (AppListData) o;
 
-        if (packageName != null ? !packageName.equals(listData.packageName) : listData.packageName != null)
+        if (version != that.version) return false;
+        if (isSystemApp != that.isSystemApp) return false;
+        if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null)
             return false;
-        if (applicationName != null ? !applicationName.equals(listData.applicationName) : listData.applicationName != null)
+        if (applicationName != null ? !applicationName.equals(that.applicationName) : that.applicationName != null)
             return false;
-        return icon != null ? icon.equals(listData.icon) : listData.icon == null;
-
-    }
-
-    @Override
-    public String toString() {
-        return applicationName + " " + packageName;
+        if (source != that.source) return false;
+        if (packageManager != null ? !packageManager.equals(that.packageManager) : that.packageManager != null)
+            return false;
+        return applicationInfo != null ? applicationInfo.equals(that.applicationInfo) : that.applicationInfo == null;
     }
 
     @Override
     public int hashCode() {
         int result = packageName != null ? packageName.hashCode() : 0;
         result = 31 * result + (applicationName != null ? applicationName.hashCode() : 0);
-        result = 31 * result + (icon != null ? icon.hashCode() : 0);
+        result = 31 * result + version;
+        result = 31 * result + (isSystemApp ? 1 : 0);
+        result = 31 * result + (source != null ? source.hashCode() : 0);
+        result = 31 * result + (packageManager != null ? packageManager.hashCode() : 0);
+        result = 31 * result + (applicationInfo != null ? applicationInfo.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return applicationName + " " + packageName;
     }
 
     @Override
@@ -94,6 +109,7 @@ public class AppListData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.packageName);
         dest.writeString(this.applicationName);
+        dest.writeInt(this.version);
     }
 
     public AppListData() {
@@ -102,6 +118,7 @@ public class AppListData implements Parcelable {
     protected AppListData(Parcel in) {
         this.packageName = in.readString();
         this.applicationName = in.readString();
+        this.version = in.readInt();
     }
 
     public static final Parcelable.Creator<AppListData> CREATOR = new Parcelable.Creator<AppListData>() {
