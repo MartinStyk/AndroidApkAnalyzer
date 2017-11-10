@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.support.v4.os.AsyncTaskCompat;
 
 import java.util.List;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
 import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
@@ -36,7 +38,7 @@ public class MultipleAppDataUploadTask extends IntentService {
         for (AppListData app : apps) {
             AppDetailData appDetailData = detailDataService.get(app.getPackageName(), null);
             AppDataSaveTask appDataSaveTask = new AppDataSaveTask(this);
-            AsyncTaskCompat.executeParallel(appDataSaveTask,appDetailData);
+            appDataSaveTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, appDetailData);
         }
 
     }
