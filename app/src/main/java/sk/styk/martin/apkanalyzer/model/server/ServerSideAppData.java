@@ -79,7 +79,7 @@ public class ServerSideAppData {
 
     // Features
     private int numberFeatures;
-    private List<FeatureData> featureData;
+    private List<String> featureNames;
 
     // FileData
     private String dexHash;
@@ -193,8 +193,12 @@ public class ServerSideAppData {
         numberUsedPermissions = usedPermissions.size();
 
         // Features
-        featureData = appDetailData.getFeatureData();
+        List<FeatureData> featureData = appDetailData.getFeatureData();
         numberFeatures = featureData.size();
+        featureNames = new ArrayList<>(featureData.size());
+        for (FeatureData fData : featureData){
+            featureNames.add(fData.getName());
+        }
 
 
         // FileData
