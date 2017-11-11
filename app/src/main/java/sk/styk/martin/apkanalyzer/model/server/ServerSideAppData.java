@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.model.server;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,7 +14,6 @@ import sk.styk.martin.apkanalyzer.model.detail.ClassPathData;
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData;
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData;
 import sk.styk.martin.apkanalyzer.model.detail.FileData;
-import sk.styk.martin.apkanalyzer.model.detail.FileEntry;
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData;
@@ -55,19 +55,19 @@ public class ServerSideAppData {
 
     // Activities
     private int numberActivities;
-    private List<ActivityData> activityData;
+    private List<String> activityNames;
 
     // Services
     private int numberServices;
-    private List<ServiceData> serviceData;
+    private List<String> serviceNames;
 
     // Content Providers
     private int numberContentProviders;
-    private List<ContentProviderData> contentProviderData;
+    private List<String> contentProviderNames;
 
     // Broadcast Receivers
     private int numberBroadcastReceivers;
-    private List<BroadcastReceiverData> broadcastReceiverData;
+    private List<String> broadcastReceiverNames;
 
     // Defined permissions
     private int numberDefinedPermissions;
@@ -84,10 +84,10 @@ public class ServerSideAppData {
     // FileData
     private String dexHash;
     private String arscHash;
-    private List<FileEntry> drawableHashes;
-    private List<FileEntry> layoutHashes;
-    private List<FileEntry> assetHashes;
-    private List<FileEntry> otherHashes;
+    private List<String> drawableHashes;
+    private List<String> layoutHashes;
+    private List<String> assetHashes;
+    private List<String> otherHashes;
 
     private int numberDrawables;
     private int numberLayouts;
@@ -151,20 +151,38 @@ public class ServerSideAppData {
 
 
         // Activities
-        activityData = appDetailData.getActivityData();
+        List<ActivityData> activityData = appDetailData.getActivityData();
         numberActivities = activityData.size();
+        activityNames = new ArrayList<>(activityData.size());
+        for (ActivityData aData : activityData) {
+            activityNames.add(aData.getName());
+        }
+
 
         // Services
-        serviceData = appDetailData.getServiceData();
+        List<ServiceData> serviceData = appDetailData.getServiceData();
         numberServices = serviceData.size();
+        serviceNames = new ArrayList<>(serviceData.size());
+        for (ServiceData sData : serviceData) {
+            serviceNames.add(sData.getName());
+        }
 
         // Content Providers
-        contentProviderData = appDetailData.getContentProviderData();
-        numberContentProviders = contentProviderData.size();
+        List<ContentProviderData> providerData = appDetailData.getContentProviderData();
+        numberContentProviders = providerData.size();
+        contentProviderNames = new ArrayList<>(providerData.size());
+        for (ContentProviderData cData : providerData) {
+            contentProviderNames.add(cData.getName());
+        }
+
 
         // Broadcast Receivers
-        broadcastReceiverData = appDetailData.getBroadcastReceiverData();
-        numberBroadcastReceivers = broadcastReceiverData.size();
+        List<BroadcastReceiverData> receiverData = appDetailData.getBroadcastReceiverData();
+        numberBroadcastReceivers = receiverData.size();
+        broadcastReceiverNames = new ArrayList<>(receiverData.size());
+        for (BroadcastReceiverData rData : receiverData) {
+            broadcastReceiverNames.add(rData.getName());
+        }
 
         // Defined permissions
         definedPermissions = appDetailData.getPermissionData().getDefinesPermissions();
@@ -183,10 +201,11 @@ public class ServerSideAppData {
         FileData fileData = appDetailData.getFileData();
         dexHash = fileData.getDexHash();
         arscHash = fileData.getArscHash();
-        drawableHashes = fileData.getDrawableHashes();
-        layoutHashes = fileData.getLayoutHashes();
-        assetHashes = fileData.getAssetHashes();
-        otherHashes = fileData.getOtherHashes();
+
+        drawableHashes = fileData.getOnlyHash(fileData.getDrawableHashes());
+        layoutHashes = fileData.getOnlyHash(fileData.getLayoutHashes());
+        assetHashes = fileData.getOnlyHash(fileData.getAssetHashes());
+        otherHashes = fileData.getOnlyHash(fileData.getOtherHashes());
 
         numberDrawables = drawableHashes.size();
         numberLayouts = layoutHashes.size();

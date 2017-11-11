@@ -2,46 +2,63 @@ package sk.styk.martin.apkanalyzer.model.detail;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Martin Styk on 02.07.2017.
  */
 public class FileData implements Parcelable {
 
+    public static final Creator<FileData> CREATOR = new Creator<FileData>() {
+        @Override
+        public FileData createFromParcel(Parcel source) {
+            return new FileData(source);
+        }
+
+        @Override
+        public FileData[] newArray(int size) {
+            return new FileData[size];
+        }
+    };
     /**
      * hash of classes.dex file
      */
     private String dexHash;
-
     /**
      * hash of resources.arsc file
      */
     private String arscHash;
-
     /**
      * Files in res/drawable* directories
      */
     private List<FileEntry> drawableHashes = new ArrayList<>(0);
-
     /**
      * Files in res/layout* directories
      */
     private List<FileEntry> layoutHashes = new ArrayList<>(0);
-
     /**
      * Files in assets/* directories
      */
     private List<FileEntry> assetHashes = new ArrayList<>(0);
-
     /**
      * All remaining files
      */
     private List<FileEntry> otherHashes = new ArrayList<>(0);
+
+    public FileData() {
+    }
+
+    protected FileData(Parcel in) {
+        this.dexHash = in.readString();
+        this.arscHash = in.readString();
+        this.drawableHashes = in.createTypedArrayList(FileEntry.CREATOR);
+        this.layoutHashes = in.createTypedArrayList(FileEntry.CREATOR);
+        this.assetHashes = in.createTypedArrayList(FileEntry.CREATOR);
+        this.otherHashes = in.createTypedArrayList(FileEntry.CREATOR);
+    }
 
     public String getDexHash() {
         return dexHash;
@@ -149,27 +166,12 @@ public class FileData implements Parcelable {
         dest.writeTypedList(this.otherHashes);
     }
 
-    public FileData() {
-    }
-
-    protected FileData(Parcel in) {
-        this.dexHash = in.readString();
-        this.arscHash = in.readString();
-        this.drawableHashes = in.createTypedArrayList(FileEntry.CREATOR);
-        this.layoutHashes = in.createTypedArrayList(FileEntry.CREATOR);
-        this.assetHashes = in.createTypedArrayList(FileEntry.CREATOR);
-        this.otherHashes = in.createTypedArrayList(FileEntry.CREATOR);
-    }
-
-    public static final Creator<FileData> CREATOR = new Creator<FileData>() {
-        @Override
-        public FileData createFromParcel(Parcel source) {
-            return new FileData(source);
+    @NonNull
+    public List<String> getOnlyHash(@NonNull List<FileEntry> fileEntries) {
+        List<String> result = new ArrayList<>(fileEntries.size());
+        for (FileEntry fileEntry : fileEntries) {
+            result.add(fileEntry.getHash());
         }
-
-        @Override
-        public FileData[] newArray(int size) {
-            return new FileData[size];
-        }
-    };
+        return result;
+    }
 }
