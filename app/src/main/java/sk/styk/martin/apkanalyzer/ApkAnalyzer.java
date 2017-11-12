@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Intent;
 import android.os.StrictMode;
 
-import sk.styk.martin.apkanalyzer.business.task.MultipleAppDataUploadTask;
+import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadTask;
 
 /**
  * Created by Martin Styk on 30.10.2017.
@@ -18,7 +18,8 @@ public class ApkAnalyzer extends Application {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        Intent serviceIntent = new Intent(getApplicationContext(), MultipleAppDataUploadTask.class);
-        startService(serviceIntent);
+        // TODO do not upload on start
+//        Intent serviceIntent = new Intent(getApplicationContext(), MultipleAppDataUploadTask.class);
+//        startService(serviceIntent);
     }
 }

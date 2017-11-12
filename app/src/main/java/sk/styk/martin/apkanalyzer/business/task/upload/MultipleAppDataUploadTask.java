@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.business.task;
+package sk.styk.martin.apkanalyzer.business.task.upload;
 
 import android.app.IntentService;
 import android.content.Intent;
@@ -42,7 +42,7 @@ public class MultipleAppDataUploadTask extends IntentService {
 
             if (!SendDataService.isAlreadyUploaded(app.getPackageName(), app.getVersion(), this)) {
                 AppDetailData appDetailData = detailDataService.get(app.getPackageName(), null);
-                AppDataSaveTask appDataSaveTask = new AppDataSaveTask(this);
+                AppDataUploadTask appDataSaveTask = new AppDataUploadTask(this);
                 appDataSaveTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, appDetailData);
             }
 

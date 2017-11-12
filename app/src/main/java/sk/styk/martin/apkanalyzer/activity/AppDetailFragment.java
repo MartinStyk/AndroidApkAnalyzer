@@ -31,7 +31,7 @@ import java.io.File;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.ManifestActivity;
 import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter;
-import sk.styk.martin.apkanalyzer.business.task.AppDataSaveTask;
+import sk.styk.martin.apkanalyzer.business.task.upload.AppDataUploadTask;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
@@ -142,7 +142,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
             adapter.dataChange(data);
 
-            new AppDataSaveTask(getContext()).execute(data);
+            new AppDataUploadTask(getContext()).execute(data);
         }
     }
 
