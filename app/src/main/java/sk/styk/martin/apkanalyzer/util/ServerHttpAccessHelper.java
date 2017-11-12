@@ -1,8 +1,12 @@
 package sk.styk.martin.apkanalyzer.util;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.util.zip.GZIPOutputStream;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -21,14 +25,41 @@ public class ServerHttpAccessHelper {
     private static final String URL = "http://192.168.1.37:8080/apkanalyzer/api/appdata";
     private OkHttpClient client = new OkHttpClient();
 
-    public int postData(String json, String packageName) throws IOException {
-        RequestBody body = RequestBody.create(JSON, json);
+    public int postData(@NonNull String json, @NonNull String packageName) throws IOException {
+        RequestBody body = RequestBody.create(JSON, zipContent(json).toByteArray());
+
         Request request = new Request.Builder()
                 .url(URL)
                 .post(body)
+                .header("Content-Encoding", "gzip")
                 .build();
+
         Response response = client.newCall(request).execute();
+        
         Log.i(TAG, String.format("Response on posting %s data is %s", packageName, response.toString()));
         return response.code();
+    }
+
+    @NonNull
+    private ByteArrayOutputStream zipContent(@NonNull String json) {
+        OutputStream zipper = null;
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        try {
+            byte[] data = json.getBytes("UTF-8");
+            zipper = new GZIPOutputStream(outputStream);
+            zipper.write(data);
+
+        } catch (Exception e) {
+            return null;
+        } finally {
+            if (zipper != null) {
+                try {
+                    zipper.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return outputStream;
     }
 }
