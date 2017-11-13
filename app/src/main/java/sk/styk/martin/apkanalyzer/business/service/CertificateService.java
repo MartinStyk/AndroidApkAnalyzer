@@ -43,7 +43,7 @@ public class CertificateService {
             data.setStartDate(certificate.getNotBefore());
             data.setEndDate(certificate.getNotAfter());
             data.setSignAlgorithm(certificate.getSigAlgName());
-            data.setSerialNumber(certificate.getSerialNumber());
+            data.setSerialNumber(certificate.getSerialNumber().intValue());
 
             String issuerRFC1779 = certificate.getIssuerX500Principal().getName(RFC1779);
             if (issuerRFC1779 != null && !issuerRFC1779.isEmpty()) {

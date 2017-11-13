@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.model.detail;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.math.BigInteger;
 import java.util.Date;
 
 /**
@@ -17,7 +16,7 @@ public class CertificateData implements Parcelable {
     private Date endDate;
     private String publicKeyMd5;
     private String certMd5;
-    private BigInteger serialNumber;
+    private int serialNumber;
     private String issuerName;
     private String issuerOrganization;
     private String issuerCountry;
@@ -65,11 +64,11 @@ public class CertificateData implements Parcelable {
         this.certMd5 = certMd5;
     }
 
-    public BigInteger getSerialNumber() {
+    public int getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(BigInteger serialNumber) {
+    public void setSerialNumber(int serialNumber) {
         this.serialNumber = serialNumber;
     }
 
@@ -136,7 +135,7 @@ public class CertificateData implements Parcelable {
         if (publicKeyMd5 != null ? !publicKeyMd5.equals(data.publicKeyMd5) : data.publicKeyMd5 != null)
             return false;
         if (certMd5 != null ? !certMd5.equals(data.certMd5) : data.certMd5 != null) return false;
-        if (serialNumber != null ? !serialNumber.equals(data.serialNumber) : data.serialNumber != null)
+        if (serialNumber != data.serialNumber)
             return false;
         if (issuerName != null ? !issuerName.equals(data.issuerName) : data.issuerName != null)
             return false;
@@ -159,7 +158,7 @@ public class CertificateData implements Parcelable {
         result = 31 * result + (endDate != null ? endDate.hashCode() : 0);
         result = 31 * result + (publicKeyMd5 != null ? publicKeyMd5.hashCode() : 0);
         result = 31 * result + (certMd5 != null ? certMd5.hashCode() : 0);
-        result = 31 * result + (serialNumber != null ? serialNumber.hashCode() : 0);
+        result = 31 * result + serialNumber;
         result = 31 * result + (issuerName != null ? issuerName.hashCode() : 0);
         result = 31 * result + (issuerOrganization != null ? issuerOrganization.hashCode() : 0);
         result = 31 * result + (issuerCountry != null ? issuerCountry.hashCode() : 0);
@@ -219,7 +218,7 @@ public class CertificateData implements Parcelable {
         this.endDate = tmpEndDate == -1 ? null : new Date(tmpEndDate);
         this.publicKeyMd5 = in.readString();
         this.certMd5 = in.readString();
-        this.serialNumber = (BigInteger) in.readSerializable();
+        this.serialNumber = in.readInt();
         this.issuerName = in.readString();
         this.issuerOrganization = in.readString();
         this.issuerCountry = in.readString();

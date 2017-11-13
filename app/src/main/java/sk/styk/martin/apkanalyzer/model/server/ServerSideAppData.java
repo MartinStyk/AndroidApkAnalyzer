@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.model.server;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +25,7 @@ import sk.styk.martin.apkanalyzer.model.detail.ServiceData;
 public class ServerSideAppData {
 
     private String androidId;
+    private String hash;
 
     private AppDetailData.AnalysisMode analysisMode;
 
@@ -45,7 +45,7 @@ public class ServerSideAppData {
     private Date endDate;
     private String publicKeyMd5;
     private String certMd5;
-    private BigInteger serialNumber;
+    private int serialNumber;
     private String issuerName;
     private String issuerOrganization;
     private String issuerCountry;
@@ -55,30 +55,37 @@ public class ServerSideAppData {
 
     // Activities
     private int numberActivities;
+    private String activitiesHash;
     private List<String> activityNames;
 
     // Services
     private int numberServices;
+    private String servicesHash;
     private List<String> serviceNames;
 
     // Content Providers
     private int numberContentProviders;
+    private String contentProvidersHash;
     private List<String> contentProviderNames;
 
     // Broadcast Receivers
     private int numberBroadcastReceivers;
+    private String broadcastReceiversHash;
     private List<String> broadcastReceiverNames;
 
     // Defined permissions
     private int numberDefinedPermissions;
+    private String definedPermissionsHash;
     private List<String> definedPermissions;
 
     // Used permissions
     private int numberUsedPermissions;
+    private String usedPermissionsHash;
     private List<String> usedPermissions;
 
     // Features
     private int numberFeatures;
+    private String featuresHash;
     private List<String> featureNames;
 
     // FileData
@@ -93,6 +100,11 @@ public class ServerSideAppData {
     private int numberLayouts;
     private int numberAssets;
     private int numberOthers;
+
+    private int drawablesHash;
+    private int layoutHash;
+    private int assetHash;
+    private int otherHash;
 
     //ResourceData
     private int numberDifferentDrawables;
@@ -117,9 +129,10 @@ public class ServerSideAppData {
     private int numberPackageClasses;
     private int numberOtherClasses;
 
-    public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
+    public ServerSideAppData(AppDetailData appDetailData, String deviceId, String hash) {
 
         androidId = deviceId;
+        this.hash = hash;
 
         analysisMode = appDetailData.getAnalysisMode();
 
@@ -153,6 +166,7 @@ public class ServerSideAppData {
         // Activities
         List<ActivityData> activityData = appDetailData.getActivityData();
         numberActivities = activityData.size();
+//        activitiesHash
         activityNames = new ArrayList<>(activityData.size());
         for (ActivityData aData : activityData) {
             activityNames.add(aData.getName());
@@ -162,6 +176,7 @@ public class ServerSideAppData {
         // Services
         List<ServiceData> serviceData = appDetailData.getServiceData();
         numberServices = serviceData.size();
+//        servicesHash
         serviceNames = new ArrayList<>(serviceData.size());
         for (ServiceData sData : serviceData) {
             serviceNames.add(sData.getName());
@@ -170,6 +185,7 @@ public class ServerSideAppData {
         // Content Providers
         List<ContentProviderData> providerData = appDetailData.getContentProviderData();
         numberContentProviders = providerData.size();
+//        contentProvidersHash
         contentProviderNames = new ArrayList<>(providerData.size());
         for (ContentProviderData cData : providerData) {
             contentProviderNames.add(cData.getName());
@@ -179,6 +195,7 @@ public class ServerSideAppData {
         // Broadcast Receivers
         List<BroadcastReceiverData> receiverData = appDetailData.getBroadcastReceiverData();
         numberBroadcastReceivers = receiverData.size();
+//        broadcastReceiversHash
         broadcastReceiverNames = new ArrayList<>(receiverData.size());
         for (BroadcastReceiverData rData : receiverData) {
             broadcastReceiverNames.add(rData.getName());
@@ -186,15 +203,18 @@ public class ServerSideAppData {
 
         // Defined permissions
         definedPermissions = appDetailData.getPermissionData().getDefinesPermissions();
+//        definedPermissionsHash
         numberDefinedPermissions = definedPermissions.size();
 
         // Used permissions
         usedPermissions = appDetailData.getPermissionData().getUsesPermissions();
+//        usedPermissionsHash
         numberUsedPermissions = usedPermissions.size();
 
         // Features
         List<FeatureData> featureData = appDetailData.getFeatureData();
         numberFeatures = featureData.size();
+//        featuresHash
         featureNames = new ArrayList<>(featureData.size());
         for (FeatureData fData : featureData){
             featureNames.add(fData.getName());
@@ -215,6 +235,11 @@ public class ServerSideAppData {
         numberLayouts = layoutHashes.size();
         numberAssets = assetHashes.size();
         numberOthers = otherHashes.size();
+
+//        drawableHash
+//        layoutHash
+//        assetHash
+//        otherHash
 
         //ResourceData
         ResourceData resourceData = appDetailData.getResourceData();
