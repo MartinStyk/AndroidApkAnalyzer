@@ -16,6 +16,7 @@ import sk.styk.martin.apkanalyzer.model.detail.FileData;
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData;
+import sk.styk.martin.apkanalyzer.util.HashCodeHelper;
 
 /**
  * Data sent to server for analysis.
@@ -24,8 +25,11 @@ import sk.styk.martin.apkanalyzer.model.detail.ServiceData;
  */
 public class ServerSideAppData {
 
+    // ID of device which uploaded this data
     private String androidId;
-    private String hash;
+
+    // Hash of data structure, can be used to identify two exactly same apps
+    private int hash;
 
     private AppDetailData.AnalysisMode analysisMode;
 
@@ -55,42 +59,51 @@ public class ServerSideAppData {
 
     // Activities
     private int numberActivities;
-    private String activitiesHash;
     private List<String> activityNames;
+    // combined hash of all activities, can be used to check whether activities are same without comparing all of them
+    private int activitiesAggregatedHash;
+
 
     // Services
     private int numberServices;
-    private String servicesHash;
     private List<String> serviceNames;
+    // combined hash of all services, can be used to check whether services are same without comparing all of them
+    private int servicesAggregatedHash;
 
     // Content Providers
     private int numberContentProviders;
-    private String contentProvidersHash;
     private List<String> contentProviderNames;
+    // combined hash of all content provides
+    private int contentProvidersAggregatedHash;
 
     // Broadcast Receivers
     private int numberBroadcastReceivers;
-    private String broadcastReceiversHash;
     private List<String> broadcastReceiverNames;
+    // combined hash of all broadcast rec
+    private int broadcastReceiversAggregatedHash;
 
     // Defined permissions
     private int numberDefinedPermissions;
-    private String definedPermissionsHash;
     private List<String> definedPermissions;
+    // combined hash of all defined permissions
+    private int definedPermissionsAggregatedHash;
 
     // Used permissions
     private int numberUsedPermissions;
-    private String usedPermissionsHash;
     private List<String> usedPermissions;
+    // combined hash of all used permissions
+    private int usedPermissionsAggregatedHash;
 
     // Features
     private int numberFeatures;
-    private String featuresHash;
     private List<String> featureNames;
+    // combined hash of all used permissions
+    private int featuresAggregatedHash;
 
     // FileData
     private String dexHash;
     private String arscHash;
+    // hashes of all files in APK
     private List<String> drawableHashes;
     private List<String> layoutHashes;
     private List<String> assetHashes;
@@ -101,10 +114,11 @@ public class ServerSideAppData {
     private int numberAssets;
     private int numberOthers;
 
-    private int drawablesHash;
-    private int layoutHash;
-    private int assetHash;
-    private int otherHash;
+    // single combined hash of all files in category
+    private int drawablesAggregatedHash;
+    private int layoutsAggregatedHash;
+    private int assetsAggregatedHash;
+    private int otherAggregatedHash;
 
     //ResourceData
     private int numberDifferentDrawables;
@@ -126,10 +140,14 @@ public class ServerSideAppData {
 
     // ClassPathData
     private List<String> packageClasses;
+    // combined hash of all pacakge classes
+    private int packageClassesAggregatedHash;
     private int numberPackageClasses;
+    // combined hash of all other classes
+    private int otherClassesAggregatedHash;
     private int numberOtherClasses;
 
-    public ServerSideAppData(AppDetailData appDetailData, String deviceId, String hash) {
+    public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
 
         androidId = deviceId;
         this.hash = hash;
@@ -166,60 +184,57 @@ public class ServerSideAppData {
         // Activities
         List<ActivityData> activityData = appDetailData.getActivityData();
         numberActivities = activityData.size();
-//        activitiesHash
         activityNames = new ArrayList<>(activityData.size());
         for (ActivityData aData : activityData) {
             activityNames.add(aData.getName());
         }
-
+        activitiesAggregatedHash = HashCodeHelper.hashList(activityData);
 
         // Services
         List<ServiceData> serviceData = appDetailData.getServiceData();
         numberServices = serviceData.size();
-//        servicesHash
         serviceNames = new ArrayList<>(serviceData.size());
         for (ServiceData sData : serviceData) {
             serviceNames.add(sData.getName());
         }
+        servicesAggregatedHash = HashCodeHelper.hashList(serviceData);
 
         // Content Providers
         List<ContentProviderData> providerData = appDetailData.getContentProviderData();
         numberContentProviders = providerData.size();
-//        contentProvidersHash
         contentProviderNames = new ArrayList<>(providerData.size());
         for (ContentProviderData cData : providerData) {
             contentProviderNames.add(cData.getName());
         }
-
+        contentProvidersAggregatedHash = HashCodeHelper.hashList(providerData);
 
         // Broadcast Receivers
         List<BroadcastReceiverData> receiverData = appDetailData.getBroadcastReceiverData();
         numberBroadcastReceivers = receiverData.size();
-//        broadcastReceiversHash
         broadcastReceiverNames = new ArrayList<>(receiverData.size());
         for (BroadcastReceiverData rData : receiverData) {
             broadcastReceiverNames.add(rData.getName());
         }
+        broadcastReceiversAggregatedHash = HashCodeHelper.hashList(receiverData);
 
         // Defined permissions
         definedPermissions = appDetailData.getPermissionData().getDefinesPermissions();
-//        definedPermissionsHash
+        definedPermissionsAggregatedHash = HashCodeHelper.hashList(definedPermissions);
         numberDefinedPermissions = definedPermissions.size();
 
         // Used permissions
         usedPermissions = appDetailData.getPermissionData().getUsesPermissions();
-//        usedPermissionsHash
+        usedPermissionsAggregatedHash = HashCodeHelper.hashList(usedPermissions);
         numberUsedPermissions = usedPermissions.size();
 
         // Features
         List<FeatureData> featureData = appDetailData.getFeatureData();
         numberFeatures = featureData.size();
-//        featuresHash
+        featuresAggregatedHash = HashCodeHelper.hashList(featureData);
         featureNames = new ArrayList<>(featureData.size());
-        for (FeatureData fData : featureData){
+        for (FeatureData fData : featureData) {
             featureNames.add(fData.getName());
         }
-
 
         // FileData
         FileData fileData = appDetailData.getFileData();
@@ -236,10 +251,10 @@ public class ServerSideAppData {
         numberAssets = assetHashes.size();
         numberOthers = otherHashes.size();
 
-//        drawableHash
-//        layoutHash
-//        assetHash
-//        otherHash
+        drawablesAggregatedHash = HashCodeHelper.hashList(drawableHashes);
+        layoutsAggregatedHash = HashCodeHelper.hashList(layoutHashes);
+        assetsAggregatedHash = HashCodeHelper.hashList(assetHashes);
+        otherAggregatedHash = HashCodeHelper.hashList(otherHashes);
 
         //ResourceData
         ResourceData resourceData = appDetailData.getResourceData();
@@ -264,8 +279,69 @@ public class ServerSideAppData {
         ClassPathData classPathData = appDetailData.getClassPathData();
 
         packageClasses = classPathData.getPackageClasses();
-
         numberPackageClasses = packageClasses.size();
+        packageClassesAggregatedHash = HashCodeHelper.hashList(packageClasses);
         numberOtherClasses = classPathData.getOtherClasses().size();
+        otherClassesAggregatedHash = HashCodeHelper.hashList(classPathData.getOtherClasses());
+
+        hash = computeOverallHash();
+    }
+
+    private int computeOverallHash() {
+        int result = 0;
+        result = 31 * result + (packageName != null ? packageName.hashCode() : 0);
+        result = 31 * result + (applicationName != null ? applicationName.hashCode() : 0);
+        result = 31 * result + (versionName != null ? versionName.hashCode() : 0);
+        result = 31 * result + versionCode;
+        result = 31 * result + (int) (apkSize ^ (apkSize >>> 32));
+        result = 31 * result + minSdkVersion;
+        result = 31 * result + targetSdkVersion;
+        result = 31 * result + (publicKeyMd5 != null ? publicKeyMd5.hashCode() : 0);
+        result = 31 * result + (certMd5 != null ? certMd5.hashCode() : 0);
+        result = 31 * result + numberActivities;
+        result = 31 * result + activitiesAggregatedHash;
+        result = 31 * result + numberServices;
+        result = 31 * result + servicesAggregatedHash;
+        result = 31 * result + numberContentProviders;
+        result = 31 * result + contentProvidersAggregatedHash;
+        result = 31 * result + numberBroadcastReceivers;
+        result = 31 * result + broadcastReceiversAggregatedHash;
+        result = 31 * result + numberDefinedPermissions;
+        result = 31 * result + definedPermissionsAggregatedHash;
+        result = 31 * result + numberUsedPermissions;
+        result = 31 * result + usedPermissionsAggregatedHash;
+        result = 31 * result + numberFeatures;
+        result = 31 * result + featuresAggregatedHash;
+        result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
+        result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
+        result = 31 * result + numberDrawables;
+        result = 31 * result + numberLayouts;
+        result = 31 * result + numberAssets;
+        result = 31 * result + numberOthers;
+        result = 31 * result + drawablesAggregatedHash;
+        result = 31 * result + layoutsAggregatedHash;
+        result = 31 * result + assetsAggregatedHash;
+        result = 31 * result + otherAggregatedHash;
+        result = 31 * result + numberDifferentDrawables;
+        result = 31 * result + numberDifferentLayouts;
+        result = 31 * result + pngDrawables;
+        result = 31 * result + ninePatchDrawables;
+        result = 31 * result + jpgDrawables;
+        result = 31 * result + gifDrawables;
+        result = 31 * result + xmlDrawables;
+        result = 31 * result + ldpiDrawables;
+        result = 31 * result + mdpiDrawables;
+        result = 31 * result + hdpiDrawables;
+        result = 31 * result + xhdpiDrawables;
+        result = 31 * result + xxhdpiDrawables;
+        result = 31 * result + xxxhdpiDrawables;
+        result = 31 * result + nodpiDrawables;
+        result = 31 * result + tvdpiDrawables;
+        result = 31 * result + unspecifiedDpiDrawables;
+        result = 31 * result + packageClassesAggregatedHash;
+        result = 31 * result + numberPackageClasses;
+        result = 31 * result + otherClassesAggregatedHash;
+        result = 31 * result + numberOtherClasses;
+        return result;
     }
 }
