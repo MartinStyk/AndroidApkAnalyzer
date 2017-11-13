@@ -56,7 +56,7 @@ public class AppDetailDataService {
 
             try {
                 packageInfo = packageManager.getPackageInfo(packageName, ANALYSIS_FLAGS);
-            } catch (PackageManager.NameNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (packageName == null && pathToPackage != null) {

@@ -33,7 +33,8 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
     public Void doInBackground(@NonNull AppDetailData... inputData) {
         AppDetailData data = inputData[0];
         if (data == null) {
-            throw new IllegalArgumentException("data not specified");
+            Log.e(TAG, "Save task got parameter null");
+            return null;
         }
 
         String packageName = data.getGeneralData().getPackageName();
