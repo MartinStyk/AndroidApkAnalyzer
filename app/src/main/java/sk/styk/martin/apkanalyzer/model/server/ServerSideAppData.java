@@ -74,25 +74,25 @@ public class ServerSideAppData {
     private int numberContentProviders;
     private List<String> contentProviderNames;
     // combined hash of all content provides
-    private int contentProvidersAggregatedHash;
+    private int providersAggregatedHash;
 
     // Broadcast Receivers
     private int numberBroadcastReceivers;
     private List<String> broadcastReceiverNames;
     // combined hash of all broadcast rec
-    private int broadcastReceiversAggregatedHash;
+    private int receiversAggregatedHash;
 
     // Defined permissions
     private int numberDefinedPermissions;
     private List<String> definedPermissions;
     // combined hash of all defined permissions
-    private int definedPermissionsAggregatedHash;
+    private int definedPermAggregatedHash;
 
     // Used permissions
     private int numberUsedPermissions;
     private List<String> usedPermissions;
     // combined hash of all used permissions
-    private int usedPermissionsAggregatedHash;
+    private int usedPermAggregatedHash;
 
     // Features
     private int numberFeatures;
@@ -206,7 +206,7 @@ public class ServerSideAppData {
         for (ContentProviderData cData : providerData) {
             contentProviderNames.add(cData.getName());
         }
-        contentProvidersAggregatedHash = HashCodeHelper.hashList(providerData);
+        providersAggregatedHash = HashCodeHelper.hashList(providerData);
 
         // Broadcast Receivers
         List<BroadcastReceiverData> receiverData = appDetailData.getBroadcastReceiverData();
@@ -215,16 +215,16 @@ public class ServerSideAppData {
         for (BroadcastReceiverData rData : receiverData) {
             broadcastReceiverNames.add(rData.getName());
         }
-        broadcastReceiversAggregatedHash = HashCodeHelper.hashList(receiverData);
+        receiversAggregatedHash = HashCodeHelper.hashList(receiverData);
 
         // Defined permissions
         definedPermissions = appDetailData.getPermissionData().getDefinesPermissions();
-        definedPermissionsAggregatedHash = HashCodeHelper.hashList(definedPermissions);
+        definedPermAggregatedHash = HashCodeHelper.hashList(definedPermissions);
         numberDefinedPermissions = definedPermissions.size();
 
         // Used permissions
         usedPermissions = appDetailData.getPermissionData().getUsesPermissions();
-        usedPermissionsAggregatedHash = HashCodeHelper.hashList(usedPermissions);
+        usedPermAggregatedHash = HashCodeHelper.hashList(usedPermissions);
         numberUsedPermissions = usedPermissions.size();
 
         // Features
@@ -303,13 +303,13 @@ public class ServerSideAppData {
         result = 31 * result + numberServices;
         result = 31 * result + servicesAggregatedHash;
         result = 31 * result + numberContentProviders;
-        result = 31 * result + contentProvidersAggregatedHash;
+        result = 31 * result + providersAggregatedHash;
         result = 31 * result + numberBroadcastReceivers;
-        result = 31 * result + broadcastReceiversAggregatedHash;
+        result = 31 * result + receiversAggregatedHash;
         result = 31 * result + numberDefinedPermissions;
-        result = 31 * result + definedPermissionsAggregatedHash;
+        result = 31 * result + definedPermAggregatedHash;
         result = 31 * result + numberUsedPermissions;
-        result = 31 * result + usedPermissionsAggregatedHash;
+        result = 31 * result + usedPermAggregatedHash;
         result = 31 * result + numberFeatures;
         result = 31 * result + featuresAggregatedHash;
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
