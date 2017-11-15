@@ -26,4 +26,18 @@ public class SharedPreferencesHelper {
         return sharedPreferences.getString(key, null);
     }
 
+    public void putBoolean(String key, Boolean value) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(key, value);
+        editor.apply();
+    }
+
+    public boolean readBoolean(String key) {
+        return sharedPreferences.getBoolean(key, false);
+    }
+
+    public boolean readBoolean(String key, boolean defValue) {
+        return sharedPreferences.getBoolean(key, defValue);
+    }
+
 }

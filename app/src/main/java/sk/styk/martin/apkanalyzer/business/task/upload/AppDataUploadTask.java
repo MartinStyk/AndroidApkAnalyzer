@@ -52,7 +52,7 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
             return null;
         }
 
-        if (!ConnectivityHelper.hasInternetAccess(context)) {
+        if (!ConnectivityHelper.isUploadPossible(context)) {
             Log.i(TAG, String.format("No internet access, aborting upload of %s", packageName));
             return null;
         }

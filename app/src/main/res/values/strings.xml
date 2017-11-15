@@ -23,8 +23,12 @@
     <string name="NA">N/A</string>
     <string name="none">none</string>
     <string name="dismiss">Dismiss</string>
+    <string name="ok">OK</string>
     <string name="permission_not_granted">Permission not granted</string>
     <string name="activity_not_found">No application for file browsing found on your device</string>
+
+    <string name="upload_dialog_title">Anonymous APK metadata collecting</string>
+    <string name="upload_dialog_message">Allow APK Analyzer to anonymously collect APK metadata. Collected metadata are used to detect repackaged APKs. All data is anonymous.</string>
 
 
     <string name="nav_application_list">Applications</string>

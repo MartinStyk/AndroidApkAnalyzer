@@ -32,7 +32,7 @@ public class MultipleAppDataUploadTask extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
 
-        if (!ConnectivityHelper.hasInternetAccess(getApplicationContext()))
+        if (!ConnectivityHelper.isUploadPossible(getApplicationContext()))
             return;
 
         List<AppListData> apps = new AppBasicDataService(getPackageManager()).getForSources(AppSource.AMAZON_STORE, AppSource.GOOGLE_PLAY, AppSource.UNKNOWN);
