@@ -3,6 +3,8 @@ package sk.styk.martin.apkanalyzer.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -27,7 +29,7 @@ public class ConnectivityHelper {
      * @return true in case everything permits upload
      */
     public static boolean isUploadPossible(Context context) {
-        return isConnectionAllowedByUser(context) && hasInternetAccess(context);
+        return isConnectionAllowedByUser(context) && hasInternetAccess(context) && isWifiOnAndConnected(context);
     }
 
     public static boolean isConnectionAllowedByUser(Context context) {
@@ -63,7 +65,27 @@ public class ConnectivityHelper {
     private static boolean isNetworkAvailable(Context context) {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager == null)
+            return false;
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null;
     }
+
+    private static boolean isWifiOnAndConnected(Context context) {
+        WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+
+        if (wifiManager != null && wifiManager.isWifiEnabled()) { // Wi-Fi adapter is ON
+
+            WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+
+            if (wifiInfo.getNetworkId() == -1) {
+                return false; // Not connected to an access point
+            }
+            return true; // Connected to an access point
+        }
+
+        return false; // Wi-Fi adapter is OFF
+    }
+
+
 }
