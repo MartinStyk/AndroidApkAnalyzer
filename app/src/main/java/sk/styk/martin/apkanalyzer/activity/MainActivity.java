@@ -34,9 +34,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        if (FirstStartHelper.check(this)) {
+        if (FirstStartHelper.check(this)) {
             DataUploadDialog.newInstance().show(getSupportFragmentManager(), DataUploadDialog.class.getSimpleName());
-//        }
+        }
 
         // only on first run redirect to default fragment
         if (savedInstanceState == null) {
