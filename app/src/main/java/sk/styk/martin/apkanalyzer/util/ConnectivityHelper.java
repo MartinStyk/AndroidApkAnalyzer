@@ -33,7 +33,7 @@ public class ConnectivityHelper {
     }
 
     public static boolean isConnectionAllowedByUser(Context context) {
-        return new SharedPreferencesHelper(context).readBoolean(USER_CONNECT_ALLOWED, true);
+        return new SharedPreferencesHelper(context).readBoolean(USER_CONNECT_ALLOWED);
     }
 
     public static void setConnectionAllowedByUser(Context context, boolean value) {

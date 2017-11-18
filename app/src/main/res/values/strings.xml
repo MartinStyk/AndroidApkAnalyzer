@@ -245,7 +245,10 @@
     <string name="analyze_results_failed">Analysis failed</string>
 
     <string name="settings_allow_metadata_upload">Upload metadata</string>
-    <string name="settings_allow_metadata_upload_description"> Please, allow Apk Analyzer to collect metadata about apps on this device. \nMetadata contain information about apps and also identifier of this device. It doesn\'t include your data. \nApplication metadata are used for scientific purposes - research of repackaged APKs. \nData is uploaded only over WiFi. \nMore details about privacy can be found in <a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">Privacy Policy</a>.</string>
+    <string name="settings_allow_metadata_upload_description"> Please, allow Apk Analyzer to collect metadata about installed applications. \nMetadata contains information about apps and of your device. It doesn\'t include your data. \nApplication metadata are used for scientific purposes - research of repackaged APKs. \nData is uploaded only over WiFi. \nMore details about privacy can be found in <a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">Privacy Policy</a>.</string>
+
+    <string name="upload_dialog_title">Application metadata collecting</string>
+    <string name="upload_dialog_description">Please, allow Apk Analyzer to collect metadata about installed applications. \nMetadata contains information about apps and identifier of your device. It doesn\'t include your data. \nApplication metadata are used for scientific purposes - research of repackaged APKs. \nData is uploaded only over WiFi. \nYou can later adjust your preference in settings</string>
 
 
     <string-array name="android_versions">
