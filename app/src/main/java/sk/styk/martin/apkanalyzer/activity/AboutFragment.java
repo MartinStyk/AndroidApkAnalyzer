@@ -24,6 +24,7 @@ public class AboutFragment extends Fragment {
 
         ((TextView) rootView.findViewById(R.id.about_app_version)).setText(BuildConfig.VERSION_NAME);
         ((TextView) rootView.findViewById(R.id.about_app_github_link)).setMovementMethod(LinkMovementMethod.getInstance());
+        ((TextView) rootView.findViewById(R.id.about_app_privacy_policy)).setMovementMethod(LinkMovementMethod.getInstance());
 
         setHasOptionsMenu(true);
 
