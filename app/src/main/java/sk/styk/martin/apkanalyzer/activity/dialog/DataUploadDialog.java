@@ -9,6 +9,7 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 
 import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadTask;
 import sk.styk.martin.apkanalyzer.util.ConnectivityHelper;
 
 /**
@@ -17,8 +18,7 @@ import sk.styk.martin.apkanalyzer.util.ConnectivityHelper;
  */
 public class DataUploadDialog extends DialogFragment {
 
-    public static DataUploadDialog newInstance() {
-        return new DataUploadDialog();
+    public DataUploadDialog() {
     }
 
     @NonNull
@@ -35,6 +35,7 @@ public class DataUploadDialog extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ConnectivityHelper.setConnectionAllowedByUser(getContext(), true);
+                        MultipleAppDataUploadTask.start(getContext());
                         dismiss();
                     }
                 })
@@ -47,5 +48,4 @@ public class DataUploadDialog extends DialogFragment {
                 })
                 .create();
     }
-
 }

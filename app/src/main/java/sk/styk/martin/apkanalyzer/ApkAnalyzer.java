@@ -18,7 +18,6 @@ public class ApkAnalyzer extends Application {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        Intent serviceIntent = new Intent(getApplicationContext(), MultipleAppDataUploadTask.class);
-        startService(serviceIntent);
+        MultipleAppDataUploadTask.start(getApplicationContext());
     }
 }

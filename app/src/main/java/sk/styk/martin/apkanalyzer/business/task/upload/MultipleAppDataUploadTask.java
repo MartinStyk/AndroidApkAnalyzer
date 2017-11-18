@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.task.upload;
 
 import android.app.IntentService;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 
@@ -22,6 +23,11 @@ public class MultipleAppDataUploadTask extends IntentService {
 
     public MultipleAppDataUploadTask() {
         super(MultipleAppDataUploadTask.class.getSimpleName());
+    }
+
+    public static void start(Context context){
+        Intent serviceIntent = new Intent(context.getApplicationContext(), MultipleAppDataUploadTask.class);
+        context.getApplicationContext().startService(serviceIntent);
     }
 
     /**
