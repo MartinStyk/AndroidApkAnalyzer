@@ -26,19 +26,19 @@ public class DataUploadDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         String title = getString(R.string.upload_dialog_title);
-        String message = getString(R.string.settings_allow_metadata_upload_description);
+        String message = getString(R.string.upload_dialog_description);
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle(title)
                 .setMessage(message)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.allow, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ConnectivityHelper.setConnectionAllowedByUser(getContext(), true);
                         dismiss();
                     }
                 })
-                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.dismiss, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         ConnectivityHelper.setConnectionAllowedByUser(getContext(), false);
