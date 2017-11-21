@@ -13,7 +13,7 @@ public class JsonSerializationUtils {
     private Gson gson;
 
     public JsonSerializationUtils() {
-        this.gson = new GsonBuilder().setDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").create();
+        this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm a z").create();
     }
 
     public String serialize(Object object) {
