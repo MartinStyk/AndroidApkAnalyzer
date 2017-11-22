@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.model.server;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData;
@@ -29,7 +28,7 @@ public class ServerSideAppData {
     private String androidId;
 
     // Hash of data structure, can be used to identify two exactly same apps
-    private int hash;
+    private int appHash;
 
     private AppDetailData.AnalysisMode analysisMode;
 
@@ -45,8 +44,6 @@ public class ServerSideAppData {
 
     // CertificateData
     private String signAlgorithm;
-    private Date startDate;
-    private Date endDate;
     private String publicKeyMd5;
     private String certMd5;
     private int serialNumber;
@@ -59,46 +56,34 @@ public class ServerSideAppData {
 
     // Activities
     private int numberActivities;
-    private List<String> activityNames;
-    // combined hash of all activities, can be used to check whether activities are same without comparing all of them
     private int activitiesAggregatedHash;
 
 
     // Services
     private int numberServices;
-    private List<String> serviceNames;
-    // combined hash of all services, can be used to check whether services are same without comparing all of them
     private int servicesAggregatedHash;
 
     // Content Providers
     private int numberContentProviders;
-    private List<String> contentProviderNames;
-    // combined hash of all content provides
     private int providersAggregatedHash;
 
     // Broadcast Receivers
     private int numberBroadcastReceivers;
-    private List<String> broadcastReceiverNames;
-    // combined hash of all broadcast rec
     private int receiversAggregatedHash;
 
     // Defined permissions
     private int numberDefinedPermissions;
-    private List<String> definedPermissions;
-    // combined hash of all defined permissions
-    private int definedPermAggregatedHash;
+    private int definedPermissionsAggregatedHash;
 
     // Used permissions
     private int numberUsedPermissions;
-    private List<String> usedPermissions;
-    // combined hash of all used permissions
-    private int usedPermAggregatedHash;
+    private int usedPermissionsAggregatedHash;
+    private List<String> permissions;
 
     // Features
     private int numberFeatures;
-    private List<String> featureNames;
-    // combined hash of all used permissions
     private int featuresAggregatedHash;
+    private List<String> features;
 
     // FileData
     private String dexHash;
@@ -114,7 +99,7 @@ public class ServerSideAppData {
     private int numberAssets;
     private int numberOthers;
 
-    // single combined hash of all files in category
+    // single combined appHash of all files in category
     private int drawablesAggregatedHash;
     private int layoutsAggregatedHash;
     private int assetsAggregatedHash;
@@ -138,19 +123,17 @@ public class ServerSideAppData {
     private int tvdpiDrawables;
     private int unspecifiedDpiDrawables;
 
-    // ClassPathData
-    private List<String> packageClasses;
-    // combined hash of all pacakge classes
+    // combined appHash of all pacakge classes
     private int packageClassesAggregatedHash;
     private int numberPackageClasses;
-    // combined hash of all other classes
+    // combined appHash of all other classes
     private int otherClassesAggregatedHash;
     private int numberOtherClasses;
 
     public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
 
         androidId = deviceId;
-        this.hash = hash;
+        this.appHash = appHash;
 
         analysisMode = appDetailData.getAnalysisMode();
 
@@ -168,8 +151,6 @@ public class ServerSideAppData {
         // CertificateData
         CertificateData certificateData = appDetailData.getCertificateData();
         signAlgorithm = certificateData.getSignAlgorithm();
-        startDate = certificateData.getStartDate();
-        endDate = certificateData.getStartDate();
         publicKeyMd5 = certificateData.getPublicKeyMd5();
         certMd5 = certificateData.getCertMd5();
         serialNumber = certificateData.getSerialNumber();
@@ -184,56 +165,40 @@ public class ServerSideAppData {
         // Activities
         List<ActivityData> activityData = appDetailData.getActivityData();
         numberActivities = activityData.size();
-        activityNames = new ArrayList<>(activityData.size());
-        for (ActivityData aData : activityData) {
-            activityNames.add(aData.getName());
-        }
         activitiesAggregatedHash = HashCodeHelper.hashList(activityData);
 
         // Services
         List<ServiceData> serviceData = appDetailData.getServiceData();
         numberServices = serviceData.size();
-        serviceNames = new ArrayList<>(serviceData.size());
-        for (ServiceData sData : serviceData) {
-            serviceNames.add(sData.getName());
-        }
         servicesAggregatedHash = HashCodeHelper.hashList(serviceData);
 
         // Content Providers
         List<ContentProviderData> providerData = appDetailData.getContentProviderData();
         numberContentProviders = providerData.size();
-        contentProviderNames = new ArrayList<>(providerData.size());
-        for (ContentProviderData cData : providerData) {
-            contentProviderNames.add(cData.getName());
-        }
         providersAggregatedHash = HashCodeHelper.hashList(providerData);
 
         // Broadcast Receivers
         List<BroadcastReceiverData> receiverData = appDetailData.getBroadcastReceiverData();
         numberBroadcastReceivers = receiverData.size();
-        broadcastReceiverNames = new ArrayList<>(receiverData.size());
-        for (BroadcastReceiverData rData : receiverData) {
-            broadcastReceiverNames.add(rData.getName());
-        }
         receiversAggregatedHash = HashCodeHelper.hashList(receiverData);
 
         // Defined permissions
-        definedPermissions = appDetailData.getPermissionData().getDefinesPermissions();
-        definedPermAggregatedHash = HashCodeHelper.hashList(definedPermissions);
+        List<String> definedPermissions = appDetailData.getPermissionData().getDefinesPermissions();
+        definedPermissionsAggregatedHash = HashCodeHelper.hashList(definedPermissions);
         numberDefinedPermissions = definedPermissions.size();
 
         // Used permissions
-        usedPermissions = appDetailData.getPermissionData().getUsesPermissions();
-        usedPermAggregatedHash = HashCodeHelper.hashList(usedPermissions);
-        numberUsedPermissions = usedPermissions.size();
+        permissions = appDetailData.getPermissionData().getUsesPermissions();
+        usedPermissionsAggregatedHash = HashCodeHelper.hashList(permissions);
+        numberUsedPermissions = permissions.size();
 
         // Features
         List<FeatureData> featureData = appDetailData.getFeatureData();
         numberFeatures = featureData.size();
         featuresAggregatedHash = HashCodeHelper.hashList(featureData);
-        featureNames = new ArrayList<>(featureData.size());
+        features = new ArrayList<>(featureData.size());
         for (FeatureData fData : featureData) {
-            featureNames.add(fData.getName());
+            features.add(fData.getName());
         }
 
         // FileData
@@ -278,13 +243,12 @@ public class ServerSideAppData {
         // ClassPathData
         ClassPathData classPathData = appDetailData.getClassPathData();
 
-        packageClasses = classPathData.getPackageClasses();
-        numberPackageClasses = packageClasses.size();
-        packageClassesAggregatedHash = HashCodeHelper.hashList(packageClasses);
+        numberPackageClasses = classPathData.getPackageClasses().size();
+        packageClassesAggregatedHash = HashCodeHelper.hashList(classPathData.getPackageClasses());
         numberOtherClasses = classPathData.getOtherClasses().size();
         otherClassesAggregatedHash = HashCodeHelper.hashList(classPathData.getOtherClasses());
 
-        hash = computeOverallHash();
+        appHash = computeOverallHash();
     }
 
     private int computeOverallHash() {
@@ -307,9 +271,9 @@ public class ServerSideAppData {
         result = 31 * result + numberBroadcastReceivers;
         result = 31 * result + receiversAggregatedHash;
         result = 31 * result + numberDefinedPermissions;
-        result = 31 * result + definedPermAggregatedHash;
+        result = 31 * result + definedPermissionsAggregatedHash;
         result = 31 * result + numberUsedPermissions;
-        result = 31 * result + usedPermAggregatedHash;
+        result = 31 * result + usedPermissionsAggregatedHash;
         result = 31 * result + numberFeatures;
         result = 31 * result + featuresAggregatedHash;
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);

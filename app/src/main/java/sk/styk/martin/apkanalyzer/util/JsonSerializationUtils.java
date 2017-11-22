@@ -5,6 +5,8 @@ import com.google.gson.GsonBuilder;
 
 import java.text.DateFormat;
 
+import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
+
 /**
  * Created by Martin Styk on 06.11.2017.
  */
@@ -13,7 +15,9 @@ public class JsonSerializationUtils {
     private Gson gson;
 
     public JsonSerializationUtils() {
-        this.gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm a z").create();
+        this.gson = new GsonBuilder()
+                .setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES)
+                .setDateFormat("yyyy-MM-dd HH:mm a z").create();
     }
 
     public String serialize(Object object) {
