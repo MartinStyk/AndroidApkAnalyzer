@@ -22,7 +22,7 @@ public class ServerHttpAccessHelper {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     private static final String TAG = ServerHttpAccessHelper.class.getName();
-    private static final String URL = "http://192.168.0.152:3000/app_records";
+    private static final String URL = "https://apk-analyzer.herokuapp.com/app_records";
     private OkHttpClient client = new OkHttpClient();
 
     public int postData(@NonNull String json, @NonNull String packageName) throws IOException {

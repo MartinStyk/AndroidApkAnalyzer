@@ -58,10 +58,9 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
         }
 
         ServerSideAppData uploadData = new ServerSideAppData(data, AndroidIdHelper.getAndroidId(context));
-        String json = jsonSerializationUtils.serialize(uploadData);
 
         try {
-            int responseCode = new ServerHttpAccessHelper().postData(json, packageName);
+            int responseCode = new ServerHttpAccessHelper().postData(jsonSerializationUtils.serialize(uploadData), packageName);
             // TODO do not insert to DB - for debug allow repeated uploads
 //            SendDataService.insert(data, context);
             Log.i(TAG, String.format("Finished uploading package %s with response + %03d", packageName, responseCode));
