@@ -25,12 +25,10 @@ import sk.styk.martin.apkanalyzer.util.HashCodeHelper;
 public class ServerSideAppData {
 
     // ID of device which uploaded this data
-    private String androidId;
+    public UploadRecordData uploadRecord;
 
     // Hash of data structure, can be used to identify two exactly same apps
     private int appHash;
-
-    private AppDetailData.AnalysisMode analysisMode;
 
     // GeneralData
     private String packageName;
@@ -132,10 +130,8 @@ public class ServerSideAppData {
 
     public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
 
-        androidId = deviceId;
+        uploadRecord = new UploadRecordData(deviceId, appDetailData.getAnalysisMode());
         this.appHash = appHash;
-
-        analysisMode = appDetailData.getAnalysisMode();
 
         // GeneralData
         GeneralData generalData = appDetailData.getGeneralData();
@@ -306,6 +302,35 @@ public class ServerSideAppData {
         result = 31 * result + numberPackageClasses;
         result = 31 * result + otherClassesAggregatedHash;
         result = 31 * result + numberOtherClasses;
+        return result;
+    }
+}
+
+class UploadRecordData {
+    private String androidId;
+    private AppDetailData.AnalysisMode analysisMode;
+
+    public UploadRecordData(String androidId, AppDetailData.AnalysisMode analysisMode) {
+        this.androidId = androidId;
+        this.analysisMode = analysisMode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        UploadRecordData that = (UploadRecordData) o;
+
+        if (androidId != null ? !androidId.equals(that.androidId) : that.androidId != null)
+            return false;
+        return analysisMode == that.analysisMode;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = androidId != null ? androidId.hashCode() : 0;
+        result = 31 * result + (analysisMode != null ? analysisMode.hashCode() : 0);
         return result;
     }
 }
