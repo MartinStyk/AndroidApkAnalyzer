@@ -45,14 +45,14 @@ public class AppDetailFragment_File extends Fragment {
             return new ArrayList<>(0);
         }
 
-        List<String> allFiles = new ArrayList<>(data.getAssetHashes().size() +
+        List<String> allFiles = new ArrayList<>(data.getMenuHashes().size() +
                 data.getDrawableHashes().size() +
                 data.getLayoutHashes().size() +
                 data.getOtherHashes().size());
 
         addInternal(allFiles, data.getDrawableHashes());
         addInternal(allFiles, data.getLayoutHashes());
-        addInternal(allFiles, data.getAssetHashes());
+        addInternal(allFiles, data.getMenuHashes());
         addInternal(allFiles, data.getOtherHashes());
 
         return  allFiles;

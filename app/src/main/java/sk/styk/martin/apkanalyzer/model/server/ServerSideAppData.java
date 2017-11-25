@@ -25,10 +25,12 @@ import sk.styk.martin.apkanalyzer.util.HashCodeHelper;
 public class ServerSideAppData {
 
     // ID of device which uploaded this data
-    public UploadRecordData uploadRecord;
+    private String androidId;
 
     // Hash of data structure, can be used to identify two exactly same apps
     private int appHash;
+
+    private AppDetailData.AnalysisMode analysisMode;
 
     // GeneralData
     private String packageName;
@@ -86,19 +88,18 @@ public class ServerSideAppData {
     // FileData
     private String dexHash;
     private String arscHash;
-    // hashes of all files in APK
-    private List<String> drawableHashes;
+    private String manifestHash;
+    private List<String> pngHashes;
     private List<String> layoutHashes;
-    private List<String> assetHashes;
-    private List<String> otherHashes;
+    private List<String> menuHashes;
 
-    private int numberDrawables;
+    private int numberPngs;
     private int numberLayouts;
     private int numberAssets;
-    private int numberOthers;
+    private int numberTotal;
 
     // single combined appHash of all files in category
-    private int drawablesAggregatedHash;
+    private int pngsAggregatedHash;
     private int layoutsAggregatedHash;
     private int assetsAggregatedHash;
     private int otherAggregatedHash;
@@ -130,8 +131,10 @@ public class ServerSideAppData {
 
     public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
 
-        uploadRecord = new UploadRecordData(deviceId, appDetailData.getAnalysisMode());
+        androidId = deviceId;
         this.appHash = appHash;
+
+        analysisMode = appDetailData.getAnalysisMode();
 
         // GeneralData
         GeneralData generalData = appDetailData.getGeneralData();
@@ -201,21 +204,19 @@ public class ServerSideAppData {
         FileData fileData = appDetailData.getFileData();
         dexHash = fileData.getDexHash();
         arscHash = fileData.getArscHash();
+        manifestHash = fileData.getManifestHash();
 
-        drawableHashes = fileData.getOnlyHash(fileData.getDrawableHashes());
+        pngHashes = fileData.getOnlyHash(fileData.getPngHashes());
         layoutHashes = fileData.getOnlyHash(fileData.getLayoutHashes());
-        assetHashes = fileData.getOnlyHash(fileData.getAssetHashes());
-        otherHashes = fileData.getOnlyHash(fileData.getOtherHashes());
+        menuHashes = fileData.getOnlyHash(fileData.getMenuHashes());
 
-        numberDrawables = drawableHashes.size();
+        numberPngs = pngHashes.size();
         numberLayouts = layoutHashes.size();
-        numberAssets = assetHashes.size();
-        numberOthers = otherHashes.size();
+        numberAssets = menuHashes.size();
 
-        drawablesAggregatedHash = HashCodeHelper.hashList(drawableHashes);
+        pngsAggregatedHash = HashCodeHelper.hashList(pngHashes);
         layoutsAggregatedHash = HashCodeHelper.hashList(layoutHashes);
-        assetsAggregatedHash = HashCodeHelper.hashList(assetHashes);
-        otherAggregatedHash = HashCodeHelper.hashList(otherHashes);
+        assetsAggregatedHash = HashCodeHelper.hashList(menuHashes);
 
         //ResourceData
         ResourceData resourceData = appDetailData.getResourceData();
@@ -274,11 +275,10 @@ public class ServerSideAppData {
         result = 31 * result + featuresAggregatedHash;
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
-        result = 31 * result + numberDrawables;
+        result = 31 * result + numberPngs;
         result = 31 * result + numberLayouts;
         result = 31 * result + numberAssets;
-        result = 31 * result + numberOthers;
-        result = 31 * result + drawablesAggregatedHash;
+        result = 31 * result + pngsAggregatedHash;
         result = 31 * result + layoutsAggregatedHash;
         result = 31 * result + assetsAggregatedHash;
         result = 31 * result + otherAggregatedHash;
@@ -306,31 +306,3 @@ public class ServerSideAppData {
     }
 }
 
-class UploadRecordData {
-    private String androidId;
-    private AppDetailData.AnalysisMode analysisMode;
-
-    public UploadRecordData(String androidId, AppDetailData.AnalysisMode analysisMode) {
-        this.androidId = androidId;
-        this.analysisMode = analysisMode;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        UploadRecordData that = (UploadRecordData) o;
-
-        if (androidId != null ? !androidId.equals(that.androidId) : that.androidId != null)
-            return false;
-        return analysisMode == that.analysisMode;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = androidId != null ? androidId.hashCode() : 0;
-        result = 31 * result + (analysisMode != null ? analysisMode.hashCode() : 0);
-        return result;
-    }
-}

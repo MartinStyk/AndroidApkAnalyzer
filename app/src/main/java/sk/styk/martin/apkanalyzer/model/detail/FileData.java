@@ -32,6 +32,10 @@ public class FileData implements Parcelable {
      */
     private String arscHash;
     /**
+     * hash of AndroidManifest.xml file
+     */
+    private String manifestHash;
+    /**
      * Files in res/drawable* directories
      */
     private List<FileEntry> drawableHashes = new ArrayList<>(0);
@@ -42,7 +46,7 @@ public class FileData implements Parcelable {
     /**
      * Files in assets/* directories
      */
-    private List<FileEntry> assetHashes = new ArrayList<>(0);
+    private List<FileEntry> menuHashes = new ArrayList<>(0);
     /**
      * All remaining files
      */
@@ -56,7 +60,7 @@ public class FileData implements Parcelable {
         this.arscHash = in.readString();
         this.drawableHashes = in.createTypedArrayList(FileEntry.CREATOR);
         this.layoutHashes = in.createTypedArrayList(FileEntry.CREATOR);
-        this.assetHashes = in.createTypedArrayList(FileEntry.CREATOR);
+        this.menuHashes = in.createTypedArrayList(FileEntry.CREATOR);
         this.otherHashes = in.createTypedArrayList(FileEntry.CREATOR);
     }
 
@@ -84,6 +88,19 @@ public class FileData implements Parcelable {
         this.drawableHashes = drawableHashes;
     }
 
+    public List<FileEntry> getPngHashes() {
+        List<FileEntry> pngs = new ArrayList<>(drawableHashes.size());
+        for (FileEntry entry : drawableHashes) {
+            if (entry.getPath().endsWith(".png"))
+                pngs.add(entry);
+        }
+        for (FileEntry entry : otherHashes) {
+            if (entry.getPath().endsWith(".png"))
+                pngs.add(entry);
+        }
+        return pngs;
+    }
+
     public List<FileEntry> getLayoutHashes() {
         return layoutHashes;
     }
@@ -92,12 +109,12 @@ public class FileData implements Parcelable {
         this.layoutHashes = layoutHashes;
     }
 
-    public List<FileEntry> getAssetHashes() {
-        return assetHashes;
+    public List<FileEntry> getMenuHashes() {
+        return menuHashes;
     }
 
-    public void setAssetHashes(List<FileEntry> assetHashes) {
-        this.assetHashes = assetHashes;
+    public void setMenuHashes(List<FileEntry> menuHashes) {
+        this.menuHashes = menuHashes;
     }
 
     public List<FileEntry> getOtherHashes() {
@@ -106,6 +123,14 @@ public class FileData implements Parcelable {
 
     public void setOtherHashes(List<FileEntry> otherHashes) {
         this.otherHashes = otherHashes;
+    }
+
+    public String getManifestHash() {
+        return manifestHash;
+    }
+
+    public void setManifestHash(String manifestHash) {
+        this.manifestHash = manifestHash;
     }
 
     @Override
@@ -123,7 +148,7 @@ public class FileData implements Parcelable {
             return false;
         if (layoutHashes != null ? !layoutHashes.equals(fileData.layoutHashes) : fileData.layoutHashes != null)
             return false;
-        if (assetHashes != null ? !assetHashes.equals(fileData.assetHashes) : fileData.assetHashes != null)
+        if (menuHashes != null ? !menuHashes.equals(fileData.menuHashes) : fileData.menuHashes != null)
             return false;
         return otherHashes != null ? otherHashes.equals(fileData.otherHashes) : fileData.otherHashes == null;
     }
@@ -134,7 +159,7 @@ public class FileData implements Parcelable {
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
         result = 31 * result + (drawableHashes != null ? drawableHashes.hashCode() : 0);
         result = 31 * result + (layoutHashes != null ? layoutHashes.hashCode() : 0);
-        result = 31 * result + (assetHashes != null ? assetHashes.hashCode() : 0);
+        result = 31 * result + (menuHashes != null ? menuHashes.hashCode() : 0);
         result = 31 * result + (otherHashes != null ? otherHashes.hashCode() : 0);
         return result;
     }
@@ -146,7 +171,7 @@ public class FileData implements Parcelable {
                 ", arscHash='" + arscHash + '\'' +
                 ", drawableHashes=" + drawableHashes +
                 ", layoutHashes=" + layoutHashes +
-                ", assetHashes=" + assetHashes +
+                ", menuHashes=" + menuHashes +
                 ", otherHashes=" + otherHashes +
                 '}';
     }
@@ -162,7 +187,7 @@ public class FileData implements Parcelable {
         dest.writeString(this.arscHash);
         dest.writeTypedList(this.drawableHashes);
         dest.writeTypedList(this.layoutHashes);
-        dest.writeTypedList(this.assetHashes);
+        dest.writeTypedList(this.menuHashes);
         dest.writeTypedList(this.otherHashes);
     }
 
@@ -173,5 +198,9 @@ public class FileData implements Parcelable {
             result.add(fileEntry.getHash());
         }
         return result;
+    }
+
+    public int getTotalFiles() {
+        return 3 + otherHashes.size() + drawableHashes.size() + layoutHashes.size() + menuHashes.size();
     }
 }

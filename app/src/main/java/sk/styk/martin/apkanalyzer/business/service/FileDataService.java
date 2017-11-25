@@ -34,7 +34,7 @@ public class FileDataService {
 
         List<FileEntry> drawables = new ArrayList<>();
         List<FileEntry> layouts = new ArrayList<>();
-        List<FileEntry> assets = new ArrayList<>();
+        List<FileEntry> menus = new ArrayList<>();
         List<FileEntry> others = new ArrayList<>();
 
         Map<String, Attributes> map = mf.getEntries();
@@ -44,30 +44,32 @@ public class FileDataService {
             String hash = (entry.getValue() == null) ? null : entry.getValue().getValue("SHA1-Digest");
             FileEntry fileEntry = new FileEntry(fileName, hash);
 
-            if (fileName.equals("classes.dex")) {
-                fileData.setDexHash(hash);
-
-            } else if (fileName.equals("resources.arsc")) {
-                fileData.setArscHash(hash);
-
-            } else if (fileName.startsWith("res/drawable")) {
+            if (fileName.startsWith("res/drawable")) {
                 drawables.add(fileEntry);
 
             } else if (fileName.startsWith("res/layout")) {
                 layouts.add(fileEntry);
 
-            } else if (fileName.startsWith("assets")) {
-                assets.add(fileEntry);
+            } else if (fileName.startsWith("res/menu")) {
+                menus.add(fileEntry);
+
+            } else if (fileName.equals("classes.dex")) {
+                fileData.setDexHash(hash);
+
+            } else if (fileName.equals("resources.arsc")) {
+                fileData.setArscHash(hash);
+
+            } else if (fileName.equals("AndroidManifest.xml")) {
+                fileData.setManifestHash(hash);
 
             } else {
                 others.add(fileEntry);
-
             }
         }
 
         fileData.setDrawableHashes(drawables);
         fileData.setLayoutHashes(layouts);
-        fileData.setAssetHashes(assets);
+        fileData.setMenuHashes(menus);
         fileData.setOtherHashes(others);
 
         return fileData;

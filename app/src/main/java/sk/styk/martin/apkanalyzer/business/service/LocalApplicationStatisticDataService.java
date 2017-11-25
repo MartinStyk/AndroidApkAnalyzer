@@ -4,11 +4,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import sk.styk.martin.apkanalyzer.business.service.AndroidManifestService;
-import sk.styk.martin.apkanalyzer.business.service.CertificateService;
-import sk.styk.martin.apkanalyzer.business.service.FileDataService;
-import sk.styk.martin.apkanalyzer.business.service.GeneralDataService;
-import sk.styk.martin.apkanalyzer.business.service.ResourceService;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.detail.FileData;
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
@@ -72,7 +67,7 @@ public class LocalApplicationStatisticDataService {
         data.setUsedPermissions(packageInfo.requestedPermissions == null ? 0 : packageInfo.requestedPermissions.length);
 
         FileData fileData = fileService.get(packageInfo);
-        data.setFiles(fileData.getAssetHashes().size() +
+        data.setFiles(fileData.getMenuHashes().size() +
                 fileData.getDrawableHashes().size() +
                 fileData.getLayoutHashes().size() +
                 fileData.getOtherHashes().size() + 2); // +2 for arsc and dex
