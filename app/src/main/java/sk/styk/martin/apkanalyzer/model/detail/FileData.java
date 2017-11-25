@@ -58,6 +58,7 @@ public class FileData implements Parcelable {
     protected FileData(Parcel in) {
         this.dexHash = in.readString();
         this.arscHash = in.readString();
+        this.manifestHash = in.readString();
         this.drawableHashes = in.createTypedArrayList(FileEntry.CREATOR);
         this.layoutHashes = in.createTypedArrayList(FileEntry.CREATOR);
         this.menuHashes = in.createTypedArrayList(FileEntry.CREATOR);
@@ -144,6 +145,8 @@ public class FileData implements Parcelable {
             return false;
         if (arscHash != null ? !arscHash.equals(fileData.arscHash) : fileData.arscHash != null)
             return false;
+        if (manifestHash != null ? !manifestHash.equals(fileData.manifestHash) : fileData.manifestHash != null)
+            return false;
         if (drawableHashes != null ? !drawableHashes.equals(fileData.drawableHashes) : fileData.drawableHashes != null)
             return false;
         if (layoutHashes != null ? !layoutHashes.equals(fileData.layoutHashes) : fileData.layoutHashes != null)
@@ -157,6 +160,7 @@ public class FileData implements Parcelable {
     public int hashCode() {
         int result = dexHash != null ? dexHash.hashCode() : 0;
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
+        result = 31 * result + (manifestHash != null ? manifestHash.hashCode() : 0);
         result = 31 * result + (drawableHashes != null ? drawableHashes.hashCode() : 0);
         result = 31 * result + (layoutHashes != null ? layoutHashes.hashCode() : 0);
         result = 31 * result + (menuHashes != null ? menuHashes.hashCode() : 0);
@@ -169,6 +173,7 @@ public class FileData implements Parcelable {
         return "FileData{" +
                 "dexHash='" + dexHash + '\'' +
                 ", arscHash='" + arscHash + '\'' +
+                ", manifestHash='" + manifestHash + '\'' +
                 ", drawableHashes=" + drawableHashes +
                 ", layoutHashes=" + layoutHashes +
                 ", menuHashes=" + menuHashes +
@@ -185,6 +190,7 @@ public class FileData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.dexHash);
         dest.writeString(this.arscHash);
+        dest.writeString(this.manifestHash);
         dest.writeTypedList(this.drawableHashes);
         dest.writeTypedList(this.layoutHashes);
         dest.writeTypedList(this.menuHashes);
