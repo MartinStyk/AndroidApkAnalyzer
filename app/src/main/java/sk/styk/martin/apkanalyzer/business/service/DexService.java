@@ -22,6 +22,7 @@ public class DexService {
 
         List<String> packageClasses = new ArrayList<>();
         List<String> otherClasses = new ArrayList<>();
+        int innerClasses = 0;
         ClassPathData classPathData = new ClassPathData();
 
         ApplicationInfo applicationInfo = packageInfo.applicationInfo;
@@ -36,6 +37,10 @@ public class DexService {
                         packageClasses.add(className);
                     else
                         otherClasses.add(className);
+
+                    if (className != null && className.contains("$")) {
+                        innerClasses++;
+                    }
                 }
             } catch (IOException e) {
                 Log.e(DexService.class.getSimpleName(), e.getLocalizedMessage());
@@ -44,6 +49,7 @@ public class DexService {
 
         classPathData.setPackageClasses(packageClasses);
         classPathData.setOtherClasses(otherClasses);
+        classPathData.setNumberOfInnerClasses(innerClasses);
 
         return classPathData;
     }

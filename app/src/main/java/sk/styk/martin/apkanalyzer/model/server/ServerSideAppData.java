@@ -47,17 +47,10 @@ public class ServerSideAppData {
     private String publicKeyMd5;
     private String certMd5;
     private int serialNumber;
-    private String issuerName;
-    private String issuerOrganization;
-    private String issuerCountry;
-    private String subjectName;
-    private String subjectOrganization;
-    private String subjectCountry;
 
     // Activities
     private int numberActivities;
     private int activitiesAggregatedHash;
-
 
     // Services
     private int numberServices;
@@ -122,12 +115,10 @@ public class ServerSideAppData {
     private int tvdpiDrawables;
     private int unspecifiedDpiDrawables;
 
-    // combined appHash of all pacakge classes
-    private int packageClassesAggregatedHash;
-    private int numberPackageClasses;
-    // combined appHash of all other classes
-    private int otherClassesAggregatedHash;
-    private int numberOtherClasses;
+    // combined appHash of all classes
+    private int classesAggregatedHash;
+    private int totalNumberOfClasses;
+    private int totalNumberOfClassesWithoutInnerClasses;
 
     public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
 
@@ -153,13 +144,6 @@ public class ServerSideAppData {
         publicKeyMd5 = certificateData.getPublicKeyMd5();
         certMd5 = certificateData.getCertMd5();
         serialNumber = certificateData.getSerialNumber();
-        issuerName = certificateData.getIssuerName();
-        issuerOrganization = certificateData.getIssuerOrganization();
-        issuerCountry = certificateData.getIssuerCountry();
-        subjectName = certificateData.getSubjectName();
-        subjectOrganization = certificateData.getSubjectOrganization();
-        subjectCountry = certificateData.getSubjectCountry();
-
 
         // Activities
         List<ActivityData> activityData = appDetailData.getActivityData();
@@ -240,10 +224,9 @@ public class ServerSideAppData {
         // ClassPathData
         ClassPathData classPathData = appDetailData.getClassPathData();
 
-        numberPackageClasses = classPathData.getPackageClasses().size();
-        packageClassesAggregatedHash = HashCodeHelper.hashList(classPathData.getPackageClasses());
-        numberOtherClasses = classPathData.getOtherClasses().size();
-        otherClassesAggregatedHash = HashCodeHelper.hashList(classPathData.getOtherClasses());
+        totalNumberOfClasses = classPathData.getPackageClasses().size() + classPathData.getOtherClasses().size();
+        classesAggregatedHash = HashCodeHelper.hashList(classPathData.getPackageClasses(), classPathData.getOtherClasses());
+        totalNumberOfClassesWithoutInnerClasses = totalNumberOfClasses - classPathData.getNumberOfInnerClasses();
 
         appHash = computeOverallHash();
     }
@@ -275,6 +258,7 @@ public class ServerSideAppData {
         result = 31 * result + featuresAggregatedHash;
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
+        result = 31 * result + (manifestHash != null ? manifestHash.hashCode() : 0);
         result = 31 * result + numberPngs;
         result = 31 * result + numberLayouts;
         result = 31 * result + numberAssets;
@@ -298,10 +282,10 @@ public class ServerSideAppData {
         result = 31 * result + nodpiDrawables;
         result = 31 * result + tvdpiDrawables;
         result = 31 * result + unspecifiedDpiDrawables;
-        result = 31 * result + packageClassesAggregatedHash;
-        result = 31 * result + numberPackageClasses;
-        result = 31 * result + otherClassesAggregatedHash;
-        result = 31 * result + numberOtherClasses;
+        result = 31 * result + totalNumberOfClasses;
+        result = 31 * result + classesAggregatedHash;
+        result = 31 * result + totalNumberOfClassesWithoutInnerClasses;
+
         return result;
     }
 }

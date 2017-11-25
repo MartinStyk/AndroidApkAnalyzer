@@ -14,12 +14,13 @@ public class HashCodeHelper {
      * -  always override hashcode in objects passed to this method
      * -  we can rely on String.hashCode() to be consistent
      */
-    public static int hashList(List<?> list) {
+    public static int hashList(List<?>... lists) {
         int hash = 31;
-        for (Object o : list) {
-            if (o != null)
-                hash += 29 * o.hashCode();
-        }
+        for (List<?> list : lists)
+            for (Object o : list) {
+                if (o != null)
+                    hash += 29 * o.hashCode();
+            }
         return hash;
     }
 }

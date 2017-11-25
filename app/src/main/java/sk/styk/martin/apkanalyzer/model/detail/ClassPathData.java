@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.model.detail;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +12,7 @@ import java.util.List;
 public class ClassPathData implements Parcelable {
     private List<String> packageClasses;
     private List<String> otherClasses;
+    private int numberOfInnerClasses;
 
     public List<String> getPackageClasses() {
         return packageClasses;
@@ -30,6 +30,14 @@ public class ClassPathData implements Parcelable {
         this.otherClasses = otherClasses;
     }
 
+    public int getNumberOfInnerClasses() {
+        return numberOfInnerClasses;
+    }
+
+    public void setNumberOfInnerClasses(int numberOfInnerClasses) {
+        this.numberOfInnerClasses = numberOfInnerClasses;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -37,6 +45,8 @@ public class ClassPathData implements Parcelable {
 
         ClassPathData that = (ClassPathData) o;
 
+        if (numberOfInnerClasses != that.numberOfInnerClasses)
+            return false;
         if (packageClasses != null ? !packageClasses.equals(that.packageClasses) : that.packageClasses != null)
             return false;
         return otherClasses != null ? otherClasses.equals(that.otherClasses) : that.otherClasses == null;
@@ -46,7 +56,11 @@ public class ClassPathData implements Parcelable {
     public int hashCode() {
         int result = packageClasses != null ? packageClasses.hashCode() : 0;
         result = 31 * result + (otherClasses != null ? otherClasses.hashCode() : 0);
+        result = 31 * result + numberOfInnerClasses;
         return result;
+    }
+
+    public ClassPathData() {
     }
 
     @Override
@@ -58,17 +72,16 @@ public class ClassPathData implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeStringList(this.packageClasses);
         dest.writeStringList(this.otherClasses);
-    }
-
-    public ClassPathData() {
+        dest.writeInt(this.numberOfInnerClasses);
     }
 
     protected ClassPathData(Parcel in) {
         this.packageClasses = in.createStringArrayList();
         this.otherClasses = in.createStringArrayList();
+        this.numberOfInnerClasses = in.readInt();
     }
 
-    public static final Parcelable.Creator<ClassPathData> CREATOR = new Parcelable.Creator<ClassPathData>() {
+    public static final Creator<ClassPathData> CREATOR = new Creator<ClassPathData>() {
         @Override
         public ClassPathData createFromParcel(Parcel source) {
             return new ClassPathData(source);
