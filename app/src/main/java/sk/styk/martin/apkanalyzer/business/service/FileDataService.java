@@ -47,7 +47,7 @@ public class FileDataService {
 
         for (Map.Entry<String, Attributes> entry : map.entrySet()) {
             String fileName = entry.getKey();
-            String hash = (entry.getValue() == null) ? null : entry.getValue().getValue("SHA1-Digest");
+            String hash = extractHash(entry);
             FileEntry fileEntry = new FileEntry(fileName, hash);
 
             // sort into categories according to location
@@ -119,5 +119,14 @@ public class FileDataService {
             Log.e(FileDataService.class.getSimpleName(), "Unable to find manifest", e);
         }
         return mf;
+    }
+
+    private String extractHash(Map.Entry<String, Attributes> entry) {
+        String sha1 = (entry.getValue() == null) ? null : entry.getValue().getValue("SHA1-Digest");
+        if (sha1 != null)
+            return sha1;
+
+        String sha256 = (entry.getValue() == null) ? null : entry.getValue().getValue("SHA-256-Digest");
+        return sha256;
     }
 }
