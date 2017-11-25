@@ -25,7 +25,6 @@
             android:layout_height="?android:attr/listPreferredItemHeight"
             app:descriptionText="@string/different_drawables_description"
             app:titleText="@string/different_drawables" />
-        />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_png_drawables"

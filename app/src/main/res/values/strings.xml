@@ -154,8 +154,8 @@
     <string name="gif_drawables">gif drawables</string>
     <string name="xml_drawables">xml drawables</string>
     <string name="ldpi_drawables">ldpi drawables</string>
-    <string name="mdpi_drawables">png drawables</string>
-    <string name="hdpi_drawables">mdpi drawables</string>
+    <string name="mdpi_drawables">mdpi drawables</string>
+    <string name="hdpi_drawables">hdpi drawables</string>
     <string name="xhdpi_drawables">xhdpi drawables</string>
     <string name="xxhdpi_drawables">xxhdpi drawables</string>
     <string name="xxxhdpi_drawables">xxxhdpi drawables</string>
