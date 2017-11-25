@@ -52,6 +52,14 @@ public class FileData implements Parcelable {
      */
     private List<FileEntry> otherHashes = new ArrayList<>(0);
 
+    private int numberPngs;
+
+    private int numberXmls;
+
+    private int numberPngsWithDifferentName;
+
+    private int numberXmlsWithDifferentName;
+
     public FileData() {
     }
 
@@ -132,6 +140,38 @@ public class FileData implements Parcelable {
 
     public void setManifestHash(String manifestHash) {
         this.manifestHash = manifestHash;
+    }
+
+    public int getNumberPngs() {
+        return numberPngs;
+    }
+
+    public void setNumberPngs(int numberPngs) {
+        this.numberPngs = numberPngs;
+    }
+
+    public int getNumberXmls() {
+        return numberXmls;
+    }
+
+    public void setNumberXmls(int numberXmls) {
+        this.numberXmls = numberXmls;
+    }
+
+    public int getNumberPngsWithDifferentName() {
+        return numberPngsWithDifferentName;
+    }
+
+    public void setNumberPngsWithDifferentName(int numberPngsWithDifferentName) {
+        this.numberPngsWithDifferentName = numberPngsWithDifferentName;
+    }
+
+    public int getNumberXmlsWithDifferentName() {
+        return numberXmlsWithDifferentName;
+    }
+
+    public void setNumberXmlsWithDifferentName(int numberXmlsWithDifferentName) {
+        this.numberXmlsWithDifferentName = numberXmlsWithDifferentName;
     }
 
     @Override

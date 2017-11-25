@@ -8,12 +8,36 @@ import android.os.Parcelable;
  */
 public class FileEntry implements Parcelable {
 
+    public static final Parcelable.Creator<FileEntry> CREATOR = new Parcelable.Creator<FileEntry>() {
+        @Override
+        public FileEntry createFromParcel(Parcel source) {
+            return new FileEntry(source);
+        }
+
+        @Override
+        public FileEntry[] newArray(int size) {
+            return new FileEntry[size];
+        }
+    };
     private String path;
     private String hash;
 
-    public FileEntry(String path, String hash){
+    public FileEntry(String path, String hash) {
         this.path = path;
         this.hash = hash;
+    }
+
+    protected FileEntry(Parcel in) {
+        this.path = in.readString();
+        this.hash = in.readString();
+    }
+
+    public String getFileName() {
+        int lastSlash = path.lastIndexOf("/");
+        if(lastSlash < 0)
+            return path;
+        else
+            return path.substring(lastSlash);
     }
 
     public String getPath() {
@@ -60,21 +84,4 @@ public class FileEntry implements Parcelable {
         dest.writeString(this.path);
         dest.writeString(this.hash);
     }
-
-    protected FileEntry(Parcel in) {
-        this.path = in.readString();
-        this.hash = in.readString();
-    }
-
-    public static final Parcelable.Creator<FileEntry> CREATOR = new Parcelable.Creator<FileEntry>() {
-        @Override
-        public FileEntry createFromParcel(Parcel source) {
-            return new FileEntry(source);
-        }
-
-        @Override
-        public FileEntry[] newArray(int size) {
-            return new FileEntry[size];
-        }
-    };
 }

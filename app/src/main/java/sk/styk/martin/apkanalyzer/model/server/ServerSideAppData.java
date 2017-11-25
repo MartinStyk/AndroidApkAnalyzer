@@ -86,16 +86,21 @@ public class ServerSideAppData {
     private List<String> layoutHashes;
     private List<String> menuHashes;
 
-    private int numberPngs;
+    private int numberDrawables;
     private int numberLayouts;
-    private int numberAssets;
-    private int numberTotal;
+    private int numberMenus;
+    private int numberFilesTotal;
+
+    private int numberPngs;
+    private int numberXmls;
+    private int numberPngsWithDifferentName;
+    private int numberXmlsWithDifferentName;
+
 
     // single combined appHash of all files in category
     private int pngsAggregatedHash;
     private int layoutsAggregatedHash;
-    private int assetsAggregatedHash;
-    private int otherAggregatedHash;
+    private int menusAggregatedHash;
 
     //ResourceData
     private int numberDifferentDrawables;
@@ -194,13 +199,19 @@ public class ServerSideAppData {
         layoutHashes = fileData.getOnlyHash(fileData.getLayoutHashes());
         menuHashes = fileData.getOnlyHash(fileData.getMenuHashes());
 
-        numberPngs = pngHashes.size();
+        numberDrawables = fileData.getDrawableHashes().size();
         numberLayouts = layoutHashes.size();
-        numberAssets = menuHashes.size();
+        numberMenus = menuHashes.size();
+        numberFilesTotal = fileData.getTotalFiles();
+
+        numberPngs = pngHashes.size();
+        numberXmls = fileData.getNumberXmls();
+        numberPngsWithDifferentName = fileData.getNumberPngsWithDifferentName();
+        numberXmlsWithDifferentName = fileData.getNumberXmlsWithDifferentName();
 
         pngsAggregatedHash = HashCodeHelper.hashList(pngHashes);
         layoutsAggregatedHash = HashCodeHelper.hashList(layoutHashes);
-        assetsAggregatedHash = HashCodeHelper.hashList(menuHashes);
+        menusAggregatedHash = HashCodeHelper.hashList(menuHashes);
 
         //ResourceData
         ResourceData resourceData = appDetailData.getResourceData();
@@ -259,13 +270,17 @@ public class ServerSideAppData {
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
         result = 31 * result + (manifestHash != null ? manifestHash.hashCode() : 0);
-        result = 31 * result + numberPngs;
+        result = 31 * result + numberDrawables;
         result = 31 * result + numberLayouts;
-        result = 31 * result + numberAssets;
+        result = 31 * result + numberMenus;
+        result = 31 * result + numberFilesTotal;
+        result = 31 * result + numberPngs;
+        result = 31 * result + numberXmls;
+        result = 31 * result + numberPngsWithDifferentName;
+        result = 31 * result + numberXmlsWithDifferentName;
         result = 31 * result + pngsAggregatedHash;
         result = 31 * result + layoutsAggregatedHash;
-        result = 31 * result + assetsAggregatedHash;
-        result = 31 * result + otherAggregatedHash;
+        result = 31 * result + menusAggregatedHash;
         result = 31 * result + numberDifferentDrawables;
         result = 31 * result + numberDifferentLayouts;
         result = 31 * result + pngDrawables;

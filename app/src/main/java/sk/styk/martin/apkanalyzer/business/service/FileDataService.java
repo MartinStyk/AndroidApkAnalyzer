@@ -7,8 +7,10 @@ import android.util.Log;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.jar.Attributes;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
@@ -37,6 +39,10 @@ public class FileDataService {
         List<FileEntry> menus = new ArrayList<>();
         List<FileEntry> others = new ArrayList<>();
 
+        int numberPngs = 0, numberXmls = 0, numberPngsWithDifferentName = 0, numberXmlsWithDifferentName = 0;
+        Set<String> pngsSet = new HashSet<>();
+        Set<String> xmlsSet = new HashSet<>();
+
         Map<String, Attributes> map = mf.getEntries();
 
         for (Map.Entry<String, Attributes> entry : map.entrySet()) {
@@ -44,6 +50,7 @@ public class FileDataService {
             String hash = (entry.getValue() == null) ? null : entry.getValue().getValue("SHA1-Digest");
             FileEntry fileEntry = new FileEntry(fileName, hash);
 
+            // sort into categories according to location
             if (fileName.startsWith("res/drawable")) {
                 drawables.add(fileEntry);
 
@@ -65,12 +72,27 @@ public class FileDataService {
             } else {
                 others.add(fileEntry);
             }
+
+            // sort into categories according to file type
+            if (fileName.endsWith(".png")) {
+                numberPngs++;
+                pngsSet.add(fileEntry.getFileName());
+            } else if (fileName.endsWith(".xml")) {
+                numberXmls++;
+                xmlsSet.add(fileEntry.getFileName());
+            }
+
         }
 
         fileData.setDrawableHashes(drawables);
         fileData.setLayoutHashes(layouts);
         fileData.setMenuHashes(menus);
         fileData.setOtherHashes(others);
+
+        fileData.setNumberPngs(numberPngs);
+        fileData.setNumberPngsWithDifferentName(pngsSet.size());
+        fileData.setNumberXmls(numberXmls);
+        fileData.setNumberXmlsWithDifferentName(xmlsSet.size());
 
         return fileData;
     }

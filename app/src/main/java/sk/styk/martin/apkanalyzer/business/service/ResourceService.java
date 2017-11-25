@@ -40,7 +40,7 @@ public class ResourceService {
             String name = file.getPath();
 
             // eliminate duplicities
-            drawables.add(name.substring(name.lastIndexOf("/")));
+            drawables.add(file.getFileName());
 
             if (name.endsWith(".jpg")) numJpg++;
             else if (name.endsWith(".gif")) numGif++;
@@ -61,8 +61,7 @@ public class ResourceService {
 
         // just adding it to set to eliminate duplicities
         for (FileEntry file : fileData.getLayoutHashes()) {
-            String path = file.getPath();
-            layouts.add(path.substring(path.lastIndexOf("/")));
+            layouts.add(file.getFileName());
         }
 
 
