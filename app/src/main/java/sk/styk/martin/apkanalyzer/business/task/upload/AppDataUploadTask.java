@@ -11,9 +11,10 @@ import sk.styk.martin.apkanalyzer.database.service.SendDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData;
 import sk.styk.martin.apkanalyzer.util.AndroidIdHelper;
-import sk.styk.martin.apkanalyzer.util.ConnectivityHelper;
+import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils;
-import sk.styk.martin.apkanalyzer.util.ServerHttpAccessHelper;
+import sk.styk.martin.apkanalyzer.util.networking.ServerHttpAccessHelper;
+import sk.styk.martin.apkanalyzer.util.networking.UploadAppDataRestHelper;
 
 /**
  * Created by Martin Styk on 6.11.2017.
@@ -60,7 +61,7 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
         ServerSideAppData uploadData = new ServerSideAppData(data, AndroidIdHelper.getAndroidId(context));
 
         try {
-            int responseCode = new ServerHttpAccessHelper().postData(jsonSerializationUtils.serialize(uploadData), packageName);
+            int responseCode = new UploadAppDataRestHelper().postData(jsonSerializationUtils.serialize(uploadData), packageName);
             // TODO do not insert to DB - for debug allow repeated uploads
 //            SendDataService.insert(data, context);
             Log.i(TAG, String.format("Finished uploading package %s with response + %03d", packageName, responseCode));

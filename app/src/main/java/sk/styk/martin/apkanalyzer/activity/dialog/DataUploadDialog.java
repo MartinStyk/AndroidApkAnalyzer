@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.activity.dialog;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -10,7 +9,7 @@ import android.support.v7.app.AlertDialog;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadTask;
-import sk.styk.martin.apkanalyzer.util.ConnectivityHelper;
+import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 
 /**
  * @author Martin Styk

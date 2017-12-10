@@ -1,16 +1,17 @@
-package sk.styk.martin.apkanalyzer.util;
+package sk.styk.martin.apkanalyzer.util.networking;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import sk.styk.martin.apkanalyzer.util.SharedPreferencesHelper;
 
 /**
  * Created by mstyk on 11/8/17.

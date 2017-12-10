@@ -13,7 +13,7 @@ import sk.styk.martin.apkanalyzer.database.service.SendDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
-import sk.styk.martin.apkanalyzer.util.ConnectivityHelper;
+import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 
 /**
  * Created by mstyk on 11/8/17.

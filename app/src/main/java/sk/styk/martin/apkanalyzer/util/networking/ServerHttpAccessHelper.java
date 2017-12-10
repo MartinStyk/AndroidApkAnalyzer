@@ -1,7 +1,6 @@
-package sk.styk.martin.apkanalyzer.util;
+package sk.styk.martin.apkanalyzer.util.networking;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -10,9 +9,6 @@ import java.util.zip.GZIPOutputStream;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 /**
  * Created by Martin Styk on 12.11.2017.
@@ -21,27 +17,15 @@ import okhttp3.Response;
 public class ServerHttpAccessHelper {
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-    private static final String TAG = ServerHttpAccessHelper.class.getName();
-    private static final String URL = "https://apk-analyzer.herokuapp.com/app_records";
-    private OkHttpClient client = new OkHttpClient();
+    OkHttpClient client;
 
-    public int postData(@NonNull String json, @NonNull String packageName) throws IOException {
-        RequestBody body = RequestBody.create(JSON, zipContent(json).toByteArray());
-
-        Request request = new Request.Builder()
-                .url(URL)
-                .post(body)
-                .header("Content-Encoding", "gzip")
-                .build();
-
-        Response response = client.newCall(request).execute();
-        
-        Log.i(TAG, String.format("Response on posting %s data is %s", packageName, response.toString()));
-        return response.code();
+    public ServerHttpAccessHelper() {
+        client = initClient();
     }
 
+
     @NonNull
-    private ByteArrayOutputStream zipContent(@NonNull String json) {
+    protected ByteArrayOutputStream zipContent(@NonNull String json) {
         OutputStream zipper = null;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         try {
@@ -61,5 +45,11 @@ public class ServerHttpAccessHelper {
             }
         }
         return outputStream;
+    }
+
+    private OkHttpClient initClient() {
+        return new OkHttpClient.Builder()
+                .addInterceptor(new BasicAuthInterceptor())
+                .build();
     }
 }

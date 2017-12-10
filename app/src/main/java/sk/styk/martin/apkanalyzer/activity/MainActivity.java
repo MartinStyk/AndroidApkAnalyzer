@@ -1,18 +1,12 @@
 package sk.styk.martin.apkanalyzer.activity;
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -20,8 +14,6 @@ import android.view.MenuItem;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.dialog.DataUploadDialog;
-import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadTask;
-import sk.styk.martin.apkanalyzer.util.ConnectivityHelper;
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

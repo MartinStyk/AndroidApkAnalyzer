@@ -12,9 +12,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import sk.styk.martin.apkanalyzer.BuildConfig;
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.util.ConnectivityHelper;
+import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 
 
 public class SettingsFragment extends Fragment {
