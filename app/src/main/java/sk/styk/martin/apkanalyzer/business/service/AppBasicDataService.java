@@ -50,14 +50,14 @@ public class AppBasicDataService {
     }
 
     @NonNull
-    public List<AppListData> getForSources(@NonNull AppSource... appSources) {
+    public List<AppListData> getForSources(boolean allowSystem, @NonNull AppSource... appSources) {
 
         List<AppListData> appListData = getAll();
         List<AppListData> results = new ArrayList<>();
         List<AppSource> appSourceList = Arrays.asList(appSources);
 
         for (AppListData data : appListData) {
-            if (appSourceList.contains(data.getSource())) {
+            if (appSourceList.contains(data.getSource()) && (allowSystem || !data.isSystemApp())) {
                 results.add(data);
             }
         }

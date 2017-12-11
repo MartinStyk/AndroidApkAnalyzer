@@ -64,6 +64,10 @@ public class AppListData implements Parcelable {
         return icon;
     }
 
+    public boolean isSystemApp() {
+        return isSystemApp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

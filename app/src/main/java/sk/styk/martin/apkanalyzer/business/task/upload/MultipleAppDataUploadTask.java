@@ -25,7 +25,7 @@ public class MultipleAppDataUploadTask extends IntentService {
         super(MultipleAppDataUploadTask.class.getSimpleName());
     }
 
-    public static void start(Context context){
+    public static void start(Context context) {
         Intent serviceIntent = new Intent(context.getApplicationContext(), MultipleAppDataUploadTask.class);
         context.getApplicationContext().startService(serviceIntent);
     }
@@ -41,7 +41,7 @@ public class MultipleAppDataUploadTask extends IntentService {
         if (!ConnectivityHelper.isUploadPossible(getApplicationContext()))
             return;
 
-        List<AppListData> apps = new AppBasicDataService(getPackageManager()).getForSources(AppSource.AMAZON_STORE, AppSource.GOOGLE_PLAY, AppSource.UNKNOWN);
+        List<AppListData> apps = new AppBasicDataService(getPackageManager()).getForSources(false, AppSource.AMAZON_STORE, AppSource.GOOGLE_PLAY, AppSource.UNKNOWN);
         AppDetailDataService detailDataService = new AppDetailDataService(getPackageManager());
 
         for (AppListData app : apps) {
