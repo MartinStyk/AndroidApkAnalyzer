@@ -13,6 +13,9 @@ import java.net.URL;
 
 import sk.styk.martin.apkanalyzer.util.SharedPreferencesHelper;
 
+import static sk.styk.martin.apkanalyzer.util.networking.ServerUrls.GENERATE_200;
+import static sk.styk.martin.apkanalyzer.util.networking.ServerUrls.URL_BASE;
+
 /**
  * Created by mstyk on 11/8/17.
  */
@@ -30,7 +33,7 @@ public class ConnectivityHelper {
      * @return true in case everything permits upload
      */
     public static boolean isUploadPossible(Context context) {
-        return isConnectionAllowedByUser(context) && hasInternetAccess(context) && isWifiOnAndConnected(context);
+        return isConnectionAllowedByUser(context) && hasAccessToServer(context) && isWifiOnAndConnected(context);
     }
 
     public static boolean isConnectionAllowedByUser(Context context) {
@@ -42,17 +45,17 @@ public class ConnectivityHelper {
     }
 
 
-    public static boolean hasInternetAccess(Context context) {
+    public static boolean hasAccessToServer(Context context) {
         if (isNetworkAvailable(context)) {
             try {
                 HttpURLConnection urlc = (HttpURLConnection)
-                        (new URL("http://clients3.google.com/generate_204")
+                        (new URL(URL_BASE + GENERATE_200)
                                 .openConnection());
                 urlc.setRequestProperty("User-Agent", "Android");
                 urlc.setRequestProperty("Connection", "close");
                 urlc.setConnectTimeout(1500);
                 urlc.connect();
-                return (urlc.getResponseCode() == 204 &&
+                return (urlc.getResponseCode() == 200 &&
                         urlc.getContentLength() == 0);
             } catch (IOException e) {
                 Log.e(TAG, "Error checking internet connection", e);
