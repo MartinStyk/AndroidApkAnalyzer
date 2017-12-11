@@ -241,7 +241,6 @@ public class ServerSideAppData {
         result = 31 * result + (applicationName != null ? applicationName.hashCode() : 0);
         result = 31 * result + (versionName != null ? versionName.hashCode() : 0);
         result = 31 * result + versionCode;
-        result = 31 * result + (int) (apkSize ^ (apkSize >>> 32));
         result = 31 * result + minSdkVersion;
         result = 31 * result + targetSdkVersion;
         result = 31 * result + (publicKeyMd5 != null ? publicKeyMd5.hashCode() : 0);
