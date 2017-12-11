@@ -31,9 +31,9 @@ import java.io.File;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.ManifestActivity;
 import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter;
-import sk.styk.martin.apkanalyzer.business.task.upload.AppDataUploadTask;
 import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
+import sk.styk.martin.apkanalyzer.business.task.upload.AppDataUploadTask;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**
@@ -170,6 +170,10 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     private void showActionDialog() {
+        // if data load failed or data is not loaded so far, do not show action dialogs
+        if (data == null)
+            return;
+
         LayoutInflater factory = LayoutInflater.from(getContext());
         final View dialogView = factory.inflate(R.layout.dialog_apk_actions, null);
 
