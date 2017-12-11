@@ -16,6 +16,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import sk.styk.martin.apkanalyzer.model.detail.CertificateData;
+import sk.styk.martin.apkanalyzer.util.DigestHelper;
 
 import static javax.security.auth.x500.X500Principal.RFC1779;
 
@@ -37,8 +38,8 @@ public class CertificateService {
             CertificateFactory certFactory = CertificateFactory.getInstance("X509");
             X509Certificate certificate = (X509Certificate) certFactory.generateCertificate(certStream);
 
-            data.setCertMd5(md5Digest(certificate.getEncoded()));
-            data.setPublicKeyMd5(md5Digest(byteToHexString(certificate.getPublicKey().getEncoded())));
+            data.setCertMd5(DigestHelper.md5Digest(certificate.getEncoded()));
+            data.setPublicKeyMd5(DigestHelper.md5Digest(DigestHelper.byteToHexString(certificate.getPublicKey().getEncoded())));
 
             data.setStartDate(certificate.getNotBefore());
             data.setEndDate(certificate.getNotAfter());
@@ -94,49 +95,6 @@ public class CertificateService {
         }
 
         return null;
-    }
-
-    private String md5Digest(byte[] input) throws IOException {
-        MessageDigest digest = this.getDigest("Md5");
-        digest.update(input);
-        return this.getHexString(digest.digest());
-    }
-
-    private String md5Digest(String input) throws IOException {
-        MessageDigest digest = this.getDigest("Md5");
-        digest.update(input.getBytes());
-        return this.getHexString(digest.digest());
-    }
-
-    private String byteToHexString(byte[] bArray) {
-        StringBuilder sb = new StringBuilder(bArray.length);
-        byte[] var4 = bArray;
-        int var5 = bArray.length;
-
-        for (int var6 = 0; var6 < var5; ++var6) {
-            byte aBArray = var4[var6];
-            String sTemp = Integer.toHexString(255 & (char) aBArray);
-            if (sTemp.length() < 2) {
-                sb.append(0);
-            }
-
-            sb.append(sTemp.toUpperCase());
-        }
-
-        return sb.toString();
-    }
-
-    private String getHexString(byte[] digest) {
-        BigInteger bi = new BigInteger(1, digest);
-        return String.format("%032x", new Object[]{bi});
-    }
-
-    private MessageDigest getDigest(String algorithm) {
-        try {
-            return MessageDigest.getInstance(algorithm);
-        } catch (NoSuchAlgorithmException var3) {
-            throw new RuntimeException(var3.getMessage());
-        }
     }
 
     private String getPrincipalCommonName(String principalName) {
