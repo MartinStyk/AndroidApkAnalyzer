@@ -52,7 +52,7 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
         }
 
         if (!ConnectivityHelper.isUploadPossible(context)) {
-            Log.i(TAG, String.format("No internet access, aborting upload of %s", packageName));
+            Log.i(TAG, String.format("Upload not possible, aborting upload of %s", packageName));
             return null;
         }
 
@@ -63,6 +63,10 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
             if(responseCode == 201){
                 SendDataService.insert(data, context);
                 Log.i(TAG, String.format("Upload of package %s successful", packageName));
+            }
+            if(responseCode == 409){
+                SendDataService.insert(data, context);
+                Log.i(TAG, String.format("Package %s was already uplaoded, however client is not aware of it", packageName));
             }
             Log.i(TAG, String.format("Finished uploading package %s with response + %03d", packageName, responseCode));
         } catch (Exception e) {
