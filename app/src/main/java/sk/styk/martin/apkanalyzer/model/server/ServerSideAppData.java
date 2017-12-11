@@ -76,7 +76,6 @@ public class ServerSideAppData {
     // Features
     private int numberFeatures;
     private int featuresAggregatedHash;
-    private List<String> features;
 
     // FileData
     private String dexHash;
@@ -84,7 +83,6 @@ public class ServerSideAppData {
     private String manifestHash;
     private List<String> pngHashes;
     private List<String> layoutHashes;
-    private List<String> menuHashes;
 
     private int numberDrawables;
     private int numberLayouts;
@@ -184,10 +182,6 @@ public class ServerSideAppData {
         List<FeatureData> featureData = appDetailData.getFeatureData();
         numberFeatures = featureData.size();
         featuresAggregatedHash = HashCodeHelper.hashList(featureData);
-        features = new ArrayList<>(featureData.size());
-        for (FeatureData fData : featureData) {
-            features.add(fData.getName());
-        }
 
         // FileData
         FileData fileData = appDetailData.getFileData();
@@ -197,11 +191,10 @@ public class ServerSideAppData {
 
         pngHashes = fileData.getOnlyHash(fileData.getPngHashes());
         layoutHashes = fileData.getOnlyHash(fileData.getLayoutHashes());
-        menuHashes = fileData.getOnlyHash(fileData.getMenuHashes());
 
         numberDrawables = fileData.getDrawableHashes().size();
         numberLayouts = layoutHashes.size();
-        numberMenus = menuHashes.size();
+        numberMenus = fileData.getOnlyHash(fileData.getMenuHashes()).size();
         numberFilesTotal = fileData.getTotalFiles();
 
         numberPngs = pngHashes.size();
@@ -211,7 +204,7 @@ public class ServerSideAppData {
 
         pngsAggregatedHash = HashCodeHelper.hashList(pngHashes);
         layoutsAggregatedHash = HashCodeHelper.hashList(layoutHashes);
-        menusAggregatedHash = HashCodeHelper.hashList(menuHashes);
+        menusAggregatedHash = HashCodeHelper.hashList(fileData.getOnlyHash(fileData.getMenuHashes()));
 
         //ResourceData
         ResourceData resourceData = appDetailData.getResourceData();
