@@ -223,7 +223,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
             try {
                 startActivityForResult(ApkFilePicker.getFilePickerIntent(), ApkFilePicker.REQUEST_PICK_APK);
             } catch (ActivityNotFoundException exception){
-                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.activity_not_found, Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show();
             }
         }
     }

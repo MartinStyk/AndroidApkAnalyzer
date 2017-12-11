@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.activity;
 
 import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -224,7 +225,13 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
                 shareIntent.setType("application/vnd.android.package-archive");
 
                 dialog.dismiss();
-                startActivity(Intent.createChooser(shareIntent, "Send using"));
+
+                try {
+                    startActivity(Intent.createChooser(shareIntent, getString(R.string.share_apk_using)));
+                } catch (ActivityNotFoundException e) {
+                    // this might happen on Android 4.4
+                    Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.activity_not_found_sharing, Snackbar.LENGTH_LONG).show();
+                }
             }
         });
 
