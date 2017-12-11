@@ -24,7 +24,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String SQL_CREATE_VEHICLE_TYPES_TABLE = "CREATE TABLE " + SendDataEntry.TABLE_NAME + " ("
                 + SendDataEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + SendDataEntry.COLUMN_HASH + " INTEGER NOT NULL, "
                 + SendDataEntry.COLUMN_PACKAGE_NAME + " TEXT NOT NULL, "
                 + SendDataEntry.COLUMN_VERSION + " INTEGER NOT NULL, "
                 + SendDataEntry.COLUMN_TIMESTAMP + "TIMESTAMP DEFAULT CURRENT_TIMESTAMP );";

@@ -53,10 +53,9 @@ public class ConnectivityHelper {
                                 .openConnection());
                 urlc.setRequestProperty("User-Agent", "Android");
                 urlc.setRequestProperty("Connection", "close");
-                urlc.setConnectTimeout(1500);
+                urlc.setConnectTimeout(10000);
                 urlc.connect();
-                return (urlc.getResponseCode() == 200 &&
-                        urlc.getContentLength() == 0);
+                return (urlc.getResponseCode() == 200);
             } catch (IOException e) {
                 Log.e(TAG, "Error checking internet connection", e);
             }

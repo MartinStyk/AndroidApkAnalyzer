@@ -147,9 +147,6 @@ public class ApkAnalyzerProvider extends ContentProvider {
     }
 
     private void validate(ContentValues contentValues) {
-        if (!contentValues.containsKey(SendDataEntry.COLUMN_HASH)) {
-            throw new IllegalArgumentException("Hash is empty.");
-        }
         if (!contentValues.containsKey(SendDataEntry.COLUMN_PACKAGE_NAME) ||
                 contentValues.getAsString(SendDataEntry.COLUMN_PACKAGE_NAME) == null ||
                 contentValues.getAsString(SendDataEntry.COLUMN_PACKAGE_NAME).trim().isEmpty()) {

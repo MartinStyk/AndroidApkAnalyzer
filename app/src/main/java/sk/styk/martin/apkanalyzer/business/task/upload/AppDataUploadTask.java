@@ -46,8 +46,6 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
         if (context == null)
             return null;
 
-        Log.i(TAG, String.format("Using hash %03d for package %s", data.hashCode(), packageName));
-
         if (SendDataService.isAlreadyUploaded(data, context)) {
             Log.i(TAG, String.format("Package %s already uploaded", packageName));
             return null;
@@ -62,8 +60,10 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
 
         try {
             int responseCode = new UploadAppDataRestHelper().postData(jsonSerializationUtils.serialize(uploadData), packageName);
-            // TODO do not insert to DB - for debug allow repeated uploads
-//            SendDataService.insert(data, context);
+            if(responseCode == 201){
+                SendDataService.insert(data, context);
+                Log.i(TAG, String.format("Upload of package %s successful", packageName));
+            }
             Log.i(TAG, String.format("Finished uploading package %s with response + %03d", packageName, responseCode));
         } catch (Exception e) {
             Log.w(TAG, String.format("Upload of package %s failed with exception %s", packageName, e.toString()));

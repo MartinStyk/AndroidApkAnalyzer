@@ -21,7 +21,6 @@ public class ApkAnalyzerContract {
 
     public static final String[] ALL_COLUMNS_SEND_DATA = {
             SendDataEntry._ID,
-            SendDataEntry.COLUMN_HASH,
             SendDataEntry.COLUMN_PACKAGE_NAME,
             SendDataEntry.COLUMN_VERSION,
             SendDataEntry.COLUMN_TIMESTAMP
@@ -37,7 +36,6 @@ public class ApkAnalyzerContract {
         public static final String TABLE_NAME = "senddata";
 
         public final static String _ID = BaseColumns._ID;
-        public final static String COLUMN_HASH = "hash";
         public final static String COLUMN_PACKAGE_NAME = "packageName";
         public final static String COLUMN_VERSION = "packageVersion";
         public final static String COLUMN_TIMESTAMP = "timestamp";

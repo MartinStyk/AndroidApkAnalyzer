@@ -250,7 +250,7 @@
     <string name="settings_allow_metadata_upload_description"> Please, allow Apk Analyzer to collect metadata about installed applications. \nMetadata contains information about apps and ID of your device. It doesn\'t include your data. \nApplication metadata are used for scientific purposes - research of repackaged APKs. \nData is uploaded only over WiFi. \nMore details about privacy can be found in <a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">Privacy Policy</a>.</string>
 
     <string name="upload_dialog_title">Application metadata collecting</string>
-    <string name="upload_dialog_description">Apk Analyzer would like to collect metadata about apps installed on this device. \nData are used for scientific purpose in research of repackaged malicious applications. \nYour personal application data are not included.\nData are uploaded only over WiFi. \nYou can later adjust your preference in settings</string>
+    <string name="upload_dialog_description">Apk Analyzer would like to collect metadata about apps installed on your device. \nData are used for scientific purpose in research of repackaged malicious applications. \nYour personal application data are not included.\nData are uploaded only over WiFi. \nYou can later adjust your preference in settings</string>
 
 
     <string-array name="android_versions">
