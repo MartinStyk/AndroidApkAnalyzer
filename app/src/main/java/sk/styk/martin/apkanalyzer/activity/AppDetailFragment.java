@@ -271,7 +271,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
 
     private void exportApkFile() {
         File source = new File(data.getGeneralData().getApkDirectory());
-        File target = new File(Environment.getExternalStorageDirectory(), data.getGeneralData().getPackageName() + ".apk");
+        File target = new File(Environment.getExternalStorageDirectory(), data.getGeneralData().getPackageName()+ "_" + data.getGeneralData().getVersionCode() + ".apk");
 
         Intent intent = new Intent(getActivity(), FileCopyService.class);
         intent.putExtra(FileCopyService.SOURCE_FILE, source.getAbsolutePath());
