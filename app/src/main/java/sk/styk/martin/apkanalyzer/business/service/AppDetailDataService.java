@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.service;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import sk.styk.martin.apkanalyzer.activity.MainActivity;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
@@ -46,7 +47,7 @@ public class AppDetailDataService {
         this.dexService = new DexService();
     }
 
-
+    @Nullable
     public AppDetailData get(String packageName, String pathToPackage) {
         PackageInfo packageInfo = null;
         AppDetailData data = null;
