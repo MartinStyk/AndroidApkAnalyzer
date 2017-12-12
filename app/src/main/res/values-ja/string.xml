@@ -1,0 +1,287 @@
+<resources>
+    <string name="app_name">APK分析</string>
+    <string name="app_author">Martin Styk</string>
+    <string name="app_github">ソースコードは<a href="https://github.com/MartinStyk/AndroidApkAnalyzer">GitHub</a>上に公開されています。</string>
+    <string name="app_privacy_policy">使用するためには<a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">プライバシーポリシー</a>に同意してください。</string>
+    <string name="app_dependencies">依存関係 : \n org.apache.commons:commons-math3\n com.github.lecho:hellocharts-library\n com.pddstudio:highlightjs-android</string>
+
+    <string name="navigation_drawer_open">ナビゲーションドローワーを開く</string>
+    <string name="navigation_drawer_close">ナビゲーションドローワーを閉じる</string>
+
+    <string name="action_settings">設定</string>
+    <string name="action_search">検索</string>
+    <string name="action_filter">フィルター</string>
+    <string name="action_save">保存</string>
+    <string name="action_analyze_apk_from_file">分析するAPkファイルをストレージから選択</string>
+    <string name="title_item_list">アイテム</string>
+    <string name="title_item_detail">アイテムの詳細</string>
+    <string name="title_manifest">AndroidManifest</string>
+    <string name="loading">読み込み中...</string>
+    <string name="loading_failed">読み込みに失敗しました。</string>
+    <string name="error_loading_package_detail">APKの詳細を読み込むことができませんでした。</string>
+    <string name="yes">はい</string>
+    <string name="no">いいえ</string>
+    <string name="NA">該当なし</string>
+    <string name="none">なし</string>
+    <string name="allow">許可する</string>
+    <string name="dismiss">却下する</string>
+    <string name="ok">OK</string>
+    <string name="cancel">キャンセル</string>
+    <string name="permission_not_granted">許可されていません。</string>
+    <string name="activity_not_found_browsing">あなたのデバイス上にファイル閲覧用のアプリが見つかりませんでした。</string>
+    <string name="activity_not_found_sharing">デバイス上にファイルを共有するためのアプリが見つかりませんでした。</string>
+
+    <string name="nav_application_list">アプリケーション</string>
+    <string name="nav_statistics">統計</string>
+    <string name="nav_settings">設定</string>
+    <string name="nav_about">このアプリについて</string>
+
+    <string name="all_apps">全てのアプリ</string>
+    <string name="system_apps">システムアプリ</string>
+    <string name="user_apps">ユーザーアプリ</string>
+    <string name="app_list_empty">なんのアプリもインストールされていません。</string>
+    <string name="google_play">Google Play</string>
+    <string name="amazon_store">Amazonストア</string>
+    <string name="system_pre_installed">プリインストール</string>
+    <string name="unknown_source">不明なソース</string>
+
+
+    <string name="general">一般</string>
+    <string name="certificate">証明書</string>
+    <string name="activities">アクティビティ</string>
+    <string name="services">サービス</string>
+    <string name="content_providers">コンテントプロバイダー</string>
+    <string name="broadcast_receivers">ブローキャストレシーバー</string>
+    <string name="permissions">ユーザーアクセス許可</string>
+    <string name="defined_permissions">定義されたアクセス許可</string>
+    <string name="features">特徴</string>
+    <string name="files">ファイル</string>
+    <string name="classes">クラスパス</string>
+    <string name="resources">リソース</string>
+
+
+    <string name="install_loc_auto">自動</string>
+    <string name="install_loc_internal_only">内部ストレージのみ</string>
+    <string name="install_loc_prefer_external">外部ストレージを優先する</string>
+    <string name="install_loc_unspecified">未指定</string>
+
+
+    <string name="application_name">アプリ名</string>
+    <string name="package_name">パッケージ名</string>
+    <string name="process_name">プロセスネーム</string>
+    <string name="version_name">バージョンネーム</string>
+    <string name="version_code">バージョンコード</string>
+    <string name="system_application">システムアプリ</string>
+    <string name="uid">UID</string>
+    <string name="description">説明</string>
+    <string name="app_source">アプリケーションソース</string>
+    <string name="sdk">SDK</string>
+    <string name="target_sdk">ターゲットSDK</string>
+    <string name="target_version">ターゲットバージョン</string>
+    <string name="min_sdk">最小SDK</string>
+    <string name="min_version">最低バージョン</string>
+    <string name="apk_directory">APKパス</string>
+    <string name="data_directory">データパス</string>
+    <string name="install_loc">インストール場所</string>
+    <string name="apk_size">APKサイズ</string>
+    <string name="first_install">初回インストール</string>
+    <string name="last_update">最終更新日</string>
+
+    <string name="pick_action">アクションを選択してください。</string>
+    <string name="copy_apk">APKを出力</string>
+    <string name="copy_apk_background">%s へコピーする</string>
+    <string name="show_manifest">AndroidManifest.xmlを見る</string>
+    <string name="save_manifest_background">%s に保存する</string>
+    <string name="save_manifest_fail">マニュフェストはまだロードされていません。</string>
+    <string name="show_app_system_page">ビルトインアプリ情報</string>
+    <string name="share_apk">APKを共有</string>
+    <string name="share_apk_using">APK共有の使用</string>
+    <string name="install_failed">APK分析がAPKのインストールに失敗しました。手動で行ってください</string>
+
+    <string name="online_scan">オンラインAPkスキャンを実行する - TODO</string>
+    <string name="app_icon">アプリアイコン</string>
+
+
+    <string name="application_name_description">このアプリケーションの名前です。この名前はユーザーに表示されます。内部的には、Androidはアプリケーションの一意の識別子としてパッケージ名属性を使用します。</string>
+    <string name="package_name_description">このパッケージの名前です。 Android Manifestタグの"name"属性から取得します。パッケージ名は、アプリケーションの一意の識別子として機能します。これは、アプリケーション・プロセスのデフォルト名でも、アクティビティのデフォルトのタスク類似性でもあります。</string>
+    <string name="process_name_description">このアプリケーションを実行するプロセスの名前です。"process"属性から、または設定されていない場合はパッケージ名と同じです。</string>
+    <string name="version_name_description">ユーザーに表示されるバージョン番号です。この属性には、ユーザーに表示される以外の目的はありません。バージョンコード属性は、内部的に使用される重要なバージョン番号を保持します。/string>
+    <string name="version_code_description">内部バージョン番号です。この番号は、あるバージョンが別のバージョンより新しいかどうかを判別するためにのみ使用され、数字が大きいほど最新のバージョンを示します。これはユーザーに表示されるバージョン番号ではありません。その番号はバージョン名属性によって設定されます。</string>
+    <string name="system_application_description">trueに設定すると、このアプリケーションはデバイスのシステムイメージにインストールされます。</string>
+    <string name="uid_description">このアプリケーションに割り当てられたカーネルユーザーID。現在、複数のアプリケーションが同じuidを持つことができるため、これは一意のIDではありません。</string>
+    <string name="description_description">アプリケーション開発者が指定したアプリケーションの説明です。</string>
+    <string name="description_app_source">APKファイルがインストールされた場所</string>
+    <string name="target_sdk_description">アプリケーションがターゲットとするAndroid APIレベルを指定する数字です。この属性は、アプリケーションがターゲットバージョンに対してテストされたことをシステムに通知し、システムは、ターゲットバージョンとのアプリケーションの前方互換性を維持するための互換動作を有効にしてはなりません。アプリケーションは古いバージョン(最小SDKバージョンまで)で実行できます。</string>
+    <string name="target_version_description">Value of Target SDK attribute resolved to the version of Android</string>
+    <string name="min_sdk_description">アプリケーションの実行に必要な最小Android APIレベルを指定する数字です。 Androidシステムは、システムのAPIレベルがこの属性で指定された値よりも低い場合、ユーザーがアプリケーションをインストールできないようにします。 Google Playは、この属性を使用して、プラットフォームのバージョン要件を満たさないデバイスからアプリをフィルタリングします。</string>
+    <string name="min_version_description">Value of Min SDK attribute resolved to the version of Android</string>
+    <string name="apk_directory_description">AndroidアプリケーションはAndroidアプリケーションパッケージ（APK）として配布されます。インストールされると、APKファイルはストレージに保存されます。この属性は、指定されたアプリケーションのAPKファイルへのパスを表します。</string>
+    <string name="data_directory_description">永続データ用にパッケージに割り当てられているデフォルトディレクトリへのフルパスです。</string>
+    <string name="install_loc_description">アプリケーションのデフォルトのインストール場所。次の値が受け入れられます：\n \n <b>内部のみ</ b>  - アプリケーションは内部デバイス記憶域にのみインストールする必要があります。これが設定されている場合、アプリケーションは決して外部ストレージにインストールされません。内部ストレージがいっぱいの場合、システムはアプリケーションをインストールしません。これもデフォルト動作です。\n\n<b>自動</ b> -アプリケーションは外部ストレージにインストールできますが、システムはデフォルトで内部ストレージにアプリケーションをインストールします。内部ストレージがいっぱいになると、システムはそれを外部ストレージにインストールします。インストールされると、ユーザは、システム設定を介してアプリケーションを内部ストレージまたは外部ストレージに移動できます。\n\n <b>外部のみ</ b>  - アプリケーションは外部ストレージ（SDカード）にインストールすることをおすすめします。システムがこの要求を尊重する保証はありません。外部メディアが使用できない場合、または完全な場合、アプリケーションは内部ストレージにインストールされます。インストールされると、ユーザーはシステム設定を通じてアプリケーションを内部ストレージまたは外部ストレージのいずれかに移動できます。</string>
+    <string name="apk_size_description">APKファイルのサイズ</string>
+    <string name="first_install_description">アプリが最初にインストールされた時刻</string>
+    <string name="last_update_description">アプリが最後に更新された時刻</string>
+
+    <string name="sign_algorithm">署名アルゴリズム</string>
+    <string name="start_date">開始 : </string>
+    <string name="end_date">有効期限  : </string>
+    <string name="public_key_md5">MD5公開鍵</string>
+    <string name="cert_md5">MD5証明書</string>
+    <string name="serial_number">シリアルナンバー</string>
+    <string name="issuer_name">発行者名</string>
+    <string name="issuer_organization">発行組織</string>
+    <string name="issuer_country">発行国</string>
+    <string name="subject_name">サブジェクト名</string>
+    <string name="subject_organization">サブジェクト組織</string>
+    <string name="subject_country">サブジェクト国</string>
+
+    <string name="sign_algorithm_description">証明書署名アルゴリズムの署名アルゴリズム名。例として、文字列\"SHA256withRSA\"があります。</string>
+    <string name="start_date_description">証明書の有効期間の開始</string>
+    <string name="end_date_description">証明書の有効期間の終了</string>
+    <string name="public_key_md5_description">証明書の公開鍵のMD5ハッシュ</string>
+    <string name="cert_md5_description">証明書のMD5ハッシュ</string>
+    <string name="serial_number_description">証明書のシリアル番号の値。シリアル番号は、各証明書に証明機関によって割り当てられた整数です。所与のCAによって発行された各証明書に対して一意でなければならない(すなわち、発行者名およびシリアル番号が固有の証明書を識別する)</string>
+    <string name="issuer_name_description">証明書の発行者の名前</string>
+    <string name="issuer_organization_description">証明書の組織の名前</string>
+    <string name="issuer_country_description">証明書の発行国の名前</string>
+    <string name="subject_name_description">証明書の件名</string>
+    <string name="subject_organization_description">証明書の主体組織名</string>
+    <string name="subject_country_description">証明書の対象国</string>
+
+    <string name="all_drawables">ドロアブルのトータル</string>
+    <string name="different_drawables">異なるドロアブル</string>
+    <string name="png_drawables">pngのドロアブル</string>
+    <string name="nine_patch_drawables">9.pngドロアブル</string>
+    <string name="jpg_drawables">jpg ドロアブル</string>
+    <string name="gif_drawables">gif ドロアブル</string>
+    <string name="xml_drawables">xml ドロアブル</string>
+    <string name="ldpi_drawables">ldpi ドロアブル</string>
+    <string name="mdpi_drawables">mdpi ドロアブル</string>
+    <string name="hdpi_drawables">hdpi ドロアブル</string>
+    <string name="xhdpi_drawables">xhdpi ドロアブル</string>
+    <string name="xxhdpi_drawables">xxhdpi ドロアブル</string>
+    <string name="xxxhdpi_drawables">xxxhdpi ドロアブル</string>
+    <string name="nodpi_drawables">nodpi ドロアブル</string>
+    <string name="tvdpi_drawables">tvdpi ドロアブル</string>
+    <string name="all_layouts">全てのレイアウト</string>
+    <string name="different_layouts">異なるレイアウト</string>
+
+    <string name="all_drawables_description">APKファイルに含まれるドロアブルの総数。これには、/res/drawableディレクトリ内のすべてのファイルが含まれます。サポートライブラリのファイルも含まれています。ドローイングが複数回提供される場合、例えば、異なる解像度では、複数回カウントされます。</string>
+    <string name="different_drawables_description">APKファイルに含まれる論理的に一意のドロアブルの数。サポートライブラリのファイルも含まれています。ドローイングが複数回提供される場合、例えば、異なる解像度では、1回だけカウントされます。</string>
+    <string name="png_drawables_description">APKファイルに含まれるPNGドロアブルの数</string>
+    <string name="nine_patch_drawables_description">APKファイルに含まれる9個のパッチ（9.png）ドロアブルの数。 9パッチ描画可能グラフィックは、ビューの背景として使用できる伸縮可能なビットマップイメージです。 Androidは、ビューの内容に合わせて自動的にグラフィックのサイズを変更します。</string>
+    <string name="jpg_drawables_description">APKファイルに含まれるJPGドロアブルの数</string>
+    <string name="gif_drawables_description">APKファイルに含まれるGIFドロアブルの数</string>
+    <string name="xml_drawables_description">APKファイルに含まれるxmlドロアブルの数。 Xmlドロワブルは、形などに関するデータを含むマーカーファイルです。</string>
+    <string name="ldpi_drawables_description">ピクセル密度が低い〜120dpiの画面に最適化されたドロウアブル数</string>
+    <string name="mdpi_drawables_description">中画素密度〜160dpiの画面に最適化されたドロウアブル数</string>
+    <string name="hdpi_drawables_description">高画素密度〜240dpiの画面に最適化されたドロウアブルの数</string>
+    <string name="xhdpi_drawables_description">超高画素密度〜320dpiの画面に最適化されたドロウアブル数</string>
+    <string name="xxhdpi_drawables_description">超高画素密度〜480dpiの画面に最適化されたドロウアブル数</string>
+    <string name="xxxhdpi_drawables_description">余分な余分な高画素密度〜640dpiのスクリーン用に最適化されたドロウアブルの数</string>
+    <string name="nodpi_drawables_description">すべての密度のドロウアブル数。これらは密度に依存しないリソースです。現在の画面の密度にかかわらず、この修飾子でタグ付けされたリソースの拡張は行われません。</string>
+    <string name="tvdpi_drawables_description">mdpiとhdpiの間の画面のリソース。約213dpi。これは"プライマリ"密度グループとはみなされません。これは主にテレビ向けであり、大部分のアプリはそれを必要としません - ほとんどのアプリではmdpiやhdpiリソースで十分です。</string>
+    <string name="all_layouts_description">APKファイルに含まれるレイアウトの総数。これには、/res/layoutsディレクトリ内のすべてのファイルが含まれます。サポートライブラリのファイルも含まれています。レイアウトが複数回提供される場合、たとえば。横レイアウトと縦レイアウトの2つのレイアウトの1つのレイアウト名は、複数回カウントされます。</string>
+    <string name="different_layouts_description">APKファイルに含まれる論理的に固有レイアウトの数。サポートライブラリのファイルも含まれています。レイアウトが複数回提供される場合、たとえば。 2つのレイアウトの1つのレイアウト名 - ランドスケープモードとその他のポートレートモードでは、1回のみカウントされます。</string>
+
+    <string name="activity_label">ラベル</string>
+    <string name="activity_parent">親</string>
+    <string name="activity_permission">権限</string>
+
+    <string name="activity_label_description">アクティビティーのユーザーが読めるラベル。アクティビティをユーザーに表示する必要がある場合、ラベルが画面に表示されます。それはしばしばアクティビティアイコンと共に表示されます。</string>
+    <string name="activity_parent_description">親アクティビティを指定します。ユーザーが[上へ]ボタンを選択すると、アプリは親アクティビティに移動します。</string>
+    <string name="activity_permission_description">クライアントがアクティビティを起動するか、そうでなければインテントに応答するために必要なアクセス許可の名前。</string>
+
+    <string name="activity_run">アクティビティを起動</string>
+    <string name="activity_run_failed">アクティビティを起動できませんでした/string>
+
+    <string name="service_exported">出力された</string>
+    <string name="service_stop_with_task">タスクを停止する</string>
+    <string name="service_single_user">シングルユーザー</string>
+    <string name="service_isolated_process">分離プロセス</string>
+    <string name="service_external_service">外部</string>
+
+    <string name="service_permission_description">このサービスにアクセスするために必要な権限のオプションの名前。</string>
+    <string name="service_exported_description">trueの場合、サービスは別のアクティビティによって呼び出されることがあります。</string>
+    <string name="service_stop_with_task_description">ユーザーがアプリケーションのアクティビティのいずれかに根ざしたタスクを削除すると、サービスは自動的にシステムによって停止されます。</string>
+    <string name="service_single_user_description">サービスの単一インスタンスは、デバイス上のすべてのユーザーに対して実行されます。</string>
+    <string name="service_isolated_process_description">このサービスは、独自の独立したプロセスで実行されます。</string>
+    <string name="service_external_service_description">サービスは、宣言されているパッケージではなく、呼び出し元のアプリケーションのパッケージでバインドして実行できます。</string>
+
+    <string name="provider_authority">権限</string>
+    <string name="provider_read_permission">読み取り権限</string>
+    <string name="provider_write_permission">書き込み権限</string>
+    <string name="provider_exported">出力された</string>
+
+    <string name="provider_authority_description">コンテンツプロバイダが提供するデータを識別する権限。このコンテンツプロバイダによって提供されるデータは、このIDの下で公開されます。</string>
+    <string name="provider_read_permission_description">このコンテンツプロバイダには読み取り専用でアクセスするためのオプションのアクセス許可が必要です。</string>
+    <string name="provider_write_permission_description">このコンテンツプロバイダへの読み取り/書き込みアクセスには、オプションのアクセス許可が必要です。</string>
+    <string name="provider_exported_description">コンテンツプロバイダが他のアプリケーションで使用できるかどうか：\n\n true：プロバイダは他のアプリケーションから利用できます。どのアプリケーションもプロバイダのコンテンツURIを使用して、プロバイダに指定されたアクセス許可に従ってアクセスできます。\n\nfalse：プロバイダは他のアプリケーションから利用できません。プロバイダへのアプリケーションへのアクセスを制限するには、android:exported = "false"を設定します。プロバイダーと同じユーザーID（UID）を持つアプリケーションだけがアクセスできます。</string>
+
+    <string name="receiver_permission">権限</string>
+    <string name="receiver_exported">出力された</string>
+
+    <string name="receiver_permission_description">ブローキャスターがブロードキャストレシーバーにメッセージを送信する必要がある許可の名前。この属性が設定されていない場合、アプリケーション要素のpermission属性で設定されたアクセス権がブロードキャスト受信者に適用されます。いずれの属性も設定されていない場合、レシーバーは許可によって保護されません。</string>
+    <string name="receiver_exported_description">可能であればブローキャストレシーバーがそのアプリケーションの外部からのメッセージを受信できるかどうか -  \"yes\"、そうでない場合は "no"。そうでない場合、ブロードキャストレシーバーが受信できる唯一のメッセージは、同じアプリケーションのコンポーネントまたは同じユーザーIDを持つアプリケーションによって送信されたメッセージです。</string>
+
+    <string name="feature_required">必須</string>
+
+    <string name="feature_required_description">この機能はアプリケーションで必要です</string>
+
+
+    <string name="arithmetic_mean">Arithmetic mean</string>
+    <string name="median">中央値</string>
+    <string name="max">最大</string>
+    <string name="min">最小</string>
+    <string name="variance">分散</string>
+    <string name="deviation">偏差</string>
+
+    <string name="arithmetic_mean_description">コレクションの数値をコレクションの数値の数で割ったもの。</string>
+    <string name="median_description">中央値は、データサンプルの上位半分を下半分から分離する値です。データセットの場合、中間値と考えることができます。</string>
+    <string name="max_description">最も高い値</string>
+    <string name="min_description">最も低い値</string>
+    <string name="variance_description">偏差は、平均値からどれだけ離れているかを示します。</string>
+    <string name="deviation_description">偏差は、一連のデータ値の変動または分散の量を定量化するために使用される指標です。</string>
+
+    <string name="analyze_results">分析結果</string>
+    <string name="analyze_results_success">分析成功</string>
+    <string name="analyze_results_failed">分析失敗</string>
+
+    <string name="settings_allow_metadata_upload">メタデータをアップロード</string>
+    <string name="settings_allow_metadata_upload_description"> Apk Analyzerがインストールされているアプリケーションに関するメタデータを収集できるようにしてください。\nMetadataには、アプリやデバイスのIDに関する情報が含まれています。それはあなたのデータを含んでいません。\nアプリケーションメタデータは科学的な目的で使用されます - 再パッケージ化されたAPKの研究。\nデータはWiFi経由でのみアップロードされます。\nプライバシーに関する詳細は<a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">プライバシーポリシー</a>からご確認ください。</string>
+
+    <string name="upload_dialog_title">アプリケーションメタデータ収集</string>
+    <string name="upload_dialog_description">Apk Analyzerは、お使いのデバイスにインストールされているアプリについてのメタデータを収集したいと考えています。\nデータは、再パッケージ化された悪意のあるアプリケーションの研究に科学的目的で使用されます。\n個人のアプリケーションデータは含まれていません。\nデータはWiFi経由でのみアップロードされます。\n後で設定で環境設定を調整できます</string>
+
+
+    <string-array name="android_versions">
+        <item>アイテム</item>
+        <item>Android 1</item>
+        <item>Android 1.1 Petit Four</item>
+        <item>Android 1.5 カップケーキ</item>
+        <item>Android 1.6 ドーナツ</item>
+        <item>Android 2.0 エクレア</item>
+        <item>Android 2.0.1 エクレア</item>
+        <item>Android 2.1 エクレア</item>
+        <item>Android 2.2 フローズンヨーグルト</item>
+        <item>Android 2.3 ジンジャーブレッド</item>
+        <item>Android 2.3.3 ジンジャーブレッド</item>
+        <item>Android 3.0 ハニカム</item>
+        <item>Android 3.1 ハニカム</item>
+        <item>Android 3.2 ハニカム</item>
+        <item>Android 4.0 アイスクリーム サンドイッチ</item>
+        <item>Android 4.0.3 アイスクリーム サンドイッチ</item>
+        <item>Android 4.1 ジェリービーン</item>
+        <item>Android 4.2 ジェリービーン</item>
+        <item>Android 4.3 ジェリービーン</item>
+        <item>Android 4.4 キットカット</item>
+        <item>Android 4.4W キットカット</item>
+        <item>Android 5.0 ロリポップ</item>
+        <item>Android 5.1.1 ロリポップ</item>
+        <item>Android 6.0 マシュマロ</item>
+        <item>Android 7.0 ヌガー</item>
+        <item>Android 7.1.2 ヌガー</item>
+    </string-array>
+
+
+</resources>
