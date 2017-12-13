@@ -4,6 +4,7 @@ import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class MultipleAppDataUploadTask extends IntentService {
      */
     @Override
     protected void onHandleIntent(Intent intent) {
+
+        Log.i(MultipleAppDataUploadTask.class.getName(), "Upload of all apps was triggered");
 
         if (!ConnectivityHelper.isUploadPossible(getApplicationContext()))
             return;

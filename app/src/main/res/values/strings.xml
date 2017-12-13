@@ -15,6 +15,7 @@
     <string name="action_analyze_apk_from_file">Analyze APK from external file</string>
     <string name="title_item_list">Items</string>
     <string name="title_item_detail">Item Detail</string>
+    <string name="title_intro">Intro</string>
     <string name="title_manifest">AndroidManifest</string>
     <string name="loading">Loading...</string>
     <string name="loading_failed">Loading failed</string>
@@ -44,6 +45,14 @@
     <string name="amazon_store">Amazon Store</string>
     <string name="system_pre_installed">System pre-installed</string>
     <string name="unknown_source">Unknown source</string>
+
+    <string name="intro_analyze_apps">Analyze apps</string>
+    <string name="intro_analyze_apps_description">Explore apps on your device. Enjoy detailed report not only about installed apps but also about not installed APK files from storage. View app metadata, manifest file, or export the APK package to the storage.</string>
+    <string name="intro_statistics">View statistics about installed apps</string>
+    <string name="intro_statistics_description">Interested in statistics data of your app collection? Find out the average number of activities, permissions, or distribution of Android and certificate versions.</string>
+    <string name="intro_upload">Participate in research of repackaged apps</string>
+    <string name="intro_upload_description">Apk Analyzer would like to collect metadata about apps on your device. Data are used for research of repackaged apps. \nYour personal app data are not included. You can adjust the preference in settings</string>
+    <string name="intro_upload_require_input">Accept or refuse app metadata upload</string>
 
 
     <string name="general">General</string>

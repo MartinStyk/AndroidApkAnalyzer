@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -13,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.activity.dialog.DataUploadDialog;
+import sk.styk.martin.apkanalyzer.activity.intro.IntroActivity;
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,8 +35,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         if (FirstStartHelper.check(this)) {
-            new DataUploadDialog().show(getSupportFragmentManager(), DataUploadDialog.class.getSimpleName());
+            startActivity(new Intent(this, IntroActivity.class));
         }
 
         // only on first run redirect to default fragment
