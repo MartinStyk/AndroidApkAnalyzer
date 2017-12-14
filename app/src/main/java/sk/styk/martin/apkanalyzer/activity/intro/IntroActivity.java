@@ -65,8 +65,10 @@ public class IntroActivity extends AppIntro {
         if (currentFragment instanceof AllowMetadataUploadIntroSlide) {
             boolean isUploadAllowed = AllowMetadataUploadIntroSlide.class.cast(currentFragment).isUploadAllowed();
             ConnectivityHelper.setConnectionAllowedByUser(getApplicationContext(), isUploadAllowed);
-            if (isUploadAllowed)
-                MultipleAppDataUploadTask.start(getApplicationContext());
+
+            //TODO temporary not start upload on app start
+//            if (isUploadAllowed)
+//                MultipleAppDataUploadTask.start(getApplicationContext());
         }
 
         FirstStartHelper.setFirstStartFinished(getApplicationContext());

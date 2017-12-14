@@ -1,10 +1,7 @@
 package sk.styk.martin.apkanalyzer;
 
 import android.app.Application;
-import android.content.Intent;
 import android.os.StrictMode;
-
-import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadTask;
 
 /**
  * Created by Martin Styk on 30.10.2017.
@@ -18,6 +15,7 @@ public class ApkAnalyzer extends Application {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        MultipleAppDataUploadTask.start(getApplicationContext());
+        //TODO temporary not start upload on app start
+        //MultipleAppDataUploadTask.start(getApplicationContext());
     }
 }
