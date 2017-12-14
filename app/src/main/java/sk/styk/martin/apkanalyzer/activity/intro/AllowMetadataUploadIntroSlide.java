@@ -40,7 +40,7 @@ public class AllowMetadataUploadIntroSlide extends AppIntroBaseFragment implemen
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_intro_1;
+        return R.layout.fragment_allow_metadata_upload_intro_slide;
     }
 
 

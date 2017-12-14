@@ -59,8 +59,9 @@
     <RadioGroup
         android:id="@+id/allow_upload_group"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="0.1"
         android:orientation="horizontal">
 
         <RadioButton
@@ -69,8 +70,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:button="@drawable/ic_deny_selector"
-            android:padding="@dimen/padding_default"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/intro_radio_buttons_margin"
+            android:layout_marginRight="@dimen/intro_radio_buttons_margin"/>
 
         <RadioButton
             android:id="@+id/allow_upload"
@@ -78,7 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:button="@drawable/ic_allow_selector"
-            android:padding="@dimen/padding_default" />
+            android:layout_marginLeft="@dimen/intro_radio_buttons_margin"
+            android:layout_marginRight="@dimen/intro_radio_buttons_margin"/>
     </RadioGroup>
 
 </LinearLayout>

@@ -25,19 +25,19 @@ public class IntroActivity extends AppIntro {
         analyzeAppsSlide.setTitle(getString(R.string.intro_analyze_apps));
         analyzeAppsSlide.setDescription(getString(R.string.intro_analyze_apps_description));
         analyzeAppsSlide.setBgColor(getResources().getColor(R.color.accentLight));
-        analyzeAppsSlide.setImageDrawable(R.drawable.ic_launcher_web);
+        analyzeAppsSlide.setImageDrawable(R.drawable.ic_lupa);
 
         SliderPage statisticsAppsSlide = new SliderPage();
         statisticsAppsSlide.setTitle(getString(R.string.intro_statistics));
         statisticsAppsSlide.setDescription(getString(R.string.intro_statistics_description));
-        statisticsAppsSlide.setBgColor(getResources().getColor(R.color.accent));
-        statisticsAppsSlide.setImageDrawable(R.drawable.ic_launcher_web);
+        statisticsAppsSlide.setBgColor(getResources().getColor(R.color.accentLight));
+        statisticsAppsSlide.setImageDrawable(R.drawable.ic_chart);
 
         SliderPage uploadAppsSlide = new SliderPage();
         uploadAppsSlide.setTitle(getString(R.string.intro_upload));
         uploadAppsSlide.setDescription(getString(R.string.intro_upload_description));
         uploadAppsSlide.setBgColor(getResources().getColor(R.color.accentLight));
-        uploadAppsSlide.setImageDrawable(R.drawable.ic_launcher_web);
+        uploadAppsSlide.setImageDrawable(R.drawable.ic_upload);
 
         addSlide(AppIntroFragment.newInstance(analyzeAppsSlide));
         addSlide(AppIntroFragment.newInstance(statisticsAppsSlide));
@@ -63,9 +63,10 @@ public class IntroActivity extends AppIntro {
 
         // save user preferences and trigger data upload if possible
         if (currentFragment instanceof AllowMetadataUploadIntroSlide) {
-            ConnectivityHelper.setConnectionAllowedByUser(getApplicationContext(),
-                    AllowMetadataUploadIntroSlide.class.cast(currentFragment).isUploadAllowed());
-            MultipleAppDataUploadTask.start(getApplicationContext());
+            boolean isUploadAllowed = AllowMetadataUploadIntroSlide.class.cast(currentFragment).isUploadAllowed();
+            ConnectivityHelper.setConnectionAllowedByUser(getApplicationContext(), isUploadAllowed);
+            if (isUploadAllowed)
+                MultipleAppDataUploadTask.start(getApplicationContext());
         }
 
         FirstStartHelper.setFirstStartFinished(getApplicationContext());

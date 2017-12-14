@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
         if (FirstStartHelper.isFirstStart(this)) {
             startActivity(new Intent(this, IntroActivity.class));
         }

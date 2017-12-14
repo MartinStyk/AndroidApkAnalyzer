@@ -47,11 +47,11 @@
     <string name="unknown_source">Unknown source</string>
 
     <string name="intro_analyze_apps">Analyze apps</string>
-    <string name="intro_analyze_apps_description">Explore apps on your device. Enjoy detailed report not only about installed apps but also about not installed APK files from storage. View app metadata, manifest file, or export the APK package to the storage.</string>
-    <string name="intro_statistics">View statistics about installed apps</string>
-    <string name="intro_statistics_description">Interested in statistics data of your app collection? Find out the average number of activities, permissions, or distribution of Android and certificate versions.</string>
-    <string name="intro_upload">Participate in research of repackaged apps</string>
-    <string name="intro_upload_description">Apk Analyzer would like to collect metadata about apps on your device. Data are used for research of repackaged apps. \nYour personal app data are not included. You can adjust the preference in settings</string>
+    <string name="intro_analyze_apps_description">Enjoy detailed report not only about installed apps but also about not installed APK files from storage. View app metadata, manifest file, or export the APK package to the storage.</string>
+    <string name="intro_statistics">View statistics</string>
+    <string name="intro_statistics_description">Find out the average number of activities, permissions, or distribution of Android and certificate versions.</string>
+    <string name="intro_upload">Upload app metadata</string>
+    <string name="intro_upload_description">Allow APK Analyzer to collect app metadata. Data are used for research of repackaged apps. \nYour personal app data are not included. You can adjust the preference in settings.</string>
     <string name="intro_upload_require_input">Accept or refuse app metadata upload</string>
 
 
