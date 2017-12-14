@@ -69,19 +69,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/intro_radio_buttons_margin"
+            android:layout_marginRight="@dimen/intro_radio_buttons_margin"
             android:button="@drawable/ic_deny_selector"
             android:gravity="center"
-            android:layout_marginLeft="@dimen/intro_radio_buttons_margin"
-            android:layout_marginRight="@dimen/intro_radio_buttons_margin"/>
+            android:text="@string/dismiss"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@drawable/radio_button_white_text_color_selector" />
 
         <RadioButton
             android:id="@+id/allow_upload"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:button="@drawable/ic_allow_selector"
             android:layout_marginLeft="@dimen/intro_radio_buttons_margin"
-            android:layout_marginRight="@dimen/intro_radio_buttons_margin"/>
+            android:layout_marginRight="@dimen/intro_radio_buttons_margin"
+            android:button="@drawable/ic_allow_selector"
+            android:text="@string/allow"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@drawable/radio_button_white_text_color_selector" />
     </RadioGroup>
 
 </LinearLayout>
