@@ -10,6 +10,7 @@ import com.github.paolorotolo.appintro.model.SliderPage;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadTask;
+import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 
 /**
@@ -67,6 +68,7 @@ public class IntroActivity extends AppIntro {
             MultipleAppDataUploadTask.start(getApplicationContext());
         }
 
+        FirstStartHelper.setFirstStartFinished(getApplicationContext());
         finish();
     }
 

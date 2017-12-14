@@ -11,15 +11,14 @@ public class FirstStartHelper {
     public static final String FIRST_APP_START = "first_app_start";
 
 
-    public static boolean check(Context context) {
+    public static boolean isFirstStart(Context context) {
 
         SharedPreferencesHelper preferencesHelper = new SharedPreferencesHelper(context);
-        boolean isFirstStart = preferencesHelper.readBoolean(FIRST_APP_START, true);
+        return preferencesHelper.readBoolean(FIRST_APP_START, true);
+    }
 
-        if (isFirstStart) {
-            preferencesHelper.putBoolean(FIRST_APP_START, false);
-        }
-
-        return isFirstStart;
+    public static void setFirstStartFinished(Context context) {
+        SharedPreferencesHelper preferencesHelper = new SharedPreferencesHelper(context);
+        preferencesHelper.putBoolean(FIRST_APP_START, false);
     }
 }
