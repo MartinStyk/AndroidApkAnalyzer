@@ -68,11 +68,11 @@ public class ActivityListAdapter extends GenericDetailListAdapter<ActivityData, 
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.item_activity_name);
-            label = (DetailListItemView) v.findViewById(R.id.item_activity_label);
-            parent = (DetailListItemView) v.findViewById(R.id.item_activity_parent);
-            permission = (DetailListItemView) v.findViewById(R.id.item_activity_permission);
-            run = (Button) v.findViewById(R.id.item_activity_run);
+            name = v.findViewById(R.id.item_activity_name);
+            label = v.findViewById(R.id.item_activity_label);
+            parent = v.findViewById(R.id.item_activity_parent);
+            permission = v.findViewById(R.id.item_activity_permission);
+            run = v.findViewById(R.id.item_activity_run);
         }
     }
 }

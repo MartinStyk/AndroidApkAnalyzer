@@ -81,10 +81,7 @@ public class ConnectivityHelper {
 
             WifiInfo wifiInfo = wifiManager.getConnectionInfo();
 
-            if (wifiInfo.getNetworkId() == -1) {
-                return false; // Not connected to an access point
-            }
-            return true; // Connected to an access point
+            return wifiInfo.getNetworkId() != -1;
         }
 
         return false; // Wi-Fi adapter is OFF

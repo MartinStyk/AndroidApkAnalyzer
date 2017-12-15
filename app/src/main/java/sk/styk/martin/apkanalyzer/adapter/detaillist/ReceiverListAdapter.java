@@ -44,9 +44,9 @@ public class ReceiverListAdapter extends GenericDetailListAdapter<BroadcastRecei
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.item_receiver_name);
-            permission = (DetailListItemView) v.findViewById(R.id.item_receiver_permission);
-            exported = (DetailListItemView) v.findViewById(R.id.item_receiver_exported);
+            name = v.findViewById(R.id.item_receiver_name);
+            permission = v.findViewById(R.id.item_receiver_permission);
+            exported = v.findViewById(R.id.item_receiver_exported);
         }
     }
 }

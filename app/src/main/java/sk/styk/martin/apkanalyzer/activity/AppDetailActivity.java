@@ -27,7 +27,7 @@ public class AppDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(sk.styk.martin.apkanalyzer.R.layout.activity_app_detail);
-        Toolbar toolbar = (Toolbar) findViewById(sk.styk.martin.apkanalyzer.R.id.detail_toolbar);
+        Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
         // Show the Up button in the action bar.
@@ -36,7 +36,7 @@ public class AppDetailActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.app_bar);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
 
         if (savedInstanceState == null) {
 
@@ -50,7 +50,7 @@ public class AppDetailActivity extends AppCompatActivity {
                     .commit();
         }
 
-        FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.btn_actions);
+        FloatingActionButton actionButton = findViewById(R.id.btn_actions);
 
         // this happens only in tablet mode when this activity is rotated from horizontal to vertical orientation
         if (actionButton == null) {

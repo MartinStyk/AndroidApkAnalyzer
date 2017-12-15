@@ -54,7 +54,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_app_list, null);
         listView = view.findViewById(R.id.list_view_list);
-        progressBar = (ProgressBar) view.findViewById(R.id.list_view_progress_bar);
+        progressBar = view.findViewById(R.id.list_view_progress_bar);
         view.findViewById(R.id.btn_analyze_not_installed).setOnClickListener(this);
 
         return view;

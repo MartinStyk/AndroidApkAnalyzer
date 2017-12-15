@@ -48,11 +48,11 @@ public class ProviderListAdapter extends GenericDetailListAdapter<ContentProvide
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.item_provider_name);
-            authority = (DetailListItemView) v.findViewById(R.id.item_provider_authority);
-            readPermission = (DetailListItemView) v.findViewById(R.id.item_provider_read_permission);
-            writePermission = (DetailListItemView) v.findViewById(R.id.item_provider_write_permission);
-            exported = (DetailListItemView) v.findViewById(R.id.item_provider_exported);
+            name = v.findViewById(R.id.item_provider_name);
+            authority = v.findViewById(R.id.item_provider_authority);
+            readPermission = v.findViewById(R.id.item_provider_read_permission);
+            writePermission = v.findViewById(R.id.item_provider_write_permission);
+            exported = v.findViewById(R.id.item_provider_exported);
         }
     }
 }

@@ -36,7 +36,7 @@ public class SimpleStringListAdapter extends GenericDetailListAdapter<String, Si
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.item_detail_string);
+            name = v.findViewById(R.id.item_detail_string);
         }
     }
 }

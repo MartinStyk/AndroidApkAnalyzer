@@ -25,7 +25,7 @@ public class AppDetailFragment_Provider extends Fragment {
 
         List<ContentProviderData> data = getArguments().getParcelableArrayList(AppDetailFragment.ARG_CHILD);
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_provider);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_provider);
 
         RecyclerView.Adapter adapter = new ProviderListAdapter(data);
         recyclerView.setAdapter(adapter);

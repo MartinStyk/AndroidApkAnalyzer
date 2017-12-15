@@ -43,7 +43,7 @@ public class DigestHelper {
 
     public static String getHexString(byte[] digest) {
         BigInteger bi = new BigInteger(1, digest);
-        return String.format("%032x", new Object[]{bi});
+        return String.format("%032x", bi);
     }
 
     public static MessageDigest getDigest(String algorithm) {

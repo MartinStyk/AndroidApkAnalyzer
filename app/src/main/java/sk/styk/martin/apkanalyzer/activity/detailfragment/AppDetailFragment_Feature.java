@@ -25,7 +25,7 @@ public class AppDetailFragment_Feature extends Fragment {
 
         List<FeatureData> data = getArguments().getParcelableArrayList(AppDetailFragment.ARG_CHILD);
 
-        RecyclerView rvItems = (RecyclerView) rootView.findViewById(R.id.recycler_view_activity);
+        RecyclerView rvItems = rootView.findViewById(R.id.recycler_view_activity);
 
         RecyclerView.Adapter adapter = new FeatureListAdapter(data);
         rvItems.setAdapter(adapter);

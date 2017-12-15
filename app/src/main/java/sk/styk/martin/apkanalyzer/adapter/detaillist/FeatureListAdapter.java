@@ -41,8 +41,8 @@ public class FeatureListAdapter extends GenericDetailListAdapter<FeatureData, Fe
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.item_feature_name);
-            required = (DetailListItemView) v.findViewById(R.id.item_feature_required);
+            name = v.findViewById(R.id.item_feature_name);
+            required = v.findViewById(R.id.item_feature_required);
         }
     }
 }

@@ -74,19 +74,19 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(sk.styk.martin.apkanalyzer.R.layout.fragment_app_detail, container, false);
 
-        loadingBar = (ProgressBar) rootView.findViewById(R.id.item_detail_loading);
-        appBarLayout = (CollapsingToolbarLayout) getActivity().findViewById(sk.styk.martin.apkanalyzer.R.id.toolbar_layout);
-        appBarLayuotImageView = (ImageView) getActivity().findViewById(R.id.toolbar_layout_image);
-        errorLoadingText = (TextView) rootView.findViewById(R.id.item_detail_error);
+        loadingBar = rootView.findViewById(R.id.item_detail_loading);
+        appBarLayout = getActivity().findViewById(R.id.toolbar_layout);
+        appBarLayuotImageView = getActivity().findViewById(R.id.toolbar_layout_image);
+        errorLoadingText = rootView.findViewById(R.id.item_detail_error);
 
-        viewPager = (ViewPager) rootView.findViewById(R.id.pager);
+        viewPager = rootView.findViewById(R.id.pager);
         viewPager.setAdapter(adapter);
 
-        TabLayout tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
+        TabLayout tabLayout = rootView.findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
         // if we are in 2-pane mode initialize floating button
-        FloatingActionButton actionButton = (FloatingActionButton) rootView.findViewById(R.id.btn_actions);
+        FloatingActionButton actionButton = rootView.findViewById(R.id.btn_actions);
         if (actionButton != null) {
             actionButton.setOnClickListener(this);
         }

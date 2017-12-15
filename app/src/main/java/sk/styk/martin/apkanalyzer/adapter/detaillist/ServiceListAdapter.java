@@ -52,13 +52,13 @@ public class ServiceListAdapter extends GenericDetailListAdapter<ServiceData, Se
 
         ViewHolder(View v) {
             super(v);
-            name = (TextView) v.findViewById(R.id.item_service_name);
-            permission = (DetailListItemView) v.findViewById(R.id.item_service_permission);
-            exported = (DetailListItemView) v.findViewById(R.id.item_service_exported);
-            stopWithTask = (DetailListItemView) v.findViewById(R.id.item_service_stop_with_task);
-            singleUser = (DetailListItemView) v.findViewById(R.id.item_service_single_user);
-            isolatedProcess = (DetailListItemView) v.findViewById(R.id.item_service_isolated_process);
-            external = (DetailListItemView) v.findViewById(R.id.item_service_external_service);
+            name = v.findViewById(R.id.item_service_name);
+            permission = v.findViewById(R.id.item_service_permission);
+            exported = v.findViewById(R.id.item_service_exported);
+            stopWithTask = v.findViewById(R.id.item_service_stop_with_task);
+            singleUser = v.findViewById(R.id.item_service_single_user);
+            isolatedProcess = v.findViewById(R.id.item_service_isolated_process);
+            external = v.findViewById(R.id.item_service_external_service);
 
         }
     }

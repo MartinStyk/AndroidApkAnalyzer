@@ -25,7 +25,7 @@ public class AppDetailFragment_Receiver extends Fragment {
 
         List<BroadcastReceiverData> data = getArguments().getParcelableArrayList(AppDetailFragment.ARG_CHILD);
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_receiver);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_receiver);
 
         RecyclerView.Adapter adapter = new ReceiverListAdapter(data);
         recyclerView.setAdapter(adapter);

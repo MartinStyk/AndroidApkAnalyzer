@@ -25,7 +25,7 @@ public class AppDetailFragment_Service extends Fragment {
 
         List<ServiceData> data = getArguments().getParcelableArrayList(AppDetailFragment.ARG_CHILD);
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_service);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_service);
 
         RecyclerView.Adapter adapter = new ServiceListAdapter(data);
         recyclerView.setAdapter(adapter);

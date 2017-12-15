@@ -36,7 +36,7 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_detail);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.detail_toolbar);
+        Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
         if (getIntent().getData() == null) {
@@ -57,11 +57,11 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
             }
         }
 
-        FloatingActionButton actionButton = (FloatingActionButton) findViewById(R.id.btn_actions);
+        FloatingActionButton actionButton = findViewById(R.id.btn_actions);
         if (actionButton != null) //action button exists only in < w900
             actionButton.setVisibility(View.GONE);
 
-        FloatingActionButton installButton = (FloatingActionButton) findViewById(R.id.btn_install);
+        FloatingActionButton installButton = findViewById(R.id.btn_install);
         installButton.setVisibility(View.VISIBLE);
         installButton.setOnClickListener(this);
     }

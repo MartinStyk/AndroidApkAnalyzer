@@ -51,11 +51,11 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
 
         packageName = getIntent().getStringExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST);
 
-        codeView = (HighlightJsView) findViewById(R.id.code_view);
+        codeView = findViewById(R.id.code_view);
         codeView.setHighlightLanguage(Language.XML);
         codeView.setTheme(Theme.ATOM_ONE_LIGHT);
 
-        loadingBar = (ProgressBar) findViewById(R.id.code_loading);
+        loadingBar = findViewById(R.id.code_loading);
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {

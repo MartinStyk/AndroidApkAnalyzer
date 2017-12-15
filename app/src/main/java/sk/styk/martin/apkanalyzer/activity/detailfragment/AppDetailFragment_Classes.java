@@ -30,7 +30,7 @@ public class AppDetailFragment_Classes extends Fragment {
         List<String> allClasses = new ArrayList<>(data.getPackageClasses());
         allClasses.addAll(data.getOtherClasses());
 
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_simple_string_list);
+        RecyclerView recyclerView = rootView.findViewById(R.id.recycler_view_simple_string_list);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
