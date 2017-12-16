@@ -15,7 +15,6 @@ import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Acti
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Certificate;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Classes;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Feature;
-import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_File;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_General;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Permission;
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Provider;
@@ -98,11 +97,6 @@ public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
                 fragment = new AppDetailFragment_Classes();
                 break;
 
-            case 11:
-                args.putParcelable(AppDetailFragment.ARG_CHILD, data.getFileData());
-                fragment = new AppDetailFragment_File();
-                break;
-
             default:
                 return null;
         }
@@ -112,7 +106,7 @@ public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 12;
+        return 11;
     }
 
     @Override
@@ -140,8 +134,6 @@ public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
                 return context.getResources().getString(R.string.defined_permissions);
             case 10:
                 return context.getResources().getString(R.string.classes);
-            case 11:
-                return context.getResources().getString(R.string.files);
         }
         return "TODO";
     }
