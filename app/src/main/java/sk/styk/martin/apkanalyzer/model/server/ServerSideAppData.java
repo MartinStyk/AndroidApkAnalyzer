@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.model.server;
 
 import java.util.List;
 
+import sk.styk.martin.apkanalyzer.BuildConfig;
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
@@ -25,6 +26,7 @@ public class ServerSideAppData {
 
     // ID of device which uploaded this data
     private String androidId;
+    private int apkAnalyzerVersion;
 
     // Hash of data structure, can be used to identify two exactly same apps
     private int appHash;
@@ -125,6 +127,7 @@ public class ServerSideAppData {
     public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
 
         androidId = deviceId;
+        apkAnalyzerVersion = BuildConfig.VERSION_CODE;
 
         analysisMode = appDetailData.getAnalysisMode();
 
