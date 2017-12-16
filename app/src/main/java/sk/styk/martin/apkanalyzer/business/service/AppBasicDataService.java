@@ -35,7 +35,7 @@ public class AppBasicDataService {
     @NonNull
     public List<AppListData> getAll() {
 
-        List<PackageInfo> applications = packageManager.getInstalledPackages(PackageManager.GET_META_DATA);
+        List<PackageInfo> applications = packageManager.getInstalledPackages(0);
 
         List<AppListData> packages = new ArrayList<>(applications.size());
 
