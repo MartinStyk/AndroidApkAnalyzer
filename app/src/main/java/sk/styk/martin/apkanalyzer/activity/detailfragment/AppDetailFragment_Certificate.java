@@ -32,7 +32,7 @@ public class AppDetailFragment_Certificate extends Fragment {
         ((DetailItemView) rootView.findViewById(R.id.item_end_date)).setValue(endDate);
 
         ((DetailItemView) rootView.findViewById(R.id.item_public_key_md5)).setValue(data.getPublicKeyMd5());
-        ((DetailItemView) rootView.findViewById(R.id.item_cert_md5)).setValue(data.getCertMd5());
+        ((DetailItemView) rootView.findViewById(R.id.item_cert_md5)).setValue(data.getCertificateHash());
         ((DetailItemView) rootView.findViewById(R.id.item_serial_number)).setValue(String.valueOf(data.getSerialNumber()));
         ((DetailItemView) rootView.findViewById(R.id.item_issuer_name)).setValue(data.getIssuerName());
         ((DetailItemView) rootView.findViewById(R.id.item_issuer_organization)).setValue(String.valueOf(data.getIssuerOrganization()));

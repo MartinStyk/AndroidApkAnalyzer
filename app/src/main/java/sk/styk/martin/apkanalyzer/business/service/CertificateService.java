@@ -7,9 +7,6 @@ import android.support.annotation.NonNull;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.regex.Matcher;
@@ -38,7 +35,7 @@ public class CertificateService {
             CertificateFactory certFactory = CertificateFactory.getInstance("X509");
             X509Certificate certificate = (X509Certificate) certFactory.generateCertificate(certStream);
 
-            data.setCertMd5(DigestHelper.md5Digest(certificate.getEncoded()));
+            data.setCertificateHash(DigestHelper.md5Digest(certificate.getEncoded()));
             data.setPublicKeyMd5(DigestHelper.md5Digest(DigestHelper.byteToHexString(certificate.getPublicKey().getEncoded())));
 
             data.setStartDate(certificate.getNotBefore());

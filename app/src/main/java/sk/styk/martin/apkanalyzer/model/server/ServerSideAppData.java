@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.model.server;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData;
@@ -45,7 +44,7 @@ public class ServerSideAppData {
     // CertificateData
     private String signAlgorithm;
     private String publicKeyMd5;
-    private String certMd5;
+    private String certificateHash;
     private int serialNumber;
 
     // Activities
@@ -144,7 +143,7 @@ public class ServerSideAppData {
         CertificateData certificateData = appDetailData.getCertificateData();
         signAlgorithm = certificateData.getSignAlgorithm();
         publicKeyMd5 = certificateData.getPublicKeyMd5();
-        certMd5 = certificateData.getCertMd5();
+        certificateHash = certificateData.getCertificateHash();
         serialNumber = certificateData.getSerialNumber();
 
         // Activities
@@ -237,7 +236,7 @@ public class ServerSideAppData {
     private int computeOverallHash() {
         int result = 0;
         result = 31 * result + (packageName != null ? packageName.hashCode() : 0);
-        result = 31 * result + (certMd5 != null ? certMd5.hashCode() : 0);
+        result = 31 * result + (certificateHash != null ? certificateHash.hashCode() : 0);
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
         result = 31 * result + (manifestHash != null ? manifestHash.hashCode() : 0);
