@@ -84,7 +84,7 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
         detailFragment.setArguments(arguments);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
-                .commit();
+                .commitAllowingStateLoss();
     }
 
     @Override
