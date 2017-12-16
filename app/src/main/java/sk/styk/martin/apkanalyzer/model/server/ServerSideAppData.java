@@ -126,7 +126,6 @@ public class ServerSideAppData {
     public ServerSideAppData(AppDetailData appDetailData, String deviceId) {
 
         androidId = deviceId;
-        this.appHash = appHash;
 
         analysisMode = appDetailData.getAnalysisMode();
 
@@ -238,8 +237,6 @@ public class ServerSideAppData {
     private int computeOverallHash() {
         int result = 0;
         result = 31 * result + (packageName != null ? packageName.hashCode() : 0);
-        result = 31 * result + versionCode;
-        result = 31 * result + (publicKeyMd5 != null ? publicKeyMd5.hashCode() : 0);
         result = 31 * result + (certMd5 != null ? certMd5.hashCode() : 0);
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
