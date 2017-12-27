@@ -83,7 +83,6 @@ public class ServerSideAppData {
     private String arscHash;
     private String manifestHash;
     private List<String> pngHashes;
-    private List<String> layoutHashes;
 
     private int numberDrawables;
     private int numberLayouts;
@@ -191,10 +190,9 @@ public class ServerSideAppData {
         manifestHash = fileData.getManifestHash();
 
         pngHashes = fileData.getOnlyHash(fileData.getPngHashes());
-        layoutHashes = fileData.getOnlyHash(fileData.getLayoutHashes());
 
         numberDrawables = fileData.getDrawableHashes().size();
-        numberLayouts = layoutHashes.size();
+        numberLayouts = fileData.getOnlyHash(fileData.getLayoutHashes()).size();
         numberMenus = fileData.getOnlyHash(fileData.getMenuHashes()).size();
         numberFilesTotal = fileData.getTotalFiles();
 
@@ -204,7 +202,7 @@ public class ServerSideAppData {
         numberXmlsWithDifferentName = fileData.getNumberXmlsWithDifferentName();
 
         pngsAggregatedHash = HashCodeHelper.hashList(pngHashes);
-        layoutsAggregatedHash = HashCodeHelper.hashList(layoutHashes);
+        layoutsAggregatedHash = HashCodeHelper.hashList(fileData.getOnlyHash(fileData.getLayoutHashes()));
         menusAggregatedHash = HashCodeHelper.hashList(fileData.getOnlyHash(fileData.getMenuHashes()));
 
         //ResourceData
