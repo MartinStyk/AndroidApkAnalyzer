@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
+import sk.styk.martin.apkanalyzer.util.InstallLocationHelper;
 import sk.styk.martin.apkanalyzer.view.DetailItemView;
 
 /**
@@ -42,7 +43,7 @@ public class AppDetailFragment_General extends Fragment {
         ((DetailItemView) rootView.findViewById(R.id.item_min_android_version)).setValue(data.getMinSdkLabel());
         ((DetailItemView) rootView.findViewById(R.id.item_apk_directory)).setValue(data.getApkDirectory());
         ((DetailItemView) rootView.findViewById(R.id.item_data_directory)).setValue(data.getDataDirectory());
-        ((DetailItemView) rootView.findViewById(R.id.item_install_location)).setValue(data.getInstallLocation());
+        ((DetailItemView) rootView.findViewById(R.id.item_install_location)).setValue(InstallLocationHelper.showLocalizedLocation(data.getInstallLocation(), getContext()));
         ((DetailItemView) rootView.findViewById(R.id.item_apk_size)).setValue(Formatter.formatShortFileSize(getActivity(), data.getApkSize()));
 
         String installTime = DateUtils.formatDateTime(getActivity(), data.getFirstInstallTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
