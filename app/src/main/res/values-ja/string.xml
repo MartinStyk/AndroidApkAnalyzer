@@ -15,6 +15,7 @@
     <string name="action_analyze_apk_from_file">分析するAPkファイルをストレージから選択</string>
     <string name="title_item_list">アイテム</string>
     <string name="title_item_detail">アイテムの詳細</string>
+    <string name="title_intro">イントロ</string>
     <string name="title_manifest">AndroidManifest</string>
     <string name="loading">読み込み中...</string>
     <string name="loading_failed">読み込みに失敗しました。</string>
@@ -45,7 +46,14 @@
     <string name="system_pre_installed">プリインストール</string>
     <string name="unknown_source">不明なソース</string>
 
-
+    <string name="intro_analyze_apps">アプリを分析</string>
+    <string name="intro_analyze_apps_description">インストールされたアプリだけでなく、ストレージからインストールされていないAPKファイルの詳細なレポートもお楽しみください。 Appメタデータ、マニフェストファイルを表示するか、APKパッケージをストレージにエクスポートします。</string>
+    <string name="intro_statistics">統計情報を表示</string>
+    <string name="intro_statistics_description">アプリコレクションの統計データに興味がありますか？ Androidと証明書のバージョンの平均アクティビティ、権限、または配布数を確認します。</string>
+    <string name="intro_upload">アプリのメタデータをアップロード</string>
+    <string name="intro_upload_description">APKアナライザがアプリのメタデータを収集できるようにしてください。データは、アプリケーションの調査に使用されます。\nあなたのパーソナルアプリのデータは含まれていません。設定で環境設定を調整することができます</string>
+    <string name="intro_upload_require_input">アプリのメタデータのアップロードを承認または拒否する</string>
+    
     <string name="general">一般</string>
     <string name="certificate">証明書</string>
     <string name="activities">アクティビティ</string>
