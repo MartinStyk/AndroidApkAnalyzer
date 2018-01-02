@@ -43,5 +43,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.squareup.okhttp3:okhttp:3.9.0'
     compile 'com.github.apl-devs:appintro:v4.2.2'
+    compile 'com.firebase:firebase-jobdispatcher:0.8.5'
     testCompile 'junit:junit:4.12'
 }

@@ -68,7 +68,13 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".business.task.FileCopyService" />
-        <service android:name=".business.task.upload.MultipleAppDataUploadTask" />
+        <service
+            android:name=".business.task.upload.MultipleAppDataUploadService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
+            </intent-filter>
+        </service>
         <service android:name=".business.task.StringToFileSaveService" />
 
         <provider

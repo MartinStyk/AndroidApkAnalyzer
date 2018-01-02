@@ -9,7 +9,7 @@ import com.github.paolorotolo.appintro.AppIntroFragment;
 import com.github.paolorotolo.appintro.model.SliderPage;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadTask;
+import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadService;
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 
@@ -67,7 +67,7 @@ public class IntroActivity extends AppIntro {
             ConnectivityHelper.setConnectionAllowedByUser(getApplicationContext(), isUploadAllowed);
 
             if (isUploadAllowed)
-                MultipleAppDataUploadTask.start(getApplicationContext());
+                MultipleAppDataUploadService.start(getApplicationContext());
         }
 
         FirstStartHelper.setFirstStartFinished(getApplicationContext());
