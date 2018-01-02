@@ -29,9 +29,12 @@ public class UploadAppDataRestHelper extends ServerHttpAccessHelper {
                 .build();
 
         Response response = client.newCall(request).execute();
+        int responseCode =  response.code();
 
         Log.i(TAG, String.format("Response on posting %s data is %s", packageName, response.toString()));
-        return response.code();
+
+        response.close();
+        return responseCode;
     }
 
 }

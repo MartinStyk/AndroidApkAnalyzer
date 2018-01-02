@@ -29,8 +29,9 @@ public class DexService {
 
         if (applicationInfo != null) {
             String packageName = applicationInfo.packageName;
+            DexFile dexFile = null;
             try {
-                DexFile dexFile = new DexFile(applicationInfo.sourceDir);
+                dexFile = new DexFile(applicationInfo.sourceDir);
                 for (Enumeration<String> iterator = dexFile.entries(); iterator.hasMoreElements(); ) {
                     String className = iterator.nextElement();
                     if (className != null && className.startsWith(packageName))
@@ -44,6 +45,14 @@ public class DexService {
                 }
             } catch (IOException e) {
                 Log.e(DexService.class.getSimpleName(), e.getLocalizedMessage());
+            } finally {
+                if (dexFile != null) {
+                    try {
+                        dexFile.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
 

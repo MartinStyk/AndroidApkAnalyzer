@@ -105,15 +105,24 @@ public class FileDataService {
      */
     @Nullable
     private Manifest openManifest(PackageInfo packageInfo) {
-        if(packageInfo.applicationInfo == null || packageInfo.applicationInfo.sourceDir == null)
+        if (packageInfo.applicationInfo == null || packageInfo.applicationInfo.sourceDir == null)
             return null;
 
         Manifest mf = null;
+        JarFile jar = null;
         try {
-            JarFile jar = new JarFile(packageInfo.applicationInfo.sourceDir);
+            jar = new JarFile(packageInfo.applicationInfo.sourceDir);
             mf = jar.getManifest();
         } catch (IOException e) {
             Log.e(FileDataService.class.getSimpleName(), "Unable to find manifest", e);
+        } finally {
+            if (jar != null) {
+                try {
+                    jar.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return mf;
     }
