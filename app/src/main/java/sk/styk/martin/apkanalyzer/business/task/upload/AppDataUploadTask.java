@@ -75,26 +75,6 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
             Log.w(TAG, String.format("Upload of package %s failed with exception %s", packageName, e.toString()));
         }
 
-
-//        String targetPath = new File(Environment.getExternalStorageDirectory(), "data_" + System.currentTimeMillis() + ".json").getAbsolutePath();
-//        Log.i(TAG, String.format("Start uploading package %s to %s", packageName, targetPath));
-//
-//        PrintWriter printWriter = null;
-//
-//        try {
-//            printWriter = new PrintWriter(targetPath);
-//            printWriter.print(json);
-//            Thread.sleep(TimeUnit.SECONDS.toMillis(15));
-//            SendDataService.insert(data, context);
-//            Log.i(TAG, String.format("Finished uploading package %s to %s", packageName, targetPath));
-//            context = null;
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            if (printWriter != null)
-//                printWriter.close();
-//        }
-
         Log.i(TAG, "Finishing save task for " + packageName);
 
         return null;
