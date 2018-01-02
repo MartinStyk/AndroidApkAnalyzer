@@ -46,6 +46,8 @@ public class SendDataService {
                     selectionArgs, null);
 
             return cursor != null && cursor.getCount() > 0;
+        } catch (Exception e) {
+            return false;
         } finally {
             if (cursor != null)
                 cursor.close();
