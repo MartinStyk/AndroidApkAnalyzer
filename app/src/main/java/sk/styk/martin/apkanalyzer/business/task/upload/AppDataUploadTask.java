@@ -17,6 +17,8 @@ import sk.styk.martin.apkanalyzer.util.networking.ServerHttpAccessHelper;
 import sk.styk.martin.apkanalyzer.util.networking.UploadAppDataRestHelper;
 
 /**
+ * Encapsulates workflow logic for uploading single app data to server.
+ *
  * Created by Martin Styk on 6.11.2017.
  */
 public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {

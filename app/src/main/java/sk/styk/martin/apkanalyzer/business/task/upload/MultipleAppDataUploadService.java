@@ -24,13 +24,22 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData;
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 
 /**
+ * Job for uploading all non-system apps to server.
+ * <p>
+ * Because of changes introduced in API 26, JobService is required. It starts thread which triggers
+ * AppDataUploadTask for each app.
+ * <p>
  * Created by mstyk on 11/8/17.
  */
-
 public class MultipleAppDataUploadService extends JobService {
 
-    private MultipleAppDataUploadTask task;
+    private Thread task;
 
+    /**
+     * Schedules upload of all apps to server. Upload will start sometimes during next 5 minutes.
+     *
+     * @param context
+     */
     public static void start(Context context) {
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));
 
@@ -40,7 +49,7 @@ public class MultipleAppDataUploadService extends JobService {
                 .setRecurring(false)
                 .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
                 // start between 0 and 60 seconds from now
-                .setTrigger(Trigger.executionWindow(0, 600))
+                .setTrigger(Trigger.executionWindow(0, 300))
                 // don't overwrite an existing job with the same tag
                 .setReplaceCurrent(false)
                 // constraints that need to be satisfied for the job to run
@@ -51,16 +60,16 @@ public class MultipleAppDataUploadService extends JobService {
     }
 
     @Override
-    public boolean onStartJob(JobParameters jobParameters) {
-        task = new MultipleAppDataUploadTask(jobParameters);
-        task.execute();
+    public boolean onStartJob(final JobParameters jobParameters) {
+        task = createWorkThread(jobParameters);
+        task.start();
         return true;
     }
 
     @Override
     public boolean onStopJob(JobParameters jobParameters) {
-        if (task != null) {
-            task.cancel(true);
+        if (task != null && task.isAlive()) {
+            task.interrupt();
         }
         return false;
     }
@@ -70,50 +79,33 @@ public class MultipleAppDataUploadService extends JobService {
      * Starts only if internet connection is available.
      * Uploads only previously not uploaded data.
      */
-    private class MultipleAppDataUploadTask extends AsyncTask<Void, Void, Void> {
+    private Thread createWorkThread(final JobParameters parameters) {
+        return new Thread() {
+            @Override
+            public void run() {
+                Log.i(MultipleAppDataUploadService.class.getName(), "Upload of all apps was triggered");
 
-        private JobParameters parameters;
+                if (!ConnectivityHelper.isUploadPossible(getApplicationContext()))
+                    return;
 
-        MultipleAppDataUploadTask(JobParameters jobParameters){
-            this.parameters = jobParameters;
-        }
+                List<AppListData> apps = new AppBasicDataService(getPackageManager()).getForSources(false, AppSource.AMAZON_STORE, AppSource.GOOGLE_PLAY, AppSource.UNKNOWN);
+                AppDetailDataService detailDataService = new AppDetailDataService(getPackageManager());
 
-        @Override
-        protected Void doInBackground(Void... voids) {
-            Log.i(MultipleAppDataUploadTask.class.getName(), "Upload of all apps was triggered");
+                for (AppListData app : apps) {
 
-            if (!ConnectivityHelper.isUploadPossible(getApplicationContext()))
-                return null;
+                    if (!SendDataService.isAlreadyUploaded(app.getPackageName(), app.getVersion(), getApplicationContext())) {
+                        AppDetailData appDetailData = detailDataService.get(app.getPackageName(), null);
+                        AppDataUploadTask appDataSaveTask = new AppDataUploadTask(getApplicationContext());
+                        appDataSaveTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, appDetailData);
+                    }
 
-            List<AppListData> apps = new AppBasicDataService(getPackageManager()).getForSources(false, AppSource.AMAZON_STORE, AppSource.GOOGLE_PLAY, AppSource.UNKNOWN);
-            AppDetailDataService detailDataService = new AppDetailDataService(getPackageManager());
+                    if (isInterrupted())
+                        break;
 
-            for (AppListData app : apps) {
-
-                if (!SendDataService.isAlreadyUploaded(app.getPackageName(), app.getVersion(), getApplicationContext())) {
-                    AppDetailData appDetailData = detailDataService.get(app.getPackageName(), null);
-                    AppDataUploadTask appDataSaveTask = new AppDataUploadTask(getApplicationContext());
-                    appDataSaveTask.executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, appDetailData);
                 }
-
-                if (isCancelled())
-                    return null;
-
+                jobFinished(parameters, false);
             }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            jobFinished(parameters, false);
-        }
-
-        @Override
-        protected void onCancelled(Void aVoid) {
-            super.onCancelled(aVoid);
-            jobFinished(parameters, true);
-        }
+        };
     }
 }
 
