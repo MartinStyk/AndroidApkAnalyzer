@@ -8,8 +8,8 @@ android {
         applicationId "sk.styk.martin.apkanalyzer"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 12
-        versionName "2.0.1"
+        versionCode 13
+        versionName "2.1.0"
     }
     buildTypes {
         release {
