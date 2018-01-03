@@ -78,7 +78,7 @@
         <service android:name=".business.task.StringToFileSaveService" />
 
         <provider
-            android:name=".util.GenericFileProvider"
+            android:name=".util.file.GenericFileProvider"
             android:authorities="sk.styk.martin"
             android:exported="false"
             android:grantUriPermissions="true">

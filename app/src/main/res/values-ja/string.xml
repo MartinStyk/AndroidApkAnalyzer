@@ -98,6 +98,7 @@
     <string name="pick_action">アクションを選択してください。</string>
     <string name="copy_apk">APKを出力</string>
     <string name="copy_apk_background">%s へコピーする</string>
+    <string name="copy_apk_background_done">%s へコピーする</string>
     <string name="show_manifest">AndroidManifest.xmlを見る</string>
     <string name="save_manifest_background">%s に保存する</string>
     <string name="save_manifest_fail">マニュフェストはまだロードされていません。</string>

@@ -22,8 +22,8 @@ import android.widget.Toast;
 import java.io.File;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.util.ApkFilePicker;
-import sk.styk.martin.apkanalyzer.util.GenericFileProvider;
+import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker;
+import sk.styk.martin.apkanalyzer.util.file.GenericFileProvider;
 
 public class OnInstallAppDetailActivity extends AppCompatActivity implements View.OnClickListener {
 

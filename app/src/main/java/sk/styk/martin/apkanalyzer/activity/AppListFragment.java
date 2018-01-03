@@ -30,7 +30,7 @@ import sk.styk.martin.apkanalyzer.adapter.AppListAdapter;
 import sk.styk.martin.apkanalyzer.business.task.AppListLoader;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
-import sk.styk.martin.apkanalyzer.util.ApkFilePicker;
+import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker;
 
 import static android.app.Activity.RESULT_OK;
 

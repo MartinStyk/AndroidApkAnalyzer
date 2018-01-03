@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.util;
+package sk.styk.martin.apkanalyzer.util.file;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;

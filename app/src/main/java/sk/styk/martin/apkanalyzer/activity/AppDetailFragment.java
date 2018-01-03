@@ -270,15 +270,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     private void exportApkFile() {
-        File source = new File(data.getGeneralData().getApkDirectory());
-        File target = new File(Environment.getExternalStorageDirectory(), data.getGeneralData().getPackageName()+ "_" + data.getGeneralData().getVersionCode() + ".apk");
-
-        Intent intent = new Intent(getActivity(), FileCopyService.class);
-        intent.putExtra(FileCopyService.SOURCE_FILE, source.getAbsolutePath());
-        intent.putExtra(FileCopyService.TARGET_FILE, target.getAbsolutePath());
-
-        getActivity().startService(intent);
-
-        Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, target.getAbsolutePath()), Snackbar.LENGTH_LONG).show();
+        String targetFile = FileCopyService.startService(getActivity(), data);
+        Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, targetFile), Snackbar.LENGTH_LONG).show();
     }
 }

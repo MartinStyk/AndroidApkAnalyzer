@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.util;
+package sk.styk.martin.apkanalyzer.util.file;
 
 import android.content.Context;
 import android.content.Intent;

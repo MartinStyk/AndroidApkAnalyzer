@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.util.RealPathUtils;
 
 /**
  * An activity representing a single Item detail screen. This

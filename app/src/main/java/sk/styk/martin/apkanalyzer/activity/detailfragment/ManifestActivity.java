@@ -136,9 +136,9 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
 
         Intent intent = new Intent(this, StringToFileSaveService.class);
         intent.putExtra(StringToFileSaveService.SOURCE_STRING, manifest);
-        intent.putExtra(FileCopyService.TARGET_FILE, target.getAbsolutePath());
+        intent.putExtra(StringToFileSaveService.TARGET_FILE, target.getAbsolutePath());
 
-        startService(intent);
+        ContextCompat.startForegroundService(this, intent);
 
         Snackbar.make(findViewById(android.R.id.content), getString(R.string.save_manifest_background, target.getAbsolutePath()), Snackbar.LENGTH_LONG).show();
     }
