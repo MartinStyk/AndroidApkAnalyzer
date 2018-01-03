@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 
 /**
  * Created by Martin Styk on 03.01.2018.
@@ -33,4 +34,16 @@ public class FileUtils {
         }
     }
 
+    public static void writeString(String content, String targetFilePath) throws IOException {
+        PrintWriter printWriter = null;
+
+        try {
+            printWriter = new PrintWriter(targetFilePath);
+            printWriter.print(content);
+        } finally {
+            if (printWriter != null)
+                printWriter.close();
+        }
+
+    }
 }

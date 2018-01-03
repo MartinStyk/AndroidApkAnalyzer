@@ -101,6 +101,8 @@
     <string name="copy_apk_background_done">%s へコピーする</string>
     <string name="show_manifest">AndroidManifest.xmlを見る</string>
     <string name="save_manifest_background">%s に保存する</string>
+    <string name="save_manifest_background_notification_title">%s に保存する</string>
+    <string name="save_manifest_background_notification_title_done">%s に保存する</string>
     <string name="save_manifest_fail">マニュフェストはまだロードされていません。</string>
     <string name="show_app_system_page">ビルトインアプリ情報</string>
     <string name="share_apk">APKを共有</string>

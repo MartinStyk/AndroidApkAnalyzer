@@ -1,10 +1,8 @@
 package sk.styk.martin.apkanalyzer.activity.detailfragment;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -23,11 +21,8 @@ import com.pddstudio.highlightjs.HighlightJsView;
 import com.pddstudio.highlightjs.models.Language;
 import com.pddstudio.highlightjs.models.Theme;
 
-import java.io.File;
-
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.business.task.AndroidManifestLoader;
-import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
 import sk.styk.martin.apkanalyzer.business.task.StringToFileSaveService;
 
 /**
@@ -132,14 +127,7 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
     }
 
     private void exportManifestFile() {
-        File target = new File(Environment.getExternalStorageDirectory(), "AndroidManifest_" + packageName + ".xml");
-
-        Intent intent = new Intent(this, StringToFileSaveService.class);
-        intent.putExtra(StringToFileSaveService.SOURCE_STRING, manifest);
-        intent.putExtra(StringToFileSaveService.TARGET_FILE, target.getAbsolutePath());
-
-        ContextCompat.startForegroundService(this, intent);
-
-        Snackbar.make(findViewById(android.R.id.content), getString(R.string.save_manifest_background, target.getAbsolutePath()), Snackbar.LENGTH_LONG).show();
+        String targetFile = StringToFileSaveService.startService(this, packageName, manifest);
+        Snackbar.make(findViewById(android.R.id.content), getString(R.string.save_manifest_background, targetFile), Snackbar.LENGTH_LONG).show();
     }
 }
