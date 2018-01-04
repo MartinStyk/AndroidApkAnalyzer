@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,15 +16,18 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.Loader;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 
@@ -36,6 +38,8 @@ import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader;
 import sk.styk.martin.apkanalyzer.business.task.FileCopyService;
 import sk.styk.martin.apkanalyzer.business.task.upload.AppDataUploadTask;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
+import sk.styk.martin.apkanalyzer.util.file.ApkFileInstaller;
+import sk.styk.martin.apkanalyzer.util.file.GenericFileProvider;
 
 /**
  * A fragment representing a single Item detail screen.
@@ -50,7 +54,9 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     public static final String ARG_PACKAGE_PATH = "packagePath";
     public static final String ARG_CHILD = "dataForChild";
     private static final int REQUEST_STORAGE_PERMISSION = 11;
+
     private AppDetailData data;
+    private String packagePath;
 
     private CollapsingToolbarLayout appBarLayout;
     private ImageView appBarLayuotImageView;
@@ -67,6 +73,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
         super.onCreate(savedInstanceState);
 
         adapter = new AppDetailPagerAdapter(getActivity(), getFragmentManager());
+        packagePath = getArguments().getString(ARG_PACKAGE_PATH);
         getLoaderManager().initLoader(AppDetailLoader.ID, getArguments(), this);
     }
 
@@ -263,6 +270,15 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
         } else if (data.isAnalyzedApkFile()) {
             dialogView.findViewById(R.id.btn_show_manifest).setVisibility(View.GONE);
             dialogView.findViewById(R.id.btn_show_app_system_page).setVisibility(View.GONE);
+            dialogView.findViewById(R.id.btn_install_app).setVisibility(View.VISIBLE);
+
+            dialogView.findViewById(R.id.btn_install_app).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialog.dismiss();
+                    new ApkFileInstaller().installPackage(getContext(), packagePath);
+                }
+            });
         }
 
         isDialogShowing = true;

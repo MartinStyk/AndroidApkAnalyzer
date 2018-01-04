@@ -11,6 +11,14 @@
         android:showDividers="beginning|end|middle">
 
         <Button
+            android:id="@+id/btn_install_app"
+            style="@style/ApkActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/install_app"
+            android:visibility="gone"/>
+
+        <Button
             android:id="@+id/btn_copy"
             style="@style/ApkActionButton"
             android:layout_width="match_parent"

@@ -3,29 +3,24 @@ package sk.styk.martin.apkanalyzer.activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import java.io.File;
-
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker;
-import sk.styk.martin.apkanalyzer.util.file.GenericFileProvider;
 
-public class OnInstallAppDetailActivity extends AppCompatActivity implements View.OnClickListener {
+public class OnInstallAppDetailActivity extends AppCompatActivity {
 
     private static final int REQUEST_STORAGE_PERMISSIONS = 987;
 
@@ -36,6 +31,7 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_app_detail);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
         Toolbar toolbar = findViewById(R.id.detail_toolbar);
         setSupportActionBar(toolbar);
 
@@ -58,12 +54,20 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
         }
 
         FloatingActionButton actionButton = findViewById(R.id.btn_actions);
-        if (actionButton != null) //action button exists only in < w900
-            actionButton.setVisibility(View.GONE);
 
-        FloatingActionButton installButton = findViewById(R.id.btn_install);
-        installButton.setVisibility(View.VISIBLE);
-        installButton.setOnClickListener(this);
+        // this happens only in tablet mode when this activity is rotated from horizontal to vertical orientation
+        if (actionButton == null) {
+            appBarLayout.setExpanded(false);
+        } else {
+            actionButton.setVisibility(View.VISIBLE);
+            actionButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //delegate to fragment
+                    ((AppDetailFragment) getSupportFragmentManager().findFragmentByTag(AppDetailFragment.TAG)).onClick(view);
+                }
+            });
+        }
     }
 
     @Override
@@ -85,24 +89,6 @@ public class OnInstallAppDetailActivity extends AppCompatActivity implements Vie
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
                 .commitAllowingStateLoss();
-    }
-
-    @Override
-    public void onClick(View view) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-
-        Uri apkUri = null;
-        try {
-            apkUri = FileProvider.getUriForFile(this, GenericFileProvider.AUTHORITY, new File(apkPath));
-        } catch (Exception e) {
-            Log.e(OnInstallAppDetailActivity.class.getSimpleName(), e.toString());
-            Toast.makeText(this, getString(R.string.install_failed), Toast.LENGTH_LONG).show();
-            return;
-        }
-        intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        startActivity(intent);
-        finish();
     }
 
 }
