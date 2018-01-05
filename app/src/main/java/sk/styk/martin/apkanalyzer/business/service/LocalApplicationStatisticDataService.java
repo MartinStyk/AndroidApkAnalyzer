@@ -43,12 +43,14 @@ public class LocalApplicationStatisticDataService {
             e.printStackTrace();
             return null;
         }
-        ApplicationInfo applicationInfo = packageInfo.applicationInfo;
 
-        if (packageInfo == null || applicationInfo == null)
+        if (packageInfo == null || packageInfo.applicationInfo == null)
             return null;
 
+        ApplicationInfo applicationInfo = packageInfo.applicationInfo;
+
         LocalStatisticsAppData data = new LocalStatisticsAppData();
+        data.setPackageName(packageName);
         data.setSystemApp((applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
         data.setInstallLocation(packageInfo.installLocation);
         data.setTargetSdk(applicationInfo.targetSdkVersion);

@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
@@ -20,15 +21,15 @@ public class LocalStatisticsData implements Parcelable {
     private PercentagePair analyzeFailed;
     private PercentagePair systemApps;
 
-    private Map<String, PercentagePair> installLocation;
-    private Map<Integer, PercentagePair> targetSdk;
-    private Map<Integer, PercentagePair> minSdk;
+    private Map<String, List<String>> installLocation;
+    private Map<Integer, List<String>> targetSdk;
+    private Map<Integer, List<String>> minSdk;
 
-    private Map<AppSource, PercentagePair> appSource;
+    private Map<AppSource, List<String>> appSource;
 
     private MathStatistics apkSize;
 
-    private Map<String, PercentagePair> signAlgorithm;
+    private Map<String, List<String>> signAlgorithm;
 
     private MathStatistics activites;
     private MathStatistics services;
@@ -70,27 +71,27 @@ public class LocalStatisticsData implements Parcelable {
         this.systemApps = systemApps;
     }
 
-    public Map<String, PercentagePair> getInstallLocation() {
+    public Map<String, List<String>> getInstallLocation() {
         return installLocation;
     }
 
-    public void setInstallLocation(Map<String, PercentagePair> installLocation) {
+    public void setInstallLocation(Map<String, List<String>> installLocation) {
         this.installLocation = installLocation;
     }
 
-    public Map<Integer, PercentagePair> getTargetSdk() {
+    public Map<Integer, List<String>> getTargetSdk() {
         return targetSdk;
     }
 
-    public void setTargetSdk(Map<Integer, PercentagePair> targetSdk) {
+    public void setTargetSdk(Map<Integer, List<String>> targetSdk) {
         this.targetSdk = targetSdk;
     }
 
-    public Map<Integer, PercentagePair> getMinSdk() {
+    public Map<Integer, List<String>> getMinSdk() {
         return minSdk;
     }
 
-    public void setMinSdk(Map<Integer, PercentagePair> minSdk) {
+    public void setMinSdk(Map<Integer, List<String>> minSdk) {
         this.minSdk = minSdk;
     }
 
@@ -102,11 +103,11 @@ public class LocalStatisticsData implements Parcelable {
         this.apkSize = apkSize;
     }
 
-    public Map<String, PercentagePair> getSignAlgorithm() {
+    public Map<String, List<String>> getSignAlgorithm() {
         return signAlgorithm;
     }
 
-    public void setSignAlgorithm(Map<String, PercentagePair> signAlgorithm) {
+    public void setSignAlgorithm(Map<String, List<String>> signAlgorithm) {
         this.signAlgorithm = signAlgorithm;
     }
 
@@ -118,11 +119,11 @@ public class LocalStatisticsData implements Parcelable {
         this.activites = activites;
     }
 
-    public Map<AppSource, PercentagePair> getAppSource() {
+    public Map<AppSource, List<String>> getAppSource() {
         return appSource;
     }
 
-    public void setAppSource(Map<AppSource, PercentagePair> appSource) {
+    public void setAppSource(Map<AppSource, List<String>> appSource) {
         this.appSource = appSource;
     }
 
@@ -316,30 +317,30 @@ public class LocalStatisticsData implements Parcelable {
         dest.writeParcelable(this.analyzeFailed, flags);
         dest.writeParcelable(this.systemApps, flags);
         dest.writeInt(this.installLocation.size());
-        for (Map.Entry<String, PercentagePair> entry : this.installLocation.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : this.installLocation.entrySet()) {
             dest.writeString(entry.getKey());
-            dest.writeParcelable(entry.getValue(), flags);
+            dest.writeStringList(entry.getValue());
         }
         dest.writeInt(this.targetSdk.size());
-        for (Map.Entry<Integer, PercentagePair> entry : this.targetSdk.entrySet()) {
+        for (Map.Entry<Integer, List<String>> entry : this.targetSdk.entrySet()) {
             dest.writeValue(entry.getKey());
-            dest.writeParcelable(entry.getValue(), flags);
+            dest.writeStringList(entry.getValue());
         }
         dest.writeInt(this.minSdk.size());
-        for (Map.Entry<Integer, PercentagePair> entry : this.minSdk.entrySet()) {
+        for (Map.Entry<Integer, List<String>> entry : this.minSdk.entrySet()) {
             dest.writeValue(entry.getKey());
-            dest.writeParcelable(entry.getValue(), flags);
+            dest.writeStringList(entry.getValue());
         }
         dest.writeInt(this.appSource.size());
-        for (Map.Entry<AppSource, PercentagePair> entry : this.appSource.entrySet()) {
+        for (Map.Entry<AppSource, List<String>> entry : this.appSource.entrySet()) {
             dest.writeInt(entry.getKey() == null ? -1 : entry.getKey().ordinal());
-            dest.writeParcelable(entry.getValue(), flags);
+            dest.writeStringList(entry.getValue());
         }
         dest.writeParcelable(this.apkSize, flags);
         dest.writeInt(this.signAlgorithm.size());
-        for (Map.Entry<String, PercentagePair> entry : this.signAlgorithm.entrySet()) {
+        for (Map.Entry<String, List<String>> entry : this.signAlgorithm.entrySet()) {
             dest.writeString(entry.getKey());
-            dest.writeParcelable(entry.getValue(), flags);
+            dest.writeStringList(entry.getValue());
         }
         dest.writeParcelable(this.activites, flags);
         dest.writeParcelable(this.services, flags);
@@ -359,40 +360,40 @@ public class LocalStatisticsData implements Parcelable {
         this.analyzeFailed = in.readParcelable(PercentagePair.class.getClassLoader());
         this.systemApps = in.readParcelable(PercentagePair.class.getClassLoader());
         int installLocationSize = in.readInt();
-        this.installLocation = new HashMap<String, PercentagePair>(installLocationSize);
+        this.installLocation = new HashMap<String, List<String>>(installLocationSize);
         for (int i = 0; i < installLocationSize; i++) {
             String key = in.readString();
-            PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
+            List<String> value = in.createStringArrayList();
             this.installLocation.put(key, value);
         }
         int targetSdkSize = in.readInt();
-        this.targetSdk = new HashMap<>(targetSdkSize);
+        this.targetSdk = new HashMap<Integer, List<String>>(targetSdkSize);
         for (int i = 0; i < targetSdkSize; i++) {
             Integer key = (Integer) in.readValue(Integer.class.getClassLoader());
-            PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
+            List<String> value = in.createStringArrayList();
             this.targetSdk.put(key, value);
         }
         int minSdkSize = in.readInt();
-        this.minSdk = new HashMap<>(minSdkSize);
+        this.minSdk = new HashMap<Integer, List<String>>(minSdkSize);
         for (int i = 0; i < minSdkSize; i++) {
             Integer key = (Integer) in.readValue(Integer.class.getClassLoader());
-            PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
+            List<String> value = in.createStringArrayList();
             this.minSdk.put(key, value);
         }
         int appSourceSize = in.readInt();
-        this.appSource = new HashMap<AppSource, PercentagePair>(appSourceSize);
+        this.appSource = new HashMap<AppSource, List<String>>(appSourceSize);
         for (int i = 0; i < appSourceSize; i++) {
             int tmpKey = in.readInt();
             AppSource key = tmpKey == -1 ? null : AppSource.values()[tmpKey];
-            PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
+            List<String> value = in.createStringArrayList();
             this.appSource.put(key, value);
         }
         this.apkSize = in.readParcelable(MathStatistics.class.getClassLoader());
         int signAlgorithmSize = in.readInt();
-        this.signAlgorithm = new HashMap<String, PercentagePair>(signAlgorithmSize);
+        this.signAlgorithm = new HashMap<String, List<String>>(signAlgorithmSize);
         for (int i = 0; i < signAlgorithmSize; i++) {
             String key = in.readString();
-            PercentagePair value = in.readParcelable(PercentagePair.class.getClassLoader());
+            List<String> value = in.createStringArrayList();
             this.signAlgorithm.put(key, value);
         }
         this.activites = in.readParcelable(MathStatistics.class.getClassLoader());

@@ -6,12 +6,13 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,18 +20,20 @@ import java.util.Map;
 
 import lecho.lib.hellocharts.gesture.ContainerScrollType;
 import lecho.lib.hellocharts.gesture.ZoomType;
+import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener;
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
 import lecho.lib.hellocharts.model.Column;
 import lecho.lib.hellocharts.model.ColumnChartData;
 import lecho.lib.hellocharts.model.SubcolumnValue;
+import lecho.lib.hellocharts.view.ColumnChartView;
 import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.activity.dialog.AppListDialog;
 import sk.styk.martin.apkanalyzer.business.task.LocalStatisticsLoader;
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding;
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData;
 import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper;
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter;
-import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
 public class LocalStatisticsFragment extends Fragment implements LoaderManager.LoaderCallbacks<LocalStatisticsData>, LocalStatisticsLoader.ProgressCallback {
 
@@ -44,19 +47,17 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
         // We need to re-set callback of loader in case of configuration change
         LocalStatisticsLoader loader = (LocalStatisticsLoader) getLoaderManager().initLoader(LocalStatisticsLoader.ID, null, this);
-        if(loader != null){
+        if (loader != null) {
             loader.setCallbackReference(this);
         }
 
         setHasOptionsMenu(true);
 
-        binding.chartMinSdk.setZoomType(ZoomType.HORIZONTAL);
-        binding.chartMinSdk.setScrollEnabled(true);
-        binding.chartMinSdk.setContainerScrollEnabled(true, ContainerScrollType.VERTICAL);
-
-        binding.chartTargetSdk.setZoomType(ZoomType.HORIZONTAL);
-        binding.chartTargetSdk.setScrollEnabled(true);
-        binding.chartTargetSdk.setContainerScrollEnabled(true, ContainerScrollType.VERTICAL);
+        setupChart(binding.chartMinSdk);
+        setupChart(binding.chartTargetSdk);
+        setupChart(binding.chartInstallLocation);
+        setupChart(binding.chartSignAlgorithm);
+        setupChart(binding.chartAppSource);
 
         return binding.getRoot();
     }
@@ -88,6 +89,12 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
         binding.chartSignAlgorithm.setColumnChartData(getColumnChart(data.getSignAlgorithm(), R.string.sign_algorithm, getResources().getColor(R.color.primary)));
         binding.chartAppSource.setColumnChartData(getColumnChart(data.getAppSource(), R.string.app_source, getResources().getColor(R.color.primary)));
 
+        binding.chartMinSdk.setOnValueTouchListener(new SdkValueTouchListener(binding.chartMinSdk, data.getMinSdk()));
+        binding.chartTargetSdk.setOnValueTouchListener(new SdkValueTouchListener(binding.chartTargetSdk, data.getTargetSdk()));
+        binding.chartInstallLocation.setOnValueTouchListener(new GenericValueTouchListener(binding.chartInstallLocation, data.getInstallLocation()));
+        binding.chartSignAlgorithm.setOnValueTouchListener(new GenericValueTouchListener(binding.chartSignAlgorithm, data.getSignAlgorithm()));
+        binding.chartAppSource.setOnValueTouchListener(new GenericValueTouchListener(binding.chartAppSource, data.getAppSource()));
+
         binding.statisticsApkSize.setStatistics(data.getApkSize());
         binding.statisticsActivities.setStatistics(data.getActivites());
         binding.statisticsServices.setStatistics(data.getServices());
@@ -110,7 +117,13 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
         this.data = null;
     }
 
-    private ColumnChartData getSdkColumnChart(Map<Integer, PercentagePair> map, @ColorInt int columnColor) {
+    @Override
+    public void onProgressChanged(int currentProgress, int maxProgress) {
+        binding.localStatisticsLoadingBar.setMax(maxProgress);
+        binding.localStatisticsLoadingBar.setProgress(currentProgress);
+    }
+
+    private ColumnChartData getSdkColumnChart(Map<Integer, List<String>> map, @ColorInt int columnColor) {
 
         List<Column> columns = new ArrayList<>(map.size());
         List<AxisValue> axisValues = new ArrayList<>(map.size());
@@ -121,7 +134,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
             if (map.get(sdk) == null)
                 continue;
 
-            int applicationCount = map.get(sdk).getCount().intValue();
+            int applicationCount = map.get(sdk).size();
 
             values = new ArrayList<>();
             values.add(new SubcolumnValue(applicationCount, columnColor));
@@ -139,16 +152,16 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
     }
 
-    private ColumnChartData getColumnChart(Map<?, PercentagePair> map, @StringRes int axisName, @ColorInt int columnColor) {
+    private ColumnChartData getColumnChart(Map<?, List<String>> map, @StringRes int axisName, @ColorInt int columnColor) {
 
         List<Column> columns = new ArrayList<>(map.size());
         List<AxisValue> axisValues = new ArrayList<>(map.size());
         List<SubcolumnValue> values;
 
         int axisValue = 0;
-        for (Map.Entry<?, PercentagePair> entry : map.entrySet()) {
+        for (Map.Entry<?, List<String>> entry : map.entrySet()) {
 
-            int applicationCount = entry.getValue().getCount().intValue();
+            int applicationCount = entry.getValue().size();
 
             values = new ArrayList<>();
             values.add(new SubcolumnValue(applicationCount, columnColor));
@@ -166,9 +179,74 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
     }
 
-    @Override
-    public void onProgressChanged(int currentProgress, int maxProgress) {
-        binding.localStatisticsLoadingBar.setMax(maxProgress);
-        binding.localStatisticsLoadingBar.setProgress(currentProgress);
+    private void setupChart(ColumnChartView chartView) {
+        chartView.setZoomType(ZoomType.HORIZONTAL);
+        chartView.setScrollEnabled(true);
+        chartView.setContainerScrollEnabled(true, ContainerScrollType.VERTICAL);
     }
+
+    private class SdkValueTouchListener implements ColumnChartOnValueSelectListener {
+
+        private ColumnChartView chartView;
+        private Map<Integer, List<String>> data;
+
+        SdkValueTouchListener(ColumnChartView chartView, Map<Integer, List<String>> data) {
+            this.chartView = chartView;
+            this.data = data;
+        }
+
+        @Override
+        public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
+            char[] label = chartView.getColumnChartData().getAxisXBottom().getValues().get(columnIndex).getLabelAsChars();
+            String labelString = new String(label);
+
+            int sdkInteger = Integer.valueOf(labelString);
+            Toast.makeText(getActivity(), "Selected SDK: " + sdkInteger, Toast.LENGTH_SHORT).show();
+            ArrayList<String> packageNames = (ArrayList<String>) data.get(sdkInteger);
+
+            AppListDialog.newInstance(packageNames)
+                    .show(((AppCompatActivity) getContext()).getSupportFragmentManager(), AppListDialog.class.getSimpleName());
+        }
+
+        @Override
+        public void onValueDeselected() {
+        }
+
+    }
+
+    private class GenericValueTouchListener implements ColumnChartOnValueSelectListener {
+
+        private ColumnChartView chartView;
+        private Map<?, List<String>> data;
+
+        GenericValueTouchListener(ColumnChartView chartView, Map<?, List<String>> data) {
+            this.chartView = chartView;
+            this.data = data;
+        }
+
+        @Override
+        public void onValueSelected(int columnIndex, int subcolumnIndex, SubcolumnValue value) {
+            char[] label = chartView.getColumnChartData().getAxisXBottom().getValues().get(columnIndex).getLabelAsChars();
+            String labelString = new String(label);
+
+            Toast.makeText(getActivity(), "Selected value: " + labelString, Toast.LENGTH_SHORT).show();
+            ArrayList<String> packageNames = null;
+
+            for (Map.Entry<?, List<String>> entry : data.entrySet()) {
+                if (labelString.equals(entry.getKey().toString())) {
+                    packageNames = (ArrayList<String>) entry.getValue();
+                    break;
+                }
+            }
+
+            AppListDialog.newInstance(packageNames)
+                    .show(((AppCompatActivity) getContext()).getSupportFragmentManager(), AppListDialog.class.getSimpleName());
+        }
+
+        @Override
+        public void onValueDeselected() {
+        }
+
+    }
+
 }

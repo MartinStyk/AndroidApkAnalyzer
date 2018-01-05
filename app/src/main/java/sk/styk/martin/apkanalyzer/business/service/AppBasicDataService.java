@@ -81,4 +81,27 @@ public class AppBasicDataService {
         return packages;
     }
 
+    @NonNull
+    public List<AppListData> getForPackageNames(@NonNull List<String> packageNames) {
+
+        List<AppListData> packages = new ArrayList<>(packageNames.size());
+
+        for (String packageName : packageNames) {
+            PackageInfo packageInfo = null;
+            try {
+                packageInfo = packageManager.getPackageInfo(packageName, 0);
+            } catch (PackageManager.NameNotFoundException e) {
+                continue;
+            }
+
+            if (packageInfo.applicationInfo != null)
+                packages.add(new AppListData(packageInfo, packageManager));
+        }
+
+        Collections.sort(packages, AppBasicInfoComparator.INSTANCE);
+
+        return packages;
+    }
+
+
 }

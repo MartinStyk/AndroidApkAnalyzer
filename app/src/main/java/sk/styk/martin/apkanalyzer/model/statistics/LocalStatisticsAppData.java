@@ -12,6 +12,7 @@ import sk.styk.martin.apkanalyzer.model.detail.AppSource;
  */
 public class LocalStatisticsAppData implements Parcelable {
 
+    private String packageName;
     private boolean systemApp;
     private int installLocation;
     private int targetSdk;
@@ -37,6 +38,14 @@ public class LocalStatisticsAppData implements Parcelable {
 
     private int layouts;
     private int differentLayouts;
+
+    public String getPackageName() {
+        return packageName;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
 
     public boolean isSystemApp() {
         return systemApp;
@@ -187,32 +196,34 @@ public class LocalStatisticsAppData implements Parcelable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        LocalStatisticsAppData data = (LocalStatisticsAppData) o;
+        LocalStatisticsAppData that = (LocalStatisticsAppData) o;
 
-        if (systemApp != data.systemApp) return false;
-        if (installLocation != data.installLocation) return false;
-        if (targetSdk != data.targetSdk) return false;
-        if (minSdk != data.minSdk) return false;
-        if (apkSize != data.apkSize) return false;
-        if (activities != data.activities) return false;
-        if (services != data.services) return false;
-        if (providers != data.providers) return false;
-        if (receivers != data.receivers) return false;
-        if (usedPermissions != data.usedPermissions) return false;
-        if (definedPermissions != data.definedPermissions) return false;
-        if (files != data.files) return false;
-        if (drawables != data.drawables) return false;
-        if (differentDrawables != data.differentDrawables) return false;
-        if (layouts != data.layouts) return false;
-        if (differentLayouts != data.differentLayouts) return false;
-        if (appSource != data.appSource) return false;
-        return signAlgorithm != null ? signAlgorithm.equals(data.signAlgorithm) : data.signAlgorithm == null;
-
+        if (systemApp != that.systemApp) return false;
+        if (installLocation != that.installLocation) return false;
+        if (targetSdk != that.targetSdk) return false;
+        if (minSdk != that.minSdk) return false;
+        if (apkSize != that.apkSize) return false;
+        if (activities != that.activities) return false;
+        if (services != that.services) return false;
+        if (providers != that.providers) return false;
+        if (receivers != that.receivers) return false;
+        if (usedPermissions != that.usedPermissions) return false;
+        if (definedPermissions != that.definedPermissions) return false;
+        if (files != that.files) return false;
+        if (drawables != that.drawables) return false;
+        if (differentDrawables != that.differentDrawables) return false;
+        if (layouts != that.layouts) return false;
+        if (differentLayouts != that.differentLayouts) return false;
+        if (packageName != null ? !packageName.equals(that.packageName) : that.packageName != null)
+            return false;
+        if (appSource != that.appSource) return false;
+        return signAlgorithm != null ? signAlgorithm.equals(that.signAlgorithm) : that.signAlgorithm == null;
     }
 
     @Override
     public int hashCode() {
-        int result = (systemApp ? 1 : 0);
+        int result = packageName != null ? packageName.hashCode() : 0;
+        result = 31 * result + (systemApp ? 1 : 0);
         result = 31 * result + installLocation;
         result = 31 * result + targetSdk;
         result = 31 * result + minSdk;
@@ -243,6 +254,7 @@ public class LocalStatisticsAppData implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.packageName);
         dest.writeByte(this.systemApp ? (byte) 1 : (byte) 0);
         dest.writeInt(this.installLocation);
         dest.writeInt(this.targetSdk);
@@ -264,6 +276,7 @@ public class LocalStatisticsAppData implements Parcelable {
     }
 
     protected LocalStatisticsAppData(Parcel in) {
+        this.packageName = in.readString();
         this.systemApp = in.readByte() != 0;
         this.installLocation = in.readInt();
         this.targetSdk = in.readInt();

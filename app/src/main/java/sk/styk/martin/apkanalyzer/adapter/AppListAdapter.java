@@ -22,7 +22,11 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
-
+/**
+ * App list adapter for list view.
+ * Used in AppListFragment
+ * Supports filtering
+ */
 public class AppListAdapter extends ArrayAdapter<AppListData> {
 
     private final Object lock = new Object();

@@ -37,6 +37,7 @@
     <string name="nav_settings">設定</string>
     <string name="nav_about">このアプリについて</string>
 
+    <string name="apps">アプリケーション</string>
     <string name="all_apps">全てのアプリ</string>
     <string name="system_apps">システムアプリ</string>
     <string name="user_apps">ユーザーアプリ</string>
