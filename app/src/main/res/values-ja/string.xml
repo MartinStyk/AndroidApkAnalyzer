@@ -105,6 +105,7 @@
     <string name="save_manifest_background_notification_title_done">%s に保存する</string>
     <string name="save_manifest_fail">マニュフェストはまだロードされていません。</string>
     <string name="show_app_system_page">ビルトインアプリ情報</string>
+    <string name="show_app_google_play">Google Playのリスティング</string>
     <string name="share_apk">APKを共有</string>
     <string name="share_apk_using">APK共有の使用</string>
     <string name="install_failed">APK分析がAPKのインストールに失敗しました。手動で行ってください</string>
