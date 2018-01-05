@@ -4,10 +4,9 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
-import sk.styk.martin.apkanalyzer.activity.MainActivity;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
-import sk.styk.martin.apkanalyzer.model.detail.FeatureData;
 
 /**
  * Retrieve apps installed on device
@@ -15,6 +14,8 @@ import sk.styk.martin.apkanalyzer.model.detail.FeatureData;
  * Created by Martin Styk on 14.06.2017.
  */
 public class AppDetailDataService {
+
+    private static final String TAG = AppDetailDataService.class.getSimpleName();
 
     private final int ANALYSIS_FLAGS = PackageManager.GET_SIGNATURES |
             PackageManager.GET_ACTIVITIES |
@@ -70,18 +71,24 @@ public class AppDetailDataService {
         if (packageInfo == null)
             return null;
 
-        data.setGeneralData(generalDataService.get(packageInfo));
-        data.setCertificateData(certificateService.get(packageInfo));
-        data.setActivityData(appComponentsService.getActivities(packageInfo));
-        data.setServiceData(appComponentsService.getServices(packageInfo));
-        data.setContentProviderData(appComponentsService.getContentProviders(packageInfo));
-        data.setBroadcastReceiverData(appComponentsService.getBroadcastReceivers(packageInfo));
-        data.setPermissionData(permissionsService.get(packageInfo));
-        data.setFeatureData(featuresService.get(packageInfo));
-        data.setFileData(fileDataService.get(packageInfo));
-        data.setResourceData(resourceService.get(data.getFileData()));
-        data.setClassPathData(dexService.get(packageInfo));
-
+        try {
+            data.setGeneralData(generalDataService.get(packageInfo));
+            data.setCertificateData(certificateService.get(packageInfo));
+            data.setActivityData(appComponentsService.getActivities(packageInfo));
+            data.setServiceData(appComponentsService.getServices(packageInfo));
+            data.setContentProviderData(appComponentsService.getContentProviders(packageInfo));
+            data.setBroadcastReceiverData(appComponentsService.getBroadcastReceivers(packageInfo));
+            data.setPermissionData(permissionsService.get(packageInfo));
+            data.setFeatureData(featuresService.get(packageInfo));
+            data.setFileData(fileDataService.get(packageInfo));
+            data.setResourceData(resourceService.get(data.getFileData()));
+            data.setClassPathData(dexService.get(packageInfo));
+        } catch (Exception e) {
+            // we catch a general exception here, because some repacakged APKs are really naughty
+            // and we rather show user error screen than app failure
+            Log.e(TAG, e.toString());
+            return null;
+        }
         return data;
     }
 
