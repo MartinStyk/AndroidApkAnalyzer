@@ -17,4 +17,6 @@
     <dimen name="intro_radio_buttons_margin">20dp</dimen>
 
 
+    <dimen name="text_size_super_small">10sp</dimen>
+
 </resources>

@@ -3,7 +3,8 @@
     <string name="app_author">Martin Styk</string>
     <string name="app_github">ソースコードは<a href="https://github.com/MartinStyk/AndroidApkAnalyzer">GitHub</a>上に公開されています。</string>
     <string name="app_privacy_policy">使用するためには<a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">プライバシーポリシー</a>に同意してください。</string>
-    <string name="app_dependencies">依存関係 : \n org.apache.commons:commons-math3\n com.github.lecho:hellocharts-library\n com.pddstudio:highlightjs-android\n com.github.apl-devs:appintro</string>
+    <string name="app_rate">レート適用</string>
+    <string name="app_dependencies">依存関係 : \n org.apache.commons:commons-math3 com.github.lecho:hellocharts-library com.pddstudio:highlightjs-android com.github.apl-devs:appintro</string>
 
     <string name="navigation_drawer_open">ナビゲーションドローワーを開く</string>
     <string name="navigation_drawer_close">ナビゲーションドローワーを閉じる</string>

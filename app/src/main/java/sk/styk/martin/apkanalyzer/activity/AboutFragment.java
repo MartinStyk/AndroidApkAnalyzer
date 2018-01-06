@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import sk.styk.martin.apkanalyzer.BuildConfig;
 import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.util.file.AppOperations;
 
 
 public class AboutFragment extends Fragment {
@@ -25,6 +26,13 @@ public class AboutFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.about_app_version)).setText(BuildConfig.VERSION_NAME);
         ((TextView) rootView.findViewById(R.id.about_app_github_link)).setMovementMethod(LinkMovementMethod.getInstance());
         ((TextView) rootView.findViewById(R.id.about_app_privacy_policy)).setMovementMethod(LinkMovementMethod.getInstance());
+
+        rootView.findViewById(R.id.about_app_rate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new AppOperations().openGooglePlay(getContext(), getContext().getPackageName());
+            }
+        });
 
         setHasOptionsMenu(true);
 
