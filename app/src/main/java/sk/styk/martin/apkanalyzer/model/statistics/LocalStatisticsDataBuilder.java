@@ -8,7 +8,6 @@ import java.util.Map;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper;
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper;
-import sk.styk.martin.apkanalyzer.util.MathStatistics;
 import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
 /**
@@ -72,24 +71,24 @@ public class LocalStatisticsDataBuilder {
 
         data.setAppSource(appSource);
 
-        data.setApkSize(new MathStatistics(apkSize));
+        data.setApkSize(new MathStatisticsBuilder(apkSize).build());
 
         data.setSignAlgorithm(signAlgorithm);
 
-        data.setActivites(new MathStatistics(activities));
-        data.setServices(new MathStatistics(services));
-        data.setReceivers(new MathStatistics(receivers));
-        data.setProviders(new MathStatistics(providers));
+        data.setActivites(new MathStatisticsBuilder(activities).build());
+        data.setServices(new MathStatisticsBuilder(services).build());
+        data.setReceivers(new MathStatisticsBuilder(receivers).build());
+        data.setProviders(new MathStatisticsBuilder(providers).build());
 
-        data.setUsedPermissions(new MathStatistics(usedPermissions));
-        data.setDefinedPermissions(new MathStatistics(definedPermissions));
-        data.setFiles(new MathStatistics(files));
+        data.setUsedPermissions(new MathStatisticsBuilder(usedPermissions).build());
+        data.setDefinedPermissions(new MathStatisticsBuilder(definedPermissions).build());
+        data.setFiles(new MathStatisticsBuilder(files).build());
 
-        data.setDrawables(new MathStatistics(drawables));
-        data.setDifferentDrawables(new MathStatistics(differentDrawables));
+        data.setDrawables(new MathStatisticsBuilder(drawables).build());
+        data.setDifferentDrawables(new MathStatisticsBuilder(differentDrawables).build());
 
-        data.setLayouts(new MathStatistics(layouts));
-        data.setDifferentLayouts(new MathStatistics(differentLayouts));
+        data.setLayouts(new MathStatisticsBuilder(layouts).build());
+        data.setDifferentLayouts(new MathStatisticsBuilder(differentLayouts).build());
 
         return data;
     }

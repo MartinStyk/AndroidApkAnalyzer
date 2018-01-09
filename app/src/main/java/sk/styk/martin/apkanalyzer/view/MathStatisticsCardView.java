@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter;
-import sk.styk.martin.apkanalyzer.util.MathStatistics;
+import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics;
 
 /**
  * Used in local statistics layout

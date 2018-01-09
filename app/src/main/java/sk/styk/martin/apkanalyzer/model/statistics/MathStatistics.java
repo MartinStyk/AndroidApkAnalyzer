@@ -1,9 +1,7 @@
-package sk.styk.martin.apkanalyzer.util;
+package sk.styk.martin.apkanalyzer.model.statistics;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import org.apache.commons.math3.stat.StatUtils;
 
 import java.math.BigDecimal;
 
@@ -14,6 +12,17 @@ import java.math.BigDecimal;
  */
 public class MathStatistics implements Parcelable {
 
+    public static final Parcelable.Creator<MathStatistics> CREATOR = new Parcelable.Creator<MathStatistics>() {
+        @Override
+        public MathStatistics createFromParcel(Parcel source) {
+            return new MathStatistics(source);
+        }
+
+        @Override
+        public MathStatistics[] newArray(int size) {
+            return new MathStatistics[size];
+        }
+    };
     private BigDecimal arithmeticMean;
     private BigDecimal median;
     private BigDecimal max;
@@ -21,79 +30,53 @@ public class MathStatistics implements Parcelable {
     private BigDecimal variance;
     private BigDecimal deviation;
 
-    public MathStatistics(float[] data) {
-        computeStatistics(ConversionHelper.toDoubleArray(data));
+
+    protected MathStatistics(BigDecimal arithmeticMean,
+                           BigDecimal median,
+                           BigDecimal max,
+                           BigDecimal min,
+                           BigDecimal variance,
+                           BigDecimal deviation) {
+        this.arithmeticMean = arithmeticMean;
+        this.median = median;
+        this.max = max;
+        this.min = min;
+        this.variance = variance;
+        this.deviation = deviation;
     }
 
-
-    private void computeStatistics(double[] array) {
-
-        if (array == null || array.length == 0) {
-            return;
-        }
-
-        Double mean = StatUtils.mean(array);
-        Double median = StatUtils.percentile(array, 50);
-        Double minimum = StatUtils.min(array);
-        Double maximum = StatUtils.max(array);
-        Double variance = StatUtils.variance(array);
-        Double deviation = Math.sqrt(variance);
-
-        this.arithmeticMean = new BigDecimal(mean);
-        this.median = new BigDecimal(median);
-        this.min = new BigDecimal(minimum);
-        this.max = new BigDecimal(maximum);
-        this.variance = new BigDecimal(variance);
-        this.deviation = new BigDecimal(deviation);
-
+    protected MathStatistics(Parcel in) {
+        this.arithmeticMean = (BigDecimal) in.readSerializable();
+        this.median = (BigDecimal) in.readValue(Long.class.getClassLoader());
+        this.max = (BigDecimal) in.readSerializable();
+        this.min = (BigDecimal) in.readSerializable();
+        this.variance = (BigDecimal) in.readSerializable();
+        this.deviation = (BigDecimal) in.readSerializable();
     }
+
 
     public BigDecimal getArithmeticMean() {
         return arithmeticMean;
-    }
-
-    public void setArithmeticMean(BigDecimal arithmeticMean) {
-        this.arithmeticMean = arithmeticMean;
     }
 
     public BigDecimal getMedian() {
         return median;
     }
 
-    public void setMedian(BigDecimal median) {
-        this.median = median;
-    }
-
     public BigDecimal getMax() {
         return max;
-    }
-
-    public void setMax(BigDecimal max) {
-        this.max = max;
     }
 
     public BigDecimal getMin() {
         return min;
     }
 
-    public void setMin(BigDecimal min) {
-        this.min = min;
-    }
-
     public BigDecimal getVariance() {
         return variance;
     }
 
-    public void setVariance(BigDecimal variance) {
-        this.variance = variance;
-    }
-
     public BigDecimal getDeviation() {
         return deviation;
-    }
-
-    public void setDeviation(BigDecimal deviation) {
-        this.deviation = deviation;
     }
 
     @Override
@@ -151,25 +134,4 @@ public class MathStatistics implements Parcelable {
         dest.writeSerializable(this.variance);
         dest.writeSerializable(this.deviation);
     }
-
-    protected MathStatistics(Parcel in) {
-        this.arithmeticMean = (BigDecimal) in.readSerializable();
-        this.median = (BigDecimal) in.readValue(Long.class.getClassLoader());
-        this.max = (BigDecimal) in.readSerializable();
-        this.min = (BigDecimal) in.readSerializable();
-        this.variance = (BigDecimal) in.readSerializable();
-        this.deviation = (BigDecimal) in.readSerializable();
-    }
-
-    public static final Parcelable.Creator<MathStatistics> CREATOR = new Parcelable.Creator<MathStatistics>() {
-        @Override
-        public MathStatistics createFromParcel(Parcel source) {
-            return new MathStatistics(source);
-        }
-
-        @Override
-        public MathStatistics[] newArray(int size) {
-            return new MathStatistics[size];
-        }
-    };
 }

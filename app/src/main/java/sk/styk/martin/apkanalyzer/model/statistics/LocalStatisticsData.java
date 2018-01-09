@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
-import sk.styk.martin.apkanalyzer.util.MathStatistics;
 import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
 /**
