@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.adapter;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.activity.AppDetailActivity;
+import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.adapter.detaillist.GenericDetailListAdapter;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
@@ -50,6 +53,15 @@ public class AppListRecyclerAdapter extends GenericDetailListAdapter<AppListData
             icon = v.findViewById(R.id.package_img);
             applicationName = v.findViewById(R.id.application_name);
             packageName = v.findViewById(R.id.package_name);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), AppDetailActivity.class);
+                    intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, getItem(getAdapterPosition()).getPackageName());
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
