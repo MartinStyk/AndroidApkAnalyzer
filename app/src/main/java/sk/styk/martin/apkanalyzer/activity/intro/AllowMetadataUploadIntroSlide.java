@@ -64,7 +64,7 @@ public class AllowMetadataUploadIntroSlide extends AppIntroBaseFragment implemen
     @Override
     public void onUserIllegallyRequestedNextPage() {
         // User illegally requested next slide
-        Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.intro_upload_require_input, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.intro_upload_require_input, Snackbar.LENGTH_SHORT).show();
     }
 
     public boolean isUploadAllowed() {
