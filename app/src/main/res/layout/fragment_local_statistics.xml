@@ -112,7 +112,7 @@
                             android:id="@+id/chart_min_sdk"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="400dp"
+                            android:minHeight="350dp"
                             android:padding="@dimen/padding_default" />
 
                     </LinearLayout>
@@ -141,7 +141,7 @@
                             android:id="@+id/chart_target_sdk"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="400dp"
+                            android:minHeight="350dp"
                             android:padding="@dimen/padding_default" />
 
                     </LinearLayout>
@@ -170,7 +170,7 @@
                             android:id="@+id/chart_install_location"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="400dp"
+                            android:minHeight="350dp"
                             android:padding="@dimen/padding_default" />
 
                     </LinearLayout>
@@ -199,7 +199,7 @@
                             android:id="@+id/chart_sign_algorithm"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="400dp"
+                            android:minHeight="350dp"
                             android:padding="@dimen/padding_default" />
 
                     </LinearLayout>
@@ -228,7 +228,7 @@
                             android:id="@+id/chart_app_source"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:minHeight="400dp"
+                            android:minHeight="350dp"
                             android:padding="@dimen/padding_default" />
 
                     </LinearLayout>
