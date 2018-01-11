@@ -6,7 +6,7 @@ package sk.styk.martin.apkanalyzer.util;
 
 public class AndroidVersionHelper {
 
-    public static final int MAX_SDK_VERSION = 26;
+    public static final int MAX_SDK_VERSION = 27;
 
     public static String resolveVersion(int sdkVersion) {
         //java index from 0 - first item is sdk 1
@@ -37,7 +37,8 @@ public class AndroidVersionHelper {
                 "Android 6.0 Marshmallow",
                 "Android 7.0 Nougat",
                 "Android 7.1.2 Nougat",
-                "Android 8.0 \"O\""
+                "Android 8.0 Oreo",
+                "Android 8.1 Oreo"
         };
         return (index >= 0 && index < version.length) ? version[index] : null;
     }
