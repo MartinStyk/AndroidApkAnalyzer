@@ -15,12 +15,12 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-google-play-services.pro', 'proguard-gson.pro'
         }
         debug {
-            minifyEnabled false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-google-play-services.pro', 'proguard-gson.pro'
             applicationIdSuffix ".dev"
         }
     }
