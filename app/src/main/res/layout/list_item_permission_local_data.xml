@@ -37,11 +37,14 @@
 
     <TextView
         android:id="@+id/affected_apps"
+        android:textColor="@color/colorWhite"
+        android:background="@color/primary_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="@dimen/text_margin_top_bottom"
+        android:layout_marginTop="3dp"
+        android:padding="3dp"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>
