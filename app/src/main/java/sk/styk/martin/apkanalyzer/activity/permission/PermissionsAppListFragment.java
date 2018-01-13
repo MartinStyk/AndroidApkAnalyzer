@@ -47,8 +47,12 @@ public class PermissionsAppListFragment extends Fragment implements LoaderManage
 
     @Override
     public void onLoadFinished(Loader<List<AppListData>> loader, List<AppListData> data) {
-        binding.recyclerViewAppList.setAdapter(new AppListRecyclerAdapter(data));
         binding.listViewProgressBar.setVisibility(View.GONE);
+        if(data != null && !data.isEmpty())
+            binding.recyclerViewAppList.setAdapter(new AppListRecyclerAdapter(data));
+        else
+            binding.nothingToShow.setVisibility(View.VISIBLE);
+
     }
 
     @Override
