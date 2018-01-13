@@ -11,17 +11,6 @@ import android.os.Parcelable;
  */
 public class PermissionData implements Parcelable {
 
-    public static final Creator<PermissionData> CREATOR = new Creator<PermissionData>() {
-        @Override
-        public PermissionData createFromParcel(Parcel source) {
-            return new PermissionData(source);
-        }
-
-        @Override
-        public PermissionData[] newArray(int size) {
-            return new PermissionData[size];
-        }
-    };
     private String name;
     private String simpleName;
     private String groupName;
@@ -36,14 +25,6 @@ public class PermissionData implements Parcelable {
         this.protectionLevel = protectionLevel;
         this.icon = icon;
         this.simpleName = createSimpleName(name);
-    }
-
-    protected PermissionData(Parcel in) {
-        this.name = in.readString();
-        this.groupName = in.readString();
-        this.description = in.readString();
-        this.protectionLevel = in.readInt();
-        this.icon = in.readParcelable(Drawable.class.getClassLoader());
     }
 
     private String createSimpleName(String name) {
@@ -117,8 +98,29 @@ public class PermissionData implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
+        dest.writeString(this.simpleName);
         dest.writeString(this.groupName);
         dest.writeString(this.description);
         dest.writeInt(this.protectionLevel);
     }
+
+    protected PermissionData(Parcel in) {
+        this.name = in.readString();
+        this.simpleName = in.readString();
+        this.groupName = in.readString();
+        this.description = in.readString();
+        this.protectionLevel = in.readInt();
+    }
+
+    public static final Creator<PermissionData> CREATOR = new Creator<PermissionData>() {
+        @Override
+        public PermissionData createFromParcel(Parcel source) {
+            return new PermissionData(source);
+        }
+
+        @Override
+        public PermissionData[] newArray(int size) {
+            return new PermissionData[size];
+        }
+    };
 }

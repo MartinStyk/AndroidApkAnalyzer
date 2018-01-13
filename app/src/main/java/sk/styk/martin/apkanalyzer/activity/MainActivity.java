@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.intro.IntroActivity;
+import sk.styk.martin.apkanalyzer.activity.permission.LocalPermissionsFragment;
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

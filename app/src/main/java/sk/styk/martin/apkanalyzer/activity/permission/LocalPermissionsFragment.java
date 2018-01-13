@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.activity;
+package sk.styk.martin.apkanalyzer.activity.permission;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

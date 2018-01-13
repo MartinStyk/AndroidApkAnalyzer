@@ -67,6 +67,16 @@
             android:label="@string/title_intro"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <activity
+            android:name=".activity.permission.PermissionDetailActivity"
+            android:label="@string/title_permissions"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".activity.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="sk.styk.martin.apkanalyzer.activity.MainActivity" />
+        </activity>
+
         <service android:name=".business.task.FileCopyService" />
         <service
             android:name=".business.task.upload.MultipleAppDataUploadService"

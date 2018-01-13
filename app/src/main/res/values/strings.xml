@@ -18,6 +18,7 @@
     <string name="title_item_detail">Item Detail</string>
     <string name="title_intro">Intro</string>
     <string name="title_manifest">AndroidManifest</string>
+    <string name="title_permissions">Permissions details</string>
     <string name="loading">Loading...</string>
     <string name="loading_failed">Loading failed</string>
     <string name="error_loading_package_detail">Can not load APK detail</string>
@@ -274,6 +275,8 @@
 
 
     <string name="permissions_number_apps">%1$d apps</string>
+    <string name="permissions_granted">Granted</string>
+    <string name="permissions_not_granted">Not granted</string>
 
     <string-array name="android_versions">
         <item>item</item>

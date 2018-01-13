@@ -1,11 +1,14 @@
 package sk.styk.martin.apkanalyzer.model.permissions;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import sk.styk.martin.apkanalyzer.business.service.PermissionsService;
 
 /**
  * Created by Martin Styk on 13.01.2018.
  */
-public class PermissionStatus {
+public class PermissionStatus implements Parcelable {
     private String packageName;
     private boolean isGranted;
 
@@ -39,4 +42,32 @@ public class PermissionStatus {
         result = 31 * result + (isGranted ? 1 : 0);
         return result;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.packageName);
+        dest.writeByte(this.isGranted ? (byte) 1 : (byte) 0);
+    }
+
+    protected PermissionStatus(Parcel in) {
+        this.packageName = in.readString();
+        this.isGranted = in.readByte() != 0;
+    }
+
+    public static final Creator<PermissionStatus> CREATOR = new Creator<PermissionStatus>() {
+        @Override
+        public PermissionStatus createFromParcel(Parcel source) {
+            return new PermissionStatus(source);
+        }
+
+        @Override
+        public PermissionStatus[] newArray(int size) {
+            return new PermissionStatus[size];
+        }
+    };
 }

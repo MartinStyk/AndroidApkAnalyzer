@@ -8,13 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.activity.AppDetailActivity;
-import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
+import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailActivity;
+import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailFragment;
 import sk.styk.martin.apkanalyzer.adapter.detaillist.GenericDetailListAdapter;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
+import sk.styk.martin.apkanalyzer.model.permissions.PermissionStatus;
 
 /**
  * Permission list adapter used in LocalPermissionFragment
@@ -57,8 +59,8 @@ public class PermissionListAdapter extends GenericDetailListAdapter<LocalPermiss
             v.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(view.getContext(), AppDetailActivity.class);
-                    intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, getItem(getAdapterPosition()).getPermissionData().getName());
+                    Intent intent = new Intent(view.getContext(), PermissionDetailActivity.class);
+                    intent.putExtra(PermissionDetailFragment.ARG_PERMISSIONS_DATA, getItem(getAdapterPosition()));
                     view.getContext().startActivity(intent);
                 }
             });
