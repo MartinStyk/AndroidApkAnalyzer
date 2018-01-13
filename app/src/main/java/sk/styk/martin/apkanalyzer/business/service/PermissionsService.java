@@ -51,10 +51,7 @@ public class PermissionsService {
                 permissionInfo.name,
                 permissionInfo.group,
                 description,
-                permissionInfo.protectionLevel,
-                null
-//                permissionInfo.loadIcon(packageManager)
-        );
+                permissionInfo.protectionLevel);
 
     }
 
@@ -87,7 +84,7 @@ public class PermissionsService {
                     permissionData = getPermissionData(permissionInfo, packageManager);
                 } catch (Exception e) {
                     // we failed to get permission data from pacakge manager. Try to use things we know
-                    permissionData = new PermissionData(name, null, null, Integer.MIN_VALUE, null);
+                    permissionData = new PermissionData(name, null, null, Integer.MIN_VALUE);
                 }
 
                 requestedPermissions.add(new UsedPermissionData(permissionData, isGranted));

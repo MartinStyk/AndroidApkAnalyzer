@@ -12,7 +12,7 @@
             android:title="@string/nav_statistics" />
         <item
             android:id="@+id/nav_local_permissions"
-            android:icon="@drawable/ic_more"
+            android:icon="@drawable/ic_security"
             android:title="@string/nav_permissions" />
         <item
             android:id="@+id/nav_settings"

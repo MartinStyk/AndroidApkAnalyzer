@@ -70,7 +70,7 @@
         <activity
             android:name=".activity.permission.PermissionDetailActivity"
             android:label="@string/title_permissions"
-            android:theme="@style/AppTheme.NoActionBar"
+            android:theme="@style/AppTheme"
             android:parentActivityName=".activity.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

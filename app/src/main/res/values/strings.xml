@@ -275,8 +275,14 @@
 
 
     <string name="permissions_number_apps">%1$d apps</string>
+    <string name="permissions_detail">Details</string>
     <string name="permissions_granted">Granted</string>
     <string name="permissions_not_granted">Not granted</string>
+    <string name="permissions_name">Name</string>
+    <string name="permissions_name_description">Fully qualified name used for identification of permission</string>
+    <string name="permissions_group">Group</string>
+    <string name="permissions_group_description">Declares a name for a logical grouping of related permissions.</string>
+
 
     <string-array name="android_versions">
         <item>item</item>

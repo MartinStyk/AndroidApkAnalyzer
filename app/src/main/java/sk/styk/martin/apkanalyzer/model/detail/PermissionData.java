@@ -11,20 +11,37 @@ import android.os.Parcelable;
  */
 public class PermissionData implements Parcelable {
 
+    public static final Creator<PermissionData> CREATOR = new Creator<PermissionData>() {
+        @Override
+        public PermissionData createFromParcel(Parcel source) {
+            return new PermissionData(source);
+        }
+
+        @Override
+        public PermissionData[] newArray(int size) {
+            return new PermissionData[size];
+        }
+    };
     private String name;
     private String simpleName;
     private String groupName;
     private String description;
     private int protectionLevel;
-    private Drawable icon;
 
-    public PermissionData(String name, String groupName, String description, int protectionLevel, Drawable icon) {
+    public PermissionData(String name, String groupName, String description, int protectionLevel) {
         this.name = name;
         this.groupName = groupName;
         this.description = description;
         this.protectionLevel = protectionLevel;
-        this.icon = icon;
         this.simpleName = createSimpleName(name);
+    }
+
+    protected PermissionData(Parcel in) {
+        this.name = in.readString();
+        this.simpleName = in.readString();
+        this.groupName = in.readString();
+        this.description = in.readString();
+        this.protectionLevel = in.readInt();
     }
 
     private String createSimpleName(String name) {
@@ -71,10 +88,6 @@ public class PermissionData implements Parcelable {
         return protectionLevel;
     }
 
-    public Drawable getIcon() {
-        return icon;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,24 +116,4 @@ public class PermissionData implements Parcelable {
         dest.writeString(this.description);
         dest.writeInt(this.protectionLevel);
     }
-
-    protected PermissionData(Parcel in) {
-        this.name = in.readString();
-        this.simpleName = in.readString();
-        this.groupName = in.readString();
-        this.description = in.readString();
-        this.protectionLevel = in.readInt();
-    }
-
-    public static final Creator<PermissionData> CREATOR = new Creator<PermissionData>() {
-        @Override
-        public PermissionData createFromParcel(Parcel source) {
-            return new PermissionData(source);
-        }
-
-        @Override
-        public PermissionData[] newArray(int size) {
-            return new PermissionData[size];
-        }
-    };
 }

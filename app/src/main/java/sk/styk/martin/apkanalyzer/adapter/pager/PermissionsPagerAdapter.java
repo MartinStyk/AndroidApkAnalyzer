@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailFragment;
+import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailPagerFragment;
 import sk.styk.martin.apkanalyzer.activity.permission.PermissionsAppListFragment;
+import sk.styk.martin.apkanalyzer.activity.permission.PermissionsGeneralDetailsFragment;
+import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 
 /**
@@ -23,6 +25,7 @@ public class PermissionsPagerAdapter extends FragmentStatePagerAdapter {
     private Context context;
     private List<String> grantedPackages = new ArrayList<>(0);
     private List<String> notGrantedPackages = new ArrayList<>(0);
+    private PermissionData permissionData;
 
     public PermissionsPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
@@ -35,12 +38,17 @@ public class PermissionsPagerAdapter extends FragmentStatePagerAdapter {
         Bundle args = new Bundle();
         switch (position) {
             case 0:
-                args.putStringArrayList(PermissionDetailFragment.ARG_CHILD, (ArrayList<String>) grantedPackages);
-                fragment = new PermissionsAppListFragment();
+                args.putParcelable(PermissionDetailPagerFragment.ARG_CHILD, permissionData);
+                fragment = new PermissionsGeneralDetailsFragment();
                 break;
 
             case 1:
-                args.putStringArrayList(PermissionDetailFragment.ARG_CHILD, (ArrayList<String>) notGrantedPackages);
+                args.putStringArrayList(PermissionDetailPagerFragment.ARG_CHILD, (ArrayList<String>) grantedPackages);
+                fragment = new PermissionsAppListFragment();
+                break;
+
+            case 2:
+                args.putStringArrayList(PermissionDetailPagerFragment.ARG_CHILD, (ArrayList<String>) notGrantedPackages);
                 fragment = new PermissionsAppListFragment();
                 break;
 
@@ -53,21 +61,24 @@ public class PermissionsPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return context.getResources().getString(R.string.permissions_granted);
+                return context.getResources().getString(R.string.permissions_detail);
             case 1:
+                return context.getResources().getString(R.string.permissions_granted);
+            case 2:
                 return context.getResources().getString(R.string.permissions_not_granted);
         }
         return "TODO";
     }
 
     public void dataChange(LocalPermissionData data) {
+        this.permissionData = data.getPermissionData();
         this.grantedPackages = data.getGrantedPackageNames();
         this.notGrantedPackages = data.getNotGrantedPackageNames();
     }

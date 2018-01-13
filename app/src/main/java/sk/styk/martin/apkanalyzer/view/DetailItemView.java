@@ -62,6 +62,10 @@ public class DetailItemView extends LinearLayout implements View.OnClickListener
         this.title.setText(title);
     }
 
+    public void setValueText(String value){
+        setValue(value);
+    }
+
     public void setValue(String value) {
         this.valueText = value;
         if (value == null || value.equals(notShownExpression)) {
