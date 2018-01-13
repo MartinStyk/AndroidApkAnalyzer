@@ -4,6 +4,11 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import sk.styk.martin.apkanalyzer.business.service.AndroidManifestService;
+import sk.styk.martin.apkanalyzer.business.service.CertificateService;
+import sk.styk.martin.apkanalyzer.business.service.FileDataService;
+import sk.styk.martin.apkanalyzer.business.service.GeneralDataService;
+import sk.styk.martin.apkanalyzer.business.service.ResourceService;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 import sk.styk.martin.apkanalyzer.model.detail.FileData;
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData;

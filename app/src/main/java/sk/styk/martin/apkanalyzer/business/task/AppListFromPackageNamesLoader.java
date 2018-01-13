@@ -5,8 +5,6 @@ import android.content.Context;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
-import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
-import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**

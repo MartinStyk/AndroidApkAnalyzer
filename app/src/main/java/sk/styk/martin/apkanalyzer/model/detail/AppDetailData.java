@@ -19,7 +19,7 @@ public class AppDetailData implements Parcelable {
     private List<ServiceData> serviceData;
     private List<ContentProviderData> contentProviderData;
     private List<BroadcastReceiverData> broadcastReceiverData;
-    private PermissionData permissionData;
+    private PermissionDataAgregate permissionData;
     private List<FeatureData> featureData;
     private FileData fileData;
     private ResourceData resourceData;
@@ -93,11 +93,11 @@ public class AppDetailData implements Parcelable {
         this.broadcastReceiverData = broadcastReceiverData;
     }
 
-    public PermissionData getPermissionData() {
+    public PermissionDataAgregate getPermissionData() {
         return permissionData;
     }
 
-    public void setPermissionData(PermissionData permissionData) {
+    public void setPermissionData(PermissionDataAgregate permissionData) {
         this.permissionData = permissionData;
     }
 
@@ -235,7 +235,7 @@ public class AppDetailData implements Parcelable {
         this.serviceData = in.createTypedArrayList(ServiceData.CREATOR);
         this.contentProviderData = in.createTypedArrayList(ContentProviderData.CREATOR);
         this.broadcastReceiverData = in.createTypedArrayList(BroadcastReceiverData.CREATOR);
-        this.permissionData = in.readParcelable(PermissionData.class.getClassLoader());
+        this.permissionData = in.readParcelable(PermissionDataAgregate.class.getClassLoader());
         this.featureData = in.createTypedArrayList(FeatureData.CREATOR);
         this.fileData = in.readParcelable(FileData.class.getClassLoader());
         this.resourceData = in.readParcelable(ResourceData.class.getClassLoader());

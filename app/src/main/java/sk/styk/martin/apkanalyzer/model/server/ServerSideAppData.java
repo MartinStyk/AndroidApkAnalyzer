@@ -169,12 +169,12 @@ public class ServerSideAppData {
         receiversAggregatedHash = HashCodeHelper.hashList(receiverData);
 
         // Defined permissions
-        List<String> definedPermissions = appDetailData.getPermissionData().getDefinesPermissions();
+        List<String> definedPermissions = appDetailData.getPermissionData().getDefinesPermissionsNames();
         definedPermissionsAggregatedHash = HashCodeHelper.hashList(definedPermissions);
         numberDefinedPermissions = definedPermissions.size();
 
         // Used permissions
-        permissions = appDetailData.getPermissionData().getUsesPermissions();
+        permissions = appDetailData.getPermissionData().getUsesPermissionsNames();
         usedPermissionsAggregatedHash = HashCodeHelper.hashList(permissions);
         numberUsedPermissions = permissions.size();
 

@@ -1,81 +1,15 @@
 package sk.styk.martin.apkanalyzer.model.detail;
 
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.List;
-
 /**
+ * Single used permission entry
+ * <p>
  * Created by Martin Styk on 22.06.2017.
  */
 public class PermissionData implements Parcelable {
-
-    private List<String> definesPermissions;
-
-    private List<String> usesPermissions;
-
-    public List<String> getDefinesPermissions() {
-        return definesPermissions;
-    }
-
-    public void setDefinesPermissions(List<String> definesPermissions) {
-        this.definesPermissions = definesPermissions;
-    }
-
-    public List<String> getUsesPermissions() {
-        return usesPermissions;
-    }
-
-    public void setUsesPermissions(List<String> usesPermissions) {
-        this.usesPermissions = usesPermissions;
-    }
-
-    @Override
-    public String toString() {
-        return "PermissionData{" +
-                "definesPermissions=" + definesPermissions +
-                ", usesPermissions=" + usesPermissions +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        PermissionData that = (PermissionData) o;
-
-        if (definesPermissions != null ? !definesPermissions.equals(that.definesPermissions) : that.definesPermissions != null)
-            return false;
-        return usesPermissions != null ? usesPermissions.equals(that.usesPermissions) : that.usesPermissions == null;
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = definesPermissions != null ? definesPermissions.hashCode() : 0;
-        result = 31 * result + (usesPermissions != null ? usesPermissions.hashCode() : 0);
-        return result;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringList(this.definesPermissions);
-        dest.writeStringList(this.usesPermissions);
-    }
-
-    public PermissionData() {
-    }
-
-    protected PermissionData(Parcel in) {
-        this.definesPermissions = in.createStringArrayList();
-        this.usesPermissions = in.createStringArrayList();
-    }
 
     public static final Creator<PermissionData> CREATOR = new Creator<PermissionData>() {
         @Override
@@ -88,4 +22,103 @@ public class PermissionData implements Parcelable {
             return new PermissionData[size];
         }
     };
+    private String name;
+    private String simpleName;
+    private String groupName;
+    private String description;
+    private int protectionLevel;
+    private Drawable icon;
+
+    public PermissionData(String name, String groupName, String description, int protectionLevel, Drawable icon) {
+        this.name = name;
+        this.groupName = groupName;
+        this.description = description;
+        this.protectionLevel = protectionLevel;
+        this.icon = icon;
+        this.simpleName = createSimpleName(name);
+    }
+
+    protected PermissionData(Parcel in) {
+        this.name = in.readString();
+        this.groupName = in.readString();
+        this.description = in.readString();
+        this.protectionLevel = in.readInt();
+        this.icon = in.readParcelable(Drawable.class.getClassLoader());
+    }
+
+    private String createSimpleName(String name) {
+        StringBuilder simpleNameBuilder = new StringBuilder(name);
+
+        int lastDot = name.lastIndexOf(".");
+        if (lastDot > 0 && lastDot < name.length())
+            simpleNameBuilder = new StringBuilder(name.substring(lastDot + 1));
+
+        int i = 0;
+        boolean previousSpace = false;
+        while (++i < simpleNameBuilder.length()) {
+            if (simpleNameBuilder.charAt(i) == '_') {
+                simpleNameBuilder.replace(i, i + 1, " ");
+                previousSpace = true;
+            } else {
+                if (!previousSpace) {
+                    char lowercase = Character.toLowerCase(simpleNameBuilder.charAt(i));
+                    simpleNameBuilder.replace(i, i + 1, String.valueOf(lowercase));
+                }
+                previousSpace = false;
+            }
+        }
+        return simpleNameBuilder.toString();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSimpleName() {
+        return simpleName;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getProtectionLevel() {
+        return protectionLevel;
+    }
+
+    public Drawable getIcon() {
+        return icon;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PermissionData that = (PermissionData) o;
+
+        return name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return name.hashCode();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeString(this.groupName);
+        dest.writeString(this.description);
+        dest.writeInt(this.protectionLevel);
+    }
 }

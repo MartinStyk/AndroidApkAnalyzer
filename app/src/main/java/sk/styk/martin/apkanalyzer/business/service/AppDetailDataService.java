@@ -78,7 +78,7 @@ public class AppDetailDataService {
             data.setServiceData(appComponentsService.getServices(packageInfo));
             data.setContentProviderData(appComponentsService.getContentProviders(packageInfo));
             data.setBroadcastReceiverData(appComponentsService.getBroadcastReceivers(packageInfo));
-            data.setPermissionData(permissionsService.get(packageInfo));
+            data.setPermissionData(permissionsService.get(packageInfo, packageManager));
             data.setFeatureData(featuresService.get(packageInfo));
             data.setFileData(fileDataService.get(packageInfo));
             data.setResourceData(resourceService.get(data.getFileData()));
