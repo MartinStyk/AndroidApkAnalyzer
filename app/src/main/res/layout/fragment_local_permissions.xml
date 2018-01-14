@@ -7,32 +7,11 @@
         android:layout_height="match_parent"
         android:layout_margin="@dimen/activity_horizontal_margin">
 
-        <!-- TODO this is same as in local stastitics - create separate view -->
-        <RelativeLayout
-            android:id="@+id/content_loading"
+        <sk.styk.martin.apkanalyzer.view.LoadingBarView
+            android:id="@+id/loading_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_horizontal_margin">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/content_loading_bar"
-                android:padding="@dimen/padding_default"
-                android:text="@string/loading"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <ProgressBar
-                android:id="@+id/content_loading_bar"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center_horizontal"
-                android:progressDrawable="@drawable/progress_bar" />
-
-        </RelativeLayout>
-
+            android:layout_margin="@dimen/activity_horizontal_margin" />
 
         <LinearLayout
             android:id="@+id/content"

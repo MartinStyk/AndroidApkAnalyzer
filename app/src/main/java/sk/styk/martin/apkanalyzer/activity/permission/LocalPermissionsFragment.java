@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +13,6 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.adapter.PermissionListAdapter;
 import sk.styk.martin.apkanalyzer.business.task.LocalPermissionsLoader;
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalPermissionsBinding;
@@ -72,7 +70,7 @@ public class LocalPermissionsFragment extends Fragment implements LoaderManager.
         binding.recyclerViewPermissions.swapAdapter(permissionListAdapter, false);
 
         binding.content.setVisibility(View.VISIBLE);
-        binding.contentLoading.setVisibility(View.GONE);
+        binding.loadingBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -82,8 +80,7 @@ public class LocalPermissionsFragment extends Fragment implements LoaderManager.
 
     @Override
     public void onProgressChanged(int currentProgress, int maxProgress) {
-        binding.contentLoadingBar.setMax(maxProgress);
-        binding.contentLoadingBar.setProgress(currentProgress);
+        binding.loadingBar.setProgress(currentProgress, maxProgress);
     }
 
 }

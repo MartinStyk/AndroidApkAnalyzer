@@ -109,7 +109,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
         binding.statisticsLayoutsDifferent.setStatistics(data.getDifferentLayouts());
 
         binding.localStatisticsContent.setVisibility(View.VISIBLE);
-        binding.localStatisticsLoading.setVisibility(View.GONE);
+        binding.loadingBar.setVisibility(View.GONE);
     }
 
     @Override
@@ -119,8 +119,7 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
 
     @Override
     public void onProgressChanged(int currentProgress, int maxProgress) {
-        binding.localStatisticsLoadingBar.setMax(maxProgress);
-        binding.localStatisticsLoadingBar.setProgress(currentProgress);
+        binding.loadingBar.setProgress(currentProgress, maxProgress);
     }
 
     private ColumnChartData getSdkColumnChart(Map<Integer, List<String>> map, @ColorInt int columnColor) {
