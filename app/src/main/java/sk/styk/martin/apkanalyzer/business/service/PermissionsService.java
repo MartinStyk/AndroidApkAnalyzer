@@ -45,12 +45,9 @@ public class PermissionsService {
 
     private PermissionData getPermissionData(@NonNull PermissionInfo permissionInfo, @NonNull PackageManager packageManager) {
 
-        String description = permissionInfo.loadDescription(packageManager) == null ? "" : permissionInfo.loadDescription(packageManager).toString();
-
         return new PermissionData(
                 permissionInfo.name,
                 permissionInfo.group,
-                description,
                 permissionInfo.protectionLevel);
 
     }
@@ -84,7 +81,7 @@ public class PermissionsService {
                     permissionData = getPermissionData(permissionInfo, packageManager);
                 } catch (Exception e) {
                     // we failed to get permission data from pacakge manager. Try to use things we know
-                    permissionData = new PermissionData(name, null, null, Integer.MIN_VALUE);
+                    permissionData = new PermissionData(name, null, Integer.MIN_VALUE);
                 }
 
                 requestedPermissions.add(new UsedPermissionData(permissionData, isGranted));

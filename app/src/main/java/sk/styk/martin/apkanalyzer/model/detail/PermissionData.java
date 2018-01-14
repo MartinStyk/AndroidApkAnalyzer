@@ -25,13 +25,11 @@ public class PermissionData implements Parcelable {
     private String name;
     private String simpleName;
     private String groupName;
-    private String description;
     private int protectionLevel;
 
-    public PermissionData(String name, String groupName, String description, int protectionLevel) {
+    public PermissionData(String name, String groupName, int protectionLevel) {
         this.name = name;
         this.groupName = groupName;
-        this.description = description;
         this.protectionLevel = protectionLevel;
         this.simpleName = createSimpleName(name);
     }
@@ -40,7 +38,6 @@ public class PermissionData implements Parcelable {
         this.name = in.readString();
         this.simpleName = in.readString();
         this.groupName = in.readString();
-        this.description = in.readString();
         this.protectionLevel = in.readInt();
     }
 
@@ -80,10 +77,6 @@ public class PermissionData implements Parcelable {
         return groupName;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public int getProtectionLevel() {
         return protectionLevel;
     }
@@ -113,7 +106,6 @@ public class PermissionData implements Parcelable {
         dest.writeString(this.name);
         dest.writeString(this.simpleName);
         dest.writeString(this.groupName);
-        dest.writeString(this.description);
         dest.writeInt(this.protectionLevel);
     }
 }

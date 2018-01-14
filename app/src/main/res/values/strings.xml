@@ -280,9 +280,18 @@
     <string name="permissions_granted">Granted</string>
     <string name="permissions_not_granted">Not granted</string>
     <string name="permissions_name">Name</string>
-    <string name="permissions_name_description">Fully qualified name used for identification of permission</string>
+    <string name="permissions_name_description">Fully qualified name used for identification of permission.</string>
     <string name="permissions_group">Group</string>
     <string name="permissions_group_description">Declares a name for a logical grouping of related permissions.</string>
+    <string name="permissions_granted_apps">Apps granted permission</string>
+    <string name="permissions_granted_apps_description">Number of apps on your device, with this permission granted.</string>
+    <string name="permissions_not_granted_apps">Apps not granted permission</string>
+    <string name="permissions_not_granted_apps_description">Number of apps on your device, with this permission not granted.</string>
+    <string name="permissions_protection">Protection level</string>
+    <string name="permissions_protection_description">The level of access this permission is protecting, as per protectionLevel.</string>
+    <string name="permissions_protection_normal">Normal</string>
+    <string name="permissions_protection_dangerous">Dangerous</string>
+    <string name="permissions_protection_signature">Signature</string>
 
 
     <string-array name="android_versions">

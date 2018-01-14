@@ -7,6 +7,24 @@
         <variable
             name="permission"
             type="sk.styk.martin.apkanalyzer.model.detail.PermissionData" />
+
+        <variable
+            name="context"
+            type="android.content.Context" />
+
+        <variable
+            name="grantedApps"
+            type="int" />
+
+        <variable
+            name="notGrantedApps"
+            type="int" />
+
+        <variable
+            name="description"
+            type="CharSequence"/>
+
+        <import type="sk.styk.martin.apkanalyzer.util.PermissionLevelHelper"/>
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -35,11 +53,32 @@
                 app:titleText="@string/permissions_group"
                 app:valueText="@{permission.groupName}"/>
 
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/permissions_protection_description"
+                app:titleText="@string/permissions_protection"
+                app:valueText="@{PermissionLevelHelper.showLocalized(permission.protectionLevel, context)}"/>
+
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/permissions_granted_apps_description"
+                app:titleText="@string/permissions_granted_apps"
+                app:valueText="@{String.valueOf(grantedApps)}"/>
+
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/permissions_not_granted_apps_description"
+                app:titleText="@string/permissions_not_granted_apps"
+                app:valueText="@{String.valueOf(notGrantedApps)}"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
-                android:text="@{permission.description}"
-                android:textAppearance="?android:attr/textAppearanceSmall"/>
+                android:text='@{description ?? ""}'
+                android:layout_margin="@dimen/text_margin_right_left"/>
 
         </LinearLayout>
 

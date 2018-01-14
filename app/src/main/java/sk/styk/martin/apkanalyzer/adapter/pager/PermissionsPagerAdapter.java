@@ -39,6 +39,8 @@ public class PermissionsPagerAdapter extends FragmentStatePagerAdapter {
         switch (position) {
             case 0:
                 args.putParcelable(PermissionDetailPagerFragment.ARG_CHILD, permissionData);
+                args.putInt(PermissionsGeneralDetailsFragment.ARG_NUMBER_GRANTED_APPS, grantedPackages.size());
+                args.putInt(PermissionsGeneralDetailsFragment.ARG_NUMBER_NOT_GRANTED_APPS, notGrantedPackages.size());
                 fragment = new PermissionsGeneralDetailsFragment();
                 break;
 
