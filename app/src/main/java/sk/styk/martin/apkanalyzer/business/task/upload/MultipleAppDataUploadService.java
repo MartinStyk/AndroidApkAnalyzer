@@ -85,8 +85,10 @@ public class MultipleAppDataUploadService extends JobService {
             public void run() {
                 Log.i(MultipleAppDataUploadService.class.getName(), "Upload of all apps was triggered");
 
-                if (!ConnectivityHelper.isUploadPossible(getApplicationContext()))
+                if (!ConnectivityHelper.isUploadPossible(getApplicationContext())){
+                    jobFinished(parameters, false);
                     return;
+                }
 
                 List<AppListData> apps = new AppBasicDataService(getPackageManager()).getForSources(false, AppSource.AMAZON_STORE, AppSource.GOOGLE_PLAY, AppSource.UNKNOWN);
                 AppDetailDataService detailDataService = new AppDetailDataService(getPackageManager());
