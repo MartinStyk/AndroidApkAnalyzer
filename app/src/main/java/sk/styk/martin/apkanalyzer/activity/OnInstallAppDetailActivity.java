@@ -77,6 +77,7 @@ public class OnInstallAppDetailActivity extends AppCompatActivity {
                 setupDetailFragment();
             } else {
                 Snackbar.make(findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show();
+                finish();
             }
         }
     }
