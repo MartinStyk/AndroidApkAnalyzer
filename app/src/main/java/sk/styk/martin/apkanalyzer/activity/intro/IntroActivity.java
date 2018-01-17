@@ -28,6 +28,12 @@ public class IntroActivity extends AppIntro {
         analyzeAppsSlide.setBgColor(getResources().getColor(R.color.accentLight));
         analyzeAppsSlide.setImageDrawable(R.drawable.ic_lupa);
 
+        SliderPage permissionsAppsSlide = new SliderPage();
+        permissionsAppsSlide.setTitle(getString(R.string.intro_permissions));
+        permissionsAppsSlide.setDescription(getString(R.string.intro_permissions_description));
+        permissionsAppsSlide.setBgColor(getResources().getColor(R.color.accentLight));
+        permissionsAppsSlide.setImageDrawable(R.drawable.ic_permission);
+
         SliderPage statisticsAppsSlide = new SliderPage();
         statisticsAppsSlide.setTitle(getString(R.string.intro_statistics));
         statisticsAppsSlide.setDescription(getString(R.string.intro_statistics_description));
@@ -41,6 +47,7 @@ public class IntroActivity extends AppIntro {
         uploadAppsSlide.setImageDrawable(R.drawable.ic_upload);
 
         addSlide(AppIntroFragment.newInstance(analyzeAppsSlide));
+        addSlide(AppIntroFragment.newInstance(permissionsAppsSlide));
         addSlide(AppIntroFragment.newInstance(statisticsAppsSlide));
         addSlide(AllowMetadataUploadIntroSlide.newInstance(uploadAppsSlide));
 

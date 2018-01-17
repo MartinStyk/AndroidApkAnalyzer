@@ -54,6 +54,8 @@
     <string name="intro_analyze_apps_description">インストールされたアプリだけでなく、ストレージからインストールされていないAPKファイルの詳細なレポートもお楽しみください。 Appメタデータ、マニフェストファイルを表示するか、APKパッケージをストレージにエクスポートします。</string>
     <string name="intro_statistics">統計情報を表示</string>
     <string name="intro_statistics_description">アプリコレクションの統計データに興味がありますか？ Androidと証明書のバージョンの平均アクティビティ、権限、または配布数を確認します。</string>
+    <string name="intro_permissions">セキュリティのアクセス許可を調べる</string>
+    <string name="intro_permissions_description">あなたのアプリケーションで使用されている権限を調べる</string>
     <string name="intro_upload">アプリのメタデータをアップロード</string>
     <string name="intro_upload_description">APKアナライザがアプリのメタデータを収集できるようにしてください。データは、アプリケーションの調査に使用されます。\nあなたのパーソナルアプリのデータは含まれていません。設定で環境設定を調整することができます</string>
     <string name="intro_upload_require_input">アプリのメタデータのアップロードを承認または拒否する</string>
