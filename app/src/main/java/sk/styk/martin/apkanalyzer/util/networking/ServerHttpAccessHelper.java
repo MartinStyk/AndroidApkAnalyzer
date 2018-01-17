@@ -25,7 +25,6 @@ public class ServerHttpAccessHelper {
     }
 
 
-    @NonNull
     protected ByteArrayOutputStream zipContent(@NonNull String json) {
         OutputStream zipper = null;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

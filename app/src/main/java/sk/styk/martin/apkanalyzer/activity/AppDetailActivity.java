@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics;
 
 /**
  * An activity representing a single Item detail screen. This
@@ -68,13 +69,13 @@ public class AppDetailActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                NavUtils.navigateUpTo(this, new Intent(this, AppListActivity.class));
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case android.R.id.home:
+//                NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
+//                return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 }

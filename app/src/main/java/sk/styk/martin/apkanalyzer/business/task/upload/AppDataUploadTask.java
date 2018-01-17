@@ -30,7 +30,7 @@ public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
 
 
     public AppDataUploadTask(Context context) {
-        this.contextWeakReference = new WeakReference<Context>(context);
+        this.contextWeakReference = new WeakReference<>(context);
         jsonSerializationUtils = new JsonSerializationUtils();
     }
 

@@ -3,7 +3,7 @@
 
 *Take a look under the hood of apps installed on your device!*
 
-Apk Analyer allows you to explore apps installed on your device. It provides detailed report about application packages.
+Apk Analyzer allows you to explore apps installed on your device. It provides detailed report about application packages.
 
 ### Key features
 

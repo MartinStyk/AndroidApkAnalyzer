@@ -6,7 +6,7 @@ import android.content.pm.PackageManager;
 import sk.styk.martin.apkanalyzer.business.service.AndroidManifestService;
 
 /**
- * Loader async task for loadinf android manifest content
+ * Loader async task for loading android manifest content
  * <p>
  * @author Martin Styk
  * @version 15.09.2017.

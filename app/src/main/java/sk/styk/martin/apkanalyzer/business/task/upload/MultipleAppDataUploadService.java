@@ -38,8 +38,6 @@ public class MultipleAppDataUploadService extends JobService {
 
     /**
      * Schedules upload of all apps to server. Upload will start sometimes during next 5 minutes.
-     *
-     * @param context
      */
     public static void start(Context context) {
         FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(context));

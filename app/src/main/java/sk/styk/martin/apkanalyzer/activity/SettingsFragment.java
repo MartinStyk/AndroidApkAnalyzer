@@ -20,8 +20,6 @@ import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
  */
 public class SettingsFragment extends Fragment {
 
-    private CheckBox allowUpload;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,7 +28,7 @@ public class SettingsFragment extends Fragment {
 
         ((TextView) rootView.findViewById(R.id.settings_upload_explanation)).setMovementMethod(LinkMovementMethod.getInstance());
 
-        allowUpload = rootView.findViewById(R.id.allow_upload);
+        CheckBox allowUpload = rootView.findViewById(R.id.allow_upload);
         allowUpload.setChecked(ConnectivityHelper.isConnectionAllowedByUser(getContext()));
         allowUpload.setOnCheckedChangeListener(
                 new CheckBox.OnCheckedChangeListener() {

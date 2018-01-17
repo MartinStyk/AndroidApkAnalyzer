@@ -46,20 +46,20 @@
         <activity
             android:name=".activity.AppDetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName=".activity.AppListActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.styk.martin.apkanalyzer.activity.AppListActivity" />
+                android:value="sk.styk.martin.apkanalyzer.activity.MainActivity" />
         </activity>
         <activity
             android:name=".activity.detailfragment.ManifestActivity"
             android:label="@string/title_manifest"
-            android:parentActivityName=".activity.AppListActivity"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.styk.martin.apkanalyzer.activity.AppListActivity" />
+                android:value="sk.styk.martin.apkanalyzer.activity.MainActivity" />
         </activity>
 
         <activity

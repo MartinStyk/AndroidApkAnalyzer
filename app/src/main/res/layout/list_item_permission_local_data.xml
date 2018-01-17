@@ -17,7 +17,6 @@
         android:layout_marginTop="@dimen/text_margin_top_bottom"
         android:ellipsize="end"
         android:maxLines="1"
-        android:text="degeeesinaaa"
         android:textAppearance="?android:attr/textAppearanceListItem" />
 
     <TextView
