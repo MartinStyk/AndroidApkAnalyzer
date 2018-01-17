@@ -1,49 +1,94 @@
 package sk.styk.martin.apkanalyzer.business.service;
 
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PermissionInfo;
+import android.os.Build;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
+import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAgregate;
+import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData;
 
 /**
  * Created by Martin Styk on 30.06.2017.
  */
 public class PermissionsService {
 
-    public PermissionData get(@NonNull PackageInfo packageInfo) {
+    public PermissionDataAgregate get(@NonNull PackageInfo packageInfo, @NonNull PackageManager packageManager) {
 
+        List<PermissionData> definedPermissions = getDefinedPermissions(packageInfo, packageManager);
+        List<UsedPermissionData> requestedPermissions = getUsedPermissions(packageInfo, packageManager);
+
+        return new PermissionDataAgregate(definedPermissions, requestedPermissions);
+    }
+
+    public List<PermissionData> getDefinedPermissions(@NonNull PackageInfo packageInfo, @NonNull PackageManager packageManager) {
         PermissionInfo[] permissionInfos = packageInfo.permissions;
-        List<String> definedPermissions;
+
+        List<PermissionData> permissionData;
 
         if (permissionInfos == null || permissionInfos.length == 0) {
-            definedPermissions = new ArrayList<>(0);
+            permissionData = new ArrayList<>(0);
         } else {
-            definedPermissions = new ArrayList<>(permissionInfos.length);
+            permissionData = new ArrayList<>(permissionInfos.length);
             for (PermissionInfo permissionInfo : permissionInfos) {
-                definedPermissions.add(permissionInfo.name);
+                permissionData.add(getPermissionData(permissionInfo, packageManager));
             }
         }
 
-        String[] requestedPermissionInfos = packageInfo.requestedPermissions;
-        List<String> requestedPermissions;
+        return permissionData;
+    }
 
-        if (requestedPermissionInfos == null) {
-            requestedPermissions = new ArrayList<>(0);
-        } else {
-            requestedPermissions = new ArrayList<>(requestedPermissionInfos.length);
-            Collections.addAll(requestedPermissions, requestedPermissionInfos);
+    private PermissionData getPermissionData(@NonNull PermissionInfo permissionInfo, @NonNull PackageManager packageManager) {
+
+        return new PermissionData(
+                permissionInfo.name,
+                permissionInfo.group,
+                permissionInfo.protectionLevel);
+
+    }
+
+    public List<UsedPermissionData> getUsedPermissions(@NonNull PackageInfo packageInfo, @NonNull PackageManager packageManager) {
+        List<UsedPermissionData> requestedPermissions;
+
+        String[] requestedPermissionNames = packageInfo.requestedPermissions;
+
+        int[] requestedPermissionFlags = new int[0];
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            requestedPermissionFlags = packageInfo.requestedPermissionsFlags;
         }
 
-        PermissionData myData = new PermissionData();
-        myData.setDefinesPermissions(definedPermissions);
-        myData.setUsesPermissions(requestedPermissions);
+        if (requestedPermissionNames == null) {
+            requestedPermissions = new ArrayList<>(0);
+        } else {
+            requestedPermissions = new ArrayList<>(requestedPermissionNames.length);
 
-        return myData;
+            for (int i = 0; i < requestedPermissionNames.length; i++) {
+                boolean isGranted = false;
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    isGranted = (requestedPermissionFlags[i] & PackageInfo.REQUESTED_PERMISSION_GRANTED) != 0;
+                }
+                String name = requestedPermissionNames[i];
+
+                PermissionData permissionData = null;
+                try {
+                    PermissionInfo permissionInfo = packageManager.getPermissionInfo(name, PackageManager.GET_META_DATA);
+                    permissionData = getPermissionData(permissionInfo, packageManager);
+                } catch (Exception e) {
+                    // we failed to get permission data from pacakge manager. Try to use things we know
+                    permissionData = new PermissionData(name, null, Integer.MIN_VALUE);
+                }
+
+                requestedPermissions.add(new UsedPermissionData(permissionData, isGranted));
+            }
+        }
+
+        return requestedPermissions;
     }
 
 }

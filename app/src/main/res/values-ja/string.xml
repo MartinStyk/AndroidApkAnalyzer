@@ -17,6 +17,7 @@
     <string name="title_item_list">アイテム</string>
     <string name="title_item_detail">アイテムの詳細</string>
     <string name="title_intro">イントロ</string>
+    <string name="title_permissions">許可の詳細</string>
     <string name="title_manifest">AndroidManifest</string>
     <string name="loading">読み込み中...</string>
     <string name="loading_failed">読み込みに失敗しました。</string>
@@ -35,6 +36,7 @@
 
     <string name="nav_application_list">アプリケーション</string>
     <string name="nav_statistics">統計</string>
+    <string name="nav_permissions">アクセス許可</string>
     <string name="nav_settings">設定</string>
     <string name="nav_about">このアプリについて</string>
 
@@ -268,6 +270,24 @@
     <string name="upload_dialog_title">アプリケーションメタデータ収集</string>
     <string name="upload_dialog_description">Apk Analyzerは、お使いのデバイスにインストールされているアプリについてのメタデータを収集したいと考えています。\nデータは、再パッケージ化された悪意のあるアプリケーションの研究に科学的目的で使用されます。\n個人のアプリケーションデータは含まれていません。\nデータはWiFi経由でのみアップロードされます。\n後で設定で環境設定を調整できます</string>
 
+    <string name="permissions_number_apps">%1$d アプリ</string>
+    <string name="permissions_detail">詳細</string>
+    <string name="permissions_no_apps">アプリなし</string>
+    <string name="permissions_granted">付与された</string>
+    <string name="permissions_not_granted">付与されていない</string>
+    <string name="permissions_name">称号</string>
+    <string name="permissions_name_description">権限の識別に使用される完全修飾名</string>
+    <string name="permissions_group">グループ</string>
+    <string name="permissions_group_description">関連するアクセス許可の論理グループの名前を宣言します</string>
+    <string name="permissions_granted_apps">権限を付与されたアプリ</string>
+    <string name="permissions_granted_apps_description">この権限が付与されているデバイスのアプリ数。</string>
+    <string name="permissions_not_granted_apps">許可されていないアプリ</string>
+    <string name="permissions_not_granted_apps_description">この権限が付与されていないデバイス上のアプリの数.</string>
+    <string name="permissions_protection">保護レベル</string>
+    <string name="permissions_protection_description">保護レベルごとに、このアクセス許可が保護しているアクセスレベル。</string>
+    <string name="permissions_protection_normal">ノーマル</string>
+    <string name="permissions_protection_dangerous">危険な</string>
+    <string name="permissions_protection_signature">署名</string>
 
     <string-array name="android_versions">
         <item>アイテム</item>

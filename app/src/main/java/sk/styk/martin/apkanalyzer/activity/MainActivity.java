@@ -15,6 +15,7 @@ import android.view.MenuItem;
 
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.intro.IntroActivity;
+import sk.styk.martin.apkanalyzer.activity.permission.LocalPermissionsFragment;
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = new AnalyzeFragment();
         } else if (id == R.id.nav_local_stats) {
             fragment = new LocalStatisticsFragment();
+        } else if (id == R.id.nav_local_permissions) {
+            fragment = new LocalPermissionsFragment();
         } else if (id == R.id.nav_about) {
             fragment = new AboutFragment();
         } else if (id == R.id.nav_settings) {

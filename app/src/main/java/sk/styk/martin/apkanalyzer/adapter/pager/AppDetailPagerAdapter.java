@@ -83,12 +83,12 @@ public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
                 break;
 
             case 8:
-                args.putStringArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<String>) data.getPermissionData().getUsesPermissions());
+                args.putStringArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<String>) data.getPermissionData().getUsesPermissionsNames());
                 fragment = new AppDetailFragment_Permission();
                 break;
 
             case 9:
-                args.putStringArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<String>) data.getPermissionData().getDefinesPermissions());
+                args.putStringArrayList(AppDetailFragment.ARG_CHILD, (ArrayList<String>) data.getPermissionData().getDefinesPermissionsNames());
                 fragment = new AppDetailFragment_Permission();
                 break;
 
