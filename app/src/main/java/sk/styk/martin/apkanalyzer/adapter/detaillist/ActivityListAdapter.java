@@ -37,9 +37,9 @@ public class ActivityListAdapter extends GenericDetailListAdapter<ActivityData, 
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final ActivityData data = getItem(position);
         holder.name.setText(data.getName());
-        holder.label.setValue(data.getLabel());
-        holder.parent.setValue(data.getParentName());
-        holder.permission.setValue(data.getPermission());
+        holder.label.setValueText(data.getLabel());
+        holder.parent.setValueText(data.getParentName());
+        holder.permission.setValueText(data.getPermission());
 
         if (data.isExported()) {
             holder.run.setEnabled(true);

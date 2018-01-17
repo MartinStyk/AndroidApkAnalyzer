@@ -33,8 +33,8 @@ public class ReceiverListAdapter extends GenericDetailListAdapter<BroadcastRecei
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         BroadcastReceiverData data = getItem(position);
         holder.name.setText(data.getName());
-        holder.permission.setValue(data.getPermission());
-        holder.exported.setValue(data.isExported());
+        holder.permission.setValueText(data.getPermission());
+        holder.exported.setValueText(String.valueOf(data.isExported()));
 
     }
 

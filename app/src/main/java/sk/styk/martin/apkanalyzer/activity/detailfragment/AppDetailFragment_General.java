@@ -29,29 +29,29 @@ public class AppDetailFragment_General extends Fragment {
 
         data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
 
-        ((DetailItemView) rootView.findViewById(R.id.item_application_name)).setValue(data.getApplicationName());
-        ((DetailItemView) rootView.findViewById(R.id.item_package_name)).setValue(data.getPackageName());
-        ((DetailItemView) rootView.findViewById(R.id.item_process_name)).setValue(data.getProcessName());
-        ((DetailItemView) rootView.findViewById(R.id.item_version_name)).setValue(data.getVersionName());
-        ((DetailItemView) rootView.findViewById(R.id.item_version_code)).setValue(String.valueOf(data.getVersionCode()));
-        ((DetailItemView) rootView.findViewById(R.id.item_system_application)).setValue(data.isSystemApp() ? getString(R.string.yes) : getString(R.string.no));
-        ((DetailItemView) rootView.findViewById(R.id.item_uid)).setValue(String.valueOf(data.getUid()));
-        ((DetailItemView) rootView.findViewById(R.id.item_application_description)).setValue(data.getDescription());
-        ((DetailItemView) rootView.findViewById(R.id.item_application_app_source)).setValue(data.getSource() == null ? null : data.getSource().toString());
-        ((DetailItemView) rootView.findViewById(R.id.item_target_sdk)).setValue(String.valueOf(data.getTargetSdkVersion()));
-        ((DetailItemView) rootView.findViewById(R.id.item_target_android_version)).setValue(data.getTargetSdkLabel());
-        ((DetailItemView) rootView.findViewById(R.id.item_min_sdk)).setValue(String.valueOf(data.getMinSdkVersion()));
-        ((DetailItemView) rootView.findViewById(R.id.item_min_android_version)).setValue(data.getMinSdkLabel());
-        ((DetailItemView) rootView.findViewById(R.id.item_apk_directory)).setValue(data.getApkDirectory());
-        ((DetailItemView) rootView.findViewById(R.id.item_data_directory)).setValue(data.getDataDirectory());
-        ((DetailItemView) rootView.findViewById(R.id.item_install_location)).setValue(InstallLocationHelper.showLocalizedLocation(data.getInstallLocation(), getContext()));
-        ((DetailItemView) rootView.findViewById(R.id.item_apk_size)).setValue(Formatter.formatShortFileSize(getActivity(), data.getApkSize()));
+        ((DetailItemView) rootView.findViewById(R.id.item_application_name)).setValueText(data.getApplicationName());
+        ((DetailItemView) rootView.findViewById(R.id.item_package_name)).setValueText(data.getPackageName());
+        ((DetailItemView) rootView.findViewById(R.id.item_process_name)).setValueText(data.getProcessName());
+        ((DetailItemView) rootView.findViewById(R.id.item_version_name)).setValueText(data.getVersionName());
+        ((DetailItemView) rootView.findViewById(R.id.item_version_code)).setValueText(String.valueOf(data.getVersionCode()));
+        ((DetailItemView) rootView.findViewById(R.id.item_system_application)).setValueText(data.isSystemApp() ? getString(R.string.yes) : getString(R.string.no));
+        ((DetailItemView) rootView.findViewById(R.id.item_uid)).setValueText(String.valueOf(data.getUid()));
+        ((DetailItemView) rootView.findViewById(R.id.item_application_description)).setValueText(data.getDescription());
+        ((DetailItemView) rootView.findViewById(R.id.item_application_app_source)).setValueText(data.getSource() == null ? null : data.getSource().toString());
+        ((DetailItemView) rootView.findViewById(R.id.item_target_sdk)).setValueText(String.valueOf(data.getTargetSdkVersion()));
+        ((DetailItemView) rootView.findViewById(R.id.item_target_android_version)).setValueText(data.getTargetSdkLabel());
+        ((DetailItemView) rootView.findViewById(R.id.item_min_sdk)).setValueText(String.valueOf(data.getMinSdkVersion()));
+        ((DetailItemView) rootView.findViewById(R.id.item_min_android_version)).setValueText(data.getMinSdkLabel());
+        ((DetailItemView) rootView.findViewById(R.id.item_apk_directory)).setValueText(data.getApkDirectory());
+        ((DetailItemView) rootView.findViewById(R.id.item_data_directory)).setValueText(data.getDataDirectory());
+        ((DetailItemView) rootView.findViewById(R.id.item_install_location)).setValueText(InstallLocationHelper.showLocalizedLocation(data.getInstallLocation(), getContext()));
+        ((DetailItemView) rootView.findViewById(R.id.item_apk_size)).setValueText(Formatter.formatShortFileSize(getActivity(), data.getApkSize()));
 
         String installTime = DateUtils.formatDateTime(getActivity(), data.getFirstInstallTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
-        ((DetailItemView) rootView.findViewById(R.id.item_first_install_time)).setValue(installTime);
+        ((DetailItemView) rootView.findViewById(R.id.item_first_install_time)).setValueText(installTime);
 
         String updateTime = DateUtils.formatDateTime(getActivity(), data.getLastUpdateTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
-        ((DetailItemView) rootView.findViewById(R.id.item_last_update_time)).setValue(updateTime);
+        ((DetailItemView) rootView.findViewById(R.id.item_last_update_time)).setValueText(updateTime);
 
         return rootView;
     }

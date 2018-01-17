@@ -82,9 +82,9 @@ public class LocalStatisticsFragment extends Fragment implements LoaderManager.L
     public void onLoadFinished(Loader<LocalStatisticsData> loader, LocalStatisticsData data) {
         this.data = data;
 
-        binding.itemAnalyzeSuccess.setValue(data.getAnalyzeSuccess().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getAnalyzeSuccess().getPercentage()) + "%)");
-        binding.itemAnalyzeFailed.setValue(data.getAnalyzeFailed().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getAnalyzeFailed().getPercentage()) + "%)");
-        binding.itemSystemApps.setValue(data.getSystemApps().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getSystemApps().getPercentage()) + "%)");
+        binding.itemAnalyzeSuccess.setValueText(data.getAnalyzeSuccess().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getAnalyzeSuccess().getPercentage()) + "%)");
+        binding.itemAnalyzeFailed.setValueText(data.getAnalyzeFailed().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getAnalyzeFailed().getPercentage()) + "%)");
+        binding.itemSystemApps.setValueText(data.getSystemApps().getCount().toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.getSystemApps().getPercentage()) + "%)");
 
         binding.chartMinSdk.setColumnChartData(getSdkColumnChart(data.getMinSdk(), getResources().getColor(R.color.primary)));
         binding.chartTargetSdk.setColumnChartData(getSdkColumnChart(data.getTargetSdk(), getResources().getColor(R.color.primary)));

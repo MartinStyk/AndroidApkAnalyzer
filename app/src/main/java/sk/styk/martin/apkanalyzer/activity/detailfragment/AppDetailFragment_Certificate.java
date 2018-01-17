@@ -24,23 +24,23 @@ public class AppDetailFragment_Certificate extends Fragment {
 
         CertificateData data = getArguments().getParcelable(AppDetailFragment.ARG_CHILD);
 
-        ((DetailItemView) rootView.findViewById(R.id.item_sign_algorithm)).setValue(data.getSignAlgorithm());
+        ((DetailItemView) rootView.findViewById(R.id.item_sign_algorithm)).setValueText(data.getSignAlgorithm());
 
         String startDate = DateUtils.formatDateTime(getActivity(), data.getStartDate().getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
-        ((DetailItemView) rootView.findViewById(R.id.item_start_date)).setValue(startDate);
+        ((DetailItemView) rootView.findViewById(R.id.item_start_date)).setValueText(startDate);
 
         String endDate = DateUtils.formatDateTime(getActivity(), data.getEndDate().getTime(), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME);
-        ((DetailItemView) rootView.findViewById(R.id.item_end_date)).setValue(endDate);
+        ((DetailItemView) rootView.findViewById(R.id.item_end_date)).setValueText(endDate);
 
-        ((DetailItemView) rootView.findViewById(R.id.item_public_key_md5)).setValue(data.getPublicKeyMd5());
-        ((DetailItemView) rootView.findViewById(R.id.item_cert_md5)).setValue(data.getCertificateHash());
-        ((DetailItemView) rootView.findViewById(R.id.item_serial_number)).setValue(String.valueOf(data.getSerialNumber()));
-        ((DetailItemView) rootView.findViewById(R.id.item_issuer_name)).setValue(data.getIssuerName());
-        ((DetailItemView) rootView.findViewById(R.id.item_issuer_organization)).setValue(String.valueOf(data.getIssuerOrganization()));
-        ((DetailItemView) rootView.findViewById(R.id.item_issuer_country)).setValue(data.getIssuerCountry());
-        ((DetailItemView) rootView.findViewById(R.id.item_subject_name)).setValue(String.valueOf(data.getSubjectName()));
-        ((DetailItemView) rootView.findViewById(R.id.item_subject_organization)).setValue(data.getSubjectOrganization());
-        ((DetailItemView) rootView.findViewById(R.id.item_subject_country)).setValue(data.getSubjectCountry());
+        ((DetailItemView) rootView.findViewById(R.id.item_public_key_md5)).setValueText(data.getPublicKeyMd5());
+        ((DetailItemView) rootView.findViewById(R.id.item_cert_md5)).setValueText(data.getCertificateHash());
+        ((DetailItemView) rootView.findViewById(R.id.item_serial_number)).setValueText(String.valueOf(data.getSerialNumber()));
+        ((DetailItemView) rootView.findViewById(R.id.item_issuer_name)).setValueText(data.getIssuerName());
+        ((DetailItemView) rootView.findViewById(R.id.item_issuer_organization)).setValueText(String.valueOf(data.getIssuerOrganization()));
+        ((DetailItemView) rootView.findViewById(R.id.item_issuer_country)).setValueText(data.getIssuerCountry());
+        ((DetailItemView) rootView.findViewById(R.id.item_subject_name)).setValueText(String.valueOf(data.getSubjectName()));
+        ((DetailItemView) rootView.findViewById(R.id.item_subject_organization)).setValueText(data.getSubjectOrganization());
+        ((DetailItemView) rootView.findViewById(R.id.item_subject_country)).setValueText(data.getSubjectCountry());
 
         return rootView;
     }

@@ -62,34 +62,34 @@ public class MathStatisticsCardView extends CardView {
         INTEGRAL {
             @Override
             void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance) {
-                mean.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getArithmeticMean()));
-                median.setValue(BigDecimalFormatter.getFormat(0, 0).format(statistics.getMedian()));
-                min.setValue(BigDecimalFormatter.getFormat(0, 0).format(statistics.getMin()));
-                max.setValue(BigDecimalFormatter.getFormat(0, 0).format(statistics.getMax()));
-                deviation.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getDeviation()));
-                variance.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getVariance()));
+                mean.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getArithmeticMean()));
+                median.setValueText(BigDecimalFormatter.getFormat(0, 0).format(statistics.getMedian()));
+                min.setValueText(BigDecimalFormatter.getFormat(0, 0).format(statistics.getMin()));
+                max.setValueText(BigDecimalFormatter.getFormat(0, 0).format(statistics.getMax()));
+                deviation.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getDeviation()));
+                variance.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getVariance()));
             }
         },
         DECIMAL {
             @Override
             void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance) {
-                mean.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getArithmeticMean()));
-                median.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getMedian()));
-                min.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getMin()));
-                max.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getMax()));
-                deviation.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getDeviation()));
-                variance.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getVariance()));
+                mean.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getArithmeticMean()));
+                median.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getMedian()));
+                min.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getMin()));
+                max.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getMax()));
+                deviation.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getDeviation()));
+                variance.setValueText(BigDecimalFormatter.getCommonFormat().format(statistics.getVariance()));
             }
         },
         SIZE {
             @Override
             void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance) {
-                mean.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getArithmeticMean().longValue()));
-                median.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getMedian().longValue()));
-                min.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getMin().longValue()));
-                max.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getMax().longValue()));
-                deviation.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getDeviation().longValue()));
-                variance.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getVariance().longValue()));
+                mean.setValueText(Formatter.formatShortFileSize(mean.getContext(), statistics.getArithmeticMean().longValue()));
+                median.setValueText(Formatter.formatShortFileSize(mean.getContext(), statistics.getMedian().longValue()));
+                min.setValueText(Formatter.formatShortFileSize(mean.getContext(), statistics.getMin().longValue()));
+                max.setValueText(Formatter.formatShortFileSize(mean.getContext(), statistics.getMax().longValue()));
+                deviation.setValueText(Formatter.formatShortFileSize(mean.getContext(), statistics.getDeviation().longValue()));
+                variance.setValueText(Formatter.formatShortFileSize(mean.getContext(), statistics.getVariance().longValue()));
             }
         };
 

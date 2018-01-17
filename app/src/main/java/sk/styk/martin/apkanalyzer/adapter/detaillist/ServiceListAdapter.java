@@ -33,12 +33,12 @@ public class ServiceListAdapter extends GenericDetailListAdapter<ServiceData, Se
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         ServiceData data = getItem(position);
         holder.name.setText(data.getName());
-        holder.permission.setValue(data.getPermission());
-        holder.exported.setValue(data.isExported());
-        holder.stopWithTask.setValue(data.isStopWithTask());
-        holder.singleUser.setValue(data.isSingleUser());
-        holder.isolatedProcess.setValue(data.isolatedProcess());
-        holder.external.setValue(data.isExternalService());
+        holder.permission.setValueText(data.getPermission());
+        holder.exported.setValueText(String.valueOf(data.isExported()));
+        holder.stopWithTask.setValueText(String.valueOf(data.isStopWithTask()));
+        holder.singleUser.setValueText(String.valueOf(data.isSingleUser()));
+        holder.isolatedProcess.setValueText(String.valueOf(data.isolatedProcess()));
+        holder.external.setValueText(String.valueOf(data.isExternalService()));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

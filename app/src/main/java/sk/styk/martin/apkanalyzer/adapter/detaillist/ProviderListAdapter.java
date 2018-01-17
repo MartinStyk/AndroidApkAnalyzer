@@ -33,10 +33,10 @@ public class ProviderListAdapter extends GenericDetailListAdapter<ContentProvide
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         ContentProviderData data = getItem(position);
         holder.name.setText(data.getName());
-        holder.authority.setValue(data.getAuthority());
-        holder.readPermission.setValue(data.getReadPermission());
-        holder.writePermission.setValue(data.getWritePermission());
-        holder.exported.setValue(data.isExported());
+        holder.authority.setValueText(data.getAuthority());
+        holder.readPermission.setValueText(data.getReadPermission());
+        holder.writePermission.setValueText(data.getWritePermission());
+        holder.exported.setValueText(String.valueOf(data.isExported()));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {

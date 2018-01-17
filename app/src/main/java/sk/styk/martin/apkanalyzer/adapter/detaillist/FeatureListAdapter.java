@@ -33,7 +33,7 @@ public class FeatureListAdapter extends GenericDetailListAdapter<FeatureData, Fe
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         final FeatureData data = getItem(position);
         holder.name.setText(data.getName());
-        holder.required.setValue(data.isRequired());
+        holder.required.setValueText(String.valueOf(data.isRequired()));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
