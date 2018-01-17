@@ -295,7 +295,6 @@
 
 
     <string-array name="android_versions">
-        <item>item</item>
         <item>Android 1</item>
         <item>Android 1.1 Petit Four</item>
         <item>Android 1.5 Cupcake</item>
@@ -321,6 +320,8 @@
         <item>Android 6.0 Marshmallow</item>
         <item>Android 7.0 Nougat</item>
         <item>Android 7.1.2 Nougat</item>
+        <item>Android 8.1 Oreo</item>
+        <item>Android 8.1 Oreo</item>
     </string-array>
 
 

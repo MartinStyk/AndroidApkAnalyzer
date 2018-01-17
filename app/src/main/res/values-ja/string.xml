@@ -290,7 +290,6 @@
     <string name="permissions_protection_signature">署名</string>
 
     <string-array name="android_versions">
-        <item>アイテム</item>
         <item>Android 1</item>
         <item>Android 1.1 Petit Four</item>
         <item>Android 1.5 カップケーキ</item>
@@ -316,6 +315,8 @@
         <item>Android 6.0 マシュマロ</item>
         <item>Android 7.0 ヌガー</item>
         <item>Android 7.1.2 ヌガー</item>
+        <item>Android 8.1 オレオ</item>
+        <item>Android 8.1 オレオ</item>
     </string-array>
 
 
