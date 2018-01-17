@@ -1,15 +1,12 @@
 package sk.styk.martin.apkanalyzer.activity.permission;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.activity.MainActivity;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 
 import static sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA;
@@ -50,7 +47,7 @@ public class PermissionDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                NavUtils.navigateUpTo(this, new Intent(this, MainActivity.class));
+                finish();
                 return true;
         }
         return super.onOptionsItemSelected(item);
