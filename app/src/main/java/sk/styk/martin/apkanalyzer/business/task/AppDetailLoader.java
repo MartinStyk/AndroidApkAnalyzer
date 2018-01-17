@@ -8,7 +8,8 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 /**
  * Loader async task for item for AppDetailFragment and AppDetailActivity
  * <p>
- * Created by Martin Styk on 15.06.2017.
+ * @author Martin Styk
+ * @version 15.06.2017.
  */
 public class AppDetailLoader extends ApkAnalyzerAbstractAsyncLoader<AppDetailData> {
 

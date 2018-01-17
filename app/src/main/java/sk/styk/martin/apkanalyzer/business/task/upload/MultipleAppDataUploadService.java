@@ -29,7 +29,8 @@ import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
  * Because of changes introduced in API 26, JobService is required. It starts thread which triggers
  * AppDataUploadTask for each app.
  * <p>
- * Created by mstyk on 11/8/17.
+ * @author Martin Styk
+ * @version 08.11.2017.
  */
 public class MultipleAppDataUploadService extends JobService {
 

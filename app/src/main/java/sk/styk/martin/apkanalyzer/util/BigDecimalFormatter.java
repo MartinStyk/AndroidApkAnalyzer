@@ -3,7 +3,8 @@ package sk.styk.martin.apkanalyzer.util;
 import java.text.DecimalFormat;
 
 /**
- * Created by Martin Styk on 31.07.2017.
+ * @author Martin Styk
+ * @version 31.07.2017.
  */
 public class BigDecimalFormatter {
     private static DecimalFormat commonFormat;

@@ -17,9 +17,9 @@ import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 
 /**
- * Created by Martin Styk on 18.06.2017.
+ * @author Martin Styk
+ * @version 18.06.2017.
  */
-
 public class PermissionsPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context context;

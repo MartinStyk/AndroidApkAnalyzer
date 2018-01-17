@@ -5,9 +5,9 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Martin Styk on 01.07.2017.
+ * @author Martin Styk
+ * @version 01.07.2017.
  */
-
 public class GeneralData implements Parcelable {
 
     private String packageName;

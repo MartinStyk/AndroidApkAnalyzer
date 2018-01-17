@@ -8,7 +8,8 @@ import java.util.List;
 /**
  * Class holding basic application metadata used in application detail view
  * <p>
- * Created by Martin Styk on 22.06.2017.
+ * @author Martin Styk
+ * @version 22.06.2017.
  */
 public class AppDetailData implements Parcelable {
 

@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
  * lead to a {@link AppDetailActivity} representing
  * item details. On tablets, the activity presents the list of items and
  * item details side-by-side using two vertical panes.
+ *
+ * @author Martin Styk
  */
 public class AppListActivity extends AppCompatActivity {
 }

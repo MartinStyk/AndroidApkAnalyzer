@@ -3,9 +3,9 @@ package sk.styk.martin.apkanalyzer.util;
 import android.content.Context;
 
 /**
- * Created by mstyk on 11/15/17.
+ * @author Martin Styk
+ * @version 15.11.2017.
  */
-
 public class FirstStartHelper {
 
     public static final String FIRST_APP_START = "first_app_start";

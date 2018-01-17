@@ -26,6 +26,8 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData;
  * App list adapter for list view.
  * Used in AppListFragment
  * Supports filtering
+ *
+ * @author Martin Styk
  */
 public class AppListAdapter extends ArrayAdapter<AppListData> {
 

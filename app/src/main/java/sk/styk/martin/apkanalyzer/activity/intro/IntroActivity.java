@@ -14,7 +14,8 @@ import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 
 /**
- * Created by Martin Styk on 13.12.2017.
+ * @author Martin Styk
+ * @version 13.12.2017.
  */
 public class IntroActivity extends AppIntro {
     @Override

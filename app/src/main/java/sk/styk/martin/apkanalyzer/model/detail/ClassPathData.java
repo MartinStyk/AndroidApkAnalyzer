@@ -6,7 +6,8 @@ import android.os.Parcelable;
 import java.util.List;
 
 /**
- * Created by Martin Styk on 06.11.2017.
+ * @author Martin Styk
+ * @version 06.11.2017.
  */
 
 public class ClassPathData implements Parcelable {

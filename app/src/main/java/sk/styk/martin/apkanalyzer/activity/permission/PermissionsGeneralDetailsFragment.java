@@ -15,7 +15,8 @@ import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBin
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
 
 /**
- * Created by Martin Styk on 13.01.2018.
+ * @author Martin Styk
+ * @version 15.01.2017
  */
 public class PermissionsGeneralDetailsFragment extends Fragment {
 

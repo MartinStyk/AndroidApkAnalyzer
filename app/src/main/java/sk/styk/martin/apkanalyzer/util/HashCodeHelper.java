@@ -3,9 +3,9 @@ package sk.styk.martin.apkanalyzer.util;
 import java.util.List;
 
 /**
- * Created by Martin Styk on 13.11.2017.
+ * @author Martin Styk
+ * @version 13.11.2017.
  */
-
 public class HashCodeHelper {
 
     /**

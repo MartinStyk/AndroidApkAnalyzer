@@ -13,7 +13,8 @@ import static sk.styk.martin.apkanalyzer.util.networking.ServerUrls.UPLOAD_RECOR
 import static sk.styk.martin.apkanalyzer.util.networking.ServerUrls.URL_BASE;
 
 /**
- * Created by Martin Styk on 10.12.2017.
+ * @author Martin Styk
+ * @version 10.12.2017.
  */
 
 public class UploadAppDataRestHelper extends ServerHttpAccessHelper {

@@ -4,7 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Martin Styk on 22.06.2017.
+ * @author Martin Styk
+ * @version 22.06.2017.
  */
 public class ContentProviderData implements Parcelable {
 

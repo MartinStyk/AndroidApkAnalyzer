@@ -17,6 +17,10 @@ import sk.styk.martin.apkanalyzer.activity.dialog.SimpleTextDialog;
 import sk.styk.martin.apkanalyzer.adapter.pager.PermissionsPagerAdapter;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 
+/**
+ * @author Martin Styk
+ * @version 15.01.2017
+ */
 public class PermissionDetailPagerFragment extends Fragment {
 
     public static final String TAG = PermissionDetailPagerFragment.class.getSimpleName();

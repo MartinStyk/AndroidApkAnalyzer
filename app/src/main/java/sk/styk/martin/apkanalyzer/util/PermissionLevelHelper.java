@@ -6,9 +6,9 @@ import android.content.pm.PermissionInfo;
 import sk.styk.martin.apkanalyzer.R;
 
 /**
- * Created by Martin Styk on 02.08.2017.
+ * @author Martin Styk
+ * @version 02.08.2017.
  */
-
 public class PermissionLevelHelper {
 
     public static String showLocalized(int level, Context context) {

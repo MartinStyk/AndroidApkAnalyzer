@@ -15,7 +15,8 @@ import sk.styk.martin.apkanalyzer.adapter.detaillist.ReceiverListAdapter;
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData;
 
 /**
- * Created by Martin Styk on 30.06.2017.
+ * @author Martin Styk
+ * @version 30.06.2017.
  */
 public class AppDetailFragment_Receiver extends Fragment {
 

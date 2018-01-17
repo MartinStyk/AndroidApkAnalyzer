@@ -18,6 +18,10 @@ import sk.styk.martin.apkanalyzer.business.task.LocalPermissionsLoader;
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalPermissionsBinding;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 
+/**
+ * @author Martin Styk
+ * @version 15.01.2017
+ */
 public class LocalPermissionsFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<LocalPermissionData>>, LocalPermissionsLoader.ProgressCallback {
 
     private FragmentLocalPermissionsBinding binding;

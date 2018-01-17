@@ -8,9 +8,9 @@ import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadServ
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 
 /**
- * Created by Martin Styk on 30.10.2017.
+ * @author Martin Styk
+ * @version 30.10.2017.
  */
-
 public class ApkAnalyzer extends Application {
 
     private static ApkAnalyzer instance;

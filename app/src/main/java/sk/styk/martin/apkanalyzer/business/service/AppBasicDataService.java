@@ -18,7 +18,8 @@ import sk.styk.martin.apkanalyzer.util.AppBasicInfoComparator;
 /**
  * Retrieve apps installed on device
  * <p>
- * Created by Martin Styk on 14.06.2017.
+ * @author Martin Styk
+ * @version 14.06.2017.
  */
 public class AppBasicDataService {
 

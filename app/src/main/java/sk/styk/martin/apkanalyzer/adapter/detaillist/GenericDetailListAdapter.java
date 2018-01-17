@@ -6,7 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
 /**
- * Created by Martin Styk on 12.10.2017.
+ * @author Martin Styk
+ * @version 12.10.2017.
  */
 public abstract class GenericDetailListAdapter<T, VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
 

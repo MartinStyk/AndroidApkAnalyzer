@@ -6,7 +6,8 @@ import java.util.Comparator;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**
- * Created by Martin Styk on 17.06.2017.
+ * @author Martin Styk
+ * @version 17.06.2017.
  */
 
 public class AppBasicInfoComparator implements Comparator<AppListData> {

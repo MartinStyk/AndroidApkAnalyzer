@@ -15,7 +15,8 @@ import sk.styk.martin.apkanalyzer.activity.AppDetailFragment;
 import sk.styk.martin.apkanalyzer.adapter.detaillist.SimpleStringListAdapter;
 
 /**
- * Created by Martin Styk on 30.06.2017.
+ * @author Martin Styk
+ * @version 30.06.2017.
  */
 public class AppDetailFragment_Permission extends Fragment {
 

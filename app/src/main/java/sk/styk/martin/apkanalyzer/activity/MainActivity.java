@@ -18,6 +18,9 @@ import sk.styk.martin.apkanalyzer.activity.intro.IntroActivity;
 import sk.styk.martin.apkanalyzer.activity.permission.LocalPermissionsFragment;
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper;
 
+/**
+ * @author Martin Styk
+ */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override

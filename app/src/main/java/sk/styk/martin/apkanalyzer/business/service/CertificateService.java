@@ -18,7 +18,8 @@ import sk.styk.martin.apkanalyzer.util.DigestHelper;
 import static javax.security.auth.x500.X500Principal.RFC1779;
 
 /**
- * Created by Martin Styk on 22.06.2017.
+ * @author Martin Styk
+ * @version 22.06.2017.
  */
 
 public class CertificateService {

@@ -39,6 +39,8 @@ import sk.styk.martin.apkanalyzer.util.file.AppOperations;
  * This fragment is either contained in a {@link AppListActivity}
  * in two-pane mode (on tablets) or a {@link AppDetailActivity}
  * on handsets.
+ *
+ * @author Martin Styk
  */
 public class AppDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<AppDetailData>, View.OnClickListener {
 

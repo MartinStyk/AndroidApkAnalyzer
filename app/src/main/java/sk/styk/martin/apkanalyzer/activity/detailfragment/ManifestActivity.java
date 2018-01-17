@@ -26,7 +26,8 @@ import sk.styk.martin.apkanalyzer.business.task.AndroidManifestLoader;
 import sk.styk.martin.apkanalyzer.business.task.StringToFileSaveService;
 
 /**
- * Created by Martin Styk on 15.09.2017.
+ * @author Martin Styk
+ * @version 15.09.2017.
  */
 public class ManifestActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String> {
 

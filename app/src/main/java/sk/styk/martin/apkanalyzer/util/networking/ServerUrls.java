@@ -1,7 +1,8 @@
 package sk.styk.martin.apkanalyzer.util.networking;
 
 /**
- * Created by Martin Styk on 10.12.2017.
+ * @author Martin Styk
+ * @version 10.12.2017.
  */
 public class ServerUrls {
 

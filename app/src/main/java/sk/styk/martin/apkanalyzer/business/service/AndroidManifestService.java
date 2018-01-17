@@ -19,7 +19,8 @@ import javax.xml.transform.stream.StreamSource;
 /**
  * Tooling for reading data directly from AndroidManifest.xml cpackaged within application
  * <p>
- * Created by Martin Styk on 22.06.2017.
+ * @author Martin Styk
+ * @version 22.06.2017.
  */
 public class AndroidManifestService {
 

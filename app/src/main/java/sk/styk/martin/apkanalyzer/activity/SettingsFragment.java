@@ -15,7 +15,9 @@ import android.widget.TextView;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper;
 
-
+/**
+ * @author Martin Styk
+ */
 public class SettingsFragment extends Fragment {
 
     private CheckBox allowUpload;

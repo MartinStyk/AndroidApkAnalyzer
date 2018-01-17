@@ -15,7 +15,8 @@ import sk.styk.martin.apkanalyzer.util.InstallLocationHelper;
 import sk.styk.martin.apkanalyzer.view.DetailItemView;
 
 /**
- * Created by Martin Styk on 18.06.2017.
+ * @author Martin Styk
+ * @version 18.06.2017.
  */
 
 public class AppDetailFragment_General extends Fragment {

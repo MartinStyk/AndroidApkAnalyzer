@@ -19,6 +19,8 @@ import sk.styk.martin.apkanalyzer.R;
  * activity is only used narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
  * in a {@link AppListFragment}.
+ *
+ * @author Martin Styk
  */
 public class AppDetailActivity extends AppCompatActivity {
 

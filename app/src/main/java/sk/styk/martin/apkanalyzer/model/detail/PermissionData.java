@@ -7,7 +7,8 @@ import android.os.Parcelable;
 /**
  * Single used permission entry
  * <p>
- * Created by Martin Styk on 22.06.2017.
+ * @author Martin Styk
+ * @version 22.06.2017.
  */
 public class PermissionData implements Parcelable {
 

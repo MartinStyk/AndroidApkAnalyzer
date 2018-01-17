@@ -16,7 +16,8 @@ import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.activity.OnInstallAppDetailActivity;
 
 /**
- * Created by Martin Styk on 04.01.2018.
+ * @author Martin Styk
+ * @version 04.01.2018.
  */
 
 public class AppOperations {

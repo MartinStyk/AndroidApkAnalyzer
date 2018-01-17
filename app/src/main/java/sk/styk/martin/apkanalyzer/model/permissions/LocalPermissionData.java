@@ -9,7 +9,8 @@ import java.util.List;
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
 
 /**
- * Created by Martin Styk on 13.01.2018.
+ * @author Martin Styk
+ * @version 13.01.2018.
  */
 public class LocalPermissionData implements Parcelable {
 

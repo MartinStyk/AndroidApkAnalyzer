@@ -21,7 +21,8 @@ import sk.styk.martin.apkanalyzer.databinding.DialogAppListBinding;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**
- * Created by Martin Styk on 05.01.2018.
+ * @author Martin Styk
+ * @version 05.01.2018.
  */
 public class AppListDialog extends DialogFragment implements LoaderManager.LoaderCallbacks<List<AppListData>> {
 

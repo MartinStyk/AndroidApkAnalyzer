@@ -24,9 +24,9 @@ import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Serv
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**
- * Created by Martin Styk on 18.06.2017.
+ * @author Martin Styk
+ * @version 18.06.2017.
  */
-
 public class AppDetailPagerAdapter extends FragmentStatePagerAdapter {
 
     private Context context;

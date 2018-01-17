@@ -6,9 +6,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Created by Martin Styk on 10.12.2017.
+ * @author Martin Styk
+ * @version 10.12.2017.
  */
-
 public class DigestHelper {
 
     public static String md5Digest(byte[] input) throws IOException {

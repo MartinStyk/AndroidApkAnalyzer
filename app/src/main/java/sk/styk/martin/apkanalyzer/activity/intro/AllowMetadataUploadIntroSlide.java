@@ -15,6 +15,10 @@ import com.github.paolorotolo.appintro.model.SliderPage;
 
 import sk.styk.martin.apkanalyzer.R;
 
+/**
+ * @author Martin Styk
+ * @version 13.12.2017
+ */
 public class AllowMetadataUploadIntroSlide extends AppIntroBaseFragment implements ISlidePolicy {
     private RadioGroup groupAllowUpload;
     private RadioButton buttonAllowUpload;

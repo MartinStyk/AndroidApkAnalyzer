@@ -21,7 +21,8 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData;
  * App list adapter for recycler view.
  * Used in AppListDialog
  *
- * Created by Martin Styk on 05.01.2017.
+ * @author Martin Styk
+ * @version 05.01.2017.
  */
 public class AppListRecyclerAdapter extends GenericDetailListAdapter<AppListData, AppListRecyclerAdapter.ViewHolder> {
 

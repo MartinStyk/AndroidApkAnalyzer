@@ -12,7 +12,8 @@ import sk.styk.martin.apkanalyzer.model.detail.PermissionData;
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData;
 
 /**
- * Created by Martin Styk on 13.01.2018.
+ * @author Martin Styk
+ * @version 13.01.2018.
  */
 public class LocalPermissionDataBuilder {
 

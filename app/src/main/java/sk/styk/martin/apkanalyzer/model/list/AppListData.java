@@ -14,7 +14,8 @@ import sk.styk.martin.apkanalyzer.model.detail.AppSource;
  * Class holding basic application metadata used in list view of all apps
  * For more detailed application metadata see {@link AppDetailData}
  * <p>
- * Created by Martin Styk on 15.06.2017.
+ * @author Martin Styk
+ * @version 15.06.2017.
  */
 public class AppListData implements Parcelable {
 

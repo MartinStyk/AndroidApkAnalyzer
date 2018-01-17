@@ -14,7 +14,8 @@ import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAgregate;
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData;
 
 /**
- * Created by Martin Styk on 30.06.2017.
+ * @author Martin Styk
+ * @version 30.06.2017.
  */
 public class PermissionsService {
 

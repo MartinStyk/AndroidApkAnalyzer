@@ -8,7 +8,8 @@ import java.util.Date;
 /**
  * Represents data obtained from certificate file
  * <p>
- * Created by Martin Styk on 22.06.2017.
+ * @author Martin Styk
+ * @version 22.06.2017.
  */
 public class CertificateData implements Parcelable {
     private String signAlgorithm;

@@ -13,7 +13,8 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData;
 /**
  * Loader async task for items for list view on AppListFragment
  * <p>
- * Created by Martin Styk on 15.06.2017.
+ * @author Martin Styk
+ * @version 15.06.2017.
  */
 public class AppListLoader extends ApkAnalyzerAbstractAsyncLoader<List<AppListData>> {
     public static final int ID = 1;

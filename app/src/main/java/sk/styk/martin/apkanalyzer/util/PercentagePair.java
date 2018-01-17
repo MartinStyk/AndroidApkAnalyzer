@@ -9,7 +9,8 @@ import java.math.BigDecimal;
  * Pair of number and its percentage part of total count
  * Used in statistics task
  * <p>
- * Created by Martin Styk on 21.01.2016.
+ * @author Martin Styk
+ * @version 21.01.2016.
  */
 public class PercentagePair implements Parcelable {
     private Number count;

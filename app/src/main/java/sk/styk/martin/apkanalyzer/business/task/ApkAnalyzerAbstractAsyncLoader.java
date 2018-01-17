@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.task;
 
 /**
- * Created by Martin Styk on 20.06.2017.
+ * @author Martin Styk @version 20.06.2017.
  */
 
 import android.content.Context;
@@ -12,7 +12,8 @@ import android.support.v4.content.AsyncTaskLoader;
  * Abstract parent class for loaders.
  * This is just wrapper around async task loader
  * <p>
- * Created by Martin Styk on 15.06.2017.
+ * @author Martin Styk
+ * @version 15.06.2017.
  */
 abstract class ApkAnalyzerAbstractAsyncLoader<T> extends AsyncTaskLoader<T> {
 

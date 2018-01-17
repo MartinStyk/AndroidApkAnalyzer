@@ -14,6 +14,10 @@ import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 
 import static sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA;
 
+/**
+ * @author Martin Styk
+ * @version 15.01.2017
+ */
 public class PermissionDetailActivity extends AppCompatActivity {
 
     @Override

@@ -11,7 +11,8 @@ import sk.styk.martin.apkanalyzer.util.InstallLocationHelper;
 import sk.styk.martin.apkanalyzer.util.PercentagePair;
 
 /**
- * Created by Martin Styk on 28.07.2017.
+ * @author Martin Styk
+ * @version 28.07.2017.
  */
 public class LocalStatisticsDataBuilder {
 

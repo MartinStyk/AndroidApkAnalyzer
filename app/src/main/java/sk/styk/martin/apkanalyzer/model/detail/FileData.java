@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Martin Styk on 02.07.2017.
+ * @author Martin Styk
+ * @version 02.07.2017.
  */
 public class FileData implements Parcelable {
 

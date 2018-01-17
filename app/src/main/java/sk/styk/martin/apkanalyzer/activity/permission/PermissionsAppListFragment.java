@@ -18,7 +18,8 @@ import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionAppListBinding;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**
- * Created by Martin Styk on 30.06.2017.
+ * @author Martin Styk
+ * @version 15.01.2017
  */
 public class PermissionsAppListFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<AppListData>> {
 

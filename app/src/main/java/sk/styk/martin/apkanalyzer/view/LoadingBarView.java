@@ -12,9 +12,10 @@ import android.widget.TextView;
 import sk.styk.martin.apkanalyzer.R;
 
 /**
- * Key value pair view
+ * Loading bar with progress updates
  * <p>
- * Created by Martin Styk on 06.07.2017.
+ * @author Martin Styk
+ * @version 06.07.2017.
  */
 public class LoadingBarView extends RelativeLayout {
 

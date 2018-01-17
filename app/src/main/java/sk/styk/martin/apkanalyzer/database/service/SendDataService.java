@@ -9,7 +9,8 @@ import sk.styk.martin.apkanalyzer.database.ApkAnalyzerContract.SendDataEntry;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**
- * Created by Martin Styk on 07.11.2017.
+ * @author Martin Styk
+ * @version 07.11.2017.
  */
 public class SendDataService {
 

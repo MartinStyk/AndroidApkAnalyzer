@@ -35,6 +35,9 @@ import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData;
 import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper;
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter;
 
+/**
+ * @author Martin Styk
+ */
 public class LocalStatisticsFragment extends Fragment implements LoaderManager.LoaderCallbacks<LocalStatisticsData>, LocalStatisticsLoader.ProgressCallback {
 
     FragmentLocalStatisticsBinding binding;

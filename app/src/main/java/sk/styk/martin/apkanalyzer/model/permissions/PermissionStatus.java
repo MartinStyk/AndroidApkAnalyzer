@@ -6,7 +6,8 @@ import android.os.Parcelable;
 import sk.styk.martin.apkanalyzer.business.service.PermissionsService;
 
 /**
- * Created by Martin Styk on 13.01.2018.
+ * @author Martin Styk
+ * @version 13.01.2018.
  */
 public class PermissionStatus implements Parcelable {
     private String packageName;

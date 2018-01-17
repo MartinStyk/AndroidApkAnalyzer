@@ -14,7 +14,9 @@ import sk.styk.martin.apkanalyzer.BuildConfig;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.util.file.AppOperations;
 
-
+/**
+ * @author Martin Styk
+ */
 public class AboutFragment extends Fragment {
 
     @Override

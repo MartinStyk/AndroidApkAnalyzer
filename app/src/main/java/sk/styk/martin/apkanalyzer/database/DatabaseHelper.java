@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import sk.styk.martin.apkanalyzer.database.ApkAnalyzerContract.SendDataEntry;
 
 /**
- * Created by Martin Styk on 06.11.2017.
+ * @author Martin Styk
+ * @version 06.11.2017.
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {

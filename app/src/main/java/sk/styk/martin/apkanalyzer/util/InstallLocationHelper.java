@@ -6,9 +6,9 @@ import android.content.pm.PackageInfo;
 import sk.styk.martin.apkanalyzer.R;
 
 /**
- * Created by Martin Styk on 02.08.2017.
+ * @author Martin Styk
+ * @version 02.08.2017.
  */
-
 public class InstallLocationHelper {
 
     public static final String INSTALL_LOCATION_AUTO = "Auto";

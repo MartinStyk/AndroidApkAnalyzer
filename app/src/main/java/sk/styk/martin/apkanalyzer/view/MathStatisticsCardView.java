@@ -9,14 +9,15 @@ import android.view.LayoutInflater;
 import android.widget.TextView;
 
 import sk.styk.martin.apkanalyzer.R;
-import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter;
 import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics;
+import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter;
 
 /**
  * Used in local statistics layout
  * Contains name of attribute and available statistics - mean, median, max, min, deviation, variance
  *
- * Created by Martin Styk on 06.07.2017.
+ * @author Martin Styk
+ * @version 06.07.2017.
  */
 public class MathStatisticsCardView extends CardView {
 
@@ -69,7 +70,7 @@ public class MathStatisticsCardView extends CardView {
                 variance.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getVariance()));
             }
         },
-        DECIMAL{
+        DECIMAL {
             @Override
             void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance) {
                 mean.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getArithmeticMean()));
@@ -80,7 +81,7 @@ public class MathStatisticsCardView extends CardView {
                 variance.setValue(BigDecimalFormatter.getCommonFormat().format(statistics.getVariance()));
             }
         },
-        SIZE{
+        SIZE {
             @Override
             void setStatistics(MathStatistics statistics, DetailListItemView mean, DetailListItemView median, DetailListItemView min, DetailListItemView max, DetailListItemView deviation, DetailListItemView variance) {
                 mean.setValue(Formatter.formatShortFileSize(mean.getContext(), statistics.getArithmeticMean().longValue()));

@@ -12,7 +12,8 @@ import java.util.List;
 import sk.styk.martin.apkanalyzer.R;
 
 /**
- * Created by Martin Styk on 07.07.2017.
+ * @author Martin Styk
+ * @version 07.07.2017.
  */
 public class SimpleStringListAdapter extends GenericDetailListAdapter<String, SimpleStringListAdapter.ViewHolder> {
 

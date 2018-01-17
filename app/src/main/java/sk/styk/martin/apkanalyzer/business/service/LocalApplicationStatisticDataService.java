@@ -15,7 +15,8 @@ import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsAppData;
 
 /**
- * Created by Martin Styk on 28.07.2017.
+ * @author Martin Styk
+ * @version 28.07.2017.
  */
 public class LocalApplicationStatisticDataService {
 

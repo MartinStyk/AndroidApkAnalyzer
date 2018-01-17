@@ -19,7 +19,8 @@ import sk.styk.martin.apkanalyzer.util.networking.UploadAppDataRestHelper;
 /**
  * Encapsulates workflow logic for uploading single app data to server.
  *
- * Created by Martin Styk on 6.11.2017.
+ * @author Martin Styk
+ * @version 6.11.2017.
  */
 public class AppDataUploadTask extends AsyncTask<AppDetailData, Void, Void> {
     private static final String TAG = AppDataUploadTask.class.getSimpleName();

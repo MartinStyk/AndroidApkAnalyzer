@@ -7,9 +7,11 @@ import android.provider.Settings;
 import java.util.UUID;
 
 /**
- * Created by Martin Styk on 06.11.2017.
+ * Unique Android device identification helper.
+ *
+ * @author Martin Styk
+ * @version 06.11.2017.
  */
-
 public class AndroidIdHelper {
 
     public static final String ANDROID_ID = "android_id";

@@ -17,7 +17,8 @@ import static sk.styk.martin.apkanalyzer.util.networking.ServerUrls.GENERATE_200
 import static sk.styk.martin.apkanalyzer.util.networking.ServerUrls.URL_BASE;
 
 /**
- * Created by mstyk on 11/8/17.
+ * @author Martin Styk
+ * @version 11/8/17.
  */
 
 public class ConnectivityHelper {

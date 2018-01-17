@@ -10,6 +10,10 @@ import sk.styk.martin.apkanalyzer.business.service.LocalApplicationStatisticData
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData;
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataBuilder;
 
+/**
+ * @author Martin Styk
+ * @version 15.09.2018
+ */
 public class LocalStatisticsLoader extends ApkAnalyzerAbstractAsyncLoader<LocalStatisticsData> {
     public static final int ID = 3;
 

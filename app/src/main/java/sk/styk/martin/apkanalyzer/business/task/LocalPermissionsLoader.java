@@ -11,6 +11,10 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionDataBuilder;
 
+/**
+ * @author Martin Styk
+ * @version 15.01.2018
+ */
 public class LocalPermissionsLoader extends ApkAnalyzerAbstractAsyncLoader<List<LocalPermissionData>> {
     public static final int ID = 6;
 

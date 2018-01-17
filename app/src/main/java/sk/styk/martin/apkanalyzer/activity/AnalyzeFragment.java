@@ -15,6 +15,8 @@ import sk.styk.martin.apkanalyzer.R;
 /**
  * Parent fragment for AppListFragment and AppDetailFragment.
  * Purpose of thi fragment is to provide separated screen areas in landscape orientation of w900dp devices
+ *
+ * @author Martin Styk
  */
 public class AnalyzeFragment extends Fragment {
 

@@ -9,7 +9,8 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 
 /**
- * Created by Martin Styk on 03.01.2018.
+ * @author Martin Styk
+ * @version 03.01.2018.
  */
 
 public class FileUtils {

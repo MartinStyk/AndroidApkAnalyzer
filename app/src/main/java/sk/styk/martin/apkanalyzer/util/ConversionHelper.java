@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Martin Styk on 28.07.2017.
+ * @author Martin Styk
+ * @version 28.07.2017.
  */
-
 public class ConversionHelper {
 
     public static double[] toDoubleArray(List<Double> numbers) {

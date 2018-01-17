@@ -8,7 +8,8 @@ import android.support.annotation.NonNull;
 import java.io.File;
 
 /**
- * Created by Martin Styk on 09.10.2017.
+ * @author Martin Styk
+ * @version 09.10.2017.
  */
 
 public class ApkFilePicker {

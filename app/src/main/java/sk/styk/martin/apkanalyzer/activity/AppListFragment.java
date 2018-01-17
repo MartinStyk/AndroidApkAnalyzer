@@ -36,6 +36,8 @@ import static android.app.Activity.RESULT_OK;
 
 /**
  * List of all applications
+ *
+ * @author Martin Styk
  */
 public class AppListFragment extends ListFragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener, View.OnClickListener,
         LoaderManager.LoaderCallbacks<List<AppListData>> {
@@ -222,7 +224,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         } else {
             try {
                 startActivityForResult(ApkFilePicker.getFilePickerIntent(), ApkFilePicker.REQUEST_PICK_APK);
-            } catch (ActivityNotFoundException exception){
+            } catch (ActivityNotFoundException exception) {
                 Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show();
             }
         }

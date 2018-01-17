@@ -11,7 +11,8 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 
 /**
- * Created by Martin Styk on 12.11.2017.
+ * @author Martin Styk
+ * @version 12.11.2017.
  */
 
 public class ServerHttpAccessHelper {

@@ -4,7 +4,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by Martin Styk on 12.10.2017.
+ * @author Martin Styk
+ * @version 12.10.2017.
  */
 
 public class FeatureData implements Parcelable {

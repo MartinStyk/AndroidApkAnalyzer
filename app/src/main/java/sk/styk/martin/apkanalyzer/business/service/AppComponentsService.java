@@ -16,7 +16,8 @@ import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData;
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData;
 
 /**
- * Created by Martin Styk on 30.06.2017.
+ * @author Martin Styk
+ * @version 30.06.2017.
  */
 public class AppComponentsService {
 

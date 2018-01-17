@@ -19,7 +19,8 @@ import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 /**
  * Permission list adapter used in LocalPermissionFragment
  * <p>
- * Created by Martin Styk on 13.01.2017.
+ * @author Martin Styk
+ * @version 13.01.2017.
  */
 public class PermissionListAdapter extends GenericDetailListAdapter<LocalPermissionData, PermissionListAdapter.ViewHolder> {
 

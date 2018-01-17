@@ -8,7 +8,8 @@ import java.text.DateFormat;
 import static com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES;
 
 /**
- * Created by Martin Styk on 06.11.2017.
+ * @author Martin Styk
+ * @version 06.11.2017.
  */
 public class JsonSerializationUtils {
 

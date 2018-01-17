@@ -20,6 +20,9 @@ import android.widget.Toast;
 import sk.styk.martin.apkanalyzer.R;
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker;
 
+/**
+ * @author Martin Styk
+ */
 public class OnInstallAppDetailActivity extends AppCompatActivity {
 
     private static final int REQUEST_STORAGE_PERMISSIONS = 987;

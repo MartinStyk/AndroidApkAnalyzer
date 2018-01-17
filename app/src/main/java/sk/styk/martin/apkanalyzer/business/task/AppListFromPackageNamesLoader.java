@@ -10,7 +10,8 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData;
 /**
  * Loader async task for item for AppListDialog
  * <p>
- * Created by Martin Styk on 05.01.2018.
+ * @author Martin Styk
+ * @version 05.01.2018.
  */
 public class AppListFromPackageNamesLoader extends ApkAnalyzerAbstractAsyncLoader<List<AppListData>> {
 

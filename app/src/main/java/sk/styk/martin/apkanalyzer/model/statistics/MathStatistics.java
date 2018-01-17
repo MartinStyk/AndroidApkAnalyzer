@@ -8,7 +8,8 @@ import java.math.BigDecimal;
 /**
  * Math Statistics collected about attributes of Apk file
  * <p>
- * Created by Martin Styk on 28.07.2017.
+ * @author Martin Styk
+ * @version 28.07.2017.
  */
 public class MathStatistics implements Parcelable {
 
