@@ -45,7 +45,7 @@ public class OnInstallAppDetailActivity extends AppCompatActivity {
         }
 
         intent = getIntent();
-        apkPath = ApkFilePicker.getPathFromIntentData(intent, this);
+        apkPath = ApkFilePicker.INSTANCE.getPathFromIntentData(intent, this);
 
         if (savedInstanceState == null) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED

@@ -101,7 +101,7 @@ public class LocalStatisticsDataBuilder {
         }
         analyzeSuccess++;
         if (appData.isSystemApp()) systemApps++;
-        addToMap(installLocation, InstallLocationHelper.resolveInstallLocation(appData.getInstallLocation()), appData.getPackageName());
+        addToMap(installLocation, InstallLocationHelper.INSTANCE.resolveInstallLocation(appData.getInstallLocation()), appData.getPackageName());
         addToMap(targetSdk, appData.getTargetSdk(), appData.getPackageName());
         addToMap(minSdk, appData.getMinSdk(), appData.getPackageName());
         apkSize[analyzeSuccess] = appData.getApkSize();

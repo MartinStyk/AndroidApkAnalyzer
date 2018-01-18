@@ -190,7 +190,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
         // handle picked apk file and
         if (requestCode == ApkFilePicker.REQUEST_PICK_APK && resultCode == RESULT_OK) {
             AnalyzeFragment parentFragment = (AnalyzeFragment) getParentFragment();
-            parentFragment.itemClicked(null, ApkFilePicker.getPathFromIntentData(data, getContext()));
+            parentFragment.itemClicked(null, ApkFilePicker.INSTANCE.getPathFromIntentData(data, getContext()));
         }
     }
 
@@ -223,7 +223,7 @@ public class AppListFragment extends ListFragment implements SearchView.OnQueryT
             }
         } else {
             try {
-                startActivityForResult(ApkFilePicker.getFilePickerIntent(), ApkFilePicker.REQUEST_PICK_APK);
+                startActivityForResult(ApkFilePicker.INSTANCE.getFilePickerIntent(), ApkFilePicker.REQUEST_PICK_APK);
             } catch (ActivityNotFoundException exception) {
                 Snackbar.make(getActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show();
             }

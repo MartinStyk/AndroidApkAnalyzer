@@ -29,12 +29,12 @@ public class SettingsFragment extends Fragment {
         ((TextView) rootView.findViewById(R.id.settings_upload_explanation)).setMovementMethod(LinkMovementMethod.getInstance());
 
         CheckBox allowUpload = rootView.findViewById(R.id.allow_upload);
-        allowUpload.setChecked(ConnectivityHelper.isConnectionAllowedByUser(getContext()));
+        allowUpload.setChecked(ConnectivityHelper.INSTANCE.isConnectionAllowedByUser(getContext()));
         allowUpload.setOnCheckedChangeListener(
                 new CheckBox.OnCheckedChangeListener() {
                     @Override
                     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                        ConnectivityHelper.setConnectionAllowedByUser(getContext(), b);
+                        ConnectivityHelper.INSTANCE.setConnectionAllowedByUser(getContext(), b);
                     }
                 }
         );

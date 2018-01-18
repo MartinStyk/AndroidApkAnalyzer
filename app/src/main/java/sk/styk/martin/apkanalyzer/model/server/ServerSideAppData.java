@@ -152,37 +152,37 @@ public class ServerSideAppData {
         // Activities
         List<ActivityData> activityData = appDetailData.getActivityData();
         numberActivities = activityData.size();
-        activitiesAggregatedHash = HashCodeHelper.hashList(activityData);
+        activitiesAggregatedHash = HashCodeHelper.INSTANCE.hashList(activityData);
 
         // Services
         List<ServiceData> serviceData = appDetailData.getServiceData();
         numberServices = serviceData.size();
-        servicesAggregatedHash = HashCodeHelper.hashList(serviceData);
+        servicesAggregatedHash = HashCodeHelper.INSTANCE.hashList(serviceData);
 
         // Content Providers
         List<ContentProviderData> providerData = appDetailData.getContentProviderData();
         numberContentProviders = providerData.size();
-        providersAggregatedHash = HashCodeHelper.hashList(providerData);
+        providersAggregatedHash = HashCodeHelper.INSTANCE.hashList(providerData);
 
         // Broadcast Receivers
         List<BroadcastReceiverData> receiverData = appDetailData.getBroadcastReceiverData();
         numberBroadcastReceivers = receiverData.size();
-        receiversAggregatedHash = HashCodeHelper.hashList(receiverData);
+        receiversAggregatedHash = HashCodeHelper.INSTANCE.hashList(receiverData);
 
         // Defined permissions
         List<String> definedPermissions = appDetailData.getPermissionData().getDefinesPermissionsNames();
-        definedPermissionsAggregatedHash = HashCodeHelper.hashList(definedPermissions);
+        definedPermissionsAggregatedHash = HashCodeHelper.INSTANCE.hashList(definedPermissions);
         numberDefinedPermissions = definedPermissions.size();
 
         // Used permissions
         permissions = appDetailData.getPermissionData().getUsesPermissionsNames();
-        usedPermissionsAggregatedHash = HashCodeHelper.hashList(permissions);
+        usedPermissionsAggregatedHash = HashCodeHelper.INSTANCE.hashList(permissions);
         numberUsedPermissions = permissions.size();
 
         // Features
         List<FeatureData> featureData = appDetailData.getFeatureData();
         numberFeatures = featureData.size();
-        featuresAggregatedHash = HashCodeHelper.hashList(featureData);
+        featuresAggregatedHash = HashCodeHelper.INSTANCE.hashList(featureData);
 
         // FileData
         FileData fileData = appDetailData.getFileData();
@@ -202,9 +202,9 @@ public class ServerSideAppData {
         numberPngsWithDifferentName = fileData.getNumberPngsWithDifferentName();
         numberXmlsWithDifferentName = fileData.getNumberXmlsWithDifferentName();
 
-        pngsAggregatedHash = HashCodeHelper.hashList(pngHashes);
-        layoutsAggregatedHash = HashCodeHelper.hashList(fileData.getOnlyHash(fileData.getLayoutHashes()));
-        menusAggregatedHash = HashCodeHelper.hashList(fileData.getOnlyHash(fileData.getMenuHashes()));
+        pngsAggregatedHash = HashCodeHelper.INSTANCE.hashList(pngHashes);
+        layoutsAggregatedHash = HashCodeHelper.INSTANCE.hashList(fileData.getOnlyHash(fileData.getLayoutHashes()));
+        menusAggregatedHash = HashCodeHelper.INSTANCE.hashList(fileData.getOnlyHash(fileData.getMenuHashes()));
 
         //ResourceData
         ResourceData resourceData = appDetailData.getResourceData();
@@ -229,7 +229,7 @@ public class ServerSideAppData {
         ClassPathData classPathData = appDetailData.getClassPathData();
 
         totalNumberOfClasses = classPathData.getPackageClasses().size() + classPathData.getOtherClasses().size();
-        classesAggregatedHash = HashCodeHelper.hashList(classPathData.getPackageClasses(), classPathData.getOtherClasses());
+        classesAggregatedHash = HashCodeHelper.INSTANCE.hashList(classPathData.getPackageClasses(), classPathData.getOtherClasses());
         totalNumberOfClassesWithoutInnerClasses = totalNumberOfClasses - classPathData.getNumberOfInnerClasses();
 
         appHash = computeOverallHash();

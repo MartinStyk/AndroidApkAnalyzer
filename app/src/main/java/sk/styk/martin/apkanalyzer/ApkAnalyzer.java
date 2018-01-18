@@ -27,7 +27,7 @@ public class ApkAnalyzer extends Application {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        if (!FirstStartHelper.isFirstStart(getApplicationContext()))
+        if (!FirstStartHelper.INSTANCE.isFirstStart(getApplicationContext()))
             MultipleAppDataUploadService.Companion.start(getApplicationContext());
     }
 }

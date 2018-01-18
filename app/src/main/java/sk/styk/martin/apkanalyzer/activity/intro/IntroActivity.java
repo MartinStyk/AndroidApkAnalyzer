@@ -72,13 +72,13 @@ public class IntroActivity extends AppIntro {
         // save user preferences and trigger data upload if possible
         if (currentFragment instanceof AllowMetadataUploadIntroSlide) {
             boolean isUploadAllowed = AllowMetadataUploadIntroSlide.class.cast(currentFragment).isUploadAllowed();
-            ConnectivityHelper.setConnectionAllowedByUser(getApplicationContext(), isUploadAllowed);
+            ConnectivityHelper.INSTANCE.setConnectionAllowedByUser(getApplicationContext(), isUploadAllowed);
 
             if (isUploadAllowed)
                 MultipleAppDataUploadService.Companion.start(getApplicationContext());
         }
 
-        FirstStartHelper.setFirstStartFinished(getApplicationContext());
+        FirstStartHelper.INSTANCE.setFirstStartFinished(getApplicationContext());
         finish();
     }
 
