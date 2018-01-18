@@ -28,6 +28,6 @@ public class ApkAnalyzer extends Application {
         StrictMode.setVmPolicy(builder.build());
 
         if (!FirstStartHelper.isFirstStart(getApplicationContext()))
-            MultipleAppDataUploadService.start(getApplicationContext());
+            MultipleAppDataUploadService.Companion.start(getApplicationContext());
     }
 }

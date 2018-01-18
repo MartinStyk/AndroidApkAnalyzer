@@ -128,7 +128,7 @@ public class ManifestActivity extends AppCompatActivity implements LoaderManager
     }
 
     private void exportManifestFile() {
-        String targetFile = StringToFileSaveService.startService(this, packageName, manifest);
+        String targetFile = StringToFileSaveService.Companion.startService(this, packageName, manifest);
         Snackbar.make(findViewById(android.R.id.content), getString(R.string.save_manifest_background, targetFile), Snackbar.LENGTH_LONG).show();
     }
 }

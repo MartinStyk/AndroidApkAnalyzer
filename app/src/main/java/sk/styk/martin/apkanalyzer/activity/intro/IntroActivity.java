@@ -75,7 +75,7 @@ public class IntroActivity extends AppIntro {
             ConnectivityHelper.setConnectionAllowedByUser(getApplicationContext(), isUploadAllowed);
 
             if (isUploadAllowed)
-                MultipleAppDataUploadService.start(getApplicationContext());
+                MultipleAppDataUploadService.Companion.start(getApplicationContext());
         }
 
         FirstStartHelper.setFirstStartFinished(getApplicationContext());

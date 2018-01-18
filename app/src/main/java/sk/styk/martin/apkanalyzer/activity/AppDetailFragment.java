@@ -272,7 +272,7 @@ public class AppDetailFragment extends Fragment implements LoaderManager.LoaderC
     }
 
     private void exportApkFile() {
-        String targetFile = FileCopyService.startService(getActivity(), data);
+        String targetFile = FileCopyService.Companion.startService(getActivity(), data);
         Snackbar.make(getActivity().findViewById(android.R.id.content), getString(R.string.copy_apk_background, targetFile), Snackbar.LENGTH_LONG).show();
     }
 }
