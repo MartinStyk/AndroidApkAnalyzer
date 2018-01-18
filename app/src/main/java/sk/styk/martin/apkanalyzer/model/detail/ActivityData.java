@@ -27,60 +27,42 @@ public class ActivityData implements Parcelable {
      */
     private boolean exported;
 
-    public String getName() {
-        return name;
+    public ActivityData(String name, String packageName, String label, String targetActivity, String permission, String parentName, boolean exported) {
+        this.name = name;
+        this.packageName = packageName;
+        this.label = label;
+        this.targetActivity = targetActivity;
+        this.permission = permission;
+        this.parentName = parentName;
+        this.exported = exported;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public String getLabel() {
         return label;
     }
 
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
     public String getTargetActivity() {
         return targetActivity;
-    }
-
-    public void setTargetActivity(String targetActivity) {
-        this.targetActivity = targetActivity;
     }
 
     public String getPermission() {
         return permission;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
-
     public String getParentName() {
         return parentName;
-    }
-
-    public void setParentName(String parentName) {
-        this.parentName = parentName;
     }
 
     public boolean isExported() {
         return exported;
     }
 
-    public void setExported(boolean exported) {
-        this.exported = exported;
-    }
-
     public String getPackageName() {
         return packageName;
-    }
-
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
     }
 
     @Override

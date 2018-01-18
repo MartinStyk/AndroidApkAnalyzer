@@ -17,7 +17,6 @@ public class ResourceData implements Parcelable {
     private int gifDrawables;
     private int xmlDrawables;
 
-
     private int drawables;
     //number of drawables with different name (i.e. /res/hdpi/a.png == /res/xhdpi/a.png)
     private int differentDrawables;
@@ -37,148 +36,97 @@ public class ResourceData implements Parcelable {
     //number of layouts with different name (i.e. /res/layout/a.xml == /res/layout-land/a.xml)
     private int differentLayouts;
 
-    public int getPngDrawables() {
-        return pngDrawables;
+    public ResourceData(int pngDrawables, int ninePatchDrawables, int jpgDrawables, int gifDrawables, int xmlDrawables, int drawables, int differentDrawables, int ldpiDrawables, int mdpiDrawables, int hdpiDrawables, int xhdpiDrawables, int xxhdpiDrawables, int xxxhdpiDrawables, int nodpiDrawables, int tvdpiDrawables, int unspecifiedDpiDrawables, int layouts, int differentLayouts) {
+        this.pngDrawables = pngDrawables;
+        this.ninePatchDrawables = ninePatchDrawables;
+        this.jpgDrawables = jpgDrawables;
+        this.gifDrawables = gifDrawables;
+        this.xmlDrawables = xmlDrawables;
+        this.drawables = drawables;
+        this.differentDrawables = differentDrawables;
+        this.ldpiDrawables = ldpiDrawables;
+        this.mdpiDrawables = mdpiDrawables;
+        this.hdpiDrawables = hdpiDrawables;
+        this.xhdpiDrawables = xhdpiDrawables;
+        this.xxhdpiDrawables = xxhdpiDrawables;
+        this.xxxhdpiDrawables = xxxhdpiDrawables;
+        this.nodpiDrawables = nodpiDrawables;
+        this.tvdpiDrawables = tvdpiDrawables;
+        this.unspecifiedDpiDrawables = unspecifiedDpiDrawables;
+        this.layouts = layouts;
+        this.differentLayouts = differentLayouts;
     }
 
-    public void setPngDrawables(int pngDrawables) {
-        this.pngDrawables = pngDrawables;
+    public int getPngDrawables() {
+        return pngDrawables;
     }
 
     public int getNinePatchDrawables() {
         return ninePatchDrawables;
     }
 
-    public void setNinePatchDrawables(int ninePatchDrawables) {
-        this.ninePatchDrawables = ninePatchDrawables;
-    }
-
     public int getJpgDrawables() {
         return jpgDrawables;
-    }
-
-    public void setJpgDrawables(int jpgDrawables) {
-        this.jpgDrawables = jpgDrawables;
     }
 
     public int getGifDrawables() {
         return gifDrawables;
     }
 
-    public void setGifDrawables(int gifDrawables) {
-        this.gifDrawables = gifDrawables;
-    }
-
     public int getXmlDrawables() {
         return xmlDrawables;
-    }
-
-    public void setXmlDrawables(int xmlDrawables) {
-        this.xmlDrawables = xmlDrawables;
     }
 
     public int getDifferentDrawables() {
         return differentDrawables;
     }
 
-    public void setDifferentDrawables(int differentDrawables) {
-        this.differentDrawables = differentDrawables;
-    }
-
     public int getDrawables() {
         return drawables;
-    }
-
-    public void setDrawables(int drawables) {
-        this.drawables = drawables;
     }
 
     public int getLdpiDrawables() {
         return ldpiDrawables;
     }
 
-    public void setLdpiDrawables(int ldpiDrawables) {
-        this.ldpiDrawables = ldpiDrawables;
-    }
-
     public int getMdpiDrawables() {
         return mdpiDrawables;
-    }
-
-    public void setMdpiDrawables(int mdpiDrawables) {
-        this.mdpiDrawables = mdpiDrawables;
     }
 
     public int getHdpiDrawables() {
         return hdpiDrawables;
     }
 
-    public void setHdpiDrawables(int hdpiDrawables) {
-        this.hdpiDrawables = hdpiDrawables;
-    }
-
     public int getXhdpiDrawables() {
         return xhdpiDrawables;
-    }
-
-    public void setXhdpiDrawables(int xhdpiDrawables) {
-        this.xhdpiDrawables = xhdpiDrawables;
     }
 
     public int getXxhdpiDrawables() {
         return xxhdpiDrawables;
     }
 
-    public void setXxhdpiDrawables(int xxhdpiDrawables) {
-        this.xxhdpiDrawables = xxhdpiDrawables;
-    }
-
     public int getXxxhdpiDrawables() {
         return xxxhdpiDrawables;
-    }
-
-    public void setXxxhdpiDrawables(int xxxhdpiDrawables) {
-        this.xxxhdpiDrawables = xxxhdpiDrawables;
     }
 
     public int getNodpiDrawables() {
         return nodpiDrawables;
     }
 
-    public void setNodpiDrawables(int nodpiDrawables) {
-        this.nodpiDrawables = nodpiDrawables;
-    }
-
     public int getTvdpiDrawables() {
         return tvdpiDrawables;
-    }
-
-    public void setTvdpiDrawables(int tvdpiDrawables) {
-        this.tvdpiDrawables = tvdpiDrawables;
     }
 
     public int getUnspecifiedDpiDrawables() {
         return unspecifiedDpiDrawables;
     }
 
-    public void setUnspecifiedDpiDrawables(int unspecifiedDpiDrawables) {
-        this.unspecifiedDpiDrawables = unspecifiedDpiDrawables;
-    }
-
     public int getLayouts() {
         return layouts;
     }
 
-    public void setLayouts(int layouts) {
-        this.layouts = layouts;
-    }
-
     public int getDifferentLayouts() {
         return differentLayouts;
-    }
-
-    public void setDifferentLayouts(int differentLayouts) {
-        this.differentLayouts = differentLayouts;
     }
 
     @Override
@@ -254,9 +202,6 @@ public class ResourceData implements Parcelable {
                 ", layouts=" + layouts +
                 ", differentLayouts=" + differentLayouts +
                 '}';
-    }
-
-    public ResourceData() {
     }
 
     @Override

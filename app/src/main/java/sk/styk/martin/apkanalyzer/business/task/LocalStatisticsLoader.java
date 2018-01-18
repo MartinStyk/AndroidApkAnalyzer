@@ -5,8 +5,8 @@ import android.content.Context;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
-import sk.styk.martin.apkanalyzer.business.service.LocalApplicationStatisticDataService;
+import sk.styk.martin.apkanalyzer.business.service.launcher.AppBasicDataService;
+import sk.styk.martin.apkanalyzer.business.service.launcher.LocalApplicationStatisticDataService;
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData;
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataBuilder;
 

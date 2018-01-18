@@ -7,7 +7,7 @@ import android.content.IntentFilter;
 
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
+import sk.styk.martin.apkanalyzer.business.service.launcher.AppBasicDataService;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 
 /**

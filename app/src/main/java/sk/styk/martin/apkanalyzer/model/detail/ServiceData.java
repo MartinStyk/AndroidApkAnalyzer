@@ -33,55 +33,37 @@ public class ServiceData implements Parcelable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPermission() {
         return permission;
-    }
-
-    public void setPermission(String permission) {
-        this.permission = permission;
     }
 
     public boolean isExported() {
         return exported;
     }
 
-    public void setExported(boolean exported) {
-        this.exported = exported;
-    }
-
     public boolean isStopWithTask() {
         return stopWithTask;
-    }
-
-    public void setStopWithTask(boolean stopWithTask) {
-        this.stopWithTask = stopWithTask;
     }
 
     public boolean isSingleUser() {
         return singleUser;
     }
 
-    public void setSingleUser(boolean singleUser) {
-        this.singleUser = singleUser;
-    }
-
     public boolean isolatedProcess() {
         return isolatedProcess;
-    }
-
-    public void setIsolatedProcess(boolean isolatedProcess) {
-        this.isolatedProcess = isolatedProcess;
     }
 
     public boolean isExternalService() {
         return externalService;
     }
 
-    public void setExternalService(boolean externalService) {
+    public ServiceData(String name, String permission, boolean exported, boolean stopWithTask, boolean singleUser, boolean isolatedProcess, boolean externalService) {
+        this.name = name;
+        this.permission = permission;
+        this.exported = exported;
+        this.stopWithTask = stopWithTask;
+        this.singleUser = singleUser;
+        this.isolatedProcess = isolatedProcess;
         this.externalService = externalService;
     }
 

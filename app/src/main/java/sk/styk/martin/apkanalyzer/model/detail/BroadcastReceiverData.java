@@ -17,28 +17,22 @@ public class BroadcastReceiverData implements Parcelable {
     //May be called by another activity
     private boolean exported;
 
-    public String getName() {
-        return name;
+    public BroadcastReceiverData(String name, String permission, boolean exported) {
+        this.name = name;
+        this.permission = permission;
+        this.exported = exported;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public String getPermission() {
         return permission;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
-
     public boolean isExported() {
         return exported;
-    }
-
-    public void setExported(boolean exported) {
-        this.exported = exported;
     }
 
     @Override

@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.business.task;
 
 import android.content.Context;
 
-import sk.styk.martin.apkanalyzer.business.service.AppDetailDataService;
+import sk.styk.martin.apkanalyzer.business.service.launcher.AppDetailDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 
 /**

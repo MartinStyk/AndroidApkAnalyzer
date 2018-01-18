@@ -26,6 +26,9 @@ public class AppDetailData implements Parcelable {
     private ResourceData resourceData;
     private ClassPathData classPathData;
 
+    public AppDetailData() {
+    }
+
     public AppDetailData(AnalysisMode analysisMode) {
         this.analysisMode = analysisMode;
     }

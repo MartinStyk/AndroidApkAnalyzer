@@ -5,8 +5,8 @@ import android.content.Context;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import sk.styk.martin.apkanalyzer.business.service.AppBasicDataService;
-import sk.styk.martin.apkanalyzer.business.service.LocalPermissionsDataService;
+import sk.styk.martin.apkanalyzer.business.service.launcher.AppBasicDataService;
+import sk.styk.martin.apkanalyzer.business.service.launcher.LocalPermissionsDataService;
 import sk.styk.martin.apkanalyzer.model.list.AppListData;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionDataBuilder;

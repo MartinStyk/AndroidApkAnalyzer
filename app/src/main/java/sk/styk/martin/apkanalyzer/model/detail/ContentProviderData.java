@@ -23,44 +23,32 @@ public class ContentProviderData implements Parcelable {
     //May be called by another activity
     private boolean exported;
 
-    public String getName() {
-        return name;
+    public ContentProviderData(String name, String authority, String readPermission, String writePermission, boolean exported) {
+        this.name = name;
+        this.authority = authority;
+        this.readPermission = readPermission;
+        this.writePermission = writePermission;
+        this.exported = exported;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getName() {
+        return name;
     }
 
     public String getAuthority() {
         return authority;
     }
 
-    public void setAuthority(String authority) {
-        this.authority = authority;
-    }
-
     public String getReadPermission() {
         return readPermission;
-    }
-
-    public void setReadPermission(String readPermission) {
-        this.readPermission = readPermission;
     }
 
     public String getWritePermission() {
         return writePermission;
     }
 
-    public void setWritePermission(String writePermission) {
-        this.writePermission = writePermission;
-    }
-
     public boolean isExported() {
         return exported;
-    }
-
-    public void setExported(boolean exported) {
-        this.exported = exported;
     }
 
     @Override
@@ -113,9 +101,6 @@ public class ContentProviderData implements Parcelable {
         dest.writeString(this.readPermission);
         dest.writeString(this.writePermission);
         dest.writeByte(this.exported ? (byte) 1 : (byte) 0);
-    }
-
-    public ContentProviderData() {
     }
 
     protected ContentProviderData(Parcel in) {
