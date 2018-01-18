@@ -15,7 +15,7 @@ object AndroidVersionHelper {
         //java index from 0 - first item is sdk 1
         val index = sdkVersion - 1
 
-        val versions = ApkAnalyzer.getContext().resources.getStringArray(R.array.android_versions)
+        val versions = ApkAnalyzer.context.resources.getStringArray(R.array.android_versions)
 
         return if (index >= 0 && index < versions.size) versions[index] else null
     }
