@@ -49,6 +49,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:titleText="@string/analyze_results_success"
+                            app:descriptionText="@string/analyze_results_success_description"
                             app:valueText="@string/NA" />
 
                         <sk.styk.martin.apkanalyzer.view.DetailListItemView
@@ -56,6 +57,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:titleText="@string/analyze_results_failed"
+                            app:descriptionText="@string/analyze_results_failed_description"
                             app:valueText="@string/NA" />
 
                         <sk.styk.martin.apkanalyzer.view.DetailListItemView
@@ -63,6 +65,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:titleText="@string/system_apps"
+                            app:descriptionText="@string/system_apps"
                             app:valueText="@string/NA" />
 
                     </LinearLayout>

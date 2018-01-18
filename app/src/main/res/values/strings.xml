@@ -267,7 +267,10 @@
 
     <string name="analyze_results">Analysis results</string>
     <string name="analyze_results_success">Analysis successful</string>
+    <string name="analyze_results_success_description">Number of apps successfully analyzed by Apk Analyzer.</string>
     <string name="analyze_results_failed">Analysis failed</string>
+    <string name="analyze_results_failed_description">Number of apps Apk Analyzer failed to process.</string>
+
 
     <string name="settings_allow_metadata_upload">Upload metadata</string>
     <string name="settings_allow_metadata_upload_description"> Please, allow Apk Analyzer to collect metadata about installed applications. \nMetadata contains information about apps and ID of your device. It doesn\'t include your data. \nApplication metadata are used for scientific purposes - research of repackaged APKs. \nData is uploaded only over WiFi. \nMore details about privacy can be found in <a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">Privacy Policy</a>.</string>

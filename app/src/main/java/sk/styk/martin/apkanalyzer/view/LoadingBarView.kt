@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
+import kotlinx.android.synthetic.main.view_loading_bar.view.*
 
 import sk.styk.martin.apkanalyzer.R
 
@@ -19,20 +20,17 @@ import sk.styk.martin.apkanalyzer.R
  */
 class LoadingBarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
 
-    private val progressBar: ProgressBar
-
     init {
         LayoutInflater.from(context).inflate(R.layout.view_loading_bar, this, true)
-        progressBar = getChildAt(1) as ProgressBar
-        progressBar.progress = 0
-        progressBar.max = 10
+        loading_progress_bar.progress = 0
+        loading_progress_bar.max = 10
     }
 
     fun setProgress(currentProgress: Int, maxProgress: Int) {
-        if (progressBar.max != maxProgress)
-            progressBar.max = maxProgress
+        if (loading_progress_bar.max != maxProgress)
+            loading_progress_bar.max = maxProgress
 
-        progressBar.progress = currentProgress
+        loading_progress_bar.progress = currentProgress
     }
 
 }

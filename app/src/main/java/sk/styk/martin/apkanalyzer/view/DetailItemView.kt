@@ -7,7 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
+import kotlinx.android.synthetic.main.view_detail_item.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.dialog.InfoDialog
 
@@ -20,13 +20,10 @@ import sk.styk.martin.apkanalyzer.activity.dialog.InfoDialog
 class DetailItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
     : LinearLayout(context, attrs, R.attr.detailItemViewStyle), View.OnClickListener {
 
-    private val title: TextView
-    private val value: TextView
-
     var titleText: String = ""
         set(value) {
             field = value
-            title.text = value
+            attribute_name.text = value
         }
 
     var descriptionText: String
@@ -36,7 +33,7 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
             if (value == null || value == notShownExpression) {
                 visibility = View.GONE
             } else {
-                this.value.text = value
+                attribute_value.text = value
                 visibility = View.VISIBLE
             }
         }
@@ -45,9 +42,6 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_detail_item, this, true)
-
-        title = getChildAt(0) as TextView
-        value = getChildAt(1) as android.widget.TextView
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.DetailItemView, 0, 0)
         notShownExpression = attributes.getString(R.styleable.DetailItemView_notShownExpression)

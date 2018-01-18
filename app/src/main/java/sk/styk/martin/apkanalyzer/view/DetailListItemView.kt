@@ -7,7 +7,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
-import android.widget.TextView
+import kotlinx.android.synthetic.main.view_detail_list_item.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.dialog.InfoDialog
 
@@ -19,28 +19,22 @@ import sk.styk.martin.apkanalyzer.activity.dialog.InfoDialog
  */
 class DetailListItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs, R.attr.detailListItemViewStyle), View.OnClickListener {
 
-    private val title: TextView
-    private val value: TextView
-
     var titleText: String = ""
         set(value) {
             field = value;
-            title.text = value
+            attribute_name.text = value
         }
     var valueText: String? = null
         set(value) {
-            if (value.isNullOrBlank()) {
-                valueText = value
-                this.value.text = value
+            if(!value.isNullOrBlank()){
+                field = value
+                attribute_value.text = value
             }
         }
-    var descriptionText: String?
+    var descriptionText: String
 
     init {
-
         LayoutInflater.from(context).inflate(R.layout.view_detail_list_item, this, true)
-        title = getChildAt(0) as TextView
-        value = getChildAt(1) as TextView
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.DetailItemView, 0, 0)
         titleText = attributes.getString(R.styleable.DetailItemView_titleText)

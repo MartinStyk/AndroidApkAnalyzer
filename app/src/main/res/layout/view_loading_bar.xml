@@ -4,13 +4,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/local_statistics_loading_bar"
+        android:layout_above="@+id/loading_progress_bar"
         android:padding="@dimen/padding_default"
         android:text="@string/loading"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <ProgressBar
-        android:id="@+id/local_statistics_loading_bar"
+        android:id="@+id/loading_progress_bar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
