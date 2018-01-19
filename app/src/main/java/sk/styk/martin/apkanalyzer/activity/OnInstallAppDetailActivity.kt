@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -28,7 +27,7 @@ class OnInstallAppDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_app_detail)
         setSupportActionBar(detail_toolbar)
 
-        if (getIntent().data == null) {
+        if (intent.data == null) {
             Toast.makeText(this, getString(R.string.error_loading_package_detail), Toast.LENGTH_LONG).show()
             setResult(Activity.RESULT_CANCELED)
             finish()
@@ -68,18 +67,17 @@ class OnInstallAppDetailActivity : AppCompatActivity() {
     }
 
     private fun setupDetailFragment() {
-        val arguments = Bundle()
-        arguments.putString(AppDetailFragment.ARG_PACKAGE_PATH, apkPath)
-        val detailFragment = AppDetailFragment()
-        detailFragment.arguments = arguments
+
+        val fragment = AppDetailFragment.create(packagePath = apkPath)
+
         supportFragmentManager.beginTransaction()
-                .add(R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
+                .add(R.id.item_detail_container, fragment, AppDetailFragment.TAG)
                 .commitAllowingStateLoss()
     }
 
     companion object {
 
-        private val REQUEST_STORAGE_PERMISSIONS = 987
+        private const val REQUEST_STORAGE_PERMISSIONS = 987
     }
 
 }

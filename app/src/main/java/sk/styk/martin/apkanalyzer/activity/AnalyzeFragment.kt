@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -31,18 +30,12 @@ class AnalyzeFragment : Fragment() {
     }
 
     fun itemClicked(packageName: String?, pathToPackage: String?) {
-        if (!isTwoPane) {
-            val intent = Intent(context, AppDetailActivity::class.java)
-            intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, packageName)
-            intent.putExtra(AppDetailFragment.ARG_PACKAGE_PATH, pathToPackage)
-            context.startActivity(intent)
-        } else {
-            val arguments = Bundle()
-            arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, packageName)
-            arguments.putString(AppDetailFragment.ARG_PACKAGE_PATH, pathToPackage)
-            val fragment = AppDetailFragment()
-            fragment.arguments = arguments
+        if (isTwoPane) {
+            val fragment = AppDetailFragment.create(packageName = packageName, packagePath = pathToPackage)
             childFragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailFragment.TAG).commitAllowingStateLoss()
+        } else {
+            val activity = AppDetailActivity.createIntent(packageName = packageName, packagePath = pathToPackage, context = context)
+            context.startActivity(activity)
         }
     }
 }

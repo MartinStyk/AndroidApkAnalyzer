@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -12,7 +11,6 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.activity.intro.IntroActivity
 import sk.styk.martin.apkanalyzer.activity.permission.LocalPermissionsFragment
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper
 
@@ -28,14 +26,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.setDrawerListener(toggle)
+        drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
         navigation_view.setNavigationItemSelectedListener(this)
 
-        if (FirstStartHelper.isFirstStart(this)) {
-            startActivity(Intent(this, IntroActivity::class.java))
-        }
+        FirstStartHelper.execute(this)
 
         // only on first run redirect to default fragment
         if (savedInstanceState == null) {
@@ -57,15 +53,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
 
-        var fragment: Fragment? = null
-        when (id) {
-            R.id.nav_app_list -> fragment = AnalyzeFragment()
-            R.id.nav_local_stats -> fragment = LocalStatisticsFragment()
-            R.id.nav_local_permissions -> fragment = LocalPermissionsFragment()
-            R.id.nav_about -> fragment = AboutFragment()
-            R.id.nav_settings -> fragment = SettingsFragment()
+        val fragment: Fragment? = when (item.itemId) {
+            R.id.nav_app_list -> AnalyzeFragment()
+            R.id.nav_local_stats -> LocalStatisticsFragment()
+            R.id.nav_local_permissions -> LocalPermissionsFragment()
+            R.id.nav_about -> AboutFragment()
+            R.id.nav_settings -> SettingsFragment()
+            else -> throw IllegalStateException()
         }
 
         supportFragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, fragment).commit()

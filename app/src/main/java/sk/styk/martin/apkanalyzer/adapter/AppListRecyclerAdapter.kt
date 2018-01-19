@@ -1,16 +1,13 @@
 package sk.styk.martin.apkanalyzer.adapter
 
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.AppDetailActivity
-import sk.styk.martin.apkanalyzer.activity.AppDetailFragment
 import sk.styk.martin.apkanalyzer.adapter.detaillist.GenericDetailListAdapter
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 
@@ -42,9 +39,9 @@ class AppListRecyclerAdapter(items: List<AppListData>) : GenericDetailListAdapte
 
         init {
             v.setOnClickListener { view ->
-                val intent = Intent(view.context, AppDetailActivity::class.java)
-                intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, getItem(adapterPosition).packageName)
-                view.context.startActivity(intent)
+                val activityIntent = AppDetailActivity
+                        .createIntent(packageName = getItem(adapterPosition).packageName, context = view.context)
+                view.context.startActivity(activityIntent)
             }
         }
     }

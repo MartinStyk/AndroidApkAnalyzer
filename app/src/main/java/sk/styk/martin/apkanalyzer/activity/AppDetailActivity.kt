@@ -1,7 +1,8 @@
 package sk.styk.martin.apkanalyzer.activity
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_app_detail.*
@@ -19,21 +20,18 @@ class AppDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_app_detail)
-        setSupportActionBar(detail_toolbar)
 
-        // Show the Up button in the action bar.
+        setContentView(R.layout.activity_app_detail)
+
+        setSupportActionBar(detail_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (savedInstanceState == null) {
+            //delegate to fragment
+            val detailFragment = AppDetailFragment.create(packageName = intent.getStringExtra(AppDetailFragment.ARG_PACKAGE_NAME),
+                    packagePath = intent.getStringExtra(AppDetailFragment.ARG_PACKAGE_PATH))
 
-            val arguments = Bundle()
-            arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, intent.getStringExtra(AppDetailFragment.ARG_PACKAGE_NAME))
-            arguments.putString(AppDetailFragment.ARG_PACKAGE_PATH, intent.getStringExtra(AppDetailFragment.ARG_PACKAGE_PATH))
-            val detailFragment = AppDetailFragment()
-            detailFragment.arguments = arguments
-            supportFragmentManager.beginTransaction()
-                    .add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
+            supportFragmentManager.beginTransaction().add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
                     .commit()
         }
 
@@ -54,6 +52,17 @@ class AppDetailActivity : AppCompatActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+
+    companion object {
+        fun createIntent(packageName: String? = null, packagePath: String? = null, context: Context): Intent {
+            val intent = Intent(context, AppDetailActivity::class.java)
+            intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, packageName)
+            intent.putExtra(AppDetailFragment.ARG_PACKAGE_PATH, packagePath)
+
+            return intent
+        }
     }
 }
 

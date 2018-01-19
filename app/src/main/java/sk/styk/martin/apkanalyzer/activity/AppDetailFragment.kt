@@ -13,10 +13,8 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout
 import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout_image
-import kotlinx.android.synthetic.main.dialog_apk_actions.*
 import kotlinx.android.synthetic.main.dialog_apk_actions.view.*
 import kotlinx.android.synthetic.main.fragment_app_detail.*
 import sk.styk.martin.apkanalyzer.R
@@ -84,8 +82,7 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        if (savedInstanceState != null)
-            isDialogShowing = savedInstanceState.getBoolean("isDialogShowing")
+        isDialogShowing = savedInstanceState?.getBoolean("isDialogShowing") ?: false
     }
 
     override fun onCreateLoader(id: Int, args: Bundle): Loader<AppDetailData?> {
@@ -214,5 +211,15 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
         const val ARG_PACKAGE_PATH = "packagePath"
         const val ARG_CHILD = "dataForChild"
         private const val REQUEST_STORAGE_PERMISSION = 11
+
+        fun create(packageName: String? = null, packagePath: String? = null): AppDetailFragment {
+            val arguments = Bundle()
+            arguments.putString(AppDetailFragment.ARG_PACKAGE_PATH, packagePath)
+            arguments.putString(AppDetailFragment.ARG_PACKAGE_NAME, packageName)
+            val detailFragment = AppDetailFragment()
+            detailFragment.arguments = arguments
+
+            return detailFragment
+        }
     }
 }
