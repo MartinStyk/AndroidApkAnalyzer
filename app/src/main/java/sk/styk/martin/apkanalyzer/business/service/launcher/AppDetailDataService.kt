@@ -41,18 +41,17 @@ class AppDetailDataService(private val packageManager: PackageManager) {
 
     fun get(packageName: String?, pathToPackage: String?): AppDetailData? {
 
-        val data = AppDetailData()
-        val packageInfo: PackageInfo?
-
+        val packageInfo: PackageInfo
+        val analysisMode: AppDetailData.AnalysisMode?
         try {
             // decide whether we analyze installed app or only apk file
             packageInfo = when {
                 !packageName.isNullOrBlank() && pathToPackage.isNullOrBlank() -> {
-                    data.analysisMode = AppDetailData.AnalysisMode.INSTALLED_PACKAGE
+                    analysisMode = AppDetailData.AnalysisMode.INSTALLED_PACKAGE
                     packageManager.getPackageInfo(packageName, analysisFlags)
                 }
                 packageName.isNullOrBlank() && !pathToPackage.isNullOrBlank() -> {
-                    data.analysisMode = AppDetailData.AnalysisMode.APK_FILE
+                    analysisMode = AppDetailData.AnalysisMode.APK_FILE
                     packageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage!!, analysisFlags)
                 }
                 else -> throw IllegalArgumentException("At least one way to get package needs to be specified  [$packageName/$pathToPackage]")
@@ -62,26 +61,30 @@ class AppDetailDataService(private val packageManager: PackageManager) {
             return null
         }
 
-        return packageInfo?.let {
-            return try {
-                data.generalData = generalDataService.get(packageInfo, packageManager)
-                data.certificateData = certificateService.get(packageInfo)
-                data.activityData = appComponentsService.getActivities(packageInfo, packageManager)
-                data.serviceData = appComponentsService.getServices(packageInfo)
-                data.contentProviderData = appComponentsService.getContentProviders(packageInfo)
-                data.broadcastReceiverData = appComponentsService.getBroadcastReceivers(packageInfo)
-                data.permissionData = permissionsService.get(packageInfo, packageManager)
-                data.featureData = featuresService.get(packageInfo)
-                data.fileData = fileDataService.get(packageInfo)
-                data.resourceData = resourceService.get(data.fileData)
-                data.classPathData = dexService.get(packageInfo)
-                data
-            } catch (e: Exception) {
-                // we catch a general exception here, because some repackaged APKs are really naughty
-                // and we rather show user error screen than app failure
-                Log.e(TAG, e.toString())
-                null
-            }
+        return try {
+            val fileData = fileDataService.get(packageInfo)
+
+            AppDetailData(
+                    analysisMode = analysisMode,
+                    generalData = generalDataService.get(packageInfo, packageManager),
+                    certificateData = certificateService.get(packageInfo),
+                    activityData = appComponentsService.getActivities(packageInfo, packageManager),
+                    serviceData = appComponentsService.getServices(packageInfo),
+                    contentProviderData = appComponentsService.getContentProviders(packageInfo),
+                    broadcastReceiverData = appComponentsService.getBroadcastReceivers(packageInfo),
+                    permissionData = permissionsService.get(packageInfo, packageManager),
+                    featureData = featuresService.get(packageInfo),
+                    fileData = fileData,
+                    resourceData = resourceService.get(fileData),
+                    classPathData = dexService.get(packageInfo)
+            )
+
+        } catch (e: Exception) {
+            // we catch a general exception here, because some repackaged APKs are really naughty
+            // and we rather show user error screen than app failure
+            Log.e(TAG, e.toString())
+            null
+
         }
 
     }
