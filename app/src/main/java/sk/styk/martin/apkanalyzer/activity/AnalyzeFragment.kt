@@ -1,15 +1,11 @@
 package sk.styk.martin.apkanalyzer.activity
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
 import sk.styk.martin.apkanalyzer.R
 
 /**
@@ -22,25 +18,20 @@ class AnalyzeFragment : Fragment() {
 
     private var rootView: View? = null
 
-    private var fragmentManager: FragmentManager? = null
-
     private val isTwoPane: Boolean
         get() = rootView != null && rootView!!.findViewById<View>(R.id.app_detail_container) != null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        rootView = inflater!!.inflate(R.layout.fragment_analyze, container, false)
+        rootView = inflater.inflate(R.layout.fragment_analyze, container, false)
 
-        val fragment = AppListFragment()
-        fragmentManager = childFragmentManager
-        fragmentManager!!.beginTransaction().replace(R.id.app_list_container, fragment).commit()
+        childFragmentManager.beginTransaction().replace(R.id.app_list_container, AppListFragment()).commit()
 
         return rootView
     }
 
-    fun itemClicked(packageName: String, pathToPackage: String) {
+    fun itemClicked(packageName: String?, pathToPackage: String?) {
         if (!isTwoPane) {
-            val context = context
             val intent = Intent(context, AppDetailActivity::class.java)
             intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, packageName)
             intent.putExtra(AppDetailFragment.ARG_PACKAGE_PATH, pathToPackage)

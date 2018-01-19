@@ -35,16 +35,12 @@ class AppListRecyclerAdapter(items: List<AppListData>) : GenericDetailListAdapte
         holder.packageName.text = data.packageName
     }
 
-    internal inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val icon: ImageView
-        val applicationName: TextView
-        val packageName: TextView
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val icon: ImageView = v.findViewById(R.id.package_img)
+        val applicationName: TextView = v.findViewById(R.id.application_name)
+        val packageName: TextView = v.findViewById(R.id.package_name)
 
         init {
-            icon = v.findViewById(R.id.package_img)
-            applicationName = v.findViewById(R.id.application_name)
-            packageName = v.findViewById(R.id.package_name)
-
             v.setOnClickListener { view ->
                 val intent = Intent(view.context, AppDetailActivity::class.java)
                 intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, getItem(adapterPosition).packageName)

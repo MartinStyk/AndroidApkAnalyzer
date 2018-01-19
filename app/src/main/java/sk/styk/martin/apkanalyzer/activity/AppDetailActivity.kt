@@ -1,15 +1,10 @@
 package sk.styk.martin.apkanalyzer.activity
 
 import android.os.Bundle
-import android.support.design.widget.AppBarLayout
 import android.support.design.widget.FloatingActionButton
-import android.support.v4.app.Fragment
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.Toolbar
 import android.view.MenuItem
-import android.view.View
-
+import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
 
 /**
@@ -24,15 +19,11 @@ class AppDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(sk.styk.martin.apkanalyzer.R.layout.activity_app_detail)
-        val toolbar = findViewById<Toolbar>(R.id.detail_toolbar)
-        setSupportActionBar(toolbar)
+        setContentView(R.layout.activity_app_detail)
+        setSupportActionBar(detail_toolbar)
 
         // Show the Up button in the action bar.
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val appBarLayout = findViewById<AppBarLayout>(R.id.app_bar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         if (savedInstanceState == null) {
 
@@ -46,27 +37,23 @@ class AppDetailActivity : AppCompatActivity() {
                     .commit()
         }
 
-        val actionButton = findViewById<FloatingActionButton>(R.id.btn_actions)
-
         // this happens only in tablet mode when this activity is rotated from horizontal to vertical orientation
-        if (actionButton == null) {
-            appBarLayout.setExpanded(false)
+        if (btn_actions == null) {
+            app_bar.setExpanded(false)
         } else {
-            actionButton.setOnClickListener { view ->
+            btn_actions!!.setOnClickListener { view ->
                 //delegate to fragment
                 (supportFragmentManager.findFragmentByTag(AppDetailFragment.TAG) as AppDetailFragment).onClick(view)
             }
         }
-
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            finish()
+            true
         }
-        return super.onOptionsItemSelected(item)
+        else -> super.onOptionsItemSelected(item)
     }
 }
+

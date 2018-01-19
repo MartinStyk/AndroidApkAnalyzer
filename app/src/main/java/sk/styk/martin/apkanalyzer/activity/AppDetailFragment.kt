@@ -1,28 +1,24 @@
 package sk.styk.martin.apkanalyzer.activity
 
 import android.Manifest
-import android.content.ActivityNotFoundException
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.design.widget.CollapsingToolbarLayout
-import android.support.design.widget.FloatingActionButton
 import android.support.design.widget.Snackbar
-import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.Loader
-import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.TextView
-
+import android.widget.Button
+import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout
+import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout_image
+import kotlinx.android.synthetic.main.dialog_apk_actions.*
+import kotlinx.android.synthetic.main.dialog_apk_actions.view.*
+import kotlinx.android.synthetic.main.fragment_app_detail.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.detailfragment.ManifestActivity
 import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter
@@ -34,70 +30,56 @@ import sk.styk.martin.apkanalyzer.util.file.AppOperations
 
 /**
  * A fragment representing a single Item detail screen.
- * This fragment is either contained in a [AppListActivity]
+ * This fragment is either contained in a [MainActivity]
  * in two-pane mode (on tablets) or a [AppDetailActivity]
  * on handsets.
  *
  * @author Martin Styk
  */
-class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailData>, View.OnClickListener {
+class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailData?>, View.OnClickListener {
 
     private var data: AppDetailData? = null
     private var packagePath: String? = null
 
-    private var appBarLayout: CollapsingToolbarLayout? = null
-    private var appBarLayuotImageView: ImageView? = null
-
-    private var adapter: AppDetailPagerAdapter? = null
-    private var loadingBar: ProgressBar? = null
-    private var viewPager: ViewPager? = null
-    private var errorLoadingText: TextView? = null
+    private lateinit var adapter: AppDetailPagerAdapter
 
     private var isDialogShowing: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        adapter = AppDetailPagerAdapter(activity, fragmentManager)
+        adapter = AppDetailPagerAdapter(context, fragmentManager)
         packagePath = arguments.getString(ARG_PACKAGE_PATH)
         loaderManager.initLoader(AppDetailLoader.ID, arguments, this)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater!!.inflate(sk.styk.martin.apkanalyzer.R.layout.fragment_app_detail, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_app_detail, container, false)
+    }
 
-        loadingBar = rootView.findViewById(R.id.item_detail_loading)
-        appBarLayout = activity.findViewById(R.id.toolbar_layout)
-        appBarLayuotImageView = activity.findViewById(R.id.toolbar_layout_image)
-        errorLoadingText = rootView.findViewById(R.id.item_detail_error)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        viewPager = rootView.findViewById(R.id.pager)
-        viewPager!!.adapter = adapter
-
-        val tabLayout = rootView.findViewById<TabLayout>(R.id.tabs)
-        tabLayout.setupWithViewPager(viewPager)
+        pager.adapter = adapter
+        tabs.setupWithViewPager(pager)
 
         // if we are in 2-pane mode initialize floating button
-        val actionButton = rootView.findViewById<FloatingActionButton>(R.id.btn_actions)
-        actionButton?.setOnClickListener(this)
+        btn_actions?.setOnClickListener(this)
 
-        if (data != null) {
+        if (data != null)
             onLoadFinished(null, data)
-        }
-
-        return rootView
     }
 
     override fun onStart() {
-        if (isDialogShowing) {
+        if (isDialogShowing)
             showActionDialog()
-        }
+
         super.onStart()
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState!!.putBoolean("isDialogShowing", isDialogShowing)
+        outState?.putBoolean("isDialogShowing", isDialogShowing)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -106,34 +88,31 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
             isDialogShowing = savedInstanceState.getBoolean("isDialogShowing")
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle): Loader<AppDetailData> {
-        return AppDetailLoader(activity, args.getString(ARG_PACKAGE_NAME)!!, args.getString(ARG_PACKAGE_PATH)!!)
+    override fun onCreateLoader(id: Int, args: Bundle): Loader<AppDetailData?> {
+        return AppDetailLoader(context, args.getString(ARG_PACKAGE_NAME), args.getString(ARG_PACKAGE_PATH))
     }
 
-    override fun onLoadFinished(loader: Loader<AppDetailData>?, data: AppDetailData?) {
+    override fun onLoadFinished(loader: Loader<AppDetailData?>?, data: AppDetailData?) {
         this.data = data
-        loadingBar!!.visibility = View.GONE
+        item_detail_loading.visibility = View.GONE
 
         if (data == null) {
-            errorLoadingText!!.visibility = View.VISIBLE
-            if (appBarLayout != null) {
-                appBarLayout!!.title = getString(R.string.loading_failed)
-            }
+            item_detail_error.visibility = View.VISIBLE
+            activity?.toolbar_layout?.title = getString(R.string.loading_failed)
         } else {
-            if (appBarLayout != null) {
-                appBarLayout!!.title = data.generalData.packageName
-                appBarLayuotImageView!!.setImageDrawable(data.generalData.icon)
-            }
-            viewPager!!.visibility = View.VISIBLE
+            activity?.toolbar_layout?.title = data.generalData.packageName
+            activity?.toolbar_layout_image?.setImageDrawable(data.generalData.icon)
 
-            adapter!!.dataChange(data)
+            pager.visibility = View.VISIBLE
+
+            adapter.dataChange(data)
 
             AppDataUploadTask(context).execute(data)
         }
     }
 
-    override fun onLoaderReset(loader: Loader<AppDetailData>) {
-        this.data = null
+    override fun onLoaderReset(loader: Loader<AppDetailData?>) {
+        data = null
     }
 
     override fun onClick(view: View) {
@@ -144,7 +123,7 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == REQUEST_STORAGE_PERMISSION) {
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 exportApkFile()
             } else {
                 Snackbar.make(activity.findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show()
@@ -164,12 +143,13 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
         val dialog = AlertDialog.Builder(activity)
                 .setTitle(getString(R.string.pick_action))
                 .setView(dialogView)
-                .setNegativeButton(R.string.dismiss) { dialogInterface, i -> dialogInterface.dismiss() }
-                .setOnDismissListener { isDialogShowing = false }.setOnCancelListener { isDialogShowing = false }.create()
-
+                .setNegativeButton(R.string.dismiss) { dialogInterface, _ -> dialogInterface.dismiss() }
+                .setOnDismissListener { isDialogShowing = false }
+                .setOnCancelListener { isDialogShowing = false }
+                .create()
 
         // setup buttons
-        dialogView.findViewById<View>(R.id.btn_copy).setOnClickListener {
+        dialogView.btn_copy.setOnClickListener {
             dialog.dismiss()
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_STORAGE_PERMISSION)
@@ -178,39 +158,43 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
             }
         }
 
-        dialogView.findViewById<View>(R.id.btn_share_apk).setOnClickListener {
-            AppOperations().shareApkFile(context, data!!.generalData.apkDirectory)
+        dialogView.btn_share_apk.setOnClickListener {
+            AppOperations().shareApkFile(context, data?.generalData?.apkDirectory
+                    ?: return@setOnClickListener)
             dialog.dismiss()
         }
 
-        dialogView.findViewById<View>(R.id.btn_show_app_google_play).setOnClickListener {
+        dialogView.btn_show_app_google_play.setOnClickListener {
             dialog.dismiss()
-            AppOperations().openGooglePlay(context, data!!.generalData.packageName)
+            AppOperations().openGooglePlay(context, data?.generalData?.packageName
+                    ?: return@setOnClickListener)
         }
 
         // allow manifest and built-in app info only for installed packages
-        if (data!!.isAnalyzedInstalledPackage) {
-            dialogView.findViewById<View>(R.id.btn_show_manifest).setOnClickListener {
+        if (data != null && data!!.isAnalyzedInstalledPackage) {
+            dialogView.btn_show_manifest.setOnClickListener {
                 //start manifest activity
                 val intent = Intent(activity, ManifestActivity::class.java)
-                intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, data!!.generalData.packageName)
+                intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, data?.generalData?.packageName
+                        ?: return@setOnClickListener)
 
                 dialog.dismiss()
                 startActivity(intent)
             }
 
-            dialogView.findViewById<View>(R.id.btn_show_app_system_page).setOnClickListener {
+            dialogView.btn_show_app_system_page.setOnClickListener {
                 dialog.dismiss()
-                AppOperations().openAppSystemPage(context, data!!.generalData.packageName)
+                AppOperations().openAppSystemPage(context, data?.generalData?.packageName
+                        ?: return@setOnClickListener)
             }
         } else if (data!!.isAnalyzedApkFile) {
-            dialogView.findViewById<View>(R.id.btn_show_manifest).visibility = View.GONE
-            dialogView.findViewById<View>(R.id.btn_show_app_system_page).visibility = View.GONE
-            dialogView.findViewById<View>(R.id.btn_install_app).visibility = View.VISIBLE
+            dialogView.btn_show_manifest.visibility = View.GONE
+            dialogView.btn_show_app_system_page.visibility = View.GONE
+            dialogView.btn_install_app.visibility = View.VISIBLE
 
-            dialogView.findViewById<View>(R.id.btn_install_app).setOnClickListener {
+            dialogView.btn_install_app.setOnClickListener {
                 dialog.dismiss()
-                AppOperations().installPackage(context, packagePath!!)
+                AppOperations().installPackage(context, packagePath ?: return@setOnClickListener)
             }
         }
 
@@ -219,16 +203,16 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
     }
 
     private fun exportApkFile() {
-        val targetFile = FileCopyService.startService(activity, data!!)
+        val targetFile = FileCopyService.startService(activity, data ?: return)
         Snackbar.make(activity.findViewById(android.R.id.content), getString(R.string.copy_apk_background, targetFile), Snackbar.LENGTH_LONG).show()
     }
 
     companion object {
 
-        val TAG = AppDetailFragment::class.java.simpleName
-        val ARG_PACKAGE_NAME = "packageName"
-        val ARG_PACKAGE_PATH = "packagePath"
-        val ARG_CHILD = "dataForChild"
-        private val REQUEST_STORAGE_PERMISSION = 11
+        val TAG = AppDetailFragment::class.java.simpleName!!
+        const val ARG_PACKAGE_NAME = "packageName"
+        const val ARG_PACKAGE_PATH = "packagePath"
+        const val ARG_CHILD = "dataForChild"
+        private const val REQUEST_STORAGE_PERMISSION = 11
     }
 }

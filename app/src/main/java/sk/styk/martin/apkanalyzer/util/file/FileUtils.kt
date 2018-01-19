@@ -21,8 +21,8 @@ object FileUtils {
                 val buffer = ByteArray(1024)
                 var len: Int = input.read(buffer)
                 while (len > 0) {
-                    len = input.read(buffer)
                     output.write(buffer, 0, len)
+                    len = input.read(buffer)
                 }
             }
         }

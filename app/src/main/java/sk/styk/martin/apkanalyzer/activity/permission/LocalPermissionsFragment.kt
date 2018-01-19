@@ -10,10 +10,10 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-
+import kotlinx.android.synthetic.main.fragment_local_permissions.*
+import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.adapter.PermissionListAdapter
 import sk.styk.martin.apkanalyzer.business.task.LocalPermissionsLoader
-import sk.styk.martin.apkanalyzer.databinding.FragmentLocalPermissionsBinding
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 
 /**
@@ -22,11 +22,7 @@ import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
  */
 class LocalPermissionsFragment : Fragment(), LoaderManager.LoaderCallbacks<List<LocalPermissionData>>, LocalPermissionsLoader.ProgressCallback {
 
-    private var binding: FragmentLocalPermissionsBinding? = null
     private var data: List<LocalPermissionData>? = null
-
-    private var permissionListAdapter: PermissionListAdapter? = null
-
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -34,46 +30,47 @@ class LocalPermissionsFragment : Fragment(), LoaderManager.LoaderCallbacks<List<
         setHasOptionsMenu(true)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = FragmentLocalPermissionsBinding.inflate(inflater)
-
-        binding!!.recyclerViewPermissions.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        val view = inflater.inflate(R.layout.fragment_local_permissions, container, false)
 
         // We need to re-set callback of loader in case of configuration change
         val loader = loaderManager.initLoader(LocalPermissionsLoader.ID, null, this) as LocalPermissionsLoader
-        loader?.setCallbackReference(this)
+        loader.setCallbackReference(this)
 
-        return binding!!.root
+        return view
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        recycler_view_permissions.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         // Hide action bar item for searching
-        menu!!.clear()
-
+        menu?.clear()
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle): Loader<List<LocalPermissionData>> {
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<LocalPermissionData>> {
         return LocalPermissionsLoader(context, this)
     }
 
     override fun onLoadFinished(loader: Loader<List<LocalPermissionData>>, data: List<LocalPermissionData>) {
         this.data = data
 
-        permissionListAdapter = PermissionListAdapter(data)
-        binding!!.recyclerViewPermissions.swapAdapter(permissionListAdapter, false)
+        recycler_view_permissions.swapAdapter(PermissionListAdapter(data), false)
 
-        binding!!.content.visibility = View.VISIBLE
-        binding!!.loadingBar.visibility = View.GONE
+        content.visibility = View.VISIBLE
+        loading_bar.visibility = View.GONE
     }
 
     override fun onLoaderReset(loader: Loader<List<LocalPermissionData>>) {
-        this.data = null
+        data = null
     }
 
     override fun onProgressChanged(currentProgress: Int, maxProgress: Int) {
-        binding!!.loadingBar.setProgress(currentProgress, maxProgress)
+        loading_bar?.setProgress(currentProgress, maxProgress)
     }
 
 }

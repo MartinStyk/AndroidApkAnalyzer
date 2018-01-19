@@ -17,6 +17,7 @@ import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
  * @version 13.12.2017.
  */
 class IntroActivity : AppIntro() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -57,17 +58,12 @@ class IntroActivity : AppIntro() {
         setVibrateIntensity(30)
     }
 
-    override fun onSkipPressed(currentFragment: Fragment?) {
-        super.onSkipPressed(currentFragment)
-        // Do something when users tap on Skip button.
-    }
-
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
 
         // save user preferences and trigger data upload if possible
         if (currentFragment is AllowMetadataUploadIntroSlide) {
-            val isUploadAllowed = AllowMetadataUploadIntroSlide::class.java.cast(currentFragment).isUploadAllowed
+            val isUploadAllowed = currentFragment.isUploadAllowed
             ConnectivityHelper.setConnectionAllowedByUser(applicationContext, isUploadAllowed)
 
             if (isUploadAllowed)
@@ -80,9 +76,5 @@ class IntroActivity : AppIntro() {
 
     override fun onBackPressed() {
         // Do nothing
-    }
-
-    override fun onSlideChanged(oldFragment: Fragment?, newFragment: Fragment?) {
-        super.onSlideChanged(oldFragment, newFragment)
     }
 }

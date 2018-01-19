@@ -1,46 +1,43 @@
 package sk.styk.martin.apkanalyzer.activity.dialog
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.Loader
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
-
-import java.util.ArrayList
-
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import kotlinx.android.synthetic.main.dialog_app_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.adapter.AppListRecyclerAdapter
 import sk.styk.martin.apkanalyzer.business.task.AppListFromPackageNamesLoader
-import sk.styk.martin.apkanalyzer.databinding.DialogAppListBinding
 import sk.styk.martin.apkanalyzer.model.list.AppListData
+import java.util.*
 
 /**
  * @author Martin Styk
  * @version 05.01.2018.
  */
 class AppListDialog : DialogFragment(), LoaderManager.LoaderCallbacks<List<AppListData>> {
-    private var binding: DialogAppListBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loaderManager.initLoader(AppListFromPackageNamesLoader.ID, arguments, this)
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.dialog_app_list, container, false);
+    }
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = DialogAppListBinding.inflate(activity.layoutInflater)
 
-        binding!!.recyclerViewApplications.adapter = AppListRecyclerAdapter(ArrayList(0))
-        val dividerItemDecoration = DividerItemDecoration(binding!!.recyclerViewApplications.context, DividerItemDecoration.VERTICAL)
-        binding!!.recyclerViewApplications.addItemDecoration(dividerItemDecoration)
-
-
-        return AlertDialog.Builder(activity)
-                .setView(binding!!.root)
+        return AlertDialog.Builder(context)
+                .setView(R.layout.dialog_app_list)
                 .setTitle(R.string.apps)
-                .setNegativeButton(R.string.dismiss) { dialogInterface, i -> dismiss() }
+                .setNegativeButton(R.string.dismiss) { _, _ -> dismiss() }
                 .create()
     }
 
@@ -49,14 +46,16 @@ class AppListDialog : DialogFragment(), LoaderManager.LoaderCallbacks<List<AppLi
     }
 
     override fun onLoadFinished(loader: Loader<List<AppListData>>, data: List<AppListData>) {
-        binding!!.recyclerViewApplications.adapter = AppListRecyclerAdapter(data)
+
+        dialog.recycler_view_applications.adapter = AppListRecyclerAdapter(data)
+        dialog.recycler_view_applications.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 
     override fun onLoaderReset(loader: Loader<List<AppListData>>) {}
 
     companion object {
 
-        val PACKAGES = "packages"
+        private const val PACKAGES = "packages"
 
         fun newInstance(packageNames: ArrayList<String>): AppListDialog {
             val frag = AppListDialog()

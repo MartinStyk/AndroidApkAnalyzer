@@ -5,21 +5,20 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-
-import java.util.ArrayList
-
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailPagerFragment
 import sk.styk.martin.apkanalyzer.activity.permission.PermissionsAppListFragment
 import sk.styk.martin.apkanalyzer.activity.permission.PermissionsGeneralDetailsFragment
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
+import java.util.*
 
 /**
  * @author Martin Styk
  * @version 18.06.2017.
  */
 class PermissionsPagerAdapter(private val context: Context, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+
     private var grantedPackages: List<String> = ArrayList(0)
     private var notGrantedPackages: List<String> = ArrayList(0)
     private var permissionData: PermissionData? = null
@@ -55,15 +54,13 @@ class PermissionsPagerAdapter(private val context: Context, fm: FragmentManager)
         return 3
     }
 
-    override fun getPageTitle(position: Int): CharSequence {
-        when (position) {
-            0 -> return context.resources.getString(R.string.permissions_detail)
-            1 -> return context.resources.getString(R.string.permissions_granted)
-            2 -> return context.resources.getString(R.string.permissions_not_granted)
-        }
-        return "TODO"
+    override fun getPageTitle(position: Int): CharSequence = when (position) {
+        0 -> context.resources.getString(R.string.permissions_detail)
+        1 -> context.resources.getString(R.string.permissions_granted)
+        2 -> context.resources.getString(R.string.permissions_not_granted)
+        else -> throw IllegalStateException()
     }
-
+    
     fun dataChange(data: LocalPermissionData) {
         this.permissionData = data.permissionData
         this.grantedPackages = data.grantedPackageNames

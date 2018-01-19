@@ -3,11 +3,10 @@ package sk.styk.martin.apkanalyzer.activity.detailfragment
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import kotlinx.android.synthetic.main.fragment_app_detail_simple_string_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment
 import sk.styk.martin.apkanalyzer.adapter.detaillist.SimpleStringListAdapter
@@ -18,19 +17,18 @@ import sk.styk.martin.apkanalyzer.adapter.detaillist.SimpleStringListAdapter
  */
 class AppDetailFragment_Permission : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater!!.inflate(R.layout.fragment_app_detail_simple_string_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_app_detail_simple_string_list, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         val data = arguments.getStringArrayList(AppDetailFragment.ARG_CHILD)
+                ?: throw IllegalArgumentException("data null")
 
-        val recyclerView = rootView.findViewById<RecyclerView>(R.id.recycler_view_simple_string_list)
-        val dividerItemDecoration = DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
-        recyclerView.addItemDecoration(dividerItemDecoration)
-
-        val adapter = SimpleStringListAdapter(data!!)
-        recyclerView.adapter = adapter
-        recyclerView.setHasFixedSize(true)
-
-        return rootView
+        recycler_view_simple_string_list.adapter = SimpleStringListAdapter(data)
+        recycler_view_simple_string_list.setHasFixedSize(true)
+        recycler_view_simple_string_list.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 }

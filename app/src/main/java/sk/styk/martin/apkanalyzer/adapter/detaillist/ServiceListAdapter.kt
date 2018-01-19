@@ -32,25 +32,13 @@ class ServiceListAdapter(items: List<ServiceData>) : GenericDetailListAdapter<Se
         holder.external.valueText = data.isExternalService.toString()
     }
 
-    internal inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView
-        val permission: DetailListItemView
-        val exported: DetailListItemView
-        val stopWithTask: DetailListItemView
-        val singleUser: DetailListItemView
-        val isolatedProcess: DetailListItemView
-        val external: DetailListItemView
-
-
-        init {
-            name = v.findViewById(R.id.item_service_name)
-            permission = v.findViewById(R.id.item_service_permission)
-            exported = v.findViewById(R.id.item_service_exported)
-            stopWithTask = v.findViewById(R.id.item_service_stop_with_task)
-            singleUser = v.findViewById(R.id.item_service_single_user)
-            isolatedProcess = v.findViewById(R.id.item_service_isolated_process)
-            external = v.findViewById(R.id.item_service_external_service)
-
-        }
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val name: TextView = v.findViewById(R.id.item_service_name)
+        val permission: DetailListItemView = v.findViewById(R.id.item_service_permission)
+        val exported: DetailListItemView = v.findViewById(R.id.item_service_exported)
+        val stopWithTask: DetailListItemView = v.findViewById(R.id.item_service_stop_with_task)
+        val singleUser: DetailListItemView = v.findViewById(R.id.item_service_single_user)
+        val isolatedProcess: DetailListItemView = v.findViewById(R.id.item_service_isolated_process)
+        val external: DetailListItemView = v.findViewById(R.id.item_service_external_service)
     }
 }

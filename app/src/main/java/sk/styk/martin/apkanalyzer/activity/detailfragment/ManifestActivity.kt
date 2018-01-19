@@ -8,17 +8,13 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.Loader
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ProgressBar
-
-import com.pddstudio.highlightjs.HighlightJsView
 import com.pddstudio.highlightjs.models.Language
 import com.pddstudio.highlightjs.models.Theme
-
+import kotlinx.android.synthetic.main.activity_manifest.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.task.AndroidManifestLoader
 import sk.styk.martin.apkanalyzer.business.task.StringToFileSaveService
@@ -29,27 +25,19 @@ import sk.styk.martin.apkanalyzer.business.task.StringToFileSaveService
  */
 class ManifestActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<String> {
 
-    private var codeView: HighlightJsView? = null
-    private var loadingBar: ProgressBar? = null
-
-    private var manifest: String? = null
-    private var packageName: String? = null
+    private var manifest: String = ""
+    private lateinit var appPackageName: String
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_manifest)
 
-        packageName = intent.getStringExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST)
+        appPackageName = intent.getStringExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST) ?: throw IllegalArgumentException("packageName not specified")
 
-        codeView = findViewById(R.id.code_view)
-        codeView!!.highlightLanguage = Language.XML
-        codeView!!.theme = Theme.ATOM_ONE_LIGHT
+        code_view.highlightLanguage = Language.XML
+        code_view.theme = Theme.ATOM_ONE_LIGHT
 
-        loadingBar = findViewById(R.id.code_loading)
-
-        val actionBar = supportActionBar
-        actionBar?.setDisplayHomeAsUpEnabled(true)
-
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportLoaderManager.initLoader(AndroidManifestLoader.ID, intent.extras, this)
     }
 
@@ -59,13 +47,13 @@ class ManifestActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Stri
 
     override fun onLoadFinished(loader: Loader<String>, data: String) {
         manifest = data
-        codeView!!.setSource(manifest)
-        loadingBar!!.visibility = View.GONE
+        code_view.setSource(manifest)
+        code_loading.visibility = View.GONE
     }
 
     override fun onLoaderReset(loader: Loader<String>) {
         manifest = ""
-        codeView!!.setSource("")
+        code_view.setSource("")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -74,12 +62,11 @@ class ManifestActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Stri
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.action_save -> return saveWithPermissionCheck()
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         finish()
@@ -87,7 +74,7 @@ class ManifestActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Stri
     }
 
     private fun saveWithPermissionCheck(): Boolean {
-        if (manifest == null || manifest!!.isEmpty()) {
+        if (manifest.isBlank()) {
             Snackbar.make(findViewById(android.R.id.content), R.string.save_manifest_fail, Snackbar.LENGTH_SHORT)
             return false
         }
@@ -112,13 +99,13 @@ class ManifestActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Stri
     }
 
     private fun exportManifestFile() {
-        val targetFile = StringToFileSaveService.startService(this, packageName!!, manifest!!)
+        val targetFile = StringToFileSaveService.startService(this, appPackageName, manifest)
         Snackbar.make(findViewById(android.R.id.content), getString(R.string.save_manifest_background, targetFile), Snackbar.LENGTH_LONG).show()
     }
 
     companion object {
 
-        val PACKAGE_NAME_FOR_MANIFEST_REQUEST = "packageNameForManifestRequest"
-        private val REQUEST_STORAGE_PERMISSION = 11
+        const val PACKAGE_NAME_FOR_MANIFEST_REQUEST = "packageNameForManifestRequest"
+        private const val REQUEST_STORAGE_PERMISSION = 11
     }
 }

@@ -30,20 +30,11 @@ class ProviderListAdapter(items: List<ContentProviderData>) : GenericDetailListA
         holder.exported.valueText = data.isExported.toString()
     }
 
-    internal inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView
-        val authority: DetailListItemView
-        val readPermission: DetailListItemView
-        val writePermission: DetailListItemView
-        val exported: DetailListItemView
-
-
-        init {
-            name = v.findViewById(R.id.item_provider_name)
-            authority = v.findViewById(R.id.item_provider_authority)
-            readPermission = v.findViewById(R.id.item_provider_read_permission)
-            writePermission = v.findViewById(R.id.item_provider_write_permission)
-            exported = v.findViewById(R.id.item_provider_exported)
-        }
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val name: TextView = v.findViewById(R.id.item_provider_name)
+        val authority: DetailListItemView = v.findViewById(R.id.item_provider_authority)
+        val readPermission: DetailListItemView = v.findViewById(R.id.item_provider_read_permission)
+        val writePermission: DetailListItemView = v.findViewById(R.id.item_provider_write_permission)
+        val exported: DetailListItemView = v.findViewById(R.id.item_provider_exported)
     }
 }

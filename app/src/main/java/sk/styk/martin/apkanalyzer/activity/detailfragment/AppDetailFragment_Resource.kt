@@ -5,11 +5,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import kotlinx.android.synthetic.main.fragment_app_detail_resource.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData
-import sk.styk.martin.apkanalyzer.view.DetailItemView
 
 /**
  * @author Martin Styk
@@ -17,32 +16,34 @@ import sk.styk.martin.apkanalyzer.view.DetailItemView
  */
 class AppDetailFragment_Resource : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater!!.inflate(R.layout.fragment_app_detail_resource, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_app_detail_resource, container, false)
+    }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        
         val data = arguments.getParcelable<ResourceData>(AppDetailFragment.ARG_CHILD)
+                ?: throw IllegalArgumentException("data null")
 
-        (rootView.findViewById<View>(R.id.item_all_drawables) as DetailItemView).valueText = data!!.drawables.toString()
-        (rootView.findViewById<View>(R.id.item_different_drawables) as DetailItemView).valueText = data.differentDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_png_drawables) as DetailItemView).valueText = data.pngDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_nine_patch_drawables) as DetailItemView).valueText = data.ninePatchDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_jpg_drawables) as DetailItemView).valueText = data.jpgDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_gif_drawables) as DetailItemView).valueText = data.gifDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_xml_drawables) as DetailItemView).valueText = data.xmlDrawables.toString()
+        item_all_drawables.valueText = data.drawables.toString()
+        item_different_drawables.valueText = data.differentDrawables.toString()
+        item_png_drawables.valueText = data.pngDrawables.toString()
+        item_nine_patch_drawables.valueText = data.ninePatchDrawables.toString()
+        item_jpg_drawables.valueText = data.jpgDrawables.toString()
+        item_gif_drawables.valueText = data.gifDrawables.toString()
+        item_xml_drawables.valueText = data.xmlDrawables.toString()
 
-        (rootView.findViewById<View>(R.id.item_ldpi_drawables) as DetailItemView).valueText = data.ldpiDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_mdpi_drawables) as DetailItemView).valueText = data.mdpiDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_hdpi_drawables) as DetailItemView).valueText = data.hdpiDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_xhdpi_drawables) as DetailItemView).valueText = data.xhdpiDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_xxhdpi_drawables) as DetailItemView).valueText = data.xxhdpiDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_xxxhdpi_drawables) as DetailItemView).valueText = data.xxxhdpiDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_nodpi_drawables) as DetailItemView).valueText = data.nodpiDrawables.toString()
-        (rootView.findViewById<View>(R.id.item_tvdpi_drawables) as DetailItemView).valueText = data.tvdpiDrawables.toString()
+        item_ldpi_drawables.valueText = data.ldpiDrawables.toString()
+        item_mdpi_drawables.valueText = data.mdpiDrawables.toString()
+        item_hdpi_drawables.valueText = data.hdpiDrawables.toString()
+        item_xhdpi_drawables.valueText = data.xhdpiDrawables.toString()
+        item_xxhdpi_drawables.valueText = data.xxhdpiDrawables.toString()
+        item_xxxhdpi_drawables.valueText = data.xxxhdpiDrawables.toString()
+        item_nodpi_drawables.valueText = data.nodpiDrawables.toString()
+        item_tvdpi_drawables.valueText = data.tvdpiDrawables.toString()
 
-        (rootView.findViewById<View>(R.id.item_all_layouts) as DetailItemView).valueText = data.layouts.toString()
-        (rootView.findViewById<View>(R.id.item_different_layouts) as DetailItemView).valueText = data.differentLayouts.toString()
-
-
-        return rootView
+        item_all_layouts.valueText = data.layouts.toString()
+        item_different_layouts.valueText = data.differentLayouts.toString()
     }
 }

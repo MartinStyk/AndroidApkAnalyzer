@@ -1,86 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <data>
-        <variable
-            name="permission"
-            type="sk.styk.martin.apkanalyzer.model.detail.PermissionData" />
-
-        <variable
-            name="context"
-            type="android.content.Context" />
-
-        <variable
-            name="grantedApps"
-            type="int" />
-
-        <variable
-            name="notGrantedApps"
-            type="int" />
-
-        <variable
-            name="description"
-            type="CharSequence"/>
-
-        <import type="sk.styk.martin.apkanalyzer.util.PermissionLevelHelper"/>
-    </data>
-
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        style="@style/ItemDetailLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        tools:context="sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailActivity">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            style="@style/ItemDetailLayout"
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/permission_name"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailActivity">
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/permissions_name_description"
+            app:titleText="@string/permissions_name" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_name_description"
-                app:titleText="@string/permissions_name"
-                app:valueText="@{permission.name}" />
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/permission_group_name"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/permissions_group_description"
+            app:titleText="@string/permissions_group" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_group_description"
-                app:titleText="@string/permissions_group"
-                app:valueText="@{permission.groupName}"/>
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/permission_protection_level"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/permissions_protection_description"
+            app:titleText="@string/permissions_protection" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_protection_description"
-                app:titleText="@string/permissions_protection"
-                app:valueText="@{PermissionLevelHelper.showLocalized(permission.protectionLevel, context)}"/>
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/number_apps_granted"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/permissions_granted_apps_description"
+            app:titleText="@string/permissions_granted_apps" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_granted_apps_description"
-                app:titleText="@string/permissions_granted_apps"
-                app:valueText="@{String.valueOf(grantedApps)}"/>
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/number_apps_not_granted"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/permissions_not_granted_apps_description"
+            app:titleText="@string/permissions_not_granted_apps" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_not_granted_apps_description"
-                app:titleText="@string/permissions_not_granted_apps"
-                app:valueText="@{String.valueOf(notGrantedApps)}"/>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                android:text='@{description ?? ""}'
-                android:layout_margin="@dimen/text_margin_right_left"/>
-
-        </LinearLayout>
-
-    </android.support.v4.widget.NestedScrollView>
-</layout>
+</android.support.v4.widget.NestedScrollView>

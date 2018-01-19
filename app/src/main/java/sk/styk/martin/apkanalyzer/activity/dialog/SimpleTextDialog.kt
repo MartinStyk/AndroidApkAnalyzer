@@ -1,11 +1,9 @@
 package sk.styk.martin.apkanalyzer.activity.dialog
 
 import android.app.Dialog
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
-
 import sk.styk.martin.apkanalyzer.R
 
 /**
@@ -22,14 +20,14 @@ class SimpleTextDialog : DialogFragment() {
         return AlertDialog.Builder(activity)
                 .setTitle(title)
                 .setMessage(message)
-                .setNegativeButton(R.string.dismiss) { dialogInterface, i -> dismiss() }
+                .setNegativeButton(R.string.dismiss) { _, _ -> dismiss() }
                 .create()
     }
 
     companion object {
 
-        private val ARG_TITLE = "title"
-        private val ARG_MESSAGE = "value"
+        private const val ARG_TITLE = "title"
+        private const val ARG_MESSAGE = "value"
 
         fun newInstance(title: String, message: String): SimpleTextDialog {
             val frag = SimpleTextDialog()

@@ -2,16 +2,10 @@ package sk.styk.martin.apkanalyzer.activity.intro
 
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.RadioButton
-import android.widget.RadioGroup
-
 import com.github.paolorotolo.appintro.AppIntroBaseFragment
 import com.github.paolorotolo.appintro.ISlidePolicy
 import com.github.paolorotolo.appintro.model.SliderPage
-
+import kotlinx.android.synthetic.main.fragment_allow_metadata_upload_intro_slide.*
 import sk.styk.martin.apkanalyzer.R
 
 /**
@@ -19,36 +13,19 @@ import sk.styk.martin.apkanalyzer.R
  * @version 13.12.2017
  */
 class AllowMetadataUploadIntroSlide : AppIntroBaseFragment(), ISlidePolicy {
-    private var groupAllowUpload: RadioGroup? = null
-    private var buttonAllowUpload: RadioButton? = null
-    private var buttonNotAllowUpload: RadioButton? = null
-
-    private val isSelected: Boolean = false
 
     val isUploadAllowed: Boolean
-        get() = buttonAllowUpload!!.isChecked
+        get() = allow_upload.isChecked
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_allow_metadata_upload_intro_slide
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        val root = super.onCreateView(inflater, container, savedInstanceState)
-        groupAllowUpload = root!!.findViewById(R.id.allow_upload_group)
-        buttonAllowUpload = root.findViewById(R.id.allow_upload)
-        buttonNotAllowUpload = root.findViewById(R.id.not_allow_upload)
-
-        return root
-    }
-
     override fun isPolicyRespected(): Boolean {
-        return buttonAllowUpload!!.isChecked || buttonNotAllowUpload!!.isChecked
+        return allow_upload.isChecked || not_allow_upload.isChecked
     }
 
     override fun onUserIllegallyRequestedNextPage() {
-        // User illegally requested next slide
         Snackbar.make(activity.findViewById(android.R.id.content), R.string.intro_upload_require_input, Snackbar.LENGTH_SHORT).show()
     }
 

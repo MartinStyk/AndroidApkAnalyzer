@@ -29,15 +29,9 @@ class ReceiverListAdapter(items: List<BroadcastReceiverData>) : GenericDetailLis
 
     }
 
-    internal inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView
-        val permission: DetailListItemView
-        val exported: DetailListItemView
-
-        init {
-            name = v.findViewById(R.id.item_receiver_name)
-            permission = v.findViewById(R.id.item_receiver_permission)
-            exported = v.findViewById(R.id.item_receiver_exported)
-        }
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val name: TextView = v.findViewById(R.id.item_receiver_name)
+        val permission: DetailListItemView = v.findViewById(R.id.item_receiver_permission)
+        val exported: DetailListItemView = v.findViewById(R.id.item_receiver_exported)
     }
 }

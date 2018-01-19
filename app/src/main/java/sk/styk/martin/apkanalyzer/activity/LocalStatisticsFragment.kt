@@ -13,9 +13,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-
-import java.util.ArrayList
-
+import kotlinx.android.synthetic.main.fragment_local_statistics.*
 import lecho.lib.hellocharts.gesture.ContainerScrollType
 import lecho.lib.hellocharts.gesture.ZoomType
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener
@@ -28,83 +26,86 @@ import lecho.lib.hellocharts.view.ColumnChartView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.dialog.AppListDialog
 import sk.styk.martin.apkanalyzer.business.task.LocalStatisticsLoader
-import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
 import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
+import java.util.*
 
 /**
  * @author Martin Styk
  */
 class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalStatisticsData>, LocalStatisticsLoader.ProgressCallback {
 
-    internal var binding: FragmentLocalStatisticsBinding
-    internal var data: LocalStatisticsData? = null
+    private var data: LocalStatisticsData? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        binding = FragmentLocalStatisticsBinding.inflate(inflater)
+        val view = inflater.inflate(R.layout.fragment_local_statistics, container, false)
 
         // We need to re-set callback of loader in case of configuration change
         val loader = loaderManager.initLoader(LocalStatisticsLoader.ID, null, this) as LocalStatisticsLoader
-        loader?.setCallbackReference(this)
+        loader.setCallbackReference(this)
 
         setHasOptionsMenu(true)
 
-        setupChart(binding.chartMinSdk)
-        setupChart(binding.chartTargetSdk)
-        setupChart(binding.chartInstallLocation)
-        setupChart(binding.chartSignAlgorithm)
-        setupChart(binding.chartAppSource)
+        return view
+    }
 
-        return binding.root
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupChart(chart_min_sdk)
+        setupChart(chart_target_sdk)
+        setupChart(chart_install_location)
+        setupChart(chart_sign_algorithm)
+        setupChart(chart_app_source)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         // Hide action bar item for searching
-        menu!!.clear()
+        menu?.clear()
 
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle): Loader<LocalStatisticsData> {
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<LocalStatisticsData> {
         return LocalStatisticsLoader(context, this)
     }
 
     override fun onLoadFinished(loader: Loader<LocalStatisticsData>, data: LocalStatisticsData) {
         this.data = data
 
-        binding.itemAnalyzeSuccess.valueText = data.analyzeSuccess.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.analyzeSuccess.percentage) + "%)"
-        binding.itemAnalyzeFailed.valueText = data.analyzeFailed.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.analyzeFailed.percentage) + "%)"
-        binding.itemSystemApps.valueText = data.systemApps.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.systemApps.percentage) + "%)"
+        item_analyze_success.valueText = data.analyzeSuccess.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.analyzeSuccess.percentage) + "%)"
+        item_analyze_failed.valueText = data.analyzeFailed.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.analyzeFailed.percentage) + "%)"
+        item_system_apps.valueText = data.systemApps.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.systemApps.percentage) + "%)"
 
-        binding.chartMinSdk.columnChartData = getSdkColumnChart(data.minSdk, resources.getColor(R.color.primary))
-        binding.chartTargetSdk.columnChartData = getSdkColumnChart(data.targetSdk, resources.getColor(R.color.primary))
-        binding.chartInstallLocation.columnChartData = getColumnChart(data.installLocation, R.string.install_loc, resources.getColor(R.color.primary))
-        binding.chartSignAlgorithm.columnChartData = getColumnChart(data.signAlgorithm, R.string.sign_algorithm, resources.getColor(R.color.primary))
-        binding.chartAppSource.columnChartData = getColumnChart(data.appSource, R.string.app_source, resources.getColor(R.color.primary))
+        chart_min_sdk.columnChartData = getSdkColumnChart(data.minSdk, resources.getColor(R.color.primary))
+        chart_target_sdk.columnChartData = getSdkColumnChart(data.targetSdk, resources.getColor(R.color.primary))
+        chart_install_location.columnChartData = getColumnChart(data.installLocation, R.string.install_loc, resources.getColor(R.color.primary))
+        chart_sign_algorithm.columnChartData = getColumnChart(data.signAlgorithm, R.string.sign_algorithm, resources.getColor(R.color.primary))
+        chart_app_source.columnChartData = getColumnChart(data.appSource, R.string.app_source, resources.getColor(R.color.primary))
 
-        binding.chartMinSdk.onValueTouchListener = SdkValueTouchListener(binding.chartMinSdk, data.minSdk)
-        binding.chartTargetSdk.onValueTouchListener = SdkValueTouchListener(binding.chartTargetSdk, data.targetSdk)
-        binding.chartInstallLocation.onValueTouchListener = GenericValueTouchListener(binding.chartInstallLocation, data.installLocation)
-        binding.chartSignAlgorithm.onValueTouchListener = GenericValueTouchListener(binding.chartSignAlgorithm, data.signAlgorithm)
-        binding.chartAppSource.onValueTouchListener = GenericValueTouchListener(binding.chartAppSource, data.appSource)
+        chart_min_sdk.onValueTouchListener = SdkValueTouchListener(chart_min_sdk, data.minSdk)
+        chart_target_sdk.onValueTouchListener = SdkValueTouchListener(chart_target_sdk, data.targetSdk)
+        chart_install_location.onValueTouchListener = GenericValueTouchListener(chart_install_location, data.installLocation)
+        chart_sign_algorithm.onValueTouchListener = GenericValueTouchListener(chart_sign_algorithm, data.signAlgorithm)
+        chart_app_source.onValueTouchListener = GenericValueTouchListener(chart_app_source, data.appSource)
 
-        binding.statisticsApkSize.setStatistics(data.apkSize)
-        binding.statisticsActivities.setStatistics(data.activites)
-        binding.statisticsServices.setStatistics(data.services)
-        binding.statisticsProviders.setStatistics(data.providers)
-        binding.statisticsReceivers.setStatistics(data.receivers)
-        binding.statisticsUsedPermissions.setStatistics(data.usedPermissions)
-        binding.statisticsDefinedPermissions.setStatistics(data.definedPermissions)
-        binding.statisticsFiles.setStatistics(data.files)
-        binding.statisticsDrawables.setStatistics(data.drawables)
-        binding.statisticsDrawablesDifferent.setStatistics(data.differentDrawables)
-        binding.statisticsLayouts.setStatistics(data.layouts)
-        binding.statisticsLayoutsDifferent.setStatistics(data.differentLayouts)
+        statistics_apk_size.setStatistics(data.apkSize)
+        statistics_activities.setStatistics(data.activites)
+        statistics_services.setStatistics(data.services)
+        statistics_providers.setStatistics(data.providers)
+        statistics_receivers.setStatistics(data.receivers)
+        statistics_used_permissions.setStatistics(data.usedPermissions)
+        statistics_defined_permissions.setStatistics(data.definedPermissions)
+        statistics_files.setStatistics(data.files)
+        statistics_drawables.setStatistics(data.drawables)
+        statistics_drawables_different.setStatistics(data.differentDrawables)
+        statistics_layouts.setStatistics(data.layouts)
+        statistics_layouts_different.setStatistics(data.differentLayouts)
 
-        binding.localStatisticsContent.visibility = View.VISIBLE
-        binding.loadingBar.visibility = View.GONE
+        local_statistics_content.visibility = View.VISIBLE
+        loading_bar.visibility = View.GONE
     }
 
     override fun onLoaderReset(loader: Loader<LocalStatisticsData>) {
@@ -112,7 +113,7 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
     }
 
     override fun onProgressChanged(currentProgress: Int, maxProgress: Int) {
-        binding.loadingBar.setProgress(currentProgress, maxProgress)
+        loading_bar?.setProgress(currentProgress, maxProgress)
     }
 
     private fun getSdkColumnChart(map: Map<Int, List<String>>, @ColorInt columnColor: Int): ColumnChartData {
@@ -126,7 +127,7 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
             if (map[sdk] == null)
                 continue
 
-            val applicationCount = map[sdk].size
+            val applicationCount = map[sdk]?.size ?: 0
 
             values = ArrayList()
             values.add(SubcolumnValue(applicationCount.toFloat(), columnColor))

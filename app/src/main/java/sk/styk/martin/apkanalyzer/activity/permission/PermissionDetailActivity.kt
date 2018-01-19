@@ -1,15 +1,11 @@
 package sk.styk.martin.apkanalyzer.activity.permission
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailPagerFragment.Companion.ARG_PERMISSIONS_DATA
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
-
-import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA
 
 /**
  * @author Martin Styk
@@ -22,33 +18,28 @@ class PermissionDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_permission_detail)
 
         val permissionData = intent.getParcelableExtra<LocalPermissionData>(ARG_PERMISSIONS_DATA)
+                ?: throw IllegalArgumentException("data null")
 
-        val actionBar = supportActionBar
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true)
-            actionBar.title = permissionData.permissionData.simpleName
-        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = permissionData.permissionData.simpleName
 
 
         if (savedInstanceState == null) {
-            val arguments = Bundle()
-            arguments.putParcelable(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA, permissionData)
-            val detailFragment = PermissionDetailPagerFragment()
-            detailFragment.arguments = arguments
+            val fragment = PermissionDetailPagerFragment.create(permissionData)
             supportFragmentManager.beginTransaction()
-                    .add(R.id.item_detail_container, detailFragment, PermissionDetailPagerFragment.TAG)
+                    .add(R.id.item_detail_container, fragment, PermissionDetailPagerFragment.TAG)
                     .commit()
         }
 
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             android.R.id.home -> {
                 finish()
-                return true
+                true
             }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
     }
 }

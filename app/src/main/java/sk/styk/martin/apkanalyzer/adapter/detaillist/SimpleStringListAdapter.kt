@@ -23,11 +23,7 @@ class SimpleStringListAdapter(items: List<String>) : GenericDetailListAdapter<St
         holder.name.text = getItem(position)
     }
 
-    internal inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView
-
-        init {
-            name = v.findViewById(R.id.item_detail_string)
-        }
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val name: TextView = v.findViewById(R.id.item_detail_string)
     }
 }

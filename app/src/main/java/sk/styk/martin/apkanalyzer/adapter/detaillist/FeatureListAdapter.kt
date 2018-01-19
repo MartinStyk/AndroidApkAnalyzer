@@ -27,13 +27,8 @@ class FeatureListAdapter(items: List<FeatureData>) : GenericDetailListAdapter<Fe
         holder.required.valueText = data.isRequired.toString()
     }
 
-    internal inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView
-        val required: DetailListItemView
-
-        init {
-            name = v.findViewById(R.id.item_feature_name)
-            required = v.findViewById(R.id.item_feature_required)
-        }
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val name: TextView = v.findViewById(R.id.item_feature_name)
+        val required: DetailListItemView = v.findViewById(R.id.item_feature_required)
     }
 }

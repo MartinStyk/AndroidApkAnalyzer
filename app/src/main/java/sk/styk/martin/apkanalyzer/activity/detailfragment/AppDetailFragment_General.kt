@@ -7,12 +7,11 @@ import android.text.format.Formatter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import kotlinx.android.synthetic.main.fragment_app_detail_general.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
-import sk.styk.martin.apkanalyzer.view.DetailItemView
 
 /**
  * @author Martin Styk
@@ -21,37 +20,36 @@ import sk.styk.martin.apkanalyzer.view.DetailItemView
 
 class AppDetailFragment_General : Fragment() {
 
-    private var data: GeneralData? = null
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_app_detail_general, container, false)
+    }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val rootView = inflater!!.inflate(R.layout.fragment_app_detail_general, container, false)
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        data = arguments.getParcelable(AppDetailFragment.ARG_CHILD)
+        val data: GeneralData = arguments.getParcelable(AppDetailFragment.ARG_CHILD)
+                ?: throw IllegalArgumentException("data null")
 
-        (rootView.findViewById<View>(R.id.item_application_name) as DetailItemView).valueText = data!!.applicationName
-        (rootView.findViewById<View>(R.id.item_package_name) as DetailItemView).valueText = data!!.packageName
-        (rootView.findViewById<View>(R.id.item_process_name) as DetailItemView).valueText = data!!.processName
-        (rootView.findViewById<View>(R.id.item_version_name) as DetailItemView).valueText = data!!.versionName
-        (rootView.findViewById<View>(R.id.item_version_code) as DetailItemView).valueText = data!!.versionCode.toString()
-        (rootView.findViewById<View>(R.id.item_system_application) as DetailItemView).valueText = if (data!!.isSystemApp) getString(R.string.yes) else getString(R.string.no)
-        (rootView.findViewById<View>(R.id.item_uid) as DetailItemView).valueText = data!!.uid.toString()
-        (rootView.findViewById<View>(R.id.item_application_description) as DetailItemView).valueText = data!!.description
-        (rootView.findViewById<View>(R.id.item_application_app_source) as DetailItemView).valueText = if (data!!.source == null) null else data!!.source.toString()
-        (rootView.findViewById<View>(R.id.item_target_sdk) as DetailItemView).valueText = data!!.targetSdkVersion.toString()
-        (rootView.findViewById<View>(R.id.item_target_android_version) as DetailItemView).valueText = data!!.targetSdkLabel
-        (rootView.findViewById<View>(R.id.item_min_sdk) as DetailItemView).valueText = data!!.minSdkVersion.toString()
-        (rootView.findViewById<View>(R.id.item_min_android_version) as DetailItemView).valueText = data!!.minSdkLabel
-        (rootView.findViewById<View>(R.id.item_apk_directory) as DetailItemView).valueText = data!!.apkDirectory
-        (rootView.findViewById<View>(R.id.item_data_directory) as DetailItemView).valueText = data!!.dataDirectory
-        (rootView.findViewById<View>(R.id.item_install_location) as DetailItemView).valueText = InstallLocationHelper.showLocalizedLocation(data!!.installLocation, context)
-        (rootView.findViewById<View>(R.id.item_apk_size) as DetailItemView).valueText = Formatter.formatShortFileSize(activity, data!!.apkSize)
+        item_application_name.valueText = data.applicationName
+        item_package_name.valueText = data.packageName
+        item_process_name.valueText = data.processName
+        item_version_name.valueText = data.versionName
+        item_version_code.valueText = data.versionCode.toString()
+        item_system_application.valueText = if (data.isSystemApp) getString(R.string.yes) else getString(R.string.no)
+        item_uid.valueText = data.uid.toString()
+        item_application_description.valueText = data.description
+        item_application_app_source.valueText = if (data.source == null) null else data.source.toString()
+        item_target_sdk.valueText = data.targetSdkVersion.toString()
+        item_target_android_version.valueText = data.targetSdkLabel
+        item_min_sdk.valueText = data.minSdkVersion.toString()
+        item_min_android_version.valueText = data.minSdkLabel
+        item_apk_directory.valueText = data.apkDirectory
+        item_data_directory.valueText = data.dataDirectory
+        item_install_location.valueText = InstallLocationHelper.showLocalizedLocation(data.installLocation, context)
+        item_apk_size.valueText = Formatter.formatShortFileSize(context, data.apkSize)
 
-        val installTime = DateUtils.formatDateTime(activity, data!!.firstInstallTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)
-        (rootView.findViewById<View>(R.id.item_first_install_time) as DetailItemView).valueText = installTime
+        item_first_install_time.valueText = DateUtils.formatDateTime(context, data.firstInstallTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)
+        item_last_update_time.valueText = DateUtils.formatDateTime(activity, data.lastUpdateTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)
 
-        val updateTime = DateUtils.formatDateTime(activity, data!!.lastUpdateTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)
-        (rootView.findViewById<View>(R.id.item_last_update_time) as DetailItemView).valueText = updateTime
-
-        return rootView
     }
 }

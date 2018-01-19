@@ -8,10 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.CompoundButton
-import android.widget.TextView
-
+import kotlinx.android.synthetic.main.fragment_settings.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 
@@ -20,32 +17,31 @@ import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
  */
 class SettingsFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val rootView = inflater!!.inflate(R.layout.fragment_settings, container, false)
-
-        (rootView.findViewById<View>(R.id.settings_upload_explanation) as TextView).movementMethod = LinkMovementMethod.getInstance()
-
-        val allowUpload = rootView.findViewById<CheckBox>(R.id.allow_upload)
-        allowUpload.isChecked = ConnectivityHelper.isConnectionAllowedByUser(context)
-        allowUpload.setOnCheckedChangeListener(
-                object : CheckBox.OnCheckedChangeListener {
-                    override fun onCheckedChanged(compoundButton: CompoundButton, b: Boolean) {
-                        ConnectivityHelper.setConnectionAllowedByUser(context, b)
-                    }
-                }
-        )
+        val rootView = inflater.inflate(R.layout.fragment_settings, container, false)
 
         setHasOptionsMenu(true)
 
         return rootView
     }
 
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        settings_upload_explanation.movementMethod = LinkMovementMethod.getInstance()
+
+        allow_upload.isChecked = ConnectivityHelper.isConnectionAllowedByUser(context)
+
+        allow_upload.setOnCheckedChangeListener({ _, isChecked ->
+            ConnectivityHelper.setConnectionAllowedByUser(context, isChecked)
+        })
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         // Hide action bar item for searching
-        menu!!.clear()
-
+        menu?.clear()
         super.onCreateOptionsMenu(menu, inflater)
     }
 }

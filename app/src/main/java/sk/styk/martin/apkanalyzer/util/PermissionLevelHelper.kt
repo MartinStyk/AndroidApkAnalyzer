@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.util
 
 import android.content.Context
 import android.content.pm.PermissionInfo
+import sk.styk.martin.apkanalyzer.ApkAnalyzer
 
 import sk.styk.martin.apkanalyzer.R
 
@@ -11,7 +12,11 @@ import sk.styk.martin.apkanalyzer.R
  */
 object PermissionLevelHelper {
 
-    fun showLocalized(level: Int, context: Context): String {
+    @JvmStatic
+    fun showLocalized(level: Int): String {
+
+        val context = ApkAnalyzer.context
+
         when (level) {
             PermissionInfo.PROTECTION_NORMAL -> return context.getString(R.string.permissions_protection_normal)
             PermissionInfo.PROTECTION_DANGEROUS -> return context.getString(R.string.permissions_protection_dangerous)

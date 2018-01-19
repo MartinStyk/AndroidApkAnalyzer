@@ -26,7 +26,7 @@ class DetailListItemView @JvmOverloads constructor(context: Context, attrs: Attr
         }
     var valueText: String? = null
         set(value) {
-            if(!value.isNullOrBlank()){
+            if (!value.isNullOrBlank()) {
                 field = value
                 attribute_value.text = value
             }
@@ -48,7 +48,7 @@ class DetailListItemView @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     override fun onClick(v: View) {
-        InfoDialog.newInstance(titleText, valueText, descriptionText)
+        InfoDialog.newInstance(titleText, valueText ?: "", descriptionText)
                 .show((context as AppCompatActivity).supportFragmentManager, InfoDialog::class.java.simpleName)
     }
 

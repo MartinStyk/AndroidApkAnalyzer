@@ -57,7 +57,7 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     override fun onClick(v: View) {
-        InfoDialog.newInstance(titleText, valueText, descriptionText)
+        InfoDialog.newInstance(titleText, valueText ?: "", descriptionText)
                 .show((context as AppCompatActivity).supportFragmentManager, InfoDialog::class.java.simpleName)
     }
 

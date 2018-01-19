@@ -1,320 +1,316 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<RelativeLayout android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <sk.styk.martin.apkanalyzer.view.LoadingBarView
+        android:id="@+id/loading_bar"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_horizontal_margin">
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_width="match_parent" />
 
-        <sk.styk.martin.apkanalyzer.view.LoadingBarView
-            android:id="@+id/loading_bar"
+    <ScrollView
+        android:id="@+id/local_statistics_content"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_horizontal_margin" />
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ScrollView
-            android:id="@+id/local_statistics_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <!--Analyze results -->
+            <android.support.v7.widget.CardView
+                style="@style/DetailCardView"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true">
 
-                <!--Analyze results -->
-                <android.support.v7.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        style="@style/ItemDetailLayout"
-                        android:layout_width="match_parent"
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/analyze_results" />
-
-                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-                            android:id="@+id/item_analyze_success"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:titleText="@string/analyze_results_success"
-                            app:descriptionText="@string/analyze_results_success_description"
-                            app:valueText="@string/NA" />
-
-                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-                            android:id="@+id/item_analyze_failed"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:titleText="@string/analyze_results_failed"
-                            app:descriptionText="@string/analyze_results_failed_description"
-                            app:valueText="@string/NA" />
-
-                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-                            android:id="@+id/item_system_apps"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:titleText="@string/system_apps"
-                            app:descriptionText="@string/system_apps"
-                            app:valueText="@string/NA" />
-
-                    </LinearLayout>
-
-
-                </android.support.v7.widget.CardView>
-
-                <!--MinSdk chart -->
-                <android.support.v7.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
-                    <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
+                        android:text="@string/analyze_results" />
+
+                    <sk.styk.martin.apkanalyzer.view.DetailListItemView
+                        android:id="@+id/item_analyze_success"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/min_sdk" />
-
-                        <lecho.lib.hellocharts.view.ColumnChartView
-                            android:id="@+id/chart_min_sdk"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <!--TargetSdk chart -->
-                <android.support.v7.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
-                    <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
+                        app:descriptionText="@string/analyze_results_success_description"
+                        app:titleText="@string/analyze_results_success"
+                        app:valueText="@string/NA" />
+
+                    <sk.styk.martin.apkanalyzer.view.DetailListItemView
+                        android:id="@+id/item_analyze_failed"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/target_sdk" />
-
-                        <lecho.lib.hellocharts.view.ColumnChartView
-                            android:id="@+id/chart_target_sdk"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <!--Install locaiton chart -->
-                <android.support.v7.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
-                    <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
+                        app:descriptionText="@string/analyze_results_failed_description"
+                        app:titleText="@string/analyze_results_failed"
+                        app:valueText="@string/NA" />
+
+                    <sk.styk.martin.apkanalyzer.view.DetailListItemView
+                        android:id="@+id/item_system_apps"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/install_loc" />
-
-                        <lecho.lib.hellocharts.view.ColumnChartView
-                            android:id="@+id/chart_install_location"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
-
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <!--Install locaiton chart -->
-                <android.support.v7.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
-                    <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        app:descriptionText="@string/system_apps"
+                        app:titleText="@string/system_apps"
+                        app:valueText="@string/NA" />
 
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/sign_algorithm" />
+                </LinearLayout>
 
-                        <lecho.lib.hellocharts.view.ColumnChartView
-                            android:id="@+id/chart_sign_algorithm"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
 
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
 
-                <!--Application source chart -->
-                <android.support.v7.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
+            <!--MinSdk chart -->
+            <android.support.v7.widget.CardView
+                style="@style/DetailCardView"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
+                    android:layout_width="match_parent"
+                    android:orientation="vertical">
 
-                    <LinearLayout
-                        style="@style/ItemDetailLayout"
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_height="wrap_content"
                         android:layout_width="match_parent"
+                        android:text="@string/min_sdk" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart_min_sdk"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
+                        android:layout_width="match_parent"
+                        android:minHeight="350dp"
+                        android:padding="@dimen/padding_default" />
 
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="@string/app_source" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-                        <lecho.lib.hellocharts.view.ColumnChartView
-                            android:id="@+id/chart_app_source"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
+            <!--TargetSdk chart -->
+            <android.support.v7.widget.CardView
+                style="@style/DetailCardView"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true">
 
-                    </LinearLayout>
-                </android.support.v7.widget.CardView>
-
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_apk_size"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
                     android:layout_height="wrap_content"
-                    app:title="@string/apk_size"
-                    app:type="size" />
-
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_activities"
-                    style="@style/DetailCardView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/activities"
-                    app:type="integral" />
+                    android:orientation="vertical">
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_services"
-                    style="@style/DetailCardView"
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="@string/target_sdk" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart_target_sdk"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:minHeight="350dp"
+                        android:padding="@dimen/padding_default" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--Install locaiton chart -->
+            <android.support.v7.widget.CardView
+                style="@style/DetailCardView"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
+                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/services"
-                    app:type="integral" />
+                    android:orientation="vertical">
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_providers"
-                    style="@style/DetailCardView"
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="@string/install_loc" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart_install_location"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:minHeight="350dp"
+                        android:padding="@dimen/padding_default" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--Install locaiton chart -->
+            <android.support.v7.widget.CardView
+                style="@style/DetailCardView"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
+                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/content_providers"
-                    app:type="integral" />
+                    android:orientation="vertical">
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_receivers"
-                    style="@style/DetailCardView"
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="@string/sign_algorithm" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart_sign_algorithm"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:minHeight="350dp"
+                        android:padding="@dimen/padding_default" />
+
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
+
+            <!--Application source chart -->
+            <android.support.v7.widget.CardView
+                style="@style/DetailCardView"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
+                    android:layout_height="wrap_content"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/broadcast_receivers"
-                    app:type="integral" />
+                    android:orientation="vertical">
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_used_permissions"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/permissions"
-                    app:type="integral" />
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:text="@string/app_source" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_defined_permissions"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/defined_permissions"
-                    app:type="integral" />
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/chart_app_source"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:minHeight="350dp"
+                        android:padding="@dimen/padding_default" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_files"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/files"
-                    app:type="integral" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_drawables"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/all_drawables"
-                    app:type="integral" />
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_apk_size"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/apk_size"
+                app:type="size" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_drawables_different"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/different_drawables"
-                    app:type="integral" />
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_activities"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/activities"
+                app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_layouts"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/all_layouts"
-                    app:type="integral" />
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_services"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/services"
+                app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
-                    android:id="@+id/statistics_layouts_different"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:title="@string/different_layouts"
-                    app:type="integral" />
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_providers"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/content_providers"
+                app:type="integral" />
 
-            </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
-</layout>
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_receivers"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/broadcast_receivers"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_used_permissions"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/permissions"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_defined_permissions"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/defined_permissions"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_files"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/files"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_drawables"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/all_drawables"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_drawables_different"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/different_drawables"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_layouts"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/all_layouts"
+                app:type="integral" />
+
+            <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                style="@style/DetailCardView"
+                android:id="@+id/statistics_layouts_different"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                app:title="@string/different_layouts"
+                app:type="integral" />
+
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

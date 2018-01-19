@@ -8,8 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-
+import kotlinx.android.synthetic.main.fragment_about.*
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
@@ -19,26 +18,28 @@ import sk.styk.martin.apkanalyzer.util.file.AppOperations
  */
 class AboutFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val rootView = inflater!!.inflate(R.layout.fragment_about, container, false)
 
-        (rootView.findViewById<View>(R.id.about_app_version) as TextView).text = BuildConfig.VERSION_NAME
-        (rootView.findViewById<View>(R.id.about_app_github_link) as TextView).movementMethod = LinkMovementMethod.getInstance()
-        (rootView.findViewById<View>(R.id.about_app_privacy_policy) as TextView).movementMethod = LinkMovementMethod.getInstance()
+        return inflater.inflate(R.layout.fragment_about, container, false)
+    }
 
-        rootView.findViewById<View>(R.id.about_app_rate).setOnClickListener { AppOperations().openGooglePlay(context, context.packageName) }
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setHasOptionsMenu(true)
 
-        return rootView
+        about_app_version.text = BuildConfig.VERSION_NAME
+        about_app_github_link.movementMethod = LinkMovementMethod.getInstance()
+        about_app_privacy_policy.movementMethod = LinkMovementMethod.getInstance()
+
+        about_app_rate.setOnClickListener { AppOperations().openGooglePlay(context, context.packageName) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
         // Hide action bar item for searching
-        menu!!.clear()
-
+        menu?.clear()
         super.onCreateOptionsMenu(menu, inflater)
     }
 }

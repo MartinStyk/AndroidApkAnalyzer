@@ -48,19 +48,11 @@ class ActivityListAdapter(items: List<ActivityData>) : GenericDetailListAdapter<
         }
     }
 
-    internal inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView
-        val label: DetailListItemView
-        val parent: DetailListItemView
-        val permission: DetailListItemView
-        val run: Button
-
-        init {
-            name = v.findViewById(R.id.item_activity_name)
-            label = v.findViewById(R.id.item_activity_label)
-            parent = v.findViewById(R.id.item_activity_parent)
-            permission = v.findViewById(R.id.item_activity_permission)
-            run = v.findViewById(R.id.item_activity_run)
-        }
+    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
+        val name: TextView = v.findViewById<TextView>(R.id.item_activity_name)
+        val label: DetailListItemView = v.findViewById<DetailListItemView>(R.id.item_activity_label)
+        val parent: DetailListItemView = v.findViewById<DetailListItemView>(R.id.item_activity_parent)
+        val permission: DetailListItemView = v.findViewById<DetailListItemView>(R.id.item_activity_permission)
+        val run: Button = v.findViewById<Button>(R.id.item_activity_run)
     }
 }

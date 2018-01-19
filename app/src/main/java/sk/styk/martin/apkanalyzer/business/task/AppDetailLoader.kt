@@ -11,7 +11,7 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
  * @author Martin Styk
  * @version 15.06.2017.
  */
-class AppDetailLoader(context: Context, private val packageName: String, private val pathToPackage: String)
+class AppDetailLoader(context: Context, private val packageName: String?, private val pathToPackage: String?)
     : ApkAnalyzerAbstractAsyncLoader<AppDetailData?>(context) {
 
     private val appDetailDataService = AppDetailDataService(context.packageManager)

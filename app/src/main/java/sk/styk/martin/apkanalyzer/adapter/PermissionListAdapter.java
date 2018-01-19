@@ -1,54 +1,68 @@
-package sk.styk.martin.apkanalyzer.adapter
+package sk.styk.martin.apkanalyzer.adapter;
 
-import android.content.Intent
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailActivity
-import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailPagerFragment
-import sk.styk.martin.apkanalyzer.adapter.detaillist.GenericDetailListAdapter
-import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
+import java.util.List;
+
+import sk.styk.martin.apkanalyzer.R;
+import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailActivity;
+import sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailPagerFragment;
+import sk.styk.martin.apkanalyzer.adapter.detaillist.GenericDetailListAdapter;
+import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData;
 
 /**
  * Permission list adapter used in LocalPermissionFragment
- *
- *
+ * <p>
  * @author Martin Styk
  * @version 13.01.2017.
  */
-class PermissionListAdapter(items: List<LocalPermissionData>) : GenericDetailListAdapter<LocalPermissionData, PermissionListAdapter.ViewHolder>(items) {
+public class PermissionListAdapter extends GenericDetailListAdapter<LocalPermissionData, PermissionListAdapter.ViewHolder> {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_permission_local_data, parent, false)
-        return ViewHolder(view)
+    public PermissionListAdapter(@NonNull List<LocalPermissionData> items) {
+        super(items);
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = getItem(position)
-        holder.permissionName.text = data.permissionData.name
-        holder.permissionSimpleName.text = data.permissionData.simpleName
-        holder.affectedApps.text = holder.view.context.getString(R.string.permissions_number_apps, data.permissionStatusList.size)
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_permission_local_data, parent, false);
+        return new ViewHolder(view);
     }
 
-    internal inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val permissionName: TextView
-        val permissionSimpleName: TextView
-        val affectedApps: TextView
+    @Override
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
+        final LocalPermissionData data = getItem(position);
+        holder.permissionName.setText(data.getPermissionData().getName());
+        holder.permissionSimpleName.setText(data.getPermissionData().getSimpleName());
+        holder.affectedApps.setText(holder.view.getContext().getString(R.string.permissions_number_apps, data.getPermissionStatusList().size()));
+    }
 
-        init {
-            permissionName = view.findViewById(R.id.permission_name)
-            permissionSimpleName = view.findViewById(R.id.permission_simple_name)
-            affectedApps = view.findViewById(R.id.affected_apps)
+    class ViewHolder extends RecyclerView.ViewHolder {
+        final View view;
+        final TextView permissionName;
+        final TextView permissionSimpleName;
+        final TextView affectedApps;
 
-            view.setOnClickListener { view ->
-                val intent = Intent(view.context, PermissionDetailActivity::class.java)
-                intent.putExtra(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA, getItem(adapterPosition))
-                view.context.startActivity(intent)
-            }
+        ViewHolder(View v) {
+            super(v);
+            view = v;
+            permissionName = v.findViewById(R.id.permission_name);
+            permissionSimpleName = v.findViewById(R.id.permission_simple_name);
+            affectedApps = v.findViewById(R.id.affected_apps);
+
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(view.getContext(), PermissionDetailActivity.class);
+                    intent.putExtra(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA, getItem(getAdapterPosition()));
+                    view.getContext().startActivity(intent);
+                }
+            });
         }
     }
 }
