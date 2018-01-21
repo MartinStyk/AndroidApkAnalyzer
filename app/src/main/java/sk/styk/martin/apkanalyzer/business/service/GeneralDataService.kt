@@ -19,40 +19,60 @@ class GeneralDataService {
 
         val applicationInfo = packageInfo.applicationInfo
 
-        val generalData = GeneralData()
+        val isSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+        val minSdk = AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager)
+        val appInstaller = findAppInstaller(packageInfo.packageName, packageManager)
 
-        generalData.packageName = packageInfo.packageName
-        generalData.versionCode = packageInfo.versionCode
-        generalData.versionName = packageInfo.versionName
-        generalData.installLocation = InstallLocationHelper.resolveInstallLocation(packageInfo.installLocation)
-        generalData.firstInstallTime = packageInfo.firstInstallTime
-        generalData.lastUpdateTime = packageInfo.lastUpdateTime
+        return GeneralData(
+                packageName = packageInfo.packageName,
+                applicationName = applicationInfo.loadLabel(packageManager)?.toString()
+                        ?: applicationInfo.packageName,
+                processName = applicationInfo.processName,
+                versionName = packageInfo.versionName,
+                versionCode = packageInfo.versionCode,
+                isSystemApp = isSystemApp,
+                uid = applicationInfo.uid,
+                description = applicationInfo.loadDescription(packageManager)?.toString(),
+                apkDirectory = applicationInfo.sourceDir,
+                dataDirectory = applicationInfo.dataDir,
 
-        applicationInfo?.let {
+                source = Companion.getAppSource(packageManager, packageInfo.packageName, isSystemApp),
+                appInstaller = appInstaller,
 
-            generalData.icon = applicationInfo.loadIcon(packageManager)
-            generalData.description = applicationInfo.loadDescription(packageManager)?.toString()
-            generalData.applicationName = applicationInfo.loadLabel(packageManager)?.toString() ?: applicationInfo.packageName
-            generalData.processName = applicationInfo.processName
-            generalData.isSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-            generalData.uid = applicationInfo.uid
-            generalData.apkDirectory = applicationInfo.sourceDir
-            generalData.apkSize = getApkSize(applicationInfo.sourceDir)
-            generalData.dataDirectory = applicationInfo.dataDir
-            generalData.minSdkVersion = AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager)
-            generalData.minSdkLabel = AndroidVersionHelper.resolveVersion(generalData.minSdkVersion)
-            generalData.targetSdkVersion = applicationInfo.targetSdkVersion
-            generalData.targetSdkLabel = AndroidVersionHelper.resolveVersion(applicationInfo.targetSdkVersion)
+                installLocation = InstallLocationHelper.resolveInstallLocation(packageInfo.installLocation),
+                apkSize = computeApkSize(applicationInfo.sourceDir),
+                firstInstallTime = if (packageInfo.firstInstallTime > 0) packageInfo.firstInstallTime else null,
+                lastUpdateTime = if (packageInfo.lastUpdateTime > 0) packageInfo.lastUpdateTime else null,
 
+                minSdkVersion = minSdk,
+                minSdkLabel = AndroidVersionHelper.resolveVersion(minSdk),
+
+                targetSdkVersion = applicationInfo.targetSdkVersion,
+                targetSdkLabel = AndroidVersionHelper.resolveVersion(applicationInfo.targetSdkVersion),
+
+                icon = applicationInfo.loadIcon(packageManager)
+        )
+    }
+
+    fun computeApkSize(sourceDir: String): Long = File(sourceDir).length()
+
+
+    companion object {
+        fun getAppSource(packageManager: PackageManager, packageName: String, isSystem: Boolean): AppSource {
+            val installer = findAppInstaller(packageName, packageManager)
+
+            return if (installer == AppSource.GOOGLE_PLAY.installerPackageName) AppSource.GOOGLE_PLAY
+            else if (installer == AppSource.AMAZON_STORE.installerPackageName) AppSource.AMAZON_STORE
+            else if (installer == AppSource.SYSTEM_PREINSTALED.installerPackageName || isSystem) AppSource.SYSTEM_PREINSTALED
+            else AppSource.UNKNOWN
         }
 
-        generalData.source = AppSource.get(packageManager, packageInfo.packageName, generalData.isSystemApp)
-
-        return generalData
+        fun findAppInstaller(packageName: String, packageManager: PackageManager): String? {
+            return try {
+                packageManager.getInstallerPackageName(packageName)
+            } catch (e: Exception) {
+                null //this means package is not installed
+            }
+        }
     }
-
-    fun getApkSize(sourceDir: String): Long {
-        return File(sourceDir).length()
-    }
-
 }

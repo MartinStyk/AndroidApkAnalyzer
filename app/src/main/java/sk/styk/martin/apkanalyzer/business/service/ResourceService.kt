@@ -61,8 +61,24 @@ class ResourceService {
         // just adding it to set to eliminate duplicities
         fileData.layoutHashes.forEach { differentLayouts.add(it.fileName) }
 
-        return ResourceData(numPng, numNinePatchPng, numJpg, numGif, numXml, fileData.drawableHashes.size,
-                differentDrawables.size, ldpi, mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi, nodpi, tvdpi, unspecifiedDpi,
-                fileData.layoutHashes.size, differentLayouts.size)
+        return ResourceData(
+                pngDrawables = numPng,
+                ninePatchDrawables = numNinePatchPng,
+                jpgDrawables = numJpg,
+                gifDrawables = numGif,
+                xmlDrawables = numXml,
+                drawables = fileData.drawableHashes.size,
+                differentDrawables = differentDrawables.size,
+                ldpiDrawables = ldpi,
+                mdpiDrawables = mdpi,
+                hdpiDrawables = hdpi,
+                xhdpiDrawables = xhdpi,
+                xxhdpiDrawables = xxhdpi,
+                xxxhdpiDrawables = xxxhdpi,
+                nodpiDrawables = nodpi,
+                tvdpiDrawables = tvdpi,
+                unspecifiedDpiDrawables = unspecifiedDpi,
+                layouts = fileData.layoutHashes.size,
+                differentLayouts = differentLayouts.size)
     }
 }

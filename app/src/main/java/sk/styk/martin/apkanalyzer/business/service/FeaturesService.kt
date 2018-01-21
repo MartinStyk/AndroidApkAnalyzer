@@ -16,10 +16,10 @@ class FeaturesService {
         val featureInfos = packageInfo.reqFeatures ?: return ArrayList(0)
 
         return featureInfos.mapTo(ArrayList<FeatureData>(featureInfos.size)) {
-            val data = FeatureData()
-            data.name = it.name ?: it.glEsVersion
-            data.isRequired = (it.flags and FeatureInfo.FLAG_REQUIRED) > 0
-            data
+            FeatureData(
+                    name = it.name ?: it.glEsVersion,
+                    isRequired = (it.flags and FeatureInfo.FLAG_REQUIRED) > 0
+            )
         }
     }
 }

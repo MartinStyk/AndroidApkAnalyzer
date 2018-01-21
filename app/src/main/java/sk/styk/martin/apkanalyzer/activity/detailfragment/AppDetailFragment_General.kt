@@ -36,9 +36,9 @@ class AppDetailFragment_General : Fragment() {
         item_version_name.valueText = data.versionName
         item_version_code.valueText = data.versionCode.toString()
         item_system_application.valueText = if (data.isSystemApp) getString(R.string.yes) else getString(R.string.no)
-        item_uid.valueText = data.uid.toString()
+        item_uid.valueText = data.uid?.toString()
         item_application_description.valueText = data.description
-        item_application_app_source.valueText = if (data.source == null) null else data.source.toString()
+        item_application_app_source.valueText = data.source.toString()
         item_target_sdk.valueText = data.targetSdkVersion.toString()
         item_target_android_version.valueText = data.targetSdkLabel
         item_min_sdk.valueText = data.minSdkVersion.toString()
@@ -48,8 +48,10 @@ class AppDetailFragment_General : Fragment() {
         item_install_location.valueText = InstallLocationHelper.showLocalizedLocation(data.installLocation, context)
         item_apk_size.valueText = Formatter.formatShortFileSize(context, data.apkSize)
 
-        item_first_install_time.valueText = DateUtils.formatDateTime(context, data.firstInstallTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)
-        item_last_update_time.valueText = DateUtils.formatDateTime(activity, data.lastUpdateTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)
+        item_first_install_time.valueText = if (data.firstInstallTime != null)
+            DateUtils.formatDateTime(context, data.firstInstallTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME) else null
+        item_last_update_time.valueText = if (data.lastUpdateTime != null)
+            DateUtils.formatDateTime(activity, data.lastUpdateTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME) else null
 
     }
 }

@@ -190,11 +190,11 @@ public class ServerSideAppData {
         arscHash = fileData.getArscHash();
         manifestHash = fileData.getManifestHash();
 
-        pngHashes = fileData.getOnlyHash(fileData.getPngHashes());
+        pngHashes = fileData.getPngHashes();
 
         numberDrawables = fileData.getDrawableHashes().size();
-        numberLayouts = fileData.getOnlyHash(fileData.getLayoutHashes()).size();
-        numberMenus = fileData.getOnlyHash(fileData.getMenuHashes()).size();
+        numberLayouts = fileData.getLayoutHashes().size();
+        numberMenus = fileData.getMenuHashes().size();
         numberFilesTotal = fileData.getTotalFiles();
 
         numberPngs = pngHashes.size();

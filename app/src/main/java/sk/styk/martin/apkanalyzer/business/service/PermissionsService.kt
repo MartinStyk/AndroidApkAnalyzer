@@ -4,7 +4,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
-import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAgregate
+import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAggregate
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
 
 /**
@@ -13,19 +13,19 @@ import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
  */
 class PermissionsService {
 
-    fun get(packageInfo: PackageInfo, packageManager: PackageManager): PermissionDataAgregate {
+    fun get(packageInfo: PackageInfo, packageManager: PackageManager): PermissionDataAggregate {
 
         val definedPermissions = getDefinedPermissions(packageInfo)
         val requestedPermissions = getUsedPermissions(packageInfo, packageManager)
 
-        return PermissionDataAgregate(definedPermissions, requestedPermissions)
+        return PermissionDataAggregate(definedPermissions, requestedPermissions)
     }
 
     private fun getDefinedPermissions(packageInfo: PackageInfo): List<PermissionData> {
-        val permissionInfos = packageInfo.permissions ?: return emptyList()
+        val permissionInfos = packageInfo.permissions ?: return ArrayList(0)
 
         return permissionInfos.mapTo(ArrayList<PermissionData>(permissionInfos.size)) {
-            PermissionData(it.name, it.group, it.protectionLevel)
+            PermissionData(name = it.name, groupName = it.group, protectionLevel = it.protectionLevel)
         }
     }
 
@@ -49,10 +49,10 @@ class PermissionsService {
             val permissionData =
                     try {
                         val permissionInfo = packageManager.getPermissionInfo(name, PackageManager.GET_META_DATA)
-                        PermissionData(name, permissionInfo.group, permissionInfo.protectionLevel)
+                        PermissionData(name = name, groupName = permissionInfo.group, protectionLevel = permissionInfo.protectionLevel)
                     } catch (e: Exception) {
                         // we failed to get permission data from package manager. Try to use things we know
-                        PermissionData(name, null, Integer.MIN_VALUE)
+                        PermissionData(name = name)
                     }
 
             requestedPermissions.add(UsedPermissionData(permissionData, isGranted))

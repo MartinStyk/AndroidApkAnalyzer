@@ -18,7 +18,6 @@ class DexService {
         val packageClasses = ArrayList<String>()
         val otherClasses = ArrayList<String>()
         var innerClasses = 0
-        val classPathData = ClassPathData()
 
         if (packageInfo.applicationInfo != null) {
 
@@ -48,10 +47,10 @@ class DexService {
             }
         }
 
-        classPathData.packageClasses = packageClasses
-        classPathData.otherClasses = otherClasses
-        classPathData.numberOfInnerClasses = innerClasses
-
-        return classPathData
+        return ClassPathData(
+                packageClasses = packageClasses,
+                otherClasses = otherClasses,
+                numberOfInnerClasses = innerClasses
+        )
     }
 }

@@ -19,31 +19,26 @@ class CertificateService {
 
     fun get(packageInfo: PackageInfo): CertificateData {
 
-        val data = CertificateData()
-
-        val signature = packageInfo.signatures[0] ?: return data
+        val signature = packageInfo.signatures[0] ?: throw IllegalStateException("No signature")
 
         return ByteArrayInputStream(signature.toByteArray()).use {
             val certFactory = CertificateFactory.getInstance("X509")
             val certificate = certFactory.generateCertificate(it) as X509Certificate
 
-            data.certificateHash = DigestHelper.md5Digest(certificate.encoded)
-            data.publicKeyMd5 = DigestHelper.md5Digest(DigestHelper.byteToHexString(certificate.publicKey.encoded))
-
-            data.startDate = certificate.notBefore
-            data.endDate = certificate.notAfter
-            data.signAlgorithm = certificate.sigAlgName
-            data.serialNumber = certificate.serialNumber.toInt()
-
-            data.issuerName = certificate.issuerX500Principal?.getPrincipalCommonName()
-            data.issuerOrganization = certificate.issuerX500Principal?.getPrincipalOrganization()
-            data.issuerCountry = certificate.issuerX500Principal?.getPrincipalCountry()
-
-            data.subjectName = certificate.subjectX500Principal?.getPrincipalCommonName()
-            data.subjectOrganization = certificate.subjectX500Principal?.getPrincipalOrganization()
-            data.subjectCountry = certificate.subjectX500Principal?.getPrincipalCountry()
-
-            data
+            CertificateData(
+                    signAlgorithm = certificate.sigAlgName,
+                    certificateHash = DigestHelper.md5Digest(certificate.encoded),
+                    publicKeyMd5 = DigestHelper.md5Digest(DigestHelper.byteToHexString(certificate.publicKey.encoded)),
+                    startDate = certificate.notBefore,
+                    endDate = certificate.notAfter,
+                    serialNumber = certificate.serialNumber.toInt(),
+                    issuerName = certificate.issuerX500Principal?.getPrincipalCommonName(),
+                    issuerOrganization = certificate.issuerX500Principal?.getPrincipalOrganization(),
+                    issuerCountry = certificate.issuerX500Principal?.getPrincipalCountry(),
+                    subjectName = certificate.subjectX500Principal?.getPrincipalCommonName(),
+                    subjectOrganization = certificate.subjectX500Principal?.getPrincipalOrganization(),
+                    subjectCountry = certificate.subjectX500Principal?.getPrincipalCountry()
+            )
         }
     }
 
@@ -79,8 +74,7 @@ class CertificateService {
     }
 
     private fun parsePrincipal(principalName: String, patternString: String): String? {
-        val pattern = Pattern.compile(patternString)
-        val matcher = pattern.matcher(principalName)
+        val matcher = Pattern.compile(patternString).matcher(principalName)
         return if (matcher.find()) {
             matcher.group(1)
         } else null

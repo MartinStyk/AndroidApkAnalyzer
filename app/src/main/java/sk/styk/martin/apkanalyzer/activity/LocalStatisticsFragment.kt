@@ -92,7 +92,7 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
         chart_app_source.onValueTouchListener = GenericValueTouchListener(chart_app_source, data.appSource)
 
         statistics_apk_size.setStatistics(data.apkSize)
-        statistics_activities.setStatistics(data.activites)
+        statistics_activities.setStatistics(data.activities)
         statistics_services.setStatistics(data.services)
         statistics_providers.setStatistics(data.providers)
         statistics_receivers.setStatistics(data.receivers)

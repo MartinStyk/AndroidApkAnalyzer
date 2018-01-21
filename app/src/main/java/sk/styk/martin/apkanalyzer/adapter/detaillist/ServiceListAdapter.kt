@@ -28,7 +28,7 @@ class ServiceListAdapter(items: List<ServiceData>) : GenericDetailListAdapter<Se
         holder.exported.valueText = data.isExported.toString()
         holder.stopWithTask.valueText = data.isStopWithTask.toString()
         holder.singleUser.valueText = data.isSingleUser.toString()
-        holder.isolatedProcess.valueText = data.isolatedProcess().toString()
+        holder.isolatedProcess.valueText = data.isIsolatedProcess.toString()
         holder.external.valueText = data.isExternalService.toString()
     }
 

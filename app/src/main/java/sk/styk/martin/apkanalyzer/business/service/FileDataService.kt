@@ -19,9 +19,7 @@ class FileDataService {
 
     fun get(packageInfo: PackageInfo): FileData {
 
-        val fileData = FileData()
-
-        val mf = openManifest(packageInfo) ?: return fileData
+        val mf = openManifest(packageInfo) ?: return FileData()
 
         val drawables = ArrayList<FileEntry>()
         val layouts = ArrayList<FileEntry>()
@@ -35,6 +33,10 @@ class FileDataService {
 
         val map = mf.entries
 
+        var dexHash: String? = null
+        var arscHash: String? = null
+        var manifestHash: String? = null
+
         for (entry in map.entries) {
             val fileName = entry.key
             val hash = extractHash(entry)
@@ -45,9 +47,9 @@ class FileDataService {
                 fileName.startsWith("res/drawable") -> drawables.add(fileEntry)
                 fileName.startsWith("res/layout") -> layouts.add(fileEntry)
                 fileName.startsWith("res/menu") -> menus.add(fileEntry)
-                "classes.dex".equals(fileName) -> fileData.dexHash = hash
-                "resources.arsc".equals(fileName) -> fileData.arscHash = hash
-                "AndroidManifest.xml".equals(fileName) -> fileData.manifestHash = hash
+                "classes.dex".equals(fileName) -> dexHash = hash
+                "resources.arsc".equals(fileName) -> arscHash = hash
+                "AndroidManifest.xml".equals(fileName) -> manifestHash = hash
                 else -> others.add(fileEntry)
             }
 
@@ -64,17 +66,19 @@ class FileDataService {
             }
         }
 
-        fileData.drawableHashes = drawables
-        fileData.layoutHashes = layouts
-        fileData.menuHashes = menus
-        fileData.otherHashes = others
-
-        fileData.numberPngs = numberPngs
-        fileData.numberPngsWithDifferentName = pngsSet.size
-        fileData.numberXmls = numberXmls
-        fileData.numberXmlsWithDifferentName = xmlsSet.size
-
-        return fileData
+        return FileData(
+                dexHash = dexHash ?: "",
+                arscHash = arscHash ?: "",
+                manifestHash = manifestHash ?: "",
+                drawableHashes = drawables,
+                layoutHashes = layouts,
+                menuHashes = menus,
+                otherHashes = others,
+                numberPngs = numberPngs,
+                numberPngsWithDifferentName = pngsSet.size,
+                numberXmls = numberXmls,
+                numberXmlsWithDifferentName = xmlsSet.size
+        )
     }
 
     /**
