@@ -1,8 +1,6 @@
 package sk.styk.martin.apkanalyzer.activity
 
 import android.os.Bundle
-import android.support.annotation.ColorInt
-import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.Loader
@@ -17,26 +15,21 @@ import kotlinx.android.synthetic.main.fragment_local_statistics.*
 import lecho.lib.hellocharts.gesture.ContainerScrollType
 import lecho.lib.hellocharts.gesture.ZoomType
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener
-import lecho.lib.hellocharts.model.Axis
-import lecho.lib.hellocharts.model.AxisValue
-import lecho.lib.hellocharts.model.Column
-import lecho.lib.hellocharts.model.ColumnChartData
 import lecho.lib.hellocharts.model.SubcolumnValue
 import lecho.lib.hellocharts.view.ColumnChartView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.dialog.AppListDialog
 import sk.styk.martin.apkanalyzer.business.task.LocalStatisticsLoader
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
-import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper
+import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
 import java.util.*
 
 /**
  * @author Martin Styk
  */
-class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalStatisticsData>, LocalStatisticsLoader.ProgressCallback {
+class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalStatisticsDataWithCharts>, LocalStatisticsLoader.ProgressCallback {
 
-    private var data: LocalStatisticsData? = null
+    private var data: LocalStatisticsDataWithCharts? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -68,47 +61,48 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle?): Loader<LocalStatisticsData> {
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<LocalStatisticsDataWithCharts> {
         return LocalStatisticsLoader(context, this)
     }
 
-    override fun onLoadFinished(loader: Loader<LocalStatisticsData>, data: LocalStatisticsData) {
+    override fun onLoadFinished(loader: Loader<LocalStatisticsDataWithCharts>, data: LocalStatisticsDataWithCharts) {
         this.data = data
+        val stats = data.statisticsData
 
-        item_analyze_success.valueText = data.analyzeSuccess.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.analyzeSuccess.percentage) + "%)"
-        item_analyze_failed.valueText = data.analyzeFailed.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.analyzeFailed.percentage) + "%)"
-        item_system_apps.valueText = data.systemApps.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(data.systemApps.percentage) + "%)"
+        item_analyze_success.valueText = stats.analyzeSuccess.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(stats.analyzeSuccess.percentage) + "%)"
+        item_analyze_failed.valueText = stats.analyzeFailed.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(stats.analyzeFailed.percentage) + "%)"
+        item_system_apps.valueText = stats.systemApps.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(stats.systemApps.percentage) + "%)"
 
-        chart_min_sdk.columnChartData = getSdkColumnChart(data.minSdk, resources.getColor(R.color.primary))
-        chart_target_sdk.columnChartData = getSdkColumnChart(data.targetSdk, resources.getColor(R.color.primary))
-        chart_install_location.columnChartData = getColumnChart(data.installLocation, R.string.install_loc, resources.getColor(R.color.primary))
-        chart_sign_algorithm.columnChartData = getColumnChart(data.signAlgorithm, R.string.sign_algorithm, resources.getColor(R.color.primary))
-        chart_app_source.columnChartData = getColumnChart(data.appSource, R.string.app_source, resources.getColor(R.color.primary))
+        chart_min_sdk.columnChartData = data.minSdkChartData
+        chart_target_sdk.columnChartData = data.targetSdkChartData
+        chart_install_location.columnChartData = data.installLocationChartData
+        chart_sign_algorithm.columnChartData = data.signAlgorithChartData
+        chart_app_source.columnChartData = data.appSourceChartData
 
-        chart_min_sdk.onValueTouchListener = SdkValueTouchListener(chart_min_sdk, data.minSdk)
-        chart_target_sdk.onValueTouchListener = SdkValueTouchListener(chart_target_sdk, data.targetSdk)
-        chart_install_location.onValueTouchListener = GenericValueTouchListener(chart_install_location, data.installLocation)
-        chart_sign_algorithm.onValueTouchListener = GenericValueTouchListener(chart_sign_algorithm, data.signAlgorithm)
-        chart_app_source.onValueTouchListener = GenericValueTouchListener(chart_app_source, data.appSource)
+        chart_min_sdk.onValueTouchListener = SdkValueTouchListener(chart_min_sdk, stats.minSdk)
+        chart_target_sdk.onValueTouchListener = SdkValueTouchListener(chart_target_sdk, stats.targetSdk)
+        chart_install_location.onValueTouchListener = GenericValueTouchListener(chart_install_location, stats.installLocation)
+        chart_sign_algorithm.onValueTouchListener = GenericValueTouchListener(chart_sign_algorithm, stats.signAlgorithm)
+        chart_app_source.onValueTouchListener = GenericValueTouchListener(chart_app_source, stats.appSource)
 
-        statistics_apk_size.setStatistics(data.apkSize)
-        statistics_activities.setStatistics(data.activities)
-        statistics_services.setStatistics(data.services)
-        statistics_providers.setStatistics(data.providers)
-        statistics_receivers.setStatistics(data.receivers)
-        statistics_used_permissions.setStatistics(data.usedPermissions)
-        statistics_defined_permissions.setStatistics(data.definedPermissions)
-        statistics_files.setStatistics(data.files)
-        statistics_drawables.setStatistics(data.drawables)
-        statistics_drawables_different.setStatistics(data.differentDrawables)
-        statistics_layouts.setStatistics(data.layouts)
-        statistics_layouts_different.setStatistics(data.differentLayouts)
+        statistics_apk_size.setStatistics(stats.apkSize)
+        statistics_activities.setStatistics(stats.activities)
+        statistics_services.setStatistics(stats.services)
+        statistics_providers.setStatistics(stats.providers)
+        statistics_receivers.setStatistics(stats.receivers)
+        statistics_used_permissions.setStatistics(stats.usedPermissions)
+        statistics_defined_permissions.setStatistics(stats.definedPermissions)
+        statistics_files.setStatistics(stats.files)
+        statistics_drawables.setStatistics(stats.drawables)
+        statistics_drawables_different.setStatistics(stats.differentDrawables)
+        statistics_layouts.setStatistics(stats.layouts)
+        statistics_layouts_different.setStatistics(stats.differentLayouts)
 
         local_statistics_content.visibility = View.VISIBLE
         loading_bar.visibility = View.GONE
     }
 
-    override fun onLoaderReset(loader: Loader<LocalStatisticsData>) {
+    override fun onLoaderReset(loader: Loader<LocalStatisticsDataWithCharts>) {
         this.data = null
     }
 
@@ -116,61 +110,6 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
         loading_bar?.setProgress(currentProgress, maxProgress)
     }
 
-    private fun getSdkColumnChart(map: Map<Int, List<String>>, @ColorInt columnColor: Int): ColumnChartData {
-
-        val columns = ArrayList<Column>(map.size)
-        val axisValues = ArrayList<AxisValue>(map.size)
-        var values: MutableList<SubcolumnValue>
-
-        var axisValue = 0
-        for (sdk in 1..AndroidVersionHelper.MAX_SDK_VERSION) {
-            if (map[sdk] == null)
-                continue
-
-            val applicationCount = map[sdk]?.size ?: 0
-
-            values = ArrayList()
-            values.add(SubcolumnValue(applicationCount.toFloat(), columnColor))
-            val column = Column(values)
-            column.setHasLabels(true)
-            columns.add(column)
-
-            axisValues.add(AxisValue(axisValue++.toFloat()).setLabel(sdk.toString()))
-        }
-
-        val data = ColumnChartData(columns)
-        data.axisXBottom = Axis(axisValues).setName(resources.getString(R.string.sdk))
-                .setMaxLabelChars(3)
-        return data
-
-    }
-
-    private fun getColumnChart(map: Map<*, List<String>>, @StringRes axisName: Int, @ColorInt columnColor: Int): ColumnChartData {
-
-        val columns = ArrayList<Column>(map.size)
-        val axisValues = ArrayList<AxisValue>(map.size)
-        var values: MutableList<SubcolumnValue>
-
-        var axisValue = 0
-        for ((key, value) in map) {
-
-            val applicationCount = value.size
-
-            values = ArrayList()
-            values.add(SubcolumnValue(applicationCount.toFloat(), columnColor))
-            val column = Column(values)
-            column.setHasLabels(true)
-            columns.add(column)
-
-            axisValues.add(AxisValue(axisValue++.toFloat()).setLabel(key.toString()))
-        }
-
-        val data = ColumnChartData(columns)
-        data.axisXBottom = Axis(axisValues).setName(resources.getString(axisName))
-                .setMaxLabelChars(10)
-        return data
-
-    }
 
     private fun setupChart(chartView: ColumnChartView) {
         chartView.zoomType = ZoomType.HORIZONTAL

@@ -3,15 +3,16 @@ package sk.styk.martin.apkanalyzer.business.task
 import android.content.Context
 import sk.styk.martin.apkanalyzer.business.service.launcher.AppBasicDataService
 import sk.styk.martin.apkanalyzer.business.service.launcher.LocalApplicationStatisticDataService
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataBuilder
+import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
+import sk.styk.martin.apkanalyzer.util.ChartDataHelper
 import java.lang.ref.WeakReference
 
 /**
  * @author Martin Styk
  * @version 15.09.2018
  */
-class LocalStatisticsLoader(context: Context, callback: ProgressCallback) : ApkAnalyzerAbstractAsyncLoader<LocalStatisticsData>(context) {
+class LocalStatisticsLoader(context: Context, callback: ProgressCallback) : ApkAnalyzerAbstractAsyncLoader<LocalStatisticsDataWithCharts>(context) {
 
     private var callbackReference = WeakReference(callback)
     private val appBasicDataService = AppBasicDataService(context.packageManager)
@@ -25,7 +26,7 @@ class LocalStatisticsLoader(context: Context, callback: ProgressCallback) : ApkA
         callbackReference = WeakReference(progressCallback)
     }
 
-    override fun loadInBackground(): LocalStatisticsData {
+    override fun loadInBackground(): LocalStatisticsDataWithCharts {
         val packageNames = appBasicDataService.getAllPackageNames()
         val builder = LocalStatisticsDataBuilder(packageNames.size)
 
@@ -35,7 +36,9 @@ class LocalStatisticsLoader(context: Context, callback: ProgressCallback) : ApkA
             callbackReference.get()?.onProgressChanged(i, packageNames.size)
         }
 
-        return builder.build()
+        val statisticsData = builder.build()
+
+        return ChartDataHelper.wrapperAround(statisticsData)
     }
 
     companion object {
