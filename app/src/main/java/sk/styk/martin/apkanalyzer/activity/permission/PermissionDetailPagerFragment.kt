@@ -68,18 +68,16 @@ class PermissionDetailPagerFragment : Fragment() {
     }
 
     private fun loadPermissionDescription(packageManager: PackageManager, permissionName: String) {
-        object : Thread() {
-            override fun run() {
-                var desc: CharSequence? = null
-                try {
-                    desc = packageManager.getPermissionInfo(permissionName, PackageManager.GET_META_DATA).loadDescription(packageManager)
-                } catch (e: PackageManager.NameNotFoundException) {
-                    e.printStackTrace()
-                }
-
-                permissionDescription = if (desc == null) context.getString(R.string.NA) else desc.toString()
+        Thread({
+            var desc: CharSequence? = null
+            try {
+                desc = packageManager.getPermissionInfo(permissionName, PackageManager.GET_META_DATA).loadDescription(packageManager)
+            } catch (e: PackageManager.NameNotFoundException) {
+                e.printStackTrace()
             }
-        }.start()
+
+            permissionDescription = if (desc == null) context.getString(R.string.NA) else desc.toString()
+        }).start()
     }
 
     companion object {

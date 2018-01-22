@@ -1,15 +1,14 @@
 package sk.styk.martin.apkanalyzer.activity.permission
 
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_permission_detail_general.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.model.detail.PermissionData
-import sk.styk.martin.apkanalyzer.util.PermissionLevelHelper
+import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBinding
 
 /**
  * @author Martin Styk
@@ -23,20 +22,14 @@ class PermissionsGeneralDetailsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_permission_detail_general, container, false)
-    }
+        val binding: FragmentPermissionDetailGeneralBinding = DataBindingUtil
+                .inflate(inflater, R.layout.fragment_permission_detail_general, container, false)
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val permissionData = arguments.getParcelable<PermissionData>(PermissionDetailPagerFragment.ARG_CHILD)
-                ?: throw IllegalArgumentException("data null")
-
-        permission_name.valueText = permissionData.name
-        permission_group_name.valueText = permissionData.groupName
-        permission_protection_level.valueText = PermissionLevelHelper.showLocalized(permissionData.protectionLevel)
-        number_apps_granted.valueText = arguments.getInt(ARG_NUMBER_GRANTED_APPS).toString()
-        number_apps_not_granted.valueText = arguments.getInt(ARG_NUMBER_NOT_GRANTED_APPS).toString()
+        binding.data = arguments.getParcelable(PermissionDetailPagerFragment.ARG_CHILD) ?: throw IllegalArgumentException("data null")
+        binding.granted = arguments.getInt(ARG_NUMBER_GRANTED_APPS)
+        binding.notGranted = arguments.getInt(ARG_NUMBER_NOT_GRANTED_APPS)
+        
+        return binding.root
     }
 
     companion object {

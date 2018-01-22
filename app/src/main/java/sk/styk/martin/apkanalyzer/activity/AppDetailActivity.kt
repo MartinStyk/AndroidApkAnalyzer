@@ -56,6 +56,7 @@ class AppDetailActivity : AppCompatActivity() {
 
 
     companion object {
+        @JvmStatic
         fun createIntent(packageName: String? = null, packagePath: String? = null, context: Context): Intent {
             val intent = Intent(context, AppDetailActivity::class.java)
             intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, packageName)

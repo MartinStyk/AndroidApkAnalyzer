@@ -1,46 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:focusable="false"
-    android:orientation="horizontal"
-    android:padding="8dp">
+    <data>
 
-    <ImageView
-        android:id="@+id/package_img"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:contentDescription="@string/app_icon" />
+        <variable
+            name="data"
+            type="sk.styk.martin.apkanalyzer.model.list.AppListData" />
 
+        <import type="sk.styk.martin.apkanalyzer.activity.AppDetailActivity" />
+    </data>
 
-    <TextView
-        android:id="@+id/application_name"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp"
-        android:layout_marginLeft="@dimen/text_margin_right_left"
-        android:layout_marginRight="@dimen/text_margin_right_left"
-        android:layout_marginTop="@dimen/text_margin_top_bottom"
-        android:layout_toEndOf="@id/package_img"
-        android:layout_toRightOf="@id/package_img"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:focusable="false"
+        android:onClick="@{(view) -> view.context.startActivity(AppDetailActivity.createIntent(data.packageName,(String)null, context))}"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/package_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/application_name"
-        android:layout_marginBottom="@dimen/text_margin_top_bottom"
-        android:layout_marginLeft="@dimen/text_margin_right_left"
-        android:layout_marginRight="@dimen/text_margin_right_left"
-        android:layout_toEndOf="@id/package_img"
-        android:layout_toRightOf="@id/package_img"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
-</RelativeLayout>
+        <ImageView
+            android:id="@+id/package_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_icon"
+            android:src="@{data.icon}" />
+
+
+        <TextView
+            android:id="@+id/application_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginLeft="@dimen/text_margin_right_left"
+            android:layout_marginRight="@dimen/text_margin_right_left"
+            android:layout_marginTop="@dimen/text_margin_top_bottom"
+            android:layout_toEndOf="@id/package_img"
+            android:layout_toRightOf="@id/package_img"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{data.applicationName}"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
+
+        <TextView
+            android:id="@+id/package_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/application_name"
+            android:layout_marginBottom="@dimen/text_margin_top_bottom"
+            android:layout_marginLeft="@dimen/text_margin_right_left"
+            android:layout_marginRight="@dimen/text_margin_right_left"
+            android:layout_toEndOf="@id/package_img"
+            android:layout_toRightOf="@id/package_img"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{data.packageName}"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </RelativeLayout>
+</layout>
