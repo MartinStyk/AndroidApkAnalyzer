@@ -27,13 +27,13 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
         }
 
     var descriptionText: String
-    var valueText: String? = null
+    var valueText: Any? = null
         set(value) {
             field = value
-            if (value == null || value == notShownExpression) {
+            if (value == null || value.toString() == notShownExpression) {
                 visibility = View.GONE
             } else {
-                attribute_value.text = value
+                attribute_value.text = value.toString()
                 visibility = View.VISIBLE
             }
         }
@@ -57,7 +57,7 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     override fun onClick(v: View) {
-        InfoDialog.newInstance(titleText, valueText ?: "", descriptionText)
+        InfoDialog.newInstance(titleText, valueText?.toString() ?: "", descriptionText)
                 .show((context as AppCompatActivity).supportFragmentManager, InfoDialog::class.java.simpleName)
     }
 

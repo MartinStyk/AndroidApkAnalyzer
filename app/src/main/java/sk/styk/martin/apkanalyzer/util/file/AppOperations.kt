@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.util.file
 
 import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -15,7 +16,7 @@ import java.io.File
  * @author Martin Styk
  * @version 04.01.2018.
  */
-class AppOperations {
+object AppOperations {
 
     fun installPackage(context: Context, packagePath: String) {
         val intent = Intent(Intent.ACTION_VIEW)
@@ -64,6 +65,17 @@ class AppOperations {
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)))
         }
 
+    }
+
+    @JvmStatic
+    fun startForeignActivity(context: Context, packageName: String, activityName: String) {
+        val intent = Intent()
+        intent.component = ComponentName(packageName, activityName)
+        try {
+            context.startActivity(intent)
+        } catch (e: Exception) {
+            Toast.makeText(context, R.string.activity_run_failed, Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

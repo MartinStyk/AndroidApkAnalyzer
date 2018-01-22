@@ -156,14 +156,14 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
         }
 
         dialogView.btn_share_apk.setOnClickListener {
-            AppOperations().shareApkFile(context, data?.generalData?.apkDirectory
+            AppOperations.shareApkFile(context, data?.generalData?.apkDirectory
                     ?: return@setOnClickListener)
             dialog.dismiss()
         }
 
         dialogView.btn_show_app_google_play.setOnClickListener {
             dialog.dismiss()
-            AppOperations().openGooglePlay(context, data?.generalData?.packageName
+            AppOperations.openGooglePlay(context, data?.generalData?.packageName
                     ?: return@setOnClickListener)
         }
 
@@ -181,7 +181,7 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
 
             dialogView.btn_show_app_system_page.setOnClickListener {
                 dialog.dismiss()
-                AppOperations().openAppSystemPage(context, data?.generalData?.packageName
+                AppOperations.openAppSystemPage(context, data?.generalData?.packageName
                         ?: return@setOnClickListener)
             }
         } else if (data!!.isAnalyzedApkFile) {
@@ -191,7 +191,7 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
 
             dialogView.btn_install_app.setOnClickListener {
                 dialog.dismiss()
-                AppOperations().installPackage(context, packagePath ?: return@setOnClickListener)
+                AppOperations.installPackage(context, packagePath ?: return@setOnClickListener)
             }
         }
 

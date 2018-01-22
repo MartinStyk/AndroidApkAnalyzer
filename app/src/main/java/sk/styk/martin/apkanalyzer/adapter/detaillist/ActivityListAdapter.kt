@@ -11,7 +11,10 @@ import android.widget.TextView
 import android.widget.Toast
 
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailBinding
+import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailBinding
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
+import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
 import sk.styk.martin.apkanalyzer.view.DetailListItemView
 
 /**
@@ -21,38 +24,22 @@ import sk.styk.martin.apkanalyzer.view.DetailListItemView
 class ActivityListAdapter(items: List<ActivityData>) : GenericDetailListAdapter<ActivityData, ActivityListAdapter.ViewHolder>(items) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_activity_detail, parent, false)
-        return ViewHolder(view)
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context);
+        val itemBinding = ListItemActivityDetailBinding.inflate(layoutInflater, parent, false);
+        return ViewHolder(itemBinding);
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = getItem(position)
-        holder.name.text = data.name
-        holder.label.valueText = data.label
-        holder.parent.valueText = data.parentName
-        holder.permission.valueText = data.permission
+        val item = getItem(position)
+        holder.bind(item)
+    }
 
-        if (data.isExported) {
-            holder.run.isEnabled = true
-            holder.run.setOnClickListener { v ->
-                val intent = Intent()
-                intent.component = ComponentName(data.packageName, data.name)
-                try {
-                    v.context.startActivity(intent)
-                } catch (e: Exception) {
-                    Toast.makeText(v.context, R.string.activity_run_failed, Toast.LENGTH_SHORT).show()
-                }
-            }
-        } else {
-            holder.run.isEnabled = false
+    inner class ViewHolder(val binding: ListItemActivityDetailBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: ActivityData) {
+            binding.data = item
+            binding.executePendingBindings()
         }
     }
-
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView = v.findViewById<TextView>(R.id.item_activity_name)
-        val label: DetailListItemView = v.findViewById<DetailListItemView>(R.id.item_activity_label)
-        val parent: DetailListItemView = v.findViewById<DetailListItemView>(R.id.item_activity_parent)
-        val permission: DetailListItemView = v.findViewById<DetailListItemView>(R.id.item_activity_permission)
-        val run: Button = v.findViewById<Button>(R.id.item_activity_run)
-    }
+    
 }

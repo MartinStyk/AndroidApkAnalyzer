@@ -1,136 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        style="@style/ItemDetailLayout"
+    <data>
+
+        <variable
+            name="data"
+            type="sk.styk.martin.apkanalyzer.model.detail.ResourceData" />
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_all_drawables"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/all_drawables_description"
-            app:titleText="@string/all_drawables" />
+            android:layout_height="match_parent"
+            tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_different_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/different_drawables_description"
-            app:titleText="@string/different_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_all_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/all_drawables_description"
+                app:titleText="@string/all_drawables"
+                app:valueText="@{data.drawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_png_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/png_drawables_description"
-            app:titleText="@string/png_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_different_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/different_drawables_description"
+                app:titleText="@string/different_drawables"
+                app:valueText="@{data.differentDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_nine_patch_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/nine_patch_drawables_description"
-            app:titleText="@string/nine_patch_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_png_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/png_drawables_description"
+                app:titleText="@string/png_drawables"
+                app:valueText="@{data.pngDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_jpg_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/jpg_drawables_description"
-            app:titleText="@string/jpg_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_nine_patch_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/nine_patch_drawables_description"
+                app:titleText="@string/nine_patch_drawables"
+                app:valueText="@{data.ninePatchDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_gif_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/gif_drawables_description"
-            app:titleText="@string/gif_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_jpg_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/jpg_drawables_description"
+                app:titleText="@string/jpg_drawables"
+                app:valueText="@{data.jpgDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_xml_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/xml_drawables_description"
-            app:titleText="@string/xml_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_gif_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/gif_drawables_description"
+                app:titleText="@string/gif_drawables"
+                app:valueText="@{data.gifDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_ldpi_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/ldpi_drawables_description"
-            app:titleText="@string/ldpi_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_xml_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/xml_drawables_description"
+                app:titleText="@string/xml_drawables"
+                app:valueText="@{data.xmlDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_mdpi_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/mdpi_drawables_description"
-            app:titleText="@string/mdpi_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_ldpi_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/ldpi_drawables_description"
+                app:titleText="@string/ldpi_drawables"
+                app:valueText="@{data.ldpiDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_hdpi_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/hdpi_drawables_description"
-            app:titleText="@string/hdpi_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_mdpi_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/mdpi_drawables_description"
+                app:titleText="@string/mdpi_drawables"
+                app:valueText="@{data.mdpiDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_xhdpi_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/xhdpi_drawables_description"
-            app:titleText="@string/xhdpi_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_hdpi_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/hdpi_drawables_description"
+                app:titleText="@string/hdpi_drawables"
+                app:valueText="@{data.hdpiDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_xxhdpi_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/xxhdpi_drawables_description"
-            app:titleText="@string/xxhdpi_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_xhdpi_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/xhdpi_drawables_description"
+                app:titleText="@string/xhdpi_drawables"
+                app:valueText="@{data.xhdpiDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_xxxhdpi_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/xxxhdpi_drawables_description"
-            app:titleText="@string/xxxhdpi_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_xxhdpi_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/xxhdpi_drawables_description"
+                app:titleText="@string/xxhdpi_drawables"
+                app:valueText="@{data.xxhdpiDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_nodpi_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/nodpi_drawables_description"
-            app:titleText="@string/nodpi_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_xxxhdpi_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/xxxhdpi_drawables_description"
+                app:titleText="@string/xxxhdpi_drawables"
+                app:valueText="@{data.xxxhdpiDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_tvdpi_drawables"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/tvdpi_drawables_description"
-            app:titleText="@string/tvdpi_drawables" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_nodpi_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/nodpi_drawables_description"
+                app:titleText="@string/nodpi_drawables"
+                app:valueText="@{data.nodpiDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_all_layouts"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/all_layouts_description"
-            app:titleText="@string/all_layouts" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_tvdpi_drawables"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/tvdpi_drawables_description"
+                app:titleText="@string/tvdpi_drawables"
+                app:valueText="@{data.tvdpiDrawables}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_different_layouts"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/different_layouts_description"
-            app:titleText="@string/different_layouts" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_all_layouts"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/all_layouts_description"
+                app:titleText="@string/all_layouts"
+                app:valueText="@{data.layouts}" />
 
-    </LinearLayout>
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_different_layouts"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/different_layouts_description"
+                app:titleText="@string/different_layouts"
+                app:valueText="@{data.differentLayouts}" />
 
-</android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</layout>

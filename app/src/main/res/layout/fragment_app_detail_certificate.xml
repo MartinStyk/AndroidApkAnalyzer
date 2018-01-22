@@ -1,100 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        style="@style/ItemDetailLayout"
+    <data>
+
+        <variable
+            name="data"
+            type="sk.styk.martin.apkanalyzer.model.detail.CertificateData" />
+
+        <import type="android.text.format.DateUtils" />
+
+    </data>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_sign_algorithm"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/sign_algorithm_description"
-            app:titleText="@string/sign_algorithm" />
+            android:layout_height="match_parent"
+            tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_start_date"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/start_date_description"
-            app:titleText="@string/start_date" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_sign_algorithm"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/sign_algorithm_description"
+                app:titleText="@string/sign_algorithm"
+                app:valueText="@{data.signAlgorithm}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_end_date"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/end_date_description"
-            app:titleText="@string/end_date" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/start_date_description"
+                app:titleText="@string/start_date"
+                app:valueText="@{DateUtils.formatDateTime(context, data.startDate.time, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME)}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_public_key_md5"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/public_key_md5_description"
-            app:titleText="@string/public_key_md5" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/end_date_description"
+                app:titleText="@string/end_date"
+                app:valueText="@{DateUtils.formatDateTime(context, data.endDate.time, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME)}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_cert_md5"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/cert_md5_description"
-            app:titleText="@string/cert_md5" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_public_key_md5"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/public_key_md5_description"
+                app:titleText="@string/public_key_md5"
+                app:valueText="@{data.publicKeyMd5}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_serial_number"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/serial_number_description"
-            app:titleText="@string/serial_number" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_cert_md5"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/cert_md5_description"
+                app:titleText="@string/cert_md5"
+                app:valueText="@{data.certificateHash}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_issuer_name"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/issuer_name_description"
-            app:titleText="@string/issuer_name" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_serial_number"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/serial_number_description"
+                app:titleText="@string/serial_number"
+                app:valueText="@{data.serialNumber}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_issuer_organization"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/issuer_organization_description"
-            app:titleText="@string/issuer_organization" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_issuer_name"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/issuer_name_description"
+                app:titleText="@string/issuer_name"
+                app:valueText="@{data.issuerName}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_issuer_country"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/issuer_country_description"
-            app:titleText="@string/issuer_country" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_issuer_organization"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/issuer_organization_description"
+                app:titleText="@string/issuer_organization"
+                app:valueText="@{data.issuerOrganization}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_subject_name"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/subject_name_description"
-            app:titleText="@string/subject_name" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_issuer_country"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/issuer_country_description"
+                app:titleText="@string/issuer_country"
+                app:valueText="@{data.issuerCountry}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_subject_organization"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/subject_organization_description"
-            app:titleText="@string/subject_organization" />
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_subject_name"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/subject_name_description"
+                app:titleText="@string/subject_name"
+                app:valueText="@{data.subjectName}" />
 
-        <sk.styk.martin.apkanalyzer.view.DetailItemView
-            android:id="@+id/item_subject_country"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/listPreferredItemHeight"
-            app:descriptionText="@string/subject_country_description"
-            app:titleText="@string/subject_country" />
-    </LinearLayout>
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_subject_organization"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/subject_organization_description"
+                app:titleText="@string/subject_organization"
+                app:valueText="@{data.subjectOrganization}" />
 
-</android.support.v4.widget.NestedScrollView>
+            <sk.styk.martin.apkanalyzer.view.DetailItemView
+                android:id="@+id/item_subject_country"
+                android:layout_width="match_parent"
+                android:layout_height="?android:attr/listPreferredItemHeight"
+                app:descriptionText="@string/subject_country_description"
+                app:titleText="@string/subject_country"
+                app:valueText="@{data.subjectCountry}" />
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</layout>

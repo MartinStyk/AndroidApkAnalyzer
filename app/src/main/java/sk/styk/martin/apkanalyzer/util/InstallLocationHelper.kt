@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.util
 
 import android.content.Context
 import android.content.pm.PackageInfo
+import sk.styk.martin.apkanalyzer.ApkAnalyzer
 
 import sk.styk.martin.apkanalyzer.R
 
@@ -24,7 +25,10 @@ object InstallLocationHelper {
         }
     }
 
-    fun showLocalizedLocation(installLocation: String, context: Context): String {
+    @JvmStatic
+    fun showLocalizedLocation(installLocation: String): String {
+        val context = ApkAnalyzer.context
+
         return when (installLocation) {
             INSTALL_LOCATION_AUTO -> context.getString(R.string.install_loc_auto)
             INSTALL_LOCATION_INTERNAL_ONLY -> context.getString(R.string.install_loc_internal_only)

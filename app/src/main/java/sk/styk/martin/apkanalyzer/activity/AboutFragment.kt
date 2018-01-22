@@ -34,7 +34,7 @@ class AboutFragment : Fragment() {
         about_app_github_link.movementMethod = LinkMovementMethod.getInstance()
         about_app_privacy_policy.movementMethod = LinkMovementMethod.getInstance()
 
-        about_app_rate.setOnClickListener { AppOperations().openGooglePlay(context, context.packageName) }
+        about_app_rate.setOnClickListener { AppOperations.openGooglePlay(context, context.packageName) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

@@ -1,40 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/padding_default"
-    card_view:cardUseCompatPadding="true">
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        style="@style/ItemDetailLayout"
+    <data>
+
+        <variable
+            name="data"
+            type="sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData" />
+    </data>
+
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:padding="@dimen/padding_default"
+        card_view:cardUseCompatPadding="true">
 
-        <TextView
-            android:id="@+id/item_receiver_name"
-            style="@style/ItemDetailCardViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-            android:id="@+id/item_receiver_permission"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:descriptionText="@string/receiver_exported_description"
-            app:titleText="@string/receiver_permission"
-            app:valueText="@string/none" />
+            android:orientation="vertical">
 
-        <sk.styk.martin.apkanalyzer.view.DetailListItemView
-            android:id="@+id/item_receiver_exported"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/receiver_exported_description"
-            app:titleText="@string/receiver_exported" />
+            <TextView
+                android:id="@+id/item_receiver_name"
+                style="@style/ItemDetailCardViewHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{data.name}" />
 
-    </LinearLayout>
+            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+                android:id="@+id/item_receiver_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:descriptionText="@string/receiver_exported_description"
+                app:titleText="@string/receiver_permission"
+                app:valueText="@{data.permission ?? @string/none}" />
 
-</android.support.v7.widget.CardView>
+            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+                android:id="@+id/item_receiver_exported"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:descriptionText="@string/receiver_exported_description"
+                app:titleText="@string/receiver_exported"
+                app:valueText="@{data.exported ? @string/yes : @string/no}" />
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</layout>

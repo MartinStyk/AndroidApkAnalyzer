@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailBinding
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
 import sk.styk.martin.apkanalyzer.view.DetailListItemView
 
@@ -17,24 +18,21 @@ import sk.styk.martin.apkanalyzer.view.DetailListItemView
 class ProviderListAdapter(items: List<ContentProviderData>) : GenericDetailListAdapter<ContentProviderData, ProviderListAdapter.ViewHolder>(items) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_provider_detail, parent, false)
-        return ViewHolder(view)
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context);
+        val itemBinding = ListItemProviderDetailBinding.inflate(layoutInflater, parent, false);
+        return ViewHolder(itemBinding);
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val data = getItem(position)
-        holder.name.text = data.name
-        holder.authority.valueText = data.authority
-        holder.readPermission.valueText = data.readPermission
-        holder.writePermission.valueText = data.writePermission
-        holder.exported.valueText = data.isExported.toString()
+        val item = getItem(position)
+        holder.bind(item)
     }
 
-    inner class ViewHolder(v: View) : RecyclerView.ViewHolder(v) {
-        val name: TextView = v.findViewById(R.id.item_provider_name)
-        val authority: DetailListItemView = v.findViewById(R.id.item_provider_authority)
-        val readPermission: DetailListItemView = v.findViewById(R.id.item_provider_read_permission)
-        val writePermission: DetailListItemView = v.findViewById(R.id.item_provider_write_permission)
-        val exported: DetailListItemView = v.findViewById(R.id.item_provider_exported)
+    inner class ViewHolder(val binding: ListItemProviderDetailBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: ContentProviderData) {
+            binding.data = item
+            binding.executePendingBindings()
+        }
     }
 }
