@@ -27,7 +27,7 @@ class OnInstallAppDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_app_detail)
         setSupportActionBar(detail_toolbar)
 
-        if (intent.data == null) {
+        if (intent?.data == null) {
             Toast.makeText(this, getString(R.string.error_loading_package_detail), Toast.LENGTH_LONG).show()
             setResult(Activity.RESULT_CANCELED)
             finish()
