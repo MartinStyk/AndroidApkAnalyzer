@@ -89,6 +89,7 @@
     <string name="uid">UID</string>
     <string name="description">説明</string>
     <string name="app_source">アプリケーションソース</string>
+    <string name="app_installer">インストーラ</string>
     <string name="sdk">SDK</string>
     <string name="target_sdk">ターゲットSDK</string>
     <string name="target_version">ターゲットバージョン</string>
@@ -130,6 +131,7 @@
     <string name="uid_description">このアプリケーションに割り当てられたカーネルユーザーID。現在、複数のアプリケーションが同じuidを持つことができるため、これは一意のIDではありません。</string>
     <string name="description_description">アプリケーション開発者が指定したアプリケーションの説明です。</string>
     <string name="description_app_source">APKファイルがインストールされた場所</string>
+    <string name="description_app_installer">このアプリケーションをインストールしたパッケージ</string>
     <string name="target_sdk_description">アプリケーションがターゲットとするAndroid APIレベルを指定する数字です。この属性は、アプリケーションがターゲットバージョンに対してテストされたことをシステムに通知し、システムは、ターゲットバージョンとのアプリケーションの前方互換性を維持するための互換動作を有効にしてはなりません。アプリケーションは古いバージョン(最小SDKバージョンまで)で実行できます。</string>
     <string name="target_version_description">Value of Target SDK attribute resolved to the version of Android</string>
     <string name="min_sdk_description">アプリケーションの実行に必要な最小Android APIレベルを指定する数字です。 Androidシステムは、システムのAPIレベルがこの属性で指定された値よりも低い場合、ユーザーがアプリケーションをインストールできないようにします。 Google Playは、この属性を使用して、プラットフォームのバージョン要件を満たさないデバイスからアプリをフィルタリングします。</string>

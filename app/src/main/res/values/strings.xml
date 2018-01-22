@@ -90,6 +90,7 @@
     <string name="uid">UID</string>
     <string name="description">Description</string>
     <string name="app_source">Application source</string>
+    <string name="app_installer">Installer</string>
     <string name="sdk">SDK</string>
     <string name="target_sdk">Target SDK</string>
     <string name="target_version">Target version</string>
@@ -132,6 +133,7 @@
     <string name="uid_description">The kernel user-ID that has been assigned to this application. Currently this is not a unique ID as multiple applications can have the same uid.</string>
     <string name="description_description">The application\'s description specified by application developer.</string>
     <string name="description_app_source">Location from which was APK file installed</string>
+    <string name="description_app_installer">Package which installed this application.</string>
     <string name="target_sdk_description">A number designating the Android API Level that the application targets. This attribute informs the system that application is tested against the target version and the system should not enable any compatibility behaviors to maintain app\'s forward-compatibility with the target version. The application is still able to run on older versions (down to Min Sdk Version).</string>
     <string name="target_version_description">Value of Target SDK attribute resolved to the version of Android</string>
     <string name="min_sdk_description">A number designating the minimum Android API Level required for the application to run. The Android system will prevent the user from installing the application if the system\'s API Level is lower than the value specified in this attribute. Google Play uses the this attributes to filter app from devices that do not meet it\'s platform version requirements.</string>

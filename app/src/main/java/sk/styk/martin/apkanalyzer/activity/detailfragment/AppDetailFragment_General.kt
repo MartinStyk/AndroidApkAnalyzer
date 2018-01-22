@@ -38,6 +38,7 @@ class AppDetailFragment_General : Fragment() {
         item_system_application.valueText = if (data.isSystemApp) getString(R.string.yes) else getString(R.string.no)
         item_uid.valueText = data.uid?.toString()
         item_application_description.valueText = data.description
+        item_application_app_installer.valueText = data.appInstaller
         item_application_app_source.valueText = data.source.toString()
         item_target_sdk.valueText = data.targetSdkVersion.toString()
         item_target_android_version.valueText = data.targetSdkLabel

@@ -69,6 +69,13 @@
             app:titleText="@string/description" />
 
         <sk.styk.martin.apkanalyzer.view.DetailItemView
+            android:id="@+id/item_application_app_installer"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/listPreferredItemHeight"
+            app:descriptionText="@string/description_app_installer"
+            app:titleText="@string/app_installer" />
+
+        <sk.styk.martin.apkanalyzer.view.DetailItemView
             android:id="@+id/item_application_app_source"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/listPreferredItemHeight"

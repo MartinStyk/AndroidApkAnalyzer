@@ -25,7 +25,7 @@ data class GeneralData(
         val apkDirectory: String,
         val dataDirectory: String? = null,
         val installLocation: String,
-        val appInstaller: String? = null, // TODO add to view
+        val appInstaller: String? = null,
 
         val apkSize: Long = 0, //bytes
 
