@@ -264,7 +264,9 @@
 
     <string name="analyze_results">分析結果</string>
     <string name="analyze_results_success">分析成功</string>
+    <string name="analyze_results_success_description">分析成功</string>
     <string name="analyze_results_failed">分析失敗</string>
+    <string name="analyze_results_failed_description">分析失敗</string>
 
     <string name="settings_allow_metadata_upload">メタデータをアップロード</string>
     <string name="settings_allow_metadata_upload_description"> Apk Analyzerがインストールされているアプリケーションに関するメタデータを収集できるようにしてください。\nMetadataには、アプリやデバイスのIDに関する情報が含まれています。それはあなたのデータを含んでいません。\nアプリケーションメタデータは科学的な目的で使用されます - 再パッケージ化されたAPKの研究。\nデータはWiFi経由でのみアップロードされます。\nプライバシーに関する詳細は<a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">プライバシーポリシー</a>からご確認ください。</string>
