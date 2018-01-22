@@ -7,8 +7,10 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import sk.styk.martin.apkanalyzer.business.service.GeneralDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
+import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 
 /**
  * Class holding basic application metadata used in list view of all apps
@@ -35,7 +37,7 @@ public class AppListData implements Parcelable {
         this.applicationInfo = packageInfo.applicationInfo;
         this.version = packageInfo.versionCode;
         this.isSystemApp = (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
-        this.source = AppSource.get(packageManager, getPackageName(), isSystemApp);
+        this.source = GeneralDataService.Companion.getAppSource(packageManager, getPackageName(), isSystemApp);
     }
 
     public String getApplicationName() {
