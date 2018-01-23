@@ -15,5 +15,6 @@
     <declare-styleable name="MathStatisticsCardView">
         <attr name="title" format="string" localization="suggested" />
         <attr name="type" format="string"/>
+        <attr name="statistics" format="reference"/>
     </declare-styleable>
 </resources>

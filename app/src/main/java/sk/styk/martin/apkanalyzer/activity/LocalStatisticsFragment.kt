@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.activity
 
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.LoaderManager
@@ -20,8 +21,8 @@ import lecho.lib.hellocharts.view.ColumnChartView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.dialog.AppListDialog
 import sk.styk.martin.apkanalyzer.business.task.LocalStatisticsLoader
+import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
-import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
 import java.util.*
 
 /**
@@ -30,10 +31,11 @@ import java.util.*
 class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalStatisticsDataWithCharts>, LocalStatisticsLoader.ProgressCallback {
 
     private var data: LocalStatisticsDataWithCharts? = null
+    private lateinit var binding: FragmentLocalStatisticsBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_local_statistics, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_local_statistics, container, false)
 
         // We need to re-set callback of loader in case of configuration change
         val loader = loaderManager.initLoader(LocalStatisticsLoader.ID, null, this) as LocalStatisticsLoader
@@ -41,7 +43,7 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
 
         setHasOptionsMenu(true)
 
-        return view
+        return binding.root
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -66,12 +68,9 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
     }
 
     override fun onLoadFinished(loader: Loader<LocalStatisticsDataWithCharts>, data: LocalStatisticsDataWithCharts) {
+        binding.data = data
         this.data = data
         val stats = data.statisticsData
-
-        item_analyze_success.valueText = stats.analyzeSuccess.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(stats.analyzeSuccess.percentage) + "%)"
-        item_analyze_failed.valueText = stats.analyzeFailed.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(stats.analyzeFailed.percentage) + "%)"
-        item_system_apps.valueText = stats.systemApps.count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(stats.systemApps.percentage) + "%)"
 
         chart_min_sdk.columnChartData = data.minSdkChartData
         chart_target_sdk.columnChartData = data.targetSdkChartData
@@ -84,22 +83,6 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
         chart_install_location.onValueTouchListener = GenericValueTouchListener(chart_install_location, stats.installLocation)
         chart_sign_algorithm.onValueTouchListener = GenericValueTouchListener(chart_sign_algorithm, stats.signAlgorithm)
         chart_app_source.onValueTouchListener = GenericValueTouchListener(chart_app_source, stats.appSource)
-
-        statistics_apk_size.setStatistics(stats.apkSize)
-        statistics_activities.setStatistics(stats.activities)
-        statistics_services.setStatistics(stats.services)
-        statistics_providers.setStatistics(stats.providers)
-        statistics_receivers.setStatistics(stats.receivers)
-        statistics_used_permissions.setStatistics(stats.usedPermissions)
-        statistics_defined_permissions.setStatistics(stats.definedPermissions)
-        statistics_files.setStatistics(stats.files)
-        statistics_drawables.setStatistics(stats.drawables)
-        statistics_drawables_different.setStatistics(stats.differentDrawables)
-        statistics_layouts.setStatistics(stats.layouts)
-        statistics_layouts_different.setStatistics(stats.differentLayouts)
-
-        local_statistics_content.visibility = View.VISIBLE
-        loading_bar.visibility = View.GONE
     }
 
     override fun onLoaderReset(loader: Loader<LocalStatisticsDataWithCharts>) {

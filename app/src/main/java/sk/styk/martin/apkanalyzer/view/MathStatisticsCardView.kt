@@ -19,13 +19,22 @@ import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
  */
 class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : CardView(context, attrs) {
 
-    private val type: Type
+    private var type: Type = Type.INTEGRAL
 
     var title: String = ""
         set(value) {
             field = value
             item_title.text = value
         }
+
+    var statistics: MathStatistics? = null
+        set(value) {
+            field = value
+            value?.let {
+                type.setStatistics(it, item_arithmetic_mean, item_median, item_min, item_max, item_deviation, item_variance)
+            }
+        }
+
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_math_statistics_card, this, true)
@@ -35,14 +44,7 @@ class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: 
         type = Type.valueOf(attributes.getString(R.styleable.MathStatisticsCardView_type)!!.toUpperCase())
         attributes.recycle()
 
-        item_arithmetic_mean.valueText
-
         useCompatPadding = true
-
-    }
-
-    fun setStatistics(statistics: MathStatistics) {
-        type.setStatistics(statistics, item_arithmetic_mean, item_median, item_min, item_max, item_deviation, item_variance)
     }
 
     internal enum class Type {

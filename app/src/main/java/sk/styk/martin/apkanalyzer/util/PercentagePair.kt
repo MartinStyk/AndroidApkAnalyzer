@@ -22,7 +22,7 @@ class PercentagePair : Parcelable {
     }
 
     override fun toString(): String {
-        return "($count, $percentage)"
+        return count.toString() + "  (" + BigDecimalFormatter.getCommonFormat().format(percentage) + "%)"
     }
 
     override fun describeContents(): Int {
