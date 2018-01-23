@@ -29,7 +29,7 @@ class AppListDialog : DialogFragment(), LoaderManager.LoaderCallbacks<List<AppLi
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.dialog_app_list, container, false);
+        return inflater.inflate(R.layout.dialog_app_list, container, false)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

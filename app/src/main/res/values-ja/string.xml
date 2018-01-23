@@ -59,7 +59,7 @@
     <string name="intro_upload">アプリのメタデータをアップロード</string>
     <string name="intro_upload_description">APKアナライザがアプリのメタデータを収集できるようにしてください。データは、アプリケーションの調査に使用されます。\nあなたのパーソナルアプリのデータは含まれていません。設定で環境設定を調整することができます</string>
     <string name="intro_upload_require_input">アプリのメタデータのアップロードを承認または拒否する</string>
-    
+
     <string name="general">一般</string>
     <string name="certificate">証明書</string>
     <string name="activities">アクティビティ</string>

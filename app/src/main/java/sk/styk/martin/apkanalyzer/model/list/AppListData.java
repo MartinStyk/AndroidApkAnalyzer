@@ -10,12 +10,12 @@ import android.os.Parcelable;
 import sk.styk.martin.apkanalyzer.business.service.GeneralDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
-import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 
 /**
  * Class holding basic application metadata used in list view of all apps
  * For more detailed application metadata see {@link AppDetailData}
  * <p>
+ *
  * @author Martin Styk
  * @version 15.06.2017.
  */

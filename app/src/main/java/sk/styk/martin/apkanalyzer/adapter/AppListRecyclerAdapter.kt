@@ -17,9 +17,9 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData
 class AppListRecyclerAdapter(items: List<AppListData>) : GenericDetailListAdapter<AppListData, AppListRecyclerAdapter.ViewHolder>(items) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context);
-        val itemBinding = ListItemApplicationBinding.inflate(layoutInflater, parent, false);
-        return ViewHolder(itemBinding);
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val itemBinding = ListItemApplicationBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

@@ -14,9 +14,9 @@ import sk.styk.martin.apkanalyzer.model.detail.ServiceData
 class ServiceListAdapter(items: List<ServiceData>) : GenericDetailListAdapter<ServiceData, ServiceListAdapter.ViewHolder>(items) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context);
-        val itemBinding = ListItemServiceDetailBinding.inflate(layoutInflater, parent, false);
-        return ViewHolder(itemBinding);
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val itemBinding = ListItemServiceDetailBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

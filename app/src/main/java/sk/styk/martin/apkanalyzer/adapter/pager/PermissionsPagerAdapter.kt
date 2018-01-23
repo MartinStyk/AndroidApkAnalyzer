@@ -60,7 +60,7 @@ class PermissionsPagerAdapter(private val context: Context, fm: FragmentManager)
         2 -> context.resources.getString(R.string.permissions_not_granted)
         else -> throw IllegalStateException()
     }
-    
+
     fun dataChange(data: LocalPermissionData) {
         this.permissionData = data.permissionData
         this.grantedPackages = data.grantedPackageNames

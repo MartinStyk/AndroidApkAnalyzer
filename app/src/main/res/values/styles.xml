@@ -22,18 +22,18 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
-    <style name="ItemDetail"  parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="ItemDetail" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="android:background">?android:selectableItemBackground</item>
         <item name="android:clickable">true</item>
     </style>
 
-    <style name="ItemDetailLayout"  parent="Widget.AppCompat.ListView">
+    <style name="ItemDetailLayout" parent="Widget.AppCompat.ListView">
         <item name="android:divider">?android:attr/listDivider</item>
         <item name="android:orientation">vertical</item>
         <item name="android:showDividers">beginning|middle</item>
     </style>
 
-    <style name="ListItemDetail"  parent="ItemDetail">
+    <style name="ListItemDetail" parent="ItemDetail">
         <item name="android:paddingTop">@dimen/padding_cardview_text</item>
         <item name="android:paddingBottom">@dimen/padding_cardview_text</item>
     </style>

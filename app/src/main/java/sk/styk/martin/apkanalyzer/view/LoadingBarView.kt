@@ -1,15 +1,10 @@
 package sk.styk.martin.apkanalyzer.view
 
 import android.content.Context
-import android.content.res.TypedArray
 import android.util.AttributeSet
-import android.view.Gravity
 import android.view.LayoutInflater
-import android.widget.ProgressBar
 import android.widget.RelativeLayout
-import android.widget.TextView
 import kotlinx.android.synthetic.main.view_loading_bar.view.*
-
 import sk.styk.martin.apkanalyzer.R
 
 /**

@@ -14,5 +14,4 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class UsedPermissionData(
         val permissionData: PermissionData,
-        var isGranted: Boolean) : Parcelable {
-}
+        var isGranted: Boolean) : Parcelable

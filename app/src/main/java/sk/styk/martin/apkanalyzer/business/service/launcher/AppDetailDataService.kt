@@ -57,7 +57,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
                 else -> throw IllegalArgumentException("At least one way to get package needs to be specified  [$packageName/$pathToPackage]")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "Can not read package info of package [$packageName/$pathToPackage] :${e.toString()}")
+            Log.e(TAG, "Can not read package info of package [$packageName/$pathToPackage] :$e")
             return null
         }
 
@@ -90,7 +90,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
     }
 
     private fun PackageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage: String, analysisFlags: Int): PackageInfo {
-        val packageInfo = getPackageArchiveInfo(pathToPackage, analysisFlags);
+        val packageInfo = getPackageArchiveInfo(pathToPackage, analysisFlags)
         packageInfo?.applicationInfo?.sourceDir = pathToPackage
 
         return packageInfo

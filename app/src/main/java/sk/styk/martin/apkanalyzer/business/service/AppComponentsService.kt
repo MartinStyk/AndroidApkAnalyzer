@@ -35,10 +35,10 @@ class AppComponentsService {
         val services = packageInfo.services ?: return ArrayList(0)
 
         return services.mapTo(ArrayList<ServiceData>(packageInfo.services.size)) {
-            ServiceData( name = it.name,
+            ServiceData(name = it.name,
                     permission = it.permission,
                     isExported = it.exported,
-                    isStopWithTask = it.flags and ServiceInfo.FLAG_STOP_WITH_TASK >0,
+                    isStopWithTask = it.flags and ServiceInfo.FLAG_STOP_WITH_TASK > 0,
                     isSingleUser = it.flags and ServiceInfo.FLAG_SINGLE_USER > 0,
                     isIsolatedProcess = it.flags and ServiceInfo.FLAG_ISOLATED_PROCESS > 0,
                     isExternalService = it.flags and ServiceInfo.FLAG_EXTERNAL_SERVICE > 0)

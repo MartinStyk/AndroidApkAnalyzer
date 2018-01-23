@@ -1,21 +1,10 @@
 package sk.styk.martin.apkanalyzer.adapter.detaillist
 
-import android.content.ComponentName
-import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
-
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailBinding
-import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailBinding
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
-import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
-import sk.styk.martin.apkanalyzer.view.DetailListItemView
 
 /**
  * @author Martin Styk
@@ -24,9 +13,9 @@ import sk.styk.martin.apkanalyzer.view.DetailListItemView
 class ActivityListAdapter(items: List<ActivityData>) : GenericDetailListAdapter<ActivityData, ActivityListAdapter.ViewHolder>(items) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context);
-        val itemBinding = ListItemActivityDetailBinding.inflate(layoutInflater, parent, false);
-        return ViewHolder(itemBinding);
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val itemBinding = ListItemActivityDetailBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -41,5 +30,5 @@ class ActivityListAdapter(items: List<ActivityData>) : GenericDetailListAdapter<
             binding.executePendingBindings()
         }
     }
-    
+
 }

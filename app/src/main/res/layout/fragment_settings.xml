@@ -17,12 +17,12 @@
             android:layout_height="wrap_content"
             android:text="@string/settings_allow_metadata_upload"
             android:layout_weight="1"
-            android:textAppearance="?android:attr/textAppearanceListItem"/>
+            android:textAppearance="?android:attr/textAppearanceListItem" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/allow_upload"/>
+            android:id="@+id/allow_upload" />
 
     </LinearLayout>
 

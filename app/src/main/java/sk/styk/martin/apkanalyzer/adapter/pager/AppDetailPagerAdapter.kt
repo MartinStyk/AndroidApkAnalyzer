@@ -6,9 +6,6 @@ import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-
-import java.util.ArrayList
-
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Activity
@@ -22,6 +19,7 @@ import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Rece
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Resource
 import sk.styk.martin.apkanalyzer.activity.detailfragment.AppDetailFragment_Service
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import java.util.*
 
 /**
  * @author Martin Styk

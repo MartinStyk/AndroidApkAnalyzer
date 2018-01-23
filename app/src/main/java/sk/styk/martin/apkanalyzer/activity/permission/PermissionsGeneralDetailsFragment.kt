@@ -28,7 +28,7 @@ class PermissionsGeneralDetailsFragment : Fragment() {
         binding.data = arguments.getParcelable(PermissionDetailPagerFragment.ARG_CHILD) ?: throw IllegalArgumentException("data null")
         binding.granted = arguments.getInt(ARG_NUMBER_GRANTED_APPS)
         binding.notGranted = arguments.getInt(ARG_NUMBER_NOT_GRANTED_APPS)
-        
+
         return binding.root
     }
 

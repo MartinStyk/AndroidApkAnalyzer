@@ -6,11 +6,9 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_app_detail_general.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.AppDetailFragment
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailGeneralBinding
-import sk.styk.martin.apkanalyzer.model.detail.GeneralData
 
 /**
  * @author Martin Styk

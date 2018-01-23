@@ -79,9 +79,8 @@
             android:text="@string/app_rate"
             android:layout_below="@id/about_app_privacy_policy"
             android:background="@color/accent"
-            android:textColor="@color/colorWhite"
-            />
-        
+            android:textColor="@color/colorWhite" />
+
         <TextView
             android:id="@+id/about_app_dependencies"
             android:layout_width="match_parent"
@@ -90,7 +89,7 @@
             android:gravity="center"
             android:text="@string/app_dependencies"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="@dimen/text_size_super_small"/>
+            android:textSize="@dimen/text_size_super_small" />
     </RelativeLayout>
 
 </LinearLayout>

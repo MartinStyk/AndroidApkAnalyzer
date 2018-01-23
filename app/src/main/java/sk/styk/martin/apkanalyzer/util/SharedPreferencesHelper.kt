@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.util
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.preference.PreferenceManager
 
 /**

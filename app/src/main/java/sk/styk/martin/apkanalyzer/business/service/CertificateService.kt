@@ -55,7 +55,7 @@ class CertificateService {
                 e.printStackTrace()
             }
         }
-        return null;
+        return null
     }
 
     private fun X500Principal.getPrincipalCommonName(): String? {

@@ -12,9 +12,9 @@ import sk.styk.martin.apkanalyzer.databinding.ListItemSimpleStringBinding
 class SimpleStringListAdapter(items: List<String>) : GenericDetailListAdapter<String, SimpleStringListAdapter.ViewHolder>(items) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context);
-        val itemBinding = ListItemSimpleStringBinding.inflate(layoutInflater, parent, false);
-        return ViewHolder(itemBinding);
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val itemBinding = ListItemSimpleStringBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {

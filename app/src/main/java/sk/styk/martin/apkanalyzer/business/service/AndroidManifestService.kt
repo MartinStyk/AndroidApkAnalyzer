@@ -31,7 +31,7 @@ class AndroidManifestService(private val packageManager: PackageManager, private
             val apkResources = packageManager.getResourcesForApplication(packageName)
             val parser = apkResources.assets.openXmlResourceParser("AndroidManifest.xml")
 
-            var eventType: Int = parser.next();
+            var eventType: Int = parser.next()
 
             while (eventType != XmlResourceParser.END_DOCUMENT) {
                 // start tag found
@@ -58,7 +58,7 @@ class AndroidManifestService(private val packageManager: PackageManager, private
 
                 }
 
-                eventType = parser.next();
+                eventType = parser.next()
             }
         } catch (e: Exception) {
             e.printStackTrace()

@@ -30,7 +30,6 @@ import java.util.*
  */
 class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalStatisticsDataWithCharts>, LocalStatisticsLoader.ProgressCallback {
 
-    private var data: LocalStatisticsDataWithCharts? = null
     private lateinit var binding: FragmentLocalStatisticsBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -69,8 +68,6 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
 
     override fun onLoadFinished(loader: Loader<LocalStatisticsDataWithCharts>, data: LocalStatisticsDataWithCharts) {
         binding.data = data
-        this.data = data
-        val stats = data.statisticsData
 
         chart_min_sdk.columnChartData = data.minSdkChartData
         chart_target_sdk.columnChartData = data.targetSdkChartData
@@ -78,15 +75,14 @@ class LocalStatisticsFragment : Fragment(), LoaderManager.LoaderCallbacks<LocalS
         chart_sign_algorithm.columnChartData = data.signAlgorithChartData
         chart_app_source.columnChartData = data.appSourceChartData
 
-        chart_min_sdk.onValueTouchListener = SdkValueTouchListener(chart_min_sdk, stats.minSdk)
-        chart_target_sdk.onValueTouchListener = SdkValueTouchListener(chart_target_sdk, stats.targetSdk)
-        chart_install_location.onValueTouchListener = GenericValueTouchListener(chart_install_location, stats.installLocation)
-        chart_sign_algorithm.onValueTouchListener = GenericValueTouchListener(chart_sign_algorithm, stats.signAlgorithm)
-        chart_app_source.onValueTouchListener = GenericValueTouchListener(chart_app_source, stats.appSource)
+        chart_min_sdk.onValueTouchListener = SdkValueTouchListener(chart_min_sdk, data.statisticsData.minSdk)
+        chart_target_sdk.onValueTouchListener = SdkValueTouchListener(chart_target_sdk, data.statisticsData.targetSdk)
+        chart_install_location.onValueTouchListener = GenericValueTouchListener(chart_install_location, data.statisticsData.installLocation)
+        chart_sign_algorithm.onValueTouchListener = GenericValueTouchListener(chart_sign_algorithm, data.statisticsData.signAlgorithm)
+        chart_app_source.onValueTouchListener = GenericValueTouchListener(chart_app_source, data.statisticsData.appSource)
     }
 
     override fun onLoaderReset(loader: Loader<LocalStatisticsDataWithCharts>) {
-        this.data = null
     }
 
     override fun onProgressChanged(currentProgress: Int, maxProgress: Int) {

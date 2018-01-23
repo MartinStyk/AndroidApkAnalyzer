@@ -1,9 +1,7 @@
 package sk.styk.martin.apkanalyzer.util
 
-import android.content.Context
 import android.content.pm.PackageInfo
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
-
 import sk.styk.martin.apkanalyzer.R
 
 /**

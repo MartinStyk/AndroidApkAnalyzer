@@ -7,14 +7,14 @@
         <attr name="notShownExpression" format="string" localization="suggested" />
     </declare-styleable>
     <declare-styleable name="DetailItemViewStyle">
-        <attr name="detailItemViewStyle" format="reference"/>
+        <attr name="detailItemViewStyle" format="reference" />
     </declare-styleable>
     <declare-styleable name="DetailListItemViewStyle">
-        <attr name="detailListItemViewStyle" format="reference"/>
+        <attr name="detailListItemViewStyle" format="reference" />
     </declare-styleable>
     <declare-styleable name="MathStatisticsCardView">
         <attr name="title" format="string" localization="suggested" />
-        <attr name="type" format="string"/>
-        <attr name="statistics" format="reference"/>
+        <attr name="type" format="string" />
+        <attr name="statistics" format="reference" />
     </declare-styleable>
 </resources>

@@ -20,6 +20,7 @@ import sk.styk.martin.apkanalyzer.util.HashCodeHelper;
 /**
  * Data sent to server for analysis.
  * <p>
+ *
  * @author Martin Styk
  * @version 06.11.2017.
  */

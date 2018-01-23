@@ -13,9 +13,9 @@ import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
 class ReceiverListAdapter(items: List<BroadcastReceiverData>) : GenericDetailListAdapter<BroadcastReceiverData, ReceiverListAdapter.ViewHolder>(items) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context);
-        val itemBinding = ListItemReceiverDetailBinding.inflate(layoutInflater, parent, false);
-        return ViewHolder(itemBinding);
+        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
+        val itemBinding = ListItemReceiverDetailBinding.inflate(layoutInflater, parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
