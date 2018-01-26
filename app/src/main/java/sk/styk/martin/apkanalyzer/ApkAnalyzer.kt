@@ -4,7 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.os.StrictMode
 
-import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadService
+import sk.styk.martin.apkanalyzer.business.upload.task.MultipleAppDataUploadJob
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper
 
 /**
@@ -21,7 +21,7 @@ class ApkAnalyzer : Application() {
         StrictMode.setVmPolicy(builder.build())
 
         if (!FirstStartHelper.isFirstStart(applicationContext))
-            MultipleAppDataUploadService.start(applicationContext)
+            MultipleAppDataUploadJob.start(applicationContext)
     }
 
     companion object {

@@ -93,25 +93,21 @@ class AppDetailPagerAdapter(private val context: Context, fm: FragmentManager) :
         return fragment
     }
 
-    override fun getCount(): Int {
-        return 11
-    }
+    override fun getCount() = 11
 
-    override fun getPageTitle(position: Int): CharSequence {
-        when (position) {
-            0 -> return context.resources.getString(R.string.general)
-            1 -> return context.resources.getString(R.string.certificate)
-            2 -> return context.resources.getString(R.string.resources)
-            3 -> return context.resources.getString(R.string.activities)
-            4 -> return context.resources.getString(R.string.services)
-            5 -> return context.resources.getString(R.string.content_providers)
-            6 -> return context.resources.getString(R.string.broadcast_receivers)
-            7 -> return context.resources.getString(R.string.features)
-            8 -> return context.resources.getString(R.string.permissions)
-            9 -> return context.resources.getString(R.string.defined_permissions)
-            10 -> return context.resources.getString(R.string.classes)
-        }
-        return "TODO"
+    override fun getPageTitle(position: Int): CharSequence = when (position) {
+        0 -> context.resources.getString(R.string.general)
+        1 -> context.resources.getString(R.string.certificate)
+        2 -> context.resources.getString(R.string.resources)
+        3 -> context.resources.getString(R.string.activities)
+        4 -> context.resources.getString(R.string.services)
+        5 -> context.resources.getString(R.string.content_providers)
+        6 -> context.resources.getString(R.string.broadcast_receivers)
+        7 -> context.resources.getString(R.string.features)
+        8 -> context.resources.getString(R.string.permissions)
+        9 -> context.resources.getString(R.string.defined_permissions)
+        10 -> context.resources.getString(R.string.classes)
+        else -> "TODO"
     }
 
     fun dataChange(data: AppDetailData) {

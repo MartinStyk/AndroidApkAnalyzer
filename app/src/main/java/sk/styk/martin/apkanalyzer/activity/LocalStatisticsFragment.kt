@@ -20,7 +20,7 @@ import lecho.lib.hellocharts.model.SubcolumnValue
 import lecho.lib.hellocharts.view.ColumnChartView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.dialog.AppListDialog
-import sk.styk.martin.apkanalyzer.business.task.LocalStatisticsLoader
+import sk.styk.martin.apkanalyzer.business.analysis.task.LocalStatisticsLoader
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import java.util.*

@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_local_permissions.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.adapter.PermissionListAdapter
-import sk.styk.martin.apkanalyzer.business.task.LocalPermissionsLoader
+import sk.styk.martin.apkanalyzer.business.analysis.task.LocalPermissionsLoader
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 
 /**

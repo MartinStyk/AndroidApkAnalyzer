@@ -119,6 +119,7 @@
     <string name="share_apk_using">Share APK using</string>
     <string name="install_failed">Apk Analyzer failed to install your APK. Please do it manually</string>
     <string name="install_app">Install APK</string>
+    <string name="detect_repackaged">Check originality</string>
 
     <string name="online_scan">Perform online apk scan - TODO</string>
     <string name="app_icon">Application icon</string>

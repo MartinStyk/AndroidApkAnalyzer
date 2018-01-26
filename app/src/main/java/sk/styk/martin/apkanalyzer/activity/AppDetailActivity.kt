@@ -31,7 +31,8 @@ class AppDetailActivity : AppCompatActivity() {
             val detailFragment = AppDetailFragment.create(packageName = intent.getStringExtra(AppDetailFragment.ARG_PACKAGE_NAME),
                     packagePath = intent.getStringExtra(AppDetailFragment.ARG_PACKAGE_PATH))
 
-            supportFragmentManager.beginTransaction().add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
+            supportFragmentManager.beginTransaction().
+                    add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
                     .commit()
         }
 
