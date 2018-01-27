@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.activity
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.LoaderManager
@@ -34,9 +33,7 @@ class RepackagedDetectionFragment : Fragment(), LoaderManager.LoaderCallbacks<Re
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        container?.clearDisappearingChildren();
-        binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.fragment_repackaged_detection, null, false)
-        return binding.root
+        return inflater?.inflate(R.layout.fragment_repackaged_detection, null, false)
     }
 
     override fun onLoadFinished(loader: Loader<RepackagedDetectionLoader.LoaderResult>, result: RepackagedDetectionLoader.LoaderResult) {
