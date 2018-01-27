@@ -16,8 +16,8 @@ import com.pddstudio.highlightjs.models.Language
 import com.pddstudio.highlightjs.models.Theme
 import kotlinx.android.synthetic.main.activity_manifest.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.task.AndroidManifestLoader
-import sk.styk.martin.apkanalyzer.business.task.StringToFileSaveService
+import sk.styk.martin.apkanalyzer.business.analysis.task.AndroidManifestLoader
+import sk.styk.martin.apkanalyzer.business.analysis.task.StringToFileSaveService
 
 /**
  * @author Martin Styk

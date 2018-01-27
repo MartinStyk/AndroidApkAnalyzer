@@ -10,7 +10,6 @@ import java.util.zip.GZIPOutputStream
  * @author Martin Styk
  * @version 12.11.2017.
  */
-
 open class ServerHttpAccessHelper {
 
     internal var client = initClient()

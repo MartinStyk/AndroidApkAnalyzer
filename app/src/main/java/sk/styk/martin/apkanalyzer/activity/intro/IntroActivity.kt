@@ -9,7 +9,7 @@ import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
 
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.task.upload.MultipleAppDataUploadService
+import sk.styk.martin.apkanalyzer.business.upload.task.MultipleAppDataUploadJob
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 
@@ -68,7 +68,7 @@ class IntroActivity : AppIntro() {
             ConnectivityHelper.setConnectionAllowedByUser(applicationContext, isUploadAllowed)
 
             if (isUploadAllowed)
-                MultipleAppDataUploadService.start(applicationContext)
+                MultipleAppDataUploadJob.start(applicationContext)
         }
 
         FirstStartHelper.setFirstStartFinished(applicationContext)

@@ -15,7 +15,6 @@ import java.net.URL
  * @author Martin Styk
  * @version 11/8/17.
  */
-
 object ConnectivityHelper {
 
     private const val USER_CONNECT_ALLOWED = "user_connect_allowed"
@@ -38,9 +37,8 @@ object ConnectivityHelper {
         SharedPreferencesHelper(context).putBoolean(USER_CONNECT_ALLOWED, value)
     }
 
-    private fun hasAccessToServer(context: Context): Boolean {
+    fun hasAccessToServer(context: Context): Boolean {
         if (isNetworkAvailable(context)) {
-
             var connection: HttpURLConnection? = null
             try {
                 connection = URL(URL_BASE + GENERATE_200)
@@ -63,7 +61,7 @@ object ConnectivityHelper {
         return false
     }
 
-    private fun isNetworkAvailable(context: Context): Boolean {
+    fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
 

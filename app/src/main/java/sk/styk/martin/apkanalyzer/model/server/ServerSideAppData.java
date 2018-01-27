@@ -1,5 +1,7 @@
 package sk.styk.martin.apkanalyzer.model.server;
 
+import android.support.annotation.NonNull;
+
 import java.util.List;
 
 import sk.styk.martin.apkanalyzer.BuildConfig;
@@ -31,15 +33,16 @@ public class ServerSideAppData {
     private int apkAnalyzerVersion;
 
     // Hash of data structure, can be used to identify two exactly same apps
-    private int appHash;
+    public int appHash;
 
     private AppDetailData.AnalysisMode analysisMode;
 
     // GeneralData
-    private String packageName;
+    @NonNull
+    public String packageName;
     private String applicationName;
     private String versionName;
-    private int versionCode;
+    public int versionCode;
     private AppSource source;
     private long apkSize;
     private int minSdkVersion;

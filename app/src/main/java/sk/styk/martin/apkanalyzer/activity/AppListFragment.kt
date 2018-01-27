@@ -24,7 +24,7 @@ import android.widget.SearchView
 import kotlinx.android.synthetic.main.fragment_app_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.adapter.AppListAdapter
-import sk.styk.martin.apkanalyzer.business.task.AppListLoader
+import sk.styk.martin.apkanalyzer.business.analysis.task.AppListLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker

@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import sk.styk.martin.apkanalyzer.business.service.GeneralDataService;
+import sk.styk.martin.apkanalyzer.business.analysis.logic.GeneralDataService;
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 

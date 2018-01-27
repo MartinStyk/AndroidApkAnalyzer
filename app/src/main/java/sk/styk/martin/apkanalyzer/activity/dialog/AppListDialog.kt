@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.dialog_app_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.adapter.AppListRecyclerAdapter
-import sk.styk.martin.apkanalyzer.business.task.AppListFromPackageNamesLoader
+import sk.styk.martin.apkanalyzer.business.analysis.task.AppListFromPackageNamesLoader
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import java.util.*
 

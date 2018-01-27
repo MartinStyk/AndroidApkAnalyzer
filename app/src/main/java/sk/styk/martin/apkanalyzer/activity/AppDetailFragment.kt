@@ -20,9 +20,9 @@ import kotlinx.android.synthetic.main.fragment_app_detail.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.detailfragment.ManifestActivity
 import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter
-import sk.styk.martin.apkanalyzer.business.task.AppDetailLoader
-import sk.styk.martin.apkanalyzer.business.task.FileCopyService
-import sk.styk.martin.apkanalyzer.business.task.upload.AppDataUploadTask
+import sk.styk.martin.apkanalyzer.business.analysis.task.AppDetailLoader
+import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
+import sk.styk.martin.apkanalyzer.business.upload.task.AppDataUploadTask
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 
@@ -104,7 +104,7 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
 
             adapter.dataChange(data)
 
-            AppDataUploadTask(context).execute(data)
+            AppDataUploadTask().execute(data)
         }
     }
 
@@ -165,6 +165,14 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
             dialog.dismiss()
             AppOperations.openGooglePlay(context, data?.generalData?.packageName
                     ?: return@setOnClickListener)
+        }
+
+        dialogView.btn_repackaged_detection.setOnClickListener {
+            dialog.dismiss()
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container_frame, RepackagedDetectionFragment.newInstance(data!!))
+                    .addToBackStack(RepackagedDetectionFragment.TAG)
+                    .commit();
         }
 
         // allow manifest and built-in app info only for installed packages

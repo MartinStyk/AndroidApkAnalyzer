@@ -5,6 +5,7 @@ import android.content.Context
 import sk.styk.martin.apkanalyzer.database.ApkAnalyzerContract
 import sk.styk.martin.apkanalyzer.database.ApkAnalyzerContract.SendDataEntry
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
 
 /**
  * @author Martin Styk
@@ -12,14 +13,14 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
  */
 object SendDataService {
 
-    fun insert(appDetailData: AppDetailData?, context: Context): Boolean {
+    fun insert(appDetailData: ServerSideAppData?, context: Context): Boolean {
 
-        if (appDetailData?.generalData?.packageName == null)
+        if (appDetailData?.packageName == null)
             return false
 
         val contentValues = ContentValues()
-        contentValues.put(SendDataEntry.COLUMN_PACKAGE_NAME, appDetailData.generalData.packageName)
-        contentValues.put(SendDataEntry.COLUMN_VERSION, appDetailData.generalData.versionCode)
+        contentValues.put(SendDataEntry.COLUMN_PACKAGE_NAME, appDetailData.packageName)
+        contentValues.put(SendDataEntry.COLUMN_VERSION, appDetailData.versionCode)
 
         return context.contentResolver.insert(ApkAnalyzerContract.SendDataEntry.CONTENT_URI, contentValues) != null
     }
