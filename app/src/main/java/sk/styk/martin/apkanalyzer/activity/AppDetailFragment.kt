@@ -19,7 +19,6 @@ import kotlinx.android.synthetic.main.dialog_apk_actions.view.*
 import kotlinx.android.synthetic.main.fragment_app_detail.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.detailfragment.ManifestActivity
-import sk.styk.martin.apkanalyzer.activity.dialog.RepackagedDetectionDialog
 import sk.styk.martin.apkanalyzer.adapter.pager.AppDetailPagerAdapter
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppDetailLoader
 import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
@@ -169,7 +168,11 @@ class AppDetailFragment : Fragment(), LoaderManager.LoaderCallbacks<AppDetailDat
         }
 
         dialogView.btn_repackaged_detection.setOnClickListener {
-            RepackagedDetectionDialog.newInstance(data!!).show(fragmentManager, RepackagedDetectionDialog::class.java.simpleName)
+            dialog.dismiss()
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container_frame, RepackagedDetectionFragment.newInstance(data!!))
+                    .addToBackStack(RepackagedDetectionFragment.TAG)
+                    .commit();
         }
 
         // allow manifest and built-in app info only for installed packages

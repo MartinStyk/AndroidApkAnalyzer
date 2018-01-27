@@ -6,8 +6,10 @@ import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoa
 import sk.styk.martin.apkanalyzer.business.upload.logic.AppDataUploadService
 import sk.styk.martin.apkanalyzer.database.service.SendDataService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
 import sk.styk.martin.apkanalyzer.util.AndroidIdHelper
+import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 import sk.styk.martin.apkanalyzer.util.networking.RepackagedDetectionServerHelper
 
@@ -15,20 +17,25 @@ import sk.styk.martin.apkanalyzer.util.networking.RepackagedDetectionServerHelpe
  * @author Martin Styk
  * @version 15.01.2018
  */
-class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : ApkAnalyzerAbstractAsyncLoader<String>(context) {
+class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : ApkAnalyzerAbstractAsyncLoader<RepackagedDetectionLoader.LoaderResult>(context) {
     private val TAG = RepackagedDetectionLoader::class.java.simpleName
 
-    override fun loadInBackground(): String {
+    override fun loadInBackground(): LoaderResult {
         val packageName = data.generalData.packageName
+
+        if (!ConnectivityHelper.isNetworkAvailable(context)) {
+            Log.i(TAG, String.format("Not connected to internet"))
+            return LoaderResult.NotConnectedToInternet;
+        }
 
         if (!ConnectivityHelper.isConnectionAllowedByUser(context)) {
             Log.i(TAG, String.format("Connection to server not allowed by user"))
-            return "Connection to server not allowed by user";
+            return LoaderResult.UserNotAllowedUpload;
         }
 
         if (!ConnectivityHelper.hasAccessToServer(context)) {
             Log.i(TAG, String.format("Apk Analyzer server is not available"))
-            return "Apk Analyzer server is not available";
+            return LoaderResult.ServiceNotAvailable;
         }
 
         val uploadData = ServerSideAppData(data, AndroidIdHelper.getAndroidId(context))
@@ -39,28 +46,33 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
 
             if (!isDataOnServer) {
                 Log.w(TAG, String.format("Could not get the data to server"))
-                return "Could not get the data to server";
+                return LoaderResult.CommunicationError;
             }
         }
 
         try {
             val (responseCode, responseBody) = RepackagedDetectionServerHelper.get(uploadData.appHash, packageName)
-//            when (responseCode) {
-//                200 -> {
-//                    // TODO gson unzip body
-//                }
-//                else -> return "error"
-//            }
-            return responseBody.toString()
-        } catch (e: Exception) {
+            if (responseCode == 200) {
+                val result = JsonSerializationUtils().deserialize<RepackagedDetectionResult>(responseBody.toString())
+                return LoaderResult.Success(result)
+            }
+        } catch (e: Throwable) {
             Log.w(TAG, String.format("Checking of package %s failed with exception %s", uploadData.packageName, e.toString()))
         }
 
-        return "This is baaad"
+        return LoaderResult.CommunicationError
     }
 
     companion object {
         const val ID = 7
+    }
+
+    sealed class LoaderResult {
+        object NotConnectedToInternet : LoaderResult()
+        object UserNotAllowedUpload : LoaderResult()
+        object ServiceNotAvailable : LoaderResult()
+        object CommunicationError : LoaderResult()
+        class Success(val result: RepackagedDetectionResult) : LoaderResult()
     }
 
 }

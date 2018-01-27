@@ -302,6 +302,19 @@
     <string name="permissions_protection_signature">Signature</string>
 
 
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="no_internet_connection_description">In order to check originality of you app, Apk Analyzer needs access to the network. Please, connect to internet.</string>
+    <string name="metadata_upload_not_allowed">Apk metadata upload not allowed</string>
+    <string name="metadata_upload_not_allowed_description">Apk Analyzer doesn\'t have permission to upload metadata about your apps. App originality can not be checked without it. You can grant this permission in app settings.</string>
+    <string name="service_not_available">Service not available</string>
+    <string name="service_not_available_description">Unfortunately, Apk Analyzer app originality detection service is not reachable at the moment. Please, try again later. </string>
+    <string name="repackaged_error">Error checking app</string>
+    <string name="repackaged_error_description">Unfortunately, Apk Analyzer failed to check your app.</string>
+
+    <string name="repackaged_result_nok">App looks suspicious</string>
+    <string name="repackaged_result_ok">App is safe</string>
+    <string name="repackaged_result_insufficient">Insufficient data</string>
+
     <string-array name="android_versions">
         <item>Android 1</item>
         <item>Android 1.1 Petit Four</item>

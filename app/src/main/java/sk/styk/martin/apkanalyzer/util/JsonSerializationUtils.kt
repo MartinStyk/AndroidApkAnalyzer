@@ -9,11 +9,15 @@ import com.google.gson.GsonBuilder
  */
 class JsonSerializationUtils {
 
-    private val gson = GsonBuilder()
+    protected val gson = GsonBuilder()
             .setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES)
             .setDateFormat("yyyy-MM-dd HH:mm a z").create()
 
     fun serialize(`object`: Any): String {
         return gson.toJson(`object`)
+    }
+
+    inline fun <reified T> deserialize(json: String): T {
+        return gson.fromJson(json, T::class.java)
     }
 }
