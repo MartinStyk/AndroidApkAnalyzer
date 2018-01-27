@@ -7,9 +7,12 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import kotlinx.android.synthetic.main.view_detail_item.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.activity.dialog.InfoDialog
+import sk.styk.martin.apkanalyzer.util.file.ClipBoardHelper
+
 
 /**
  * Key value pair view
@@ -18,7 +21,7 @@ import sk.styk.martin.apkanalyzer.activity.dialog.InfoDialog
  * @version 06.07.2017.
  */
 class DetailItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
-    : LinearLayout(context, attrs, R.attr.detailItemViewStyle), View.OnClickListener {
+    : LinearLayout(context, attrs, R.attr.detailItemViewStyle), View.OnClickListener, View.OnLongClickListener {
 
     var titleText: String = ""
         set(value) {
@@ -54,6 +57,9 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
         gravity = Gravity.CENTER_VERTICAL
         setOnClickListener(this)
 
+        setOnLongClickListener(this)
+
+
     }
 
     override fun onClick(v: View) {
@@ -61,4 +67,9 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
                 .show((context as AppCompatActivity).supportFragmentManager, InfoDialog::class.java.simpleName)
     }
 
+    override fun onLongClick(p0: View?): Boolean {
+        ClipBoardHelper.copyToClipBoard(context, valueText.toString(), titleText)
+        Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
+        return true
+    }
 }
