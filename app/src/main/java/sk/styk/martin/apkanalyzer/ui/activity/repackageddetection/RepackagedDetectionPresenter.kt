@@ -6,7 +6,6 @@ import android.support.v4.content.Loader
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.business.upload.task.RepackagedDetectionLoader
 import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionStatus
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
 
 
 /**
@@ -17,7 +16,7 @@ class RepackagedDetectionPresenter(
         private val loader: ApkAnalyzerAbstractAsyncLoader<RepackagedDetectionLoader.LoaderResult>,
         private val loaderManager: LoaderManager
 ) : RepackagedDetectionContract.Presenter,
-        LoaderManager.LoaderCallbacks<RepackagedDetectionLoader.LoaderResult>, BasePresenter {
+        LoaderManager.LoaderCallbacks<RepackagedDetectionLoader.LoaderResult> {
 
     lateinit var view: RepackagedDetectionContract.View
     /**

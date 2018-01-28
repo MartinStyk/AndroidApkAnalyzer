@@ -1,0 +1,18 @@
+package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
+
+import sk.styk.martin.apkanalyzer.ui.BasePresenter
+
+/**
+ * @author Martin Styk
+ * @version 28.01.2018.
+ */
+interface SettingsContract {
+    interface View {
+        fun setUpViews()
+        fun uploadCheckBoxSet(isChecked: Boolean)
+    }
+
+    interface Presenter : BasePresenter {
+        fun uploadCheckBoxStateChange(isChecked: Boolean)
+    }
+}

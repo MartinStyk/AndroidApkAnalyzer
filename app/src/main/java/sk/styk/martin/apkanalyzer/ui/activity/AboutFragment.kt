@@ -27,7 +27,7 @@ class AboutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setHasOptionsMenu(true)
-        
+
         about_app_github_link.movementMethod = LinkMovementMethod.getInstance()
         about_app_privacy_policy.movementMethod = LinkMovementMethod.getInstance()
     }

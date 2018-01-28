@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity
+package sk.styk.martin.apkanalyzer.ui.activity.settings
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -10,12 +10,20 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_settings.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
+import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.SettingsContract
+import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.SettingsPresenter
 
 /**
  * @author Martin Styk
  */
-class SettingsFragment : Fragment() {
+class SettingsFragment : Fragment(), SettingsContract.View {
+
+    private lateinit var presenter: SettingsPresenter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter = SettingsPresenter()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -29,14 +37,17 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.view = this
+        presenter.initialize()
+    }
 
+    override fun setUpViews() {
         settings_upload_explanation.movementMethod = LinkMovementMethod.getInstance()
+        allow_upload.setOnCheckedChangeListener({ _, isChecked -> presenter.uploadCheckBoxStateChange(isChecked) })
+    }
 
-        allow_upload.isChecked = ConnectivityHelper.isConnectionAllowedByUser(context)
-
-        allow_upload.setOnCheckedChangeListener({ _, isChecked ->
-            ConnectivityHelper.setConnectionAllowedByUser(context, isChecked)
-        })
+    override fun uploadCheckBoxSet(isChecked: Boolean) {
+        allow_upload.isChecked = isChecked
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
