@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_repackaged_detection.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.upload.task.RepackagedDetectionLoader
-import sk.styk.martin.apkanalyzer.databinding.FragmentRepackagedDetectionBinding
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionStatus
 
@@ -20,8 +19,6 @@ import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionStatus
  * @version 05.01.2018.
  */
 class RepackagedDetectionFragment : Fragment(), LoaderManager.LoaderCallbacks<RepackagedDetectionLoader.LoaderResult> {
-
-    private lateinit var binding: FragmentRepackagedDetectionBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
