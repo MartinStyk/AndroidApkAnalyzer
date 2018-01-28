@@ -57,6 +57,7 @@ object AppOperations {
 
     }
 
+    @JvmStatic
     fun openGooglePlay(context: Context, packageName: String) {
         try {
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)))
