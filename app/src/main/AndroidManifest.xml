@@ -68,7 +68,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.activity.permission.PermissionDetailActivity"
+            android:name="sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailActivity"
             android:label="@string/title_permissions"
             android:theme="@style/AppTheme"
             android:parentActivityName="sk.styk.martin.apkanalyzer.ui.activity.MainActivity">

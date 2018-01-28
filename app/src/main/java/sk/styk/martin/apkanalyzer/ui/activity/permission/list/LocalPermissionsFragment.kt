@@ -1,9 +1,8 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission
+package sk.styk.martin.apkanalyzer.ui.activity.permission.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v4.app.LoaderManager
-import android.support.v4.content.Loader
 import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
 import android.view.Menu
@@ -12,37 +11,39 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_local_permissions.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.adapter.PermissionListAdapter
 import sk.styk.martin.apkanalyzer.business.analysis.task.LocalPermissionsLoader
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailActivity
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailPagerFragment
 
 /**
  * @author Martin Styk
  * @version 15.01.2017
  */
-class LocalPermissionsFragment : Fragment(), LoaderManager.LoaderCallbacks<List<LocalPermissionData>>, LocalPermissionsLoader.ProgressCallback {
+class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
 
-    private var data: List<LocalPermissionData>? = null
+    private lateinit var presenter: LocalPermissionsPresenter
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         retainInstance = true
-        setHasOptionsMenu(true)
+        presenter = LocalPermissionsPresenter(LocalPermissionsLoader(context), loaderManager)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_local_permissions, container, false)
-
-        // We need to re-set callback of loader in case of configuration change
-        val loader = loaderManager.initLoader(LocalPermissionsLoader.ID, null, this) as LocalPermissionsLoader
-        loader.setCallbackReference(this)
-
+        setHasOptionsMenu(true)
         return view
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter.view = this
+        presenter.initialize()
+    }
+
+    override fun setUpViews() {
         recycler_view_permissions.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 
@@ -52,25 +53,28 @@ class LocalPermissionsFragment : Fragment(), LoaderManager.LoaderCallbacks<List<
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<LocalPermissionData>> {
-        return LocalPermissionsLoader(context, this)
+    override fun loadingStart() {
+        content.visibility = View.GONE
+        loading_bar.visibility = View.VISIBLE
     }
 
-    override fun onLoadFinished(loader: Loader<List<LocalPermissionData>>, data: List<LocalPermissionData>) {
-        this.data = data
-
-        recycler_view_permissions.swapAdapter(PermissionListAdapter(data), false)
-
+    override fun loadingFinished() {
         content.visibility = View.VISIBLE
         loading_bar.visibility = View.GONE
     }
 
-    override fun onLoaderReset(loader: Loader<List<LocalPermissionData>>) {
-        data = null
+    override fun showPermissionList() {
+        recycler_view_permissions.swapAdapter(PermissionListAdapter(presenter), false)
     }
 
-    override fun onProgressChanged(currentProgress: Int, maxProgress: Int) {
+    override fun changeProgress(currentProgress: Int, maxProgress: Int) {
         loading_bar?.setProgress(currentProgress, maxProgress)
+    }
+
+    override fun openPermissionDetail(permission : LocalPermissionData) {
+        val intent = Intent(context, PermissionDetailActivity::class.java)
+        intent.putExtra(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA, permission)
+        context.startActivity(intent)
     }
 
 }

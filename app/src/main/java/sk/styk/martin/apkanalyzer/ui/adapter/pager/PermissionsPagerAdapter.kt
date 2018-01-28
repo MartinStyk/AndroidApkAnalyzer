@@ -6,9 +6,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.permission.PermissionDetailPagerFragment
-import sk.styk.martin.apkanalyzer.ui.activity.permission.PermissionsAppListFragment
-import sk.styk.martin.apkanalyzer.ui.activity.permission.PermissionsGeneralDetailsFragment
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailPagerFragment
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionsAppListFragment
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionsGeneralDetailsFragment
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import java.util.*

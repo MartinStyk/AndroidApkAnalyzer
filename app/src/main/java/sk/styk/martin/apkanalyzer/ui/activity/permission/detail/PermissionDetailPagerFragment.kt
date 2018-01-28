@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission
+package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -89,7 +89,7 @@ class PermissionDetailPagerFragment : Fragment() {
 
         fun create(permissionData: LocalPermissionData): PermissionDetailPagerFragment {
             val arguments = Bundle()
-            arguments.putParcelable(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA, permissionData)
+            arguments.putParcelable(ARG_PERMISSIONS_DATA, permissionData)
             val detailFragment = PermissionDetailPagerFragment()
             detailFragment.arguments = arguments
             return detailFragment

@@ -31,7 +31,7 @@
             style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.activity.permission.PermissionDetailActivity">
+            tools:context=".ui.activity.permission.detail.PermissionDetailActivity">
 
             <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/permission_name"
