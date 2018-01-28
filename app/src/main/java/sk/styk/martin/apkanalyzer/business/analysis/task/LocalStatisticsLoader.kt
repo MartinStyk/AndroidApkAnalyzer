@@ -13,9 +13,9 @@ import java.lang.ref.WeakReference
  * @author Martin Styk
  * @version 15.09.2018
  */
-class LocalStatisticsLoader(context: Context, callback: ProgressCallback) : ApkAnalyzerAbstractAsyncLoader<LocalStatisticsDataWithCharts>(context) {
+class LocalStatisticsLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<LocalStatisticsDataWithCharts>(context) {
 
-    private var callbackReference = WeakReference(callback)
+    private lateinit var callbackReference : WeakReference<ProgressCallback>
     private val appBasicDataService = AppBasicDataService(context.packageManager)
     private val localAppDataService = LocalApplicationStatisticDataService(context.packageManager)
 

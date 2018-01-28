@@ -15,4 +15,11 @@ enum class AppSource(val sourceName: String, val installerPackageName: String? =
     override fun toString(): String {
         return sourceName
     }
+
+    companion object {
+        fun valueOf(value: String): AppSource {
+            return AppSource.values().filter { it.sourceName.equals(value) }.first()
+        }
+    }
+
 }
