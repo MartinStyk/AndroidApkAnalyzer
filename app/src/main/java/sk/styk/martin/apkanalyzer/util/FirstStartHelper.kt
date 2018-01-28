@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.util
 
 import android.content.Context
 import android.content.Intent
-import sk.styk.martin.apkanalyzer.activity.intro.IntroActivity
+import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
 
 /**
  * @author Martin Styk

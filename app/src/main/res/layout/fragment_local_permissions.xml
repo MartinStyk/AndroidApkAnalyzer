@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <sk.styk.martin.apkanalyzer.view.LoadingBarView
+    <sk.styk.martin.apkanalyzer.ui.customview.LoadingBarView
         android:id="@+id/loading_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

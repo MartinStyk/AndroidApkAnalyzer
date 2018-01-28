@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <sk.styk.martin.apkanalyzer.view.LoadingBarView
+        <sk.styk.martin.apkanalyzer.ui.customview.LoadingBarView
             android:id="@+id/loading_bar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -53,7 +53,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/analyze_results" />
 
-                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
+                        <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                             android:id="@+id/item_analyze_success"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                             app:titleText="@string/analyze_results_success"
                             app:valueText="@{data.statisticsData.analyzeSuccess}" />
 
-                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
+                        <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                             android:id="@+id/item_analyze_failed"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                             app:titleText="@string/analyze_results_failed"
                             app:valueText="@{data.statisticsData.analyzeFailed}" />
 
-                        <sk.styk.martin.apkanalyzer.view.DetailListItemView
+                        <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                             android:id="@+id/item_system_apps"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -227,7 +227,7 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_apk_size"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -236,7 +236,7 @@
                     app:title="@string/apk_size"
                     app:type="size" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_activities"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -245,7 +245,7 @@
                     app:title="@string/activities"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_services"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -254,7 +254,7 @@
                     app:title="@string/services"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_providers"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -263,7 +263,7 @@
                     app:title="@string/content_providers"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_receivers"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -272,7 +272,7 @@
                     app:title="@string/broadcast_receivers"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_used_permissions"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -281,7 +281,7 @@
                     app:title="@string/permissions"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_defined_permissions"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -290,7 +290,7 @@
                     app:title="@string/defined_permissions"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_files"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -299,7 +299,7 @@
                     app:title="@string/files"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_drawables"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -308,7 +308,7 @@
                     app:title="@string/all_drawables"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_drawables_different"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -317,7 +317,7 @@
                     app:title="@string/different_drawables"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_layouts"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
@@ -326,7 +326,7 @@
                     app:title="@string/all_layouts"
                     app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.view.MathStatisticsCardView
+                <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_layouts_different"
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"

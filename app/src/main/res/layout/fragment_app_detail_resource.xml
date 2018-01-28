@@ -19,9 +19,9 @@
             style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
+            tools:context=".ui.activity.AppDetailActivity">
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_all_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -29,7 +29,7 @@
                 app:titleText="@string/all_drawables"
                 app:valueText="@{data.drawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_different_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -37,7 +37,7 @@
                 app:titleText="@string/different_drawables"
                 app:valueText="@{data.differentDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_png_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -45,7 +45,7 @@
                 app:titleText="@string/png_drawables"
                 app:valueText="@{data.pngDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_nine_patch_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -53,7 +53,7 @@
                 app:titleText="@string/nine_patch_drawables"
                 app:valueText="@{data.ninePatchDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_jpg_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -61,7 +61,7 @@
                 app:titleText="@string/jpg_drawables"
                 app:valueText="@{data.jpgDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_gif_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -69,7 +69,7 @@
                 app:titleText="@string/gif_drawables"
                 app:valueText="@{data.gifDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_xml_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -77,7 +77,7 @@
                 app:titleText="@string/xml_drawables"
                 app:valueText="@{data.xmlDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_ldpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -85,7 +85,7 @@
                 app:titleText="@string/ldpi_drawables"
                 app:valueText="@{data.ldpiDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_mdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -93,7 +93,7 @@
                 app:titleText="@string/mdpi_drawables"
                 app:valueText="@{data.mdpiDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_hdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -101,7 +101,7 @@
                 app:titleText="@string/hdpi_drawables"
                 app:valueText="@{data.hdpiDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_xhdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -109,7 +109,7 @@
                 app:titleText="@string/xhdpi_drawables"
                 app:valueText="@{data.xhdpiDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_xxhdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -117,7 +117,7 @@
                 app:titleText="@string/xxhdpi_drawables"
                 app:valueText="@{data.xxhdpiDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_xxxhdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -125,7 +125,7 @@
                 app:titleText="@string/xxxhdpi_drawables"
                 app:valueText="@{data.xxxhdpiDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_nodpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -133,7 +133,7 @@
                 app:titleText="@string/nodpi_drawables"
                 app:valueText="@{data.nodpiDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_tvdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -141,7 +141,7 @@
                 app:titleText="@string/tvdpi_drawables"
                 app:valueText="@{data.tvdpiDrawables}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_all_layouts"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -149,7 +149,7 @@
                 app:titleText="@string/all_layouts"
                 app:valueText="@{data.layouts}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_different_layouts"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
