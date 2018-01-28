@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -11,34 +10,25 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_permission_detail_pager.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
-import sk.styk.martin.apkanalyzer.ui.adapter.pager.PermissionsPagerAdapter
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
+import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 
 /**
  * @author Martin Styk
  * @version 15.01.2017
  */
-class PermissionDetailPagerFragment : Fragment() {
+class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.View {
 
-    private lateinit var adapter: PermissionsPagerAdapter
+    private lateinit var adapter: PermissionDetailPagerAdapter
+    private lateinit var presenter: PermissionDetailPagerPresenter
 
     // we add description button to toolbar in this fragment
     private lateinit var description: MenuItem
-    private var permissionDescription: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setHasOptionsMenu(true)
-
-        adapter = PermissionsPagerAdapter(activity, fragmentManager)
-        val permissionData = arguments.getParcelable<LocalPermissionData>(ARG_PERMISSIONS_DATA)
-                ?: throw IllegalArgumentException("data null")
-
-        loadPermissionDescription(context.packageManager, permissionData.permissionData.name)
-
-        adapter.dataChange(permissionData)
+        presenter = PermissionDetailPagerPresenter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,6 +38,13 @@ class PermissionDetailPagerFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        presenter.view = this
+        presenter.initialize(arguments)
+
+    }
+
+    override fun setUpViews() {
+        adapter = PermissionDetailPagerAdapter(presenter, fragmentManager)
         pager.adapter = adapter
         tabs.setupWithViewPager(pager)
     }
@@ -62,22 +59,9 @@ class PermissionDetailPagerFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (description.itemId.equals(item?.itemId))
-            SimpleTextDialog.newInstance(getString(R.string.description), permissionDescription).show(fragmentManager, SimpleTextDialog::class.java.simpleName)
+            SimpleTextDialog.newInstance(getString(R.string.description), presenter.loadPermissionDescription(context.packageManager)).show(fragmentManager, SimpleTextDialog::class.java.simpleName)
 
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun loadPermissionDescription(packageManager: PackageManager, permissionName: String) {
-        Thread({
-            var desc: CharSequence? = null
-            try {
-                desc = packageManager.getPermissionInfo(permissionName, PackageManager.GET_META_DATA).loadDescription(packageManager)
-            } catch (e: PackageManager.NameNotFoundException) {
-                e.printStackTrace()
-            }
-
-            permissionDescription = if (desc == null) context.getString(R.string.NA) else desc.toString()
-        }).start()
     }
 
     companion object {

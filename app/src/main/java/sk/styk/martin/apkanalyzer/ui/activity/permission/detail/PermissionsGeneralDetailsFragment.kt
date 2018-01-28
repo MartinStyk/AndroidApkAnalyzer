@@ -9,27 +9,36 @@ import android.view.View
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBinding
+import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 
 /**
  * @author Martin Styk
  * @version 15.01.2017
  */
-class PermissionsGeneralDetailsFragment : Fragment() {
+class PermissionsGeneralDetailsFragment : Fragment(), PermissionsGeneralDetailsContract.View {
+
+    private lateinit var presenter: PermissionsGeneralDetailsPresenter
+    private lateinit var binding: FragmentPermissionDetailGeneralBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
+        presenter = PermissionsGeneralDetailsPresenter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val binding: FragmentPermissionDetailGeneralBinding = DataBindingUtil
-                .inflate(inflater, R.layout.fragment_permission_detail_general, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_permission_detail_general, container, false)
 
-        binding.data = arguments.getParcelable(PermissionDetailPagerFragment.ARG_CHILD) ?: throw IllegalArgumentException("data null")
-        binding.granted = arguments.getInt(ARG_NUMBER_GRANTED_APPS)
-        binding.notGranted = arguments.getInt(ARG_NUMBER_NOT_GRANTED_APPS)
+        presenter.view = this
+        presenter.initialize(arguments)
 
         return binding.root
+    }
+
+    override fun showPermissionDetails(permissionData: PermissionData, grantedApps: Int, notGrantedApss: Int) {
+        binding.data = permissionData
+        binding.granted = grantedApps
+        binding.notGranted = notGrantedApss
     }
 
     companion object {
