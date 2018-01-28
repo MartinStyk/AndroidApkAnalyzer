@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
+package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details
 
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData

@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
+package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
 import android.content.pm.PackageManager
 import android.os.Bundle

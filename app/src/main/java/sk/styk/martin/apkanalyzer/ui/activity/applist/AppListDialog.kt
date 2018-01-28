@@ -1,10 +1,8 @@
-package sk.styk.martin.apkanalyzer.ui.activity.dialog
+package sk.styk.martin.apkanalyzer.ui.activity.applist
 
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import android.support.v4.app.LoaderManager
-import android.support.v4.content.Loader
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
@@ -12,24 +10,34 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.dialog_app_list.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.adapter.AppListRecyclerAdapter
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppListFromPackageNamesLoader
-import sk.styk.martin.apkanalyzer.model.list.AppListData
+import sk.styk.martin.apkanalyzer.ui.activity.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListContract.Companion.PACKAGES_ARGUMENT
 import java.util.*
+
 
 /**
  * @author Martin Styk
  * @version 05.01.2018.
  */
-class AppListDialog : DialogFragment(), LoaderManager.LoaderCallbacks<List<AppListData>> {
+class AppListDialog : DialogFragment(), AppListContract.View {
+
+    private lateinit var presenter: AppListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        loaderManager.initLoader(AppListFromPackageNamesLoader.ID, arguments, this)
+        presenter = AppListPresenter(AppListFromPackageNamesLoader(context, arguments.getStringArrayList(PACKAGES_ARGUMENT)), loaderManager)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_app_list, container, false)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        presenter.view = this
+        presenter.initialize(arguments)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -41,26 +49,31 @@ class AppListDialog : DialogFragment(), LoaderManager.LoaderCallbacks<List<AppLi
                 .create()
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle): Loader<List<AppListData>> {
-        return AppListFromPackageNamesLoader(context, args.getStringArrayList(PACKAGES)!!)
-    }
-
-    override fun onLoadFinished(loader: Loader<List<AppListData>>, data: List<AppListData>) {
-
-        dialog.recycler_view_applications.adapter = AppListRecyclerAdapter(data)
+    override fun setUpViews() {
         dialog.recycler_view_applications.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 
-    override fun onLoaderReset(loader: Loader<List<AppListData>>) {}
+    override fun hideLoading() {
+        //TODO("No loading bar here so far. Add One")
+    }
+
+    override fun nothingToDisplay() {
+        // this should never happen
+    }
+
+    override fun showAppList() {
+        dialog.recycler_view_applications.adapter = AppListRecyclerAdapter(presenter)
+    }
+
+    override fun openAppDetailActivity(packageName: String) {
+        context.startActivity(AppDetailActivity.createIntent(packageName, null, context))
+    }
 
     companion object {
-
-        private const val PACKAGES = "packages"
-
         fun newInstance(packageNames: ArrayList<String>): AppListDialog {
             val frag = AppListDialog()
             val args = Bundle()
-            args.putStringArrayList(PACKAGES, packageNames)
+            args.putStringArrayList(PACKAGES_ARGUMENT, packageNames)
             frag.arguments = args
             return frag
         }

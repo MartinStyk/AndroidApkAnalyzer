@@ -1,11 +1,10 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
+package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailPagerPresenter
 
 /**
  * @author Martin Styk

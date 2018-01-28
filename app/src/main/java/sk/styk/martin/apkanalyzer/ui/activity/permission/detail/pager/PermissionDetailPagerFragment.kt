@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
+package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

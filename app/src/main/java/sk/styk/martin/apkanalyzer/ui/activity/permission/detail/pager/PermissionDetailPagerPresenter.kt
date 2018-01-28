@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
+package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
+import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListContract.Companion.PACKAGES_ARGUMENT
+import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListFragment
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details.PermissionsGeneralDetailsFragment
 
 
 /**
@@ -47,16 +50,16 @@ class PermissionDetailPagerPresenter : PermissionDetailPagerContract.Presenter {
 
     override fun getGrantedAppsFragment(): Fragment {
         val args = Bundle()
-        args.putStringArrayList(PermissionDetailPagerFragment.ARG_CHILD, localPermissionData.grantedPackageNames as ArrayList<String>)
-        val fragment = PermissionsAppListFragment()
+        args.putStringArrayList(PACKAGES_ARGUMENT, localPermissionData.grantedPackageNames as ArrayList<String>)
+        val fragment = AppListFragment()
         fragment.arguments = args
         return fragment
     }
 
     override fun getNotGrantedAppsFragment(): Fragment {
         val args = Bundle()
-        args.putStringArrayList(PermissionDetailPagerFragment.ARG_CHILD, localPermissionData.notGrantedPackageNames as ArrayList<String>)
-        val fragment = PermissionsAppListFragment()
+        args.putStringArrayList(PACKAGES_ARGUMENT, localPermissionData.notGrantedPackageNames as ArrayList<String>)
+        val fragment = AppListFragment()
         fragment.arguments = args
         return fragment
     }

@@ -9,7 +9,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import kotlinx.android.synthetic.main.fragment_local_statistics.*
 import lecho.lib.hellocharts.gesture.ContainerScrollType
 import lecho.lib.hellocharts.gesture.ZoomType
@@ -20,7 +19,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.LocalStatisticsLoader
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.AppListDialog
+import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListDialog
 import java.util.*
 
 /**

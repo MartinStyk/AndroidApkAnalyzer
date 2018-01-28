@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
+package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details
 
 
 import android.databinding.DataBindingUtil
@@ -28,11 +28,14 @@ class PermissionsGeneralDetailsFragment : Fragment(), PermissionsGeneralDetailsC
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_permission_detail_general, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         presenter.view = this
         presenter.initialize(arguments)
-
-        return binding.root
     }
 
     override fun showPermissionDetails(permissionData: PermissionData, grantedApps: Int, notGrantedApss: Int) {

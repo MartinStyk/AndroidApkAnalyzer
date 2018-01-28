@@ -14,7 +14,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.LocalPermissionsLoader
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailActivity
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailPagerFragment
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment
 
 /**
  * @author Martin Styk
