@@ -10,7 +10,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.Permission
  */
 class PermissionsGeneralDetailsPresenter : PermissionsGeneralDetailsContract.Presenter {
 
-    lateinit var view: PermissionsGeneralDetailsContract.View
+    override lateinit var view: PermissionsGeneralDetailsContract.View
 
     override fun initialize(bundle: Bundle) {
         view.showPermissionDetails(

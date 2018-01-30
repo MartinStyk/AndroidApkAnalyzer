@@ -20,7 +20,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.View {
 
     private lateinit var adapter: PermissionDetailPagerAdapter
-    private lateinit var presenter: PermissionDetailPagerPresenter
+    private lateinit var presenter: PermissionDetailPagerContract.Presenter
 
     // we add description button to toolbar in this fragment
     private lateinit var description: MenuItem

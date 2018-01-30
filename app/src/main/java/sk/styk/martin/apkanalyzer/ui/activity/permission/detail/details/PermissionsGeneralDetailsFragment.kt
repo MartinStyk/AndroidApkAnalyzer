@@ -17,7 +17,7 @@ import sk.styk.martin.apkanalyzer.model.detail.PermissionData
  */
 class PermissionsGeneralDetailsFragment : Fragment(), PermissionsGeneralDetailsContract.View {
 
-    private lateinit var presenter: PermissionsGeneralDetailsPresenter
+    private lateinit var presenter: PermissionsGeneralDetailsContract.Presenter
     private lateinit var binding: FragmentPermissionDetailGeneralBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {

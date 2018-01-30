@@ -28,7 +28,7 @@ import java.util.*
 class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
 
     private lateinit var binding: FragmentLocalStatisticsBinding
-    private lateinit var presenter: LocalStatisticsPresenter
+    private lateinit var presenter: LocalStatisticsContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

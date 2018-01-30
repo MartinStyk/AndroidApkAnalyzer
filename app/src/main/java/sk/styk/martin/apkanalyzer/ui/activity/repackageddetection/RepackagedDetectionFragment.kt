@@ -17,7 +17,7 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
  */
 class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View {
 
-    private lateinit var presenter: RepackagedDetectionPresenter
+    private lateinit var presenter: RepackagedDetectionContract.Presenter
 
     init {
         retainInstance = true

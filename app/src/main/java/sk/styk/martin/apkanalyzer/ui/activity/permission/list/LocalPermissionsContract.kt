@@ -29,7 +29,7 @@ interface LocalPermissionsContract {
         var affectedApps: Int
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
 
         fun permissionCount(): Int
 

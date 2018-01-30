@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
+package sk.styk.martin.apkanalyzer.ui.activity.settings
 
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
@@ -10,7 +10,7 @@ import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
  */
 class SettingsPresenter : SettingsContract.Presenter {
 
-    lateinit var view: SettingsContract.View
+    override lateinit var view: SettingsContract.View
 
     override fun initialize() {
         view.setUpViews()

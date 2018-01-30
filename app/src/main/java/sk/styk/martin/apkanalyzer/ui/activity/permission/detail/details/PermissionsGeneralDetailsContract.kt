@@ -13,7 +13,7 @@ interface PermissionsGeneralDetailsContract {
         fun showPermissionDetails(permissionData: PermissionData, grantedApps: Int, notGrantedApss: Int)
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
         fun initialize(bundle: Bundle)
     }
 }

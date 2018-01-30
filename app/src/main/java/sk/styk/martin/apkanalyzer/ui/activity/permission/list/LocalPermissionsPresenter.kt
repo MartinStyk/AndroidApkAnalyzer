@@ -18,7 +18,7 @@ class LocalPermissionsPresenter(
 ) : LocalPermissionsContract.Presenter,
         LoaderManager.LoaderCallbacks<List<LocalPermissionData>>, LocalPermissionsLoader.ProgressCallback {
 
-    lateinit var view: LocalPermissionsContract.View
+    override lateinit var view: LocalPermissionsContract.View
     private var data: List<LocalPermissionData>? = null
 
     override fun initialize() {

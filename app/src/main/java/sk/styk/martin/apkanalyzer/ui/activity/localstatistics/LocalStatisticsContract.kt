@@ -19,7 +19,7 @@ interface LocalStatisticsContract {
         fun showAppLists(packages: List<String>)
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
         fun onMinSdkValueSelected(label: String)
         fun onTargetSdkValueSelected(label: String)
         fun onInstallLocationValueSelected(label: String)

@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
+package sk.styk.martin.apkanalyzer.ui.activity.settings
 
 import sk.styk.martin.apkanalyzer.ui.BasePresenter
 
@@ -12,7 +12,7 @@ interface SettingsContract {
         fun uploadCheckBoxSet(isChecked: Boolean)
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
         fun uploadCheckBoxStateChange(isChecked: Boolean)
     }
 }

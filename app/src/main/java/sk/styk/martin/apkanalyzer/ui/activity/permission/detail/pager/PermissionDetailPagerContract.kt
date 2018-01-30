@@ -15,7 +15,7 @@ interface PermissionDetailPagerContract {
         fun setUpViews()
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
         val localPermissionData: LocalPermissionData
 
         fun initialize(bundle: Bundle)

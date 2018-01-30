@@ -6,7 +6,10 @@ package sk.styk.martin.apkanalyzer.ui
  * @author Martin Styk
  * @version 28.01.2018.
  */
-interface BasePresenter {
+interface BasePresenter<View> {
+
+    var view: View
+
     /**
      * Called to initialize presenter
      */

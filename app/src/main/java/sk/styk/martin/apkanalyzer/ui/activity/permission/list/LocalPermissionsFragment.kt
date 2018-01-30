@@ -22,7 +22,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.Permission
  */
 class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
 
-    private lateinit var presenter: LocalPermissionsPresenter
+    private lateinit var presenter: LocalPermissionsContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

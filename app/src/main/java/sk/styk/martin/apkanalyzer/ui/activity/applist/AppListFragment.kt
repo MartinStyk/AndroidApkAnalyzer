@@ -18,7 +18,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.AppDetailActivity
  */
 class AppListFragment : Fragment(), AppListContract.View {
 
-    private lateinit var presenter: AppListPresenter
+    private lateinit var presenter: AppListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

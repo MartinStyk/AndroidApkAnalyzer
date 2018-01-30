@@ -25,7 +25,7 @@ interface AppListContract {
         fun bind(appData: AppListData)
     }
 
-    interface Presenter : BasePresenter {
+    interface Presenter : BasePresenter<View> {
         fun initialize(bundle: Bundle)
 
         fun appCount(): Int

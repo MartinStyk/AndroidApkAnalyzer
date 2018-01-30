@@ -10,15 +10,13 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_settings.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.SettingsContract
-import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.SettingsPresenter
 
 /**
  * @author Martin Styk
  */
 class SettingsFragment : Fragment(), SettingsContract.View {
 
-    private lateinit var presenter: SettingsPresenter
+    private lateinit var presenter: SettingsContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

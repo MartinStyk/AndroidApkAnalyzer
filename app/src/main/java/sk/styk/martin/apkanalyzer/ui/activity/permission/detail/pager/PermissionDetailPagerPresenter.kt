@@ -17,7 +17,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details.Permissi
  */
 class PermissionDetailPagerPresenter : PermissionDetailPagerContract.Presenter {
 
-    lateinit var view: PermissionDetailPagerContract.View
+    override lateinit var view: PermissionDetailPagerContract.View
     override lateinit var localPermissionData: LocalPermissionData
 
     override fun initialize(bundle: Bundle) {

@@ -17,13 +17,14 @@ import sk.styk.martin.apkanalyzer.ui.BasePresenter
 class LocalStatisticsPresenter(
         private val loader: ApkAnalyzerAbstractAsyncLoader<LocalStatisticsDataWithCharts>,
         private val loaderManager: LoaderManager
-) : LocalStatisticsContract.Presenter, BasePresenter,
+) : LocalStatisticsContract.Presenter,
         LoaderManager.LoaderCallbacks<LocalStatisticsDataWithCharts>, LocalStatisticsLoader.ProgressCallback {
 
-    lateinit var view: LocalStatisticsContract.View
+    override lateinit var view: LocalStatisticsContract.View
     var data: LocalStatisticsDataWithCharts? = null
+
     /**
-     * Initializes the presenter by showing/hiding proper views and starting data loading.
+     * Initializes tihe presenter by showng/hiding proper views and starting data loading.
      */
     override fun initialize() {
         startLoadingData()

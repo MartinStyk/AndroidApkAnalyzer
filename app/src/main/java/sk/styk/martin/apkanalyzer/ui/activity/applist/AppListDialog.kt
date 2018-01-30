@@ -22,7 +22,7 @@ import java.util.*
  */
 class AppListDialog : DialogFragment(), AppListContract.View {
 
-    private lateinit var presenter: AppListPresenter
+    private lateinit var presenter: AppListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

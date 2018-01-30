@@ -19,7 +19,7 @@ class AppListPresenter(
 ) :
         LoaderManager.LoaderCallbacks<List<AppListData>>, AppListContract.Presenter {
 
-    lateinit var view: AppListContract.View
+    override lateinit var view: AppListContract.View
     private var packageNames: List<String> = emptyList()
     private var appData: List<AppListData> = emptyList()
 

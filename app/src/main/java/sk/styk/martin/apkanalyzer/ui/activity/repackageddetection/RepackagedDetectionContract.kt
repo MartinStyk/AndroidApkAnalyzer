@@ -28,5 +28,5 @@ interface RepackagedDetectionContract {
         fun showServiceUnavailable()
     }
 
-    interface Presenter : BasePresenter
+    interface Presenter : BasePresenter<View>
 }

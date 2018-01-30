@@ -18,7 +18,7 @@ class RepackagedDetectionPresenter(
 ) : RepackagedDetectionContract.Presenter,
         LoaderManager.LoaderCallbacks<RepackagedDetectionLoader.LoaderResult> {
 
-    lateinit var view: RepackagedDetectionContract.View
+    override lateinit var view: RepackagedDetectionContract.View
     /**
      * Initializes the presenter by showing/hiding proper views and starting data loading.
      */

@@ -10,7 +10,7 @@ import sk.styk.martin.apkanalyzer.R
  * @author Martin Styk
  * @version 18.06.2017.
  */
-class PermissionDetailPagerAdapter(private val presenter: PermissionDetailPagerPresenter, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class PermissionDetailPagerAdapter(private val presenter: PermissionDetailPagerContract.Presenter, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? =
             when (position) {
