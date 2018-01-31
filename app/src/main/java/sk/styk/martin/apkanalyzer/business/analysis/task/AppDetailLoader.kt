@@ -7,7 +7,7 @@ import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppDetailData
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 
 /**
- * Loader async task for item for AppDetailFragment and AppDetailActivity
+ * Loader async task for item for AppDetailPagerFragment and AppDetailActivity
  *
  * @author Martin Styk
  * @version 15.06.2017.

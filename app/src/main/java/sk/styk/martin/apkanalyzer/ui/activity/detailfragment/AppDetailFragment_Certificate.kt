@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.AppDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailCertificateBinding
 
 /**
@@ -20,7 +20,7 @@ class AppDetailFragment_Certificate : Fragment() {
         val binding: FragmentAppDetailCertificateBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_app_detail_certificate, container, false)
 
-        binding.data = arguments.getParcelable(AppDetailFragment.ARG_CHILD) ?: throw IllegalArgumentException("data null")
+        binding.data = arguments.getParcelable(AppDetailPagerFragment.ARG_CHILD) ?: throw IllegalArgumentException("data null")
 
         return binding.root
     }

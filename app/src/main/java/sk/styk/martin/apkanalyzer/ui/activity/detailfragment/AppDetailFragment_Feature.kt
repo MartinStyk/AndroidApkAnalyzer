@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_app_detail_activity.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.AppDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 import sk.styk.martin.apkanalyzer.ui.adapter.detaillist.FeatureListAdapter
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
 
@@ -24,7 +24,7 @@ class AppDetailFragment_Feature : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val data = arguments.getParcelableArrayList<FeatureData>(AppDetailFragment.ARG_CHILD)
+        val data = arguments.getParcelableArrayList<FeatureData>(AppDetailPagerFragment.ARG_CHILD)
                 ?: throw IllegalArgumentException("data null")
 
         recycler_view_activity.adapter = FeatureListAdapter(data)

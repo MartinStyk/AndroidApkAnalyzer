@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
 
 /**
@@ -50,7 +51,7 @@ class OnInstallAppDetailActivity : AppCompatActivity() {
             btn_actions!!.visibility = View.VISIBLE
             btn_actions!!.setOnClickListener { view ->
                 //delegate to fragment
-                (supportFragmentManager.findFragmentByTag(AppDetailFragment.TAG) as AppDetailFragment).onClick(view)
+                (supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG) as AppDetailPagerFragment).presenter.actionButtonClick()
             }
         }
     }
@@ -68,10 +69,10 @@ class OnInstallAppDetailActivity : AppCompatActivity() {
 
     private fun setupDetailFragment() {
 
-        val fragment = AppDetailFragment.create(packagePath = apkPath)
+        val fragment = AppDetailPagerFragment.create(packagePath = apkPath)
 
         supportFragmentManager.beginTransaction()
-                .add(R.id.item_detail_container, fragment, AppDetailFragment.TAG)
+                .add(R.id.item_detail_container, fragment, AppDetailPagerFragment.TAG)
                 .commitAllowingStateLoss()
     }
 

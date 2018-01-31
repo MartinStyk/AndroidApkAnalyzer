@@ -6,9 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 
 /**
- * Parent fragment for AppListFragment and AppDetailFragment.
+ * Parent fragment for AppListFragment and AppDetailPagerFragment.
  * Purpose of thi fragment is to provide separated screen areas in landscape orientation of w900dp devices
  *
  * @author Martin Styk
@@ -29,10 +30,14 @@ class AnalyzeFragment : Fragment() {
         return rootView
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     fun itemClicked(packageName: String?, pathToPackage: String?) {
         if (isTwoPane) {
-            val fragment = AppDetailFragment.create(packageName = packageName, packagePath = pathToPackage)
-            childFragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailFragment.TAG).commitAllowingStateLoss()
+            val fragment = AppDetailPagerFragment.create(packageName = packageName, packagePath = pathToPackage)
+            childFragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailPagerFragment.TAG).commitAllowingStateLoss()
         } else {
             val activity = AppDetailActivity.createIntent(packageName = packageName, packagePath = pathToPackage, context = context)
             context.startActivity(activity)

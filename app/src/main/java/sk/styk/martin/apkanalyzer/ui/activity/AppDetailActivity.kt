@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 
 /**
  * An activity representing a single Item detail screen. This
@@ -28,11 +31,10 @@ class AppDetailActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             //delegate to fragment
-            val detailFragment = AppDetailFragment.create(packageName = intent.getStringExtra(AppDetailFragment.ARG_PACKAGE_NAME),
-                    packagePath = intent.getStringExtra(AppDetailFragment.ARG_PACKAGE_PATH))
+            val detailFragment = AppDetailPagerFragment.create(packageName = intent.getStringExtra(ARG_PACKAGE_NAME),
+                    packagePath = intent.getStringExtra(ARG_PACKAGE_PATH))
 
-            supportFragmentManager.beginTransaction().
-                    add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailFragment.TAG)
+            supportFragmentManager.beginTransaction().add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailPagerFragment.TAG)
                     .commit()
         }
 
@@ -42,7 +44,7 @@ class AppDetailActivity : AppCompatActivity() {
         } else {
             btn_actions!!.setOnClickListener { view ->
                 //delegate to fragment
-                (supportFragmentManager.findFragmentByTag(AppDetailFragment.TAG) as AppDetailFragment).onClick(view)
+                (supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG) as AppDetailPagerFragment).presenter.actionButtonClick()
             }
         }
     }
@@ -55,13 +57,16 @@ class AppDetailActivity : AppCompatActivity() {
         else -> super.onOptionsItemSelected(item)
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
 
     companion object {
         @JvmStatic
         fun createIntent(packageName: String? = null, packagePath: String? = null, context: Context): Intent {
             val intent = Intent(context, AppDetailActivity::class.java)
-            intent.putExtra(AppDetailFragment.ARG_PACKAGE_NAME, packageName)
-            intent.putExtra(AppDetailFragment.ARG_PACKAGE_PATH, packagePath)
+            intent.putExtra(ARG_PACKAGE_NAME, packageName)
+            intent.putExtra(ARG_PACKAGE_PATH, packagePath)
 
             return intent
         }

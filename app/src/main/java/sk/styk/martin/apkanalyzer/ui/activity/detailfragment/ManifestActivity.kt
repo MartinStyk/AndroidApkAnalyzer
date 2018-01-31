@@ -1,6 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.detailfragment
 
 import android.Manifest
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -107,5 +109,11 @@ class ManifestActivity : AppCompatActivity(), LoaderManager.LoaderCallbacks<Stri
 
         const val PACKAGE_NAME_FOR_MANIFEST_REQUEST = "packageNameForManifestRequest"
         private const val REQUEST_STORAGE_PERMISSION = 11
+
+        fun createIntent(context: Context, packageName: String): Intent {
+            val intent = Intent(context, ManifestActivity::class.java)
+            intent.putExtra(ManifestActivity.PACKAGE_NAME_FOR_MANIFEST_REQUEST, packageName);
+            return intent
+        }
     }
 }
