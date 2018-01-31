@@ -53,7 +53,7 @@
                 android:value="sk.styk.martin.apkanalyzer.ui.activity.MainActivity" />
         </activity>
         <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.activity.detailfragment.ManifestActivity"
+            android:name="sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity"
             android:label="@string/title_manifest"
             android:parentActivityName="sk.styk.martin.apkanalyzer.ui.activity.MainActivity"
             android:theme="@style/AppTheme">

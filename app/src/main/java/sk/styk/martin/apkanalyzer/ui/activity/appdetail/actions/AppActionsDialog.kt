@@ -16,7 +16,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract.Companion.PACKAGE_TO_PERFORM_ACTIONS
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract.Companion.REQUEST_STORAGE_PERMISSION
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.ManifestActivity
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 
 
@@ -97,8 +97,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     }
 
     override fun askForStoragePermission() {
-        val ctx = this.context
-        if (ActivityCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_STORAGE_PERMISSION)
         } else {
             presenter.exportApkFile()
