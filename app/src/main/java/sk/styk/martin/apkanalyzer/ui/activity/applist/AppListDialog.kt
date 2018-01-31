@@ -11,7 +11,7 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.dialog_app_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppListFromPackageNamesLoader
-import sk.styk.martin.apkanalyzer.ui.activity.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListContract.Companion.PACKAGES_ARGUMENT
 import java.util.*
 

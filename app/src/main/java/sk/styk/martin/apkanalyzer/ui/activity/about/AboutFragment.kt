@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity
+package sk.styk.martin.apkanalyzer.ui.activity.about
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle

@@ -19,7 +19,7 @@
             style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".ui.activity.AppDetailActivity">
+            tools:context=".ui.activity.appdetail.AppDetailActivity">
 
             <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_all_drawables"

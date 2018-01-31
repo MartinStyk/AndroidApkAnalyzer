@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.ui.activity.AppListFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 
 /**
@@ -14,7 +15,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFrag
  *
  * @author Martin Styk
  */
-class AnalyzeFragment : Fragment() {
+class AppDetailFragment : Fragment() {
 
     private var rootView: View? = null
 

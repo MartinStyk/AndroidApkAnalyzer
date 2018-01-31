@@ -11,6 +11,8 @@ import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.ui.activity.about.AboutFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.AppDetailFragment
 import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.list.LocalPermissionsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.settings.SettingsFragment
@@ -38,7 +40,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // only on first run redirect to default fragment
         if (savedInstanceState == null) {
             navigation_view.setCheckedItem(R.id.nav_app_list)
-            supportFragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, AnalyzeFragment()).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, AppDetailFragment()).commit()
         }
     }
 
@@ -57,7 +59,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
         val fragment: Fragment? = when (item.itemId) {
-            R.id.nav_app_list -> AnalyzeFragment()
+            R.id.nav_app_list -> AppDetailFragment()
             R.id.nav_local_stats -> LocalStatisticsFragment()
             R.id.nav_local_permissions -> LocalPermissionsFragment()
             R.id.nav_about -> AboutFragment()

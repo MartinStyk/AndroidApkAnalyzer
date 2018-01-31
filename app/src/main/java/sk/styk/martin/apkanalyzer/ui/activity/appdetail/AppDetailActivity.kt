@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail
 
 import android.content.Context
 import android.content.Intent
