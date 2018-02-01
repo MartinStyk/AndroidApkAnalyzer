@@ -1,10 +1,10 @@
-package sk.styk.martin.apkanalyzer.database
+package sk.styk.martin.apkanalyzer.business.database
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-import sk.styk.martin.apkanalyzer.database.ApkAnalyzerContract.SendDataEntry
+import sk.styk.martin.apkanalyzer.business.database.ApkAnalyzerContract.SendDataEntry
 
 /**
  * @author Martin Styk

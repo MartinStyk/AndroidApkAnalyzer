@@ -6,8 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
-import sk.styk.martin.apkanalyzer.ui.adapter.GenericListAdapter
+import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter
 
 /**
  * Permission list adapter used in LocalPermissionFragment

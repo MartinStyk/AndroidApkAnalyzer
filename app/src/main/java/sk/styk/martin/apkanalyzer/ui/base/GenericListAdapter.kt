@@ -1,7 +1,6 @@
-package sk.styk.martin.apkanalyzer.ui.adapter
+package sk.styk.martin.apkanalyzer.ui.base
 
 import android.support.v7.widget.RecyclerView
-import sk.styk.martin.apkanalyzer.ui.ListPresenter
 
 /**
  * @author Martin Styk

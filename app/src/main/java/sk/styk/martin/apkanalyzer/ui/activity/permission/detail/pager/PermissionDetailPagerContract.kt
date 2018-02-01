@@ -4,7 +4,7 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
  * @author Martin Styk

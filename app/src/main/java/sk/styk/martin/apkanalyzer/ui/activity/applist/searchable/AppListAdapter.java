@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.adapter;
+package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

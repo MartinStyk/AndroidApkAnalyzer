@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.databinding.ListItemApplicationBinding
 import sk.styk.martin.apkanalyzer.model.list.AppListData
-import sk.styk.martin.apkanalyzer.ui.adapter.GenericListAdapter
+import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter
 
 /**
  * App list adapter for recycler view.

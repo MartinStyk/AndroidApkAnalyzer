@@ -1,7 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui
-
-import android.support.v7.widget.RecyclerView
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.ListDetailPageContract
+package sk.styk.martin.apkanalyzer.ui.base
 
 /**
  * Interface representing a ListPresenter in a model view presenter (MVP) pattern.

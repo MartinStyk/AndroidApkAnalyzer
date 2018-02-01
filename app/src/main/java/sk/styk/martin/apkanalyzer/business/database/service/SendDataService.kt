@@ -1,9 +1,9 @@
-package sk.styk.martin.apkanalyzer.database.service
+package sk.styk.martin.apkanalyzer.business.database.service
 
 import android.content.ContentValues
 import android.content.Context
-import sk.styk.martin.apkanalyzer.database.ApkAnalyzerContract
-import sk.styk.martin.apkanalyzer.database.ApkAnalyzerContract.SendDataEntry
+import sk.styk.martin.apkanalyzer.business.database.ApkAnalyzerContract
+import sk.styk.martin.apkanalyzer.business.database.ApkAnalyzerContract.SendDataEntry
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
 

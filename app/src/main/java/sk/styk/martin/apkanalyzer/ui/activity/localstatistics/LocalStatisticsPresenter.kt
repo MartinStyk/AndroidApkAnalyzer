@@ -7,7 +7,6 @@ import sk.styk.martin.apkanalyzer.business.analysis.task.LocalStatisticsLoader
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
 
 
 /**

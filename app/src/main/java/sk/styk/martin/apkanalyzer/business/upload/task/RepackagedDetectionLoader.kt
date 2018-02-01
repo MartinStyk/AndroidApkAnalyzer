@@ -4,7 +4,7 @@ import android.content.Context
 import android.util.Log
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.business.upload.logic.AppDataUploadService
-import sk.styk.martin.apkanalyzer.database.service.SendDataService
+import sk.styk.martin.apkanalyzer.business.database.service.SendDataService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData

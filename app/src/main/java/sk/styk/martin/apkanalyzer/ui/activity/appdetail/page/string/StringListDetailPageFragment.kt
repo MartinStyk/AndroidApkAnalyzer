@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_app_detail_simple_string_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract
-import sk.styk.martin.apkanalyzer.ui.adapter.detaillist.SimpleStringListAdapter
 
 /**
  * @author Martin Styk

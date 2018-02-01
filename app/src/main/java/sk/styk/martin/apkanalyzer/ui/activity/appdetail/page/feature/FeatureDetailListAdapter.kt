@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.databinding.ListItemFeatureDetailBinding
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
-import sk.styk.martin.apkanalyzer.ui.adapter.GenericListAdapter
+import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter
 
 /**
  * @author Martin Styk

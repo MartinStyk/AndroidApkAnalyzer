@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details
 
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
  * @author Martin Styk

@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.permission.list
 
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
-import sk.styk.martin.apkanalyzer.ui.ListPresenter
+import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.base.ListPresenter
 
 /**
  * @author Martin Styk

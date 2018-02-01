@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui
+package sk.styk.martin.apkanalyzer.ui.base
 
 /**
  * Interface representing a BasePresenter in a model view presenter (MVP) pattern.

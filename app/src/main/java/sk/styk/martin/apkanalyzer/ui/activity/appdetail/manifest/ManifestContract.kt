@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest
 
 import android.support.annotation.StringRes
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
  * @author Martin Styk

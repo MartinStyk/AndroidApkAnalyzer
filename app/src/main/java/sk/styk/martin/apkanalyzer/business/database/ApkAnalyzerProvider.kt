@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.database
+package sk.styk.martin.apkanalyzer.business.database
 
 import android.content.ContentProvider
 import android.content.ContentUris
@@ -7,7 +7,7 @@ import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
 import android.util.Log
-import sk.styk.martin.apkanalyzer.database.ApkAnalyzerContract.SendDataEntry
+import sk.styk.martin.apkanalyzer.business.database.ApkAnalyzerContract.SendDataEntry
 
 /**
  * Database content provider

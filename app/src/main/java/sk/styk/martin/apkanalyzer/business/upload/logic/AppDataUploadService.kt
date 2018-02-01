@@ -3,7 +3,7 @@ package sk.styk.martin.apkanalyzer.business.upload.logic
 import android.content.Context
 import android.util.Log
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
-import sk.styk.martin.apkanalyzer.database.service.SendDataService
+import sk.styk.martin.apkanalyzer.business.database.service.SendDataService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
 import sk.styk.martin.apkanalyzer.util.AndroidIdHelper

@@ -97,7 +97,7 @@
                 android:resource="@xml/provider_paths" />
         </provider>
         <provider
-            android:name=".database.ApkAnalyzerProvider"
+            android:name="sk.styk.martin.apkanalyzer.business.database.ApkAnalyzerProvider"
             android:authorities="sk.styk.martin.apkanalyzer"
             android:exported="false" />
 

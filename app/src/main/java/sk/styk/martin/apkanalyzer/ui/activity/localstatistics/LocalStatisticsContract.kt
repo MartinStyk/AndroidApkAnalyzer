@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
  * @author Martin Styk

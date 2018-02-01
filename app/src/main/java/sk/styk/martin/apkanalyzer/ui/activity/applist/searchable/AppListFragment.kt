@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity
+package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
@@ -23,7 +23,6 @@ import android.widget.ListView
 import android.widget.SearchView
 import kotlinx.android.synthetic.main.fragment_app_list.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.adapter.AppListAdapter
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppListLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData

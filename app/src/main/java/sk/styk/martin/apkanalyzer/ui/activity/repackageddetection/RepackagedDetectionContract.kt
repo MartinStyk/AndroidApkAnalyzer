@@ -1,6 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
 
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
  * @author Martin Styk

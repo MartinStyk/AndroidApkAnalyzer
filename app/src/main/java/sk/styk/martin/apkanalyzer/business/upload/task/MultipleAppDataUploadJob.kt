@@ -12,7 +12,7 @@ import com.firebase.jobdispatcher.Lifetime
 import com.firebase.jobdispatcher.Trigger
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppDetailDataService
-import sk.styk.martin.apkanalyzer.database.service.SendDataService
+import sk.styk.martin.apkanalyzer.business.database.service.SendDataService
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 

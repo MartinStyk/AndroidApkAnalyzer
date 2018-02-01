@@ -1,11 +1,10 @@
-package sk.styk.martin.apkanalyzer.ui.adapter.detaillist
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.databinding.ListItemSimpleStringBinding
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.StringListDetailPageContract
-import sk.styk.martin.apkanalyzer.ui.adapter.GenericListAdapter
+import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter
 
 /**
  * @author Martin Styk

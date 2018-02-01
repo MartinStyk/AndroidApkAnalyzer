@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.database
+package sk.styk.martin.apkanalyzer.business.database
 
 import android.content.ContentResolver
 import android.net.Uri

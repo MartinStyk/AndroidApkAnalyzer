@@ -2,8 +2,8 @@ package sk.styk.martin.apkanalyzer.ui.activity.applist
 
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.list.AppListData
-import sk.styk.martin.apkanalyzer.ui.BasePresenter
-import sk.styk.martin.apkanalyzer.ui.ListPresenter
+import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.base.ListPresenter
 
 /**
  * @author Martin Styk
