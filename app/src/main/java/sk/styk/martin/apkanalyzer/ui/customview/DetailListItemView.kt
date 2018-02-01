@@ -7,9 +7,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import kotlinx.android.synthetic.main.view_detail_list_item.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
+import sk.styk.martin.apkanalyzer.util.file.ClipBoardHelper
 
 /**
  * View used inside cardview - representing key value pair placed in cardview creating list of pairs
@@ -17,7 +19,8 @@ import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
  * @author Martin Styk
  * @version 06.07.2017.
  */
-class DetailListItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs, R.attr.detailListItemViewStyle), View.OnClickListener {
+class DetailListItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
+    : LinearLayout(context, attrs, R.attr.detailListItemViewStyle), View.OnClickListener, View.OnLongClickListener {
 
     var titleText: String = ""
         set(value) {
@@ -45,11 +48,19 @@ class DetailListItemView @JvmOverloads constructor(context: Context, attrs: Attr
         orientation = LinearLayout.HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
         setOnClickListener(this)
+        setOnLongClickListener(this)
+
     }
 
     override fun onClick(v: View) {
         SimpleTextDialog.newInstance(titleText, valueText.toString(), descriptionText)
                 .show((context as AppCompatActivity).supportFragmentManager, SimpleTextDialog::class.java.simpleName)
+    }
+
+    override fun onLongClick(p0: View?): Boolean {
+        ClipBoardHelper.copyToClipBoard(context, valueText.toString(), titleText)
+        Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
+        return true
     }
 
 }
