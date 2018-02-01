@@ -62,7 +62,6 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:enabled="@{data.exported}"
-                android:onClick="@{ (view) -> AppOperations.startForeignActivity(context, data.packageName, data.name)}"
                 android:text="@string/activity_run"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 

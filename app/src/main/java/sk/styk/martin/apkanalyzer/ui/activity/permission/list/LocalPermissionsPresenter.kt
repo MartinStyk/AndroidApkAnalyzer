@@ -47,7 +47,7 @@ class LocalPermissionsPresenter(
         view.showPermissionList()
     }
 
-    override fun permissionCount(): Int {
+    override fun itemCount(): Int {
         return data?.size ?: 0
     }
 
@@ -55,7 +55,7 @@ class LocalPermissionsPresenter(
         return data?.let { view.openPermissionDetail(it[position]) } ?: throw IllegalStateException()
     }
 
-    override fun onBindPermissionViewOnPosition(position: Int, holder: LocalPermissionsContract.ItemView) {
+    override fun onBindViewOnPosition(position: Int, holder: LocalPermissionsContract.ItemView) {
         return data?.let {
             val item = it[position]
             holder.permissionName = item.permissionData.name

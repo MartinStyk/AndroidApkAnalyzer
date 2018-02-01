@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.permission.list
 
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.ListPresenter
 
 /**
  * @author Martin Styk
@@ -20,7 +21,7 @@ interface LocalPermissionsContract {
 
         fun showPermissionList()
 
-        fun openPermissionDetail(permission : LocalPermissionData)
+        fun openPermissionDetail(permission: LocalPermissionData)
     }
 
     interface ItemView {
@@ -29,12 +30,9 @@ interface LocalPermissionsContract {
         var affectedApps: Int
     }
 
-    interface Presenter : BasePresenter<View> {
-
-        fun permissionCount(): Int
+    interface Presenter : BasePresenter<View>, ListPresenter<ItemView> {
 
         fun permissionSelected(position: Int)
 
-        fun onBindPermissionViewOnPosition(position: Int, holder: ItemView)
     }
 }

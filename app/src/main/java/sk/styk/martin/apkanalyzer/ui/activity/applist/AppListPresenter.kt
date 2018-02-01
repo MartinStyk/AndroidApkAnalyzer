@@ -51,11 +51,11 @@ class AppListPresenter(
 
     override fun onLoaderReset(loader: android.support.v4.content.Loader<List<AppListData>>) {}
 
-    override fun appCount(): Int = appData.size
+    override fun itemCount(): Int = appData.size
 
     override fun onAppClick(position: Int) = view.openAppDetailActivity(packageName = appData[position].packageName)
 
-    override fun onBindAppViewOnPosition(position: Int, holder: AppListContract.ItemView) {
+    override fun onBindViewOnPosition(position: Int, holder: AppListContract.ItemView) {
         return holder.bind(appData[position])
     }
 

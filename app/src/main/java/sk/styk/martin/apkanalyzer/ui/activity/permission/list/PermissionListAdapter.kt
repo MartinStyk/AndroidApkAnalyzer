@@ -15,13 +15,9 @@ import sk.styk.martin.apkanalyzer.ui.adapter.GenericListAdapter
  * @author Martin Styk
  * @version 13.01.2017.
  */
-class PermissionListAdapter(val presenter: LocalPermissionsContract.Presenter) : GenericListAdapter<LocalPermissionData, PermissionListAdapter.ViewHolder>() {
+class PermissionListAdapter(override val presenter: LocalPermissionsContract.Presenter) : GenericListAdapter<PermissionListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_permission_local_data, parent, false))
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = presenter.onBindPermissionViewOnPosition(position, holder)
-
-    override fun getItemCount(): Int = presenter.permissionCount()
 
     inner class ViewHolder(val view: View) : RecyclerView.ViewHolder(view), LocalPermissionsContract.ItemView {
         override var permissionName = ""

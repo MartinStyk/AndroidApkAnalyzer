@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.applist
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.ui.BasePresenter
+import sk.styk.martin.apkanalyzer.ui.ListPresenter
 
 /**
  * @author Martin Styk
@@ -25,14 +26,10 @@ interface AppListContract {
         fun bind(appData: AppListData)
     }
 
-    interface Presenter : BasePresenter<View> {
+    interface Presenter : BasePresenter<View>, ListPresenter<ItemView> {
         fun initialize(bundle: Bundle)
 
-        fun appCount(): Int
-
         fun onAppClick(position: Int)
-
-        fun onBindAppViewOnPosition(position: Int, holder: ItemView)
     }
 
     companion object {

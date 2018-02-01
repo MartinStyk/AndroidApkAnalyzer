@@ -8,18 +8,17 @@ import android.support.v4.content.Loader
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppDetailLoader
 import sk.styk.martin.apkanalyzer.business.upload.task.AppDataUploadTask
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general.CertificateDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general.GeneralDetailFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Activity
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Certificate
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.ActivityDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Classes
 import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Feature
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_General
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Permission
 import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Provider
 import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Receiver
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Resource
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general.ResourceDetailFragment
 import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Service
 import java.util.*
 
@@ -80,7 +79,7 @@ class AppDetailPagerPresenter(
     override fun getGeneralDetailsFragment(): Fragment {
         val args = Bundle()
         args.putParcelable(ARG_PAGER_PAGE, appDetailData?.generalData)
-        val fragment = AppDetailFragment_General()
+        val fragment = GeneralDetailFragment()
         fragment.arguments = args
         return fragment
     }
@@ -88,7 +87,7 @@ class AppDetailPagerPresenter(
     override fun getCertificateDetailsFragment(): Fragment {
         val args = Bundle()
         args.putParcelable(ARG_PAGER_PAGE, appDetailData?.certificateData)
-        val fragment = AppDetailFragment_Certificate()
+        val fragment = CertificateDetailFragment()
         fragment.arguments = args
         return fragment
     }
@@ -96,7 +95,7 @@ class AppDetailPagerPresenter(
     override fun getResourceDetailsFragment(): Fragment {
         val args = Bundle()
         args.putParcelable(ARG_PAGER_PAGE, appDetailData?.resourceData)
-        val fragment = AppDetailFragment_Resource()
+        val fragment = ResourceDetailFragment()
         fragment.arguments = args
         return fragment
     }
@@ -104,7 +103,7 @@ class AppDetailPagerPresenter(
     override fun getActivityDetailsFragment(): Fragment {
         val args = Bundle()
         args.putParcelableArrayList(ARG_PAGER_PAGE, appDetailData?.activityData as ArrayList<out Parcelable>)
-        val fragment = AppDetailFragment_Activity()
+        val fragment = ActivityDetailPageFragment()
         fragment.arguments = args
         return fragment
     }
@@ -142,19 +141,24 @@ class AppDetailPagerPresenter(
     }
 
     override fun getUsedPermissionDetailsFragment(): Fragment {
-        val args = Bundle()
-        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.permissionData?.usesPermissionsNames as ArrayList<String>)
-        val fragment = AppDetailFragment_Permission()
-        fragment.arguments = args
-        return fragment
+
+        return getFeatureDetailsFragment()
+//
+//        val args = Bundle()
+//        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.permissionData?.usesPermissionsNames as ArrayList<String>)
+//        val fragment = AppDetailFragment_Permission()
+//        fragment.arguments = args
+//        return fragment
     }
 
     override fun getDefinedPermissionDetailsFragment(): Fragment {
-        val args = Bundle()
-        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.permissionData?.definesPermissionsNames as ArrayList<String>)
-        val fragment = AppDetailFragment_Permission()
-        fragment.arguments = args
-        return fragment
+        return getGeneralDetailsFragment()
+
+//        val args = Bundle()
+//        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.permissionData?.definesPermissionsNames as ArrayList<String>)
+//        val fragment = AppDetailFragment_Permission()
+//        fragment.arguments = args
+//        return fragment
     }
 
     override fun getClasspathDetailsFragment(): Fragment {

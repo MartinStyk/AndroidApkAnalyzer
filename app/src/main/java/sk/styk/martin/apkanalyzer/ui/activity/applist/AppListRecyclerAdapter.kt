@@ -14,16 +14,12 @@ import sk.styk.martin.apkanalyzer.ui.adapter.GenericListAdapter
  * @author Martin Styk
  * @version 05.01.2017.
  */
-class AppListRecyclerAdapter(val presenter: AppListContract.Presenter) : GenericListAdapter<AppListData, AppListRecyclerAdapter.ViewHolder>() {
+class AppListRecyclerAdapter(override val presenter: AppListContract.Presenter) : GenericListAdapter<AppListRecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding = ListItemApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemBinding)
     }
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) = presenter.onBindAppViewOnPosition(position, holder)
-
-    override fun getItemCount(): Int = presenter.appCount()
 
     inner class ViewHolder(val binding: ListItemApplicationBinding) : RecyclerView.ViewHolder(binding.root), AppListContract.ItemView {
         init {
