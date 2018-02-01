@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_detail_item.view.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.InfoDialog
+import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 
 /**
  * Key value pair view
@@ -57,8 +57,8 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     override fun onClick(v: View) {
-        InfoDialog.newInstance(titleText, valueText?.toString() ?: "", descriptionText)
-                .show((context as AppCompatActivity).supportFragmentManager, InfoDialog::class.java.simpleName)
+        SimpleTextDialog.newInstance(titleText, valueText?.toString() ?: "", descriptionText)
+                .show((context as AppCompatActivity).supportFragmentManager, SimpleTextDialog::class.java.simpleName)
     }
 
 }

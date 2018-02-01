@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_detail_list_item.view.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.InfoDialog
+import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 
 /**
  * View used inside cardview - representing key value pair placed in cardview creating list of pairs
@@ -48,8 +48,8 @@ class DetailListItemView @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     override fun onClick(v: View) {
-        InfoDialog.newInstance(titleText, valueText.toString(), descriptionText)
-                .show((context as AppCompatActivity).supportFragmentManager, InfoDialog::class.java.simpleName)
+        SimpleTextDialog.newInstance(titleText, valueText.toString(), descriptionText)
+                .show((context as AppCompatActivity).supportFragmentManager, SimpleTextDialog::class.java.simpleName)
     }
 
 }

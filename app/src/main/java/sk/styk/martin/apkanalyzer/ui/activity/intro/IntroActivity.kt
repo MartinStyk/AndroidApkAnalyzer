@@ -3,11 +3,9 @@ package sk.styk.martin.apkanalyzer.ui.activity.intro
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-
 import com.github.paolorotolo.appintro.AppIntro
 import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
-
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.upload.task.MultipleAppDataUploadJob
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper
