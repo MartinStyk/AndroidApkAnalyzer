@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{data.name}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                 android:id="@+id/item_receiver_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 app:titleText="@string/receiver_permission"
                 app:valueText="@{data.permission ?? @string/none}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                 android:id="@+id/item_receiver_exported"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

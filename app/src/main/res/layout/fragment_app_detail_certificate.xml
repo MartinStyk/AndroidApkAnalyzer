@@ -22,9 +22,9 @@
             style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="sk.styk.martin.apkanalyzer.activity.AppDetailActivity">
+            tools:context=".ui.activity.appdetail.AppDetailActivity">
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_sign_algorithm"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -32,7 +32,7 @@
                 app:titleText="@string/sign_algorithm"
                 app:valueText="@{data.signAlgorithm}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -40,7 +40,7 @@
                 app:titleText="@string/start_date"
                 app:valueText="@{DateUtils.formatDateTime(context, data.startDate.time, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME)}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_end_date"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -48,7 +48,7 @@
                 app:titleText="@string/end_date"
                 app:valueText="@{DateUtils.formatDateTime(context, data.endDate.time, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME)}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_public_key_md5"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -56,7 +56,7 @@
                 app:titleText="@string/public_key_md5"
                 app:valueText="@{data.publicKeyMd5}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_cert_md5"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -64,7 +64,7 @@
                 app:titleText="@string/cert_md5"
                 app:valueText="@{data.certificateHash}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_serial_number"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -72,7 +72,7 @@
                 app:titleText="@string/serial_number"
                 app:valueText="@{data.serialNumber}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_issuer_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -80,7 +80,7 @@
                 app:titleText="@string/issuer_name"
                 app:valueText="@{data.issuerName}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_issuer_organization"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -88,7 +88,7 @@
                 app:titleText="@string/issuer_organization"
                 app:valueText="@{data.issuerOrganization}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_issuer_country"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -96,7 +96,7 @@
                 app:titleText="@string/issuer_country"
                 app:valueText="@{data.issuerCountry}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_subject_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -104,7 +104,7 @@
                 app:titleText="@string/subject_name"
                 app:valueText="@{data.subjectName}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_subject_organization"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -112,7 +112,7 @@
                 app:titleText="@string/subject_organization"
                 app:valueText="@{data.subjectOrganization}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_subject_country"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"

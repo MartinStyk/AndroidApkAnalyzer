@@ -14,4 +14,12 @@ data class ClassPathData(
         val packageClasses: List<String> = emptyList(),
         val otherClasses: List<String> = emptyList(),
         val numberOfInnerClasses: Int = 0
-) : Parcelable
+) : Parcelable {
+
+    val allClasses: List<String>
+        get() {
+            val allClasses = ArrayList(packageClasses)
+            allClasses.addAll(otherClasses)
+            return allClasses
+        }
+}

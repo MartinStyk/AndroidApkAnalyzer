@@ -31,9 +31,9 @@
             style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="sk.styk.martin.apkanalyzer.activity.permission.PermissionDetailActivity">
+            tools:context=".ui.activity.permission.detail.PermissionDetailActivity">
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/permission_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -41,7 +41,7 @@
                 app:titleText="@string/permissions_name"
                 app:valueText="@{data.name}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/permission_group_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -49,7 +49,7 @@
                 app:titleText="@string/permissions_group"
                 app:valueText="@{data.groupName}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/permission_protection_level"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -57,7 +57,7 @@
                 app:titleText="@string/permissions_protection"
                 app:valueText="@{PermissionLevelHelper.showLocalized(data.protectionLevel)}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/number_apps_granted"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -65,7 +65,7 @@
                 app:titleText="@string/permissions_granted_apps"
                 app:valueText="@{granted}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/number_apps_not_granted"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"

@@ -1,9 +1,9 @@
 package sk.styk.martin.apkanalyzer.business.analysis.task
 
 import android.content.Context
-import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.LocalPermissionsDataService
+import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionDataBuilder
 import java.lang.ref.WeakReference
@@ -12,9 +12,9 @@ import java.lang.ref.WeakReference
  * @author Martin Styk
  * @version 15.01.2018
  */
-class LocalPermissionsLoader(context: Context, callback: ProgressCallback) : ApkAnalyzerAbstractAsyncLoader<List<LocalPermissionData>>(context) {
+class LocalPermissionsLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<List<LocalPermissionData>>(context) {
 
-    private var callbackReference = WeakReference(callback)
+    private lateinit var callbackReference: WeakReference<ProgressCallback>
     private val appBasicDataService = AppBasicDataService(context.packageManager)
     private val localPermissionsDataService = LocalPermissionsDataService(context.packageManager)
 

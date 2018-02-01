@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{data.name}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                 android:id="@+id/item_provider_authority"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
                 app:titleText="@string/provider_authority"
                 app:valueText="@{ data.authority ?? @string/none}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                 android:id="@+id/item_provider_read_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
                 app:titleText="@string/provider_read_permission"
                 app:valueText="@{ data.readPermission ?? @string/none}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                 android:id="@+id/item_provider_write_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
                 app:titleText="@string/provider_write_permission"
                 app:valueText="@{ data.writePermission ?? @string/none}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                 android:id="@+id/item_provider_exported"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

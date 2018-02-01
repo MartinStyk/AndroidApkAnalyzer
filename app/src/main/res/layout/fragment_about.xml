@@ -1,95 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="sk.styk.martin.apkanalyzer.activity.AboutFragment"
-    android:layout_margin="@dimen/activity_vertical_margin">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+
+        <import type="sk.styk.martin.apkanalyzer.BuildConfig" />
+
+        <import type="sk.styk.martin.apkanalyzer.util.file.AppOperations" />
+
+    </data>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="3"
-        android:layout_margin="@dimen/activity_vertical_margin">
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        tools:context=".ui.activity.about.AboutFragment">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/app_icon"
-            android:src="@drawable/ic_launcher_web" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2">
-
-        <TextView
-            android:id="@+id/about_app_name"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/app_name"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_weight="3">
 
-        <TextView
-            android:id="@+id/about_app_version"
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/app_icon"
+                android:src="@drawable/ic_launcher_web" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/about_app_name"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_height="match_parent"
+            android:layout_weight="2">
 
-        <TextView
-            android:id="@+id/about_app_authors"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/about_app_version"
-            android:gravity="center"
-            android:text="@string/app_author"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/about_app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/about_app_github_link"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/about_app_authors"
-            android:gravity="center"
-            android:text="@string/app_github"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/about_app_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_app_name"
+                android:gravity="center"
+                android:text="@{BuildConfig.VERSION_NAME}"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/about_app_privacy_policy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/about_app_github_link"
-            android:gravity="center"
-            android:text="@string/app_privacy_policy"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/about_app_authors"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_app_version"
+                android:gravity="center"
+                android:text="@string/app_author"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <Button
-            android:id="@+id/about_app_rate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/fab_margin"
-            android:layout_centerHorizontal="true"
-            android:text="@string/app_rate"
-            android:layout_below="@id/about_app_privacy_policy"
-            android:background="@color/accent"
-            android:textColor="@color/colorWhite" />
+            <TextView
+                android:id="@+id/about_app_github_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_app_authors"
+                android:gravity="center"
+                android:text="@string/app_github"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/about_app_dependencies"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:text="@string/app_dependencies"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textSize="@dimen/text_size_super_small" />
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/about_app_privacy_policy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_app_github_link"
+                android:gravity="center"
+                android:text="@string/app_privacy_policy"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
 
-</LinearLayout>
+            <Button
+                android:id="@+id/about_app_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/about_app_privacy_policy"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/fab_margin"
+                android:background="@color/accent"
+                android:onClick="@{() -> AppOperations.openGooglePlay(context, context.packageName)}"
+                android:text="@string/app_rate"
+                android:textColor="@color/colorWhite" />
+
+            <TextView
+                android:id="@+id/about_app_dependencies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:text="@string/app_dependencies"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textSize="@dimen/text_size_super_small" />
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

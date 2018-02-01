@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{data.name}" />
 
-            <sk.styk.martin.apkanalyzer.view.DetailListItemView
+            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
                 android:id="@+id/item_feature_required"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -9,7 +9,7 @@ import android.support.v4.content.FileProvider
 import android.util.Log
 import android.widget.Toast
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.activity.OnInstallAppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.OnInstallAppDetailActivity
 import java.io.File
 
 /**
@@ -57,6 +57,7 @@ object AppOperations {
 
     }
 
+    @JvmStatic
     fun openGooglePlay(context: Context, packageName: String) {
         try {
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)))
