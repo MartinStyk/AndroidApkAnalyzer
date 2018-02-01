@@ -8,18 +8,18 @@ import android.support.v4.content.Loader
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppDetailLoader
 import sk.styk.martin.apkanalyzer.business.upload.task.AppDataUploadTask
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general.CertificateDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general.GeneralDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.ActivityDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.feature.FeatureDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.CertificateDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.GeneralDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.ResourceDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider.ProviderDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.receiver.ReceiverDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.ServiceDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.StringListDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.ActivityDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Classes
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Feature
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Provider
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Receiver
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general.ResourceDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.detailfragment.AppDetailFragment_Service
 import java.util.*
 
 
@@ -111,7 +111,7 @@ class AppDetailPagerPresenter(
     override fun getServiceDetailsFragment(): Fragment {
         val args = Bundle()
         args.putParcelableArrayList(ARG_PAGER_PAGE, appDetailData?.serviceData as ArrayList<out Parcelable>)
-        val fragment = AppDetailFragment_Service()
+        val fragment = ServiceDetailPageFragment()
         fragment.arguments = args
         return fragment
     }
@@ -119,7 +119,7 @@ class AppDetailPagerPresenter(
     override fun getProviderDetailsFragment(): Fragment {
         val args = Bundle()
         args.putParcelableArrayList(ARG_PAGER_PAGE, appDetailData?.contentProviderData as ArrayList<out Parcelable>)
-        val fragment = AppDetailFragment_Provider()
+        val fragment = ProviderDetailPageFragment()
         fragment.arguments = args
         return fragment
     }
@@ -127,7 +127,7 @@ class AppDetailPagerPresenter(
     override fun getReceiverDetailsFragment(): Fragment {
         val args = Bundle()
         args.putParcelableArrayList(ARG_PAGER_PAGE, appDetailData?.broadcastReceiverData as ArrayList<out Parcelable>)
-        val fragment = AppDetailFragment_Receiver()
+        val fragment = ReceiverDetailPageFragment()
         fragment.arguments = args
         return fragment
     }
@@ -135,36 +135,31 @@ class AppDetailPagerPresenter(
     override fun getFeatureDetailsFragment(): Fragment {
         val args = Bundle()
         args.putParcelableArrayList(ARG_PAGER_PAGE, appDetailData?.featureData as ArrayList<out Parcelable>)
-        val fragment = AppDetailFragment_Feature()
+        val fragment = FeatureDetailPageFragment()
         fragment.arguments = args
         return fragment
     }
 
     override fun getUsedPermissionDetailsFragment(): Fragment {
-
-        return getFeatureDetailsFragment()
-//
-//        val args = Bundle()
-//        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.permissionData?.usesPermissionsNames as ArrayList<String>)
-//        val fragment = AppDetailFragment_Permission()
-//        fragment.arguments = args
-//        return fragment
+        val args = Bundle()
+        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.permissionData?.usesPermissionsNames as ArrayList<String>)
+        val fragment = StringListDetailPageFragment()
+        fragment.arguments = args
+        return fragment
     }
 
     override fun getDefinedPermissionDetailsFragment(): Fragment {
-        return getGeneralDetailsFragment()
-
-//        val args = Bundle()
-//        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.permissionData?.definesPermissionsNames as ArrayList<String>)
-//        val fragment = AppDetailFragment_Permission()
-//        fragment.arguments = args
-//        return fragment
+        val args = Bundle()
+        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.permissionData?.definesPermissionsNames as ArrayList<String>)
+        val fragment = StringListDetailPageFragment()
+        fragment.arguments = args
+        return fragment
     }
 
     override fun getClasspathDetailsFragment(): Fragment {
         val args = Bundle()
-        args.putParcelable(ARG_PAGER_PAGE, appDetailData?.classPathData)
-        val fragment = AppDetailFragment_Classes()
+        args.putStringArrayList(ARG_PAGER_PAGE, appDetailData?.classPathData?.allClasses as ArrayList<String>)
+        val fragment = StringListDetailPageFragment()
         fragment.arguments = args
         return fragment
     }

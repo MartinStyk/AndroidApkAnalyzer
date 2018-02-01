@@ -4,27 +4,22 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.databinding.ListItemSimpleStringBinding
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.StringListDetailPageContract
+import sk.styk.martin.apkanalyzer.ui.adapter.GenericListAdapter
 
 /**
  * @author Martin Styk
  * @version 07.07.2017.
  */
-class SimpleStringListAdapter(items: List<String>) : GenericDetailListAdapter<String, SimpleStringListAdapter.ViewHolder>(items) {
+class SimpleStringListAdapter(override val presenter: StringListDetailPageContract.Presenter) : GenericListAdapter<SimpleStringListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val layoutInflater: LayoutInflater = LayoutInflater.from(parent.context)
-        val itemBinding = ListItemSimpleStringBinding.inflate(layoutInflater, parent, false)
+        val itemBinding = ListItemSimpleStringBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(itemBinding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
-        holder.bind(item)
-    }
-
-    inner class ViewHolder(val binding: ListItemSimpleStringBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: String) {
+    inner class ViewHolder(val binding: ListItemSimpleStringBinding) : StringListDetailPageContract.ItemView, RecyclerView.ViewHolder(binding.root) {
+        override fun bind(item: String) {
             binding.value = item
             binding.executePendingBindings()
         }

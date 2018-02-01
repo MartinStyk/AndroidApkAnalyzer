@@ -17,7 +17,7 @@ import sk.styk.martin.apkanalyzer.util.file.AppOperations
  */
 class ActivityDetailPageFragment : Fragment(), ActivityDetailPageContract.View {
 
-    protected lateinit var presenter: ActivityDetailPageContract.Presenter
+    private lateinit var presenter: ActivityDetailPageContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

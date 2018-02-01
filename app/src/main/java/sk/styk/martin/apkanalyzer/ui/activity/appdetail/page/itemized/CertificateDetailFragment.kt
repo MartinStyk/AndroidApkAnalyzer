@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized
 
 import android.support.annotation.LayoutRes
 import sk.styk.martin.apkanalyzer.R
