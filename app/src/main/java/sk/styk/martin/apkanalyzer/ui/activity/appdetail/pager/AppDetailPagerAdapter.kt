@@ -83,7 +83,7 @@ class AppDetailPagerAdapter(
             }
 
             10 -> {
-                args.putParcelable(ARG_PAGER_PAGE, presenter.getData()?.classPathData)
+                args.putStringArrayList(ARG_PAGER_PAGE, presenter.getData()?.classPathData?.allClasses  as ArrayList<String>)
                 fragment = StringListDetailPageFragment()
             }
 
