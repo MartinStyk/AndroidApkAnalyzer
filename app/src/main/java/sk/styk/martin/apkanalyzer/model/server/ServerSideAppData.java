@@ -45,8 +45,8 @@ public class ServerSideAppData {
     public int versionCode;
     private AppSource source;
     private long apkSize;
-    private int minSdkVersion;
-    private int targetSdkVersion;
+    private Integer minSdkVersion;
+    private Integer targetSdkVersion;
 
     // CertificateData
     private String signAlgorithm;

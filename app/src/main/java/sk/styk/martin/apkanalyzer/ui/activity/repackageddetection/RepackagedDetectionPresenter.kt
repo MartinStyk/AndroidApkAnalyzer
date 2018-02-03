@@ -41,9 +41,9 @@ class RepackagedDetectionPresenter(
         when (result) {
             is RepackagedDetectionLoader.LoaderResult.Success -> {
                 when (result.result.status) {
-                    RepackagedDetectionStatus.NOK -> view.showAppNotOk()
-                    RepackagedDetectionStatus.OK -> view.showAppOk()
-                    RepackagedDetectionStatus.INSUFFICIENT_DATA -> view.showAppNotDetected()
+                    RepackagedDetectionStatus.NOK -> view.showAppNotOk(result.result)
+                    RepackagedDetectionStatus.OK -> view.showAppOk(result.result)
+                    RepackagedDetectionStatus.INSUFFICIENT_DATA -> view.showAppNotDetected(result.result)
                 }
             }
             is RepackagedDetectionLoader.LoaderResult.NotConnectedToInternet -> view.showNoInternetConnection()

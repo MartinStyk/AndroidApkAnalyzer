@@ -23,7 +23,7 @@ class GeneralDataService {
         val isSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
         val appInstaller = findAppInstaller(packageInfo.packageName, packageManager)
 
-        val minSdk = if (analysisMode == AppDetailData.AnalysisMode.INSTALLED_PACKAGE)
+        val minSdk = if (analysisMode.toString() == AppDetailData.AnalysisMode.INSTALLED_PACKAGE.toString())
             AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager) else null
 
         return GeneralData(

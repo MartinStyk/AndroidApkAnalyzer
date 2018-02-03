@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
 
+import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
@@ -13,11 +14,11 @@ interface RepackagedDetectionContract {
 
         fun hideLoading()
 
-        fun showAppOk()
+        fun showAppOk(result: RepackagedDetectionResult)
 
-        fun showAppNotOk()
+        fun showAppNotOk(result: RepackagedDetectionResult)
 
-        fun showAppNotDetected()
+        fun showAppNotDetected(result: RepackagedDetectionResult)
 
         fun showNoInternetConnection()
 

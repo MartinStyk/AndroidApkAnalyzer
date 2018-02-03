@@ -46,8 +46,7 @@
                 android:id="@+id/repackaged_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@{data.toString()}" />
+                android:gravity="center" />
 
         </LinearLayout>
     </RelativeLayout>

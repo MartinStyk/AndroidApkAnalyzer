@@ -9,6 +9,7 @@ import kotlinx.android.synthetic.main.fragment_repackaged_detection.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.upload.task.RepackagedDetectionLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
 
 
 /**
@@ -46,19 +47,22 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_loading_data.visibility = View.GONE
     }
 
-    override fun showAppOk() {
+    override fun showAppOk(result: RepackagedDetectionResult) {
         repackaged_image.setImageResource(R.drawable.ic_ok)
         repackaged_header.text = getString(R.string.repackaged_result_ok)
+        repackaged_description.text = result.toString()
     }
 
-    override fun showAppNotOk() {
+    override fun showAppNotOk(result: RepackagedDetectionResult) {
         repackaged_image.setImageResource(R.drawable.ic_warning)
         repackaged_header.text = getString(R.string.repackaged_result_nok)
+        repackaged_description.text = result.toString()
     }
 
-    override fun showAppNotDetected() {
+    override fun showAppNotDetected(result: RepackagedDetectionResult) {
         repackaged_image.setImageResource(R.drawable.ic_android)
         repackaged_header.text = getString(R.string.repackaged_result_insufficient)
+        repackaged_description.text = result.toString()
     }
 
     override fun showNoInternetConnection() {

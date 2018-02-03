@@ -6,7 +6,7 @@ package sk.styk.martin.apkanalyzer.util.networking
  */
 object ServerUrls {
 
-    const val URL_BASE = "http://192.168.1.30:3000";
+    const val URL_BASE = "http://192.168.1.32:3000";
 //    const val URL_BASE = "https://apk-analyzer.herokuapp.com"
     const val GENERATE_200 = "/available"
     const val UPLOAD_RECORD_PATH = "/app_records"
