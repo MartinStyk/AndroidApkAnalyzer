@@ -55,6 +55,8 @@ dependencies {
     compile 'com.firebase:firebase-jobdispatcher:0.8.5'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     kapt "com.android.databinding:compiler:$gradle_version"
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     testCompile 'junit:junit:4.12'
 }
 repositories {
