@@ -66,7 +66,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
 
             AppDetailData(
                     analysisMode = analysisMode,
-                    generalData = generalDataService.get(packageInfo, packageManager),
+                    generalData = generalDataService.get(packageInfo, packageManager, analysisMode),
                     certificateData = certificateService.get(packageInfo),
                     activityData = appComponentsService.getActivities(packageInfo, packageManager),
                     serviceData = appComponentsService.getServices(packageInfo),

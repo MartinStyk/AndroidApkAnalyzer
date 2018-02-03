@@ -107,7 +107,7 @@ class AndroidManifestService(private val packageManager: PackageManager, private
         /**
          * It is not possible to get minSdkVersions using Android PackageManager - parse AndroidManifest of app
          */
-        fun getMinSdkVersion(applicationInfo: ApplicationInfo, packageManager: PackageManager): Int {
+        fun getMinSdkVersion(applicationInfo: ApplicationInfo, packageManager: PackageManager): Int? {
 
             try {
                 val apkResources = packageManager.getResourcesForApplication(applicationInfo)
@@ -126,7 +126,7 @@ class AndroidManifestService(private val packageManager: PackageManager, private
                 e.printStackTrace()
             }
 
-            return 0
+            return null
         }
     }
 }

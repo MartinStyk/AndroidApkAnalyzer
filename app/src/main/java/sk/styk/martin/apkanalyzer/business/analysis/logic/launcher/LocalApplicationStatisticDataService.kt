@@ -48,7 +48,7 @@ class LocalApplicationStatisticDataService(private val packageManager: PackageMa
                 isSystemApp = isSystemApp,
                 installLocation = packageInfo.installLocation,
                 targetSdk = applicationInfo.targetSdkVersion,
-                minSdk = AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager),
+                minSdk = AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager) ?: 0,
                 apkSize = if (applicationInfo.sourceDir != null) generalDataService.computeApkSize(applicationInfo.sourceDir) else 0,
                 appSource = GeneralDataService.getAppSource(packageManager, packageName, isSystemApp),
                 signAlgorithm = certificateService.getSignAlgorithm(packageInfo) ?: "Unknown",

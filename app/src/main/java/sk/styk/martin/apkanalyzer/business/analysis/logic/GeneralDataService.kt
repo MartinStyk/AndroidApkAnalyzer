@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData
 import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper
@@ -15,13 +16,15 @@ import java.io.File
  */
 class GeneralDataService {
 
-    fun get(packageInfo: PackageInfo, packageManager: PackageManager): GeneralData {
+    fun get(packageInfo: PackageInfo, packageManager: PackageManager, analysisMode: AppDetailData.AnalysisMode): GeneralData {
 
         val applicationInfo = packageInfo.applicationInfo
 
         val isSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-        val minSdk = AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager)
         val appInstaller = findAppInstaller(packageInfo.packageName, packageManager)
+
+        val minSdk = if (analysisMode == AppDetailData.AnalysisMode.INSTALLED_PACKAGE)
+            AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager) else null
 
         return GeneralData(
                 packageName = packageInfo.packageName,
