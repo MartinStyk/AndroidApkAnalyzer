@@ -59,7 +59,7 @@ class AppActionsPresenter(
     }
 
     override fun installAppClick() {
-        AppOperations.installPackage(context, appDetailData.generalData.packageName)
+        AppOperations.installPackage(context, appDetailData.generalData.apkDirectory)
         view.dismiss()
     }
 
