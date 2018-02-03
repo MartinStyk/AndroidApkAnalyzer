@@ -44,7 +44,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.activity.appdetail.AppDetailActivity"
+            android:name="sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity"
             android:label="@string/title_item_detail"
             android:parentActivityName="sk.styk.martin.apkanalyzer.ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">

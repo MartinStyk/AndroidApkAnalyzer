@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.appdetail
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail.base
 
 import android.content.Context
 import android.content.Intent
@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.AppDetailActivityPresenter
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
@@ -19,19 +20,29 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFrag
  *
  * @author Martin Styk
  */
-class AppDetailActivity : AppCompatActivity() {
+class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
+
+    private lateinit var presenter: AppDetailActivityContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_app_detail)
 
+        presenter = AppDetailActivityPresenter()
+        presenter.view = this
+        presenter.initialize()
+    }
+
+    override fun setupViews() {
         setSupportActionBar(detail_toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (savedInstanceState == null) {
-            //delegate to fragment
-            val detailFragment = AppDetailPagerFragment.create(packageName = intent.getStringExtra(ARG_PACKAGE_NAME),
+        val existingAppDetailPagerFragment = supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG)
+        if (existingAppDetailPagerFragment == null) {
+
+            val detailFragment = AppDetailPagerFragment.create(
+                    packageName = intent.getStringExtra(ARG_PACKAGE_NAME),
                     packagePath = intent.getStringExtra(ARG_PACKAGE_PATH))
 
             supportFragmentManager.beginTransaction().add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailPagerFragment.TAG)
@@ -42,9 +53,11 @@ class AppDetailActivity : AppCompatActivity() {
         if (btn_actions == null) {
             app_bar.setExpanded(false)
         } else {
-            btn_actions!!.setOnClickListener { view ->
-                //delegate to fragment
-                (supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG) as AppDetailPagerFragment).presenter.actionButtonClick()
+            btn_actions?.let {
+                it.setOnClickListener { _ ->
+                    //delegate to fragment
+                    (supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG) as AppDetailPagerFragment).presenter.actionButtonClick()
+                }
             }
         }
     }
@@ -55,10 +68,6 @@ class AppDetailActivity : AppCompatActivity() {
             true
         }
         else -> super.onOptionsItemSelected(item)
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     companion object {

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.about.AboutFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.AppDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailFragment
 import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.list.LocalPermissionsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.settings.SettingsFragment

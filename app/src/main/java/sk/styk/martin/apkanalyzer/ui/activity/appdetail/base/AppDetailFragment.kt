@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.appdetail
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail.base
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
