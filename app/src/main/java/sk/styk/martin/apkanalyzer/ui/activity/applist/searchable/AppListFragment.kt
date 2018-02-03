@@ -151,7 +151,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
         // handle picked apk file and
         if (requestCode == ApkFilePicker.REQUEST_PICK_APK && resultCode == RESULT_OK) {
             val parentFragment = parentFragment as AppDetailFragment
-            parentFragment.itemClicked(null, ApkFilePicker.getPathFromIntentData(data!!, context)!!)
+            parentFragment.itemClicked(null, ApkFilePicker.getPathFromIntentData(data?.data))
         }
     }
 

@@ -1,7 +1,8 @@
 package sk.styk.martin.apkanalyzer.util.file
 
-import android.content.Context
 import android.content.Intent
+import android.net.Uri
+import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import java.io.File
 
 /**
@@ -20,8 +21,9 @@ object ApkFilePicker {
             return mediaIntent
         }
 
-    fun getPathFromIntentData(data: Intent, context: Context): String? {
-        val apkUri = data.data ?: return null
+    fun getPathFromIntentData(apkUri: Uri?): String? {
+        if (apkUri == null)
+            return null
 
         val fileFromPath = File(apkUri.path)
         if (fileFromPath.exists())

@@ -31,10 +31,6 @@ class AppDetailFragment : Fragment() {
         return rootView
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-
     fun itemClicked(packageName: String?, pathToPackage: String?) {
         if (isTwoPane) {
             val fragment = AppDetailPagerFragment.create(packageName = packageName, packagePath = pathToPackage)

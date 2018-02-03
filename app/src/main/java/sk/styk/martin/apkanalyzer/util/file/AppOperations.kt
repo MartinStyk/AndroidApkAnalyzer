@@ -9,7 +9,7 @@ import android.support.v4.content.FileProvider
 import android.util.Log
 import android.widget.Toast
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.OnInstallAppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.oninstall.OnInstallAppDetailActivity
 import java.io.File
 
 /**
