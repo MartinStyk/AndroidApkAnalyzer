@@ -9,7 +9,7 @@ import com.google.gson.GsonBuilder
  */
 class JsonSerializationUtils {
 
-    protected val gson = GsonBuilder()
+    val gson = GsonBuilder()
             .setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES)
             .setDateFormat("yyyy-MM-dd HH:mm a z").create()
 

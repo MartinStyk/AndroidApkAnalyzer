@@ -40,7 +40,7 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
             app_bar.setExpanded(false)
         } else {
             btn_actions!!.visibility = View.VISIBLE
-            btn_actions!!.setOnClickListener { view ->
+            btn_actions!!.setOnClickListener { _ ->
                 //delegate to fragment
                 (supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG) as AppDetailPagerFragment).presenter.actionButtonClick()
             }
