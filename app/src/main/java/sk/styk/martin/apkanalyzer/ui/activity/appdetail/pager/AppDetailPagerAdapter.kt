@@ -1,10 +1,23 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 
 import android.content.Context
+import android.os.Bundle
+import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.ActivityDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.feature.FeatureDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.CertificateDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.GeneralDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.ResourceDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider.ProviderDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.receiver.ReceiverDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.ServiceDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.StringListDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
+import java.util.*
 
 /**
  * @author Martin Styk
@@ -15,22 +28,70 @@ class AppDetailPagerAdapter(
         fm: FragmentManager,
         private val presenter: AppDetailPagerContract.Presenter) : FragmentStatePagerAdapter(fm) {
 
-    override fun getItem(position: Int): Fragment? =
-            when (position) {
-                0 -> presenter.getGeneralDetailsFragment()
-                1 -> presenter.getCertificateDetailsFragment()
-                2 -> presenter.getResourceDetailsFragment()
-                3 -> presenter.getActivityDetailsFragment()
-                4 -> presenter.getServiceDetailsFragment()
-                5 -> presenter.getProviderDetailsFragment()
-                6 -> presenter.getReceiverDetailsFragment()
-                7 -> presenter.getFeatureDetailsFragment()
-                8 -> presenter.getUsedPermissionDetailsFragment()
-                9 -> presenter.getDefinedPermissionDetailsFragment()
-                10 -> presenter.getClasspathDetailsFragment()
-                else -> null
+    override fun getItem(position: Int): Fragment? {
+        val fragment: Fragment
+        val args = Bundle()
+        when (position) {
+            0 -> {
+                args.putParcelable(ARG_PAGER_PAGE, presenter.getData()?.generalData)
+                fragment = GeneralDetailFragment()
             }
 
+            1 -> {
+                args.putParcelable(ARG_PAGER_PAGE, presenter.getData()?.certificateData)
+                fragment = CertificateDetailFragment()
+            }
+
+            2 -> {
+                args.putParcelable(ARG_PAGER_PAGE, presenter.getData()?.resourceData)
+                fragment = ResourceDetailFragment()
+            }
+
+            3 -> {
+                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.activityData as ArrayList<out Parcelable>)
+                fragment = ActivityDetailPageFragment()
+            }
+
+            4 -> {
+                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.serviceData as ArrayList<out Parcelable>)
+                fragment = ServiceDetailPageFragment()
+            }
+
+            5 -> {
+                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.contentProviderData as ArrayList<out Parcelable>)
+                fragment = ProviderDetailPageFragment()
+            }
+
+            6 -> {
+                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.broadcastReceiverData as ArrayList<out Parcelable>)
+                fragment = ReceiverDetailPageFragment()
+            }
+
+            7 -> {
+                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.featureData as ArrayList<out Parcelable>)
+                fragment = FeatureDetailPageFragment()
+            }
+
+            8 -> {
+                args.putStringArrayList(ARG_PAGER_PAGE, presenter.getData()?.permissionData?.usesPermissionsNames as ArrayList<String>)
+                fragment = StringListDetailPageFragment()
+            }
+
+            9 -> {
+                args.putStringArrayList(ARG_PAGER_PAGE, presenter.getData()?.permissionData?.definesPermissionsNames as ArrayList<String>)
+                fragment = StringListDetailPageFragment()
+            }
+
+            10 -> {
+                args.putParcelable(ARG_PAGER_PAGE, presenter.getData()?.classPathData)
+                fragment = StringListDetailPageFragment()
+            }
+
+            else -> return null
+        }
+        fragment.arguments = args
+        return fragment
+    }
 
     override fun getCount() = 11
 

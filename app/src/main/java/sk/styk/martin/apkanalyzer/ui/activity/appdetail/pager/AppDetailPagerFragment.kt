@@ -81,8 +81,6 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
     companion object {
 
         val TAG = AppDetailPagerFragment::class.java.simpleName!!
-        const val ARG_CHILD = "dataForChild"
-        private const val REQUEST_STORAGE_PERMISSION = 11
 
         fun create(packageName: String? = null, packagePath: String? = null): AppDetailPagerFragment {
             val arguments = Bundle()

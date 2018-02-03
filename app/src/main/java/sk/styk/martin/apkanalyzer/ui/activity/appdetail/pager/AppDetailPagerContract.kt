@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
@@ -28,17 +27,7 @@ interface AppDetailPagerContract {
 
         fun actionButtonClick()
 
-        fun getGeneralDetailsFragment(): Fragment
-        fun getCertificateDetailsFragment(): Fragment
-        fun getResourceDetailsFragment(): Fragment
-        fun getActivityDetailsFragment(): Fragment
-        fun getServiceDetailsFragment(): Fragment
-        fun getProviderDetailsFragment(): Fragment
-        fun getReceiverDetailsFragment(): Fragment
-        fun getFeatureDetailsFragment(): Fragment
-        fun getUsedPermissionDetailsFragment(): Fragment
-        fun getDefinedPermissionDetailsFragment(): Fragment
-        fun getClasspathDetailsFragment(): Fragment
+        fun getData(): AppDetailData?
     }
 
     companion object {

@@ -22,11 +22,5 @@ interface PermissionDetailPagerContract {
 
         fun loadPermissionDescription(packageManager: PackageManager): String
 
-        fun getGeneralDetailsFragment(): Fragment
-
-        fun getGrantedAppsFragment(): Fragment
-
-        fun getNotGrantedAppsFragment(): Fragment
-
     }
 }
