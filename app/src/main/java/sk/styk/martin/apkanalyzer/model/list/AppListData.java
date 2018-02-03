@@ -26,10 +26,8 @@ public class AppListData implements Parcelable {
     private int version;
     private boolean isSystemApp;
     private AppSource source;
-    private Drawable icon;
 
     private PackageManager packageManager;
-
     private ApplicationInfo applicationInfo;
 
     public AppListData(PackageInfo packageInfo, PackageManager packageManager) {
@@ -38,6 +36,15 @@ public class AppListData implements Parcelable {
         this.version = packageInfo.versionCode;
         this.isSystemApp = (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
         this.source = GeneralDataService.Companion.getAppSource(packageManager, getPackageName(), isSystemApp);
+    }
+
+    public AppListData() {
+    }
+
+    protected AppListData(Parcel in) {
+        this.packageName = in.readString();
+        this.applicationName = in.readString();
+        this.version = in.readInt();
     }
 
     public String getApplicationName() {
@@ -61,10 +68,7 @@ public class AppListData implements Parcelable {
     }
 
     public Drawable getIcon() {
-        if (icon == null) {
-            icon = applicationInfo.loadIcon(packageManager);
-        }
-        return icon;
+        return applicationInfo.loadIcon(packageManager);
     }
 
     public boolean isSystemApp() {
@@ -117,15 +121,6 @@ public class AppListData implements Parcelable {
         dest.writeString(this.packageName);
         dest.writeString(this.applicationName);
         dest.writeInt(this.version);
-    }
-
-    public AppListData() {
-    }
-
-    protected AppListData(Parcel in) {
-        this.packageName = in.readString();
-        this.applicationName = in.readString();
-        this.version = in.readInt();
     }
 
     public static final Parcelable.Creator<AppListData> CREATOR = new Parcelable.Creator<AppListData>() {
