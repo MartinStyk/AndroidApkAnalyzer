@@ -15,7 +15,7 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData
 class AppListFromPackageNamesLoader(context: Context, private val packageNames: List<String>)
     : ApkAnalyzerAbstractAsyncLoader<List<AppListData>>(context) {
 
-    private val appBasicDataService = AppBasicDataService(context.packageManager)
+    private val appBasicDataService = AppBasicDataService(getContext().packageManager)
 
     override fun loadInBackground(): List<AppListData> {
         return appBasicDataService.getForPackageNames(packageNames)

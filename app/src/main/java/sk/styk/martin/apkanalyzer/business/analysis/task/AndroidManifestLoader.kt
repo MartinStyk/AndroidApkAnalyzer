@@ -14,7 +14,7 @@ import sk.styk.martin.apkanalyzer.business.analysis.logic.AndroidManifestService
  */
 class AndroidManifestLoader(context: Context, private val packageName: String) : ApkAnalyzerAbstractAsyncLoader<String>(context) {
 
-    private val packageManager: PackageManager = context.packageManager
+    private val packageManager: PackageManager = getContext().packageManager
 
     override fun loadInBackground(): String {
         return AndroidManifestService(packageManager, packageName).loadAndroidManifest()

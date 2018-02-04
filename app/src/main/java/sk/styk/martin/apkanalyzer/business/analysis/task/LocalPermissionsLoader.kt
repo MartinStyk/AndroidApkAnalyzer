@@ -15,8 +15,8 @@ import java.lang.ref.WeakReference
 class LocalPermissionsLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<List<LocalPermissionData>>(context) {
 
     private lateinit var callbackReference: WeakReference<ProgressCallback>
-    private val appBasicDataService = AppBasicDataService(context.packageManager)
-    private val localPermissionsDataService = LocalPermissionsDataService(context.packageManager)
+    private val appBasicDataService = AppBasicDataService(getContext().packageManager)
+    private val localPermissionsDataService = LocalPermissionsDataService(getContext().packageManager)
 
     interface ProgressCallback {
         fun onProgressChanged(currentProgress: Int, maxProgress: Int)
