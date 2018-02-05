@@ -29,19 +29,19 @@ class IntroActivity : AppIntro() {
         val permissionsAppsSlide = SliderPage()
         permissionsAppsSlide.title = getString(R.string.intro_permissions)
         permissionsAppsSlide.description = getString(R.string.intro_permissions_description)
-        analyzeAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
+        permissionsAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
         permissionsAppsSlide.imageDrawable = R.drawable.ic_permission
 
         val statisticsAppsSlide = SliderPage()
         statisticsAppsSlide.title = getString(R.string.intro_statistics)
         statisticsAppsSlide.description = getString(R.string.intro_statistics_description)
-        analyzeAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
+        statisticsAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
         statisticsAppsSlide.imageDrawable = R.drawable.ic_chart
 
         val uploadAppsSlide = SliderPage()
         uploadAppsSlide.title = getString(R.string.intro_upload)
         uploadAppsSlide.description = getString(R.string.intro_upload_description)
-        analyzeAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
+        uploadAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
         uploadAppsSlide.imageDrawable = R.drawable.ic_upload
 
         addSlide(AppIntroFragment.newInstance(analyzeAppsSlide))
