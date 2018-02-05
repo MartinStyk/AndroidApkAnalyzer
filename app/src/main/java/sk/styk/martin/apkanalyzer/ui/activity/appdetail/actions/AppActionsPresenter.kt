@@ -1,12 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
 import android.os.Bundle
-import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
-import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
-import sk.styk.martin.apkanalyzer.util.file.AppOperations
 
 
 /**
@@ -25,7 +21,7 @@ class AppActionsPresenter(
 
     override fun resume() {
         view.setUpViews()
-        if(appDetailData.isAnalyzedApkFile)
+        if (appDetailData.isAnalyzedApkFile)
             view.showOnlyApkFileRelatedActions()
     }
 
@@ -34,12 +30,12 @@ class AppActionsPresenter(
     }
 
     override fun shareClick() {
-        AppOperations.shareApkFile(context, appDetailData.generalData.apkDirectory)
+        view.startSharingActivity(appDetailData.generalData.apkDirectory)
         view.dismiss()
     }
 
     override fun showGooglePlayClick() {
-        AppOperations.openGooglePlay(context, appDetailData.generalData.packageName)
+        view.openGooglePlay(appDetailData.generalData.packageName)
         view.dismiss()
     }
 
@@ -54,18 +50,17 @@ class AppActionsPresenter(
     }
 
     override fun showSystemPageClick() {
-        AppOperations.openAppSystemPage(context, appDetailData.generalData.packageName)
+        view.openSystemAboutActivity(appDetailData.generalData.packageName)
         view.dismiss()
     }
 
     override fun installAppClick() {
-        AppOperations.installPackage(context, appDetailData.generalData.apkDirectory)
+        view.startApkInstall(appDetailData.generalData.apkDirectory)
         view.dismiss()
     }
 
     override fun exportApkFile() {
-        val targetFile = FileCopyService.startService(context, appDetailData)
-        view.createSnackbar(context.getString(R.string.copy_apk_background, targetFile))
+        view.startApkExport(appDetailData)
         view.dismiss()
     }
 

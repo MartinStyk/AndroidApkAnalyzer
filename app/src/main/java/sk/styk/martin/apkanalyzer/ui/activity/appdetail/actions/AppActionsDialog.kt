@@ -13,11 +13,13 @@ import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.dialog_apk_actions.*
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract.Companion.PACKAGE_TO_PERFORM_ACTIONS
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract.Companion.REQUEST_STORAGE_PERMISSION
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
+import sk.styk.martin.apkanalyzer.util.file.AppOperations
 
 
 /**
@@ -112,6 +114,27 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
                 createSnackbar(getString(R.string.permission_not_granted))
             }
         }
+    }
+
+    override fun startApkExport(appDetailData: AppDetailData) {
+        val targetFile = FileCopyService.startService(context, appDetailData)
+        createSnackbar(context.getString(R.string.copy_apk_background, targetFile))
+    }
+
+    override fun startSharingActivity(apkPath: String) {
+        AppOperations.shareApkFile(context, apkPath)
+    }
+
+    override fun openGooglePlay(packageName: String) {
+        AppOperations.openGooglePlay(context, packageName)
+    }
+
+    override fun openSystemAboutActivity(packageName: String) {
+        AppOperations.openAppSystemPage(context, packageName)
+    }
+
+    override fun startApkInstall(apkPath: String) {
+        AppOperations.installPackage(context, apkPath)
     }
 
     companion object {

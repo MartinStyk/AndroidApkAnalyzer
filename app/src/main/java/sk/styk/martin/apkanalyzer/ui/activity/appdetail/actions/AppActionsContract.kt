@@ -1,6 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
+import android.content.Context
 import android.os.Bundle
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 
@@ -23,6 +25,17 @@ interface AppActionsContract {
         fun openManifestActivity(packageName: String)
 
         fun askForStoragePermission()
+
+        fun startApkExport(appDetailData: AppDetailData)
+
+        fun startSharingActivity(apkPath : String)
+
+        fun openGooglePlay(packageName: String)
+
+        fun openSystemAboutActivity(packageName: String)
+
+        fun startApkInstall(apkPath: String)
+
     }
 
     interface Presenter : BasePresenter<View> {
