@@ -117,6 +117,8 @@
     <string name="share_apk_using">APK共有の使用</string>
     <string name="install_failed">APK分析がAPKのインストールに失敗しました。手動で行ってください</string>
     <string name="install_app">APKをインストールする</string>
+    <string name="detect_repackaged">原点を確認する</string>
+    <string name="copied_to_clipboard">クリップボードにコピーされました</string>
 
     <string name="online_scan">オンラインAPkスキャンを実行する - TODO</string>
     <string name="app_icon">アプリアイコン</string>
@@ -294,6 +296,19 @@
     <string name="permissions_protection_normal">ノーマル</string>
     <string name="permissions_protection_dangerous">危険な</string>
     <string name="permissions_protection_signature">署名</string>
+
+    <string name="no_internet_connection">インターネット接続なし</string>
+    <string name="no_internet_connection_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました.</string>
+    <string name="metadata_upload_not_allowed">Apkメタデータのアップロードが許可されていません</string>
+    <string name="metadata_upload_not_allowed_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました.</string>
+    <string name="service_not_available">サービスは利用できません</string>
+    <string name="service_not_available_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました. </string>
+    <string name="repackaged_error">エラー</string>
+    <string name="repackaged_error_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました.</string>
+
+    <string name="repackaged_result_nok">アプリが不審に思える</string>
+    <string name="repackaged_result_ok">アプリは安全です</string>
+    <string name="repackaged_result_insufficient">データ不足</string>
 
     <string-array name="android_versions">
         <item>Android 1</item>
