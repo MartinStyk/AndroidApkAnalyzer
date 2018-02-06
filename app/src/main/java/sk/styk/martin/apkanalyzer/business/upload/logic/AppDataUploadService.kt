@@ -70,7 +70,7 @@ class AppDataUploadService {
             }
 
             Log.i(TAG, String.format("Finished uploading package %s with response + %03d", serverSideAppData.packageName, responseCode))
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             Log.w(TAG, String.format("Upload of package %s failed with exception %s", serverSideAppData.packageName, e.toString()))
         }
 
