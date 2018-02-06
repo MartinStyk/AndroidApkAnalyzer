@@ -179,7 +179,7 @@
                 app:descriptionText="@string/first_install_description"
                 app:notShownExpression="0"
                 app:titleText="@string/first_install"
-                app:valueText="@{data.firstInstallTime != null ? DateUtils.formatDateTime(context, data.firstInstallTime, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME) : null}" />
+                app:valueText="@{data.firstInstallTime != null ? DateUtils.formatDateTime(context, safeUnbox(data.firstInstallTime), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME) : null}" />
 
             <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
                 android:id="@+id/item_last_update_time"
@@ -188,7 +188,7 @@
                 app:descriptionText="@string/last_update_description"
                 app:notShownExpression="0"
                 app:titleText="@string/last_update"
-                app:valueText="@{data.lastUpdateTime != null ? DateUtils.formatDateTime(context, data.lastUpdateTime, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME) : null}" />
+                app:valueText="@{data.lastUpdateTime != null ? DateUtils.formatDateTime(context, safeUnbox(data.lastUpdateTime), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME) : null}" />
 
         </LinearLayout>
 
