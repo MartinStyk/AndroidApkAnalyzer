@@ -31,46 +31,49 @@ import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
  */
 class MultipleAppDataUploadJob : JobService() {
 
-    private val task: Thread = object : Thread() {
-        override fun run() {
-            Log.i(MultipleAppDataUploadJob::class.java.name, "Upload of all apps was triggered")
-
-            if (!ConnectivityHelper.isUploadPossible(applicationContext)) {
-                jobFinished(jobParameters, false)
-                return
-            }
-
-            val apps = AppBasicDataService(packageManager).getForSources(false, AppSource.AMAZON_STORE, AppSource.GOOGLE_PLAY, AppSource.UNKNOWN)
-            val detailDataService = AppDetailDataService(packageManager)
-
-            for (app in apps) {
-
-                if (!SendDataService.isAlreadyUploaded(app.packageName, app.version, applicationContext)) {
-                    val appDetailData = detailDataService.get(app.packageName, null)
-                    AppDataUploadTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, appDetailData)
-                }
-
-                if (isInterrupted)
-                    break
-
-            }
-            jobFinished(jobParameters, false)
-        }
-    }
+    private var task: Thread? = null
 
     private lateinit var jobParameters: JobParameters
 
     override fun onStartJob(jobParameters: JobParameters): Boolean {
         this.jobParameters = jobParameters
-        task.start()
+        task = createWorkerThread()
+        task?.start()
         return true
     }
 
     override fun onStopJob(jobParameters: JobParameters): Boolean {
-        if (task.isAlive)
-            task.interrupt()
+        task?.let {
+            if (it.isAlive)
+                it.interrupt()
+        }
         return false
     }
+
+    private fun createWorkerThread(): Thread {
+        return Thread {
+            Log.i(MultipleAppDataUploadJob::class.java.name, "Upload of all apps was triggered")
+
+            if (ConnectivityHelper.isUploadPossible(applicationContext)) {
+                val apps = AppBasicDataService(packageManager).getForSources(false, AppSource.AMAZON_STORE, AppSource.GOOGLE_PLAY, AppSource.UNKNOWN)
+                val detailDataService = AppDetailDataService(packageManager)
+
+                for (app in apps) {
+
+                    if (!SendDataService.isAlreadyUploaded(app.packageName, app.version, applicationContext)) {
+                        val appDetailData = detailDataService.get(app.packageName, null)
+                        AppDataUploadTask().executeOnExecutor(AsyncTask.SERIAL_EXECUTOR, appDetailData)
+                    }
+
+                    if (Thread.interrupted())
+                        break
+                }
+            }
+
+            jobFinished(jobParameters, false)
+        }
+    }
+
 
     companion object {
 
