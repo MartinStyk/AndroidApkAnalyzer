@@ -14,6 +14,7 @@ import sk.styk.martin.apkanalyzer.model.detail.ClassPathData;
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData;
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData;
 import sk.styk.martin.apkanalyzer.model.detail.FileData;
+import sk.styk.martin.apkanalyzer.model.detail.FileEntry;
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData;
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData;
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData;
@@ -87,7 +88,7 @@ public class ServerSideAppData {
     private String dexHash;
     private String arscHash;
     private String manifestHash;
-    private List<String> pngHashes;
+    private List<FileEntry> pngHashes;
 
     private int numberDrawables;
     private int numberLayouts;
@@ -241,7 +242,7 @@ public class ServerSideAppData {
 
     private int computeOverallHash() {
         int result = 0;
-        result = 31 * result + (packageName != null ? packageName.hashCode() : 0);
+        result = 31 * result + packageName.hashCode();
         result = 31 * result + (certificateHash != null ? certificateHash.hashCode() : 0);
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);

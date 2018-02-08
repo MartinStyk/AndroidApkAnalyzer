@@ -3,6 +3,8 @@ package sk.styk.martin.apkanalyzer.util.networking
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.wifi.WifiManager
+import android.support.annotation.AnyThread
+import android.support.annotation.WorkerThread
 import android.util.Log
 import sk.styk.martin.apkanalyzer.util.SharedPreferencesHelper
 import sk.styk.martin.apkanalyzer.util.networking.ServerUrls.GENERATE_200
@@ -25,18 +27,22 @@ object ConnectivityHelper {
      *
      * @return true in case everything permits upload
      */
+    @WorkerThread
     fun isUploadPossible(context: Context): Boolean {
         return isConnectionAllowedByUser(context) && hasAccessToServer(context) && isWifiOnAndConnected(context)
     }
 
+    @AnyThread
     fun isConnectionAllowedByUser(context: Context): Boolean {
         return SharedPreferencesHelper(context).readBoolean(USER_CONNECT_ALLOWED)
     }
 
+    @AnyThread
     fun setConnectionAllowedByUser(context: Context, value: Boolean) {
         SharedPreferencesHelper(context).putBoolean(USER_CONNECT_ALLOWED, value)
     }
 
+    @WorkerThread
     fun hasAccessToServer(context: Context): Boolean {
         if (isNetworkAvailable(context)) {
             var connection: HttpURLConnection? = null
@@ -61,6 +67,7 @@ object ConnectivityHelper {
         return false
     }
 
+    @AnyThread
     fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = connectivityManager.activeNetworkInfo
@@ -68,6 +75,7 @@ object ConnectivityHelper {
         return activeNetworkInfo != null
     }
 
+    @AnyThread
     private fun isWifiOnAndConnected(context: Context): Boolean {
         val wifiManager = context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 

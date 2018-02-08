@@ -15,6 +15,6 @@ data class FileEntry(val path: String, val hash: String) : Parcelable {
     val fileName: String
         get() {
             val lastSlash = path.lastIndexOf("/")
-            return if (lastSlash < 0) path else path.substring(lastSlash)
+            return if (lastSlash < 0 || lastSlash >= path.length) path else path.substring(lastSlash +1)
         }
 }
