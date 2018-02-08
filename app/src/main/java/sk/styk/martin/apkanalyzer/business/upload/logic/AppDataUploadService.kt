@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.upload.logic
 
 import android.content.Context
+import android.support.annotation.WorkerThread
 import android.util.Log
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.business.database.service.SendDataService
@@ -18,6 +19,7 @@ import java.lang.ref.WeakReference
  * @author Martin Styk
  * @version 26.01.2018.
  */
+@WorkerThread
 class AppDataUploadService {
 
     private val TAG = AppDataUploadService::class.java.simpleName

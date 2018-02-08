@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.support.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData
@@ -14,6 +15,7 @@ import java.io.File
  * @author Martin Styk
  * @version 30.06.2017.
  */
+@WorkerThread
 class GeneralDataService {
 
     fun get(packageInfo: PackageInfo, packageManager: PackageManager, analysisMode: AppDetailData.AnalysisMode): GeneralData {

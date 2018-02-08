@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import android.support.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAggregate
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
@@ -11,6 +12,7 @@ import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
  * @author Martin Styk
  * @version 30.06.2017.
  */
+@WorkerThread
 class PermissionsService {
 
     fun get(packageInfo: PackageInfo, packageManager: PackageManager): PermissionDataAggregate {

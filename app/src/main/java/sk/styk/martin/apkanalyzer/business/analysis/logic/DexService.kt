@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic
 
 import android.content.pm.PackageInfo
+import android.support.annotation.WorkerThread
 import android.util.Log
 import dalvik.system.DexFile
 import sk.styk.martin.apkanalyzer.model.detail.ClassPathData
@@ -11,6 +12,7 @@ import java.util.*
  * @author Martin Styk
  * @version 21.10.2017.
  */
+@WorkerThread
 class DexService {
 
     fun get(packageInfo: PackageInfo): ClassPathData {

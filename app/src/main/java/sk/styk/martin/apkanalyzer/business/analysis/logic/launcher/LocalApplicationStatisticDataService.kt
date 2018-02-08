@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
+import android.support.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.business.analysis.logic.AndroidManifestService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.CertificateService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.FileDataService
@@ -13,6 +14,7 @@ import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsAppData
  * @author Martin Styk
  * @version 28.07.2017.
  */
+@WorkerThread
 class LocalApplicationStatisticDataService(private val packageManager: PackageManager) {
 
     private val analysisFlags = PackageManager.GET_SIGNATURES or

@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic
 
 import android.content.pm.PackageInfo
+import android.support.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.CertificateData
 import sk.styk.martin.apkanalyzer.util.DigestHelper
 import java.io.ByteArrayInputStream
@@ -14,7 +15,7 @@ import javax.security.auth.x500.X500Principal.RFC1779
  * @author Martin Styk
  * @version 22.06.2017.
  */
-
+@WorkerThread
 class CertificateService {
 
     fun get(packageInfo: PackageInfo): CertificateData {

@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
+import android.support.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
@@ -13,6 +14,7 @@ import java.util.*
  * @author Martin Styk
  * @version 30.06.2017.
  */
+@WorkerThread
 class AppComponentsService {
 
     fun getActivities(packageInfo: PackageInfo, packageManager: PackageManager): List<ActivityData> {

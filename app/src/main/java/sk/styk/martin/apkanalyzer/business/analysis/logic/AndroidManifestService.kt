@@ -4,6 +4,7 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.content.res.XmlResourceParser
+import android.support.annotation.WorkerThread
 import android.text.TextUtils
 import java.io.ByteArrayInputStream
 import java.io.StringWriter
@@ -18,6 +19,7 @@ import javax.xml.transform.stream.StreamSource
  * @author Martin Styk
  * @version 22.06.2017.
  */
+@WorkerThread
 class AndroidManifestService(private val packageManager: PackageManager, private val packageName: String) {
 
     fun loadAndroidManifest(): String {

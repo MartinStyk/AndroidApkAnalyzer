@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic
 
 import android.content.pm.PackageInfo
+import android.support.annotation.WorkerThread
 import android.util.Log
 import sk.styk.martin.apkanalyzer.model.detail.FileData
 import sk.styk.martin.apkanalyzer.model.detail.FileEntry
@@ -15,6 +16,7 @@ import kotlin.collections.Map.Entry
  * @author Martin Styk
  * @version 30.06.2017.
  */
+@WorkerThread
 class FileDataService {
 
     fun get(packageInfo: PackageInfo): FileData {

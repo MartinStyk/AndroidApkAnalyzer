@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.support.annotation.WorkerThread
 import android.util.Log
 import sk.styk.martin.apkanalyzer.business.analysis.logic.AppComponentsService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.CertificateService
@@ -19,6 +20,7 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
  * @author Martin Styk
  * @version 14.06.2017.
  */
+@WorkerThread
 class AppDetailDataService(private val packageManager: PackageManager) {
     private val TAG = AppDetailDataService::class.java.simpleName
 

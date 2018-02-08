@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 
 import android.content.pm.PackageManager
+import android.support.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.util.AppBasicInfoComparator
@@ -13,6 +14,7 @@ import java.util.*
  * @author Martin Styk
  * @version 14.06.2017.
  */
+@WorkerThread
 class AppBasicDataService(val packageManager: PackageManager) {
 
     fun getAllPackageNames(): List<String> {

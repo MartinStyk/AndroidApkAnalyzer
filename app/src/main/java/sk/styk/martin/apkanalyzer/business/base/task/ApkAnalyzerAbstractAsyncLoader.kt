@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.base.task
 
 import android.content.Context
+import android.support.annotation.WorkerThread
 import android.support.v4.content.AsyncTaskLoader
 
 /**
@@ -19,6 +20,7 @@ abstract class ApkAnalyzerAbstractAsyncLoader<T> internal constructor(context: C
      * called in a background thread and should generate a new set of
      * data to be published by the loader.
      */
+    @WorkerThread
     abstract override fun loadInBackground(): T
 
 
