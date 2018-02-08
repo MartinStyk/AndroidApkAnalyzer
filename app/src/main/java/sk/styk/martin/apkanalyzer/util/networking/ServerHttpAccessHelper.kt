@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.util.networking
 
+import android.support.annotation.WorkerThread
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import java.io.ByteArrayOutputStream
@@ -10,6 +11,7 @@ import java.util.zip.GZIPOutputStream
  * @author Martin Styk
  * @version 12.11.2017.
  */
+@WorkerThread
 open class ServerHttpAccessHelper {
 
     internal var client = initClient()

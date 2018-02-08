@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.util.networking
 
+import android.support.annotation.WorkerThread
 import android.util.Log
 import okhttp3.Request
 import okhttp3.RequestBody
@@ -9,7 +10,7 @@ import java.io.IOException
  * @author Martin Styk
  * @version 11/8/17.
  */
-
+@WorkerThread
 object AppDataUploadServerHelper : ServerHttpAccessHelper() {
     private val TAG = AppDataUploadServerHelper::class.java.name
 

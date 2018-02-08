@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.util.networking
 
+import android.support.annotation.WorkerThread
 import android.util.Log
 import okhttp3.Request
 import java.io.IOException
@@ -8,7 +9,7 @@ import java.io.IOException
  * @author Martin Styk
  * @version 11/8/17.
  */
-
+@WorkerThread
 object RepackagedDetectionServerHelper : ServerHttpAccessHelper() {
     private val TAG = RepackagedDetectionServerHelper::class.java.name
 

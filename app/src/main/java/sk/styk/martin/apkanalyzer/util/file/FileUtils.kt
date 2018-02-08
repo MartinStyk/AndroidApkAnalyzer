@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.util.file
 
+import android.support.annotation.WorkerThread
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -12,6 +13,7 @@ import java.io.PrintWriter
  */
 object FileUtils {
 
+    @WorkerThread
     @Throws(IOException::class)
     fun copy(src: File, dst: File) {
 
@@ -28,6 +30,7 @@ object FileUtils {
         }
     }
 
+    @WorkerThread
     @Throws(IOException::class)
     fun writeString(content: String, targetFilePath: String) {
 
