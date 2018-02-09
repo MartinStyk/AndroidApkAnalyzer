@@ -283,7 +283,10 @@
     <string name="upload_dialog_description">Apk Analyzer would like to collect metadata about apps installed on your device. \nData are used for scientific purpose in research of repackaged malicious applications. \nYour personal application data are not included.\nData are uploaded only over WiFi. \nYou can later adjust your preference in settings</string>
 
 
-    <string name="permissions_number_apps">%1$d apps</string>
+    <plurals name="permissions_number_apps">
+        <item quantity="one">%1$d app</item>
+        <item quantity="other">%1$d apps</item>
+    </plurals>
     <string name="permissions_detail">Details</string>
     <string name="permissions_no_apps">No apps</string>
     <string name="permissions_granted">Granted</string>

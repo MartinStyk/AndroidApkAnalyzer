@@ -33,7 +33,7 @@ class PermissionListAdapter(override val presenter: LocalPermissionsContract.Pre
         override var affectedApps = 0
             set(value) {
                 field = value
-                view.findViewById<TextView>(R.id.affected_apps).text = view.context.getString(R.string.permissions_number_apps, value)
+                view.findViewById<TextView>(R.id.affected_apps).text = view.context.resources.getQuantityString(R.plurals.permissions_number_apps, value, value)
             }
 
         init {

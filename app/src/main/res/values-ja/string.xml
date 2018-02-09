@@ -278,7 +278,9 @@
     <string name="upload_dialog_title">アプリケーションメタデータ収集</string>
     <string name="upload_dialog_description">Apk Analyzerは、お使いのデバイスにインストールされているアプリについてのメタデータを収集したいと考えています。\nデータは、再パッケージ化された悪意のあるアプリケーションの研究に科学的目的で使用されます。\n個人のアプリケーションデータは含まれていません。\nデータはWiFi経由でのみアップロードされます。\n後で設定で環境設定を調整できます</string>
 
-    <string name="permissions_number_apps">%1$d アプリ</string>
+    <plurals name="permissions_number_apps">
+        <item quantity="other">%1$d アプリ</item>
+    </plurals>
     <string name="permissions_detail">詳細</string>
     <string name="permissions_no_apps">アプリなし</string>
     <string name="permissions_granted">付与された</string>
