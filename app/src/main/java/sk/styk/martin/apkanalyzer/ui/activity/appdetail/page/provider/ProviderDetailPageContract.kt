@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider
 
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
-import sk.styk.martin.apkanalyzer.model.detail.ServiceData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.ListDetailPageContract
 
 /**

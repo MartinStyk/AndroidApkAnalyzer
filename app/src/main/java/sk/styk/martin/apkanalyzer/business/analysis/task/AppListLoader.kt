@@ -4,9 +4,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
-
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataService
+import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 
 /**

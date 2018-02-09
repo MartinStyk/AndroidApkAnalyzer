@@ -2,9 +2,8 @@ package sk.styk.martin.apkanalyzer.business.analysis.task
 
 import android.content.Context
 import android.content.pm.PackageManager
-import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
-
 import sk.styk.martin.apkanalyzer.business.analysis.logic.AndroidManifestService
+import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 
 /**
  * Loader async task for loading android manifest content

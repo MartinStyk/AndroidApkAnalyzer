@@ -9,17 +9,15 @@
     <string name="navigation_drawer_open">ナビゲーションドローワーを開く</string>
     <string name="navigation_drawer_close">ナビゲーションドローワーを閉じる</string>
 
-    <string name="action_settings">設定</string>
     <string name="action_search">検索</string>
     <string name="action_filter">フィルター</string>
     <string name="action_save">保存</string>
     <string name="action_analyze_apk_from_file">分析するAPkファイルをストレージから選択</string>
-    <string name="title_item_list">アイテム</string>
     <string name="title_item_detail">アイテムの詳細</string>
     <string name="title_intro">イントロ</string>
     <string name="title_permissions">許可の詳細</string>
     <string name="title_manifest">AndroidManifest</string>
-    <string name="loading">読み込み中...</string>
+    <string name="loading">読み込み中…</string>
     <string name="loading_failed">読み込みに失敗しました。</string>
     <string name="error_loading_package_detail">APKの詳細を読み込むことができませんでした。</string>
     <string name="yes">はい</string>
@@ -43,7 +41,6 @@
     <string name="apps">アプリケーション</string>
     <string name="all_apps">全てのアプリ</string>
     <string name="system_apps">システムアプリ</string>
-    <string name="user_apps">ユーザーアプリ</string>
     <string name="app_list_empty">なんのアプリもインストールされていません。</string>
     <string name="google_play">Google Play</string>
     <string name="amazon_store">Amazonストア</string>
@@ -77,8 +74,6 @@
     <string name="install_loc_auto">自動</string>
     <string name="install_loc_internal_only">内部ストレージのみ</string>
     <string name="install_loc_prefer_external">外部ストレージを優先する</string>
-    <string name="install_loc_unspecified">未指定</string>
-
 
     <string name="application_name">アプリ名</string>
     <string name="package_name">パッケージ名</string>
@@ -120,7 +115,6 @@
     <string name="detect_repackaged">原点を確認する</string>
     <string name="copied_to_clipboard">クリップボードにコピーされました</string>
 
-    <string name="online_scan">オンラインAPkスキャンを実行する - TODO</string>
     <string name="app_icon">アプリアイコン</string>
 
 
@@ -274,9 +268,6 @@
 
     <string name="settings_allow_metadata_upload">メタデータをアップロード</string>
     <string name="settings_allow_metadata_upload_description"> Apk Analyzerがインストールされているアプリケーションに関するメタデータを収集できるようにしてください。\nMetadataには、アプリやデバイスのIDに関する情報が含まれています。それはあなたのデータを含んでいません。\nアプリケーションメタデータは科学的な目的で使用されます - 再パッケージ化されたAPKの研究。\nデータはWiFi経由でのみアップロードされます。\nプライバシーに関する詳細は<a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">プライバシーポリシー</a>からご確認ください。</string>
-
-    <string name="upload_dialog_title">アプリケーションメタデータ収集</string>
-    <string name="upload_dialog_description">Apk Analyzerは、お使いのデバイスにインストールされているアプリについてのメタデータを収集したいと考えています。\nデータは、再パッケージ化された悪意のあるアプリケーションの研究に科学的目的で使用されます。\n個人のアプリケーションデータは含まれていません。\nデータはWiFi経由でのみアップロードされます。\n後で設定で環境設定を調整できます</string>
 
     <plurals name="permissions_number_apps">
         <item quantity="other">%1$d アプリ</item>

@@ -9,8 +9,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
+import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
  * @author Martin Styk

@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 

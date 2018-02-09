@@ -275,10 +275,9 @@ public class AppListAdapter extends ArrayAdapter<AppListData> {
 
 
         private boolean matchesNameFilter(AppListData appListData) {
-            boolean result = currentStringFilter == null ||
+            return currentStringFilter == null ||
                     matchesNameFilter(appListData.getApplicationName().toLowerCase()) ||
                     matchesNameFilter(appListData.getPackageName().toLowerCase());
-            return result;
         }
 
         private boolean matchesNameFilter(String valueText) {
@@ -299,8 +298,7 @@ public class AppListAdapter extends ArrayAdapter<AppListData> {
 
         private boolean matchesSourceFilter(AppListData appListData) {
             AppSource itemSource = appListData.getSource();
-            boolean result = currentSourceFilter == null || currentSourceFilter.equals(itemSource);
-            return result;
+            return currentSourceFilter == null || currentSourceFilter.equals(itemSource);
         }
 
     }

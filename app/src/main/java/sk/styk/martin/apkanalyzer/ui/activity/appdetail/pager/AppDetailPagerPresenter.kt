@@ -1,26 +1,13 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 
 import android.os.Bundle
-import android.os.Parcelable
-import android.support.v4.app.Fragment
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.Loader
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppDetailLoader
 import sk.styk.martin.apkanalyzer.business.upload.task.AppDataUploadTask
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.ActivityDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.feature.FeatureDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.CertificateDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.GeneralDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.ResourceDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider.ProviderDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.receiver.ReceiverDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.ServiceDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.StringListDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
-import java.util.*
 
 
 /**
@@ -58,7 +45,7 @@ class AppDetailPagerPresenter(
             view.showLoadingFailed()
 
         } else {
-            view.showAppDetails(packageName = appDetailData.generalData.packageName, icon = appDetailData.generalData.icon);
+            view.showAppDetails(packageName = appDetailData.generalData.packageName, icon = appDetailData.generalData.icon)
 
             AppDataUploadTask().execute(appDetailData)
         }

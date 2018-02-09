@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_app_detail_activity.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider.FeatureDetailPagePresenter
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract
 
 /**

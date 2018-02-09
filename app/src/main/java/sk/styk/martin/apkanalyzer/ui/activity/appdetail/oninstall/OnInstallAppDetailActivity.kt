@@ -13,7 +13,6 @@ import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.OnInstallAppDetailPresenter
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 
 /**

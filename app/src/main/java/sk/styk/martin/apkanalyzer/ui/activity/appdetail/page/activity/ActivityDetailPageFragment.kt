@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_app_detail_activity.*
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
 import sk.styk.martin.apkanalyzer.R.layout.fragment_app_detail_activity
-import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 
@@ -30,7 +29,7 @@ class ActivityDetailPageFragment : Fragment(), ActivityDetailPageContract.View {
 
     override fun onViewCreated(view: android.view.View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.initialize(arguments.getParcelableArrayList<ActivityData>(ARG_PAGER_PAGE)
+        presenter.initialize(arguments.getParcelableArrayList(ARG_PAGER_PAGE)
                 ?: throw IllegalArgumentException("data null"))
         presenter.view = this
         presenter.getData()

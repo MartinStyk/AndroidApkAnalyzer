@@ -1,9 +1,8 @@
 package sk.styk.martin.apkanalyzer.business.analysis.task
 
 import android.content.Context
-import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
-
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppDetailDataService
+import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 
 /**

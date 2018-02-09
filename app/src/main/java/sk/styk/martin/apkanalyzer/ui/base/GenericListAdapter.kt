@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView
  * @author Martin Styk
  * @version 12.10.2017.
  */
-abstract class GenericListAdapter<VH : RecyclerView.ViewHolder>() : RecyclerView.Adapter<VH>() {
+abstract class GenericListAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.Adapter<VH>() {
 
     abstract val presenter: ListPresenter<VH>
 

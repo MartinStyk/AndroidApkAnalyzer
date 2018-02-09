@@ -31,8 +31,4 @@ interface OnInstallAppDetailContract {
 
 
     }
-
-    companion object {
-
-    }
 }

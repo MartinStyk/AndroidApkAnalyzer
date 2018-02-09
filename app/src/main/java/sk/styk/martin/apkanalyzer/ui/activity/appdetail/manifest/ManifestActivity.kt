@@ -97,7 +97,7 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
         fun createIntent(context: Context, packageName: String): Intent {
             val intent = Intent(context, ManifestActivity::class.java)
-            intent.putExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST, packageName);
+            intent.putExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST, packageName)
             return intent
         }
     }

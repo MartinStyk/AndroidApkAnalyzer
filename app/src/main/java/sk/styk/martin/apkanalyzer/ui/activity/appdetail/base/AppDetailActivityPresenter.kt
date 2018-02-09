@@ -1,7 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest
-
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivityContract
-
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail.base
 
 /**
  * @author Martin Styk

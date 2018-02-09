@@ -1,7 +1,6 @@
-package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.feature
 
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.feature.FeatureDetailPageContract
 
 
 /**

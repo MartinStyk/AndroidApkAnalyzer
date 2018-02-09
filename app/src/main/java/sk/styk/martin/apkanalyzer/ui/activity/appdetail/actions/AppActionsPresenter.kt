@@ -9,8 +9,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDete
  * @author Martin Styk
  * @version 28.01.2018.
  */
-class AppActionsPresenter(
-) : AppActionsContract.Presenter {
+class AppActionsPresenter : AppActionsContract.Presenter {
 
     override lateinit var view: AppActionsContract.View
     private lateinit var appDetailData: AppDetailData

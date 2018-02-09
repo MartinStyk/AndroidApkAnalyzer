@@ -3,8 +3,8 @@ package sk.styk.martin.apkanalyzer.business.upload.task
 import android.content.Context
 import android.util.Log
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
-import sk.styk.martin.apkanalyzer.business.upload.logic.AppDataUploadService
 import sk.styk.martin.apkanalyzer.business.database.service.SendDataService
+import sk.styk.martin.apkanalyzer.business.upload.logic.AppDataUploadService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
@@ -25,17 +25,17 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
 
         if (!ConnectivityHelper.isNetworkAvailable(context)) {
             Log.i(TAG, String.format("Not connected to internet"))
-            return LoaderResult.NotConnectedToInternet;
+            return LoaderResult.NotConnectedToInternet
         }
 
         if (!ConnectivityHelper.isConnectionAllowedByUser(context)) {
             Log.i(TAG, String.format("Connection to server not allowed by user"))
-            return LoaderResult.UserNotAllowedUpload;
+            return LoaderResult.UserNotAllowedUpload
         }
 
         if (!ConnectivityHelper.hasAccessToServer(context)) {
             Log.i(TAG, String.format("Apk Analyzer server is not available"))
-            return LoaderResult.ServiceNotAvailable;
+            return LoaderResult.ServiceNotAvailable
         }
 
         val uploadData = ServerSideAppData(data, AndroidIdHelper.getAndroidId(context))
@@ -46,7 +46,7 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
 
             if (!isDataOnServer) {
                 Log.w(TAG, String.format("Could not get the data to server"))
-                return LoaderResult.CommunicationError;
+                return LoaderResult.CommunicationError
             }
         }
 

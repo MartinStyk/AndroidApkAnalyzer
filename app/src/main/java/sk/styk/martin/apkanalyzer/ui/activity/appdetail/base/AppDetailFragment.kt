@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
+import sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListFragment
 
 /**
  * Parent fragment for AppListFragment and AppDetailPagerFragment.

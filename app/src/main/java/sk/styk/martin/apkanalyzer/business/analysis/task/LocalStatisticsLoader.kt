@@ -1,9 +1,9 @@
 package sk.styk.martin.apkanalyzer.business.analysis.task
 
 import android.content.Context
-import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.LocalApplicationStatisticDataService
+import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataBuilder
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import sk.styk.martin.apkanalyzer.util.ChartDataHelper

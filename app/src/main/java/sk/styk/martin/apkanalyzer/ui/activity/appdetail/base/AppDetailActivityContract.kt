@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.base
 
-import android.net.Uri
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
@@ -12,10 +11,5 @@ interface AppDetailActivityContract {
         fun setupViews()
     }
 
-    interface Presenter : BasePresenter<View> {
-    }
-
-    companion object {
-
-    }
+    interface Presenter : BasePresenter<View>
 }

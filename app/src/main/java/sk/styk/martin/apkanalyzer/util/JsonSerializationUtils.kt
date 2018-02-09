@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.util
 
 import com.google.gson.FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES
+import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 
 /**
@@ -9,7 +10,7 @@ import com.google.gson.GsonBuilder
  */
 class JsonSerializationUtils {
 
-    val gson = GsonBuilder()
+    val gson: Gson = GsonBuilder()
             .setFieldNamingPolicy(LOWER_CASE_WITH_UNDERSCORES)
             .setDateFormat("yyyy-MM-dd HH:mm a z").create()
 

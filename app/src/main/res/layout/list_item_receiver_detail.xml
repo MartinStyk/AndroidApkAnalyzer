@@ -33,7 +33,7 @@
                 android:id="@+id/item_receiver_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/receiver_exported_description"
+                app:descriptionText="@string/receiver_permission_description"
                 app:titleText="@string/receiver_permission"
                 app:valueText="@{data.permission ?? @string/none}" />
 
