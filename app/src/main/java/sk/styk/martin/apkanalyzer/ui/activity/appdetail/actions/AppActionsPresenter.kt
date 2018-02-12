@@ -60,7 +60,7 @@ class AppActionsPresenter : AppActionsContract.Presenter {
 
     override fun exportApkFile() {
         view.startApkExport(appDetailData)
-        view.dismiss()
+        view.dismissAllowingStateLoss()
     }
 
 }

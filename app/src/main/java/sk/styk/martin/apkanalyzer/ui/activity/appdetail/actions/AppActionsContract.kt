@@ -15,6 +15,8 @@ interface AppActionsContract {
 
         fun dismiss()
 
+        fun dismissAllowingStateLoss()
+
         fun showOnlyApkFileRelatedActions()
 
         fun createSnackbar(text: String)
@@ -25,7 +27,7 @@ interface AppActionsContract {
 
         fun askForStoragePermission()
 
-        fun startApkExport(appDetailData: AppDetailData)
+            fun startApkExport(appDetailData: AppDetailData)
 
         fun startSharingActivity(apkPath : String)
 
