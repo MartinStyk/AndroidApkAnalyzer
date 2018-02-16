@@ -15,8 +15,21 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+-keepattributes Signature
+-keepattributes *Annotation*
+-keep class okhttp3.** { *; }
+-keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
+-dontnote okhttp3.**
+
+# Okio
+-keep class sun.misc.Unsafe { *; }
+-dontwarn java.nio.file.*
 -dontwarn okio.**
+
 -dontwarn javax.annotation.**
 # A resource is loaded with a relative path so the package of this class must be preserved.
 -keep,includedescriptorclasses class *
+
+-keepclassmembers class sk.styk.martin.apkanalyzer.model** { <fields>; }
