@@ -60,9 +60,33 @@ class PermissionsService {
             requestedPermissions.add(UsedPermissionData(permissionData, isGranted))
         }
         return requestedPermissions
-
     }
 
+    companion object {
+        fun createSimpleName(name: String): String {
+            var simpleNameBuilder = StringBuilder(name)
+
+            val lastDot = name.lastIndexOf(".")
+            if (lastDot > 0 && lastDot < name.length)
+                simpleNameBuilder = StringBuilder(name.substring(lastDot + 1))
+
+            var i = 0
+            var previousSpace = false
+            while (++i < simpleNameBuilder.length) {
+                if (simpleNameBuilder[i] == '_') {
+                    simpleNameBuilder.replace(i, i + 1, " ")
+                    previousSpace = true
+                } else {
+                    if (!previousSpace) {
+                        val lowercase = Character.toLowerCase(simpleNameBuilder[i])
+                        simpleNameBuilder.replace(i, i + 1, lowercase.toString())
+                    }
+                    previousSpace = false
+                }
+            }
+            return simpleNameBuilder.toString()
+        }
+    }
 }
 
 
