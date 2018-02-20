@@ -54,11 +54,12 @@ class AppListDialog : DialogFragment(), AppListContract.View {
     }
 
     override fun hideLoading() {
-        //TODO("No loading bar here so far. Add One")
+        dialog.list_view_progress_bar.visibility = View.GONE
     }
 
     override fun nothingToDisplay() {
-        // this should never happen
+        dialog.list_view_progress_bar.visibility = View.GONE
+        dialog.nothing_to_show.visibility = View.VISIBLE
     }
 
     override fun showAppList() {
