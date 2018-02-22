@@ -88,21 +88,21 @@ public class ServerSideAppData {
     private String dexHash;
     private String arscHash;
     private String manifestHash;
-    private List<FileEntry> pngHashes;
+    private List<FileEntry> drawableHashes;
 
-    private int numberDrawables;
+    private int numberDrawablesByFolder;
     private int numberLayouts;
     private int numberMenus;
     private int numberFilesTotal;
 
-    private int numberPngs;
+    private int numberDrawablesByExtension;
     private int numberXmls;
     private int numberPngsWithDifferentName;
     private int numberXmlsWithDifferentName;
 
 
     // single combined appHash of all files in category
-    private int pngsAggregatedHash;
+    private int drawablesAggregatedHash;
     private int layoutsAggregatedHash;
     private int menusAggregatedHash;
 
@@ -195,19 +195,19 @@ public class ServerSideAppData {
         arscHash = fileData.getArscHash();
         manifestHash = fileData.getManifestHash();
 
-        pngHashes = fileData.getDrawableByExtension();
+        drawableHashes = fileData.getDrawableByExtension();
 
-        numberDrawables = fileData.getDrawableHashes().size();
+        numberDrawablesByFolder = fileData.getDrawableHashes().size();
         numberLayouts = fileData.getLayoutHashes().size();
         numberMenus = fileData.getMenuHashes().size();
         numberFilesTotal = fileData.getTotalFiles();
 
-        numberPngs = pngHashes.size();
+        numberDrawablesByExtension = drawableHashes.size();
         numberXmls = fileData.getNumberXmls();
         numberPngsWithDifferentName = fileData.getNumberPngsWithDifferentName();
         numberXmlsWithDifferentName = fileData.getNumberXmlsWithDifferentName();
 
-        pngsAggregatedHash = HashCodeHelper.INSTANCE.hashList(pngHashes);
+        drawablesAggregatedHash = HashCodeHelper.INSTANCE.hashList(drawableHashes);
         layoutsAggregatedHash = HashCodeHelper.INSTANCE.hashList(fileData.getOnlyHash(fileData.getLayoutHashes()));
         menusAggregatedHash = HashCodeHelper.INSTANCE.hashList(fileData.getOnlyHash(fileData.getMenuHashes()));
 
@@ -247,9 +247,9 @@ public class ServerSideAppData {
         result = 31 * result + (dexHash != null ? dexHash.hashCode() : 0);
         result = 31 * result + (arscHash != null ? arscHash.hashCode() : 0);
         result = 31 * result + (manifestHash != null ? manifestHash.hashCode() : 0);
-        result = 31 * result + numberPngs;
+        result = 31 * result + numberDrawablesByExtension;
         result = 31 * result + numberXmls;
-        result = 31 * result + pngsAggregatedHash;
+        result = 31 * result + drawablesAggregatedHash;
 
         return result;
     }
