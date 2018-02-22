@@ -25,12 +25,13 @@ data class FileData(
 ) : Parcelable {
 
 
-    val pngHashes: List<FileEntry>
+    val drawableByExtension: List<FileEntry>
         get() {
-            val pngs = ArrayList<FileEntry>()
-            drawableHashes.filter { it.path.endsWith(".png") }.mapTo(pngs){ FileEntry(it.fileName, it.hash) }
-            otherHashes.filter { it.path.endsWith(".png") }.mapTo(pngs){FileEntry(it.fileName, it.hash)}
-            return pngs
+            val imageRegex = Regex(".*(png|gif|jpg|bmp|webp)$")
+            val images = ArrayList<FileEntry>()
+            drawableHashes.filter { imageRegex.containsMatchIn(it.path)}.mapTo(images){ FileEntry(it.fileName, it.hash) }
+            otherHashes.filter { imageRegex.containsMatchIn(it.path) }.mapTo(images){FileEntry(it.fileName, it.hash)}
+            return images
         }
 
     val totalFiles: Int

@@ -195,7 +195,7 @@ public class ServerSideAppData {
         arscHash = fileData.getArscHash();
         manifestHash = fileData.getManifestHash();
 
-        pngHashes = fileData.getPngHashes();
+        pngHashes = fileData.getDrawableByExtension();
 
         numberDrawables = fileData.getDrawableHashes().size();
         numberLayouts = fileData.getLayoutHashes().size();
