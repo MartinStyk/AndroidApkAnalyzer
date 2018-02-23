@@ -8,6 +8,9 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import sk.styk.martin.apkanalyzer.R
@@ -17,6 +20,9 @@ import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFra
 import sk.styk.martin.apkanalyzer.ui.activity.permission.list.LocalPermissionsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.settings.SettingsFragment
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper
+import com.google.android.gms.ads.AdListener
+
+
 
 /**
  * @author Martin Styk
@@ -42,6 +48,37 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigation_view.setCheckedItem(R.id.nav_app_list)
             supportFragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, AppDetailFragment()).commit()
         }
+
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713")
+
+        val adRequest = AdRequest.Builder()
+                .addTestDevice("72FEA8FEF46331E756C654CF5C76557C")
+                .addTestDevice("BF33B5A261F50A48670A239AF55828FF")
+                .build()
+
+        ad_view.loadAd(adRequest)
+        ad_view.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                ad_view.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    public override fun onPause() {
+        ad_view?.pause()
+        super.onPause()
+    }
+
+    public override fun onResume() {
+        super.onResume()
+        ad_view?.resume()
+    }
+
+    public override fun onDestroy() {
+        ad_view?.destroy()
+        super.onDestroy()
     }
 
     override fun onBackPressed() {

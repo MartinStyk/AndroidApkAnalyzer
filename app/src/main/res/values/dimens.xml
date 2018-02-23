@@ -19,4 +19,9 @@
 
     <dimen name="text_size_super_small">10sp</dimen>
 
+    <dimen name="ad_banner_height_small">32dp</dimen>
+    <dimen name="ad_banner_height_medium">50dp</dimen>
+    <dimen name="ad_banner_height_large">90dp</dimen>
+
+
 </resources>

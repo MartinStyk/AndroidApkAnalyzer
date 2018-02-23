@@ -5,6 +5,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
+import android.view.View
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
@@ -59,6 +63,42 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
                 }
             }
         }
+
+        MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713")
+        val adRequest = AdRequest.Builder()
+                .addTestDevice("72FEA8FEF46331E756C654CF5C76557C")
+                .build()
+
+        ad_view?.loadAd(adRequest)
+        ad_view?.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                super.onAdLoaded()
+                ad_view?.visibility = View.VISIBLE
+                val displayHeight = resources.displayMetrics.heightPixels / resources.displayMetrics.density
+                val bannerHeight = when {
+                    displayHeight <= 400 -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_small)
+                    displayHeight > 400 && displayHeight < 720 -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_medium)
+                    else -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_large)
+                }
+
+                item_detail_container.setPadding(0, 0, 0, bannerHeight)
+            }
+        }
+    }
+
+    public override fun onPause() {
+        ad_view?.pause()
+        super.onPause()
+    }
+
+    public override fun onResume() {
+        super.onResume()
+        ad_view?.resume()
+    }
+
+    public override fun onDestroy() {
+        ad_view?.destroy()
+        super.onDestroy()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
