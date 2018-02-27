@@ -11,8 +11,8 @@ android {
         applicationId "sk.styk.martin.apkanalyzer"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 23
-        versionName "2.2.2"
+        versionCode 24
+        versionName "2.2.3"
     }
     buildTypes {
         release {
