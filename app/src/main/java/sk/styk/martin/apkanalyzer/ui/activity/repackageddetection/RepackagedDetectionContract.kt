@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
 
+import lecho.lib.hellocharts.model.PieChartData
 import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
@@ -14,11 +15,11 @@ interface RepackagedDetectionContract {
 
         fun hideLoading()
 
-        fun showAppOk(result: RepackagedDetectionResult)
+        fun showAppOk(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData)
 
-        fun showAppNotOk(result: RepackagedDetectionResult)
+        fun showAppNotOk(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData)
 
-        fun showAppNotDetected(result: RepackagedDetectionResult)
+        fun showAppNotDetected(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData)
 
         fun showNoInternetConnection()
 

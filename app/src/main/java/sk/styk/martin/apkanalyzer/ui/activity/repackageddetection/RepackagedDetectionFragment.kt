@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_repackaged_detection.*
+import lecho.lib.hellocharts.model.PieChartData
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.upload.task.RepackagedDetectionLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
@@ -47,22 +48,37 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_loading_data.visibility = View.GONE
     }
 
-    override fun showAppOk(result: RepackagedDetectionResult) {
+    override fun showAppOk(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData) {
         repackaged_image.setImageResource(R.drawable.ic_ok)
         repackaged_header.text = getString(R.string.repackaged_result_ok)
-        repackaged_description.text = result.toString()
+        repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
+                result.totalDifferentRepackagedApps,
+                result.totalDifferentRepackagedApps,
+                result.totalRepackagedApps)
+        repackaged_description_detail.text = getString(R.string.repackaged_result_ok_description)
+        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData)
     }
 
-    override fun showAppNotOk(result: RepackagedDetectionResult) {
+    override fun showAppNotOk(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData) {
         repackaged_image.setImageResource(R.drawable.ic_warning)
         repackaged_header.text = getString(R.string.repackaged_result_nok)
-        repackaged_description.text = result.toString()
+        repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
+                result.totalDifferentRepackagedApps,
+                result.totalDifferentRepackagedApps,
+                result.totalRepackagedApps)
+        repackaged_description_detail.text = getString(R.string.repackaged_result_nok_description)
+        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData)
     }
 
-    override fun showAppNotDetected(result: RepackagedDetectionResult) {
+    override fun showAppNotDetected(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData) {
         repackaged_image.setImageResource(R.drawable.ic_android)
         repackaged_header.text = getString(R.string.repackaged_result_insufficient)
-        repackaged_description.text = result.toString()
+        repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
+                result.totalDifferentRepackagedApps,
+                result.totalDifferentRepackagedApps,
+                result.totalRepackagedApps)
+        repackaged_description_detail.text = getString(R.string.repackaged_result_insufficient_description)
+        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData)
     }
 
     override fun showNoInternetConnection() {
@@ -91,6 +107,18 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
 
     private fun currentData(): AppDetailData {
         return arguments.getParcelable(DATA)
+    }
+
+    private fun showRepackagedDetectionDetails(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData) {
+        repackaged_card_app_signature.visibility = View.VISIBLE
+        repackaged_app_signature_chart.pieChartData = appSignaturePieChartData
+        repackaged_app_signature_chart.startDataAnimation()
+        repackaged_app_signature_description.text = getString(R.string.repackaged_result_detection_app_signature, result.percentageSameSignature.toString())
+
+        repackaged_card_majority_signature.visibility = View.VISIBLE
+        repackaged_majority_signature_chart.pieChartData = majoritySignaturePieChartData
+        repackaged_majority_signature_chart.startDataAnimation()
+        repackaged_majority_signature_description.text = getString(R.string.repackaged_result_detection_majority_signature, result.percentageMajoritySignature.toString())
     }
 
     companion object {
