@@ -56,7 +56,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
                     analysisMode = AppDetailData.AnalysisMode.APK_FILE
                     packageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage!!, analysisFlags)
                 }
-                else -> throw IllegalArgumentException("At least one way to get package needs to be specified  [$packageName/$pathToPackage]")
+                else -> throw IllegalArgumentException("At least one way to getRepackagedDetectionResult package needs to be specified  [$packageName/$pathToPackage]")
             }
         } catch (e: Exception) {
             Log.e(TAG, "Can not read package info of package [$packageName/$pathToPackage] :$e")

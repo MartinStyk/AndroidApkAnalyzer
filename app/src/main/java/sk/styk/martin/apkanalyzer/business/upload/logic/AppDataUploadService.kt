@@ -9,7 +9,7 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
 import sk.styk.martin.apkanalyzer.util.AndroidIdHelper
 import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils
-import sk.styk.martin.apkanalyzer.util.networking.AppDataUploadServerHelper
+import sk.styk.martin.apkanalyzer.util.networking.ApkAnalyzerApi
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 import java.lang.ref.WeakReference
 
@@ -24,7 +24,6 @@ class AppDataUploadService {
 
     private val TAG = AppDataUploadService::class.java.simpleName
 
-    private val jsonSerializationUtils = JsonSerializationUtils()
     private val contextWeakReference = WeakReference<Context>(context)
 
     /**
@@ -57,7 +56,7 @@ class AppDataUploadService {
     fun uploadServerSideDataWithoutValidations(serverSideAppData: ServerSideAppData): Boolean {
         var isOnServer = false
         try {
-            val responseCode = AppDataUploadServerHelper.postData(jsonSerializationUtils.serialize(serverSideAppData), serverSideAppData.packageName)
+            val responseCode = ApkAnalyzerApi.instance.postAppData(serverSideAppData)
             when (responseCode) {
                 201 -> {
                     SendDataService.insert(serverSideAppData, context)

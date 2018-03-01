@@ -10,8 +10,8 @@ import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
 import sk.styk.martin.apkanalyzer.util.AndroidIdHelper
 import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils
+import sk.styk.martin.apkanalyzer.util.networking.ApkAnalyzerApi
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
-import sk.styk.martin.apkanalyzer.util.networking.RepackagedDetectionServerHelper
 
 /**
  * @author Martin Styk
@@ -45,13 +45,13 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
             val isDataOnServer = AppDataUploadService().uploadServerSideDataWithoutValidations(uploadData)
 
             if (!isDataOnServer) {
-                Log.w(TAG, String.format("Could not get the data to server"))
+                Log.w(TAG, String.format("Could not getRepackagedDetectionResult the data to server"))
                 return LoaderResult.CommunicationError
             }
         }
 
         try {
-            val (responseCode, responseBody) = RepackagedDetectionServerHelper.get(uploadData.appHash, packageName)
+            val (responseCode, responseBody) = ApkAnalyzerApi.instance.getRepackagedDetectionResult(uploadData.appHash, packageName)
             if (responseCode == 200) {
                 val result = JsonSerializationUtils().deserialize<RepackagedDetectionResult>(responseBody.toString())
                 return LoaderResult.Success(result)
