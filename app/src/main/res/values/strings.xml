@@ -308,6 +308,8 @@
     <string name="repackaged_result_ok">App is safe</string>
     <string name="repackaged_result_insufficient">Insufficient data</string>
 
+    <string name="repackaged_result_header">Detection status</string>
+
     <string name="repackaged_majority_signature_header">Majority signature</string>
     <string name="repackaged_app_signature_header">App signature</string>
     <string name="repackaged_global_signature_header">Signatures</string>
