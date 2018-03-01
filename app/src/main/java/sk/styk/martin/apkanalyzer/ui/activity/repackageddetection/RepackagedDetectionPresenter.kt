@@ -32,7 +32,7 @@ class RepackagedDetectionPresenter(
 
     override lateinit var view: RepackagedDetectionContract.View
     lateinit var appDetailData: AppDetailData
-    var repackagedDetectionResult: RepackagedDetectionResult? = null
+    private var repackagedDetectionResult: RepackagedDetectionResult? = null
 
     /**
      * Initializes the presenter by showing/hiding proper views and starting data loading.
@@ -58,13 +58,23 @@ class RepackagedDetectionPresenter(
             is RepackagedDetectionLoader.LoaderResult.Success -> {
                 repackagedDetectionResult = result.result
                 when (result.result.status) {
-                    RepackagedDetectionStatus.NOK -> view.showAppNotOk(result.result, generateAppSignatureChart(result.result),
-                            generateMajoritySignatureChart(result.result), generateSignaturesChart(result.result))
-                    RepackagedDetectionStatus.OK -> view.showAppOk(result.result, generateAppSignatureChart(result.result),
-                            generateMajoritySignatureChart(result.result), generateSignaturesChart(result.result))
-                    RepackagedDetectionStatus.INSUFFICIENT_DATA -> view.showAppNotDetected(result.result, generateAppSignatureChart(result.result),
-                            generateMajoritySignatureChart(result.result), generateSignaturesChart(result.result))
+                    RepackagedDetectionStatus.INSUFFICIENT_DATA -> {
+                        view.showAppNotDetected(result.result)
+                    }
+                    RepackagedDetectionStatus.NOK -> {
+                        view.showAppNotOk(result.result)
+                        view.showDetectionCharts(result.result, generateAppSignatureChart(result.result),
+                                generateMajoritySignatureChart(result.result),
+                                generateSignaturesChart(result.result))
+                    }
+                    RepackagedDetectionStatus.OK -> {
+                        view.showAppOk(result.result)
+                        view.showDetectionCharts(result.result, generateAppSignatureChart(result.result),
+                                generateMajoritySignatureChart(result.result),
+                                generateSignaturesChart(result.result))
+                    }
                 }
+
             }
             is RepackagedDetectionLoader.LoaderResult.NotConnectedToInternet -> view.showNoInternetConnection()
             is RepackagedDetectionLoader.LoaderResult.UserNotAllowedUpload -> view.showUploadNotAllowed()
@@ -124,7 +134,7 @@ class RepackagedDetectionPresenter(
     private fun generateSignaturesChart(result: RepackagedDetectionResult): ColumnChartData {
         val columns = ArrayList<Column>(result.signaturesNumberOfApps.size)
 
-       val sorted  = result.signaturesNumberOfApps.toList().sortedBy { (_, value) -> - value}.toMap()
+        val sorted = result.signaturesNumberOfApps.toList().sortedBy { (_, value) -> -value }.toMap()
 
         sorted.forEach {
             val color = if (it.key == appDetailData.certificateData.certificateHash)
