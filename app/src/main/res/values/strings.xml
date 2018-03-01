@@ -310,6 +310,7 @@
 
     <string name="repackaged_majority_signature_header">Majority signature</string>
     <string name="repackaged_app_signature_header">App signature</string>
+    <string name="repackaged_global_signature_header">Signatures</string>
 
     <plurals name="repackaged_result_detection_description_general">
         <item quantity="one">Apk Analyzer found only %1$d app like this one. This app is present on %1$d devices.</item>
@@ -319,8 +320,10 @@
     <string name="repackaged_result_nok_description">Based on our data presented below, your app might have been modified. If this app comes from alternative download sources, consider using som security app to check if it is safe.</string>
     <string name="repackaged_result_ok_description">Based on our data presented below, your app seems to be OK.</string>
 
+    <string name="repackaged_global_signature_description">Apps very similar to this one has been released and digitally signed by multiple developers. Above chart shows number of occurrences of similar apps from different developers.</string>
+
     <string name="repackaged_result_detection_app_signature">Based on app signature, %s %% of similar apps are from same developer as your app.</string>
-    <string name="repackaged_result_detection_app_signature_same_dev">From save developer: %s %%</string>
+    <string name="repackaged_result_detection_app_signature_same_dev">From same developer: %s %%</string>
     <string name="repackaged_result_detection_app_signature_other_devs">From other developers: %s %%</string>
 
     <string name="repackaged_result_detection_majority_signature">The most common digital signature signed %s %% of similar apps.</string>
