@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.Loader
@@ -33,6 +34,7 @@ class RepackagedDetectionPresenter(
     override lateinit var view: RepackagedDetectionContract.View
     lateinit var appDetailData: AppDetailData
     private var repackagedDetectionResult: RepackagedDetectionResult? = null
+    private val PIE_CHART_CURRENT_APP_SLICE = 0
 
     /**
      * Initializes the presenter by showing/hiding proper views and starting data loading.
@@ -87,6 +89,33 @@ class RepackagedDetectionPresenter(
     }
 
     override fun onLoaderReset(loader: Loader<RepackagedDetectionLoader.LoaderResult>?) {}
+
+    override fun onSignatureColumnTouch(columnIndex : Int){
+        val touchedEntry = repackagedDetectionResult?.signaturesNumberOfApps?.toList()?.sortedBy { (_, value) -> -value }?.get(columnIndex)
+        touchedEntry?.let {
+            if (touchedEntry.first.equals(appDetailData.certificateData.certificateHash)){
+                view.makeSnack(R.string.repackaged_global_signature_current_app_touch)
+            } else {
+                view.makeSnack(R.string.repackaged_global_signature_other_app_touch)
+            }
+        }
+    }
+
+    override fun onThisAppSignatureRatioPieTouch(arcIndex: Int) {
+        if(arcIndex == PIE_CHART_CURRENT_APP_SLICE){
+            view.makeSnack(R.string.repackaged_result_detection_app_signature_same_dev_touch)
+        } else {
+            view.makeSnack(R.string.repackaged_result_detection_app_signature_other_devs_touch)
+        }
+    }
+
+    override fun onMajoritySignatureRatioPieTouch(arcIndex: Int) {
+        if(arcIndex == PIE_CHART_CURRENT_APP_SLICE){
+            view.makeSnack(R.string.repackaged_result_detection_majority_signature_most_common_devs_touch)
+        } else {
+            view.makeSnack(R.string.repackaged_result_detection_majority_signature_other_devs_touch)
+        }
+    }
 
     private fun generateAppSignatureChart(result: RepackagedDetectionResult): PieChartData {
         val percentageSameSignature = result.percentageSameSignature
