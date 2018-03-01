@@ -43,10 +43,14 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
 
     override fun showLoading() {
         repackaged_loading_data.visibility = View.VISIBLE
+        repackaged_content.visibility = View.GONE
+
     }
 
     override fun hideLoading() {
         repackaged_loading_data.visibility = View.GONE
+        repackaged_content.visibility = View.VISIBLE
+
     }
 
     override fun showAppOk(result: RepackagedDetectionResult) {

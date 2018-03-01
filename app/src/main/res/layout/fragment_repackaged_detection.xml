@@ -21,40 +21,60 @@
             android:layout_centerInParent="true" />
 
         <LinearLayout
+            android:id="@+id/repackaged_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/repackaged_image"
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:contentDescription="@string/detect_repackaged" />
+                android:layout_height="match_parent"
+                app:cardUseCompatPadding="true">
 
-            <TextView
-                android:id="@+id/repackaged_header"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="@dimen/activity_vertical_margin"
-                android:textAppearance="?android:textAppearanceLarge" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/repackaged_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"/>
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/repackaged_result_header" />
 
-            <TextView
-                android:id="@+id/repackaged_description_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingBottom="@dimen/padding_default" />
+                    <ImageView
+                        android:id="@+id/repackaged_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:contentDescription="@string/detect_repackaged" />
+
+                    <TextView
+                        android:id="@+id/repackaged_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:padding="@dimen/activity_vertical_margin"
+                        android:textAppearance="?android:textAppearanceLarge" />
+
+                    <TextView
+                        android:id="@+id/repackaged_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_default"/>
+
+                    <TextView
+                        android:id="@+id/repackaged_description_detail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_default" />
+                </LinearLayout>
+            </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:id="@+id/repackaged_card_signatures_chart"
@@ -89,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="@dimen/padding_default"
-                        android:text="@string/repackaged_global_signature_description"/>
+                        android:text="@string/repackaged_global_signature_description" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>

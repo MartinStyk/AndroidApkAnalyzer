@@ -60,6 +60,9 @@ class RepackagedDetectionPresenter(
                 when (result.result.status) {
                     RepackagedDetectionStatus.INSUFFICIENT_DATA -> {
                         view.showAppNotDetected(result.result)
+                        view.showDetectionCharts(result.result, generateAppSignatureChart(result.result),
+                                generateMajoritySignatureChart(result.result),
+                                generateSignaturesChart(result.result))
                     }
                     RepackagedDetectionStatus.NOK -> {
                         view.showAppNotOk(result.result)
