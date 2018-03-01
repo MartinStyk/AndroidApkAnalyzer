@@ -1,13 +1,18 @@
 package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_repackaged_detection.*
+import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener
+import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener
 import lecho.lib.hellocharts.model.ColumnChartData
 import lecho.lib.hellocharts.model.PieChartData
+import lecho.lib.hellocharts.model.SliceValue
+import lecho.lib.hellocharts.model.SubcolumnValue
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.upload.task.RepackagedDetectionLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
@@ -107,8 +112,8 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_description.text = getString(R.string.service_not_available_description)
     }
 
-    private fun currentData(): AppDetailData {
-        return arguments.getParcelable(DATA)
+    override fun makeSnack(stringId: Int) {
+        Snackbar.make(activity.findViewById(android.R.id.content), stringId, Snackbar.LENGTH_LONG).show()
     }
 
     override fun showDetectionCharts(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData,
@@ -117,16 +122,38 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_global_signature_chart.isZoomEnabled = false
         repackaged_global_signature_chart.columnChartData = signatureColumnChartData
         repackaged_global_signature_chart.startDataAnimation()
+        repackaged_global_signature_chart.onValueTouchListener = object : ColumnChartOnValueSelectListener {
+            override fun onValueSelected(columnIndex: Int, subcolumnIndex: Int, value: SubcolumnValue) =
+                    presenter.onSignatureColumnTouch(columnIndex)
+
+            override fun onValueDeselected() {}
+        }
 
         repackaged_card_app_signature.visibility = View.VISIBLE
         repackaged_app_signature_chart.pieChartData = appSignaturePieChartData
         repackaged_app_signature_chart.startDataAnimation()
+        repackaged_app_signature_chart.onValueTouchListener = object : PieChartOnValueSelectListener {
+            override fun onValueSelected(arcIndex: Int, value: SliceValue) =
+                    presenter.onThisAppSignatureRatioPieTouch(arcIndex)
+
+            override fun onValueDeselected() {}
+        }
         repackaged_app_signature_description.text = getString(R.string.repackaged_result_detection_app_signature, result.percentageSameSignature.toString())
 
         repackaged_card_majority_signature.visibility = View.VISIBLE
         repackaged_majority_signature_chart.pieChartData = majoritySignaturePieChartData
         repackaged_majority_signature_chart.startDataAnimation()
+        repackaged_majority_signature_chart.onValueTouchListener = object : PieChartOnValueSelectListener {
+            override fun onValueSelected(arcIndex: Int, value: SliceValue) =
+                    presenter.onMajoritySignatureRatioPieTouch(arcIndex)
+
+            override fun onValueDeselected() {}
+        }
         repackaged_majority_signature_description.text = getString(R.string.repackaged_result_detection_majority_signature, result.percentageMajoritySignature.toString())
+    }
+
+    private fun currentData(): AppDetailData {
+        return arguments.getParcelable(DATA)
     }
 
     companion object {
