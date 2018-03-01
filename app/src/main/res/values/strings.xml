@@ -308,6 +308,25 @@
     <string name="repackaged_result_ok">App is safe</string>
     <string name="repackaged_result_insufficient">Insufficient data</string>
 
+    <string name="repackaged_majority_signature_header">Majority signature</string>
+    <string name="repackaged_app_signature_header">App signature</string>
+
+    <plurals name="repackaged_result_detection_description_general">
+        <item quantity="one">Apk Analyzer found only %1$d app like this one. This app is present on %1$d devices.</item>
+        <item quantity="other">Apk Analyzer found %1$d apps very similar to this one. This apps are present on %1$d devices.</item>
+    </plurals>
+    <string name="repackaged_result_insufficient_description">Our data is not sufficient to make any assumptions about originality of this app.</string>
+    <string name="repackaged_result_nok_description">Based on our data presented below, your app might have been modified. If this app comes from alternative download sources, consider using som security app to check if it is safe.</string>
+    <string name="repackaged_result_ok_description">Based on our data presented below, your app seems to be OK.</string>
+
+    <string name="repackaged_result_detection_app_signature">Based on app signature, %s %% of similar apps are from same developer as your app.</string>
+    <string name="repackaged_result_detection_app_signature_same_dev">From save developer: %s %%</string>
+    <string name="repackaged_result_detection_app_signature_other_devs">From other developers: %s %%</string>
+
+    <string name="repackaged_result_detection_majority_signature">The most common digital signature signed %s %% of similar apps.</string>
+    <string name="repackaged_result_detection_majority_signature_other_devs">Other developer apps: %s %%</string>
+    <string name="repackaged_result_detection_majority_signature_most_common_devs">Most common developer apps: %s %%</string>
+
     <string-array name="android_versions">
         <item>Android 1</item>
         <item>Android 1.1 Petit Four</item>
