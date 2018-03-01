@@ -17,14 +17,14 @@ interface RepackagedDetectionContract {
 
         fun hideLoading()
 
-        fun showAppOk(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData,
-                      signatureColumnChartData: ColumnChartData)
+        fun showAppOk(result: RepackagedDetectionResult)
 
-        fun showAppNotOk(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData,
-                         signatureColumnChartData: ColumnChartData)
+        fun showAppNotOk(result: RepackagedDetectionResult)
 
-        fun showAppNotDetected(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData,
-                               signatureColumnChartData: ColumnChartData)
+        fun showAppNotDetected(result: RepackagedDetectionResult)
+
+        fun showDetectionCharts(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData,
+                                majoritySignaturePieChartData: PieChartData, signatureColumnChartData: ColumnChartData)
 
         fun showNoInternetConnection()
 
