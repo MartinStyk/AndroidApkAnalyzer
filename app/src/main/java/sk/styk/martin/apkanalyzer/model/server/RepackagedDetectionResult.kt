@@ -11,5 +11,6 @@ data class RepackagedDetectionResult(
         var totalRepackagedApps: Int,
         var totalDifferentRepackagedApps: Int,
         var percentageMajoritySignature: BigDecimal,
-        var percentageSameSignature: BigDecimal
+        var percentageSameSignature: BigDecimal,
+        var signaturesNumberOfApps: Map<String, Int>
 )

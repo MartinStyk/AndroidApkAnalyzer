@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_repackaged_detection.*
+import lecho.lib.hellocharts.model.ColumnChartData
 import lecho.lib.hellocharts.model.PieChartData
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.upload.task.RepackagedDetectionLoader
@@ -37,7 +38,7 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.view = this
-        presenter.initialize()
+        presenter.initialize(currentData())
     }
 
     override fun showLoading() {
@@ -48,7 +49,10 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_loading_data.visibility = View.GONE
     }
 
-    override fun showAppOk(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData) {
+    override fun showAppOk(result: RepackagedDetectionResult,
+                           appSignaturePieChartData: PieChartData,
+                           majoritySignaturePieChartData: PieChartData,
+                           signatureColumnChartData: ColumnChartData) {
         repackaged_image.setImageResource(R.drawable.ic_ok)
         repackaged_header.text = getString(R.string.repackaged_result_ok)
         repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
@@ -56,10 +60,13 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
                 result.totalDifferentRepackagedApps,
                 result.totalRepackagedApps)
         repackaged_description_detail.text = getString(R.string.repackaged_result_ok_description)
-        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData)
+        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData, signatureColumnChartData)
     }
 
-    override fun showAppNotOk(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData) {
+    override fun showAppNotOk(result: RepackagedDetectionResult,
+                              appSignaturePieChartData: PieChartData,
+                              majoritySignaturePieChartData: PieChartData,
+                              signatureColumnChartData: ColumnChartData) {
         repackaged_image.setImageResource(R.drawable.ic_warning)
         repackaged_header.text = getString(R.string.repackaged_result_nok)
         repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
@@ -67,10 +74,13 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
                 result.totalDifferentRepackagedApps,
                 result.totalRepackagedApps)
         repackaged_description_detail.text = getString(R.string.repackaged_result_nok_description)
-        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData)
+        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData,signatureColumnChartData)
     }
 
-    override fun showAppNotDetected(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData) {
+    override fun showAppNotDetected(result: RepackagedDetectionResult,
+                                    appSignaturePieChartData: PieChartData,
+                                    majoritySignaturePieChartData: PieChartData,
+                                    signatureColumnChartData: ColumnChartData) {
         repackaged_image.setImageResource(R.drawable.ic_android)
         repackaged_header.text = getString(R.string.repackaged_result_insufficient)
         repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
@@ -78,7 +88,7 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
                 result.totalDifferentRepackagedApps,
                 result.totalRepackagedApps)
         repackaged_description_detail.text = getString(R.string.repackaged_result_insufficient_description)
-        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData)
+        showRepackagedDetectionDetails(result, appSignaturePieChartData, majoritySignaturePieChartData,signatureColumnChartData)
     }
 
     override fun showNoInternetConnection() {
@@ -109,7 +119,15 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         return arguments.getParcelable(DATA)
     }
 
-    private fun showRepackagedDetectionDetails(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData, majoritySignaturePieChartData: PieChartData) {
+    private fun showRepackagedDetectionDetails(result: RepackagedDetectionResult,
+                                               appSignaturePieChartData: PieChartData,
+                                               majoritySignaturePieChartData: PieChartData,
+                                               signatureColumnChartData: ColumnChartData) {
+        repackaged_card_signatures_chart.visibility = View.VISIBLE
+        repackaged_global_signature_chart.isZoomEnabled = false
+        repackaged_global_signature_chart.columnChartData = signatureColumnChartData
+        repackaged_global_signature_chart.startDataAnimation()
+
         repackaged_card_app_signature.visibility = View.VISIBLE
         repackaged_app_signature_chart.pieChartData = appSignaturePieChartData
         repackaged_app_signature_chart.startDataAnimation()

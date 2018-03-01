@@ -57,6 +57,44 @@
                 android:paddingBottom="@dimen/padding_default" />
 
             <android.support.v7.widget.CardView
+                android:id="@+id/repackaged_card_signatures_chart"
+                style="@style/DetailCardView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    style="@style/ItemDetailLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/ItemDetailCardViewHeader"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/repackaged_global_signature_header" />
+
+                    <lecho.lib.hellocharts.view.ColumnChartView
+                        android:id="@+id/repackaged_global_signature_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="200dp"
+                        android:padding="@dimen/padding_default" />
+
+                    <TextView
+                        android:id="@+id/repackaged_global_signature_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="@dimen/padding_default"
+                        android:text="@string/repackaged_global_signature_description"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
                 android:id="@+id/repackaged_card_app_signature"
                 style="@style/DetailCardView"
                 android:layout_width="match_parent"
