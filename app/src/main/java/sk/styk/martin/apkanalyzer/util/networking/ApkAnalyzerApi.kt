@@ -10,6 +10,7 @@ import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
 import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils
 import java.io.ByteArrayOutputStream
 import java.io.IOException
+import java.util.concurrent.TimeUnit
 import java.util.zip.GZIPOutputStream
 
 /**
@@ -30,6 +31,9 @@ class ApkAnalyzerApi private constructor() {
     }
 
     private val client = OkHttpClient.Builder()
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(1, TimeUnit.MINUTES)
+            .readTimeout(1, TimeUnit.MINUTES)
             .addInterceptor(BasicAuthInterceptor())
             .build()
 
