@@ -315,22 +315,29 @@
     <string name="repackaged_global_signature_header">Signatures</string>
 
     <plurals name="repackaged_result_detection_description_general">
-        <item quantity="one">Apk Analyzer found only %1$d app like this one. This app is present on %1$d devices.</item>
-        <item quantity="other">Apk Analyzer found %1$d apps very similar to this one. This apps are present on %1$d devices.</item>
+        <item quantity="one">Apk Analyzer found only %1$d app like this. This app is present on %1$d devices.</item>
+        <item quantity="other">Apk Analyzer found %1$d apps very similar to this one. These apps are present on %1$d devices.</item>
     </plurals>
-    <string name="repackaged_result_insufficient_description">Our data is not sufficient to make any assumptions about originality of this app.</string>
-    <string name="repackaged_result_nok_description">Based on our data presented below, your app might have been modified. If this app comes from alternative download sources, consider using som security app to check if it is safe.</string>
+    <string name="repackaged_result_insufficient_description">Our data is not sufficient to make any assumptions on originality of this app.</string>
+    <string name="repackaged_result_nok_description">Based on our data presented below, your app might have been modified. If this app comes from alternative download source, consider using some security app to check if it is safe.</string>
     <string name="repackaged_result_ok_description">Based on our data presented below, your app seems to be OK.</string>
 
     <string name="repackaged_global_signature_description">Apps very similar to this one has been released and digitally signed by multiple developers. Above chart shows number of occurrences of similar apps from different developers.</string>
+    <string name="repackaged_global_signature_current_app_touch">Number of apps from the same developer as your app.</string>
+    <string name="repackaged_global_signature_other_app_touch">Number of apps from different developer than your app.</string>
 
-    <string name="repackaged_result_detection_app_signature">Based on app signature, %s %% of similar apps are from same developer as your app.</string>
-    <string name="repackaged_result_detection_app_signature_same_dev">From same developer: %s %%</string>
+    <string name="repackaged_result_detection_app_signature">Based on the app signature, %s %% of similar apps are from the same developer as your app.</string>
+    <string name="repackaged_result_detection_app_signature_same_dev">From the same developer: %s %%</string>
     <string name="repackaged_result_detection_app_signature_other_devs">From other developers: %s %%</string>
+    <string name="repackaged_result_detection_app_signature_same_dev_touch">Ratio of similar apps signed by same certificate (developer) as your app.</string>
+    <string name="repackaged_result_detection_app_signature_other_devs_touch">Ratio of similar apps signed by different certificate (developer) than your app.</string>
 
     <string name="repackaged_result_detection_majority_signature">The most common digital signature signed %s %% of similar apps.</string>
-    <string name="repackaged_result_detection_majority_signature_other_devs">Other developer apps: %s %%</string>
-    <string name="repackaged_result_detection_majority_signature_most_common_devs">Most common developer apps: %s %%</string>
+    <string name="repackaged_result_detection_majority_signature_most_common_devs">Apps from the most common developer: %s %%</string>
+    <string name="repackaged_result_detection_majority_signature_other_devs">Apps from other developers: %s %%</string>
+    <string name="repackaged_result_detection_majority_signature_most_common_devs_touch">Ratio of the most common signature found in set of apps similar to this one.</string>
+    <string name="repackaged_result_detection_majority_signature_other_devs_touch">Ratio of other than most common signature found in set of apps similar to this one.</string>
+
 
     <string-array name="android_versions">
         <item>Android 1</item>
