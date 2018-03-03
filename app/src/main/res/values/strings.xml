@@ -315,8 +315,8 @@
     <string name="repackaged_global_signature_header">Signatures</string>
 
     <plurals name="repackaged_result_detection_description_general">
-        <item quantity="one">Apk Analyzer found only %1$d app like this. This app is present on %1$d devices.</item>
-        <item quantity="other">Apk Analyzer found %1$d apps very similar to this one. These apps are present on %1$d devices.</item>
+        <item quantity="one">Apk Analyzer found only %1$d app like this. This app is present on %2$d  devices.</item>
+        <item quantity="other">Apk Analyzer found %1$d apps very similar to this one. These apps are present on %2$d  devices.</item>
     </plurals>
     <string name="repackaged_result_insufficient_description">Our data is not sufficient to make any assumptions on originality of this app.</string>
     <string name="repackaged_result_nok_description">Based on our data presented below, your app might have been modified. If this app comes from alternative download source, consider using some security app to check if it is safe.</string>
