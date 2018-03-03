@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
+import android.os.Build
 import android.support.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
@@ -25,8 +26,7 @@ class GeneralDataService {
         val isSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
         val appInstaller = findAppInstaller(packageInfo.packageName, packageManager)
 
-        val minSdk = if (analysisMode.toString() == AppDetailData.AnalysisMode.INSTALLED_PACKAGE.toString())
-            AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager) else null
+        val minSdk = getMinSdk(applicationInfo, packageManager, analysisMode)
 
         return GeneralData(
                 packageName = packageInfo.packageName,
@@ -61,6 +61,12 @@ class GeneralDataService {
 
     fun computeApkSize(sourceDir: String): Long = File(sourceDir).length()
 
+    private fun getMinSdk(applicationInfo: ApplicationInfo, packageManager: PackageManager, analysisMode: AppDetailData.AnalysisMode): Int? =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
+                applicationInfo.minSdkVersion
+            else if (analysisMode.toString() == AppDetailData.AnalysisMode.INSTALLED_PACKAGE.toString())
+                AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager)
+            else null
 
     companion object {
         fun getAppSource(packageManager: PackageManager, packageName: String, isSystem: Boolean): AppSource {
