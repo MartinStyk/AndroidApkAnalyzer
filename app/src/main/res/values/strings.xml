@@ -329,14 +329,14 @@
     <string name="repackaged_result_detection_app_signature">Based on the app signature, %s %% of similar apps are from the same developer as your app.</string>
     <string name="repackaged_result_detection_app_signature_same_dev">From the same developer: %s %%</string>
     <string name="repackaged_result_detection_app_signature_other_devs">From other developers: %s %%</string>
-    <string name="repackaged_result_detection_app_signature_same_dev_touch">Ratio of similar apps signed by same certificate (developer) as your app.</string>
-    <string name="repackaged_result_detection_app_signature_other_devs_touch">Ratio of similar apps signed by different certificate (developer) than your app.</string>
+    <string name="repackaged_result_detection_app_signature_same_dev_touch">The ratio of similar apps signed with the same certificate (developer) as your app.</string>
+    <string name="repackaged_result_detection_app_signature_other_devs_touch">The ratio of similar apps signed by different certificate (developer) than your app.</string>
 
     <string name="repackaged_result_detection_majority_signature">The most common digital signature signed %s %% of similar apps.</string>
-    <string name="repackaged_result_detection_majority_signature_most_common_devs">Apps from the most common developer: %s %%</string>
+    <string name="repackaged_result_detection_majority_signature_most_common_devs">The most common developer apps: %s %%</string>
     <string name="repackaged_result_detection_majority_signature_other_devs">Apps from other developers: %s %%</string>
-    <string name="repackaged_result_detection_majority_signature_most_common_devs_touch">Ratio of the most common signature found in set of apps similar to this one.</string>
-    <string name="repackaged_result_detection_majority_signature_other_devs_touch">Ratio of other than most common signature found in set of apps similar to this one.</string>
+    <string name="repackaged_result_detection_majority_signature_most_common_devs_touch">Percentage of the most common signature found in a set of apps similar to this one.</string>
+    <string name="repackaged_result_detection_majority_signature_other_devs_touch">Percentage of other than most common signature found in a set of apps similar to this one.</string>
 
 
     <string-array name="android_versions">
