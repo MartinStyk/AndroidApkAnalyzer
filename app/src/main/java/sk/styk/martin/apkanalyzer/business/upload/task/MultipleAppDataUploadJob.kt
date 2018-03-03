@@ -96,7 +96,7 @@ class MultipleAppDataUploadJob : JobService() {
                     .setConstraints(Constraint.ON_ANY_NETWORK)
                     .build()
 
-            dispatcher.mustSchedule(myJob)
+            dispatcher.schedule(myJob)
         }
     }
 }
