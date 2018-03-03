@@ -303,6 +303,36 @@
     <string name="repackaged_result_ok">アプリは安全です</string>
     <string name="repackaged_result_insufficient">データ不足</string>
 
+    <string name="repackaged_result_header">検出ステータス</string>
+
+    <string name="repackaged_majority_signature_header">署名</string>
+    <string name="repackaged_app_signature_header">アプリケーションの署名</string>
+    <string name="repackaged_global_signature_header">署名</string>
+
+    <plurals name="repackaged_result_detection_description_general">
+            <item quantity="other">Apk Analyzerは、%1$d つのアプリケーションがこのアプリケーションと非常によく似ていることを発見しました。 これらのアプリは %1$d つの端末にあります.</item>
+    </plurals>
+    <string name="repackaged_result_insufficient_description">私たちのデータは、このアプリの独創性について何らかの前提をするのに十分ではありません。</string>
+    <string name="repackaged_result_nok_description">下記のデータに基づいて、アプリが変更されている可能性があります。 このアプリが別のダウンロードソースから提供されている場合は、安全であるかどうかを確認するためにセキュリティアプリを使用することを検討してください。</string>
+    <string name="repackaged_result_ok_description">以下に示すデータに基づいて、あなたのアプリケーションはOKと思われます。</string>
+
+    <string name="repackaged_global_signature_description">このアプリケーションに非常に類似したアプリケーションは、複数の開発者によってリリースされ、デジタル署名されています。 上のグラフは、さまざまな開発者による類似アプリの出現回数を示しています。</string>
+    <string name="repackaged_global_signature_current_app_touch">このアプリケーションと同じ開発者のアプリケーションの数。</string>
+    <string name="repackaged_global_signature_other_app_touch">このアプリとは異なる開発者のアプリケーションの数。</string>
+
+    <string name="repackaged_result_detection_app_signature">アプリケーションの署名に基づいて、類似アプリケーションの %s %%はこのアプリケーションと同じ開発者に属します。</string>
+    <string name="repackaged_result_detection_app_signature_same_dev">同じ開発者から： %s %%</string>
+    <string name="repackaged_result_detection_app_signature_other_devs">他の開発者から: %s %%</string>
+    <string name="repackaged_result_detection_app_signature_same_dev_touch">このアプリケーションと同じ証明書（開発者）で署名された類似アプリケーションの比率。</string>
+    <string name="repackaged_result_detection_app_signature_other_devs_touch">あなたのアプリよりも異なる証明書（開発者）が署名した類似のアプリの割合。</string>
+
+    <string name="repackaged_result_detection_majority_signature">最も一般的なデジタル署名は、同様のアプリの ％s %% に署名しました。</string>
+    <string name="repackaged_result_detection_majority_signature_most_common_devs">最も一般的な開発者のアプリ： %s %%</string>
+    <string name="repackaged_result_detection_majority_signature_other_devs">他の開発者のアプリ: %s %%</string>
+    <string name="repackaged_result_detection_majority_signature_most_common_devs_touch">同様のアプリケーションセットで見つかった最も一般的なシグネチャの割合。</string>
+    <string name="repackaged_result_detection_majority_signature_other_devs_touch">同様のアプリケーションセットにある最も一般的なシグネチャ以外の比率。</string>
+
+
     <string-array name="android_versions">
         <item>Android 1</item>
         <item>Android 1.1 Petit Four</item>
