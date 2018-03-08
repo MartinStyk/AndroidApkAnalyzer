@@ -11,6 +11,7 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.dialog_apk_actions.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
@@ -83,7 +84,6 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         dialog.btn_install_app.visibility = View.VISIBLE
     }
 
-
     override fun createSnackbar(text: String) {
         Snackbar.make(activity.findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG).show()
     }
@@ -92,10 +92,13 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         fragmentManager.beginTransaction()
                 .replace(R.id.container_frame, fragment)
                 .addToBackStack(RepackagedDetectionFragment.TAG)
-                .commit(); }
+                .commit();
+        logSelectEvent("repackaged-detection")
+    }
 
     override fun openManifestActivity(packageName: String) {
         startActivity(ManifestActivity.createIntent(context, packageName))
+        logSelectEvent("show-manifest")
     }
 
     override fun askForStoragePermission() {
@@ -119,22 +122,27 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     override fun startApkExport(appDetailData: AppDetailData) {
         val targetFile = FileCopyService.startService(context, appDetailData)
         createSnackbar(context.getString(R.string.copy_apk_background, targetFile))
+        logSelectEvent("export-apk")
     }
 
     override fun startSharingActivity(apkPath: String) {
         AppOperations.shareApkFile(context, apkPath)
+        logSelectEvent("share-apk")
     }
 
     override fun openGooglePlay(packageName: String) {
         AppOperations.openGooglePlay(context, packageName)
+        logSelectEvent("open-google-play")
     }
 
     override fun openSystemAboutActivity(packageName: String) {
         AppOperations.openAppSystemPage(context, packageName)
+        logSelectEvent("open-system-about")
     }
 
     override fun startApkInstall(apkPath: String) {
         AppOperations.installPackage(context, apkPath)
+        logSelectEvent("install-apk")
     }
 
     companion object {
@@ -146,4 +154,12 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
             return frag
         }
     }
+
+    private fun logSelectEvent(itemId : String){
+        val bundle =  Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action");
+        FirebaseAnalytics.getInstance(context).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+    }
+
 }

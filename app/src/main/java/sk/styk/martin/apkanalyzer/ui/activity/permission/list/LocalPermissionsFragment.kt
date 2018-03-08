@@ -9,10 +9,12 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_local_permissions.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.LocalPermissionsLoader
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
+import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailActivity
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment
 
@@ -41,6 +43,11 @@ class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
         super.onViewCreated(view, savedInstanceState)
         presenter.view = this
         presenter.initialize()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, LocalPermissionsFragment::class.java.simpleName, LocalPermissionsFragment::class.java.simpleName)
     }
 
     override fun setUpViews() {

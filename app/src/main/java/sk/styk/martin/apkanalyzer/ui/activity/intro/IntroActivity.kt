@@ -6,6 +6,7 @@ import android.support.v4.content.ContextCompat
 import com.github.paolorotolo.appintro.AppIntro
 import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
+import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.upload.task.MultipleAppDataUploadJob
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper
@@ -55,6 +56,8 @@ class IntroActivity : AppIntro() {
 
         setVibrate(true)
         setVibrateIntensity(30)
+
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, Bundle());
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
@@ -70,6 +73,7 @@ class IntroActivity : AppIntro() {
         }
 
         FirstStartHelper.setFirstStartFinished(applicationContext)
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle());
         finish()
     }
 

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 import sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListFragment
@@ -29,6 +30,11 @@ class AppDetailFragment : Fragment() {
         childFragmentManager.beginTransaction().replace(R.id.app_list_container, AppListFragment()).commit()
 
         return rootView
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, AppDetailFragment::class.java.simpleName, AppDetailFragment::class.java.simpleName)
     }
 
     fun itemClicked(packageName: String?, pathToPackage: String?) {

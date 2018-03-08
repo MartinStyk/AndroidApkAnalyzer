@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_about.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAboutBinding
@@ -30,6 +31,11 @@ class AboutFragment : Fragment() {
 
         about_app_github_link.movementMethod = LinkMovementMethod.getInstance()
         about_app_privacy_policy.movementMethod = LinkMovementMethod.getInstance()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, AboutFragment::class.java.simpleName, AboutFragment::class.java.simpleName)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
