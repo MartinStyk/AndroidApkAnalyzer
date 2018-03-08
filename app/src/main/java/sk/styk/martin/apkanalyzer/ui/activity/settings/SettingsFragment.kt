@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_settings.*
 import sk.styk.martin.apkanalyzer.R
 
@@ -37,6 +38,11 @@ class SettingsFragment : Fragment(), SettingsContract.View {
         super.onViewCreated(view, savedInstanceState)
         presenter.view = this
         presenter.initialize()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, SettingsFragment::class.java.simpleName, SettingsFragment::class.java.simpleName)
     }
 
     override fun setUpViews() {

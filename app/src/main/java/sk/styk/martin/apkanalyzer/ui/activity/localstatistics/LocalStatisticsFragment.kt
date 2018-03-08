@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_local_statistics.*
 import lecho.lib.hellocharts.gesture.ContainerScrollType
 import lecho.lib.hellocharts.gesture.ZoomType
@@ -54,6 +55,11 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
         menu?.clear()
 
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, LocalStatisticsFragment::class.java.simpleName, LocalStatisticsFragment::class.java.simpleName)
     }
 
     override fun changeProgress(currentProgress: Int, maxProgress: Int) {
