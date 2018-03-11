@@ -1,8 +1,14 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.Loader
+import android.view.View
+import android.widget.Toast
+import sk.styk.martin.apkanalyzer.ApkAnalyzer
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AndroidManifestLoader
@@ -53,10 +59,19 @@ class ManifestPresenter(
      */
     override fun saveManifest() {
         if (manifest.isBlank()) {
-            view.makeSnackbar(R.string.save_manifest_fail)
+            view.makeSnackbar(ApkAnalyzer.context.getString(R.string.save_manifest_fail))
         } else {
             val targetFile = StringToFileSaveService.startService(context = context, packageName = packageName, manifestContent = manifest)
-            view.makeSnackbar(R.string.save_manifest_background, targetFile)
+            view.makeSnackbar(ApkAnalyzer.context.getString(R.string.save_manifest_background, targetFile), R.string.action_show, View.OnClickListener {
+                val intent = Intent()
+                intent.setAction(Intent.ACTION_VIEW)
+                intent.setDataAndType(Uri.parse(targetFile), "text/xml")
+                try {
+                    ApkAnalyzer.context.startActivity(intent)
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(ApkAnalyzer.context, R.string.activity_not_found_doc, Toast.LENGTH_LONG).show()
+                }
+            })
         }
 
     }

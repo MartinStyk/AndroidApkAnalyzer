@@ -15,7 +15,7 @@ interface ManifestContract {
 
         fun showManifest(manifest: String)
 
-        fun makeSnackbar(@StringRes stringId: Int, param: String? = null)
+        fun makeSnackbar(text: String, @StringRes actionName: Int? = null, action: android.view.View.OnClickListener? = null)
     }
 
     interface Presenter : BasePresenter<View> {

@@ -33,6 +33,7 @@
     <string name="activity_not_found_browsing">No application for file browsing found on your device</string>
     <string name="activity_not_found_sharing">No application for file sharing found on your device</string>
     <string name="activity_not_found_image">No application for viewing images found</string>
+    <string name="activity_not_found_doc">No application for viewing docs found</string>
 
 
     <string name="nav_application_list">Applications</string>

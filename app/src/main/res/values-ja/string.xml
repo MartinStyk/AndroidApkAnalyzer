@@ -33,6 +33,7 @@
     <string name="activity_not_found_browsing">あなたのデバイス上にファイル閲覧用のアプリが見つかりませんでした。</string>
     <string name="activity_not_found_sharing">デバイス上にファイルを共有するためのアプリが見つかりませんでした。</string>
     <string name="activity_not_found_image">画像を見るためのアプリケーションが見つかりませんでした</string>
+    <string name="activity_not_found_doc">ドキュメントを表示するアプリケーションが見つかりませんでした</string>
 
     <string name="nav_application_list">アプリケーション</string>
     <string name="nav_statistics">統計</string>

@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
@@ -70,11 +71,11 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
         code_view.setSource(manifest)
     }
 
-    override fun makeSnackbar(stringId: Int, param: String?) {
-        if (param == null)
-            Snackbar.make(findViewById(android.R.id.content), stringId, Snackbar.LENGTH_SHORT).show()
-        else
-            Snackbar.make(findViewById(android.R.id.content), getString(stringId, param), Snackbar.LENGTH_SHORT).show()
+    override fun makeSnackbar (text: String, @StringRes actionName: Int?, action: View.OnClickListener?) {
+        val snackbar = Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+        if (action != null && actionName != null)
+            snackbar.setAction(actionName, action)
+        snackbar.show()
     }
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -84,7 +85,7 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
     @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun onStorageDenied() {
-        makeSnackbar(R.string.permission_not_granted)
+        makeSnackbar(getString(R.string.permission_not_granted))
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
