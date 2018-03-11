@@ -2,6 +2,8 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.support.annotation.StringRes
+import android.view.View
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
@@ -20,7 +22,7 @@ interface AppActionsContract {
 
         fun showOnlyApkFileRelatedActions()
 
-        fun createSnackbar(text: String)
+        fun createSnackbar(text: String, @StringRes actionName: Int? = null, action: android.view.View.OnClickListener? = null)
 
         fun openRepackagedDetection(fragment: RepackagedDetectionFragment)
 

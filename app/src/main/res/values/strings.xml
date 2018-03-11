@@ -12,6 +12,7 @@
     <string name="action_search">Search</string>
     <string name="action_filter">Filter</string>
     <string name="action_save">Save</string>
+    <string name="action_show">Show</string>
     <string name="action_analyze_apk_from_file">Analyze APK from external file</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_intro">Intro</string>
@@ -31,6 +32,8 @@
     <string name="permission_not_granted">Permission not granted</string>
     <string name="activity_not_found_browsing">No application for file browsing found on your device</string>
     <string name="activity_not_found_sharing">No application for file sharing found on your device</string>
+    <string name="activity_not_found_image">No application for viewing images found</string>
+
 
     <string name="nav_application_list">Applications</string>
     <string name="nav_statistics">Statistics</string>

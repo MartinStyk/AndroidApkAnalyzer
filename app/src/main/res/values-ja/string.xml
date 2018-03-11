@@ -12,6 +12,7 @@
     <string name="action_search">検索</string>
     <string name="action_filter">フィルター</string>
     <string name="action_save">保存</string>
+    <string name="action_show">ショー</string>
     <string name="action_analyze_apk_from_file">分析するAPkファイルをストレージから選択</string>
     <string name="title_item_detail">アイテムの詳細</string>
     <string name="title_intro">イントロ</string>
@@ -31,6 +32,7 @@
     <string name="permission_not_granted">許可されていません。</string>
     <string name="activity_not_found_browsing">あなたのデバイス上にファイル閲覧用のアプリが見つかりませんでした。</string>
     <string name="activity_not_found_sharing">デバイス上にファイルを共有するためのアプリが見つかりませんでした。</string>
+    <string name="activity_not_found_image">画像を見るためのアプリケーションが見つかりませんでした</string>
 
     <string name="nav_application_list">アプリケーション</string>
     <string name="nav_statistics">統計</string>
