@@ -1,11 +1,10 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Dialog
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -13,6 +12,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.dialog_apk_actions.*
+import permissions.dispatcher.NeedsPermission
+import permissions.dispatcher.OnPermissionDenied
+import permissions.dispatcher.RuntimePermissions
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
@@ -27,6 +29,7 @@ import sk.styk.martin.apkanalyzer.util.file.AppOperations
  * @author Martin Styk
  * @version 05.01.2018.
  */
+@RuntimePermissions
 class AppActionsDialog : DialogFragment(), AppActionsContract.View {
 
     private lateinit var presenter: AppActionsContract.Presenter
@@ -63,7 +66,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
 
     override fun setUpViews() {
         // setup buttons
-        dialog.btn_copy.setOnClickListener { presenter.copyClick() }
+        dialog.btn_copy.setOnClickListener { presenter.exportClick() }
 
         dialog.btn_share_apk.setOnClickListener { presenter.shareClick() }
 
@@ -101,28 +104,22 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         logSelectEvent("show-manifest")
     }
 
-    override fun askForStoragePermission() {
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_STORAGE_PERMISSION)
-        } else {
-            presenter.exportApkFile()
-        }
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_STORAGE_PERMISSION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                presenter.exportApkFile()
-            } else {
-                createSnackbar(getString(R.string.permission_not_granted))
-            }
-        }
-    }
-
     override fun startApkExport(appDetailData: AppDetailData) {
+        exportApkWithPermissionCheck(appDetailData)
+    }
+
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun exportApk(appDetailData: AppDetailData) {
         val targetFile = FileCopyService.startService(context, appDetailData)
         createSnackbar(context.getString(R.string.copy_apk_background, targetFile))
         logSelectEvent("export-apk")
+        dismissAllowingStateLoss()
+    }
+
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onStorageDenied() {
+        createSnackbar(getString(R.string.permission_not_granted))
+        dismissAllowingStateLoss()
     }
 
     override fun startSharingActivity(apkPath: String) {
@@ -145,6 +142,12 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         logSelectEvent("install-apk")
     }
 
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
+    }
+
+
     companion object {
         fun newInstance(appDetailData: AppDetailData): AppActionsDialog {
             val frag = AppActionsDialog()
@@ -155,8 +158,8 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         }
     }
 
-    private fun logSelectEvent(itemId : String){
-        val bundle =  Bundle();
+    private fun logSelectEvent(itemId: String) {
+        val bundle = Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action");
         FirebaseAnalytics.getInstance(context).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);

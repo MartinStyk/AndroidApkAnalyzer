@@ -48,6 +48,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    compile('com.github.hotchemi:permissionsdispatcher:3.1.0')
+    kapt 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     compile 'com.pddstudio:highlightjs-android:1.5.0'
     compile 'com.google.code.gson:gson:2.8.2'
     compile 'com.google.android.gms:play-services-ads:11.8.0'

@@ -25,9 +25,7 @@ interface AppActionsContract {
 
         fun openManifestActivity(packageName: String)
 
-        fun askForStoragePermission()
-
-            fun startApkExport(appDetailData: AppDetailData)
+        fun startApkExport(appDetailData: AppDetailData)
 
         fun startSharingActivity(apkPath : String)
 
@@ -42,9 +40,7 @@ interface AppActionsContract {
     interface Presenter : BasePresenter<View> {
         fun initialize(bundle: Bundle)
 
-        fun copyClick()
-
-        fun exportApkFile()
+        fun exportClick()
 
         fun shareClick()
 

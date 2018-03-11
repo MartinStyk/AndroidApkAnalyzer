@@ -24,8 +24,8 @@ class AppActionsPresenter : AppActionsContract.Presenter {
             view.showOnlyApkFileRelatedActions()
     }
 
-    override fun copyClick() {
-        view.askForStoragePermission()
+    override fun exportClick() {
+        view.startApkExport(appDetailData)
     }
 
     override fun shareClick() {
@@ -57,10 +57,4 @@ class AppActionsPresenter : AppActionsContract.Presenter {
         view.startApkInstall(appDetailData.generalData.apkDirectory)
         view.dismiss()
     }
-
-    override fun exportApkFile() {
-        view.startApkExport(appDetailData)
-        view.dismissAllowingStateLoss()
-    }
-
 }
