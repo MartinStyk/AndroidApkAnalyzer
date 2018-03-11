@@ -3,11 +3,8 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest
 import android.Manifest
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
@@ -15,15 +12,18 @@ import android.view.View
 import com.pddstudio.highlightjs.models.Language
 import com.pddstudio.highlightjs.models.Theme
 import kotlinx.android.synthetic.main.activity_manifest.*
+import permissions.dispatcher.NeedsPermission
+import permissions.dispatcher.OnPermissionDenied
+import permissions.dispatcher.RuntimePermissions
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AndroidManifestLoader
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_NAME_FOR_MANIFEST_REQUEST
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.REQUEST_STORAGE_PERMISSION
 
 /**
  * @author Martin Styk
  * @version 15.09.2017.
  */
+@RuntimePermissions
 class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
     private lateinit var presenter: ManifestContract.Presenter
@@ -44,7 +44,9 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_save -> {presenter.saveManifestWithPermissionCheck(); true}
+        R.id.action_save -> {
+            saveManifestWithPermissionCheck(); true
+        }
         else -> super.onOptionsItemSelected(item)
     }
 
@@ -75,22 +77,19 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
             Snackbar.make(findViewById(android.R.id.content), getString(stringId, param), Snackbar.LENGTH_SHORT).show()
     }
 
-    override fun askForStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), REQUEST_STORAGE_PERMISSION)
-        } else {
-            presenter.saveManifest()
-        }
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun saveManifest() {
+        presenter.saveManifest()
+    }
+
+    @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun onStorageDenied() {
+        makeSnackbar(R.string.permission_not_granted)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-        if (requestCode == REQUEST_STORAGE_PERMISSION) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                presenter.saveManifest()
-            } else {
-                makeSnackbar(R.string.permission_not_granted)
-            }
-        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        onRequestPermissionsResult(requestCode, grantResults)
     }
 
     companion object {

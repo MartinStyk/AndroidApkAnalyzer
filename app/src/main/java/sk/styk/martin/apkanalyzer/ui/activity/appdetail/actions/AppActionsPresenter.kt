@@ -57,4 +57,8 @@ class AppActionsPresenter : AppActionsContract.Presenter {
         view.startApkInstall(appDetailData.generalData.apkDirectory)
         view.dismiss()
     }
+
+    override fun saveIconClick() {
+        view.startIconSave(appDetailData)
+    }
 }

@@ -33,6 +33,13 @@
             android:text="@string/share_apk" />
 
         <Button
+            android:id="@+id/btn_save_icon"
+            style="@style/ApkActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save_icon" />
+
+        <Button
             android:id="@+id/btn_show_manifest"
             style="@style/ApkActionButton"
             android:layout_width="match_parent"

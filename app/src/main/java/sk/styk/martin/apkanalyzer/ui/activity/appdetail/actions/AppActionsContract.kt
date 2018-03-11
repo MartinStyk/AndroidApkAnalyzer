@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
@@ -35,6 +36,7 @@ interface AppActionsContract {
 
         fun startApkInstall(apkPath: String)
 
+        fun startIconSave(appDetailData: AppDetailData)
     }
 
     interface Presenter : BasePresenter<View> {
@@ -53,6 +55,8 @@ interface AppActionsContract {
         fun showSystemPageClick()
 
         fun installAppClick()
+
+        fun saveIconClick()
     }
 
     companion object {

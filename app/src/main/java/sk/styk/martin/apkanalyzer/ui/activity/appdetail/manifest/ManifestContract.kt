@@ -15,21 +15,16 @@ interface ManifestContract {
 
         fun showManifest(manifest: String)
 
-        fun makeSnackbar(@StringRes stringId : Int, param: String? = null)
-
-        fun askForStoragePermission()
+        fun makeSnackbar(@StringRes stringId: Int, param: String? = null)
     }
 
     interface Presenter : BasePresenter<View> {
         fun initialize(packageName: String)
 
-        fun saveManifestWithPermissionCheck()
-
         fun saveManifest()
     }
 
     companion object {
-        const val REQUEST_STORAGE_PERMISSION = 11
         const val PACKAGE_NAME_FOR_MANIFEST_REQUEST = "packageNameForManifestRequest"
     }
 }
