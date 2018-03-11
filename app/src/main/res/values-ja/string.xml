@@ -101,6 +101,8 @@
     <string name="copy_apk">APKを出力</string>
     <string name="copy_apk_background">%s へコピーする</string>
     <string name="copy_apk_background_done">%s へコピーする</string>
+    <string name="save_icon_background">%s にアイコンを保存する</string>
+    <string name="save_icon_background_done">保存アイコン %s</string>
     <string name="show_manifest">AndroidManifest.xmlを見る</string>
     <string name="save_manifest_background">%s に保存する</string>
     <string name="save_manifest_background_notification_title">%s に保存する</string>
@@ -110,6 +112,7 @@
     <string name="show_app_google_play">Google Playのリスティング</string>
     <string name="share_apk">APKを共有</string>
     <string name="share_apk_using">APK共有の使用</string>
+    <string name="save_icon">保存アイコン</string>
     <string name="install_failed">APK分析がAPKのインストールに失敗しました。手動で行ってください</string>
     <string name="install_app">APKをインストールする</string>
     <string name="detect_repackaged">原点を確認する</string>

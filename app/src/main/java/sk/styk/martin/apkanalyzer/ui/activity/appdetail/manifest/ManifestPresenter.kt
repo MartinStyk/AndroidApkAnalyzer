@@ -48,10 +48,6 @@ class ManifestPresenter(
         view.showManifest(manifest)
     }
 
-    override fun saveManifestWithPermissionCheck() {
-        return view.askForStoragePermission()
-    }
-
     /**
      * This is called only once permissions are granted
      */

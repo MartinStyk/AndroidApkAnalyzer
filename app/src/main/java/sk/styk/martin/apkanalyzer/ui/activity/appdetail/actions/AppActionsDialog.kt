@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
 import android.Manifest
-import android.annotation.SuppressLint
 import android.app.Dialog
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -16,13 +15,14 @@ import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnPermissionDenied
 import permissions.dispatcher.RuntimePermissions
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.business.analysis.task.DrawableSaveService
 import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract.Companion.PACKAGE_TO_PERFORM_ACTIONS
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract.Companion.REQUEST_STORAGE_PERMISSION
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
+import sk.styk.martin.apkanalyzer.util.file.toBitmap
 
 
 /**
@@ -69,6 +69,8 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         dialog.btn_copy.setOnClickListener { presenter.exportClick() }
 
         dialog.btn_share_apk.setOnClickListener { presenter.shareClick() }
+
+        dialog.btn_save_icon.setOnClickListener { presenter.saveIconClick() }
 
         dialog.btn_show_app_google_play.setOnClickListener { presenter.showGooglePlayClick() }
 
@@ -119,6 +121,19 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     @OnPermissionDenied(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun onStorageDenied() {
         createSnackbar(getString(R.string.permission_not_granted))
+        dismissAllowingStateLoss()
+    }
+
+    override fun startIconSave(appDetailData: AppDetailData) {
+        saveIconWithPermissionCheck(appDetailData)
+    }
+
+    @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    fun saveIcon(appDetailData: AppDetailData) {
+        val targetFile = DrawableSaveService.startService(context, appDetailData.generalData.packageName,
+                appDetailData.generalData.icon?.toBitmap())
+        createSnackbar(context.getString(R.string.save_icon_background, targetFile))
+        logSelectEvent("save-icon")
         dismissAllowingStateLoss()
     }
 

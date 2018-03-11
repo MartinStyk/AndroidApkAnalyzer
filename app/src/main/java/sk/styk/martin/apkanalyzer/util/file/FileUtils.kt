@@ -1,11 +1,24 @@
 package sk.styk.martin.apkanalyzer.util.file
 
+import android.graphics.drawable.Drawable
 import android.support.annotation.WorkerThread
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.PrintWriter
+import sk.styk.martin.apkanalyzer.R.mipmap.ic_launcher
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.opengl.ETC1.getHeight
+import android.opengl.ETC1.getWidth
+import android.provider.MediaStore.Images.Media.getBitmap
+import android.graphics.drawable.BitmapDrawable
+
+
+
+
 
 /**
  * @author Martin Styk
@@ -39,4 +52,16 @@ object FileUtils {
         }
 
     }
+
+    @WorkerThread
+    @Throws(IOException::class)
+    fun writeBitmap(bitmap: Bitmap, targetFilePath: String) {
+        val imageFile = File(targetFilePath)
+
+        FileOutputStream(imageFile).use {
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
+        }
+    }
+
+
 }
