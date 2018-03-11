@@ -2,7 +2,11 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
 import android.Manifest
 import android.app.Dialog
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -14,6 +18,7 @@ import kotlinx.android.synthetic.main.dialog_apk_actions.*
 import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnPermissionDenied
 import permissions.dispatcher.RuntimePermissions
+import sk.styk.martin.apkanalyzer.ApkAnalyzer
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.DrawableSaveService
 import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
@@ -89,8 +94,11 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         dialog.btn_install_app.visibility = View.VISIBLE
     }
 
-    override fun createSnackbar(text: String) {
-        Snackbar.make(activity.findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG).show()
+    override fun createSnackbar(text: String, @StringRes actionName: Int?, action: View.OnClickListener?) {
+        val snackbar = Snackbar.make(activity.findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+        if (action != null && actionName != null)
+            snackbar.setAction(actionName, action)
+        snackbar.show()
     }
 
     override fun openRepackagedDetection(fragment: RepackagedDetectionFragment) {
@@ -132,7 +140,18 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     fun saveIcon(appDetailData: AppDetailData) {
         val targetFile = DrawableSaveService.startService(context, appDetailData.generalData.packageName,
                 appDetailData.generalData.icon?.toBitmap())
-        createSnackbar(context.getString(R.string.save_icon_background, targetFile))
+
+        createSnackbar(context.getString(R.string.save_icon_background, targetFile), R.string.action_show,
+                View.OnClickListener {
+                    val intent = Intent()
+                    intent.setAction(Intent.ACTION_VIEW)
+                    intent.setDataAndType(Uri.parse(targetFile), "image/png")
+                    try {
+                        ApkAnalyzer.context.startActivity(intent)
+                    } catch (e: ActivityNotFoundException) {
+                        createSnackbar(getString(R.string.activity_not_found_image))
+                    }
+                })
         logSelectEvent("save-icon")
         dismissAllowingStateLoss()
     }
