@@ -13,6 +13,7 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.dialog_apk_actions.*
 import permissions.dispatcher.NeedsPermission
@@ -149,7 +150,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
                     try {
                         ApkAnalyzer.context.startActivity(intent)
                     } catch (e: ActivityNotFoundException) {
-                        createSnackbar(getString(R.string.activity_not_found_image))
+                        Toast.makeText(ApkAnalyzer.context, R.string.activity_not_found_image, Toast.LENGTH_LONG).show()
                     }
                 })
         logSelectEvent("save-icon")
