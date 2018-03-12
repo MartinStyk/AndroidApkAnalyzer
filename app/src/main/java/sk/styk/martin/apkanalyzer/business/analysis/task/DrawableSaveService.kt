@@ -11,6 +11,7 @@ import android.os.IBinder
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import java.io.File
 import java.io.IOException
@@ -95,16 +96,16 @@ class DrawableSaveService : Service() {
          *
          * @return target file absolute path
          */
-        fun startService(context: Context, packageName: String, bitmap : Bitmap?): String {
+        fun startService(context: Context, data: AppDetailData, bitmap : Bitmap?): String {
             if(bitmap == null){
                 return ""
             }
-            val target = File(Environment.getExternalStorageDirectory(), "icon_$packageName.png")
+            val target = File(Environment.getExternalStorageDirectory(), "${data.generalData.packageName}_${data.generalData.versionName}_${data.generalData.versionCode}_icon.png")
 
             val intent = Intent(context, DrawableSaveService::class.java)
             intent.putExtra(SOURCE_PIC, bitmap)
             intent.putExtra(TARGET_FILE, target.absolutePath)
-            intent.putExtra(SOURCE_PACKAGE_NAME, packageName)
+            intent.putExtra(SOURCE_PACKAGE_NAME, data.generalData.packageName)
 
             ContextCompat.startForegroundService(context, intent)
 

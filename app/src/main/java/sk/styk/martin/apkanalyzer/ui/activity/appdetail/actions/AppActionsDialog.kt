@@ -110,8 +110,8 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         logSelectEvent("repackaged-detection")
     }
 
-    override fun openManifestActivity(packageName: String) {
-        startActivity(ManifestActivity.createIntent(context, packageName))
+    override fun openManifestActivity(appDetailData: AppDetailData) {
+        startActivity(ManifestActivity.createIntent(context, appDetailData))
         logSelectEvent("show-manifest")
     }
 
@@ -139,7 +139,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun saveIcon(appDetailData: AppDetailData) {
-        val targetFile = DrawableSaveService.startService(context, appDetailData.generalData.packageName,
+        val targetFile = DrawableSaveService.startService(context, appDetailData,
                 appDetailData.generalData.icon?.toBitmap())
 
         createSnackbar(context.getString(R.string.save_icon_background, targetFile), R.string.action_show,

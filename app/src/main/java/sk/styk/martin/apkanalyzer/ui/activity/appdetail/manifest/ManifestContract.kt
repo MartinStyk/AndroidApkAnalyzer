@@ -19,12 +19,14 @@ interface ManifestContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun initialize(packageName: String)
+        fun initialize(packageName: String, versionCode: Int, versionName: String)
 
         fun saveManifest()
     }
 
     companion object {
         const val PACKAGE_NAME_FOR_MANIFEST_REQUEST = "packageNameForManifestRequest"
+        const val PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST = "packageVersionCodeForManifestRequest"
+        const val PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST = "packageVersionNameForManifestRequest"
     }
 }
