@@ -18,7 +18,10 @@ import permissions.dispatcher.OnPermissionDenied
 import permissions.dispatcher.RuntimePermissions
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AndroidManifestLoader
+import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_NAME_FOR_MANIFEST_REQUEST
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST
 
 /**
  * @author Martin Styk
@@ -36,7 +39,9 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
         presenter = ManifestPresenter(AndroidManifestLoader(this, intent.getStringExtra(ManifestContract.PACKAGE_NAME_FOR_MANIFEST_REQUEST)), supportLoaderManager)
         presenter.view = this
-        presenter.initialize(intent.getStringExtra(ManifestContract.PACKAGE_NAME_FOR_MANIFEST_REQUEST))
+        presenter.initialize(intent.getStringExtra(ManifestContract.PACKAGE_NAME_FOR_MANIFEST_REQUEST),
+                intent.getIntExtra(ManifestContract.PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST, 0),
+                intent.getStringExtra(ManifestContract.PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -71,7 +76,7 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
         code_view.setSource(manifest)
     }
 
-    override fun makeSnackbar (text: String, @StringRes actionName: Int?, action: View.OnClickListener?) {
+    override fun makeSnackbar(text: String, @StringRes actionName: Int?, action: View.OnClickListener?) {
         val snackbar = Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
         if (action != null && actionName != null)
             snackbar.setAction(actionName, action)
@@ -95,9 +100,11 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
     companion object {
 
-        fun createIntent(context: Context, packageName: String): Intent {
+        fun createIntent(context: Context, appDetailData: AppDetailData): Intent {
             val intent = Intent(context, ManifestActivity::class.java)
-            intent.putExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST, packageName)
+            intent.putExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST, appDetailData.generalData.packageName)
+            intent.putExtra(PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST, appDetailData.generalData.versionName)
+            intent.putExtra(PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST, appDetailData.generalData.versionCode)
             return intent
         }
     }

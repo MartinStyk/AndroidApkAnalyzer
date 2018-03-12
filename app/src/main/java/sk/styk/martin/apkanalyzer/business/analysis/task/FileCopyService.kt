@@ -98,7 +98,7 @@ class FileCopyService : Service() {
          */
         fun startService(context: Context, data: AppDetailData): String {
             val source = File(data.generalData.apkDirectory)
-            val target = File(Environment.getExternalStorageDirectory(), data.generalData.packageName + "_" + data.generalData.versionCode + ".apk")
+            val target = File(Environment.getExternalStorageDirectory(), "${data.generalData.packageName}_${data.generalData.versionName}_${data.generalData.versionCode}.apk")
 
             val intent = Intent(context, FileCopyService::class.java)
             intent.putExtra(SOURCE_FILE, source.absolutePath)

@@ -14,6 +14,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AndroidManifestLoader
 import sk.styk.martin.apkanalyzer.business.analysis.task.StringToFileSaveService
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
+import kotlin.properties.Delegates
 
 
 /**
@@ -27,10 +28,15 @@ class ManifestPresenter(
 
     override lateinit var view: ManifestContract.View
     private lateinit var packageName: String
+    private var versionCode: Int by Delegates.notNull<Int>()
+    private lateinit var versionName: String
+
     private var manifest: String = ""
 
-    override fun initialize(packageName: String) {
+    override fun initialize(packageName: String, versionCode: Int, versionName: String) {
         this.packageName = packageName
+        this.versionCode = versionCode
+        this.versionName = versionName
         startLoadingData()
         view.setUpViews()
     }
@@ -61,7 +67,8 @@ class ManifestPresenter(
         if (manifest.isBlank()) {
             view.makeSnackbar(ApkAnalyzer.context.getString(R.string.save_manifest_fail))
         } else {
-            val targetFile = StringToFileSaveService.startService(context = context, packageName = packageName, manifestContent = manifest)
+            val targetFile = StringToFileSaveService.startService(context = context, packageName = packageName,
+                    versionCode = versionCode, versionName = versionName, manifestContent = manifest)
             view.makeSnackbar(ApkAnalyzer.context.getString(R.string.save_manifest_background, targetFile), R.string.action_show, View.OnClickListener {
                 val intent = Intent()
                 intent.setAction(Intent.ACTION_VIEW)

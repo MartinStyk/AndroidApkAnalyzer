@@ -44,7 +44,7 @@ class AppActionsPresenter : AppActionsContract.Presenter {
     }
 
     override fun showManifestClick() {
-        view.openManifestActivity(appDetailData.generalData.packageName)
+        view.openManifestActivity(appDetailData)
         view.dismiss()
     }
 

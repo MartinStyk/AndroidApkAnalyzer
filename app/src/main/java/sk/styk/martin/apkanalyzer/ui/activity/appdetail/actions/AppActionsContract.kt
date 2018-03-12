@@ -26,7 +26,7 @@ interface AppActionsContract {
 
         fun openRepackagedDetection(fragment: RepackagedDetectionFragment)
 
-        fun openManifestActivity(packageName: String)
+        fun openManifestActivity(appDetailData: AppDetailData)
 
         fun startApkExport(appDetailData: AppDetailData)
 
