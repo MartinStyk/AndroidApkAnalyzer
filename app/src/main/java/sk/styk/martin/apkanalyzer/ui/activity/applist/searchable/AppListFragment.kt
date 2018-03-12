@@ -26,7 +26,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppListLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppListDetailFragment
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
 
 /**
@@ -95,7 +95,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
     }
 
     override fun onListItemClick(listView: ListView?, view: View?, position: Int, id: Long) {
-        val parentFragment = parentFragment as AppDetailFragment
+        val parentFragment = parentFragment as AppListDetailFragment
         val appBasicData = AppListData::class.java.cast(view!!.tag)
         parentFragment.itemClicked(appBasicData.packageName, null)
     }
@@ -150,7 +150,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
         super.onActivityResult(requestCode, resultCode, data)
         // handle picked apk file and
         if (requestCode == ApkFilePicker.REQUEST_PICK_APK && resultCode == RESULT_OK) {
-            val parentFragment = parentFragment as AppDetailFragment
+            val parentFragment = parentFragment as AppListDetailFragment
             parentFragment.itemClicked(null, ApkFilePicker.getPathFromIntentData(data?.data))
         }
     }

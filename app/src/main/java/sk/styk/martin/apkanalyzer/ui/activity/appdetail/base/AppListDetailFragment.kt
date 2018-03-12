@@ -16,7 +16,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListFragment
  *
  * @author Martin Styk
  */
-class AppDetailFragment : Fragment() {
+class AppListDetailFragment : Fragment() {
 
     private var rootView: View? = null
 
@@ -34,7 +34,7 @@ class AppDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, AppDetailFragment::class.java.simpleName, AppDetailFragment::class.java.simpleName)
+        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, AppListDetailFragment::class.java.simpleName, AppListDetailFragment::class.java.simpleName)
     }
 
     fun itemClicked(packageName: String?, pathToPackage: String?) {
