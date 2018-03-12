@@ -29,11 +29,11 @@ class ManifestPresenter(
     override lateinit var view: ManifestContract.View
     private lateinit var packageName: String
     private var versionCode: Int by Delegates.notNull<Int>()
-    private lateinit var versionName: String
+    private var versionName: String? = null
 
     private var manifest: String = ""
 
-    override fun initialize(packageName: String, versionCode: Int, versionName: String) {
+    override fun initialize(packageName: String, versionCode: Int, versionName: String?) {
         this.packageName = packageName
         this.versionCode = versionCode
         this.versionName = versionName

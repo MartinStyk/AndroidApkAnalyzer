@@ -94,7 +94,7 @@ class StringToFileSaveService : Service() {
          *
          * @return target file absolute path
          */
-        fun startService(context: Context, packageName: String, versionCode: Int, versionName : String, manifestContent: String): String {
+        fun startService(context: Context, packageName: String, versionCode: Int, versionName : String?, manifestContent: String): String {
             val target = File(Environment.getExternalStorageDirectory(), "${packageName}_${versionName}_${versionCode}_AndroidManifest.xml")
 
             val intent = Intent(context, StringToFileSaveService::class.java)
