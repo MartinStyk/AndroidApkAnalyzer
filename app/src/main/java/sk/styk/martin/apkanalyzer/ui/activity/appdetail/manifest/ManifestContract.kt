@@ -19,7 +19,7 @@ interface ManifestContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun initialize(packageName: String, versionCode: Int, versionName: String)
+        fun initialize(packageName: String, versionCode: Int, versionName: String?)
 
         fun saveManifest()
     }
