@@ -28,9 +28,9 @@ class DrawableSaveService : Service() {
 
         object : Thread() {
             override fun run() {
-                val icon = intent.getParcelableExtra<Bitmap>(SOURCE_PIC)
                 val targetPath = intent.getStringExtra(TARGET_FILE)
                 val packageName = intent.getStringExtra(SOURCE_PACKAGE_NAME)
+                val icon = bitmap
 
                 if (icon == null || targetPath == null || packageName == null) {
                     stopForeground(true)
@@ -82,12 +82,13 @@ class DrawableSaveService : Service() {
 
     companion object {
 
-        const val SOURCE_PIC = "s_string"
         const val TARGET_FILE = "t_file"
         const val SOURCE_PACKAGE_NAME = "s_package_name"
 
         private const val NOTIFICATION_CHANNEL_ID = "my_channel_image_to_file_save_service"
         private const val NOTIFICATION__ID = 9898
+
+        var bitmap: Bitmap? = null
 
         /**
          * Starts service for exporting android manifest.
@@ -96,14 +97,16 @@ class DrawableSaveService : Service() {
          *
          * @return target file absolute path
          */
-        fun startService(context: Context, data: AppDetailData, bitmap : Bitmap?): String {
-            if(bitmap == null){
+        fun startService(context: Context, data: AppDetailData, bitmap: Bitmap?): String {
+            if (bitmap == null) {
                 return ""
             }
             val target = File(Environment.getExternalStorageDirectory(), "${data.generalData.packageName}_${data.generalData.versionName}_${data.generalData.versionCode}_icon.png")
 
+            // do not pass it in intent as it might fail on TransacitonTooLargeException
+            DrawableSaveService.bitmap = bitmap
+
             val intent = Intent(context, DrawableSaveService::class.java)
-            intent.putExtra(SOURCE_PIC, bitmap)
             intent.putExtra(TARGET_FILE, target.absolutePath)
             intent.putExtra(SOURCE_PACKAGE_NAME, data.generalData.packageName)
 
