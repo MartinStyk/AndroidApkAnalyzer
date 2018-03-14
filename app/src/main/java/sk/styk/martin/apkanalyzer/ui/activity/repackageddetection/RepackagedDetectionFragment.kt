@@ -62,8 +62,7 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_image.setImageResource(R.drawable.ic_ok)
         repackaged_header.text = getString(R.string.repackaged_result_ok)
         repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
-                result.totalDifferentRepackagedApps,
-                result.totalDifferentRepackagedApps,
+                result.totalRepackagedApps,
                 result.totalRepackagedApps)
         repackaged_description_detail.text = getString(R.string.repackaged_result_ok_description)
     }
@@ -72,8 +71,7 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_image.setImageResource(R.drawable.ic_warning)
         repackaged_header.text = getString(R.string.repackaged_result_nok)
         repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
-                result.totalDifferentRepackagedApps,
-                result.totalDifferentRepackagedApps,
+                result.totalRepackagedApps,
                 result.totalRepackagedApps)
         repackaged_description_detail.text = getString(R.string.repackaged_result_nok_description)
     }
@@ -82,8 +80,7 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_image.setImageResource(R.drawable.ic_android)
         repackaged_header.text = getString(R.string.repackaged_result_insufficient)
         repackaged_description.text = resources.getQuantityString(R.plurals.repackaged_result_detection_description_general,
-                result.totalDifferentRepackagedApps,
-                result.totalDifferentRepackagedApps,
+                result.totalRepackagedApps,
                 result.totalRepackagedApps)
         repackaged_description_detail.text = getString(R.string.repackaged_result_insufficient_description)
     }
