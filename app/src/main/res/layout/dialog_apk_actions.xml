@@ -63,7 +63,6 @@
         <Button
             android:id="@+id/btn_repackaged_detection"
             style="@style/ApkActionButton"
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/detect_repackaged" />

@@ -316,7 +316,7 @@
     <string name="repackaged_global_signature_header">署名</string>
 
     <plurals name="repackaged_result_detection_description_general">
-            <item quantity="other">Apk Analyzerは、%1$d つのアプリケーションがこのアプリケーションと非常によく似ていることを発見しました。 これらのアプリは %2$d つの端末にあります.</item>
+            <item quantity="other">Apk Analyzerは、%1$d つのアプリケーションがこのアプリケーションと非常によく似ていることを発見しました.</item>
     </plurals>
     <string name="repackaged_result_insufficient_description">私たちのデータは、このアプリの独創性について何らかの前提をするのに十分ではありません。</string>
     <string name="repackaged_result_nok_description">下記のデータに基づいて、アプリが変更されている可能性があります。 このアプリが別のダウンロードソースから提供されている場合は、安全であるかどうかを確認するためにセキュリティアプリを使用することを検討してください。</string>
