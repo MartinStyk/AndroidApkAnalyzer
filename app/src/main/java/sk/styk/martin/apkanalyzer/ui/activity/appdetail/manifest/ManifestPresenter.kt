@@ -73,6 +73,7 @@ class ManifestPresenter(
                 val intent = Intent()
                 intent.setAction(Intent.ACTION_VIEW)
                 intent.setDataAndType(Uri.parse(targetFile), "text/xml")
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 try {
                     ApkAnalyzer.context.startActivity(intent)
                 } catch (e: ActivityNotFoundException) {
