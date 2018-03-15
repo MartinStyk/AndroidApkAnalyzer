@@ -8,8 +8,8 @@ import java.math.BigDecimal
 data class RepackagedDetectionResult(
         var appRecordId: Int,
         var status: RepackagedDetectionStatus,
-        var totalRepackagedApps: Int,
-        var totalDifferentRepackagedApps: Int,
+        var totalSimilarApps: Int,
+        var totalDifferentSimilarApps: Int,
         var percentageMajoritySignature: BigDecimal,
         var percentageSameSignature: BigDecimal,
         var signaturesNumberOfApps: Map<String, Int>
