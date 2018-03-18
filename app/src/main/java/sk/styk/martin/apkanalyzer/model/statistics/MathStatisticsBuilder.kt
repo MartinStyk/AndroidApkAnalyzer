@@ -27,8 +27,8 @@ class MathStatisticsBuilder(private val data: FloatArray) {
         return MathStatistics(
                 arithmeticMean = arithmeticMean,
                 median = BigDecimal(computeMedian().toDouble()),
-                min = BigDecimal(data[data.size - 1].toDouble()),
-                max = BigDecimal(data[0].toDouble()),
+                max = BigDecimal(data[data.size - 1].toDouble()),
+                min = BigDecimal(data[0].toDouble()),
                 variance = variance,
                 deviation = deviation
         )
