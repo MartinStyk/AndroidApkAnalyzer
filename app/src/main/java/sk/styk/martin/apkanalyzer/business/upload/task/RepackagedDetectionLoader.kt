@@ -40,16 +40,26 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
 
         val uploadData = ServerSideAppData(data, AndroidIdHelper.getAndroidId(context))
 
-        if (!SendDataService.isAlreadyUploaded(data, context)) {
-            Log.i(TAG, String.format("Package %s not already uploaded", packageName))
-            val isDataOnServer = AppDataUploadService().uploadServerSideDataWithoutValidations(uploadData)
-
-            if (!isDataOnServer) {
-                Log.w(TAG, String.format("Could not getRepackagedDetectionResult the data to server"))
-                return LoaderResult.CommunicationError
-            }
+        // in case of uploaded data, run detection. If it fails, try to re-upload data and rerun detection
+        if (SendDataService.isAlreadyUploaded(data, context)) {
+            val result = runDetection(uploadData, packageName)
+            if (result != null)
+                return result
         }
 
+        Log.i(TAG, String.format("Trying to upload package %s", packageName))
+        val isDataOnServer = AppDataUploadService().uploadServerSideDataWithoutValidations(uploadData)
+
+        if (!isDataOnServer) {
+            Log.w(TAG, String.format("Could not getRepackagedDetectionResult the data to server"))
+            return LoaderResult.CommunicationError
+        }
+
+        return runDetection(uploadData, packageName) ?: LoaderResult.CommunicationError
+    }
+
+    private fun runDetection(uploadData: ServerSideAppData, packageName: String): LoaderResult? {
+        Log.i(TAG, String.format("Running detection of %s", packageName))
         try {
             val (responseCode, responseBody) = ApkAnalyzerApi.instance.getRepackagedDetectionResult(uploadData.appHash, packageName)
             if (responseCode == 200) {
@@ -59,8 +69,7 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
         } catch (e: Throwable) {
             Log.w(TAG, String.format("Checking of package %s failed with exception %s", uploadData.packageName, e.toString()))
         }
-
-        return LoaderResult.CommunicationError
+        return null
     }
 
     companion object {
