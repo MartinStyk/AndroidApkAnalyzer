@@ -302,6 +302,9 @@
     <string name="permissions_protection_signature">Signature</string>
 
 
+    <string name="uploading_data">Uploading metadata…</string>
+    <string name="running_detection">Checking your app…</string>
+
     <string name="no_internet_connection">No internet connection</string>
     <string name="no_internet_connection_description">In order to check originality of you app, Apk Analyzer needs access to the network. Please, connect to internet.</string>
     <string name="metadata_upload_not_allowed">Apk metadata upload not allowed</string>

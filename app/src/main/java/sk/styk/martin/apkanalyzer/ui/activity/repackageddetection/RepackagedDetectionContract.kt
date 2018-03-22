@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
 import android.support.annotation.StringRes
 import lecho.lib.hellocharts.model.ColumnChartData
 import lecho.lib.hellocharts.model.PieChartData
+import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
@@ -14,7 +15,7 @@ import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 interface RepackagedDetectionContract {
     interface View {
 
-        fun showLoading()
+        fun showLoading(@StringRes status: Int = R.string.uploading_data)
 
         fun hideLoading()
 
@@ -35,16 +36,16 @@ interface RepackagedDetectionContract {
 
         fun showServiceUnavailable()
 
-        fun makeSnack(@StringRes stringId : Int)
+        fun makeSnack(@StringRes stringId: Int)
     }
 
     interface Presenter : BasePresenter<View> {
         fun initialize(appDetailData: AppDetailData)
 
-        fun onSignatureColumnTouch(columnIndex : Int)
+        fun onSignatureColumnTouch(columnIndex: Int)
 
-        fun onThisAppSignatureRatioPieTouch(arcIndex : Int)
+        fun onThisAppSignatureRatioPieTouch(arcIndex: Int)
 
-        fun onMajoritySignatureRatioPieTouch(arcIndex : Int)
+        fun onMajoritySignatureRatioPieTouch(arcIndex: Int)
     }
 }
