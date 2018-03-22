@@ -296,6 +296,9 @@
     <string name="permissions_protection_dangerous">危険な</string>
     <string name="permissions_protection_signature">署名</string>
 
+    <string name="uploading_data">メタデータのアップロード…</string>
+    <string name="running_detection">あなたのアプリをチェック…</string>
+
     <string name="no_internet_connection">インターネット接続なし</string>
     <string name="no_internet_connection_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました.</string>
     <string name="metadata_upload_not_allowed">Apkメタデータのアップロードが許可されていません</string>

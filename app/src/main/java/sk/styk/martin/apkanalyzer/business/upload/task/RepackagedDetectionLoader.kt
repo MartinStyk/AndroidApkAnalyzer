@@ -12,6 +12,7 @@ import sk.styk.martin.apkanalyzer.util.AndroidIdHelper
 import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils
 import sk.styk.martin.apkanalyzer.util.networking.ApkAnalyzerApi
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
+import java.lang.ref.WeakReference
 
 /**
  * @author Martin Styk
@@ -19,6 +20,16 @@ import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
  */
 class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : ApkAnalyzerAbstractAsyncLoader<RepackagedDetectionLoader.LoaderResult>(context) {
     private val TAG = RepackagedDetectionLoader::class.java.simpleName
+
+    private var callbackReference: WeakReference<RepackagedDetectionLoader.ProgressCallback>? = null
+
+    interface ProgressCallback {
+        fun onProgressChanged(status: LoaderStatus = LoaderStatus.UPLOADING)
+    }
+
+    fun setCallback(progressCallback: RepackagedDetectionLoader.ProgressCallback) {
+        callbackReference = WeakReference(progressCallback)
+    }
 
     override fun loadInBackground(): LoaderResult {
         val packageName = data.generalData.packageName
@@ -48,6 +59,8 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
         }
 
         Log.i(TAG, String.format("Trying to upload package %s", packageName))
+        callbackReference?.get()?.onProgressChanged(LoaderStatus.UPLOADING)
+
         val isDataOnServer = AppDataUploadService().uploadServerSideDataWithoutValidations(uploadData)
 
         if (!isDataOnServer) {
@@ -60,6 +73,7 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
 
     private fun runDetection(uploadData: ServerSideAppData, packageName: String): LoaderResult? {
         Log.i(TAG, String.format("Running detection of %s", packageName))
+        callbackReference?.get()?.onProgressChanged(LoaderStatus.DETECTING)
         try {
             val (responseCode, responseBody) = ApkAnalyzerApi.instance.getRepackagedDetectionResult(uploadData.appHash, packageName)
             if (responseCode == 200) {
@@ -82,6 +96,10 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
         object ServiceNotAvailable : LoaderResult()
         object CommunicationError : LoaderResult()
         class Success(val result: RepackagedDetectionResult) : LoaderResult()
+    }
+
+    enum class LoaderStatus {
+        UPLOADING, DETECTING
     }
 
 }

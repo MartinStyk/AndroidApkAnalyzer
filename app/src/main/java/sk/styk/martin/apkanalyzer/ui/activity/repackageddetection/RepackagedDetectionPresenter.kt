@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.Loader
@@ -29,7 +28,8 @@ class RepackagedDetectionPresenter(
         private val loader: ApkAnalyzerAbstractAsyncLoader<RepackagedDetectionLoader.LoaderResult>,
         private val loaderManager: LoaderManager
 ) : RepackagedDetectionContract.Presenter,
-        LoaderManager.LoaderCallbacks<RepackagedDetectionLoader.LoaderResult> {
+        LoaderManager.LoaderCallbacks<RepackagedDetectionLoader.LoaderResult>,
+        RepackagedDetectionLoader.ProgressCallback {
 
     override lateinit var view: RepackagedDetectionContract.View
     lateinit var appDetailData: AppDetailData
@@ -47,7 +47,16 @@ class RepackagedDetectionPresenter(
 
     // Data loading part
     private fun startLoadingData() {
-        loaderManager.initLoader(RepackagedDetectionLoader.ID, Bundle(), this)
+        val loader = loaderManager.initLoader(RepackagedDetectionLoader.ID, Bundle(), this)
+        if (loader is RepackagedDetectionLoader)
+            loader.setCallback(this)
+    }
+
+    override fun onProgressChanged(status: RepackagedDetectionLoader.LoaderStatus) {
+        when (status) {
+            RepackagedDetectionLoader.LoaderStatus.UPLOADING -> view.showLoading(R.string.uploading_data)
+            RepackagedDetectionLoader.LoaderStatus.DETECTING -> view.showLoading(R.string.running_detection)
+        }
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<RepackagedDetectionLoader.LoaderResult> {
@@ -90,10 +99,10 @@ class RepackagedDetectionPresenter(
 
     override fun onLoaderReset(loader: Loader<RepackagedDetectionLoader.LoaderResult>?) {}
 
-    override fun onSignatureColumnTouch(columnIndex : Int){
+    override fun onSignatureColumnTouch(columnIndex: Int) {
         val touchedEntry = repackagedDetectionResult?.signaturesNumberOfApps?.toList()?.sortedBy { (_, value) -> -value }?.get(columnIndex)
         touchedEntry?.let {
-            if (touchedEntry.first.equals(appDetailData.certificateData.certificateHash)){
+            if (touchedEntry.first.equals(appDetailData.certificateData.certificateHash)) {
                 view.makeSnack(R.string.repackaged_global_signature_current_app_touch)
             } else {
                 view.makeSnack(R.string.repackaged_global_signature_other_app_touch)
@@ -102,7 +111,7 @@ class RepackagedDetectionPresenter(
     }
 
     override fun onThisAppSignatureRatioPieTouch(arcIndex: Int) {
-        if(arcIndex == PIE_CHART_CURRENT_APP_SLICE){
+        if (arcIndex == PIE_CHART_CURRENT_APP_SLICE) {
             view.makeSnack(R.string.repackaged_result_detection_app_signature_same_dev_touch)
         } else {
             view.makeSnack(R.string.repackaged_result_detection_app_signature_other_devs_touch)
@@ -110,7 +119,7 @@ class RepackagedDetectionPresenter(
     }
 
     override fun onMajoritySignatureRatioPieTouch(arcIndex: Int) {
-        if(arcIndex == PIE_CHART_CURRENT_APP_SLICE){
+        if (arcIndex == PIE_CHART_CURRENT_APP_SLICE) {
             view.makeSnack(R.string.repackaged_result_detection_majority_signature_most_common_devs_touch)
         } else {
             view.makeSnack(R.string.repackaged_result_detection_majority_signature_other_devs_touch)

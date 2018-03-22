@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.repackageddetection
 
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -46,14 +47,16 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         presenter.initialize(currentData())
     }
 
-    override fun showLoading() {
-        repackaged_loading_data.visibility = View.VISIBLE
-        repackaged_content.visibility = View.GONE
-
+    override fun showLoading(@StringRes status: Int) {
+        activity.runOnUiThread {
+            repackaged_loading.visibility = View.VISIBLE
+            repackaged_loading_status.setText(status)
+            repackaged_content.visibility = View.GONE
+        }
     }
 
     override fun hideLoading() {
-        repackaged_loading_data.visibility = View.GONE
+        repackaged_loading.visibility = View.GONE
         repackaged_content.visibility = View.VISIBLE
 
     }
