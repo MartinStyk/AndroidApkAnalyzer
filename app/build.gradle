@@ -6,7 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
 
     compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "sk.styk.martin.apkanalyzer"
         minSdkVersion 15
@@ -52,10 +52,10 @@ dependencies {
     kapt 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     compile 'com.pddstudio:highlightjs-android:1.5.0'
     compile 'com.google.code.gson:gson:2.8.2'
-    compile 'com.squareup.okhttp3:okhttp:3.9.0'
+    compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.github.apl-devs:appintro:v4.2.2'
     compile 'com.firebase:firebase-jobdispatcher:0.8.5'
-    compile 'com.google.firebase:firebase-core:11.8.0'
+    compile 'com.google.firebase:firebase-core:12.0.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     kapt "com.android.databinding:compiler:$gradle_version"
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
