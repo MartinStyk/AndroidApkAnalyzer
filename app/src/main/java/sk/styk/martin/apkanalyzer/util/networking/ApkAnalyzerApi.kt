@@ -32,8 +32,8 @@ class ApkAnalyzerApi private constructor() {
 
     private val client = OkHttpClient.Builder()
             .connectTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(1, TimeUnit.MINUTES)
-            .readTimeout(1, TimeUnit.MINUTES)
+            .writeTimeout(45, TimeUnit.SECONDS)
+            .readTimeout(45, TimeUnit.SECONDS)
             .addInterceptor(BasicAuthInterceptor())
             .build()
 

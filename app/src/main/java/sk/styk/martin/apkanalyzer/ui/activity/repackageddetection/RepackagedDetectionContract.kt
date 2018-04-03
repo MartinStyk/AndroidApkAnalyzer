@@ -34,6 +34,8 @@ interface RepackagedDetectionContract {
 
         fun showDetectionError()
 
+        fun showCheckLater()
+
         fun showServiceUnavailable()
 
         fun makeSnack(@StringRes stringId: Int)

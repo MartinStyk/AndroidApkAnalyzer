@@ -313,6 +313,8 @@
     <string name="service_not_available_description">Unfortunately, Apk Analyzer app originality detection service is not reachable at the moment. Please, try again later. </string>
     <string name="repackaged_error">Error checking app</string>
     <string name="repackaged_error_description">Unfortunately, Apk Analyzer failed to check your app.</string>
+    <string name="long_detection">Check back in few minutes</string>
+    <string name="long_detection_description">Detection of your app is quite complicated. We need some time to get it done. Please return later to see results.</string>
 
     <string name="repackaged_result_nok">App looks suspicious</string>
     <string name="repackaged_result_ok">App is safe</string>

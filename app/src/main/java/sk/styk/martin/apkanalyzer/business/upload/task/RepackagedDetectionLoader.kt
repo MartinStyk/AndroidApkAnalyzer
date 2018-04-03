@@ -13,6 +13,7 @@ import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils
 import sk.styk.martin.apkanalyzer.util.networking.ApkAnalyzerApi
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 import java.lang.ref.WeakReference
+import java.net.SocketTimeoutException
 
 /**
  * @author Martin Styk
@@ -80,27 +81,30 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
                 val result = JsonSerializationUtils().deserialize<RepackagedDetectionResult>(responseBody.toString())
                 return LoaderResult.Success(result)
             }
+        } catch (e: SocketTimeoutException) {
+            return LoaderResult.LongOperationError
         } catch (e: Throwable) {
             Log.w(TAG, String.format("Checking of package %s failed with exception %s", uploadData.packageName, e.toString()))
         }
-        return null
-    }
+    return null
+}
 
-    companion object {
-        const val ID = 7
-    }
+companion object {
+    const val ID = 7
+}
 
-    sealed class LoaderResult {
-        object NotConnectedToInternet : LoaderResult()
-        object UserNotAllowedUpload : LoaderResult()
-        object ServiceNotAvailable : LoaderResult()
-        object CommunicationError : LoaderResult()
-        class Success(val result: RepackagedDetectionResult) : LoaderResult()
-    }
+sealed class LoaderResult {
+    object NotConnectedToInternet : LoaderResult()
+    object UserNotAllowedUpload : LoaderResult()
+    object ServiceNotAvailable : LoaderResult()
+    object CommunicationError : LoaderResult()
+    object LongOperationError : LoaderResult()
+    class Success(val result: RepackagedDetectionResult) : LoaderResult()
+}
 
-    enum class LoaderStatus {
-        UPLOADING, DETECTING
-    }
+enum class LoaderStatus {
+    UPLOADING, DETECTING
+}
 
 }
 
