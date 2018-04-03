@@ -106,6 +106,12 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
         repackaged_description.text = getString(R.string.repackaged_error_description)
     }
 
+    override fun showCheckLater() {
+        repackaged_image.setImageResource(R.drawable.ic_return_detection)
+        repackaged_header.text = getString(R.string.long_detection)
+        repackaged_description.text = getString(R.string.long_detection_description)
+    }
+
     override fun showServiceUnavailable() {
         repackaged_image.setImageResource(R.drawable.ic_not_available)
         repackaged_header.text = getString(R.string.service_not_available)

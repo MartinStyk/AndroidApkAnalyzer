@@ -307,6 +307,8 @@
     <string name="service_not_available_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました. </string>
     <string name="repackaged_error">エラー</string>
     <string name="repackaged_error_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました.</string>
+    <string name="long_detection">Check back in few minutes</string>
+    <string name="long_detection_description">あなたのアプリの検出は非常に複雑です。 我々はそれを完了するために時間が必要です。 結果を見るには後で戻ってください。</string>
 
     <string name="repackaged_result_nok">アプリが不審に思える</string>
     <string name="repackaged_result_ok">アプリは安全です</string>

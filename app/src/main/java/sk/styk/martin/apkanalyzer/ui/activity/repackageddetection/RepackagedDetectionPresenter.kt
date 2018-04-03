@@ -94,6 +94,8 @@ class RepackagedDetectionPresenter(
             is RepackagedDetectionLoader.LoaderResult.UserNotAllowedUpload -> view.showUploadNotAllowed()
             is RepackagedDetectionLoader.LoaderResult.ServiceNotAvailable -> view.showServiceUnavailable()
             is RepackagedDetectionLoader.LoaderResult.CommunicationError -> view.showDetectionError()
+            is RepackagedDetectionLoader.LoaderResult.LongOperationError -> view.showCheckLater()
+
         }
     }
 
