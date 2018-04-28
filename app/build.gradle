@@ -55,9 +55,8 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.10.0'
     compile 'com.github.apl-devs:appintro:v4.2.2'
     compile 'com.firebase:firebase-jobdispatcher:0.8.5'
-    compile 'com.google.firebase:firebase-core:12.0.1'
+    compile 'com.google.firebase:firebase-core:15.0.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    kapt "com.android.databinding:compiler:$gradle_version"
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
     testCompile 'junit:junit:4.12'
