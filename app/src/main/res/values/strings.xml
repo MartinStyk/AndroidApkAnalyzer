@@ -122,7 +122,7 @@
     <string name="save_icon">Save icon</string>
     <string name="install_failed">Apk Analyzer failed to install your APK. Please do it manually</string>
     <string name="install_app">Install APK</string>
-    <string name="detect_repackaged">Check originality (Beta)</string>
+    <string name="detect_repackaged">Check originality</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
 
     <string name="app_icon">Application icon</string>
