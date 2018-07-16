@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic
 
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.content.res.XmlResourceParser
@@ -20,17 +21,17 @@ import javax.xml.transform.stream.StreamSource
  * @version 22.06.2017.
  */
 @WorkerThread
-class AndroidManifestService(private val packageManager: PackageManager, private val packageName: String) {
+class AndroidManifestService(private val packageManager: PackageManager, private val packageInfo: PackageInfo) {
 
     fun loadAndroidManifest(): String {
-        val manifest = readManifest(packageManager, packageName)
+        val manifest = readManifest(packageManager, packageInfo)
         return formatManifest(manifest)
     }
 
-    private fun readManifest(packageManager: PackageManager, packageName: String): String {
+    private fun readManifest(packageManager: PackageManager, packageInfo: PackageInfo): String {
         val stringBuilder = StringBuilder()
         try {
-            val apkResources = packageManager.getResourcesForApplication(packageName)
+            val apkResources = packageManager.getResourcesForApplication(packageInfo.applicationInfo)
             val parser = apkResources.assets.openXmlResourceParser("AndroidManifest.xml")
 
             var eventType: Int = parser.next()
