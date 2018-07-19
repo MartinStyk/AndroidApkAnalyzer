@@ -32,10 +32,10 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = AppDetailPagerPresenter(AppDetailLoader(context = context,
-                packageName = arguments.getString(ARG_PACKAGE_NAME),
-                pathToPackage = arguments.getString(ARG_PACKAGE_PATH)), loaderManager)
-        adapter = AppDetailPagerAdapter(context, fragmentManager, presenter)
+        presenter = AppDetailPagerPresenter(AppDetailLoader(context = requireContext(),
+                packageName = arguments?.getString(ARG_PACKAGE_NAME),
+                pathToPackage = arguments?.getString(ARG_PACKAGE_PATH)), loaderManager)
+        adapter = AppDetailPagerAdapter(requireContext(), fragmentManager!!, presenter)
     }
 
 
@@ -43,11 +43,11 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
         return inflater.inflate(R.layout.fragment_app_detail, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.view = this
-        presenter.initialize(arguments)
+        presenter.initialize(arguments!!)
     }
 
     override fun setUpViews() {

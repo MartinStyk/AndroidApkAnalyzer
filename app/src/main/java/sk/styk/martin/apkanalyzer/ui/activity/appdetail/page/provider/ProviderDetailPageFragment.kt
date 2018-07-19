@@ -26,9 +26,9 @@ class ProviderDetailPageFragment : Fragment(), ProviderDetailPageContract.View {
         return inflater.inflate(R.layout.fragment_app_detail_provider, container, false)
     }
 
-    override fun onViewCreated(view: android.view.View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.initialize(arguments.getParcelableArrayList<ContentProviderData>(AppDetailPagerContract.ARG_PAGER_PAGE)
+        presenter.initialize(arguments?.getParcelableArrayList<ContentProviderData>(AppDetailPagerContract.ARG_PAGER_PAGE)
                 ?: throw IllegalArgumentException("data null"))
         presenter.view = this
         presenter.getData()

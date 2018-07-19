@@ -46,9 +46,9 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
         return inflater.inflate(R.layout.fragment_app_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_analyze_not_installed.setOnClickListener({ startFilePicker(true) })
+        btn_analyze_not_installed.setOnClickListener { startFilePicker(true) }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -101,7 +101,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<AppListData>> {
-        return AppListLoader(context)
+        return AppListLoader(requireContext())
     }
 
     override fun onLoadFinished(loader: Loader<List<AppListData>>, data: List<AppListData>) {
@@ -164,7 +164,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startFilePicker(false)
             } else {
-                Snackbar.make(activity.findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show()
             }
         }
     }
@@ -176,7 +176,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
      */
     private fun startFilePicker(withPermissionCheck: Boolean) {
         if (withPermissionCheck) {
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_STORAGE_PERMISSIONS)
             } else {
                 startFilePicker(false)
@@ -185,7 +185,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
             try {
                 startActivityForResult(ApkFilePicker.filePickerIntent, ApkFilePicker.REQUEST_PICK_APK)
             } catch (exception: ActivityNotFoundException) {
-                Snackbar.make(activity.findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
+                Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
             }
 
         }

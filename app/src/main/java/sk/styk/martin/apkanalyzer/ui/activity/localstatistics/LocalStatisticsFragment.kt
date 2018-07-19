@@ -34,7 +34,7 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        presenter = LocalStatisticsPresenter(LocalStatisticsLoader(context), loaderManager)
+        presenter = LocalStatisticsPresenter(LocalStatisticsLoader(requireContext()), loaderManager)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +44,7 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.view = this
         presenter.initialize()
@@ -59,7 +59,7 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
 
     override fun onResume() {
         super.onResume()
-        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, LocalStatisticsFragment::class.java.simpleName, LocalStatisticsFragment::class.java.simpleName)
+        FirebaseAnalytics.getInstance(requireContext()).setCurrentScreen(requireActivity(), LocalStatisticsFragment::class.java.simpleName, LocalStatisticsFragment::class.java.simpleName)
     }
 
     override fun changeProgress(currentProgress: Int, maxProgress: Int) {

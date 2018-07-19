@@ -24,7 +24,7 @@ class AboutFragment : Fragment() {
         return DataBindingUtil.inflate<FragmentAboutBinding>(inflater, R.layout.fragment_about, container, false).root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setHasOptionsMenu(true)
@@ -35,7 +35,8 @@ class AboutFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, AboutFragment::class.java.simpleName, AboutFragment::class.java.simpleName)
+        FirebaseAnalytics.getInstance(requireContext())
+                .setCurrentScreen(requireActivity(), AboutFragment::class.java.simpleName, AboutFragment::class.java.simpleName)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

@@ -14,10 +14,10 @@ class SimpleTextDialog : DialogFragment() {
 
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val title = arguments.getString(ARG_TITLE)
-        val message = arguments.getString(ARG_MESSAGE)
+        val title = arguments?.getString(ARG_TITLE) ?: ""
+        val message = arguments?.getString(ARG_MESSAGE) ?: ""
 
-        return AlertDialog.Builder(activity)
+        return AlertDialog.Builder(requireContext())
                 .setTitle(title)
                 .setMessage(message)
                 .setNegativeButton(R.string.dismiss) { _, _ -> dismiss() }

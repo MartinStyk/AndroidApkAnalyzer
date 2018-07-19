@@ -63,7 +63,7 @@ class RepackagedDetectionPresenter(
         return loader
     }
 
-    override fun onLoadFinished(loader: Loader<RepackagedDetectionLoader.LoaderResult>?, result: RepackagedDetectionLoader.LoaderResult?) {
+    override fun onLoadFinished(loader: Loader<RepackagedDetectionLoader.LoaderResult>, result: RepackagedDetectionLoader.LoaderResult?) {
         view.hideLoading()
         when (result) {
             is RepackagedDetectionLoader.LoaderResult.Success -> {
@@ -99,7 +99,7 @@ class RepackagedDetectionPresenter(
         }
     }
 
-    override fun onLoaderReset(loader: Loader<RepackagedDetectionLoader.LoaderResult>?) {}
+    override fun onLoaderReset(loader: Loader<RepackagedDetectionLoader.LoaderResult>) {}
 
     override fun onSignatureColumnTouch(columnIndex: Int) {
         val touchedEntry = repackagedDetectionResult?.signaturesNumberOfApps?.toList()?.sortedBy { (_, value) -> -value }?.get(columnIndex)

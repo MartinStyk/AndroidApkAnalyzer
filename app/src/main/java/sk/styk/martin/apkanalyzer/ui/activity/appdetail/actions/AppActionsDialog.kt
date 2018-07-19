@@ -49,16 +49,16 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         return inflater.inflate(R.layout.dialog_apk_actions, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.view = this
-        presenter.initialize(arguments)
+        presenter.initialize(arguments ?: Bundle())
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        return AlertDialog.Builder(context)
+        return AlertDialog.Builder(requireContext())
                 .setView(R.layout.dialog_apk_actions)
                 .setTitle(R.string.pick_action)
                 .setNegativeButton(R.string.dismiss) { _, _ -> dismiss() }
@@ -95,22 +95,22 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     }
 
     override fun createSnackbar(text: String, @StringRes actionName: Int?, action: View.OnClickListener?) {
-        val snackbar = Snackbar.make(activity.findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(requireActivity().findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
         if (action != null && actionName != null)
             snackbar.setAction(actionName, action)
         snackbar.show()
     }
 
     override fun openRepackagedDetection(fragment: RepackagedDetectionFragment) {
-        fragmentManager.beginTransaction()
-                .replace(R.id.container_frame, fragment)
-                .addToBackStack(RepackagedDetectionFragment.TAG)
-                .commit();
+        fragmentManager?.beginTransaction()
+                ?.replace(R.id.container_frame, fragment)
+                ?.addToBackStack(RepackagedDetectionFragment.TAG)
+                ?.commit();
         logSelectEvent("repackaged-detection")
     }
 
     override fun openManifestActivity(appDetailData: AppDetailData) {
-        startActivity(ManifestActivity.createIntent(context, appDetailData))
+        startActivity(ManifestActivity.createIntent(requireContext(), appDetailData))
         logSelectEvent("show-manifest")
     }
 
@@ -120,8 +120,8 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun exportApk(appDetailData: AppDetailData) {
-        val targetFile = FileCopyService.startService(context, appDetailData)
-        createSnackbar(context.getString(R.string.copy_apk_background, targetFile))
+        val targetFile = FileCopyService.startService(requireContext(), appDetailData)
+        createSnackbar(requireContext().getString(R.string.copy_apk_background, targetFile))
         logSelectEvent("export-apk")
         dismissAllowingStateLoss()
     }
@@ -138,10 +138,10 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
 
     @NeedsPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     fun saveIcon(appDetailData: AppDetailData) {
-        val targetFile = DrawableSaveService.startService(context, appDetailData,
+        val targetFile = DrawableSaveService.startService(requireContext(), appDetailData,
                 appDetailData.generalData.icon?.toBitmap())
 
-        createSnackbar(context.getString(R.string.save_icon_background, targetFile), R.string.action_show,
+        createSnackbar(requireContext().getString(R.string.save_icon_background, targetFile), R.string.action_show,
                 View.OnClickListener {
                     val intent = Intent()
                     intent.setAction(Intent.ACTION_VIEW)
@@ -158,22 +158,22 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     }
 
     override fun startSharingActivity(apkPath: String) {
-        AppOperations.shareApkFile(context, apkPath)
+        AppOperations.shareApkFile(requireContext(), apkPath)
         logSelectEvent("share-apk")
     }
 
     override fun openGooglePlay(packageName: String) {
-        AppOperations.openGooglePlay(context, packageName)
+        AppOperations.openGooglePlay(requireContext(), packageName)
         logSelectEvent("open-google-play")
     }
 
     override fun openSystemAboutActivity(packageName: String) {
-        AppOperations.openAppSystemPage(context, packageName)
+        AppOperations.openAppSystemPage(requireContext(), packageName)
         logSelectEvent("open-system-about")
     }
 
     override fun startApkInstall(apkPath: String) {
-        AppOperations.installPackage(context, apkPath)
+        AppOperations.installPackage(requireContext(), apkPath)
         logSelectEvent("install-apk")
     }
 
@@ -197,7 +197,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         val bundle = Bundle();
         bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
         bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action");
-        FirebaseAnalytics.getInstance(context).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
     }
 
 }

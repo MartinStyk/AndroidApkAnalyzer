@@ -77,12 +77,12 @@ class LocalStatisticsPresenter(
         return loader
     }
 
-    override fun onLoadFinished(loader: Loader<LocalStatisticsDataWithCharts>?, result: LocalStatisticsDataWithCharts) {
+    override fun onLoadFinished(loader: Loader<LocalStatisticsDataWithCharts>, result: LocalStatisticsDataWithCharts) {
         data = result
         view.showStatistics(result)
     }
 
-    override fun onLoaderReset(loader: Loader<LocalStatisticsDataWithCharts>?) {
+    override fun onLoaderReset(loader: Loader<LocalStatisticsDataWithCharts>) {
         data = null
     }
 }

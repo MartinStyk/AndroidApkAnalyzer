@@ -41,7 +41,7 @@ class LocalPermissionsPresenter(
         return loader
     }
 
-    override fun onLoadFinished(loader: Loader<List<LocalPermissionData>>?, result: List<LocalPermissionData>) {
+    override fun onLoadFinished(loader: Loader<List<LocalPermissionData>>, result: List<LocalPermissionData>) {
         data = result
         view.loadingFinished()
         view.showPermissionList()
@@ -64,5 +64,5 @@ class LocalPermissionsPresenter(
         } ?: throw IllegalStateException()
     }
 
-    override fun onLoaderReset(loader: Loader<List<LocalPermissionData>>?) {}
+    override fun onLoaderReset(loader: Loader<List<LocalPermissionData>>) {}
 }

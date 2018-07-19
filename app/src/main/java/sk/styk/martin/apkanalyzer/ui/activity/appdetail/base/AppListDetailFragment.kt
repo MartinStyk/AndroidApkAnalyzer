@@ -34,7 +34,8 @@ class AppListDetailFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, AppListDetailFragment::class.java.simpleName, AppListDetailFragment::class.java.simpleName)
+        FirebaseAnalytics.getInstance(requireContext())
+                .setCurrentScreen(requireActivity(), AppListDetailFragment::class.java.simpleName, AppListDetailFragment::class.java.simpleName)
     }
 
     fun itemClicked(packageName: String?, pathToPackage: String?) {
@@ -42,8 +43,8 @@ class AppListDetailFragment : Fragment() {
             val fragment = AppDetailPagerFragment.create(packageName = packageName, packagePath = pathToPackage)
             childFragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailPagerFragment.TAG).commitAllowingStateLoss()
         } else {
-            val activity = AppDetailActivity.createIntent(packageName = packageName, packagePath = pathToPackage, context = context)
-            context.startActivity(activity)
+            val activity = AppDetailActivity.createIntent(packageName = packageName, packagePath = pathToPackage, context = requireContext())
+            requireContext().startActivity(activity)
         }
     }
 }

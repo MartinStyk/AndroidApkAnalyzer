@@ -31,11 +31,11 @@ class PermissionsGeneralDetailsFragment : Fragment(), PermissionsGeneralDetailsC
         return binding.root
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.view = this
-        presenter.initialize(arguments)
+        presenter.initialize(arguments!!)
     }
 
     override fun showPermissionDetails(permissionData: PermissionData, grantedApps: Int, notGrantedApss: Int) {

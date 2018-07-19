@@ -34,7 +34,7 @@ class SettingsFragment : Fragment(), SettingsContract.View {
         return rootView
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.view = this
         presenter.initialize()
@@ -42,7 +42,7 @@ class SettingsFragment : Fragment(), SettingsContract.View {
 
     override fun onResume() {
         super.onResume()
-        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, SettingsFragment::class.java.simpleName, SettingsFragment::class.java.simpleName)
+        FirebaseAnalytics.getInstance(requireContext()).setCurrentScreen(requireActivity(), SettingsFragment::class.java.simpleName, SettingsFragment::class.java.simpleName)
     }
 
     override fun setUpViews() {

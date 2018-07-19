@@ -26,9 +26,9 @@ class FeatureDetailPageFragment : Fragment(), FeatureDetailPageContract.View {
         return inflater.inflate(R.layout.fragment_app_detail_activity, container, false)
     }
 
-    override fun onViewCreated(view: android.view.View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.initialize(arguments.getParcelableArrayList<FeatureData>(AppDetailPagerContract.ARG_PAGER_PAGE)
+        presenter.initialize(arguments?.getParcelableArrayList<FeatureData>(AppDetailPagerContract.ARG_PAGER_PAGE)
                 ?: throw IllegalArgumentException("data null"))
         presenter.view = this
         presenter.getData()

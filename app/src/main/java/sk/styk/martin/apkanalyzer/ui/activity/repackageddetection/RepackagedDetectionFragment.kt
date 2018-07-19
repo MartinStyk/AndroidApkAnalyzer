@@ -34,21 +34,21 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = RepackagedDetectionPresenter(RepackagedDetectionLoader(currentData(), context), loaderManager)
+        presenter = RepackagedDetectionPresenter(RepackagedDetectionLoader(currentData(), requireContext()), loaderManager)
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_repackaged_detection, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_repackaged_detection, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.view = this
         presenter.initialize(currentData())
     }
 
     override fun showLoading(@StringRes status: Int) {
-        activity.runOnUiThread {
+        activity?.runOnUiThread {
             repackaged_loading.visibility = View.VISIBLE
             repackaged_loading_status.setText(status)
             repackaged_content.visibility = View.GONE
@@ -119,7 +119,7 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
     }
 
     override fun makeSnack(stringId: Int) {
-        Snackbar.make(activity.findViewById(android.R.id.content), stringId, Snackbar.LENGTH_LONG).show()
+        Snackbar.make(requireActivity().findViewById(android.R.id.content), stringId, Snackbar.LENGTH_LONG).show()
     }
 
     override fun showDetectionCharts(result: RepackagedDetectionResult, appSignaturePieChartData: PieChartData,
@@ -159,7 +159,7 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
     }
 
     private fun currentData(): AppDetailData {
-        return arguments.getParcelable(DATA)
+        return arguments?.getParcelable(DATA) ?: throw IllegalArgumentException("no app detail data")
     }
 
     companion object {

@@ -36,7 +36,7 @@ interface AppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
             return binding.root
         }
 
-        override fun onViewCreated(view: android.view.View?, savedInstanceState: Bundle?) {
+        override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             presenter.initialize(extractData())
             presenter.view = this
@@ -44,7 +44,7 @@ interface AppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
         }
 
         open fun extractData(): DATA {
-            return arguments.getParcelable(ARG_PAGER_PAGE) ?: throw IllegalArgumentException("data null")
+            return arguments?.getParcelable(ARG_PAGER_PAGE) ?: throw IllegalArgumentException("data null")
         }
 
         abstract fun showData(data: DATA)

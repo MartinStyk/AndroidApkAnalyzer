@@ -29,7 +29,7 @@ class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        presenter = LocalPermissionsPresenter(LocalPermissionsLoader(context), loaderManager)
+        presenter = LocalPermissionsPresenter(LocalPermissionsLoader(requireContext()), loaderManager)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +39,7 @@ class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
         return view
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter.view = this
         presenter.initialize()
@@ -47,7 +47,7 @@ class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
 
     override fun onResume() {
         super.onResume()
-        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity, LocalPermissionsFragment::class.java.simpleName, LocalPermissionsFragment::class.java.simpleName)
+        FirebaseAnalytics.getInstance(requireContext()).setCurrentScreen(requireActivity(), LocalPermissionsFragment::class.java.simpleName, LocalPermissionsFragment::class.java.simpleName)
     }
 
     override fun setUpViews() {
@@ -81,7 +81,7 @@ class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
     override fun openPermissionDetail(permission : LocalPermissionData) {
         val intent = Intent(context, PermissionDetailActivity::class.java)
         intent.putExtra(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA, permission)
-        context.startActivity(intent)
+        requireContext().startActivity(intent)
     }
 
 }

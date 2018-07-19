@@ -29,7 +29,7 @@ abstract class ApkAnalyzerAbstractAsyncLoader<T> internal constructor(context: C
      * super class will take care of delivering it; the implementation
      * here just adds a little more logic.
      */
-    override fun deliverResult(newItems: T) {
+    override fun deliverResult(newItems: T?) {
         if (isReset) {
             // An async query came in while the loader is stopped.  We
             // don't need the result.

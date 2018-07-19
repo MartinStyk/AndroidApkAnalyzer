@@ -22,18 +22,18 @@ class AppListFragment : Fragment(), AppListContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = AppListPresenter(AppListFromPackageNamesLoader(context, arguments.getStringArrayList(AppListContract.PACKAGES_ARGUMENT)), loaderManager)
+        presenter = AppListPresenter(AppListFromPackageNamesLoader(requireContext(), arguments!!.getStringArrayList(AppListContract.PACKAGES_ARGUMENT)), loaderManager)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_permission_app_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.view = this
-        presenter.initialize(arguments)
+        presenter.initialize(arguments!!)
     }
 
     override fun setUpViews() {
@@ -55,6 +55,6 @@ class AppListFragment : Fragment(), AppListContract.View {
     }
 
     override fun openAppDetailActivity(packageName: String) {
-        context.startActivity(AppDetailActivity.createIntent(packageName, null, context))
+        requireContext().startActivity(AppDetailActivity.createIntent(packageName, null, requireContext()))
     }
 }

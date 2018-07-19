@@ -26,9 +26,10 @@ class StringListDetailPageFragment : Fragment(), StringListDetailPageContract.Vi
         return inflater.inflate(R.layout.fragment_app_detail_simple_string_list, container, false)
     }
 
-    override fun onViewCreated(view: android.view.View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.initialize(arguments.getStringArrayList((AppDetailPagerContract.ARG_PAGER_PAGE)))
+        presenter.initialize(arguments?.getStringArrayList((AppDetailPagerContract.ARG_PAGER_PAGE))
+                ?: throw IllegalArgumentException())
         presenter.view = this
         presenter.getData()
     }
