@@ -26,23 +26,23 @@ class AppListDialog : DialogFragment(), AppListContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = AppListPresenter(AppListFromPackageNamesLoader(context, arguments.getStringArrayList(PACKAGES_ARGUMENT)), loaderManager)
+        presenter = AppListPresenter(AppListFromPackageNamesLoader(requireContext(), arguments!!.getStringArrayList(PACKAGES_ARGUMENT)), loaderManager)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.dialog_app_list, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.view = this
-        presenter.initialize(arguments)
+        presenter.initialize(arguments!!)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
 
-        return AlertDialog.Builder(context)
+        return AlertDialog.Builder(requireContext())
                 .setView(R.layout.dialog_app_list)
                 .setTitle(R.string.apps)
                 .setNegativeButton(R.string.dismiss) { _, _ -> dismiss() }
@@ -67,7 +67,7 @@ class AppListDialog : DialogFragment(), AppListContract.View {
     }
 
     override fun openAppDetailActivity(packageName: String) {
-        context.startActivity(AppDetailActivity.createIntent(packageName, null, context))
+        requireContext().startActivity(AppDetailActivity.createIntent(packageName, null, requireContext()))
     }
 
     companion object {

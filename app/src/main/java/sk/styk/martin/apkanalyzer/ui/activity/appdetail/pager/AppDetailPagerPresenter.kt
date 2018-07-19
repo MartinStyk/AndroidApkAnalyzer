@@ -37,7 +37,7 @@ class AppDetailPagerPresenter(
         return loader
     }
 
-    override fun onLoadFinished(loader: Loader<AppDetailData?>?, appDetailData: AppDetailData?) {
+    override fun onLoadFinished(loader: Loader<AppDetailData?>, appDetailData: AppDetailData?) {
         this.appDetailData = appDetailData
         view.hideLoading()
 

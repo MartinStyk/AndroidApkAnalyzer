@@ -26,7 +26,7 @@ class AllowMetadataUploadIntroSlide : AppIntroBaseFragment(), ISlidePolicy {
     }
 
     override fun onUserIllegallyRequestedNextPage() {
-        Snackbar.make(activity.findViewById(android.R.id.content), R.string.intro_upload_require_input, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.intro_upload_require_input, Snackbar.LENGTH_SHORT).show()
     }
 
     companion object {

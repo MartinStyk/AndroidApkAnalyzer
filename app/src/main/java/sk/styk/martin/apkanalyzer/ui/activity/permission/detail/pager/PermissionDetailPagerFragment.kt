@@ -35,16 +35,16 @@ class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.
         return inflater.inflate(R.layout.fragment_permission_detail_pager, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         presenter.view = this
-        presenter.initialize(arguments)
+        presenter.initialize(arguments!!)
 
     }
 
     override fun setUpViews() {
-        adapter = PermissionDetailPagerAdapter(presenter, fragmentManager)
+        adapter = PermissionDetailPagerAdapter(presenter, requireFragmentManager())
         pager.adapter = adapter
         tabs.setupWithViewPager(pager)
     }
@@ -59,7 +59,7 @@ class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if (description.itemId.equals(item?.itemId))
-            SimpleTextDialog.newInstance(getString(R.string.description), presenter.loadPermissionDescription(context.packageManager)).show(fragmentManager, SimpleTextDialog::class.java.simpleName)
+            SimpleTextDialog.newInstance(getString(R.string.description), presenter.loadPermissionDescription(requireContext().packageManager)).show(fragmentManager, SimpleTextDialog::class.java.simpleName)
 
         return super.onOptionsItemSelected(item)
     }
