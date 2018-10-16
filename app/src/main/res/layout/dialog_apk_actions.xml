@@ -60,12 +60,12 @@
             android:layout_height="wrap_content"
             android:text="@string/show_app_google_play" />
 
-        <Button
-            android:id="@+id/btn_repackaged_detection"
-            style="@style/ApkActionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/detect_repackaged" />
+        <!--<Button-->
+            <!--android:id="@+id/btn_repackaged_detection"-->
+            <!--style="@style/ApkActionButton"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/detect_repackaged" />-->
 
 
     </LinearLayout>

@@ -80,7 +80,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
 
         dialog.btn_show_app_google_play.setOnClickListener { presenter.showGooglePlayClick() }
 
-        dialog.btn_repackaged_detection.setOnClickListener { presenter.repackagedDetectionClick() }
+//        dialog.btn_repackaged_detection.setOnClickListener { presenter.repackagedDetectionClick() }
 
         dialog.btn_show_manifest.setOnClickListener { presenter.showManifestClick() }
 
