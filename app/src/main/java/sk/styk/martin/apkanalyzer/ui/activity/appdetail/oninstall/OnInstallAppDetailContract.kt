@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.oninstall
 
+import android.content.Context
 import android.net.Uri
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
@@ -23,7 +24,7 @@ interface OnInstallAppDetailContract {
     interface Presenter : BasePresenter<View> {
         var packagePath: String?
 
-        fun initialize(uri: Uri?)
+        fun initialize(uri: Uri?, context: Context)
 
         fun storagePermissionGranted()
 

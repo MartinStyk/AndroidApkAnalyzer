@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.oninstall
 
+import android.content.Context
 import android.net.Uri
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
 
@@ -14,12 +15,12 @@ class OnInstallAppDetailPresenter : OnInstallAppDetailContract.Presenter {
     override var packagePath: String? = ""
 
 
-    override fun initialize(uri: Uri?) {
+    override fun initialize(uri: Uri?, context: Context) {
 
         if (uri == null) {
             view.errorLoading()
         } else {
-            packagePath = ApkFilePicker.getPathFromIntentData(uri) ?: return view.errorLoading()
+            packagePath = ApkFilePicker.getPathFromIntentData(uri, context) ?: return view.errorLoading()
         }
         view.requestStoragePermission()
     }

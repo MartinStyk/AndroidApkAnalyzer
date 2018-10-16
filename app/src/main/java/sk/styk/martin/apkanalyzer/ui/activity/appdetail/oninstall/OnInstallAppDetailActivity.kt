@@ -28,8 +28,7 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
 
         presenter = OnInstallAppDetailPresenter()
         presenter.view = this
-        presenter.initialize(intent?.data)
-
+        presenter.initialize(intent?.data, this)
     }
 
     override fun setupViews() {
