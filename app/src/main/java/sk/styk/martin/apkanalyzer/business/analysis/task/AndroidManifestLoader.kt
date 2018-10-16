@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.business.analysis.task
 
 import android.content.Context
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import sk.styk.martin.apkanalyzer.business.analysis.logic.AndroidManifestService
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
@@ -12,12 +11,13 @@ import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoa
  * @author Martin Styk
  * @version 15.09.2017.
  */
-class AndroidManifestLoader(context: Context, private val packageInfo: PackageInfo) : ApkAnalyzerAbstractAsyncLoader<String>(context) {
+class AndroidManifestLoader(context: Context, private val packageName: String, private val packagePath: String)
+    : ApkAnalyzerAbstractAsyncLoader<String>(context) {
 
     private val packageManager: PackageManager = getContext().packageManager
 
     override fun loadInBackground(): String {
-        return AndroidManifestService(packageManager, packageInfo).loadAndroidManifest()
+        return AndroidManifestService(packageManager, packageName, packagePath).loadAndroidManifest()
     }
 
     companion object {

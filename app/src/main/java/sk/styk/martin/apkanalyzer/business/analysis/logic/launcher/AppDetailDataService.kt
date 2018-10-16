@@ -78,8 +78,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
                     featureData = featuresService.get(packageInfo),
                     fileData = fileData,
                     resourceData = resourceService.get(fileData),
-                    classPathData = dexService.get(packageInfo),
-                    packageInfo = packageInfo
+                    classPathData = dexService.get(packageInfo)
             )
 
         } catch (e: Exception) {
@@ -95,7 +94,6 @@ class AppDetailDataService(private val packageManager: PackageManager) {
     private fun PackageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage: String, analysisFlags: Int): PackageInfo {
         val packageInfo = getPackageArchiveInfo(pathToPackage, analysisFlags)
         packageInfo?.applicationInfo?.sourceDir = pathToPackage
-        packageInfo?.applicationInfo?.publicSourceDir = pathToPackage
 
         return packageInfo
     }

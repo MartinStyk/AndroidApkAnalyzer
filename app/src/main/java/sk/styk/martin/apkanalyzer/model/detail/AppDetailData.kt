@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.model.detail
 
 import android.annotation.SuppressLint
-import android.content.pm.PackageInfo
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -26,8 +25,7 @@ data class AppDetailData(val analysisMode: AnalysisMode,
                          var featureData: List<FeatureData>,
                          var fileData: FileData,
                          var resourceData: ResourceData,
-                         var classPathData: ClassPathData,
-                         val packageInfo: PackageInfo) : Parcelable {
+                         var classPathData: ClassPathData) : Parcelable {
 
     val isAnalyzedApkFile: Boolean
         get() = AnalysisMode.APK_FILE == analysisMode
