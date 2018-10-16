@@ -19,8 +19,8 @@ import permissions.dispatcher.RuntimePermissions
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AndroidManifestLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_INFO_FOR_MANIFEST_REQUEST
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_NAME_FOR_MANIFEST_REQUEST
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_PATH_FOR_MANIFEST_REQUEST
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST
 
@@ -38,7 +38,11 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
         setContentView(R.layout.activity_manifest)
 
-        presenter = ManifestPresenter(AndroidManifestLoader(this, intent.getParcelableExtra(ManifestContract.PACKAGE_INFO_FOR_MANIFEST_REQUEST)), supportLoaderManager)
+        presenter = ManifestPresenter(AndroidManifestLoader(
+                this,
+                intent.getStringExtra(ManifestContract.PACKAGE_NAME_FOR_MANIFEST_REQUEST),
+                intent.getStringExtra(ManifestContract.PACKAGE_PATH_FOR_MANIFEST_REQUEST)
+        ), supportLoaderManager)
         presenter.view = this
         presenter.initialize(intent.getStringExtra(ManifestContract.PACKAGE_NAME_FOR_MANIFEST_REQUEST),
                 intent.getIntExtra(ManifestContract.PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST, 0),
@@ -103,8 +107,8 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
         fun createIntent(context: Context, appDetailData: AppDetailData): Intent {
             val intent = Intent(context, ManifestActivity::class.java)
-            intent.putExtra(PACKAGE_INFO_FOR_MANIFEST_REQUEST, appDetailData.packageInfo)
             intent.putExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST, appDetailData.generalData.packageName)
+            intent.putExtra(PACKAGE_PATH_FOR_MANIFEST_REQUEST, appDetailData.generalData.apkDirectory)
             intent.putExtra(PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST, appDetailData.generalData.versionName)
             intent.putExtra(PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST, appDetailData.generalData.versionCode)
             return intent

@@ -90,6 +90,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     }
 
     override fun showOnlyApkFileRelatedActions() {
+        dialog.btn_show_manifest.visibility = View.GONE
         dialog.btn_show_app_system_page.visibility = View.GONE
         dialog.btn_install_app.visibility = View.VISIBLE
     }
