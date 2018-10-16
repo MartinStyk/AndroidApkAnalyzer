@@ -9,7 +9,7 @@ import sk.styk.martin.apkanalyzer.R
  */
 object AndroidVersionHelper {
 
-    const val MAX_SDK_VERSION = 27
+    const val MAX_SDK_VERSION = 28
 
     fun resolveVersion(sdkVersion: Int?): String? {
         if (sdkVersion == null) return null
