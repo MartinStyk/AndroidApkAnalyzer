@@ -8,7 +8,6 @@ import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
 import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.upload.task.MultipleAppDataUploadJob
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 
@@ -68,8 +67,9 @@ class IntroActivity : AppIntro() {
             val isUploadAllowed = currentFragment.isUploadAllowed
             ConnectivityHelper.setConnectionAllowedByUser(applicationContext, isUploadAllowed)
 
-            if (isUploadAllowed)
-                MultipleAppDataUploadJob.start(applicationContext)
+//   Temporary disable uploads
+//            if (isUploadAllowed)
+//                MultipleAppDataUploadJob.start(applicationContext)
         }
 
         FirstStartHelper.setFirstStartFinished(applicationContext)
