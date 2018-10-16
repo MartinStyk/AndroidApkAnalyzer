@@ -1,7 +1,10 @@
 package sk.styk.martin.apkanalyzer.util.file
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.AsyncTask
+import com.google.android.gms.tasks.Task
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import java.io.File
 
@@ -21,31 +24,10 @@ object ApkFilePicker {
             return mediaIntent
         }
 
-    fun getPathFromIntentData(apkUri: Uri?): String? {
-        if (apkUri == null)
-            return null
+    fun getPathFromIntentData(apkUri: Uri?, context: Context): String? {
+        apkUri ?: return null
 
-        val fileFromPath = File(apkUri.path)
-        if (fileFromPath.exists())
-            return fileFromPath.absolutePath
-
-        val pathFromRealPathUtils = RealPathUtils.getPathFromUri(context, apkUri)
-        if (pathFromRealPathUtils != null) {
-            try {
-                val fileFromRealPathUtils = File(pathFromRealPathUtils)
-                if (fileFromRealPathUtils.exists())
-                    return fileFromRealPathUtils.absolutePath
-
-            } catch (e: Exception) {
-                // sometimes new File call might throw an exception
-                //we failed, return anything
-                return apkUri.toString()
-            }
-
-        }
-        //we failed, return anything
-        return apkUri.toString()
+        return FileUtils.fromUri(apkUri, context)?.absolutePath
     }
-
 
 }
