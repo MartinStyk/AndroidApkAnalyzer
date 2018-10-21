@@ -21,10 +21,10 @@ class AppComponentsService {
 
         val activities = packageInfo.activities ?: return ArrayList(0)
 
-        return activities.mapTo(ArrayList<ActivityData>(packageInfo.activities.size)) {
+        return activities.mapTo(ArrayList(packageInfo.activities.size)) {
             ActivityData(it.name,
                     it.packageName,
-                    it.loadLabel(packageManager)?.toString(),
+                    it.loadLabel(packageManager).toString(),
                     it.targetActivity,
                     it.permission,
                     it.parentActivityName,
@@ -36,7 +36,7 @@ class AppComponentsService {
 
         val services = packageInfo.services ?: return ArrayList(0)
 
-        return services.mapTo(ArrayList<ServiceData>(packageInfo.services.size)) {
+        return services.mapTo(ArrayList(packageInfo.services.size)) {
             ServiceData(name = it.name,
                     permission = it.permission,
                     isExported = it.exported,
@@ -51,7 +51,7 @@ class AppComponentsService {
 
         val providers = packageInfo.providers ?: return ArrayList(0)
 
-        return providers.mapTo(ArrayList<ContentProviderData>(packageInfo.providers.size)) {
+        return providers.mapTo(ArrayList(packageInfo.providers.size)) {
             ContentProviderData(it.name, it.authority, it.readPermission, it.writePermission, it.exported)
         }
     }
@@ -60,7 +60,7 @@ class AppComponentsService {
 
         val receivers = packageInfo.receivers ?: return ArrayList(0)
 
-        return receivers.mapTo(ArrayList<BroadcastReceiverData>(packageInfo.receivers.size)) {
+        return receivers.mapTo(ArrayList(packageInfo.receivers.size)) {
             BroadcastReceiverData(it.name, it.permission, it.exported)
         }
     }

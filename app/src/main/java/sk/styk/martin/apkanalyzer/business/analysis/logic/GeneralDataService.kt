@@ -30,8 +30,7 @@ class GeneralDataService {
 
         return GeneralData(
                 packageName = packageInfo.packageName,
-                applicationName = applicationInfo.loadLabel(packageManager)?.toString()
-                        ?: applicationInfo.packageName,
+                applicationName = applicationInfo.loadLabel(packageManager).toString(),
                 processName = applicationInfo.processName,
                 versionName = packageInfo.versionName,
                 versionCode = packageInfo.versionCode,
@@ -41,7 +40,7 @@ class GeneralDataService {
                 apkDirectory = applicationInfo.sourceDir,
                 dataDirectory = applicationInfo.dataDir,
 
-                source = Companion.getAppSource(packageManager, packageInfo.packageName, isSystemApp),
+                source = getAppSource(packageManager, packageInfo.packageName, isSystemApp),
                 appInstaller = appInstaller,
 
                 installLocation = InstallLocationHelper.resolveInstallLocation(packageInfo.installLocation),
@@ -62,11 +61,11 @@ class GeneralDataService {
     fun computeApkSize(sourceDir: String): Long = File(sourceDir).length()
 
     private fun getMinSdk(applicationInfo: ApplicationInfo, packageManager: PackageManager, analysisMode: AppDetailData.AnalysisMode): Int? =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                applicationInfo.minSdkVersion
-            else if (analysisMode.toString() == AppDetailData.AnalysisMode.INSTALLED_PACKAGE.toString())
-                AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager)
-            else null
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> applicationInfo.minSdkVersion
+                analysisMode.toString() == AppDetailData.AnalysisMode.INSTALLED_PACKAGE.toString() -> AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager)
+                else -> null
+            }
 
     companion object {
         fun getAppSource(packageManager: PackageManager, packageName: String, isSystem: Boolean): AppSource {
@@ -74,7 +73,7 @@ class GeneralDataService {
 
             return if (installer == AppSource.GOOGLE_PLAY.installerPackageName) AppSource.GOOGLE_PLAY
             else if (installer == AppSource.AMAZON_STORE.installerPackageName) AppSource.AMAZON_STORE
-            else if (installer == AppSource.SYSTEM_PREINSTALED.installerPackageName || isSystem) AppSource.SYSTEM_PREINSTALED
+            else if (installer == AppSource.SYSTEM_PREINSTALLED.installerPackageName || isSystem) AppSource.SYSTEM_PREINSTALLED
             else AppSource.UNKNOWN
         }
 

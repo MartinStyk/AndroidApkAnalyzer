@@ -18,7 +18,7 @@ class AppListLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<List<AppL
 
     private val installedAppsService = AppBasicDataService(getContext().packageManager)
 
-    internal var mPackageObserver: PackageIntentReceiver? = null
+    private var mPackageObserver: PackageIntentReceiver? = null
 
     override fun loadInBackground(): List<AppListData> {
         return installedAppsService.getAll()
@@ -50,7 +50,7 @@ class AppListLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<List<AppL
      * Helper class to look for interesting changes to the installed apps
      * so that the loader can be updated.
      */
-    class PackageIntentReceiver(internal val mLoader: AppListLoader) : BroadcastReceiver() {
+    class PackageIntentReceiver(private val mLoader: AppListLoader) : BroadcastReceiver() {
 
         init {
             val filter = IntentFilter(Intent.ACTION_PACKAGE_ADDED)
@@ -75,6 +75,4 @@ class AppListLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<List<AppL
     companion object {
         const val ID = 1
     }
-
 }
-

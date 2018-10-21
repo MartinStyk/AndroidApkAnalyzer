@@ -4,14 +4,7 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.support.annotation.WorkerThread
 import android.util.Log
-import sk.styk.martin.apkanalyzer.business.analysis.logic.AppComponentsService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.CertificateService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.DexService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.FeaturesService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.FileDataService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.GeneralDataService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.PermissionsService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.ResourceService
+import sk.styk.martin.apkanalyzer.business.analysis.logic.*
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 
 /**
@@ -98,4 +91,3 @@ class AppDetailDataService(private val packageManager: PackageManager) {
         return packageInfo
     }
 }
-

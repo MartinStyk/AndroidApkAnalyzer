@@ -9,7 +9,6 @@ import android.os.Environment
 import android.os.IBinder
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import java.io.File
 import java.io.IOException
@@ -73,8 +72,7 @@ class StringToFileSaveService : Service() {
                 .setTicker(title)
                 .setContentText(exportPath)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(resources,
-                        R.drawable.ic_launcher_web))
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.ic_launcher_web))
                 .setOngoing(inProgress)
     }
 
@@ -94,7 +92,7 @@ class StringToFileSaveService : Service() {
          *
          * @return target file absolute path
          */
-        fun startService(context: Context, packageName: String, versionCode: Int, versionName : String?, manifestContent: String): String {
+        fun startService(context: Context, packageName: String, versionCode: Int, versionName: String?, manifestContent: String): String {
             val target = File(Environment.getExternalStorageDirectory(), "${packageName}_${versionName}_${versionCode}_AndroidManifest.xml")
 
             val intent = Intent(context, StringToFileSaveService::class.java)
@@ -107,6 +105,4 @@ class StringToFileSaveService : Service() {
             return target.absolutePath
         }
     }
-
-
 }

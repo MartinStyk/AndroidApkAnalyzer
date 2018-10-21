@@ -12,7 +12,7 @@ import android.provider.BaseColumns
 object ApkAnalyzerContract {
 
     const val CONTENT_AUTHORITY = "sk.styk.martin.apkanalyzer"
-    private val BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY)
+    private val BASE_CONTENT_URI = Uri.parse("content://$CONTENT_AUTHORITY")
 
     const val PATH_SEND_DATA = "senddata"
 

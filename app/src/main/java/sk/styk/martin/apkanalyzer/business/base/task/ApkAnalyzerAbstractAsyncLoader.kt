@@ -13,7 +13,7 @@ import android.support.v4.content.AsyncTaskLoader
  */
 abstract class ApkAnalyzerAbstractAsyncLoader<T> internal constructor(context: Context) : AsyncTaskLoader<T>(context) {
 
-    internal var items: T? = null
+    private var items: T? = null
 
     /**
      * This is where the bulk of our work is done.  This function is
@@ -104,11 +104,8 @@ abstract class ApkAnalyzerAbstractAsyncLoader<T> internal constructor(context: C
      * Helper function to take care of releasing resources associated
      * with an actively loaded data set.
      */
-    internal fun onReleaseResources(param: T?) {
+    private fun onReleaseResources(param: T?) {
         // For a simple List<> there is nothing to do.  For something
         // like a Cursor, we would close it here.
     }
-
 }
-
-

@@ -15,7 +15,7 @@ import java.lang.ref.WeakReference
  */
 class LocalStatisticsLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<LocalStatisticsDataWithCharts>(context) {
 
-    private lateinit var callbackReference : WeakReference<ProgressCallback>
+    private lateinit var callbackReference: WeakReference<ProgressCallback>
     private val localAppDataService = LocalApplicationStatisticDataService(getContext().packageManager)
     private val appBasicDataService = AppBasicDataService(getContext().packageManager)
 
@@ -45,6 +45,4 @@ class LocalStatisticsLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<L
     companion object {
         const val ID = 3
     }
-
 }
-

@@ -26,7 +26,7 @@ class PermissionsService {
     private fun getDefinedPermissions(packageInfo: PackageInfo): List<PermissionData> {
         val permissionInfos = packageInfo.permissions ?: return ArrayList(0)
 
-        return permissionInfos.mapTo(ArrayList<PermissionData>(permissionInfos.size)) {
+        return permissionInfos.mapTo(ArrayList(permissionInfos.size)) {
             PermissionData(name = it.name, groupName = it.group, protectionLevel = it.protectionLevel)
         }
     }
@@ -46,12 +46,14 @@ class PermissionsService {
         requestedPermissionNames.indices.forEach { index ->
 
             val name = requestedPermissionNames[index]
-            val isGranted = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) && (requestedPermissionFlags[index] and PackageInfo.REQUESTED_PERMISSION_GRANTED != 0)
+            val isGranted = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) &&
+                    (requestedPermissionFlags[index] and PackageInfo.REQUESTED_PERMISSION_GRANTED != 0)
 
             val permissionData =
                     try {
                         val permissionInfo = packageManager.getPermissionInfo(name, PackageManager.GET_META_DATA)
-                        PermissionData(name = name, groupName = permissionInfo.group, protectionLevel = permissionInfo.protectionLevel)
+                        PermissionData(name = name, groupName = permissionInfo.group,
+                                protectionLevel = permissionInfo.protectionLevel)
                     } catch (e: Exception) {
                         // we failed to get permission data from package manager. Try to use things we know
                         PermissionData(name = name)
@@ -73,20 +75,18 @@ class PermissionsService {
             var i = 0
             var previousSpace = false
             while (++i < simpleNameBuilder.length) {
-                if (simpleNameBuilder[i] == '_') {
+                previousSpace = if (simpleNameBuilder[i] == '_') {
                     simpleNameBuilder.replace(i, i + 1, " ")
-                    previousSpace = true
+                    true
                 } else {
                     if (!previousSpace) {
                         val lowercase = Character.toLowerCase(simpleNameBuilder[i])
                         simpleNameBuilder.replace(i, i + 1, lowercase.toString())
                     }
-                    previousSpace = false
+                    false
                 }
             }
             return simpleNameBuilder.toString()
         }
     }
 }
-
-

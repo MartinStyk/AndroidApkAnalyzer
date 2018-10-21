@@ -9,7 +9,6 @@ import android.os.Environment
 import android.os.IBinder
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import java.io.File
@@ -110,5 +109,4 @@ class FileCopyService : Service() {
             return target.absolutePath
         }
     }
-
 }

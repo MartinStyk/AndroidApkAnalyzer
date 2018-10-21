@@ -35,15 +35,16 @@ class AndroidManifestService(private val packageManager: PackageManager, private
 
                 packageManager.getResourcesForApplication(packageName)
 
-            } catch (exception: PackageManager.NameNotFoundException){
+            } catch (exception: PackageManager.NameNotFoundException) {
 
-                packageManager.getPackageArchiveInfo(packagePath,0)?.let {
+                packageManager.getPackageArchiveInfo(packagePath, 0)?.let {
                     packageManager.getResourcesForApplication(it.applicationInfo)
                 }
 
             }
 
-            val parser = apkResources?.assets?.openXmlResourceParser("AndroidManifest.xml") ?: return ""
+            val parser = apkResources?.assets?.openXmlResourceParser("AndroidManifest.xml")
+                    ?: return ""
 
             var eventType: Int = parser.next()
 
@@ -100,7 +101,7 @@ class AndroidManifestService(private val packageManager: PackageManager, private
     private fun getAttributeValue(attributeName: String, attributeValue: String, resources: Resources): String {
         if (attributeValue.startsWith("@")) {
             try {
-                val id = Integer.valueOf(attributeValue.substring(1))!!
+                val id = Integer.valueOf(attributeValue.substring(1))
 
                 val value: String = when (attributeName) {
                     "theme", "resource" -> resources.getResourceEntryName(id)
@@ -130,7 +131,7 @@ class AndroidManifestService(private val packageManager: PackageManager, private
 
                 while (eventType != XmlResourceParser.END_DOCUMENT) {
                     if (eventType == XmlResourceParser.START_TAG) {
-                        if ("uses-sdk".equals(parser.name))
+                        if ("uses-sdk" == parser.name)
                             return parser.getAttributeIntValue("http://schemas.android.com/apk/res/android", "minSdkVersion", 0)
                     }
                     eventType = parser.next()

@@ -23,5 +23,4 @@ class LocalPermissionsDataService(private val packageManager: PackageManager) {
             null
         }
     }
-
 }

@@ -44,6 +44,4 @@ class LocalPermissionsLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<
     companion object {
         const val ID = 6
     }
-
 }
-

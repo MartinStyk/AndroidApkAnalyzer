@@ -23,6 +23,4 @@ class AppListFromPackageNamesLoader(context: Context, private val packageNames: 
     companion object {
         const val ID = 5
     }
-
 }
-

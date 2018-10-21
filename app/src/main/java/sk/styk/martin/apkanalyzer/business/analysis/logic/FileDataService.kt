@@ -49,9 +49,9 @@ class FileDataService {
                 fileName.startsWith("res/drawable") -> drawables.add(fileEntry)
                 fileName.startsWith("res/layout") -> layouts.add(fileEntry)
                 fileName.startsWith("res/menu") -> menus.add(fileEntry)
-                "classes.dex".equals(fileName) -> dexHash = hash
-                "resources.arsc".equals(fileName) -> arscHash = hash
-                "AndroidManifest.xml".equals(fileName) -> manifestHash = hash
+                "classes.dex" == fileName -> dexHash = hash
+                "resources.arsc" == fileName -> arscHash = hash
+                "AndroidManifest.xml" == fileName -> manifestHash = hash
                 else -> others.add(fileEntry)
             }
 

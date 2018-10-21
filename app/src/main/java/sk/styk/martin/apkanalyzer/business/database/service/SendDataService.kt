@@ -48,5 +48,4 @@ object SendDataService {
             false
         }
     }
-
 }

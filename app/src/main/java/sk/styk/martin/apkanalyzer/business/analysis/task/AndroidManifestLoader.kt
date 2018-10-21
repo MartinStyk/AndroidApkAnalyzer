@@ -24,4 +24,3 @@ class AndroidManifestLoader(context: Context, private val packageName: String, p
         const val ID = 4
     }
 }
-

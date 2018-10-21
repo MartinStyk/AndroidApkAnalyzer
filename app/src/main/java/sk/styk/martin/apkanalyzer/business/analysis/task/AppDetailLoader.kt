@@ -23,6 +23,4 @@ class AppDetailLoader(context: Context, private val packageName: String?, privat
     companion object {
         const val ID = 2
     }
-
 }
-

@@ -3,11 +3,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.support.annotation.WorkerThread
-import sk.styk.martin.apkanalyzer.business.analysis.logic.AndroidManifestService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.CertificateService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.FileDataService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.GeneralDataService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.ResourceService
+import sk.styk.martin.apkanalyzer.business.analysis.logic.*
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsAppData
 
 /**
@@ -50,8 +46,10 @@ class LocalApplicationStatisticDataService(private val packageManager: PackageMa
                 isSystemApp = isSystemApp,
                 installLocation = packageInfo.installLocation,
                 targetSdk = applicationInfo.targetSdkVersion,
-                minSdk = AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager) ?: 0,
-                apkSize = if (applicationInfo.sourceDir != null) generalDataService.computeApkSize(applicationInfo.sourceDir) else 0,
+                minSdk = AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager)
+                        ?: 0,
+                apkSize = if (applicationInfo.sourceDir != null)
+                    generalDataService.computeApkSize(applicationInfo.sourceDir) else 0,
                 appSource = GeneralDataService.getAppSource(packageManager, packageName, isSystemApp),
                 signAlgorithm = certificateService.getSignAlgorithm(packageInfo) ?: "Unknown",
                 activities = packageInfo.activities?.size ?: 0,

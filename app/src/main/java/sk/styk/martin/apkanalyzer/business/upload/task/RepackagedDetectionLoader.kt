@@ -86,25 +86,24 @@ class RepackagedDetectionLoader(val data: AppDetailData, context: Context) : Apk
         } catch (e: Throwable) {
             Log.w(TAG, String.format("Checking of package %s failed with exception %s", uploadData.packageName, e.toString()))
         }
-    return null
-}
+        return null
+    }
 
-companion object {
-    const val ID = 7
-}
+    companion object {
+        const val ID = 7
+    }
 
-sealed class LoaderResult {
-    object NotConnectedToInternet : LoaderResult()
-    object UserNotAllowedUpload : LoaderResult()
-    object ServiceNotAvailable : LoaderResult()
-    object CommunicationError : LoaderResult()
-    object LongOperationError : LoaderResult()
-    class Success(val result: RepackagedDetectionResult) : LoaderResult()
-}
+    sealed class LoaderResult {
+        object NotConnectedToInternet : LoaderResult()
+        object UserNotAllowedUpload : LoaderResult()
+        object ServiceNotAvailable : LoaderResult()
+        object CommunicationError : LoaderResult()
+        object LongOperationError : LoaderResult()
+        class Success(val result: RepackagedDetectionResult) : LoaderResult()
+    }
 
-enum class LoaderStatus {
-    UPLOADING, DETECTING
-}
+    enum class LoaderStatus {
+        UPLOADING, DETECTING
+    }
 
 }
-

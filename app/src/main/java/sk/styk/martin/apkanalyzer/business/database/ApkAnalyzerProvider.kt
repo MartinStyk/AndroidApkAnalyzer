@@ -44,7 +44,7 @@ class ApkAnalyzerProvider : ContentProvider() {
                         projection, selectionSingle, selectionArgsSingle, null, null, sortOrder)
             }
 
-            else -> (throw IllegalArgumentException("Cannot query unknown URI " + uri))
+            else -> (throw IllegalArgumentException("Cannot query unknown URI $uri"))
         }
         cursor.setNotificationUri(context.contentResolver, uri)
 
@@ -66,7 +66,7 @@ class ApkAnalyzerProvider : ContentProvider() {
 
         return when (match) {
             SEND_DATA -> validateAndInsert(uri, contentValues)
-            else -> throw IllegalArgumentException("Insertion is not supported for " + uri)
+            else -> throw IllegalArgumentException("Insertion is not supported for $uri")
         }
     }
 
@@ -80,7 +80,7 @@ class ApkAnalyzerProvider : ContentProvider() {
                 val recordId = arrayOf(ContentUris.parseId(uri).toString())
                 db.delete(SendDataEntry.TABLE_NAME, SendDataEntry._ID + "=?", recordId)
             }
-            else -> throw IllegalArgumentException("Delete is not supported for " + uri)
+            else -> throw IllegalArgumentException("Delete is not supported for $uri")
         }
     }
 
@@ -89,7 +89,7 @@ class ApkAnalyzerProvider : ContentProvider() {
 
         return when (match) {
             SEND_DATA_ID -> validateAndUpdate(uri, contentValues, ContentUris.parseId(uri))
-            else -> throw IllegalArgumentException("Update is not supported for " + uri)
+            else -> throw IllegalArgumentException("Update is not supported for $uri")
         }
     }
 
@@ -118,7 +118,7 @@ class ApkAnalyzerProvider : ContentProvider() {
         }
 
         if (id.equals(-1)) {
-            Log.e(LOG_TAG, "Failed to insert row for " + uri)
+            Log.e(LOG_TAG, "Failed to insert row for $uri")
             return null
         }
 
@@ -148,5 +148,4 @@ class ApkAnalyzerProvider : ContentProvider() {
             uriMatcher.addURI(ApkAnalyzerContract.CONTENT_AUTHORITY, ApkAnalyzerContract.PATH_SEND_DATA + "/#", SEND_DATA_ID)
         }
     }
-
 }

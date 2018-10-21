@@ -3,13 +3,7 @@ package sk.styk.martin.apkanalyzer.business.upload.task
 import android.content.Context
 import android.os.AsyncTask
 import android.util.Log
-import com.firebase.jobdispatcher.Constraint
-import com.firebase.jobdispatcher.FirebaseJobDispatcher
-import com.firebase.jobdispatcher.GooglePlayDriver
-import com.firebase.jobdispatcher.JobParameters
-import com.firebase.jobdispatcher.JobService
-import com.firebase.jobdispatcher.Lifetime
-import com.firebase.jobdispatcher.Trigger
+import com.firebase.jobdispatcher.*
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppDetailDataService
 import sk.styk.martin.apkanalyzer.business.database.service.SendDataService
@@ -100,5 +94,3 @@ class MultipleAppDataUploadJob : JobService() {
         }
     }
 }
-
-

@@ -19,7 +19,9 @@ class AppBasicDataService(val packageManager: PackageManager) {
 
     fun getAllPackageNames(): List<String> {
         val applications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        return applications.mapTo(ArrayList<String>(applications.size)) { it.packageName }.sorted()
+        return applications
+                .asSequence().mapTo(ArrayList<String>(applications.size)) { it.packageName }
+                .asSequence().sorted().toList()
     }
 
     fun getAll(): List<AppListData> {
@@ -56,5 +58,4 @@ class AppBasicDataService(val packageManager: PackageManager) {
 
         return packages.sortedWith(AppBasicInfoComparator.INSTANCE)
     }
-
 }

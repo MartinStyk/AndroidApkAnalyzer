@@ -8,7 +8,6 @@ import sk.styk.martin.apkanalyzer.business.database.service.SendDataService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.ServerSideAppData
 import sk.styk.martin.apkanalyzer.util.AndroidIdHelper
-import sk.styk.martin.apkanalyzer.util.JsonSerializationUtils
 import sk.styk.martin.apkanalyzer.util.networking.ApkAnalyzerApi
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 import java.lang.ref.WeakReference
@@ -35,7 +34,7 @@ class AppDataUploadService {
 
         val packageName = data.generalData.packageName
 
-        Log.i(TAG, "Starting save task for " + packageName)
+        Log.i(TAG, "Starting save task for $packageName")
 
         val context = contextWeakReference.get() ?: return false
 
