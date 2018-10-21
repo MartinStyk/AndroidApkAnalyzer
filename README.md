@@ -25,4 +25,4 @@ Interested in statistics data of your app collection? Find out the average numbe
 * Search application by name.
 
 
-Application doesn't require rooted device.
+Application doesn't require a rooted device.

@@ -1,11 +1,6 @@
 *.iml
-.gradle
-/local.properties
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/build
-/captures
-/keystore.properties
-/pictures
-app/app-release.apk
+.gradle/
+local.properties
+.idea/
+build/
+keystore.properties

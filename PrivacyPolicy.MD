@@ -10,10 +10,10 @@ If you choose to use my Service, then you agree to the collection and use of inf
 The terms used in this Privacy Policy have the same meanings as in our Terms and Conditions, which is accessible at Apk Analyzer unless otherwise defined in this Privacy Policy.
 
 ## Source code
-Apk Analyzer is developed as an Open Source application. It consists of mobile client and backedn server.
+Apk Analyzer is developed as an Open Source application. It consists of mobile client and backend server.
 
 * Android application source code: https://github.com/MartinStyk/AndroidApkAnalyzer
-* Backend server  source code https://github.com/MartinStyk/ApkAnalyzerServer 
+* Backend server source code https://github.com/MartinStyk/ApkAnalyzerServer 
 
 ## Information Collection and Use
 
@@ -52,10 +52,10 @@ Metadata about applications installed on your device. It doesn’t include your 
 * hashes of files contained in APK package
 * number of pictures in APK package
 * number of layouts in APK package
-* number and names of classes used by applicaiton
+* number and names of classes used by application
 
 #### Why is application metadata collected?
-I collect metadata of apps installed on your device for scientific reasons. As a part of my Master Thesis I detect possibly repackaged (and dangerous) aplications. For these reasons I need a database of application metadata. Based on this database, detection of malicious applications is implemented.
+I collect metadata of apps installed on your device for scientific reasons. As a part of my Master Thesis I detect possibly repackaged (and dangerous) applications. For these reasons I need a database of application metadata. Based on this database, detection of malicious applications is implemented.
 
 #### Android ID
 Unique identifier of android device.
@@ -80,7 +80,6 @@ I value your trust in providing us your Personal Information, thus we are strivi
 ## Links to Other Sites
 This Service may contain links to other sites. If you click on a third-party link, you will be directed to that site. Note that these external sites are not operated by me. Therefore, I strongly advise you to review the Privacy Policy of these websites. I have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites or services.
 ## Children’s Privacy
-These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to do necessary actions.
+These Services do not address anyone under the age of 13. I do not knowingly collect personally identifiable information from children under 13. In the case I discover that a child under 13 has provided me with personal information, I immediately delete this from our servers. If you are a parent or guardian and you are aware that your child has provided us with personal information, please contact me so that I will be able to take necessary actions.
 ## Changes to This Privacy Policy
 I may update our Privacy Policy from time to time. Thus, you are advised to review this page periodically for any changes. I will notify you of any changes by posting the new Privacy Policy on this page. These changes are effective immediately after they are posted on this page.
-
