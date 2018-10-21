@@ -62,10 +62,10 @@ class LocalStatisticsPresenter(
 
     override fun onAppSourceValueSelected(label: String) {
         data?.let {
-            view.showAppLists(it.statisticsData.appSource[AppSource.Companion.valueOf(label)] ?: return)
+            view.showAppLists(it.statisticsData.appSource[AppSource.valueOf(label)]
+                    ?: return)
         }
     }
-
 
     // Data loading part
     private fun startLoadingData() {

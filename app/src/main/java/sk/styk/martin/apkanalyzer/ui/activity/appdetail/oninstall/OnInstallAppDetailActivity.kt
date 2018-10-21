@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_app_detail.*
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 
 /**
@@ -71,6 +70,7 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
     }
 
     override fun onPermissionRefused() {
+        // TODO: fix failed type inference
         Snackbar.make(findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show()
         finish()
     }
@@ -88,5 +88,4 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
     companion object {
         private const val REQUEST_STORAGE_PERMISSIONS = 987
     }
-
 }

@@ -7,18 +7,15 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_repackaged_detection.*
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener
 import lecho.lib.hellocharts.listener.PieChartOnValueSelectListener
 import lecho.lib.hellocharts.model.ColumnChartData
 import lecho.lib.hellocharts.model.PieChartData
 import lecho.lib.hellocharts.model.SliceValue
 import lecho.lib.hellocharts.model.SubcolumnValue
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.upload.task.RepackagedDetectionLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.server.RepackagedDetectionResult
-
 
 /**
  * @author Martin Styk
@@ -159,7 +156,8 @@ class RepackagedDetectionFragment : Fragment(), RepackagedDetectionContract.View
     }
 
     private fun currentData(): AppDetailData {
-        return arguments?.getParcelable(DATA) ?: throw IllegalArgumentException("no app detail data")
+        return arguments?.getParcelable(DATA)
+                ?: throw IllegalArgumentException("no app detail data")
     }
 
     companion object {

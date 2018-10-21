@@ -6,7 +6,6 @@ import com.github.paolorotolo.appintro.AppIntroBaseFragment
 import com.github.paolorotolo.appintro.ISlidePolicy
 import com.github.paolorotolo.appintro.model.SliderPage
 import kotlinx.android.synthetic.main.fragment_allow_metadata_upload_intro_slide.*
-import sk.styk.martin.apkanalyzer.R
 
 /**
  * @author Martin Styk
@@ -26,6 +25,7 @@ class AllowMetadataUploadIntroSlide : AppIntroBaseFragment(), ISlidePolicy {
     }
 
     override fun onUserIllegallyRequestedNextPage() {
+        // TODO: fix failed type inference
         Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.intro_upload_require_input, Snackbar.LENGTH_SHORT).show()
     }
 

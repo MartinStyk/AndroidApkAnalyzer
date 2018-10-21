@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized
 
 import android.support.annotation.LayoutRes
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailGeneralBinding
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.AppDetailPageContract
@@ -19,4 +18,3 @@ class GeneralDetailFragment : AppDetailPageContract.View<GeneralData, FragmentAp
         binding.data = data
     }
 }
-

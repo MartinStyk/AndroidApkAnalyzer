@@ -7,8 +7,6 @@ import android.support.v7.widget.DividerItemDecoration
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_permission_app_list.*
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppListFromPackageNamesLoader
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity
 

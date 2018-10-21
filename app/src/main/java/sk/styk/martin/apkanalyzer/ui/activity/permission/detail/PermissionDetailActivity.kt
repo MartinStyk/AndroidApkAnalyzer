@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment.Companion.ARG_PERMISSIONS_DATA

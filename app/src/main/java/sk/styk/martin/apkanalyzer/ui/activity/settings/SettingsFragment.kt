@@ -3,14 +3,8 @@ package sk.styk.martin.apkanalyzer.ui.activity.settings
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.text.method.LinkMovementMethod
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.fragment_settings.*
-import sk.styk.martin.apkanalyzer.R
 
 /**
  * @author Martin Styk
@@ -47,6 +41,7 @@ class SettingsFragment : Fragment(), SettingsContract.View {
 
     override fun setUpViews() {
         settings_upload_explanation.movementMethod = LinkMovementMethod.getInstance()
+        // TODO: fix "Cannot infer a type for this parameter. Please specify it explicitly."
         allow_upload.setOnCheckedChangeListener({ _, isChecked -> presenter.uploadCheckBoxStateChange(isChecked) })
     }
 

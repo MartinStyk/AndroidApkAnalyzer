@@ -15,7 +15,7 @@ interface ActivityDetailPageContract {
 
     interface ItemView : ListDetailPageContract.ItemView<ActivityData>
 
-    interface Presenter : ListDetailPageContract.Presenter<ActivityData,View, ItemView>{
+    interface Presenter : ListDetailPageContract.Presenter<ActivityData, View, ItemView> {
         fun runActivity(position: Int)
     }
 }

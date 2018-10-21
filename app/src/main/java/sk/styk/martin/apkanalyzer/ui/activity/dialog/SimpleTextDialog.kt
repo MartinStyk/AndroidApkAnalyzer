@@ -4,7 +4,6 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
-import sk.styk.martin.apkanalyzer.R
 
 /**
  * @author Martin Styk
@@ -41,12 +40,10 @@ class SimpleTextDialog : DialogFragment() {
         fun newInstance(title: String, value: String, message: String): SimpleTextDialog {
             val frag = SimpleTextDialog()
             val args = Bundle()
-            args.putString(ARG_TITLE, title + ": " + value)
+            args.putString(ARG_TITLE, "$title: $value")
             args.putString(ARG_MESSAGE, message)
             frag.arguments = args
             return frag
         }
     }
-
-
 }

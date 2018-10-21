@@ -8,7 +8,6 @@ import android.support.annotation.LayoutRes
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
@@ -28,7 +27,7 @@ interface AppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
 
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            presenter = AppDetailPageContract.Presenter<DATA, BINDING>()
+            presenter = AppDetailPageContract.Presenter()
         }
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): android.view.View? {
@@ -44,7 +43,8 @@ interface AppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
         }
 
         open fun extractData(): DATA {
-            return arguments?.getParcelable(ARG_PAGER_PAGE) ?: throw IllegalArgumentException("data null")
+            return arguments?.getParcelable(ARG_PAGER_PAGE)
+                    ?: throw IllegalArgumentException("data null")
         }
 
         abstract fun showData(data: DATA)
@@ -62,5 +62,4 @@ interface AppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
             view.showData(data)
         }
     }
-
 }

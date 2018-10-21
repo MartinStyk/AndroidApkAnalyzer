@@ -29,7 +29,5 @@ interface OnInstallAppDetailContract {
         fun storagePermissionGranted()
 
         fun storagePermissionRefused()
-
-
     }
 }

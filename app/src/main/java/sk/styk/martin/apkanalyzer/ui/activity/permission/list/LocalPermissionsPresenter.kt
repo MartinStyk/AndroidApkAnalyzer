@@ -7,7 +7,6 @@ import sk.styk.martin.apkanalyzer.business.analysis.task.LocalPermissionsLoader
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 
-
 /**
  * @author Martin Styk
  * @version 28.01.2018.
@@ -52,7 +51,8 @@ class LocalPermissionsPresenter(
     }
 
     override fun permissionSelected(position: Int) {
-        return data?.let { view.openPermissionDetail(it[position]) } ?: throw IllegalStateException()
+        return data?.let { view.openPermissionDetail(it[position]) }
+                ?: throw IllegalStateException()
     }
 
     override fun onBindViewOnPosition(position: Int, holder: LocalPermissionsContract.ItemView) {

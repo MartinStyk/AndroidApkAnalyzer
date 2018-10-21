@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.view_detail_item.view.*
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 import sk.styk.martin.apkanalyzer.util.file.ClipBoardHelper
 
@@ -57,8 +56,6 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
         setOnClickListener(this)
 
         setOnLongClickListener(this)
-
-
     }
 
     override fun onClick(v: View) {

@@ -4,17 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.DividerItemDecoration
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.fragment_local_permissions.*
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.LocalPermissionsLoader
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
-import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailActivity
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment
 
@@ -75,10 +68,10 @@ class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
     }
 
     override fun changeProgress(currentProgress: Int, maxProgress: Int) {
-        loading_bar?.setProgress(currentProgress, maxProgress)
+        loading_bar.setProgress(currentProgress, maxProgress)
     }
 
-    override fun openPermissionDetail(permission : LocalPermissionData) {
+    override fun openPermissionDetail(permission: LocalPermissionData) {
         val intent = Intent(context, PermissionDetailActivity::class.java)
         intent.putExtra(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA, permission)
         requireContext().startActivity(intent)

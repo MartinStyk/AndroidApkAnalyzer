@@ -3,9 +3,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 import android.content.pm.PackageManager
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
-
 
 /**
  * @author Martin Styk
@@ -17,7 +15,7 @@ class PermissionDetailPagerPresenter : PermissionDetailPagerContract.Presenter {
     override lateinit var localPermissionData: LocalPermissionData
 
     override fun initialize(bundle: Bundle) {
-        localPermissionData = bundle.getParcelable<LocalPermissionData>(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA)
+        localPermissionData = bundle.getParcelable(PermissionDetailPagerFragment.ARG_PERMISSIONS_DATA)
                 ?: throw IllegalArgumentException("data null")
 
         view.setUpViews()

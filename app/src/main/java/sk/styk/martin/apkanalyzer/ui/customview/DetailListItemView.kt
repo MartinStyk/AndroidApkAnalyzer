@@ -9,7 +9,6 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
 import kotlinx.android.synthetic.main.view_detail_list_item.view.*
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 import sk.styk.martin.apkanalyzer.util.file.ClipBoardHelper
 

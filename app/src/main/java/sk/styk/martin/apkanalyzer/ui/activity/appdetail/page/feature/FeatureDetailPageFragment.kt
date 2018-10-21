@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_app_detail_activity.*
-import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.model.detail.FeatureData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract
 
 /**
@@ -28,7 +25,7 @@ class FeatureDetailPageFragment : Fragment(), FeatureDetailPageContract.View {
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.initialize(arguments?.getParcelableArrayList<FeatureData>(AppDetailPagerContract.ARG_PAGER_PAGE)
+        presenter.initialize(arguments?.getParcelableArrayList(AppDetailPagerContract.ARG_PAGER_PAGE)
                 ?: throw IllegalArgumentException("data null"))
         presenter.view = this
         presenter.getData()

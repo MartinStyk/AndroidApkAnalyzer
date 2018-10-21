@@ -1,9 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.view.View
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
@@ -30,7 +28,7 @@ interface AppActionsContract {
 
         fun startApkExport(appDetailData: AppDetailData)
 
-        fun startSharingActivity(apkPath : String)
+        fun startSharingActivity(apkPath: String)
 
         fun openGooglePlay(packageName: String)
 

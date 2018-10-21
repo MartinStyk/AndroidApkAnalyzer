@@ -20,7 +20,6 @@ import permissions.dispatcher.NeedsPermission
 import permissions.dispatcher.OnPermissionDenied
 import permissions.dispatcher.RuntimePermissions
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.DrawableSaveService
 import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
@@ -29,7 +28,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivit
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 import sk.styk.martin.apkanalyzer.util.file.toBitmap
-
 
 /**
  * @author Martin Styk
@@ -106,7 +104,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         fragmentManager?.beginTransaction()
                 ?.replace(R.id.container_frame, fragment)
                 ?.addToBackStack(RepackagedDetectionFragment.TAG)
-                ?.commit();
+                ?.commit()
         logSelectEvent("repackaged-detection")
     }
 
@@ -145,7 +143,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         createSnackbar(requireContext().getString(R.string.save_icon_background, targetFile), R.string.action_show,
                 View.OnClickListener {
                     val intent = Intent()
-                    intent.setAction(Intent.ACTION_VIEW)
+                    intent.action = Intent.ACTION_VIEW
                     intent.setDataAndType(Uri.parse(targetFile), "image/png")
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     try {
@@ -183,7 +181,6 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         onRequestPermissionsResult(requestCode, grantResults)
     }
 
-
     companion object {
         fun newInstance(appDetailData: AppDetailData): AppActionsDialog {
             val frag = AppActionsDialog()
@@ -195,10 +192,9 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     }
 
     private fun logSelectEvent(itemId: String) {
-        val bundle = Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action");
-        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId)
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action")
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
     }
-
 }

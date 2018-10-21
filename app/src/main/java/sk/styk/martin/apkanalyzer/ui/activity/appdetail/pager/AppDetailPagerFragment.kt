@@ -7,10 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout
-import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout_image
-import kotlinx.android.synthetic.main.fragment_app_detail.*
-import sk.styk.martin.apkanalyzer.R
+import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppDetailLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsDialog
@@ -54,7 +51,7 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
         pager.adapter = adapter
         tabs.setupWithViewPager(pager)
         // if we are in 2-pane mode initialize floating button
-        btn_actions?.setOnClickListener { presenter.actionButtonClick() }
+        btn_actions.setOnClickListener { presenter.actionButtonClick() }
     }
 
     override fun hideLoading() {
@@ -80,7 +77,7 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
 
     companion object {
 
-        val TAG = AppDetailPagerFragment::class.java.simpleName!!
+        val TAG = AppDetailPagerFragment::class.java.simpleName
 
         fun create(packageName: String? = null, packagePath: String? = null): AppDetailPagerFragment {
             val arguments = Bundle()

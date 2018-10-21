@@ -12,17 +12,10 @@ import android.support.v4.app.LoaderManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.Loader
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.ListView
 import android.widget.SearchView
-import kotlinx.android.synthetic.main.fragment_app_list.*
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppListLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
@@ -133,7 +126,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
             }
             R.id.menu_show_system_pre_installed_apps -> {
                 item.isChecked = true
-                listAdapter.filterOnAppSource(AppSource.SYSTEM_PREINSTALED)
+                listAdapter.filterOnAppSource(AppSource.SYSTEM_PREINSTALLED)
             }
             R.id.menu_show_unknown_source_apps -> {
                 item.isChecked = true
@@ -164,6 +157,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startFilePicker(false)
             } else {
+                // TODO: fix failed type inference
                 Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.permission_not_granted, Snackbar.LENGTH_LONG).show()
             }
         }
@@ -185,12 +179,12 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
             try {
                 startActivityForResult(ApkFilePicker.filePickerIntent, ApkFilePicker.REQUEST_PICK_APK)
             } catch (exception: ActivityNotFoundException) {
+                // TODO: fix failed type inference
                 Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
             }
 
         }
     }
-
 
     override fun setListShown(shown: Boolean) {
         setListShown(shown, true)

@@ -4,19 +4,13 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.fragment_local_statistics.*
 import lecho.lib.hellocharts.gesture.ContainerScrollType
 import lecho.lib.hellocharts.gesture.ZoomType
 import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener
 import lecho.lib.hellocharts.model.SubcolumnValue
 import lecho.lib.hellocharts.view.ColumnChartView
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.LocalStatisticsLoader
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
@@ -63,7 +57,7 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
     }
 
     override fun changeProgress(currentProgress: Int, maxProgress: Int) {
-        loading_bar?.setProgress(currentProgress, maxProgress)
+        loading_bar.setProgress(currentProgress, maxProgress)
     }
 
     override fun showStatistics(data: LocalStatisticsDataWithCharts) {
@@ -71,7 +65,7 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
         chart_min_sdk.columnChartData = data.minSdkChartData
         chart_target_sdk.columnChartData = data.targetSdkChartData
         chart_install_location.columnChartData = data.installLocationChartData
-        chart_sign_algorithm.columnChartData = data.signAlgorithChartData
+        chart_sign_algorithm.columnChartData = data.signAlgorithmChartData
         chart_app_source.columnChartData = data.appSourceChartData
     }
 

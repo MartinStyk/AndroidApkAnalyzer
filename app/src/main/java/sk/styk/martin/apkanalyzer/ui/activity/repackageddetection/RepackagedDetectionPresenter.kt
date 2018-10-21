@@ -4,13 +4,8 @@ import android.os.Bundle
 import android.support.v4.app.LoaderManager
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.Loader
-import lecho.lib.hellocharts.model.Column
-import lecho.lib.hellocharts.model.ColumnChartData
-import lecho.lib.hellocharts.model.PieChartData
-import lecho.lib.hellocharts.model.SliceValue
-import lecho.lib.hellocharts.model.SubcolumnValue
+import lecho.lib.hellocharts.model.*
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.business.upload.task.RepackagedDetectionLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
@@ -48,8 +43,7 @@ class RepackagedDetectionPresenter(
     // Data loading part
     private fun startLoadingData() {
         val loader = loaderManager.initLoader(RepackagedDetectionLoader.ID, Bundle(), this)
-        if (loader is RepackagedDetectionLoader)
-            loader.setCallback(this)
+        (loader as? RepackagedDetectionLoader)?.setCallback(this)
     }
 
     override fun onProgressChanged(status: RepackagedDetectionLoader.LoaderStatus) {
@@ -104,7 +98,7 @@ class RepackagedDetectionPresenter(
     override fun onSignatureColumnTouch(columnIndex: Int) {
         val touchedEntry = repackagedDetectionResult?.signaturesNumberOfApps?.toList()?.sortedBy { (_, value) -> -value }?.get(columnIndex)
         touchedEntry?.let {
-            if (touchedEntry.first.equals(appDetailData.certificateData.certificateHash)) {
+            if (touchedEntry.first == appDetailData.certificateData.certificateHash) {
                 view.makeSnack(R.string.repackaged_global_signature_current_app_touch)
             } else {
                 view.makeSnack(R.string.repackaged_global_signature_other_app_touch)
@@ -147,7 +141,7 @@ class RepackagedDetectionPresenter(
         val data = PieChartData(values)
         data.setHasCenterCircle(true)
         data.setHasLabels(true)
-        data.setCenterCircleScale(0.5f)
+        data.centerCircleScale = 0.5f
         return data
     }
 
@@ -170,7 +164,7 @@ class RepackagedDetectionPresenter(
         val data = PieChartData(values)
         data.setHasCenterCircle(true)
         data.setHasLabels(true)
-        data.setCenterCircleScale(0.5f)
+        data.centerCircleScale = 0.5f
         return data
     }
 

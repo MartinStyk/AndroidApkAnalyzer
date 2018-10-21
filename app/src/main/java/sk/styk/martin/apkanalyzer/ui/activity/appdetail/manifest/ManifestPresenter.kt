@@ -10,12 +10,10 @@ import android.view.View
 import android.widget.Toast
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AndroidManifestLoader
 import sk.styk.martin.apkanalyzer.business.analysis.task.StringToFileSaveService
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import kotlin.properties.Delegates
-
 
 /**
  * @author Martin Styk
@@ -28,7 +26,7 @@ class ManifestPresenter(
 
     override lateinit var view: ManifestContract.View
     private lateinit var packageName: String
-    private var versionCode: Int by Delegates.notNull<Int>()
+    private var versionCode: Int by Delegates.notNull()
     private var versionName: String? = null
 
     private var manifest: String = ""
@@ -71,7 +69,7 @@ class ManifestPresenter(
                     versionCode = versionCode, versionName = versionName, manifestContent = manifest)
             view.makeSnackbar(ApkAnalyzer.context.getString(R.string.save_manifest_background, targetFile), R.string.action_show, View.OnClickListener {
                 val intent = Intent()
-                intent.setAction(Intent.ACTION_VIEW)
+                intent.action = Intent.ACTION_VIEW
                 intent.setDataAndType(Uri.parse(targetFile), "text/xml")
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 try {
@@ -81,6 +79,5 @@ class ManifestPresenter(
                 }
             })
         }
-
     }
 }

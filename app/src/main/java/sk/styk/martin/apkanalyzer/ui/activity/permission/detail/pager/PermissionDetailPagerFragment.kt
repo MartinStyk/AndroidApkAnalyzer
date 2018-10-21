@@ -2,14 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import kotlinx.android.synthetic.main.fragment_permission_detail_pager.*
-import sk.styk.martin.apkanalyzer.R
+import android.view.*
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 
@@ -58,7 +51,7 @@ class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (description.itemId.equals(item?.itemId))
+        if (description.itemId == item?.itemId)
             SimpleTextDialog.newInstance(getString(R.string.description), presenter.loadPermissionDescription(requireContext().packageManager)).show(fragmentManager, SimpleTextDialog::class.java.simpleName)
 
         return super.onOptionsItemSelected(item)
@@ -66,7 +59,7 @@ class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.
 
     companion object {
 
-        val TAG = PermissionDetailPagerFragment::class.java.simpleName!!
+        val TAG = PermissionDetailPagerFragment::class.java.simpleName
 
         const val ARG_PERMISSIONS_DATA = "permission_args"
         const val ARG_CHILD = "permission_args_to_my_sweetest_child"
@@ -79,5 +72,4 @@ class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.
             return detailFragment
         }
     }
-
 }

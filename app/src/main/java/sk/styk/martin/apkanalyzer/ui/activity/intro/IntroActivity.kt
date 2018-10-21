@@ -7,7 +7,6 @@ import com.github.paolorotolo.appintro.AppIntro
 import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
 import com.google.firebase.analytics.FirebaseAnalytics
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.FirstStartHelper
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 
@@ -56,10 +55,12 @@ class IntroActivity : AppIntro() {
         setVibrate(true)
         setVibrateIntensity(30)
 
-        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, Bundle());
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, Bundle())
     }
 
+
     override fun onDonePressed(currentFragment: Fragment?) {
+        // TODO: fix type mismatch
         super.onDonePressed(currentFragment)
 
         // save user preferences and trigger data upload if possible
@@ -73,7 +74,7 @@ class IntroActivity : AppIntro() {
         }
 
         FirstStartHelper.setFirstStartFinished(applicationContext)
-        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle());
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle())
         finish()
     }
 

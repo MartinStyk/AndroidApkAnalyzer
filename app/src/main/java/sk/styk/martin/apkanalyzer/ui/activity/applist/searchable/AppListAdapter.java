@@ -281,7 +281,7 @@ public class AppListAdapter extends ArrayAdapter<AppListData> {
         }
 
         private boolean matchesNameFilter(String valueText) {
-            // First match against the whole, non-splitted value
+            // First match against the whole, non-split value
             if (valueText.startsWith(currentStringFilter)) {
                 return true;
             } else {
@@ -300,6 +300,5 @@ public class AppListAdapter extends ArrayAdapter<AppListData> {
             AppSource itemSource = appListData.getSource();
             return currentSourceFilter == null || currentSourceFilter.equals(itemSource);
         }
-
     }
 }

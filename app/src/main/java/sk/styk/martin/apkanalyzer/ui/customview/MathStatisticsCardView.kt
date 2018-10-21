@@ -6,7 +6,6 @@ import android.text.format.Formatter
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.view_math_statistics_card.view.*
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
 

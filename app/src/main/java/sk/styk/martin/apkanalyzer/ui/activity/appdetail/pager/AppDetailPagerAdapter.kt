@@ -6,7 +6,6 @@ import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.ActivityDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.feature.FeatureDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.CertificateDetailFragment
@@ -83,7 +82,7 @@ class AppDetailPagerAdapter(
             }
 
             10 -> {
-                args.putStringArrayList(ARG_PAGER_PAGE, presenter.getData()?.classPathData?.allClasses  as ArrayList<String>)
+                args.putStringArrayList(ARG_PAGER_PAGE, presenter.getData()?.classPathData?.allClasses as ArrayList<String>)
                 fragment = StringListDetailPageFragment()
             }
 

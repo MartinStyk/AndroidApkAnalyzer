@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.view_loading_bar.view.*
-import sk.styk.martin.apkanalyzer.R
 
 /**
  * Loading bar with progress updates
