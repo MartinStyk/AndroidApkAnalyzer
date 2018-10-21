@@ -16,8 +16,8 @@ data class PermissionDataAggregate(
         private val usesPermissions: List<UsedPermissionData>) : Parcelable {
 
     val usesPermissionsNames: List<String>
-        get() = usesPermissions.mapTo(ArrayList<String>()) { it.permissionData.name }
+        get() = usesPermissions.mapTo(ArrayList()) { it.permissionData.name }
 
     val definesPermissionsNames: List<String>
-        get() = definesPermissions.mapTo(ArrayList<String>()) { it.name }
+        get() = definesPermissions.mapTo(ArrayList()) { it.name }
 }

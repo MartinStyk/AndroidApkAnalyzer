@@ -38,7 +38,6 @@ class LocalPermissionDataBuilder {
                 { entry1, entry2 -> entry2.value.size - entry1.value.size })
         sortedSet.addAll(data.entries)
 
-        return sortedSet.mapTo(ArrayList<LocalPermissionData>(sortedSet.size)) { LocalPermissionData(it.key, it.value) }
+        return sortedSet.mapTo(ArrayList(sortedSet.size)) { LocalPermissionData(it.key, it.value) }
     }
 }
-

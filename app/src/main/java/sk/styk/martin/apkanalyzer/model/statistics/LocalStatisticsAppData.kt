@@ -8,7 +8,6 @@ import sk.styk.martin.apkanalyzer.model.detail.AppSource
 /**
  * Represents single app data for statistics computation.
  *
- *
  * @author Martin Styk
  * @version 28.07.2017.
  */

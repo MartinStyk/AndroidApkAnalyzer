@@ -12,5 +12,5 @@ class LocalStatisticsDataWithCharts(
         val targetSdkChartData: ColumnChartData,
         val installLocationChartData: ColumnChartData,
         val appSourceChartData: ColumnChartData,
-        val signAlgorithChartData: ColumnChartData
+        val signAlgorithmChartData: ColumnChartData
 )

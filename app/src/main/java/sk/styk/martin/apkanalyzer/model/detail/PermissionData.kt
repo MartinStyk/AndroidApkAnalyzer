@@ -15,6 +15,6 @@ import sk.styk.martin.apkanalyzer.business.analysis.logic.PermissionsService
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class PermissionData(val name: String,
-                          val simpleName: String = PermissionsService.Companion.createSimpleName(name),
+                          val simpleName: String = PermissionsService.createSimpleName(name),
                           val groupName: String? = null,
                           val protectionLevel: Int = PermissionInfo.PROTECTION_NORMAL) : Parcelable

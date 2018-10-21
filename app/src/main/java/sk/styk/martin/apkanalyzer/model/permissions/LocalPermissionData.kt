@@ -17,11 +17,8 @@ data class LocalPermissionData(
 ) : Parcelable {
 
     val grantedPackageNames: List<String>
-        get() = permissionStatusList.filter { it.isGranted }.mapTo(ArrayList()) { it.packageName }
-
+        get() = permissionStatusList.asSequence().filter { it.isGranted }.mapTo(ArrayList()) { it.packageName }
 
     val notGrantedPackageNames: List<String>
-        get() = permissionStatusList.filter { !it.isGranted }.mapTo(ArrayList()) { it.packageName }
-
+        get() = permissionStatusList.asSequence().filter { !it.isGranted }.mapTo(ArrayList()) { it.packageName }
 }
-

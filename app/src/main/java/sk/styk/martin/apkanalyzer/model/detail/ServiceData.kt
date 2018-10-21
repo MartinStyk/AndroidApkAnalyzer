@@ -19,4 +19,3 @@ data class ServiceData(
         var isIsolatedProcess: Boolean = false, //The service will run in its own isolated process
         var isExternalService: Boolean = false //The service can be bound and run in the calling application's package, rather than the package in which it is declared
 ) : Parcelable
-

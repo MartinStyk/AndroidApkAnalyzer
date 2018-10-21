@@ -6,7 +6,6 @@ import java.util.*
 /**
  * Math Statistics collected about attributes of Apk file
  *
- *
  * @author Martin Styk
  * @version 28.07.2017.
  */
@@ -51,5 +50,4 @@ class MathStatisticsBuilder(private val data: FloatArray) {
             temp += (a - mean) * (a - mean)
         return temp / (data.size - 1)
     }
-
 }

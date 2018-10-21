@@ -9,7 +9,7 @@ enum class AppSource(val sourceName: String, val installerPackageName: String? =
 
     GOOGLE_PLAY("Google Play", "com.android.vending"),
     AMAZON_STORE("Amazon App Store", "com.amazon.venezia"),
-    SYSTEM_PREINSTALED("Pre-installed", "system"),
+    SYSTEM_PREINSTALLED("Pre-installed", "system"),
     UNKNOWN("Unknown");
 
     override fun toString(): String {
@@ -18,7 +18,7 @@ enum class AppSource(val sourceName: String, val installerPackageName: String? =
 
     companion object {
         fun valueOf(value: String): AppSource {
-            return AppSource.values().filter { it.sourceName.equals(value) }.first()
+            return values().first { it.sourceName == value }
         }
     }
 

@@ -29,8 +29,8 @@ data class FileData(
         get() {
             val imageRegex = Regex(".*(png|gif|jpg|bmp|webp)$")
             val images = ArrayList<FileEntry>()
-            drawableHashes.filter { imageRegex.containsMatchIn(it.path)}.mapTo(images){ FileEntry(it.fileName, it.hash) }
-            otherHashes.filter { imageRegex.containsMatchIn(it.path) }.mapTo(images){FileEntry(it.fileName, it.hash)}
+            drawableHashes.asSequence().filter { imageRegex.containsMatchIn(it.path) }.mapTo(images) { FileEntry(it.fileName, it.hash) }
+            otherHashes.asSequence().filter { imageRegex.containsMatchIn(it.path) }.mapTo(images) { FileEntry(it.fileName, it.hash) }
             return images
         }
 

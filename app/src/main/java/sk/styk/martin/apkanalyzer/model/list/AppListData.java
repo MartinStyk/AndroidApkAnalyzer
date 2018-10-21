@@ -50,7 +50,7 @@ public class AppListData implements Parcelable {
     public String getApplicationName() {
         if (applicationName == null) {
             CharSequence label = applicationInfo.loadLabel(packageManager);
-            applicationName = label != null ? label.toString() : applicationInfo.packageName;
+            applicationName = label.toString();
         }
         return applicationName;
     }
