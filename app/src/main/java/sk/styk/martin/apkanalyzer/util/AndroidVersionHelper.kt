@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.util
 
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
-import sk.styk.martin.apkanalyzer.R
 
 /**
  * @author Martin Styk

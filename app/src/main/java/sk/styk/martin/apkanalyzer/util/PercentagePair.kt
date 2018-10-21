@@ -73,5 +73,4 @@ class PercentagePair : Parcelable {
             return BigDecimal(part * 100 / whole)
         }
     }
-
 }

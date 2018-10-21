@@ -9,7 +9,11 @@ import android.graphics.drawable.Drawable
  * @author Martin Styk {@literal <martin.styk@gmail.com>}
  */
 fun Drawable.toBitmap(): Bitmap? {
-    var bitmap: Bitmap? = null
+    val bitmap: Bitmap? = if (this.intrinsicWidth <= 0 || this.intrinsicHeight <= 0) {
+        Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888) // Single color bitmap will be created of 1x1 pixel
+    } else {
+        Bitmap.createBitmap(this.intrinsicWidth, this.intrinsicHeight, Bitmap.Config.ARGB_8888)
+    }
 
     if (this is BitmapDrawable) {
         val bitmapDrawable = this
@@ -18,14 +22,8 @@ fun Drawable.toBitmap(): Bitmap? {
         }
     }
 
-    if (this.intrinsicWidth <= 0 || this.intrinsicHeight <= 0) {
-        bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888) // Single color bitmap will be created of 1x1 pixel
-    } else {
-        bitmap = Bitmap.createBitmap(this.intrinsicWidth, this.intrinsicHeight, Bitmap.Config.ARGB_8888)
-    }
-
     val canvas = Canvas(bitmap)
-    this.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
+    this.setBounds(0, 0, canvas.width, canvas.height)
     this.draw(canvas)
     return bitmap
 }

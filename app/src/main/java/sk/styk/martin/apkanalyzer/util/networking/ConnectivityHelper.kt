@@ -57,9 +57,7 @@ object ConnectivityHelper {
             } catch (e: IOException) {
                 Log.e(TAG, "Error checking internet connection", e)
             } finally {
-                if (connection != null) {
-                    connection.disconnect()
-                }
+                connection?.disconnect()
             }
         } else {
             Log.d(TAG, "No network available!")
@@ -88,6 +86,4 @@ object ConnectivityHelper {
 
         return false // Wi-Fi adapter is OFF
     }
-
-
 }

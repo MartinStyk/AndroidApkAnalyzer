@@ -55,7 +55,7 @@ class ApkAnalyzerApi private constructor() {
     @Throws(IOException::class)
     fun postAppData(serverSideAppData: ServerSideAppData): Int {
         val serializedData = jsonSerializationUtils.serialize(serverSideAppData)
-        val body = RequestBody.create(ApkAnalyzerApi.Companion.JSON, zipContent(serializedData).toByteArray())
+        val body = RequestBody.create(ApkAnalyzerApi.JSON, zipContent(serializedData).toByteArray())
 
         val request = Request.Builder()
                 .url(ServerUrls.URL_BASE + ServerUrls.UPLOAD_RECORD_PATH)

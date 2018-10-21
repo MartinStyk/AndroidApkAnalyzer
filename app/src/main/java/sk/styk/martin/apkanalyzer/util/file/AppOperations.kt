@@ -8,7 +8,6 @@ import android.net.Uri
 import android.support.v4.content.FileProvider
 import android.util.Log
 import android.widget.Toast
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.oninstall.OnInstallAppDetailActivity
 import java.io.File
 
@@ -37,7 +36,7 @@ object AppOperations {
     fun openAppSystemPage(context: Context, packageName: String) {
         val systemInfoIntent = Intent()
         systemInfoIntent.action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        systemInfoIntent.data = Uri.parse("package:" + packageName)
+        systemInfoIntent.data = Uri.parse("package:$packageName")
 
         context.startActivity(systemInfoIntent)
     }
@@ -60,12 +59,11 @@ object AppOperations {
     @JvmStatic
     fun openGooglePlay(context: Context, packageName: String) {
         try {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)))
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
         } catch (anfe: ActivityNotFoundException) {
             // Google Play not installed, open it in browser
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)))
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName")))
         }
-
     }
 
     @JvmStatic
@@ -78,5 +76,4 @@ object AppOperations {
             Toast.makeText(context, R.string.activity_run_failed, Toast.LENGTH_SHORT).show()
         }
     }
-
 }

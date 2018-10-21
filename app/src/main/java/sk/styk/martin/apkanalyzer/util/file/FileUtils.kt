@@ -1,19 +1,10 @@
 package sk.styk.martin.apkanalyzer.util.file
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.support.annotation.WorkerThread
-import sk.styk.martin.apkanalyzer.R.mipmap.ic_launcher
-import android.graphics.BitmapFactory
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.provider.MediaStore.Images.Media.getBitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
+import android.support.annotation.WorkerThread
 import java.io.*
-
 
 /**
  * @author Martin Styk
@@ -71,7 +62,7 @@ object FileUtils {
     fun fromUri(uri: Uri, context: Context): File? {
 
         return try {
-            var tempFile = File.createTempFile("analysed", ".apk")
+            val tempFile = File.createTempFile("analysed", ".apk")
             tempFile.deleteOnExit()
 
             context.contentResolver.openInputStream(uri).use { inputStream ->

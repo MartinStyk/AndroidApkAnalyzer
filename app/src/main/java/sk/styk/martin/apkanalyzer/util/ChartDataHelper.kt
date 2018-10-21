@@ -3,13 +3,8 @@ package sk.styk.martin.apkanalyzer.util
 import android.support.annotation.ColorRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
-import lecho.lib.hellocharts.model.Axis
-import lecho.lib.hellocharts.model.AxisValue
-import lecho.lib.hellocharts.model.Column
-import lecho.lib.hellocharts.model.ColumnChartData
-import lecho.lib.hellocharts.model.SubcolumnValue
+import lecho.lib.hellocharts.model.*
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import java.util.*
@@ -27,7 +22,7 @@ object ChartDataHelper {
                     targetSdkChartData = getSdkColumnChart(statisticsData.targetSdk),
                     installLocationChartData = getColumnChart(statisticsData.installLocation, R.string.install_loc),
                     appSourceChartData = getColumnChart(statisticsData.appSource, R.string.app_source),
-                    signAlgorithChartData = getColumnChart(statisticsData.signAlgorithm, R.string.sign_algorithm)
+                    signAlgorithmChartData = getColumnChart(statisticsData.signAlgorithm, R.string.sign_algorithm)
             )
 
 
@@ -85,6 +80,4 @@ object ChartDataHelper {
                 .setMaxLabelChars(10)
         return data
     }
-
-
 }

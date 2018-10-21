@@ -10,7 +10,7 @@ import android.preference.PreferenceManager
 
 class SharedPreferencesHelper(context: Context) {
 
-    internal var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private var sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     fun putString(key: String, value: String) {
         val editor = sharedPreferences.edit()
