@@ -169,7 +169,7 @@
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
 
-                <!--Install locaiton chart -->
+                <!--Install location chart -->
                 <android.support.v7.widget.CardView
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"

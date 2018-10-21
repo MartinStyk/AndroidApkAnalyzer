@@ -7,9 +7,7 @@
         <import type="sk.styk.martin.apkanalyzer.BuildConfig" />
 
         <import type="sk.styk.martin.apkanalyzer.util.file.AppOperations" />
-
     </data>
-
 
     <LinearLayout
         android:layout_width="match_parent"

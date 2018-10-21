@@ -5,7 +5,7 @@
     android:id="@+id/recycler_view_service"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:scrollbars="vertical"
     app:layoutManager="LinearLayoutManager"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:scrollbars="vertical"
     tools:listitem="@layout/list_item_service_detail" />
