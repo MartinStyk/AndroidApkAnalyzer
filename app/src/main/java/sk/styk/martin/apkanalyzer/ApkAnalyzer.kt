@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
+import com.google.android.gms.ads.MobileAds
 import com.squareup.leakcanary.LeakCanary
 
 /**
@@ -22,6 +23,8 @@ class ApkAnalyzer : Application() {
         }
         LeakCanary.install(this)
 
+        // Initialize the Mobile Ads SDK.
+        MobileAds.initialize(this, getString(R.string.ad_mod_app_id))
 
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())

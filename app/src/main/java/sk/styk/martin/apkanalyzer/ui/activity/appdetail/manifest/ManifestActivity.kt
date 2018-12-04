@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
 import com.pddstudio.highlightjs.models.Language
 import com.pddstudio.highlightjs.models.Theme
 import kotlinx.android.synthetic.main.activity_manifest.*
@@ -23,6 +25,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContrac
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_PATH_FOR_MANIFEST_REQUEST
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST
+import sk.styk.martin.apkanalyzer.util.buildDefault
 
 /**
  * @author Martin Styk
@@ -71,6 +74,16 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
         code_view.theme = Theme.ATOM_ONE_LIGHT
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        ad_view.apply {
+            loadAd(AdRequest.Builder().buildDefault())
+            adListener = object : AdListener() {
+                override fun onAdLoaded() {
+                    super.onAdLoaded()
+                    ad_view.visibility = View.VISIBLE
+                }
+            }
+        }
     }
 
     override fun hideLoading() {

@@ -383,5 +383,6 @@
     </string-array>
 
     <!-- This is an ad unit ID for a test ad. Replace with your own banner ad unit id. -->
+    <string name="ad_mod_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
 </resources>
