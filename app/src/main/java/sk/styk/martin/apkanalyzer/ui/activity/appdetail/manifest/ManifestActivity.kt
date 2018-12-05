@@ -69,6 +69,21 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
         return true
     }
 
+    public override fun onPause() {
+        ad_view?.pause()
+        super.onPause()
+    }
+
+    public override fun onResume() {
+        super.onResume()
+        ad_view?.resume()
+    }
+
+    public override fun onDestroy() {
+        ad_view?.destroy()
+        super.onDestroy()
+    }
+
     override fun setUpViews() {
         code_view.highlightLanguage = Language.XML
         code_view.theme = Theme.ATOM_ONE_LIGHT
