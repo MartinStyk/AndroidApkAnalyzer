@@ -5,9 +5,11 @@
     <color name="primary_light">#B0BEC5</color>
     <color name="accent">#16a085</color>
     <color name="accentLight">#1cb89a</color>
+    <color name="premium">#FFC107</color>
 
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
 
     <color name="colorLightGrey">#CFD8DC</color>
+    <color name="grey_500">#9E9E9E</color>
 </resources>

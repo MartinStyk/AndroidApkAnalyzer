@@ -6,15 +6,12 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
-import android.view.View
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
-import sk.styk.martin.apkanalyzer.util.buildDefault
+import sk.styk.martin.apkanalyzer.util.AdUtils
 
 /**
  * An activity representing a single Item detail screen. This
@@ -65,37 +62,33 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
             }
         }
 
-        ad_view.apply {
-            loadAd(AdRequest.Builder().buildDefault())
-            adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    ad_view?.visibility = View.VISIBLE
-                    val displayHeight = resources.displayMetrics.heightPixels / resources.displayMetrics.density
-                    val bannerHeight = when {
-                        displayHeight <= 400 -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_small)
-                        displayHeight > 400 && displayHeight < 720 -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_medium)
-                        else -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_large)
-                    }
-
-                    item_detail_container.setPadding(0, 0, 0, bannerHeight)
+        AdUtils.displayAd(ad_view, object : AdUtils.AdLoadedListener {
+            override fun onAdLoaded() {
+                val displayHeight = resources.displayMetrics.heightPixels / resources.displayMetrics.density
+                val bannerHeight = when {
+                    displayHeight <= 400 -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_small)
+                    displayHeight > 400 && displayHeight < 720 -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_medium)
+                    else -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_large)
                 }
+
+                item_detail_container.setPadding(0, 0, 0, bannerHeight)
             }
-        }
+        })
+
     }
 
     public override fun onPause() {
-        ad_view?.pause()
+        if (AdUtils.isAdEnabled) ad_view?.pause()
         super.onPause()
     }
 
     public override fun onResume() {
         super.onResume()
-        ad_view?.resume()
+        if (AdUtils.isAdEnabled) ad_view?.resume()
     }
 
     public override fun onDestroy() {
-        ad_view?.destroy()
+        if (AdUtils.isAdEnabled) ad_view?.destroy()
         super.onDestroy()
     }
 

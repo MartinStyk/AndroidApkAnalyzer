@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.util.file
 
 import android.support.v4.content.FileProvider
+import sk.styk.martin.apkanalyzer.util.AppFlavour
 
 /**
  * @author Martin Styk
@@ -8,6 +9,6 @@ import android.support.v4.content.FileProvider
  */
 class GenericFileProvider : FileProvider() {
     companion object {
-        const val AUTHORITY = "sk.styk.martin"
+        val AUTHORITY = if (AppFlavour.isPremium)  "sk.styk.martin.apkanalyzer.premium" else "sk.styk.martin.apkanalyzer"
     }
 }

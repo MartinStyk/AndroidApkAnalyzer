@@ -10,8 +10,6 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
 import com.pddstudio.highlightjs.models.Language
 import com.pddstudio.highlightjs.models.Theme
 import kotlinx.android.synthetic.main.activity_manifest.*
@@ -25,7 +23,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContrac
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_PATH_FOR_MANIFEST_REQUEST
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST
-import sk.styk.martin.apkanalyzer.util.buildDefault
+import sk.styk.martin.apkanalyzer.util.AdUtils
 
 /**
  * @author Martin Styk
@@ -70,17 +68,17 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
     }
 
     public override fun onPause() {
-        ad_view?.pause()
+        if (AdUtils.isAdEnabled) ad_view?.pause()
         super.onPause()
     }
 
     public override fun onResume() {
         super.onResume()
-        ad_view?.resume()
+        if (AdUtils.isAdEnabled) ad_view?.resume()
     }
 
     public override fun onDestroy() {
-        ad_view?.destroy()
+        if (AdUtils.isAdEnabled) ad_view?.destroy()
         super.onDestroy()
     }
 
@@ -90,15 +88,7 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        ad_view.apply {
-            loadAd(AdRequest.Builder().buildDefault())
-            adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    ad_view.visibility = View.VISIBLE
-                }
-            }
-        }
+        AdUtils.displayAd(ad_view)
     }
 
     override fun hideLoading() {

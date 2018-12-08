@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="sk.styk.martin.apkanalyzer.util.file.AppOperations" />
+        <import type="android.text.Html" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        tools:context=".ui.activity.about.AboutFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_weight="3">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/app_icon"
+                android:src="@drawable/ic_launcher_web_premium" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <TextView
+                android:id="@+id/premium_app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/premium_update_title"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_marginBottom="16dp"/>
+
+            <TextView
+                android:id="@+id/premium_description_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/premium_app_name"
+                android:gravity="center"
+                android:text="@string/premium_update_description" />
+
+            <TextView
+                android:id="@+id/premium_description_ad_remove"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/premium_description_head"
+                android:gravity="center"
+                android:text="@{Html.fromHtml(@string/premium_update_description_ad)}"
+                />
+
+            <TextView
+                android:id="@+id/premium_description_ad_support"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/premium_description_ad_remove"
+                android:gravity="center"
+                android:text="@{Html.fromHtml(@string/premium_update_description_dev)}"
+                />
+
+            <TextView
+                android:id="@+id/premium_description_features"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/premium_description_ad_support"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="@string/premium_same_features" />
+
+            <Button
+                android:id="@+id/premium_upgrade"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/premium_description_features"
+                android:layout_centerHorizontal="true"
+                android:layout_margin="@dimen/fab_margin"
+                android:background="@color/accent"
+                android:padding="16dp"
+                android:onClick="@{() -> AppOperations.openGooglePlay(context, @string/app_premium_package_name)}"
+                android:text="@string/upgrade_premium"
+                android:textColor="@color/colorWhite" />
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</layout>

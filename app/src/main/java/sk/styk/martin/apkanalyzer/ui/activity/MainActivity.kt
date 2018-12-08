@@ -8,25 +8,25 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.about.AboutFragment
+import sk.styk.martin.apkanalyzer.ui.activity.premium.PremiumFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppListDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.list.LocalPermissionsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.settings.SettingsFragment
-import sk.styk.martin.apkanalyzer.util.FirstStartHelper
-import sk.styk.martin.apkanalyzer.util.buildDefault
+import sk.styk.martin.apkanalyzer.util.AdUtils
+import sk.styk.martin.apkanalyzer.util.AppFlavour
+import sk.styk.martin.apkanalyzer.util.StartPromoHelper
 
 
 /**
  * @author Martin Styk
  */
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, PromoDialog.PromoDialogController {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,37 +40,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navigation_view.setNavigationItemSelectedListener(this)
 
-        FirstStartHelper.execute(this)
+        StartPromoHelper.execute(this)
 
         // only on first run redirect to default fragment
         if (savedInstanceState == null) {
             navigation_view.setCheckedItem(R.id.nav_app_list)
             supportFragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, AppListDetailFragment()).commit()
         }
-
-        ad_view.apply {
-            loadAd(AdRequest.Builder().buildDefault())
-            adListener = object : AdListener() {
-                override fun onAdLoaded() {
-                    super.onAdLoaded()
-                    ad_view.visibility = View.VISIBLE
-                }
-            }
+        if (AppFlavour.isPremium) {
+            navigation_view?.menu?.findItem(R.id.nav_premium)?.isVisible = false
         }
+
+        AdUtils.displayAd(ad_view)
     }
 
     public override fun onPause() {
-        ad_view?.pause()
+        if (AdUtils.isAdEnabled) ad_view?.pause()
         super.onPause()
     }
 
     public override fun onResume() {
         super.onResume()
-        ad_view?.resume()
+        if (AdUtils.isAdEnabled) ad_view?.resume()
     }
 
     public override fun onDestroy() {
-        ad_view?.destroy()
+        if (AdUtils.isAdEnabled) ad_view?.destroy()
         super.onDestroy()
     }
 
@@ -94,6 +89,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             R.id.nav_local_permissions -> LocalPermissionsFragment()
             R.id.nav_about -> AboutFragment()
             R.id.nav_settings -> SettingsFragment()
+            R.id.nav_premium -> PremiumFragment()
             else -> throw IllegalStateException()
         }
 
@@ -102,5 +98,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }
+
+    override fun onPromoDialogShowRequested() = PromoDialog().showPromoDialog(this)
 
 }

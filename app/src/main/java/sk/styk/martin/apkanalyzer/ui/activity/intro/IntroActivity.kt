@@ -8,7 +8,7 @@ import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
 import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.util.FirstStartHelper
+import sk.styk.martin.apkanalyzer.util.StartPromoHelper
 import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 
 /**
@@ -72,7 +72,7 @@ class IntroActivity : AppIntro() {
 //                MultipleAppDataUploadJob.start(applicationContext)
         }
 
-        FirstStartHelper.setFirstStartFinished(applicationContext)
+        StartPromoHelper.setFirstStartFinished(applicationContext)
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle());
         finish()
     }

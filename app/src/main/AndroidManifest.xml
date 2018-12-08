@@ -90,7 +90,7 @@
 
         <provider
             android:name=".util.file.GenericFileProvider"
-            android:authorities="sk.styk.martin"
+            android:authorities="${applicationId}"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
@@ -99,7 +99,7 @@
         </provider>
         <provider
             android:name="sk.styk.martin.apkanalyzer.business.database.ApkAnalyzerProvider"
-            android:authorities="sk.styk.martin.apkanalyzer"
+            android:authorities="${applicationId}.database.ApkAnalyzerProvider"
             android:exported="false" />
 
         <meta-data

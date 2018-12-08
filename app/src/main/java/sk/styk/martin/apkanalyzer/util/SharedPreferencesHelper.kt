@@ -36,4 +36,18 @@ class SharedPreferencesHelper(context: Context) {
         return sharedPreferences.getBoolean(key, defValue)
     }
 
+    fun putLong(key: String, value: Long) {
+        val editor = sharedPreferences.edit()
+        editor.putLong(key, value)
+        editor.apply()
+    }
+
+    fun readLong(key: String): Long {
+        return sharedPreferences.getLong(key, -1)
+    }
+
+    fun readLong(key: String, defValue: Long): Long {
+        return sharedPreferences.getLong(key, defValue)
+    }
+
 }

@@ -8,6 +8,7 @@ import android.net.Uri
 import android.support.v4.content.FileProvider
 import android.util.Log
 import android.widget.Toast
+import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.oninstall.OnInstallAppDetailActivity
 import java.io.File
@@ -55,6 +56,11 @@ object AppOperations {
             Toast.makeText(context, context.getString(R.string.activity_not_found_sharing), Toast.LENGTH_LONG).show()
         }
 
+    }
+
+    @JvmStatic
+    fun installPremium(context: Context) {
+        openGooglePlay(context, BuildConfig.APPLICATION_ID + ".premium")
     }
 
     @JvmStatic
