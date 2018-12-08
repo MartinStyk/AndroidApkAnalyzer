@@ -101,12 +101,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/min_sdk" />
 
-                        <lecho.lib.hellocharts.view.ColumnChartView
+                        <sk.styk.martin.apkanalyzer.ui.customview.MyBarChart
                             android:id="@+id/chart_min_sdk"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
+                            android:padding="@dimen/padding_default"
+                            android:layout_marginBottom="@dimen/chart_margin"
+                            app:chart_data="@{data.minSdkChartData}"/>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -130,12 +132,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/target_sdk" />
 
-                        <lecho.lib.hellocharts.view.ColumnChartView
+                        <sk.styk.martin.apkanalyzer.ui.customview.MyBarChart
                             android:id="@+id/chart_target_sdk"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
+                            android:padding="@dimen/padding_default"
+                            android:layout_marginBottom="@dimen/chart_margin"
+                            app:chart_data="@{data.targetSdkChartData}"/>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -159,12 +163,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/install_loc" />
 
-                        <lecho.lib.hellocharts.view.ColumnChartView
+                        <sk.styk.martin.apkanalyzer.ui.customview.MyBarChart
                             android:id="@+id/chart_install_location"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
+                            android:padding="@dimen/padding_default"
+                            android:layout_marginBottom="@dimen/chart_margin"
+                            app:chart_data="@{data.installLocationChartData}"/>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -188,12 +194,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/sign_algorithm" />
 
-                        <lecho.lib.hellocharts.view.ColumnChartView
+                        <sk.styk.martin.apkanalyzer.ui.customview.MyBarChart
                             android:id="@+id/chart_sign_algorithm"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
+                            android:padding="@dimen/padding_default"
+                            android:layout_marginBottom="@dimen/chart_margin"
+                            app:chart_data="@{data.signAlgorithChartData}"/>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -217,12 +225,14 @@
                             android:layout_height="wrap_content"
                             android:text="@string/app_source" />
 
-                        <lecho.lib.hellocharts.view.ColumnChartView
+                        <sk.styk.martin.apkanalyzer.ui.customview.MyBarChart
                             android:id="@+id/chart_app_source"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:minHeight="350dp"
-                            android:padding="@dimen/padding_default" />
+                            android:padding="@dimen/padding_default"
+                            android:layout_marginBottom="@dimen/chart_margin"
+                            app:chart_data="@{data.appSourceChartData}"/>
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>

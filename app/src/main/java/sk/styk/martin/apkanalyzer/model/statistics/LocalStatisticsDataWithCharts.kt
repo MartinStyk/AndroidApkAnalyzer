@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.model.statistics
 
 import lecho.lib.hellocharts.model.ColumnChartData
+import sk.styk.martin.apkanalyzer.util.ChartDataHelper
 
 /**
  * @author Martin Styk
@@ -8,9 +9,9 @@ import lecho.lib.hellocharts.model.ColumnChartData
  */
 class LocalStatisticsDataWithCharts(
         val statisticsData: LocalStatisticsData,
-        val minSdkChartData: ColumnChartData,
-        val targetSdkChartData: ColumnChartData,
-        val installLocationChartData: ColumnChartData,
-        val appSourceChartData: ColumnChartData,
-        val signAlgorithChartData: ColumnChartData
+        val minSdkChartData: ChartDataHelper.BarDataHolder,
+        val targetSdkChartData: ChartDataHelper.BarDataHolder,
+        val installLocationChartData: ChartDataHelper.BarDataHolder,
+        val appSourceChartData: ChartDataHelper.BarDataHolder,
+        val signAlgorithChartData: ChartDataHelper.BarDataHolder
 )

@@ -25,5 +25,6 @@ interface LocalStatisticsContract {
         fun onInstallLocationValueSelected(label: String)
         fun onSignAlgorithmValueSelected(label: String)
         fun onAppSourceValueSelected(label: String)
+        fun onAppSourceValueSelected(apps: List<String>)
     }
 }

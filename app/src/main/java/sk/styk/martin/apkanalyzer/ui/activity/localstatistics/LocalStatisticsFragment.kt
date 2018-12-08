@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 
 import android.databinding.DataBindingUtil
+import android.graphics.RectF
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -9,27 +10,31 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.github.mikephil.charting.utils.MPPointF
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_local_statistics.*
-import lecho.lib.hellocharts.gesture.ContainerScrollType
-import lecho.lib.hellocharts.gesture.ZoomType
-import lecho.lib.hellocharts.listener.ColumnChartOnValueSelectListener
-import lecho.lib.hellocharts.model.SubcolumnValue
-import lecho.lib.hellocharts.view.ColumnChartView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.LocalStatisticsLoader
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListDialog
+import sk.styk.martin.apkanalyzer.ui.customview.ClickableMarkerView
 import java.util.*
 
 /**
  * @author Martin Styk
  */
-class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
+class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View, ClickableMarkerView.OnMarkerClickListener {
 
     private lateinit var binding: FragmentLocalStatisticsBinding
     private lateinit var presenter: LocalStatisticsContract.Presenter
+    private val onValueSelectedRectF = RectF()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,24 +73,57 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
 
     override fun showStatistics(data: LocalStatisticsDataWithCharts) {
         binding.data = data
-        chart_min_sdk.columnChartData = data.minSdkChartData
-        chart_target_sdk.columnChartData = data.targetSdkChartData
-        chart_install_location.columnChartData = data.installLocationChartData
-        chart_sign_algorithm.columnChartData = data.signAlgorithChartData
-        chart_app_source.columnChartData = data.appSourceChartData
     }
 
     override fun setupCharts() {
-        listOf(chart_min_sdk, chart_target_sdk, chart_sign_algorithm, chart_app_source, chart_install_location).forEach {
-            it.zoomType = ZoomType.HORIZONTAL
-            it.isScrollEnabled = true
-            it.setContainerScrollEnabled(true, ContainerScrollType.VERTICAL)
+        listOf(chart_min_sdk, chart_target_sdk, chart_app_source, chart_sign_algorithm, chart_install_location).forEach {
+            val mv = ClickableMarkerView(requireContext(), this).apply { chartView = it }
+
+            it.apply {
+                marker = mv
+                isDragEnabled = true
+                isScaleXEnabled = true
+                isScaleYEnabled = false
+                setDrawValueAboveBar(true)
+                setDrawGridBackground(false)
+                setPinchZoom(false)
+                description.apply {
+                    isEnabled = false
+                }
+                xAxis.apply {
+                    isGranularityEnabled = true
+                    position = XAxis.XAxisPosition.BOTTOM
+                    setDrawGridLines(false)
+                }
+
+                axisLeft.apply {
+                    setDrawZeroLine(false)
+                    setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
+                    setDrawLimitLinesBehindData(true)
+                }
+
+                axisRight.apply {
+                    isEnabled = false
+                }
+                legend.apply {
+                    isEnabled = false
+                }
+                setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+                    override fun onValueSelected(e: Entry?, h: Highlight?) {
+                        e ?: return
+
+                        val bounds = onValueSelectedRectF
+                        chart_app_source.getBarBounds(e as BarEntry, bounds)
+                        val position = chart_app_source.getPosition(e, YAxis.AxisDependency.RIGHT)
+
+                        MPPointF.recycleInstance(position)
+                    }
+
+                    override fun onNothingSelected() {}
+                })
+            }
         }
-        chart_min_sdk.onValueTouchListener = MinSdkValueTouchListener()
-        chart_target_sdk.onValueTouchListener = TargetSdkValueTouchListener()
-        chart_sign_algorithm.onValueTouchListener = SignAlgorithmValueTouchListener()
-        chart_install_location.onValueTouchListener = InstallLocationValueTouchListener()
-        chart_app_source.onValueTouchListener = AppSourceValueTouchListener()
+
     }
 
     override fun showAppLists(packages: List<String>) {
@@ -93,39 +131,7 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View {
                 .show((context as AppCompatActivity).supportFragmentManager, AppListDialog::class.java.simpleName)
     }
 
-
-    private inner class MinSdkValueTouchListener : ColumnChartOnValueSelectListener {
-        override fun onValueSelected(columnIndex: Int, subcolumnIndex: Int, value: SubcolumnValue) =
-                presenter.onMinSdkValueSelected(String((chart_min_sdk as ColumnChartView).columnChartData.axisXBottom.values[columnIndex].labelAsChars))
-
-        override fun onValueDeselected() {}
-    }
-
-    private inner class TargetSdkValueTouchListener : ColumnChartOnValueSelectListener {
-        override fun onValueSelected(columnIndex: Int, subcolumnIndex: Int, value: SubcolumnValue) =
-                presenter.onTargetSdkValueSelected(String((chart_target_sdk as ColumnChartView).columnChartData.axisXBottom.values[columnIndex].labelAsChars))
-
-        override fun onValueDeselected() {}
-    }
-
-    private inner class InstallLocationValueTouchListener : ColumnChartOnValueSelectListener {
-        override fun onValueSelected(columnIndex: Int, subcolumnIndex: Int, value: SubcolumnValue) =
-                presenter.onInstallLocationValueSelected(String((chart_install_location as ColumnChartView).columnChartData.axisXBottom.values[columnIndex].labelAsChars))
-
-        override fun onValueDeselected() {}
-    }
-
-    private inner class SignAlgorithmValueTouchListener : ColumnChartOnValueSelectListener {
-        override fun onValueSelected(columnIndex: Int, subcolumnIndex: Int, value: SubcolumnValue) =
-                presenter.onSignAlgorithmValueSelected(String((chart_sign_algorithm as ColumnChartView).columnChartData.axisXBottom.values[columnIndex].labelAsChars))
-
-        override fun onValueDeselected() {}
-    }
-
-    private inner class AppSourceValueTouchListener : ColumnChartOnValueSelectListener {
-        override fun onValueSelected(columnIndex: Int, subcolumnIndex: Int, value: SubcolumnValue) =
-                presenter.onAppSourceValueSelected(String((chart_app_source as ColumnChartView).columnChartData.axisXBottom.values[columnIndex].labelAsChars))
-
-        override fun onValueDeselected() {}
+    override fun onMarkerClick(apps: List<String>) {
+        showAppLists(apps)
     }
 }

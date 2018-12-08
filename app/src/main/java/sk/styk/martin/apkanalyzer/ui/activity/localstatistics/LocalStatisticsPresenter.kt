@@ -66,6 +66,10 @@ class LocalStatisticsPresenter(
         }
     }
 
+    override fun onAppSourceValueSelected(apps: List<String>) {
+        view.showAppLists(apps)
+    }
+
 
     // Data loading part
     private fun startLoadingData() {

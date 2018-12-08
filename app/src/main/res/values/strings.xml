@@ -4,7 +4,7 @@
     <string name="app_github">Source code available on <a href="https://github.com/MartinStyk/AndroidApkAnalyzer">GitHub</a> </string>
     <string name="app_privacy_policy">By using this app you agree with <a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">Privacy Policy</a> </string>
     <string name="app_rate">Rate app</string>
-    <string name="app_dependencies">Dependencies:\n com.github.lecho:hellocharts-library, com.pddstudio:highlightjs-android, com.github.apl-devs:appintro</string>
+    <string name="app_dependencies">Dependencies:\n com.github.PhilJay:MPAndroidChart, com.pddstudio:highlightjs-android, com.github.apl-devs:appintro</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -124,6 +124,7 @@
     <string name="install_app">Install APK</string>
     <string name="detect_repackaged">Check originality</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
+    <string name="show_apps">Show all %1$d apps</string>
 
     <string name="app_icon">Application icon</string>
 
