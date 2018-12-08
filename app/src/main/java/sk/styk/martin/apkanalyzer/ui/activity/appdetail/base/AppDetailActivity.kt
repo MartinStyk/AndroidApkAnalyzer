@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.base
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
@@ -46,7 +47,7 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
 
             val detailFragment = AppDetailPagerFragment.create(
                     packageName = intent.getStringExtra(ARG_PACKAGE_NAME),
-                    packagePath = intent.getStringExtra(ARG_PACKAGE_PATH))
+                    packageUri = intent.getParcelableExtra(ARG_PACKAGE_PATH))
 
             supportFragmentManager.beginTransaction().add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailPagerFragment.TAG)
                     .commit()
@@ -108,13 +109,11 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
 
     companion object {
         @JvmStatic
-        fun createIntent(packageName: String? = null, packagePath: String? = null, context: Context): Intent {
-            val intent = Intent(context, AppDetailActivity::class.java)
-            intent.putExtra(ARG_PACKAGE_NAME, packageName)
-            intent.putExtra(ARG_PACKAGE_PATH, packagePath)
-
-            return intent
-        }
+        fun createIntent(packageName: String? = null, packageUri: Uri? = null, context: Context) =
+                Intent(context, AppDetailActivity::class.java).apply {
+                    putExtra(ARG_PACKAGE_NAME, packageName)
+                    putExtra(ARG_PACKAGE_PATH, packageUri)
+                }
     }
 }
 

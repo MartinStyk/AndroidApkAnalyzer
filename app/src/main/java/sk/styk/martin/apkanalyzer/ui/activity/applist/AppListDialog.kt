@@ -67,7 +67,7 @@ class AppListDialog : DialogFragment(), AppListContract.View {
     }
 
     override fun openAppDetailActivity(packageName: String) {
-        requireContext().startActivity(AppDetailActivity.createIntent(packageName, null, requireContext()))
+        requireContext().startActivity(AppDetailActivity.createIntent(packageName = packageName, context = requireContext()))
     }
 
     companion object {

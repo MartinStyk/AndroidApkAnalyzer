@@ -22,7 +22,7 @@ interface OnInstallAppDetailContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        var packagePath: String?
+        var packageUri: Uri?
 
         fun initialize(uri: Uri?, context: Context)
 

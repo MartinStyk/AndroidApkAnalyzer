@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
@@ -34,7 +35,7 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
         super.onCreate(savedInstanceState)
         presenter = AppDetailPagerPresenter(AppDetailLoader(context = requireContext(),
                 packageName = arguments?.getString(ARG_PACKAGE_NAME),
-                pathToPackage = arguments?.getString(ARG_PACKAGE_PATH)), loaderManager)
+                packageUri = arguments?.getParcelable(ARG_PACKAGE_PATH)), loaderManager)
         adapter = AppDetailPagerAdapter(requireContext(), fragmentManager!!, presenter)
     }
 
@@ -82,14 +83,12 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
 
         val TAG = AppDetailPagerFragment::class.java.simpleName!!
 
-        fun create(packageName: String? = null, packagePath: String? = null): AppDetailPagerFragment {
-            val arguments = Bundle()
-            arguments.putString(ARG_PACKAGE_PATH, packagePath)
-            arguments.putString(ARG_PACKAGE_NAME, packageName)
-            val detailFragment = AppDetailPagerFragment()
-            detailFragment.arguments = arguments
-
-            return detailFragment
-        }
+        fun create(packageName: String? = null, packageUri: Uri? = null) =
+                AppDetailPagerFragment().apply {
+                    arguments = Bundle().apply {
+                        putParcelable(ARG_PACKAGE_PATH, packageUri)
+                        putString(ARG_PACKAGE_NAME, packageName)
+                    }
+                }
     }
 }

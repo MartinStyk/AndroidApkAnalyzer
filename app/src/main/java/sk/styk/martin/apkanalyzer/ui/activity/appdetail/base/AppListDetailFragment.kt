@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.base
 
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -38,12 +39,22 @@ class AppListDetailFragment : Fragment() {
                 .setCurrentScreen(requireActivity(), AppListDetailFragment::class.java.simpleName, AppListDetailFragment::class.java.simpleName)
     }
 
-    fun itemClicked(packageName: String?, pathToPackage: String?) {
+    fun itemClicked(packageName: String?) {
         if (isTwoPane) {
-            val fragment = AppDetailPagerFragment.create(packageName = packageName, packagePath = pathToPackage)
+            val fragment = AppDetailPagerFragment.create(packageName = packageName)
             childFragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailPagerFragment.TAG).commitAllowingStateLoss()
         } else {
-            val activity = AppDetailActivity.createIntent(packageName = packageName, packagePath = pathToPackage, context = requireContext())
+            val activity = AppDetailActivity.createIntent(packageName = packageName, context = requireContext())
+            requireContext().startActivity(activity)
+        }
+    }
+
+    fun itemSelectedFromFile(fileUri : Uri) {
+        if (isTwoPane) {
+            val fragment = AppDetailPagerFragment.create(packageUri = fileUri)
+            childFragmentManager.beginTransaction().replace(R.id.app_detail_container, fragment, AppDetailPagerFragment.TAG).commitAllowingStateLoss()
+        } else {
+            val activity = AppDetailActivity.createIntent(packageUri = fileUri, context = requireContext())
             requireContext().startActivity(activity)
         }
     }

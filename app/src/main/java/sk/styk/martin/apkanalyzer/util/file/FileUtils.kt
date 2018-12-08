@@ -1,18 +1,15 @@
 package sk.styk.martin.apkanalyzer.util.file
 
 import android.content.Context
-import android.graphics.drawable.Drawable
-import android.support.annotation.WorkerThread
-import sk.styk.martin.apkanalyzer.R.mipmap.ic_launcher
-import android.graphics.BitmapFactory
 import android.graphics.Bitmap
-import android.graphics.Canvas
-import android.opengl.ETC1.getHeight
-import android.opengl.ETC1.getWidth
-import android.provider.MediaStore.Images.Media.getBitmap
-import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
-import java.io.*
+import android.support.annotation.WorkerThread
+import java.io.File
+import java.io.FileInputStream
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.PrintWriter
 
 
 /**
@@ -64,6 +61,12 @@ object FileUtils {
         FileOutputStream(imageFile).use {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
         }
+    }
+
+    @WorkerThread
+    @Throws(IOException::class)
+    fun uriToPatch(uri: Uri?, context: Context): String? {
+        return if (uri == null) null else fromUri(uri, context)?.absolutePath
     }
 
     @WorkerThread

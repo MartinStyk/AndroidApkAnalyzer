@@ -97,7 +97,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
     override fun onListItemClick(listView: ListView?, view: View?, position: Int, id: Long) {
         val parentFragment = parentFragment as AppListDetailFragment
         val appBasicData = AppListData::class.java.cast(view!!.tag)
-        parentFragment.itemClicked(appBasicData.packageName, null)
+        parentFragment.itemClicked(appBasicData.packageName)
     }
 
     override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<AppListData>> {
@@ -149,9 +149,9 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         // handle picked apk file and
-        if (requestCode == ApkFilePicker.REQUEST_PICK_APK && resultCode == RESULT_OK) {
+        if (requestCode == ApkFilePicker.REQUEST_PICK_APK && resultCode == RESULT_OK && data?.data != null) {
             val parentFragment = parentFragment as AppListDetailFragment
-            parentFragment.itemClicked(null, ApkFilePicker.getPathFromIntentData(data?.data, requireContext()))
+            parentFragment.itemSelectedFromFile(data.data)
         }
     }
 

@@ -80,7 +80,7 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
         val fragment = supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG)
         if (fragment == null) {
             supportFragmentManager.beginTransaction()
-                    .add(R.id.item_detail_container, AppDetailPagerFragment.create(packagePath = presenter.packagePath), AppDetailPagerFragment.TAG)
+                    .add(R.id.item_detail_container, AppDetailPagerFragment.create(packageUri = presenter.packageUri), AppDetailPagerFragment.TAG)
                     .commitAllowingStateLoss()
         }
     }
