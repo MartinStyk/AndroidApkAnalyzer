@@ -17,4 +17,17 @@
         <attr name="type" format="string" />
         <attr name="statistics" format="reference" />
     </declare-styleable>
+    <declare-styleable name="FloatingActionButton">
+        <attr name="buttonPosition">
+            <flag name="top" value="1"/>
+            <flag name="bottom" value="2"/>
+            <flag name="start" value="4"/>
+            <flag name="end" value="8"/>
+            <flag name="left" value="16"/>
+            <flag name="right" value="32"/>
+        </attr>
+        <attr name="buttonIcon" format="reference"/>
+        <attr name="buttonBackgroundColour" format="color"/>
+        <attr name="buttonCoverColour" format="color"/>
+    </declare-styleable>
 </resources>

@@ -116,6 +116,7 @@
     <string name="share_apk">APKを共有</string>
     <string name="share_apk_using">APK共有の使用</string>
     <string name="save_icon">保存アイコン</string>
+    <string name="show_more">もっと見せる</string>
     <string name="install_failed">APK分析がAPKのインストールに失敗しました。手動で行ってください</string>
     <string name="install_app">APKをインストールする</string>
     <string name="detect_repackaged">原点を確認する</string>

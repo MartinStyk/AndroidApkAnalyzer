@@ -23,7 +23,7 @@ class LocalStatisticsPresenter(
     var data: LocalStatisticsDataWithCharts? = null
 
     /**
-     * Initializes tihe presenter by showng/hiding proper views and starting data loading.
+     * Initializes tihe pagerPresenter by showng/hiding proper views and starting data loading.
      */
     override fun initialize() {
         startLoadingData()

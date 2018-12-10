@@ -26,5 +26,24 @@
     <dimen name="ad_banner_height_medium">50dp</dimen>
     <dimen name="ad_banner_height_large">90dp</dimen>
 
+    <!-- Fab -->
+    <dimen name="fab_size">56dp</dimen>
+    <dimen name="fab_radius">28dp</dimen> <!-- half the width, creating a circle -->
+    <dimen name="fab_padding">8dp</dimen>
+    <dimen name="fab_offset">8dp</dimen>
+    <dimen name="fab_padding_bottom">8dp</dimen>
+    <dimen name="bottom_fab_complete_height">72dp</dimen>
+
+
+    <dimen name="fab_icon_size">24dp</dimen>
+    <dimen name="fab_icon_margin">16dp</dimen>
+
+    <dimen name="speed_dial_disc_size">40dp</dimen>
+    <dimen name="speed_dial_disc_radius">20dp</dimen> <!-- half the width, creating a circle -->
+    <dimen name="speed_dial_disc_padding">8dp</dimen>
+    <dimen name="speed_dial_disc_offset">8dp</dimen>
+
+    <dimen name="speed_dial_disc_icon_size">24dp</dimen>
+    <dimen name="speed_dial_disc_icon_margin">8dp</dimen>
 
 </resources>

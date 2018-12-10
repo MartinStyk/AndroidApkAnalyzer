@@ -1,0 +1,23 @@
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@+id/fab_card"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:layout_margin="@dimen/fab_padding"
+        style="@style/fab_card"
+        >
+
+        <LinearLayout
+            android:id="@+id/fab_icon_wrapper"
+            android:layout_width="@dimen/fab_icon_size"
+            android:layout_height="@dimen/fab_icon_size"
+            android:layout_margin="@dimen/fab_icon_margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            />
+
+    </LinearLayout>
+
+</merge>

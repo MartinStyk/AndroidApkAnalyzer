@@ -36,12 +36,6 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
         // this happens only in tablet mode when this activity is rotated from horizontal to vertical orientation
         if (btn_actions == null) {
             app_bar.setExpanded(false)
-        } else {
-            btn_actions!!.visibility = View.VISIBLE
-            btn_actions!!.setOnClickListener { _ ->
-                //delegate to fragment
-                (supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG) as AppDetailPagerFragment).presenter.actionButtonClick()
-            }
         }
     }
 

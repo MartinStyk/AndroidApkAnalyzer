@@ -176,6 +176,11 @@
                 app:titleText="@string/different_layouts"
                 app:valueText="@{data.differentLayouts}" />
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/bottom_fab_complete_height"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

@@ -14,4 +14,5 @@
 
     <color name="colorLightGrey">#CFD8DC</color>
     <color name="grey_500">#9E9E9E</color>
+    <color name="overlay">#ddffffff</color>
 </resources>

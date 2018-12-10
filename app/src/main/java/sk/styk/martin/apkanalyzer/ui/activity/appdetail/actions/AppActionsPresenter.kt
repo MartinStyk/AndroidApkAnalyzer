@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
 /**
  * @author Martin Styk
@@ -10,48 +11,25 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 class AppActionsPresenter : AppActionsContract.Presenter {
 
     override lateinit var view: AppActionsContract.View
-    private lateinit var appDetailData: AppDetailData
+    override lateinit var appDetailData: AppDetailData
 
     override fun initialize(bundle: Bundle) {
-        appDetailData = bundle.getParcelable(AppActionsContract.PACKAGE_TO_PERFORM_ACTIONS) ?: throw IllegalArgumentException()
+        appDetailData = AppDetailDataExchange.get(bundle.getString(AppActionsContract.PACKAGE_TO_PERFORM_ACTIONS)!!)!!
     }
 
-    override fun resume() {
-        view.setUpViews()
-        if (appDetailData.isAnalyzedApkFile)
-            view.showOnlyApkFileRelatedActions()
-    }
+    override fun exportClick() = view.startApkExport(appDetailData)
 
-    override fun exportClick() {
-        view.startApkExport(appDetailData)
-    }
+    override fun shareClick() = view.startSharingActivity(appDetailData.generalData.apkDirectory)
 
-    override fun shareClick() {
-        view.startSharingActivity(appDetailData.generalData.apkDirectory)
-        view.dismiss()
-    }
+    override fun showGooglePlayClick() = view.openGooglePlay(appDetailData.generalData.packageName)
 
-    override fun showGooglePlayClick() {
-        view.openGooglePlay(appDetailData.generalData.packageName)
-        view.dismiss()
-    }
+    override fun showManifestClick() = view.openManifestActivity(appDetailData)
 
-    override fun showManifestClick() {
-        view.openManifestActivity(appDetailData)
-        view.dismiss()
-    }
+    override fun showSystemPageClick() = view.openSystemAboutActivity(appDetailData.generalData.packageName)
 
-    override fun showSystemPageClick() {
-        view.openSystemAboutActivity(appDetailData.generalData.packageName)
-        view.dismiss()
-    }
+    override fun installAppClick() = view.startApkInstall(appDetailData.generalData.apkDirectory)
 
-    override fun installAppClick() {
-        view.startApkInstall(appDetailData.generalData.apkDirectory)
-        view.dismiss()
-    }
+    override fun saveIconClick() = view.startIconSave(appDetailData)
 
-    override fun saveIconClick() {
-        view.startIconSave(appDetailData)
-    }
+    override fun showMoreClick() = view.showMoreActionsDialog(appDetailData)
 }

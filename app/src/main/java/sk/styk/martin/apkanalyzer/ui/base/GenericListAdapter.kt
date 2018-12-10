@@ -14,7 +14,9 @@ abstract class GenericListAdapter<VH : RecyclerView.ViewHolder> : RecyclerView.A
         this.setHasStableIds(true)
     }
 
-    override fun onBindViewHolder(holder: VH, position: Int) = presenter.onBindViewOnPosition(position, holder)
+    override fun onBindViewHolder(holder: VH, position: Int) {
+        presenter.onBindViewOnPosition(position, holder)
+    }
 
     override fun getItemCount(): Int = presenter.itemCount()
 

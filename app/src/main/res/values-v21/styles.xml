@@ -5,4 +5,15 @@
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
     </style>
+
+    <style name="fab_card" parent="CardView">
+        <item name="cardBackgroundColor">#ff0099ff</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
+    </style>
+
+    <style name="speed_dial_item_card" parent="CardView">
+        <item name="cardBackgroundColor">#c0c0c0</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
+    </style>
+
 </resources>

@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.base
 
 /**
- * Interface representing a ListPresenter in a model view presenter (MVP) pattern.
+ * Interface representing a ListPresenter in a model view pagerPresenter (MVP) pattern.
  *
  * Offers method for use in RecyclerView adapter
  *

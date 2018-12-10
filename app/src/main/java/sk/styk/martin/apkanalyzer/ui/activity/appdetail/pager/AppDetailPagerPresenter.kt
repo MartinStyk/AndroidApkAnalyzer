@@ -55,12 +55,4 @@ class AppDetailPagerPresenter(
     override fun onLoaderReset(loader: Loader<String?>) {
         appDetailData = null
     }
-
-    override fun actionButtonClick() {
-        // show actions only when data is loaded
-        appDetailData?.let {
-            view.showActionDialog(it)
-        }
-    }
-
 }

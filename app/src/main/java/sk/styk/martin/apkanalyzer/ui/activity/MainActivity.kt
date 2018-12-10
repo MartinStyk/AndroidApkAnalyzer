@@ -23,6 +23,7 @@ import sk.styk.martin.apkanalyzer.ui.activity.premium.PremiumFragment
 import sk.styk.martin.apkanalyzer.ui.activity.settings.SettingsFragment
 import sk.styk.martin.apkanalyzer.util.AdUtils
 import sk.styk.martin.apkanalyzer.util.AppFlavour
+import sk.styk.martin.apkanalyzer.util.BackPressedListener
 import sk.styk.martin.apkanalyzer.util.StartPromoHelper
 
 
@@ -75,11 +76,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
-        } else if (!NavigationFragmentWrapper.AppListDetail.isVisible(supportFragmentManager)) {
-            super.onBackPressed()
-            navigation_view.setCheckedItem(NavigationFragmentWrapper.currentlyDisplayedFragment(supportFragmentManager).navigationId)
         } else {
-            finish()
+            val fragment = supportFragmentManager.findFragmentById(R.id.main_activity_placeholder)
+            val consumedInChildFragment = fragment is BackPressedListener && fragment.onBackPressed()
+
+            if(!consumedInChildFragment){
+                if (!NavigationFragmentWrapper.AppListDetail.isVisible(supportFragmentManager)) {
+                    super.onBackPressed()
+                    navigation_view.setCheckedItem(NavigationFragmentWrapper.currentlyDisplayedFragment(supportFragmentManager).navigationId)
+                } else {
+                    finish()
+                }
+            }
         }
     }
 

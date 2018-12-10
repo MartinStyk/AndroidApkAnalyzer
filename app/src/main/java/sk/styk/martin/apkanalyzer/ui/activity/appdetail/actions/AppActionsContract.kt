@@ -11,14 +11,6 @@ import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
  */
 interface AppActionsContract {
     interface View {
-        fun setUpViews()
-
-        fun dismiss()
-
-        fun dismissAllowingStateLoss()
-
-        fun showOnlyApkFileRelatedActions()
-
         fun createSnackbar(text: String, @StringRes actionName: Int? = null, action: android.view.View.OnClickListener? = null)
 
         fun openManifestActivity(appDetailData: AppDetailData)
@@ -34,9 +26,13 @@ interface AppActionsContract {
         fun startApkInstall(apkPath: String)
 
         fun startIconSave(appDetailData: AppDetailData)
+
+        fun showMoreActionsDialog(appDetailData: AppDetailData)
     }
 
     interface Presenter : BasePresenter<View> {
+        var appDetailData: AppDetailData
+
         fun initialize(bundle: Bundle)
 
         fun exportClick()
@@ -52,6 +48,8 @@ interface AppActionsContract {
         fun installAppClick()
 
         fun saveIconClick()
+
+        fun showMoreClick()
     }
 
     companion object {

@@ -19,18 +19,12 @@ interface AppDetailPagerContract {
         fun showLoadingFailed()
 
         fun showAppDetails(packageName: String, icon: Drawable?)
-
-        fun showActionDialog(data: AppDetailData)
-
-        fun createSnackbar(text: String, @StringRes actionName: Int?, action: android.view.View.OnClickListener?)
     }
 
     interface Presenter : BasePresenter<View> {
         var packageName: String?
 
         fun initialize(bundle: Bundle)
-
-        fun actionButtonClick()
     }
 
     companion object {

@@ -6,12 +6,15 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 import sk.styk.martin.apkanalyzer.util.AdUtils
+import sk.styk.martin.apkanalyzer.util.BackPressedListener
+import sk.styk.martin.apkanalyzer.util.DisplayHelper
 
 /**
  * An activity representing a single Item detail screen. This
@@ -46,20 +49,13 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
                     packageName = intent.getStringExtra(ARG_PACKAGE_NAME),
                     packageUri = intent.getParcelableExtra(ARG_PACKAGE_PATH))
 
-            supportFragmentManager.beginTransaction().add(sk.styk.martin.apkanalyzer.R.id.item_detail_container, detailFragment, AppDetailPagerFragment.TAG)
+            supportFragmentManager.beginTransaction().add(R.id.item_detail_container, detailFragment, AppDetailPagerFragment.TAG)
                     .commit()
         }
 
         // this happens only in tablet mode when this activity is rotated from horizontal to vertical orientation
         if (btn_actions == null) {
             app_bar.setExpanded(false)
-        } else {
-            btn_actions?.apply {
-                setOnClickListener {
-                    //delegate to fragment
-                    (supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG) as AppDetailPagerFragment).presenter.actionButtonClick()
-                }
-            }
         }
 
         AdUtils.displayAd(ad_view, ad_view_container, object : AdUtils.AdLoadedListener {
@@ -71,9 +67,13 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
                     else -> resources.getDimensionPixelOffset(R.dimen.ad_banner_height_large)
                 }
 
-                item_detail_container.setPadding(0, 0, 0, bannerHeight)
-            }
-        })
+                        item_detail_container.setPadding(0, 0, 0, bannerHeight)
+                        btn_actions?.layoutParams = CoordinatorLayout.LayoutParams(
+                                CoordinatorLayout.LayoutParams.WRAP_CONTENT,
+                                CoordinatorLayout.LayoutParams.WRAP_CONTENT
+                        ).apply { setMargins(0, 0, 0, bannerHeight) }
+                    }
+                })
 
     }
 
@@ -98,6 +98,14 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
             true
         }
         else -> super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val fragment = supportFragmentManager.findFragmentById(R.id.item_detail_container)
+        val consumedInChildFragment = fragment is BackPressedListener && fragment.onBackPressed()
+        if(!consumedInChildFragment){
+            super.onBackPressed()
+        }
     }
 
     companion object {

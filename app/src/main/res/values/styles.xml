@@ -71,4 +71,12 @@
         <item name="android:visibility">gone</item>
     </style>
 
+    <style name="fab_card">
+        <item name="android:background">@drawable/fab_background</item>
+    </style>
+
+    <style name="speed_dial_item_card">
+        <item name="android:background">@drawable/fab_menu_item_card_background</item>
+    </style>
+
 </resources>

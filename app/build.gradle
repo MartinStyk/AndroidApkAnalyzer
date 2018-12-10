@@ -18,7 +18,7 @@ android {
     productFlavors {
         free {
             dimension "version"
-            buildConfigField "boolean", "SHOW_ADS", "true"
+            buildConfigField "boolean", "SHOW_ADS", "false"
             buildConfigField "boolean", "SHOW_PROMO", "false"
         }
         premium {

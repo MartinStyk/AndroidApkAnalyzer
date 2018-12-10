@@ -7,4 +7,5 @@
     <color name="accentLight">#16a085</color>
 
     <color name="graph_bar">@color/grey_500</color>
+    <color name="overlay">#cc000000</color>
 </resources>
