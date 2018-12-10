@@ -64,13 +64,11 @@ object FileUtils {
     }
 
     @WorkerThread
-    @Throws(IOException::class)
     fun uriToPatch(uri: Uri?, context: Context): String? {
         return if (uri == null) null else fromUri(uri, context)?.absolutePath
     }
 
     @WorkerThread
-    @Throws(IOException::class)
     fun fromUri(uri: Uri, context: Context): File? {
 
         return try {
@@ -84,7 +82,7 @@ object FileUtils {
                 }
                 tempFile
             }
-        } catch (exception: IOException) {
+        } catch (exception: Exception) {
             null
         }
     }
