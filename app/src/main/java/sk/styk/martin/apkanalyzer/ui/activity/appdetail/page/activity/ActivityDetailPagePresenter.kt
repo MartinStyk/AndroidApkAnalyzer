@@ -1,6 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity
 
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
+import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
+import java.lang.IllegalArgumentException
 
 
 /**
@@ -12,8 +14,8 @@ class ActivityDetailPagePresenter : ActivityDetailPageContract.Presenter {
     override lateinit var view: ActivityDetailPageContract.View
     private lateinit var activityData: List<ActivityData>
 
-    override fun initialize(data: List<ActivityData>) {
-        this.activityData = data
+    override fun initialize(packageName : String) {
+        this.activityData = AppDetailDataExchange.require(packageName).activityData
     }
 
     override fun getData() {

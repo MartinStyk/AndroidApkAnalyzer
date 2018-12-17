@@ -23,15 +23,14 @@ interface AppDetailPagerContract {
     }
 
     interface Presenter : BasePresenter<View> {
+        var packageName: String?
+
         fun initialize(bundle: Bundle)
 
         fun actionButtonClick()
-
-        fun getData(): AppDetailData?
     }
 
     companion object {
-        const val ARG_PAGER_PAGE = "dataForChild"
         const val ARG_PACKAGE_NAME = "packageName"
         const val ARG_PACKAGE_PATH = "packagePath"
     }

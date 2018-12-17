@@ -18,7 +18,7 @@ interface ListDetailPageContract {
     }
 
     interface Presenter<in DATA, VIEW, in ITEM> : BasePresenter<VIEW>, ListPresenter<ITEM> {
-        fun initialize(data: List<DATA>)
+        fun initialize(packageName: String)
 
         fun getData()
     }

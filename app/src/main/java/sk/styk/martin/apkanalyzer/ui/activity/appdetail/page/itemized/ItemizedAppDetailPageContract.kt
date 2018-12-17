@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page
+package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized
 
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
@@ -9,26 +9,29 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
+import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
 /**
  * @author Martin Styk
  * @version 28.01.2018.
  */
-interface AppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
+interface ItemizedAppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
 
     abstract class View<DATA : Parcelable, BINDING : ViewDataBinding> : Fragment() {
 
         protected lateinit var binding: BINDING
-        protected lateinit var presenter: AppDetailPageContract.Presenter<DATA, BINDING>
+        protected lateinit var presenter: Presenter<DATA, BINDING>
 
         @LayoutRes
         open val layout: Int = R.layout.fragment_app_detail_resource
 
+        abstract val itemizedDataType: ItemizedDataType
+
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
-            presenter = AppDetailPageContract.Presenter<DATA, BINDING>()
+            presenter = Presenter<DATA, BINDING>()
         }
 
         override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): android.view.View? {
@@ -38,13 +41,10 @@ interface AppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
 
         override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            presenter.initialize(extractData())
+            presenter.initialize(arguments?.getString(ARG_PACKAGE_NAME)
+                    ?: throw IllegalArgumentException("data null"), itemizedDataType)
             presenter.view = this
             presenter.getData()
-        }
-
-        open fun extractData(): DATA {
-            return arguments?.getParcelable(ARG_PAGER_PAGE) ?: throw IllegalArgumentException("data null")
         }
 
         abstract fun showData(data: DATA)
@@ -54,8 +54,13 @@ interface AppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
         override lateinit var view: View<DATA, BINDING>
         lateinit var data: DATA
 
-        fun initialize(data: DATA) {
-            this.data = data
+        fun initialize(packageName: String, itemizedDataType: ItemizedDataType) {
+            val data = AppDetailDataExchange.require(packageName)
+            this.data = when (itemizedDataType) {
+                ItemizedDataType.CERTIFICATE_DATA -> data.certificateData as DATA
+                ItemizedDataType.GENERAL_DATA -> data.generalData as DATA
+                ItemizedDataType.RESOURCE_DATA -> data.resourceData as DATA
+            }
         }
 
         fun getData() {

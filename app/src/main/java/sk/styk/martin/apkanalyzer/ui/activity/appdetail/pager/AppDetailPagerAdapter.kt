@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
@@ -15,9 +14,11 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.itemized.ResourceDe
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider.ProviderDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.receiver.ReceiverDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.ServiceDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.StringListDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PAGER_PAGE
-import java.util.*
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.DefinedPermissionListDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.ClassListDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.UsedPermissionListDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
+import java.lang.IllegalArgumentException
 
 /**
  * @author Martin Styk
@@ -29,67 +30,23 @@ class AppDetailPagerAdapter(
         private val presenter: AppDetailPagerContract.Presenter) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
-        val fragment: Fragment
-        val args = Bundle()
-        when (position) {
-            0 -> {
-                args.putParcelable(ARG_PAGER_PAGE, presenter.getData()?.generalData)
-                fragment = GeneralDetailFragment()
-            }
-
-            1 -> {
-                args.putParcelable(ARG_PAGER_PAGE, presenter.getData()?.certificateData)
-                fragment = CertificateDetailFragment()
-            }
-
-            2 -> {
-                args.putParcelable(ARG_PAGER_PAGE, presenter.getData()?.resourceData)
-                fragment = ResourceDetailFragment()
-            }
-
-            3 -> {
-                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.activityData as ArrayList<out Parcelable>)
-                fragment = ActivityDetailPageFragment()
-            }
-
-            4 -> {
-                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.serviceData as ArrayList<out Parcelable>)
-                fragment = ServiceDetailPageFragment()
-            }
-
-            5 -> {
-                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.contentProviderData as ArrayList<out Parcelable>)
-                fragment = ProviderDetailPageFragment()
-            }
-
-            6 -> {
-                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.broadcastReceiverData as ArrayList<out Parcelable>)
-                fragment = ReceiverDetailPageFragment()
-            }
-
-            7 -> {
-                args.putParcelableArrayList(ARG_PAGER_PAGE, presenter.getData()?.featureData as ArrayList<out Parcelable>)
-                fragment = FeatureDetailPageFragment()
-            }
-
-            8 -> {
-                args.putStringArrayList(ARG_PAGER_PAGE, presenter.getData()?.permissionData?.usesPermissionsNames as ArrayList<String>)
-                fragment = StringListDetailPageFragment()
-            }
-
-            9 -> {
-                args.putStringArrayList(ARG_PAGER_PAGE, presenter.getData()?.permissionData?.definesPermissionsNames as ArrayList<String>)
-                fragment = StringListDetailPageFragment()
-            }
-
-            10 -> {
-                args.putStringArrayList(ARG_PAGER_PAGE, presenter.getData()?.classPathData?.allClasses  as ArrayList<String>)
-                fragment = StringListDetailPageFragment()
-            }
-
-            else -> return null
+        val fragment: Fragment = when (position) {
+            0 -> GeneralDetailFragment()
+            1 -> CertificateDetailFragment()
+            2 -> ResourceDetailFragment()
+            3 -> ActivityDetailPageFragment()
+            4 -> ServiceDetailPageFragment()
+            5 -> ProviderDetailPageFragment()
+            6 -> ReceiverDetailPageFragment()
+            7 -> FeatureDetailPageFragment()
+            8 -> UsedPermissionListDetailPageFragment()
+            9 -> DefinedPermissionListDetailPageFragment()
+            10 -> ClassListDetailPageFragment()
+            else -> throw IllegalArgumentException()
         }
-        fragment.arguments = args
+        fragment.arguments = Bundle().apply {
+            putString(ARG_PACKAGE_NAME, presenter.packageName)
+        }
         return fragment
     }
 
@@ -107,6 +64,6 @@ class AppDetailPagerAdapter(
         8 -> context.resources.getString(R.string.permissions)
         9 -> context.resources.getString(R.string.defined_permissions)
         10 -> context.resources.getString(R.string.classes)
-        else -> "TODO"
+        else -> throw IllegalArgumentException()
     }
 }

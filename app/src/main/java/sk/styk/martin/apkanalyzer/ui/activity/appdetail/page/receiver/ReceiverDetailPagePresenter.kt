@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.receiver
 
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
+import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
 /**
  * @author Martin Styk
@@ -11,8 +12,8 @@ class ReceiverDetailPagePresenter : ReceiverDetailPageContract.Presenter {
     override lateinit var view: ReceiverDetailPageContract.View
     private lateinit var receiverData: List<BroadcastReceiverData>
 
-    override fun initialize(data: List<BroadcastReceiverData>) {
-        this.receiverData = data
+    override fun initialize(packageName : String) {
+        this.receiverData = AppDetailDataExchange.require(packageName).broadcastReceiverData
     }
 
     override fun getData() {

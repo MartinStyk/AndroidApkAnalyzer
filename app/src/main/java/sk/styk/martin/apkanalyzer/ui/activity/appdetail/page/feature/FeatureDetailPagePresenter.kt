@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.feature
 
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
+import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
 
 /**
@@ -12,8 +13,8 @@ class FeatureDetailPagePresenter : FeatureDetailPageContract.Presenter {
     override lateinit var view: FeatureDetailPageContract.View
     private lateinit var featureData: List<FeatureData>
 
-    override fun initialize(data: List<FeatureData>) {
-        this.featureData = data
+    override fun initialize(packageName : String) {
+        this.featureData = AppDetailDataExchange.require(packageName).featureData
     }
 
     override fun getData() {

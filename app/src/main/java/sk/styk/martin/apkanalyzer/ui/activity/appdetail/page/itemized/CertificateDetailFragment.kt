@@ -4,13 +4,14 @@ import android.support.annotation.LayoutRes
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailCertificateBinding
 import sk.styk.martin.apkanalyzer.model.detail.CertificateData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.AppDetailPageContract
 
 /**
  * @author Martin Styk
  * @version 22.06.2017.
  */
-class CertificateDetailFragment : AppDetailPageContract.View<CertificateData, FragmentAppDetailCertificateBinding>() {
+class CertificateDetailFragment : ItemizedAppDetailPageContract.View<CertificateData, FragmentAppDetailCertificateBinding>() {
+
+    override val itemizedDataType =  ItemizedDataType.CERTIFICATE_DATA
 
     @LayoutRes
     override val layout: Int = R.layout.fragment_app_detail_certificate

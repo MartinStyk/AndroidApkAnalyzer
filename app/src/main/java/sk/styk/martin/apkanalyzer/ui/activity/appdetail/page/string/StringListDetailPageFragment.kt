@@ -13,13 +13,15 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerCont
  * @author Martin Styk
  * @version 30.06.2017.
  */
-class StringListDetailPageFragment : Fragment(), StringListDetailPageContract.View {
+abstract class StringListDetailPageFragment : Fragment(), StringListDetailPageContract.View {
 
     private lateinit var presenter: StringListDetailPageContract.Presenter
 
+    abstract val stringDataType: StringListDetailPagePresenter.StringDataType
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = StringListDetailPagePresenter()
+        presenter = StringListDetailPagePresenter(stringDataType)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): android.view.View? {
@@ -28,8 +30,7 @@ class StringListDetailPageFragment : Fragment(), StringListDetailPageContract.Vi
 
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.initialize(arguments?.getStringArrayList((AppDetailPagerContract.ARG_PAGER_PAGE))
-                ?: throw IllegalArgumentException())
+        presenter.initialize(arguments?.getString(AppDetailPagerContract.ARG_PACKAGE_NAME) ?: throw IllegalArgumentException("data null"))
         presenter.view = this
         presenter.getData()
     }

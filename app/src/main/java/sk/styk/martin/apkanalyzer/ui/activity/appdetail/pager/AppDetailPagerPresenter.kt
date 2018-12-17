@@ -7,6 +7,7 @@ import sk.styk.martin.apkanalyzer.business.analysis.task.AppDetailLoader
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
+import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
 
 /**
@@ -14,13 +15,13 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerCont
  * @version 28.01.2018.
  */
 class AppDetailPagerPresenter(
-        val loader: Loader<AppDetailData?>,
+        val loader: Loader<String?>,
         val loaderManager: LoaderManager
-) : LoaderManager.LoaderCallbacks<AppDetailData?>, AppDetailPagerContract.Presenter {
+) : LoaderManager.LoaderCallbacks<String?>, AppDetailPagerContract.Presenter {
 
     override lateinit var view: AppDetailPagerContract.View
 
-    private var packageName: String? = null
+    override var packageName: String? = null
     private var pathToPackage: String? = null
 
     private var appDetailData: AppDetailData? = null
@@ -32,26 +33,28 @@ class AppDetailPagerPresenter(
         loaderManager.initLoader(AppDetailLoader.ID, null, this)
     }
 
-    override fun onCreateLoader(id: Int, args: Bundle?): Loader<AppDetailData?> {
+    override fun onCreateLoader(id: Int, args: Bundle?): Loader<String?> {
         return loader
     }
 
-    override fun onLoadFinished(loader: Loader<AppDetailData?>, appDetailData: AppDetailData?) {
-        this.appDetailData = appDetailData
+    override fun onLoadFinished(loader: Loader<String?>, packageName: String?) {
         view.hideLoading()
 
-        if (appDetailData == null) {
+        if (packageName == null) {
             view.showLoadingFailed()
 
         } else {
-            view.showAppDetails(packageName = appDetailData.generalData.packageName, icon = appDetailData.generalData.icon)
-
+            this.packageName = packageName
+            AppDetailDataExchange.get(packageName)?.let {
+                appDetailData = it
+                view.showAppDetails(packageName = it.generalData.packageName, icon = it.generalData.icon)
+            }
 //            Temporary disable uploads
 //            AppDataUploadTask().execute(appDetailData)
         }
     }
 
-    override fun onLoaderReset(loader: Loader<AppDetailData?>) {
+    override fun onLoaderReset(loader: Loader<String?>) {
         appDetailData = null
     }
 
@@ -60,10 +63,6 @@ class AppDetailPagerPresenter(
         appDetailData?.let {
             view.showActionDialog(it)
         }
-    }
-
-    override fun getData(): AppDetailData? {
-        return appDetailData
     }
 
 }

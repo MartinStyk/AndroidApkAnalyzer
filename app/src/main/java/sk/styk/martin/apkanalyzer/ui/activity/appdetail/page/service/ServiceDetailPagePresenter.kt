@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service
 
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData
+import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
 
 /**
@@ -12,8 +13,8 @@ class ServiceDetailPagePresenter : ServiceDetailPageContract.Presenter {
     override lateinit var view: ServiceDetailPageContract.View
     private lateinit var serviceData: List<ServiceData>
 
-    override fun initialize(data: List<ServiceData>) {
-        this.serviceData = data
+    override fun initialize(packageName : String) {
+        this.serviceData = AppDetailDataExchange.require(packageName).serviceData
     }
 
     override fun getData() {
