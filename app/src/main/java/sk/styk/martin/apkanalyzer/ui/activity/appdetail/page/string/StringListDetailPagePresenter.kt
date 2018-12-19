@@ -17,7 +17,6 @@ class StringListDetailPagePresenter(private val dataType: StringDataType) : Stri
         values = when (dataType) {
             StringDataType.USED_PERMISSIONS -> data.permissionData.usesPermissionsNames
             StringDataType.DEFINED_PERMISSIONS -> data.permissionData.definesPermissionsNames
-            StringDataType.CLASSES -> data.classPathData.allClasses
         }
     }
 
@@ -34,7 +33,6 @@ class StringListDetailPagePresenter(private val dataType: StringDataType) : Stri
     enum class StringDataType {
         USED_PERMISSIONS,
         DEFINED_PERMISSIONS,
-        CLASSES
     }
 
 }

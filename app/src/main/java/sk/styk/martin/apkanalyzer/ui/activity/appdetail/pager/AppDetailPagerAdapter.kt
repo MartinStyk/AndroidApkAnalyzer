@@ -15,7 +15,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider.ProviderDe
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.receiver.ReceiverDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.ServiceDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.DefinedPermissionListDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.ClassListDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.UsedPermissionListDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import java.lang.IllegalArgumentException
@@ -41,7 +40,6 @@ class AppDetailPagerAdapter(
             7 -> FeatureDetailPageFragment()
             8 -> UsedPermissionListDetailPageFragment()
             9 -> DefinedPermissionListDetailPageFragment()
-            10 -> ClassListDetailPageFragment()
             else -> throw IllegalArgumentException()
         }
         fragment.arguments = Bundle().apply {
@@ -50,7 +48,7 @@ class AppDetailPagerAdapter(
         return fragment
     }
 
-    override fun getCount() = 11
+    override fun getCount() = 10
 
     override fun getPageTitle(position: Int): CharSequence = when (position) {
         0 -> context.resources.getString(R.string.general)
@@ -63,7 +61,6 @@ class AppDetailPagerAdapter(
         7 -> context.resources.getString(R.string.features)
         8 -> context.resources.getString(R.string.permissions)
         9 -> context.resources.getString(R.string.defined_permissions)
-        10 -> context.resources.getString(R.string.classes)
         else -> throw IllegalArgumentException()
     }
 }
