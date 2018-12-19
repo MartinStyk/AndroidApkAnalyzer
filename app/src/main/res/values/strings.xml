@@ -359,6 +359,10 @@
     <string name="preference_color_theme">Color theme</string>
     <string name="preference_color_theme_summary">Select light or dark app\'s appearance</string>
     <string name="preference_color_theme_key" translatable="false">dayNightPref</string>
+    <string name="color_theme_promo_stay_light" translatable="false">Keep light</string>
+    <string name="color_theme_promo_switch_dark" translatable="false">Switch to dark</string>
+    <string name="color_theme_promo_title" translatable="false">Choose colors you like</string>
+    <string name="color_theme_promo_message" translatable="false">Now it\'s possible to switch Apk Analyzer to dark colors. \n You can change your preference later in the settings.</string>
     <string-array name="preference_color_theme_options_values">
         <item>light</item>
         <item>dark</item>

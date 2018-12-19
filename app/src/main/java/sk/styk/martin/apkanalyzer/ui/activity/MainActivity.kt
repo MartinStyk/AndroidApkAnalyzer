@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.app_bar_main.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.about.AboutFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppListDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.list.LocalPermissionsFragment
@@ -26,7 +27,7 @@ import sk.styk.martin.apkanalyzer.util.StartPromoHelper
 /**
  * @author Martin Styk
  */
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, PromoDialog.PromoDialogController {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, PromoDialog.PromoDialogController, FeatureDialog.FeatureDialogController {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,4 +102,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onPromoDialogShowRequested() = PromoDialog().showPromoDialog(this)
 
+    override fun onFeatureDialogShowRequested() = FeatureDialog().showFeatureDialog(this)
 }
