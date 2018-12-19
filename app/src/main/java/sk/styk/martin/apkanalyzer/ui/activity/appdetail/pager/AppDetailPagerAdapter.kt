@@ -17,7 +17,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.ServiceDeta
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.DefinedPermissionListDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.UsedPermissionListDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
-import java.lang.IllegalArgumentException
 
 /**
  * @author Martin Styk
@@ -32,14 +31,14 @@ class AppDetailPagerAdapter(
         val fragment: Fragment = when (position) {
             0 -> GeneralDetailFragment()
             1 -> CertificateDetailFragment()
-            2 -> ResourceDetailFragment()
+            2 -> UsedPermissionListDetailPageFragment()
             3 -> ActivityDetailPageFragment()
             4 -> ServiceDetailPageFragment()
             5 -> ProviderDetailPageFragment()
             6 -> ReceiverDetailPageFragment()
             7 -> FeatureDetailPageFragment()
-            8 -> UsedPermissionListDetailPageFragment()
-            9 -> DefinedPermissionListDetailPageFragment()
+            8 -> DefinedPermissionListDetailPageFragment()
+            9 -> ResourceDetailFragment()
             else -> throw IllegalArgumentException()
         }
         fragment.arguments = Bundle().apply {
@@ -50,17 +49,18 @@ class AppDetailPagerAdapter(
 
     override fun getCount() = 10
 
-    override fun getPageTitle(position: Int): CharSequence = when (position) {
-        0 -> context.resources.getString(R.string.general)
-        1 -> context.resources.getString(R.string.certificate)
-        2 -> context.resources.getString(R.string.resources)
-        3 -> context.resources.getString(R.string.activities)
-        4 -> context.resources.getString(R.string.services)
-        5 -> context.resources.getString(R.string.content_providers)
-        6 -> context.resources.getString(R.string.broadcast_receivers)
-        7 -> context.resources.getString(R.string.features)
-        8 -> context.resources.getString(R.string.permissions)
-        9 -> context.resources.getString(R.string.defined_permissions)
-        else -> throw IllegalArgumentException()
-    }
+    override fun getPageTitle(position: Int): CharSequence = context.resources.getString(
+            when (position) {
+                0 -> R.string.general
+                1 -> R.string.certificate
+                2 -> R.string.permissions
+                3 -> R.string.activities
+                4 -> R.string.services
+                5 -> R.string.content_providers
+                6 -> R.string.broadcast_receivers
+                7 -> R.string.features
+                8 -> R.string.defined_permissions
+                9 -> R.string.resources
+                else -> throw IllegalArgumentException()
+            })
 }
