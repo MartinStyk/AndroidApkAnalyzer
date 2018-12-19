@@ -357,6 +357,20 @@
     <string name="repackaged_result_detection_majority_signature_most_common_devs_touch">Percentage of the most common signature found in a set of apps similar to this one.</string>
     <string name="repackaged_result_detection_majority_signature_other_devs_touch">Percentage of other than most common signature found in a set of apps similar to this one.</string>
 
+    <string name="preference_color_theme">Color theme</string>
+    <string name="preference_color_theme_summary">Select light or dark app\'s appearance</string>
+    <string name="preference_color_theme_key" translatable="false">dayNightPref</string>
+    <string-array name="preference_color_theme_options_values">
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+    <string-array name="preference_color_theme_options">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+
+
 
     <string-array name="android_versions">
         <item>Android 1</item>

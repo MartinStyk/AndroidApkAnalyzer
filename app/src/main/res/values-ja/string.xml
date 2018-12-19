@@ -341,6 +341,12 @@
     <string name="repackaged_result_detection_majority_signature_most_common_devs_touch">同様のアプリケーションセットで見つかった最も一般的なシグネチャの割合。</string>
     <string name="repackaged_result_detection_majority_signature_other_devs_touch">同様のアプリケーションセットにある最も一般的なシグネチャ以外の比率。</string>
 
+    <string name="preference_color_theme">カラーテーマ</string>
+    <string name="preference_color_theme_summary">明るいまたは暗いアプリの外観を選択する</string>
+    <string-array name="preference_color_theme_options">
+        <item>光</item>
+        <item>ダーク</item>
+    </string-array>
 
     <string-array name="android_versions">
         <item>Android 1</item>

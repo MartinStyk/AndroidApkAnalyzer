@@ -6,6 +6,7 @@ import android.os.StrictMode
 import com.google.android.gms.ads.MobileAds
 import com.squareup.leakcanary.LeakCanary
 import sk.styk.martin.apkanalyzer.util.AppFlavour
+import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
 
 /**
  * @author Martin Styk
@@ -15,6 +16,9 @@ class ApkAnalyzer : Application() {
 
     override fun onCreate() {
         instance = this
+
+        ColorThemeHelper.setTheme(this)
+
         super.onCreate()
 
         if (LeakCanary.isInAnalyzerProcess(this)) {

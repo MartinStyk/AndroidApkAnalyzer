@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:defaultValue="light"
+        android:entries="@array/preference_color_theme_options"
+        android:entryValues="@array/preference_color_theme_options_values"
+        android:key="@string/preference_color_theme_key"
+        android:title="@string/preference_color_theme"
+        android:summary="@string/preference_color_theme_summary"/>
+
+</PreferenceScreen>

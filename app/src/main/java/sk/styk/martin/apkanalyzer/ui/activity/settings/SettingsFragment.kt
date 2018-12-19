@@ -1,40 +1,37 @@
 package sk.styk.martin.apkanalyzer.ui.activity.settings
 
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.text.method.LinkMovementMethod
-import android.view.LayoutInflater
+import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.Menu
 import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.fragment_settings.*
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
 
 /**
  * @author Martin Styk
  */
-class SettingsFragment : Fragment(){
+class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
+        setPreferencesFromResource(R.xml.settings, rootKey)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val rootView = inflater.inflate(R.layout.fragment_settings, container, false)
-
-        setHasOptionsMenu(true)
-
-        return rootView
-    }
-
-    override fun onResume() {
-        super.onResume()
+    override fun onStart() {
+        super.onStart()
+        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this);
         FirebaseAnalytics.getInstance(requireContext()).setCurrentScreen(requireActivity(), SettingsFragment::class.java.simpleName, SettingsFragment::class.java.simpleName)
+    }
+
+    override fun onStop() {
+        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        super.onStop()
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
+        if (key == getString(R.string.preference_color_theme_key))
+            ColorThemeHelper.setTheme(requireContext())
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
