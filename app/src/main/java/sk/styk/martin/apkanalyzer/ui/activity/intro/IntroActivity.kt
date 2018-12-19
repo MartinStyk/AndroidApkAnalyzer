@@ -47,10 +47,8 @@ class IntroActivity : AppIntro() {
         addSlide(AppIntroFragment.newInstance(analyzeAppsSlide))
         addSlide(AppIntroFragment.newInstance(permissionsAppsSlide))
         addSlide(AppIntroFragment.newInstance(statisticsAppsSlide))
-        addSlide(AllowMetadataUploadIntroSlide.newInstance(uploadAppsSlide))
 
         // Hide Skip/Done button.
-        showSkipButton(false)
         isProgressButtonEnabled = true
 
         setVibrate(true)
@@ -59,25 +57,17 @@ class IntroActivity : AppIntro() {
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, Bundle());
     }
 
+    override fun onSkipPressed(currentFragment: Fragment?) {
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle());
+        super.onSkipPressed(currentFragment)
+    }
+
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
-
-        // save user preferences and trigger data upload if possible
-        if (currentFragment is AllowMetadataUploadIntroSlide) {
-            val isUploadAllowed = currentFragment.isUploadAllowed
-            ConnectivityHelper.setConnectionAllowedByUser(applicationContext, isUploadAllowed)
-
-//   Temporary disable uploads
-//            if (isUploadAllowed)
-//                MultipleAppDataUploadJob.start(applicationContext)
-        }
 
         StartPromoHelper.setFirstStartFinished(applicationContext)
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle());
         finish()
     }
 
-    override fun onBackPressed() {
-        // Do nothing
-    }
 }

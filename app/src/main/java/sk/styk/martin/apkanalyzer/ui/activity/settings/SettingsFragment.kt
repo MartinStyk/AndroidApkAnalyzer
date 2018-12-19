@@ -15,13 +15,11 @@ import sk.styk.martin.apkanalyzer.R
 /**
  * @author Martin Styk
  */
-class SettingsFragment : Fragment(), SettingsContract.View {
+class SettingsFragment : Fragment(){
 
-    private lateinit var presenter: SettingsContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = SettingsPresenter()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -34,24 +32,9 @@ class SettingsFragment : Fragment(), SettingsContract.View {
         return rootView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        presenter.view = this
-        presenter.initialize()
-    }
-
     override fun onResume() {
         super.onResume()
         FirebaseAnalytics.getInstance(requireContext()).setCurrentScreen(requireActivity(), SettingsFragment::class.java.simpleName, SettingsFragment::class.java.simpleName)
-    }
-
-    override fun setUpViews() {
-        settings_upload_explanation.movementMethod = LinkMovementMethod.getInstance()
-        allow_upload.setOnCheckedChangeListener({ _, isChecked -> presenter.uploadCheckBoxStateChange(isChecked) })
-    }
-
-    override fun uploadCheckBoxSet(isChecked: Boolean) {
-        allow_upload.isChecked = isChecked
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
