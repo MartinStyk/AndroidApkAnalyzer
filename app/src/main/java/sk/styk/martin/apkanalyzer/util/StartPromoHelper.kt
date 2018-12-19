@@ -36,7 +36,7 @@ object StartPromoHelper {
 
         val shownTime = SharedPreferencesHelper(context).readLong(PROMO_SHOW_TIME, -1)
         val currentTime = System.currentTimeMillis()
-        val silentPeriod = TimeUnit.DAYS.toMillis(10)
+        val silentPeriod = TimeUnit.DAYS.toMillis(25)
 
         return if (shownTime < 0 || shownTime + silentPeriod < currentTime) {
             SharedPreferencesHelper(context).putLong(PROMO_SHOW_TIME, currentTime)
