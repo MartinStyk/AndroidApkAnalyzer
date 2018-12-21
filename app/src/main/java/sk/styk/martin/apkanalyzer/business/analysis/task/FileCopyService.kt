@@ -1,12 +1,17 @@
 package sk.styk.martin.apkanalyzer.business.analysis.task
 
+import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.os.Build
 import android.os.Environment
 import android.os.IBinder
+import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import sk.styk.martin.apkanalyzer.R
@@ -21,7 +26,7 @@ import java.io.IOException
  * @author Martin Styk
  * @version 15.09.2017.
  */
-class FileCopyService : Service() {
+class FileCopyService : ApkAnalyzerForegroundService() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
@@ -36,6 +41,9 @@ class FileCopyService : Service() {
                     stopSelf()
                     return
                 }
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    createNotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_ID)
 
                 var notification = prepareNotification(shownName, targetPath, true).build()
                 startForeground(NOTIFICATION__ID, notification)

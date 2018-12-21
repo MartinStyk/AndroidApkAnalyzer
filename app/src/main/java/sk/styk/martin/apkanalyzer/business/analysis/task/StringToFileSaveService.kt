@@ -5,6 +5,7 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Environment
 import android.os.IBinder
 import android.support.v4.app.NotificationCompat
@@ -20,7 +21,7 @@ import java.io.IOException
  * @author Martin Styk
  * @version 15.09.2017.
  */
-class StringToFileSaveService : Service() {
+class StringToFileSaveService : ApkAnalyzerForegroundService() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
@@ -36,6 +37,9 @@ class StringToFileSaveService : Service() {
                     return
                 }
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    createNotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_ID)
+                
                 var notification = prepareNotification(packageName, targetPath, true).build()
                 startForeground(NOTIFICATION__ID, notification)
 
