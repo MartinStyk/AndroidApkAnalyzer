@@ -10,7 +10,7 @@ android {
         applicationId "sk.styk.martin.apkanalyzer"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 39
+        versionCode 40
         versionName "2.6.0"
     }
     flavorDimensions "version"
