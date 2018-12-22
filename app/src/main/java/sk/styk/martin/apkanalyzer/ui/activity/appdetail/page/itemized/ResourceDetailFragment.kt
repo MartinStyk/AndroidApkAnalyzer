@@ -19,4 +19,8 @@ class ResourceDetailFragment : ItemizedAppDetailPageContract.View<ResourceData, 
     override fun showData(data: ResourceData) {
         binding.data = data
     }
+
+    override fun showNoData() {
+        binding.data = null
+    }
 }

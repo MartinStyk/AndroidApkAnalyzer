@@ -14,7 +14,7 @@ class FeatureDetailPagePresenter : FeatureDetailPageContract.Presenter {
     private lateinit var featureData: List<FeatureData>
 
     override fun initialize(packageName : String) {
-        this.featureData = AppDetailDataExchange.require(packageName).featureData
+        this.featureData = AppDetailDataExchange.get(packageName)?.featureData ?: emptyList()
     }
 
     override fun getData() {

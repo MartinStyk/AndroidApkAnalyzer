@@ -13,10 +13,10 @@ class StringListDetailPagePresenter(private val dataType: StringDataType) : Stri
     protected lateinit var values: List<String>
 
     override fun initialize(packageName: String) {
-        val data = AppDetailDataExchange.require(packageName)
+        val data = AppDetailDataExchange.get(packageName)
         values = when (dataType) {
-            StringDataType.USED_PERMISSIONS -> data.permissionData.usesPermissionsNames
-            StringDataType.DEFINED_PERMISSIONS -> data.permissionData.definesPermissionsNames
+            StringDataType.USED_PERMISSIONS -> data?.permissionData?.usesPermissionsNames ?: emptyList()
+            StringDataType.DEFINED_PERMISSIONS -> data?.permissionData?.definesPermissionsNames ?: emptyList()
         }
     }
 

@@ -13,6 +13,8 @@
         <import type="android.text.format.Formatter" />
 
         <import type="android.text.format.DateUtils" />
+
+        <import type="android.view.View"/>
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -31,6 +33,7 @@
                 android:id="@+id/item_application_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/application_name_description"
                 app:titleText="@string/application_name"
                 app:valueText="@{data.applicationName}" />
@@ -39,6 +42,7 @@
                 android:id="@+id/item_package_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/package_name_description"
                 app:titleText="@string/package_name"
                 app:valueText="@{data.packageName}" />
@@ -47,6 +51,7 @@
                 android:id="@+id/item_process_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/process_name_description"
                 app:titleText="@string/process_name"
                 app:valueText="@{data.processName}" />
@@ -55,6 +60,7 @@
                 android:id="@+id/item_version_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/version_name_description"
                 app:titleText="@string/version_name"
                 app:valueText="@{data.versionName}" />
@@ -63,6 +69,7 @@
                 android:id="@+id/item_version_code"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/version_code_description"
                 app:titleText="@string/version_code"
                 app:valueText="@{data.versionCode}" />
@@ -71,6 +78,7 @@
                 android:id="@+id/item_system_application"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/system_application_description"
                 app:titleText="@string/system_application"
                 app:valueText="@{data.systemApp ? @string/yes : @string/no}" />
@@ -79,6 +87,7 @@
                 android:id="@+id/item_uid"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/uid_description"
                 app:titleText="@string/uid"
                 app:valueText="@{data.uid }" />
@@ -87,6 +96,7 @@
                 android:id="@+id/item_application_description"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/description_description"
                 app:titleText="@string/description"
                 app:valueText="@{data.description}" />
@@ -95,6 +105,7 @@
                 android:id="@+id/item_application_app_installer"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/description_app_installer"
                 app:titleText="@string/app_installer"
                 app:valueText="@{data.appInstaller}" />
@@ -103,6 +114,7 @@
                 android:id="@+id/item_application_app_source"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/description_app_source"
                 app:titleText="@string/app_source"
                 app:valueText="@{data.source.toString()}" />
@@ -111,6 +123,7 @@
                 android:id="@+id/item_target_sdk"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/target_sdk_description"
                 app:titleText="@string/target_sdk"
                 app:valueText="@{data.targetSdkVersion != null ? data.targetSdkVersion.toString() : null}" />
@@ -119,6 +132,7 @@
                 android:id="@+id/item_target_android_version"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/target_version_description"
                 app:titleText="@string/target_version"
                 app:valueText="@{data.targetSdkLabel}" />
@@ -127,6 +141,7 @@
                 android:id="@+id/item_min_sdk"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/min_sdk_description"
                 app:notShownExpression="0"
                 app:titleText="@string/min_sdk"
@@ -136,6 +151,7 @@
                 android:id="@+id/item_min_android_version"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/min_version_description"
                 app:titleText="@string/min_version"
                 app:valueText="@{data.minSdkLabel}" />
@@ -144,6 +160,7 @@
                 android:id="@+id/item_apk_directory"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/apk_directory_description"
                 app:titleText="@string/apk_directory"
                 app:valueText="@{data.apkDirectory}" />
@@ -152,6 +169,7 @@
                 android:id="@+id/item_data_directory"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/data_directory_description"
                 app:titleText="@string/data_directory"
                 app:valueText="@{data.dataDirectory}" />
@@ -160,6 +178,7 @@
                 android:id="@+id/item_install_location"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/install_loc_description"
                 app:titleText="@string/install_loc"
                 app:valueText="@{InstallLocationHelper.showLocalizedLocation(data.installLocation)}" />
@@ -168,6 +187,7 @@
                 android:id="@+id/item_apk_size"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/apk_size_description"
                 app:titleText="@string/apk_size"
                 app:valueText="@{Formatter.formatShortFileSize(context, data.apkSize)}" />
@@ -176,6 +196,7 @@
                 android:id="@+id/item_first_install_time"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/first_install_description"
                 app:notShownExpression="0"
                 app:titleText="@string/first_install"
@@ -185,10 +206,18 @@
                 android:id="@+id/item_last_update_time"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/last_update_description"
                 app:notShownExpression="0"
                 app:titleText="@string/last_update"
                 app:valueText="@{data.lastUpdateTime != null ? DateUtils.formatDateTime(context, safeUnbox(data.lastUpdateTime), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME) : null}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/error_loading_package_detail"
+                android:visibility="@{data == null ? View.VISIBLE : View.GONE}"/>
 
         </LinearLayout>
 

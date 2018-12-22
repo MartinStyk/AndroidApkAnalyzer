@@ -14,7 +14,7 @@ class ServiceDetailPagePresenter : ServiceDetailPageContract.Presenter {
     private lateinit var serviceData: List<ServiceData>
 
     override fun initialize(packageName : String) {
-        this.serviceData = AppDetailDataExchange.require(packageName).serviceData
+        this.serviceData = AppDetailDataExchange.get(packageName)?.serviceData ?: emptyList()
     }
 
     override fun getData() {

@@ -44,27 +44,33 @@ interface ItemizedAppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBin
             presenter.initialize(arguments?.getString(ARG_PACKAGE_NAME)
                     ?: throw IllegalArgumentException("data null"), itemizedDataType)
             presenter.view = this
-            presenter.getData()
+            presenter.provideData()
         }
 
         abstract fun showData(data: DATA)
+
+        abstract fun showNoData()
     }
 
     open class Presenter<DATA : Parcelable, BINDING : ViewDataBinding> : BasePresenter<View<DATA, BINDING>> {
         override lateinit var view: View<DATA, BINDING>
-        lateinit var data: DATA
+        private var data: Parcelable? = null
 
         fun initialize(packageName: String, itemizedDataType: ItemizedDataType) {
-            val data = AppDetailDataExchange.require(packageName)
-            this.data = when (itemizedDataType) {
-                ItemizedDataType.CERTIFICATE_DATA -> data.certificateData as DATA
-                ItemizedDataType.GENERAL_DATA -> data.generalData as DATA
-                ItemizedDataType.RESOURCE_DATA -> data.resourceData as DATA
+            AppDetailDataExchange.get (packageName)?.let {
+                data = when (itemizedDataType) {
+                    ItemizedDataType.CERTIFICATE_DATA -> it.certificateData
+                    ItemizedDataType.GENERAL_DATA -> it.generalData
+                    ItemizedDataType.RESOURCE_DATA -> it.resourceData
+                }
             }
         }
 
-        fun getData() {
-            view.showData(data)
+        fun provideData() {
+            if (data != null)
+                view.showData(data as DATA)
+            else
+                view.showNoData()
         }
     }
 

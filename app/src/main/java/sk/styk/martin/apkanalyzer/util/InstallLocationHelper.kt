@@ -24,7 +24,7 @@ object InstallLocationHelper {
     }
 
     @JvmStatic
-    fun showLocalizedLocation(installLocation: String): String {
+    fun showLocalizedLocation(installLocation: String?): String {
         val context = ApkAnalyzer.context
 
         return when (installLocation) {

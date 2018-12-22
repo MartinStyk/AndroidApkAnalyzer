@@ -32,7 +32,7 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
     var valueText: Any? = null
         set(value) {
             field = value
-            if (value == null || value.toString() == notShownExpression) {
+            if (value == null || value.toString() == notShownExpression ) {
                 visibility = View.GONE
             } else {
                 attribute_value.text = value.toString()

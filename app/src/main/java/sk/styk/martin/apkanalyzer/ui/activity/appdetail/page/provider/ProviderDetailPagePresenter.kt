@@ -14,7 +14,7 @@ class ProviderDetailPagePresenter : ProviderDetailPageContract.Presenter {
     private lateinit var providerData: List<ContentProviderData>
 
     override fun initialize(packageName : String) {
-        this.providerData = AppDetailDataExchange.require(packageName).contentProviderData
+        this.providerData = AppDetailDataExchange.get(packageName)?.contentProviderData ?: emptyList()
     }
 
     override fun getData() {

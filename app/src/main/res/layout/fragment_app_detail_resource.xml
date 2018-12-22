@@ -7,6 +7,8 @@
         <variable
             name="data"
             type="sk.styk.martin.apkanalyzer.model.detail.ResourceData" />
+
+        <import type="android.view.View"/>
     </data>
 
     <android.support.v4.widget.NestedScrollView
@@ -25,6 +27,7 @@
                 android:id="@+id/item_all_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/all_drawables_description"
                 app:titleText="@string/all_drawables"
                 app:valueText="@{data.drawables}" />
@@ -33,6 +36,7 @@
                 android:id="@+id/item_different_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/different_drawables_description"
                 app:titleText="@string/different_drawables"
                 app:valueText="@{data.differentDrawables}" />
@@ -41,6 +45,7 @@
                 android:id="@+id/item_png_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/png_drawables_description"
                 app:titleText="@string/png_drawables"
                 app:valueText="@{data.pngDrawables}" />
@@ -49,6 +54,7 @@
                 android:id="@+id/item_nine_patch_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/nine_patch_drawables_description"
                 app:titleText="@string/nine_patch_drawables"
                 app:valueText="@{data.ninePatchDrawables}" />
@@ -57,6 +63,7 @@
                 android:id="@+id/item_jpg_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/jpg_drawables_description"
                 app:titleText="@string/jpg_drawables"
                 app:valueText="@{data.jpgDrawables}" />
@@ -65,6 +72,7 @@
                 android:id="@+id/item_gif_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/gif_drawables_description"
                 app:titleText="@string/gif_drawables"
                 app:valueText="@{data.gifDrawables}" />
@@ -73,6 +81,7 @@
                 android:id="@+id/item_xml_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/xml_drawables_description"
                 app:titleText="@string/xml_drawables"
                 app:valueText="@{data.xmlDrawables}" />
@@ -81,6 +90,7 @@
                 android:id="@+id/item_ldpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/ldpi_drawables_description"
                 app:titleText="@string/ldpi_drawables"
                 app:valueText="@{data.ldpiDrawables}" />
@@ -89,6 +99,7 @@
                 android:id="@+id/item_mdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/mdpi_drawables_description"
                 app:titleText="@string/mdpi_drawables"
                 app:valueText="@{data.mdpiDrawables}" />
@@ -97,6 +108,7 @@
                 android:id="@+id/item_hdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/hdpi_drawables_description"
                 app:titleText="@string/hdpi_drawables"
                 app:valueText="@{data.hdpiDrawables}" />
@@ -105,6 +117,7 @@
                 android:id="@+id/item_xhdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/xhdpi_drawables_description"
                 app:titleText="@string/xhdpi_drawables"
                 app:valueText="@{data.xhdpiDrawables}" />
@@ -113,6 +126,7 @@
                 android:id="@+id/item_xxhdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/xxhdpi_drawables_description"
                 app:titleText="@string/xxhdpi_drawables"
                 app:valueText="@{data.xxhdpiDrawables}" />
@@ -121,6 +135,7 @@
                 android:id="@+id/item_xxxhdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/xxxhdpi_drawables_description"
                 app:titleText="@string/xxxhdpi_drawables"
                 app:valueText="@{data.xxxhdpiDrawables}" />
@@ -129,6 +144,7 @@
                 android:id="@+id/item_nodpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/nodpi_drawables_description"
                 app:titleText="@string/nodpi_drawables"
                 app:valueText="@{data.nodpiDrawables}" />
@@ -137,6 +153,7 @@
                 android:id="@+id/item_tvdpi_drawables"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/tvdpi_drawables_description"
                 app:titleText="@string/tvdpi_drawables"
                 app:valueText="@{data.tvdpiDrawables}" />
@@ -145,6 +162,7 @@
                 android:id="@+id/item_all_layouts"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/all_layouts_description"
                 app:titleText="@string/all_layouts"
                 app:valueText="@{data.layouts}" />
@@ -153,11 +171,20 @@
                 android:id="@+id/item_different_layouts"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/different_layouts_description"
                 app:titleText="@string/different_layouts"
                 app:valueText="@{data.differentLayouts}" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/error_loading_package_detail"
+                android:visibility="@{data == null ? View.VISIBLE : View.GONE}"/>
+
         </LinearLayout>
+
 
     </android.support.v4.widget.NestedScrollView>
 

@@ -19,4 +19,8 @@ class CertificateDetailFragment : ItemizedAppDetailPageContract.View<Certificate
     override fun showData(data: CertificateData) {
         binding.data = data
     }
+
+    override fun showNoData() {
+        binding.data = null
+    }
 }

@@ -15,7 +15,7 @@ class ActivityDetailPagePresenter : ActivityDetailPageContract.Presenter {
     private lateinit var activityData: List<ActivityData>
 
     override fun initialize(packageName : String) {
-        this.activityData = AppDetailDataExchange.require(packageName).activityData
+        this.activityData = AppDetailDataExchange.get(packageName)?.activityData ?: emptyList()
     }
 
     override fun getData() {

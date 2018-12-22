@@ -18,13 +18,6 @@ object AppDetailDataExchange {
         it
     }
 
+    @Synchronized
     fun get(packageName: String) = appDataCache[packageName]
-
-    @Throws(IllegalArgumentException::class)
-    fun require(packageName: String): AppDetailData {
-        return appDataCache[packageName]
-                ?: throw  IllegalArgumentException("${packageName} not found in cache")
-    }
-
-
 }

@@ -19,5 +19,9 @@ class GeneralDetailFragment : ItemizedAppDetailPageContract.View<GeneralData, Fr
     override fun showData(data: GeneralData) {
         binding.data = data
     }
+
+    override fun showNoData() {
+        binding.data = null
+    }
 }
 

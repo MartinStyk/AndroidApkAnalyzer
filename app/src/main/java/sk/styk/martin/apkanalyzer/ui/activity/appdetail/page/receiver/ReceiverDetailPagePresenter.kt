@@ -13,7 +13,7 @@ class ReceiverDetailPagePresenter : ReceiverDetailPageContract.Presenter {
     private lateinit var receiverData: List<BroadcastReceiverData>
 
     override fun initialize(packageName : String) {
-        this.receiverData = AppDetailDataExchange.require(packageName).broadcastReceiverData
+        this.receiverData = AppDetailDataExchange.get(packageName)?.broadcastReceiverData ?: emptyList()
     }
 
     override fun getData() {

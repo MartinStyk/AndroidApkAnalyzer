@@ -7,8 +7,10 @@
         <variable
             name="data"
             type="sk.styk.martin.apkanalyzer.model.detail.CertificateData" />
+        
 
         <import type="android.text.format.DateUtils" />
+        <import type="android.view.View"/>
 
     </data>
 
@@ -28,6 +30,7 @@
                 android:id="@+id/item_sign_algorithm"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/sign_algorithm_description"
                 app:titleText="@string/sign_algorithm"
                 app:valueText="@{data.signAlgorithm}" />
@@ -36,6 +39,7 @@
                 android:id="@+id/item_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/start_date_description"
                 app:titleText="@string/start_date"
                 app:valueText="@{DateUtils.formatDateTime(context, data.startDate.time, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME)}" />
@@ -44,6 +48,7 @@
                 android:id="@+id/item_end_date"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/end_date_description"
                 app:titleText="@string/end_date"
                 app:valueText="@{DateUtils.formatDateTime(context, data.endDate.time, DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME)}" />
@@ -52,6 +57,7 @@
                 android:id="@+id/item_public_key_md5"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/public_key_md5_description"
                 app:titleText="@string/public_key_md5"
                 app:valueText="@{data.publicKeyMd5}" />
@@ -60,6 +66,7 @@
                 android:id="@+id/item_cert_md5"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/cert_md5_description"
                 app:titleText="@string/cert_md5"
                 app:valueText="@{data.certificateHash}" />
@@ -68,7 +75,9 @@
                 android:id="@+id/item_serial_number"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/serial_number_description"
+                app:notShownExpression="0"
                 app:titleText="@string/serial_number"
                 app:valueText="@{data.serialNumber}" />
 
@@ -76,6 +85,7 @@
                 android:id="@+id/item_issuer_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/issuer_name_description"
                 app:titleText="@string/issuer_name"
                 app:valueText="@{data.issuerName}" />
@@ -84,6 +94,7 @@
                 android:id="@+id/item_issuer_organization"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/issuer_organization_description"
                 app:titleText="@string/issuer_organization"
                 app:valueText="@{data.issuerOrganization}" />
@@ -92,6 +103,7 @@
                 android:id="@+id/item_issuer_country"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/issuer_country_description"
                 app:titleText="@string/issuer_country"
                 app:valueText="@{data.issuerCountry}" />
@@ -100,6 +112,7 @@
                 android:id="@+id/item_subject_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/subject_name_description"
                 app:titleText="@string/subject_name"
                 app:valueText="@{data.subjectName}" />
@@ -108,6 +121,7 @@
                 android:id="@+id/item_subject_organization"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/subject_organization_description"
                 app:titleText="@string/subject_organization"
                 app:valueText="@{data.subjectOrganization}" />
@@ -116,9 +130,17 @@
                 android:id="@+id/item_subject_country"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
+                android:visibility="@{data == null ? View.GONE : View.VISIBLE}"
                 app:descriptionText="@string/subject_country_description"
                 app:titleText="@string/subject_country"
                 app:valueText="@{data.subjectCountry}" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/error_loading_package_detail"
+                android:visibility="@{data == null ? View.VISIBLE : View.GONE}"/>
         </LinearLayout>
 
     </android.support.v4.widget.NestedScrollView>
