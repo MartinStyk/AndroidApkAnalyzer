@@ -13,9 +13,8 @@ object AppDetailDataExchange {
     }
 
     @Synchronized
-    fun save(appDetailData: AppDetailData) = appDetailData.generalData.packageName.let {
+    fun save(appDetailData: AppDetailData) = appDetailData.generalData.packageName.also {
         appDataCache[it] = appDetailData
-        it
     }
 
     @Synchronized
