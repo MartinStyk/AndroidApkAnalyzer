@@ -31,7 +31,7 @@ object ChartDataHelper {
             )
 
     private fun getBarSdkData(map: Map<Int, List<String>>,
-                              @ColorRes columnColor: Int = R.color.primary,
+                              @ColorRes columnColor: Int = R.color.graph_bar,
                               @ColorRes selectedColumnColor: Int = R.color.accent): BarDataHolder {
 
 
@@ -54,12 +54,13 @@ object ChartDataHelper {
                                 .apply {
                                     color = ContextCompat.getColor(ApkAnalyzer.context, columnColor)
                                     highLightColor = ContextCompat.getColor(ApkAnalyzer.context, selectedColumnColor)
+                                    valueTextColor = color
                                 })),
                 IAxisValueFormatter { i, _ -> axisValues[i.roundToInt()] })
     }
 
     private fun getBarData(map: Map<*, List<String>>,
-                           @ColorRes columnColor: Int = R.color.primary,
+                           @ColorRes columnColor: Int = R.color.graph_bar,
                            @ColorRes selectedColumnCOlor: Int = R.color.accent): BarDataHolder {
 
         val values = mutableListOf<BarEntry>()
@@ -77,6 +78,7 @@ object ChartDataHelper {
                                 .apply {
                                     color = ContextCompat.getColor(ApkAnalyzer.context, columnColor)
                                     highLightColor = ContextCompat.getColor(ApkAnalyzer.context, selectedColumnCOlor)
+                                    valueTextColor = color
                                 })),
                 IAxisValueFormatter { i, _ -> axisValues[i.roundToInt() - 1] })
     }

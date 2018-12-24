@@ -5,4 +5,6 @@
     <color name="primary_light">#37474F</color>
     <color name="accent">#13967c</color>
     <color name="accentLight">#16a085</color>
+
+    <color name="graph_bar">@color/grey_500</color>
 </resources>

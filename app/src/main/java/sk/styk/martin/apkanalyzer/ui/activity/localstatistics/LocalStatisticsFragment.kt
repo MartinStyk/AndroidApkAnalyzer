@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil
 import android.graphics.RectF
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.Menu
@@ -94,12 +95,14 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View, Clicka
                     isGranularityEnabled = true
                     position = XAxis.XAxisPosition.BOTTOM
                     setDrawGridLines(false)
+                    textColor = ContextCompat.getColor(context, R.color.graph_bar)
                 }
 
                 axisLeft.apply {
                     setDrawZeroLine(false)
                     setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART)
                     setDrawLimitLinesBehindData(true)
+                    textColor = ContextCompat.getColor(context, R.color.graph_bar)
                 }
 
                 axisRight.apply {
