@@ -9,10 +9,11 @@
     android:showDividers="middle"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <fragment
+        class="sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListFragment"
         android:id="@+id/app_list_container"
         android:layout_width="@dimen/item_width"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 
     <FrameLayout
         android:id="@+id/app_detail_container"

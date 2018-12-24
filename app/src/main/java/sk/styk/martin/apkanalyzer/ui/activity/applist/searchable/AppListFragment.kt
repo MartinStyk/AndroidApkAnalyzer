@@ -2,15 +2,15 @@ package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v4.app.ListFragment
-import android.support.v4.app.LoaderManager
+import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.support.v4.content.Loader
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.Menu
@@ -18,14 +18,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
-import android.widget.ListView
 import android.widget.SearchView
 import kotlinx.android.synthetic.main.fragment_app_list.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.analysis.task.AppListLoader
+import sk.styk.martin.apkanalyzer.databinding.FragmentAppListBinding
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
-import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppListDetailFragment
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
 
@@ -34,110 +31,103 @@ import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
  *
  * @author Martin Styk
  */
-class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchView.OnCloseListener, LoaderManager.LoaderCallbacks<List<AppListData>> {
 
-    private lateinit var listAdapter: AppListAdapter
+class AppListFragment : Fragment() {
 
-    private lateinit var searchView: SearchView
+    private lateinit var binding: FragmentAppListBinding
+    private lateinit var viewModel: AppListViewModel
 
-    private var isListShown: Boolean = false
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)
+        setHasOptionsMenu(true)
+    }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_app_list, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentAppListBinding.inflate(LayoutInflater.from(context), container, false)
+        binding.setLifecycleOwner(this)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btn_analyze_not_installed.setOnClickListener { startFilePicker(true) }
-    }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        retainInstance = true
-        listAdapter = AppListAdapter(context)
 
-        if (savedInstanceState == null) {
-            setHasOptionsMenu(true)
-            setListAdapter(listAdapter)
-            setListShown(false)
+        binding.viewModel = viewModel
 
-            loaderManager.initLoader(AppListLoader.ID, null, this)
-        }
+        viewModel.appListData.observe(this, Observer {
+            viewModel.dataChanged(it)
+        })
+
+        viewModel.appClicked.observe(this, Observer {
+            if (it != null) {
+                val parentFragment = parentFragment as AppListDetailFragment
+                parentFragment.itemClicked(it.packageName)
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        // Show an action bar item for searching.
-        val searchItem = menu?.findItem(R.id.action_search)
-        searchItem?.setEnabled(true)?.isVisible = true
+        val searchMenuItem = menu?.findItem(R.id.action_search)
+        val searchView = searchMenuItem?.actionView as? SearchView
+        searchView?.apply {
+            setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    viewModel.filterOnAppName(if (!TextUtils.isEmpty(newText)) newText else null)
+                    return true
+                }
 
-        searchView = searchItem?.actionView as SearchView
-        searchView.setOnQueryTextListener(this)
-        searchView.queryHint = getString(R.string.action_search)
+                override fun onQueryTextSubmit(p0: String?) = true
+            })
+            queryHint = getString(R.string.action_search)
+            setOnCloseListener {
+                if (!TextUtils.isEmpty(query)) {
+                    setQuery(null, true)
+                }
+                false
+            }
 
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onQueryTextChange(newText: String): Boolean {
-        val currentFilter = if (!TextUtils.isEmpty(newText)) newText else null
-        listAdapter.filterOnAppName(currentFilter)
-        return true
-    }
-
-    override fun onQueryTextSubmit(query: String): Boolean {
-        return true
-    }
-
-    override fun onClose(): Boolean {
-        if (!TextUtils.isEmpty(searchView.query)) {
-            searchView.setQuery(null, true)
+            if (!viewModel.filterComponent.name.isNullOrBlank()) {
+                setQuery(viewModel.filterComponent.name, false)
+            }
         }
-        return true
-    }
 
-    override fun onListItemClick(listView: ListView?, view: View?, position: Int, id: Long) {
-        val parentFragment = parentFragment as AppListDetailFragment
-        val appBasicData = AppListData::class.java.cast(view!!.tag)
-        parentFragment.itemClicked(appBasicData.packageName)
-    }
+        menu?.findItem(
+                when (viewModel.filterComponent.source) {
+                    AppSource.GOOGLE_PLAY -> R.id.menu_show_google_play_apps
+                    AppSource.AMAZON_STORE -> R.id.menu_show_amazon_store_apps
+                    AppSource.SYSTEM_PREINSTALED -> R.id.menu_show_system_pre_installed_apps
+                    AppSource.UNKNOWN -> R.id.menu_show_unknown_source_apps
+                    else -> R.id.menu_show_all_apps
+                }
+        )?.isChecked = true
 
-    override fun onCreateLoader(id: Int, args: Bundle?): Loader<List<AppListData>> {
-        return AppListLoader(requireContext())
-    }
-
-    override fun onLoadFinished(loader: Loader<List<AppListData>>, data: List<AppListData>) {
-        listAdapter.clear()
-        listAdapter.addAll(data)
-
-        if (isResumed) setListShown(true) else setListShownNoAnimation(true)
-    }
-
-    override fun onLoaderReset(loader: Loader<List<AppListData>>) {
-        listAdapter.clear()
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
         when (item?.itemId) {
-            R.id.action_analyze_not_installed -> startFilePicker(true)
+            R.id.action_analyze_not_installed -> startFilePicker()
             R.id.menu_show_all_apps -> {
                 item.isChecked = true
-                listAdapter.filterOnAppSource(null)
+                viewModel.filterOnAppSource(null)
             }
             R.id.menu_show_google_play_apps -> {
                 item.isChecked = true
-                listAdapter.filterOnAppSource(AppSource.GOOGLE_PLAY)
+                viewModel.filterOnAppSource(AppSource.GOOGLE_PLAY)
             }
             R.id.menu_show_amazon_store_apps -> {
                 item.isChecked = true
-                listAdapter.filterOnAppSource(AppSource.AMAZON_STORE)
+                viewModel.filterOnAppSource(AppSource.AMAZON_STORE)
             }
             R.id.menu_show_system_pre_installed_apps -> {
                 item.isChecked = true
-                listAdapter.filterOnAppSource(AppSource.SYSTEM_PREINSTALED)
+                viewModel.filterOnAppSource(AppSource.SYSTEM_PREINSTALED)
             }
             R.id.menu_show_unknown_source_apps -> {
                 item.isChecked = true
-                listAdapter.filterOnAppSource(AppSource.UNKNOWN)
+                viewModel.filterOnAppSource(AppSource.UNKNOWN)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -174,7 +164,7 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
      *
      * @param withPermissionCheck if true, permissions are requested
      */
-    private fun startFilePicker(withPermissionCheck: Boolean) {
+    private fun startFilePicker(withPermissionCheck: Boolean = true) {
         if (withPermissionCheck) {
             if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_STORAGE_PERMISSIONS)
@@ -187,43 +177,11 @@ class AppListFragment : ListFragment(), SearchView.OnQueryTextListener, SearchVi
             } catch (exception: ActivityNotFoundException) {
                 Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
             }
-
-        }
-    }
-
-
-    override fun setListShown(shown: Boolean) {
-        setListShown(shown, true)
-    }
-
-    override fun setListShownNoAnimation(shown: Boolean) {
-        setListShown(shown, false)
-    }
-
-    private fun setListShown(shown: Boolean, animate: Boolean) {
-        if (isListShown == shown) {
-            return
-        }
-        isListShown = shown
-        if (shown) {
-            if (animate) {
-                list_view_progress_bar.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_out))
-                list_view_list.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in))
-            }
-            list_view_progress_bar.visibility = View.GONE
-            list_view_list.visibility = View.VISIBLE
-        } else {
-            if (animate) {
-                list_view_progress_bar.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_in))
-                list_view_list.startAnimation(AnimationUtils.loadAnimation(activity, android.R.anim.fade_out))
-            }
-            list_view_progress_bar.visibility = View.VISIBLE
-            list_view_list.visibility = View.INVISIBLE
         }
     }
 
     companion object {
-
         private const val REQUEST_STORAGE_PERMISSIONS = 13245
+        fun newInstance() = AppListFragment()
     }
 }

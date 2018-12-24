@@ -26,11 +26,7 @@ class AppListDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        rootView = inflater.inflate(R.layout.fragment_analyze, container, false)
-
-        childFragmentManager.beginTransaction().replace(R.id.app_list_container, AppListFragment()).commit()
-
-        return rootView
+        return inflater.inflate(R.layout.fragment_analyze, container, false)
     }
 
     override fun onResume() {
