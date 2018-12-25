@@ -100,7 +100,7 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
     }
 
     override fun makeSnackbar(text: String, @StringRes actionName: Int?, action: View.OnClickListener?) {
-        val snackbar = Snackbar.make(findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
+        val snackbar = Snackbar.make(code_coordinator, text, Snackbar.LENGTH_LONG)
         if (action != null && actionName != null)
             snackbar.setAction(actionName, action)
         snackbar.show()

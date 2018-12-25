@@ -7,7 +7,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -26,6 +25,8 @@ import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract.Companion.PACKAGE_TO_PERFORM_ACTIONS
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 import sk.styk.martin.apkanalyzer.util.file.toBitmap
@@ -96,17 +97,17 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     }
 
     override fun createSnackbar(text: String, @StringRes actionName: Int?, action: View.OnClickListener?) {
-        val snackbar = Snackbar.make(requireActivity().findViewById(android.R.id.content), text, Snackbar.LENGTH_LONG)
-        if (action != null && actionName != null)
-            snackbar.setAction(actionName, action)
-        snackbar.show()
+        val parentPagerFragment = requireActivity().supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG)
+        if (parentPagerFragment != null && parentPagerFragment is AppDetailPagerContract.View) {
+            parentPagerFragment.createSnackbar(text, actionName, action)
+        }
     }
 
     override fun openRepackagedDetection(fragment: RepackagedDetectionFragment) {
-        fragmentManager?.beginTransaction()
-                ?.replace(R.id.container_frame, fragment)
-                ?.addToBackStack(RepackagedDetectionFragment.TAG)
-                ?.commit();
+//        fragmentManager?.beginTransaction()
+//                ?.replace(R.id.container_frame, fragment)
+//                ?.addToBackStack(RepackagedDetectionFragment.TAG)
+//                ?.commit();
         logSelectEvent("repackaged-detection")
     }
 

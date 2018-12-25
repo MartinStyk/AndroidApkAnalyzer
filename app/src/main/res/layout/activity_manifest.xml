@@ -1,45 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <com.pddstudio.highlightjs.HighlightJsView
-        android:id="@+id/code_view"
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/code_coordinator"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:padding="0dp"
-        ads:layout_constraintTop_toTopOf="parent"
-        ads:layout_constraintBottom_toTopOf="@id/ad_view" />
+        android:layout_weight="1"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintLeft_toLeftOf="parent"
+        ads:layout_constraintTop_toTopOf="parent">
 
-    <ProgressBar
-        android:id="@+id/code_loading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="231dp" />
+        <com.pddstudio.highlightjs.HighlightJsView
+            android:id="@+id/code_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp"
+            ads:layout_constraintBottom_toTopOf="@id/ad_view"
+            ads:layout_constraintTop_toTopOf="parent" />
+
+        <ProgressBar
+            android:id="@+id/code_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:layout_gravity="center"
+            ads:layout_anchorGravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </android.support.design.widget.CoordinatorLayout>
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/ad_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:visibility="gone"
         ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/code_view" />
+        ads:adUnitId="@string/banner_ad_unit_id" />
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -3,12 +3,15 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.FloatingActionButton
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import kotlinx.android.synthetic.main.activity_app_detail.app_bar
 import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout
 import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout_image
 import kotlinx.android.synthetic.main.fragment_app_detail.*
@@ -74,7 +77,8 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
         activity?.toolbar_layout?.title = packageName
         activity?.toolbar_layout_image?.setImageDrawable(icon)
 
-        btn_actions?.show() ?: activity?.findViewById<FloatingActionButton>(R.id.btn_actions)?.show()
+        btn_actions?.show()
+                ?: activity?.findViewById<FloatingActionButton>(R.id.btn_actions)?.show()
 
         pager.visibility = View.VISIBLE
     }
@@ -82,6 +86,14 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
     override fun showActionDialog(data: AppDetailData) {
         AppActionsDialog.newInstance(data)
                 .show((context as AppCompatActivity).supportFragmentManager, AppActionsDialog::class.java.simpleName)
+    }
+
+    override fun createSnackbar(text: String, @StringRes actionName: Int?, action: View.OnClickListener?) {
+        activity?.app_bar?.setExpanded(false)
+        val snackbar = Snackbar.make(container_frame, text, Snackbar.LENGTH_LONG)
+        if (action != null && actionName != null)
+            snackbar.setAction(actionName, action)
+        snackbar.show()
     }
 
     companion object {
