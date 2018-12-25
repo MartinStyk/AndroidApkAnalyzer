@@ -61,5 +61,7 @@ object AppListFilter {
             }
 
         var source: AppSource? = null
+
+        fun isFilteringActive() = !name.isNullOrBlank() || source != null
     }
 }

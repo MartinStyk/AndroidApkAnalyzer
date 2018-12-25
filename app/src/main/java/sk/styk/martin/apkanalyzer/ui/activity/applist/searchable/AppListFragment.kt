@@ -37,6 +37,8 @@ class AppListFragment : Fragment() {
     private lateinit var binding: FragmentAppListBinding
     private lateinit var viewModel: AppListViewModel
 
+    private var snackbar: Snackbar? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)
@@ -65,6 +67,17 @@ class AppListFragment : Fragment() {
             if (it != null) {
                 val parentFragment = parentFragment as AppListDetailFragment
                 parentFragment.itemClicked(it.packageName)
+            }
+        })
+
+        viewModel.isFilterActive.observe(this, Observer { isActive ->
+            if (isActive == true && (snackbar == null || snackbar?.isShown == false))
+                snackbar = Snackbar.make(app_list_container, R.string.app_filtering_active, Snackbar.LENGTH_INDEFINITE).apply {
+                    show()
+
+            } else if (isActive == false) {
+                snackbar?.dismiss()
+                snackbar = null
             }
         })
     }

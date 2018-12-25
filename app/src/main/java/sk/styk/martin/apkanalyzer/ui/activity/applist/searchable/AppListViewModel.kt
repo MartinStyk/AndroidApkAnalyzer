@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import sk.styk.martin.apkanalyzer.business.analysis.livedata.AppListLiveData
@@ -33,6 +34,8 @@ class AppListViewModel(application: Application) : AndroidViewModel(application)
 
     val appClicked = SingleLiveEvent<AppListData>()
 
+    val isFilterActive by lazy { MutableLiveData<Boolean>().apply { value = false } }
+
     val filterComponent by lazy { AppListFilter.FilterComponent() }
 
     fun dataChanged(data: List<AppListData>?) {
@@ -49,9 +52,11 @@ class AppListViewModel(application: Application) : AndroidViewModel(application)
 
     fun filterOnAppName(appName: String?) {
         AppListFilter.performFiltering(allApps, filteredApps, filterComponent.also { it.name = appName })
+        isFilterActive.value = filterComponent.isFilteringActive()
     }
 
     fun filterOnAppSource(appSource: AppSource?) {
         AppListFilter.performFiltering(allApps, filteredApps, filterComponent.also { it.source = appSource })
+        isFilterActive.value = filterComponent.isFilteringActive()
     }
 }
