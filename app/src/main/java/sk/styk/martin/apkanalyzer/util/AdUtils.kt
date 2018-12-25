@@ -27,6 +27,7 @@ object AdUtils {
                     override fun onAdLoaded() {
                         super.onAdLoaded()
                         adView.visibility = View.VISIBLE
+                        container?.visibility = View.VISIBLE
                         container?.setPadding(0, adView.resources.getDimensionPixelOffset(R.dimen.padding_ad), 0, 0)
                         callback?.onAdLoaded()
                     }
@@ -38,5 +39,4 @@ object AdUtils {
     interface AdLoadedListener {
         fun onAdLoaded()
     }
-
 }
