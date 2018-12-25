@@ -64,7 +64,7 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
             }
         }
 
-        AdUtils.displayAd(ad_view, object : AdUtils.AdLoadedListener {
+        AdUtils.displayAd(ad_view, ad_view_container, object : AdUtils.AdLoadedListener {
             override fun onAdLoaded() {
                 val displayHeight = resources.displayMetrics.heightPixels / resources.displayMetrics.density
                 val bannerHeight = when {

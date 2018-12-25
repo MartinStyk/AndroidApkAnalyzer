@@ -65,4 +65,9 @@
         <item name="android:background">?android:selectableItemBackground</item>
     </style>
 
+    <style name="AdDivider" >
+        <item name="android:background">@color/primary</item>
+        <item name="android:animateLayoutChanges">true</item>
+    </style>
+
 </resources>

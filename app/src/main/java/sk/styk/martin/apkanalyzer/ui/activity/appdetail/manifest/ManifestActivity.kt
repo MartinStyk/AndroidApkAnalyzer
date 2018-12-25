@@ -88,7 +88,7 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        AdUtils.displayAd(ad_view)
+        AdUtils.displayAd(ad_view, ad_view_container)
     }
 
     override fun hideLoading() {

@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
+    android:animateLayoutChanges="true"
     tools:context=".ui.activity.MainActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -29,13 +30,21 @@
         android:layout_height="0dp"
         android:layout_weight="1" />
 
-    <com.google.android.gms.ads.AdView
-        android:id="@+id/ad_view"
+    <FrameLayout
+        style="@style/AdDivider"
+        android:id="@+id/ad_view_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:visibility="gone"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="@string/banner_ad_unit_id" />
+        android:layout_gravity="bottom">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/ad_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:visibility="gone"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id" />
+    </FrameLayout>
 
 </LinearLayout>

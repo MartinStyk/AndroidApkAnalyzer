@@ -52,7 +52,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             navigation_view?.menu?.findItem(R.id.nav_premium)?.isVisible = false
         }
 
-        AdUtils.displayAd(ad_view)
+        AdUtils.displayAd(ad_view, ad_view_container)
     }
 
     public override fun onPause() {
