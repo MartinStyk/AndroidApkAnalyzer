@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.os.Handler
+import android.support.v4.view.ViewCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_app_detail.*
@@ -54,8 +56,8 @@ class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
         if (btn_actions == null) {
             app_bar.setExpanded(false)
         } else {
-            btn_actions?.let {
-                it.setOnClickListener { _ ->
+            btn_actions?.apply {
+                setOnClickListener {
                     //delegate to fragment
                     (supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG) as AppDetailPagerFragment).presenter.actionButtonClick()
                 }

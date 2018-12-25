@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.view.LayoutInflater
@@ -55,7 +56,9 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
         pager.adapter = adapter
         tabs.setupWithViewPager(pager)
         // if we are in 2-pane mode initialize floating button
-        btn_actions?.setOnClickListener { presenter.actionButtonClick() }
+        btn_actions?.apply {
+            setOnClickListener { presenter.actionButtonClick() }
+        }
     }
 
     override fun hideLoading() {
@@ -70,6 +73,8 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
     override fun showAppDetails(packageName: String, icon: Drawable?) {
         activity?.toolbar_layout?.title = packageName
         activity?.toolbar_layout_image?.setImageDrawable(icon)
+
+        btn_actions?.show() ?: activity?.findViewById<FloatingActionButton>(R.id.btn_actions)?.show()
 
         pager.visibility = View.VISIBLE
     }
