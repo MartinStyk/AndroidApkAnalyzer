@@ -15,7 +15,8 @@
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/app_list_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true">
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -61,9 +62,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
-            android:src="@drawable/ic_file"
-            app:layout_anchorGravity="bottom|right|end"
             android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_file"
+            android:visibility="invisible"
+            app:layout_anchorGravity="bottom|right|end"
+            app:show="@{!viewModel.isLoading()}"
             app:useCompatPadding="true" />
 
     </android.support.design.widget.CoordinatorLayout>
