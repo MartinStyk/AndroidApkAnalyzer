@@ -52,7 +52,6 @@
                 android:scrollbars="vertical"
                 app:appListAdapter="@{viewModel.adapter}"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:listitem="@layout/list_item_application" />
 
         </android.support.constraint.ConstraintLayout>

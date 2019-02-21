@@ -1,21 +1,20 @@
 package sk.styk.martin.apkanalyzer.business.analysis.task
 
-import android.app.Notification
-import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
+import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.graphics.Color
+import android.net.Uri
 import android.os.Build
-import android.os.Environment
 import android.os.IBinder
-import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.ui.activity.MainActivity
 import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import java.io.File
 import java.io.IOException
@@ -24,7 +23,7 @@ import java.io.IOException
  * Async file copy as a foreground service
  *
  * @author Martin Styk
- * @version 15.09.2017.
+ * @version 21.02.2019.
  */
 class FileCopyService : ApkAnalyzerForegroundService() {
 
@@ -42,27 +41,42 @@ class FileCopyService : ApkAnalyzerForegroundService() {
                     return
                 }
 
+                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                     createNotificationChannel(NOTIFICATION_CHANNEL_ID, NOTIFICATION_CHANNEL_ID)
 
-                var notification = prepareNotification(shownName, targetPath, true).build()
-                startForeground(NOTIFICATION__ID, notification)
+                var notification = prepareNotification(shownName, targetPath, true)
+                startForeground(NOTIFICATION__ID, notification.build())
 
                 val source = File(sourcePath)
                 val target = File(targetPath)
+                val directory = target.parentFile
 
                 try {
-                    FileUtils.copy(source, target)
+                    if (!directory.exists()) {
+                        directory.mkdirs()
+                    }
+
+                    FileUtils.copy(source, target, object : FileUtils.CopyProgress {
+                        override fun onProgressChanged(progress: Int) {
+                            notificationManager.notify(
+                                    NOTIFICATION__ID, notification
+                                    .setProgress(100, progress, false)
+                                    .build()
+                            )
+                        }
+                    })
                 } catch (e: IOException) {
                     e.printStackTrace()
                 }
 
-                notification = prepareNotification(shownName, targetPath, false).build()
-                val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                notificationManager.notify(NOTIFICATION__ID, notification)
-
+                notification = prepareNotification(shownName, targetPath, false)
                 stopForeground(false)
                 stopSelf()
+
+                notificationManager.notify(NOTIFICATION__ID, notification.build())
+
             }
         }.start()
 
@@ -74,17 +88,40 @@ class FileCopyService : ApkAnalyzerForegroundService() {
         return null
     }
 
-    private fun prepareNotification(name: String, exportPath: String?, inProgress: Boolean): NotificationCompat.Builder {
-        val title = if (inProgress) getString(R.string.copy_apk_background, name) else getString(R.string.copy_apk_background_done, name)
+    private fun prepareNotification(
+            name: String,
+            exportPath: String?,
+            inProgress: Boolean
+    ): NotificationCompat.Builder {
+        val title = if (inProgress) getString(
+                R.string.copy_apk_background,
+                name
+        ) else getString(R.string.copy_apk_background_done, name)
 
-        return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
                 .setContentTitle(title)
                 .setTicker(title)
-                .setContentText(exportPath)
+                .setContentText(if (!inProgress && exportPath != null) FileUtils.toRelativePath(exportPath) else "")
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setLargeIcon(BitmapFactory.decodeResource(resources,
-                        R.drawable.ic_launcher_web))
+                .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
                 .setOngoing(inProgress)
+
+        if (!inProgress) {
+            val intent = Intent().apply {
+                action = Intent.ACTION_GET_CONTENT
+                setDataAndType(Uri.parse(FileUtils.externalAppsDirectory.absolutePath), "resource/folder")
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            val stackBuilder = TaskStackBuilder.create(this@FileCopyService).apply {
+                addParentStack(MainActivity::class.java)
+                addNextIntent(intent)
+            }
+            val resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+            builder.addAction(R.drawable.ic_filter_list, getString(R.string.action_show), resultPendingIntent)
+            builder.setContentIntent(resultPendingIntent)
+        }
+
+        return builder
     }
 
     companion object {
@@ -96,17 +133,9 @@ class FileCopyService : ApkAnalyzerForegroundService() {
         private const val NOTIFICATION_CHANNEL_ID = "my_channel_file_copy_service"
         private const val NOTIFICATION__ID = 9875
 
-
-        /**
-         * Starts service for exporting data.
-         * Service is started as a foreground service.
-         * Method handles file names
-         *
-         * @return target file absolute path
-         */
         fun startService(context: Context, data: AppDetailData): String {
             val source = File(data.generalData.apkDirectory)
-            val target = File(Environment.getExternalStorageDirectory(), "${data.generalData.packageName}_${data.generalData.versionName}_${data.generalData.versionCode}.apk")
+            val target = File(FileUtils.externalAppsDirectory, "${data.generalData.packageName}_${data.generalData.versionName}.apk")
 
             val intent = Intent(context, FileCopyService::class.java)
             intent.putExtra(SOURCE_FILE, source.absolutePath)
