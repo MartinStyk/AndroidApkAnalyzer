@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import sk.styk.martin.apkanalyzer.business.analysis.livedata.AppListLiveData
@@ -58,5 +57,10 @@ class AppListViewModel(application: Application) : AndroidViewModel(application)
     fun filterOnAppSource(appSource: AppSource?) {
         AppListFilter.performFiltering(allApps, filteredApps, filterComponent.also { it.source = appSource })
         isFilterActive.value = filterComponent.isFilteringActive()
+    }
+
+    override fun onCleared() {
+        allApps.dispose()
+        super.onCleared()
     }
 }

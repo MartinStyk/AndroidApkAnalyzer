@@ -15,18 +15,17 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData
  */
 class AppListLiveData(context: Context) : MutableLiveData<List<AppListData>?>() {
     private val appListDataService = AppBasicDataService(context.packageManager)
-    private lateinit var packageIntentReceiver: PackageIntentReceiver
+    private var packageIntentReceiver =PackageIntentReceiver(context)
 
     init {
         load()
     }
 
-    private fun load() {
-        packageIntentReceiver = PackageIntentReceiver(context)
-        AsyncTask.execute {
-            postValue(appListDataService.getAll())
-        }
+    fun load() = AsyncTask.execute {
+        postValue(appListDataService.getAll())
     }
+
+    fun dispose() = packageIntentReceiver.unregister()
 
     inner class PackageIntentReceiver(context: Context) : BroadcastReceiver() {
 
@@ -46,6 +45,10 @@ class AppListLiveData(context: Context) : MutableLiveData<List<AppListData>?>() 
 
         override fun onReceive(context: Context, intent: Intent) {
             load()
+        }
+
+        fun unregister() {
+            context.unregisterReceiver(this)
         }
     }
 
