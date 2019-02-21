@@ -9,7 +9,6 @@ import com.github.paolorotolo.appintro.model.SliderPage
 import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.StartPromoHelper
-import sk.styk.martin.apkanalyzer.util.networking.ConnectivityHelper
 
 /**
  * @author Martin Styk
@@ -54,19 +53,19 @@ class IntroActivity : AppIntro() {
         setVibrate(true)
         setVibrateIntensity(30)
 
-        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, Bundle());
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, Bundle())
     }
 
     override fun onSkipPressed(currentFragment: Fragment?) {
-        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle());
-        super.onSkipPressed(currentFragment)
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle())
+        finish()
     }
 
     override fun onDonePressed(currentFragment: Fragment?) {
         super.onDonePressed(currentFragment)
 
         StartPromoHelper.setFirstStartFinished(applicationContext)
-        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle());
+        FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle())
         finish()
     }
 

@@ -21,11 +21,8 @@ class ApkAnalyzer : Application() {
 
         super.onCreate()
 
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
+        if (LeakCanary.isInAnalyzerProcess(this))
             return
-        }
         LeakCanary.install(this)
 
         // Initialize the Mobile Ads SDK.
@@ -34,10 +31,6 @@ class ApkAnalyzer : Application() {
 
         val builder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(builder.build())
-
-//  Temporary disable uploads
-//        if (!StartPromoHelper.isFirstStart(applicationContext))
-//            MultipleAppDataUploadJob.start(applicationContext)
     }
 
     companion object {

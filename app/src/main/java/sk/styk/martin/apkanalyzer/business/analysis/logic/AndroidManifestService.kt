@@ -100,7 +100,7 @@ class AndroidManifestService(private val packageManager: PackageManager, private
     private fun getAttributeValue(attributeName: String, attributeValue: String, resources: Resources): String {
         if (attributeValue.startsWith("@")) {
             try {
-                val id = Integer.valueOf(attributeValue.substring(1))!!
+                val id = Integer.valueOf(attributeValue.substring(1))
 
                 val value: String = when (attributeName) {
                     "theme", "resource" -> resources.getResourceEntryName(id)

@@ -49,8 +49,6 @@ class AppDetailPagerPresenter(
                 appDetailData = it
                 view.showAppDetails(packageName = it.generalData.packageName, icon = it.generalData.icon)
             }
-//            Temporary disable uploads
-//            AppDataUploadTask().execute(appDetailData)
         }
     }
 

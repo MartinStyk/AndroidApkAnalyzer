@@ -98,7 +98,7 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View {
 
     companion object {
 
-        val TAG = AppDetailPagerFragment::class.java.simpleName!!
+        val TAG = AppDetailPagerFragment::class.java.simpleName
 
         fun create(packageName: String? = null, packageUri: Uri? = null) =
                 AppDetailPagerFragment().apply {

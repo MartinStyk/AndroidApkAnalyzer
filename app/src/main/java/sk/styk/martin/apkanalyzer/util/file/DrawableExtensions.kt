@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable
  * @author Martin Styk {@literal <martin.styk@gmail.com>}
  */
 fun Drawable.toBitmap(): Bitmap? {
-    var bitmap: Bitmap? = null
+    val bitmap: Bitmap?
 
     if (this is BitmapDrawable) {
         val bitmapDrawable = this
@@ -25,7 +25,7 @@ fun Drawable.toBitmap(): Bitmap? {
     }
 
     val canvas = Canvas(bitmap)
-    this.setBounds(0, 0, canvas.getWidth(), canvas.getHeight())
+    this.setBounds(0, 0, canvas.width, canvas.height)
     this.draw(canvas)
     return bitmap
 }

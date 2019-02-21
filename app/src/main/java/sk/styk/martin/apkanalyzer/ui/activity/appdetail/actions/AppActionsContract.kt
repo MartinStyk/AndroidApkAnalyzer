@@ -1,11 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.annotation.StringRes
-import android.view.View
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
 /**
@@ -23,8 +20,6 @@ interface AppActionsContract {
         fun showOnlyApkFileRelatedActions()
 
         fun createSnackbar(text: String, @StringRes actionName: Int? = null, action: android.view.View.OnClickListener? = null)
-
-        fun openRepackagedDetection(fragment: RepackagedDetectionFragment)
 
         fun openManifestActivity(appDetailData: AppDetailData)
 
@@ -50,8 +45,6 @@ interface AppActionsContract {
 
         fun showGooglePlayClick()
 
-        fun repackagedDetectionClick()
-
         fun showManifestClick()
 
         fun showSystemPageClick()
@@ -63,6 +56,5 @@ interface AppActionsContract {
 
     companion object {
         const val PACKAGE_TO_PERFORM_ACTIONS = "package_to_perform_actions"
-        const val REQUEST_STORAGE_PERMISSION = 11
     }
 }

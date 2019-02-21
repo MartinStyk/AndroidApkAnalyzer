@@ -66,7 +66,7 @@ class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.
 
     companion object {
 
-        val TAG = PermissionDetailPagerFragment::class.java.simpleName!!
+        val TAG = PermissionDetailPagerFragment::class.java.simpleName
 
         const val ARG_PERMISSIONS_DATA = "permission_args"
         const val ARG_CHILD = "permission_args_to_my_sweetest_child"

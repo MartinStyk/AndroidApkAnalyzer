@@ -30,8 +30,7 @@ class GeneralDataService {
 
         return GeneralData(
                 packageName = packageInfo.packageName,
-                applicationName = applicationInfo.loadLabel(packageManager)?.toString()
-                        ?: applicationInfo.packageName,
+                applicationName = applicationInfo.loadLabel(packageManager).toString(),
                 processName = applicationInfo.processName,
                 versionName = packageInfo.versionName,
                 versionCode = packageInfo.versionCode,

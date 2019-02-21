@@ -27,7 +27,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContra
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
-import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 import sk.styk.martin.apkanalyzer.util.file.toBitmap
 
@@ -81,8 +80,6 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
 
         dialog.btn_show_app_google_play.setOnClickListener { presenter.showGooglePlayClick() }
 
-//        dialog.btn_repackaged_detection.setOnClickListener { presenter.repackagedDetectionClick() }
-
         dialog.btn_show_manifest.setOnClickListener { presenter.showManifestClick() }
 
         dialog.btn_show_app_system_page.setOnClickListener { presenter.showSystemPageClick() }
@@ -101,14 +98,6 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         if (parentPagerFragment != null && parentPagerFragment is AppDetailPagerContract.View) {
             parentPagerFragment.createSnackbar(text, actionName, action)
         }
-    }
-
-    override fun openRepackagedDetection(fragment: RepackagedDetectionFragment) {
-//        fragmentManager?.beginTransaction()
-//                ?.replace(R.id.container_frame, fragment)
-//                ?.addToBackStack(RepackagedDetectionFragment.TAG)
-//                ?.commit();
-        logSelectEvent("repackaged-detection")
     }
 
     override fun openManifestActivity(appDetailData: AppDetailData) {
@@ -146,7 +135,7 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
         createSnackbar(requireContext().getString(R.string.save_icon_background, targetFile), R.string.action_show,
                 View.OnClickListener {
                     val intent = Intent()
-                    intent.setAction(Intent.ACTION_VIEW)
+                    intent.action = Intent.ACTION_VIEW
                     intent.setDataAndType(Uri.parse(targetFile), "image/png")
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                     try {
@@ -196,10 +185,10 @@ class AppActionsDialog : DialogFragment(), AppActionsContract.View {
     }
 
     private fun logSelectEvent(itemId: String) {
-        val bundle = Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action");
-        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId)
+        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action")
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
     }
 
 }

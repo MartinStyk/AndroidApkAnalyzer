@@ -2,8 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.ui.activity.repackageddetection.RepackagedDetectionFragment
-
 
 /**
  * @author Martin Styk
@@ -35,11 +33,6 @@ class AppActionsPresenter : AppActionsContract.Presenter {
 
     override fun showGooglePlayClick() {
         view.openGooglePlay(appDetailData.generalData.packageName)
-        view.dismiss()
-    }
-
-    override fun repackagedDetectionClick() {
-        view.openRepackagedDetection(RepackagedDetectionFragment.newInstance(appDetailData))
         view.dismiss()
     }
 

@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.model.statistics
 
-import lecho.lib.hellocharts.model.ColumnChartData
 import sk.styk.martin.apkanalyzer.util.ChartDataHelper
 
 /**

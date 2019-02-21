@@ -41,7 +41,7 @@ class FancyDialog(private val activity: Activity) {
     fun build(): Dialog {
         dialog = Dialog(this.activity).apply {
             requestWindowFeature(Window.FEATURE_NO_TITLE)
-            window.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             setCancelable(cancelable)
             setContentView(R.layout.dialog_fancy)
         }

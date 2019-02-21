@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
@@ -84,7 +83,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        val fragment: Fragment? = when (item.itemId) {
+        val fragment = when (item.itemId) {
             R.id.nav_app_list -> AppListDetailFragment()
             R.id.nav_local_stats -> LocalStatisticsFragment()
             R.id.nav_local_permissions -> LocalPermissionsFragment()
