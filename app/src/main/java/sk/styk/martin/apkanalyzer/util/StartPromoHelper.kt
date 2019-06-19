@@ -35,7 +35,7 @@ object StartPromoHelper {
     }
 
     private fun shouldShowPromo(context: Context): Boolean {
-        if (BuildConfig.FLAVOR == AppFlavour.PREMIUM)
+        if (!BuildConfig.SHOW_PROMO)
             return false
 
         val shownTime = SharedPreferencesHelper(context).readLong(PROMO_SHOW_TIME, -1)

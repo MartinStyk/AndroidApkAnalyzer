@@ -12,7 +12,7 @@ import sk.styk.martin.apkanalyzer.R
  */
 object AdUtils {
 
-    const val isAdEnabled = BuildConfig.FLAVOR == AppFlavour.FREE
+    const val isAdEnabled = BuildConfig.SHOW_ADS
 
     private val defaultRequest: AdRequest = AdRequest.Builder()
             .addTestDevice("72FEA8FEF46331E756C654CF5C76557C")
