@@ -1,6 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import sk.styk.martin.apkanalyzer.ui.customview.MyBarChart
 import sk.styk.martin.apkanalyzer.util.ChartDataHelper
 

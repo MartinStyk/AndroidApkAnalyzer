@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 
 import android.content.pm.PackageManager
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.business.analysis.logic.PermissionsService
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
 

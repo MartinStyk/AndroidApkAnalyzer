@@ -2,8 +2,8 @@ package sk.styk.martin.apkanalyzer.ui.activity.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
 import sk.styk.martin.apkanalyzer.R
 
 /**

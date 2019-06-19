@@ -1,13 +1,13 @@
 package sk.styk.martin.apkanalyzer.ui.customview
 
 import android.content.Context
-import android.support.v7.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.view_detail_list_item.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
@@ -40,9 +40,9 @@ class DetailListItemView @JvmOverloads constructor(context: Context, attrs: Attr
         LayoutInflater.from(context).inflate(R.layout.view_detail_list_item, this, true)
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.DetailItemView, 0, 0)
-        titleText = attributes.getString(R.styleable.DetailItemView_titleText)
+        titleText = attributes.getString(R.styleable.DetailItemView_titleText) ?: ""
         valueText = attributes.getString(R.styleable.DetailItemView_valueText)
-        descriptionText = attributes.getString(R.styleable.DetailItemView_descriptionText)
+        descriptionText = attributes.getString(R.styleable.DetailItemView_descriptionText) ?: ""
         attributes.recycle()
 
         orientation = LinearLayout.HORIZONTAL

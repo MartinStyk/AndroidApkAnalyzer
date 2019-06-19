@@ -1,13 +1,13 @@
 package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import sk.styk.martin.apkanalyzer.business.analysis.livedata.AppListLiveData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
-import sk.styk.martin.appshare.util.live.SingleLiveEvent
+import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
 /**
  * @author Martin Styk {@literal <martin.styk@gmail.com>}

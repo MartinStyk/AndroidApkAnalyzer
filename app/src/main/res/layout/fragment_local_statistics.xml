@@ -35,7 +35,7 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                 <!--Analyze results -->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,10 +80,10 @@
                     </LinearLayout>
 
 
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!--MinSdk chart -->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,10 +111,10 @@
                             app:chart_data="@{data.minSdkChartData}"/>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!--TargetSdk chart -->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -142,10 +142,10 @@
                             app:chart_data="@{data.targetSdkChartData}"/>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!--Install locaiton chart -->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -173,10 +173,10 @@
                             app:chart_data="@{data.installLocationChartData}"/>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!--Install locaiton chart -->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -204,10 +204,10 @@
                             app:chart_data="@{data.signAlgorithChartData}"/>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <!--Application source chart -->
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     style="@style/DetailCardView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
                             app:chart_data="@{data.appSourceChartData}"/>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
 
                 <sk.styk.martin.apkanalyzer.ui.customview.MathStatisticsCardView
                     android:id="@+id/statistics_apk_size"

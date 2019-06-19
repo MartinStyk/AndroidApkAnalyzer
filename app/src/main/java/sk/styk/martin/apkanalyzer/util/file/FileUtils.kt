@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream

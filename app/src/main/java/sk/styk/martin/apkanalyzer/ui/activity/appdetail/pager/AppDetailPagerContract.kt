@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 

@@ -1,6 +1,6 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic
 
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.FileData
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData
 import java.util.*

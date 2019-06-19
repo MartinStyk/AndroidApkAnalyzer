@@ -5,20 +5,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
-import android.content.Intent
-import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Build
-import android.os.Environment
-import android.os.IBinder
-import android.support.annotation.RequiresApi
-import android.support.v4.app.NotificationCompat
-import android.support.v4.content.ContextCompat
-import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.util.file.FileUtils
-import java.io.File
-import java.io.IOException
+import androidx.annotation.RequiresApi
 
 /**
  * @author Martin Styk {@literal <martin.styk@gmail.com>}

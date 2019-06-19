@@ -1,12 +1,12 @@
 package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details
 
 
-import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBinding
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData

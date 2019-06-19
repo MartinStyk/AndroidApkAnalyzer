@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic
 
 import android.content.pm.PackageInfo
-import android.support.annotation.WorkerThread
 import android.util.Log
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.FileData
 import sk.styk.martin.apkanalyzer.model.detail.FileEntry
 import java.io.IOException

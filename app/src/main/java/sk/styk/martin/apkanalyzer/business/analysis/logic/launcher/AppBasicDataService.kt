@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 
 import android.content.pm.PackageManager
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.util.AppBasicInfoComparator

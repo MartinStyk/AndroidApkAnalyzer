@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.business.base.task
 
 import android.content.Context
-import android.support.annotation.WorkerThread
-import android.support.v4.content.AsyncTaskLoader
+import androidx.annotation.WorkerThread
+import androidx.loader.content.AsyncTaskLoader
 
 /**
  * Abstract parent class for loaders.

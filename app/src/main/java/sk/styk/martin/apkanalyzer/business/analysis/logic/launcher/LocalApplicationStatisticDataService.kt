@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.business.analysis.logic.AndroidManifestService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.CertificateService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.FileDataService

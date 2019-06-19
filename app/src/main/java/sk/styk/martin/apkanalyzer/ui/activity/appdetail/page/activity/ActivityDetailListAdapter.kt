@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailBinding
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter

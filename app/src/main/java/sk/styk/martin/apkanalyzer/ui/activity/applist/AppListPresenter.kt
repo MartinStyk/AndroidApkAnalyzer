@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.applist
 
 import android.os.Bundle
-import android.support.v4.app.LoaderManager
-import android.support.v4.content.Loader
+import androidx.loader.app.LoaderManager
+import androidx.loader.content.Loader
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppListFromPackageNamesLoader
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.list.AppListData
@@ -49,7 +49,7 @@ class AppListPresenter(
             view.showAppList()
     }
 
-    override fun onLoaderReset(loader: android.support.v4.content.Loader<List<AppListData>>) {}
+    override fun onLoaderReset(loader: Loader<List<AppListData>>) {}
 
     override fun itemCount(): Int = appData.size
 

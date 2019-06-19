@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.logic
 
 import android.content.pm.PackageInfo
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.CertificateData
 import sk.styk.martin.apkanalyzer.util.DigestHelper
 import java.io.ByteArrayInputStream
@@ -60,13 +60,13 @@ class CertificateService {
     }
 
     private fun X500Principal.getPrincipalCommonName(): String? {
-        val name: String? = getName(RFC1779)
-        return if (name.isNullOrBlank()) null else parsePrincipal(name!!, "CN=([^,]*)")
+        val name = getName(RFC1779)
+        return if (name.isNullOrBlank()) null else parsePrincipal(name, "CN=([^,]*)")
     }
 
     private fun X500Principal.getPrincipalOrganization(): String? {
-        val name: String? = getName(RFC1779)
-        return if (name.isNullOrBlank()) null else parsePrincipal(name!!, "O=([^,]*)")
+        val name = getName(RFC1779)
+        return if (name.isNullOrBlank()) null else parsePrincipal(name, "O=([^,]*)")
     }
 
     private fun X500Principal.getPrincipalCountry(): String? {

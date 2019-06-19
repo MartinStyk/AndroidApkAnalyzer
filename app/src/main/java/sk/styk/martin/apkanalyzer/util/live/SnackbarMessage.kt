@@ -1,8 +1,9 @@
 package sk.styk.martin.appshare.util.live
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.Observer
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
 /**
  * A SingleLiveEvent used for Snackbar messages. Like a [SingleLiveEvent] but also prevents
@@ -18,7 +19,7 @@ class SnackbarMessage : SingleLiveEvent<Any>() {
             if (t == null) {
                 return@Observer
             }
-            when(t){
+            when (t) {
                 is Int -> observer.onNewMessage(t)
                 is String -> observer.onNewMessage(t)
             }

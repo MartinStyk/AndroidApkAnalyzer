@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer
 import android.app.Application
 import android.content.Context
 import android.os.StrictMode
+import androidx.multidex.MultiDexApplication
 import com.google.android.gms.ads.MobileAds
 import com.squareup.leakcanary.LeakCanary
 import sk.styk.martin.apkanalyzer.util.AppFlavour
@@ -12,7 +13,7 @@ import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
  * @author Martin Styk
  * @version 30.10.2017.
  */
-class ApkAnalyzer : Application() {
+class ApkAnalyzer : MultiDexApplication() {
 
     override fun onCreate() {
         instance = this
@@ -26,7 +27,7 @@ class ApkAnalyzer : Application() {
         LeakCanary.install(this)
 
         // Initialize the Mobile Ads SDK.
-        if (!AppFlavour.isPremium)
+        if (BuildConfig.SHOW_ADS)
             MobileAds.initialize(this, getString(R.string.ad_mod_app_id))
 
         val builder = StrictMode.VmPolicy.Builder()

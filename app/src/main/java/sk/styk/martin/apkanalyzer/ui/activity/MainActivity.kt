@@ -1,12 +1,13 @@
 package sk.styk.martin.apkanalyzer.ui.activity
 
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import sk.styk.martin.apkanalyzer.R
@@ -83,7 +84,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        val fragment = when (item.itemId) {
+        val fragment: Fragment = when (item.itemId) {
             R.id.nav_app_list -> AppListDetailFragment()
             R.id.nav_local_stats -> LocalStatisticsFragment()
             R.id.nav_local_permissions -> LocalPermissionsFragment()

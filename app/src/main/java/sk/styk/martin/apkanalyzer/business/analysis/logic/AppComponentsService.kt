@@ -3,7 +3,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
@@ -21,10 +21,10 @@ class AppComponentsService {
 
         val activities = packageInfo.activities ?: return ArrayList(0)
 
-        return activities.mapTo(ArrayList<ActivityData>(packageInfo.activities.size)) {
+        return activities.mapTo(ArrayList(packageInfo.activities.size)) {
             ActivityData(it.name,
                     it.packageName,
-                    it.loadLabel(packageManager)?.toString(),
+                    it.loadLabel(packageManager).toString(),
                     it.targetActivity,
                     it.permission,
                     it.parentActivityName,

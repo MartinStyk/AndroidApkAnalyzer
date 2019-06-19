@@ -2,8 +2,8 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.support.annotation.WorkerThread
 import android.util.Log
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.business.analysis.logic.AppComponentsService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.CertificateService
 import sk.styk.martin.apkanalyzer.business.analysis.logic.DexService
@@ -54,7 +54,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
                 }
                 packageName.isNullOrBlank() && !pathToPackage.isNullOrBlank() -> {
                     analysisMode = AppDetailData.AnalysisMode.APK_FILE
-                    packageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage!!, analysisFlags)
+                    packageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage, analysisFlags)
                 }
                 else -> throw IllegalArgumentException("At least one way to getRepackagedDetectionResult package needs to be specified  [$packageName/$pathToPackage]")
             }

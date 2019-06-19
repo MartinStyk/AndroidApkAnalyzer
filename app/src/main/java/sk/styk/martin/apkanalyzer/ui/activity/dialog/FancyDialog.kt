@@ -5,13 +5,13 @@ import android.app.Dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
-import android.support.annotation.ColorRes
-import android.support.annotation.DrawableRes
-import android.support.annotation.StringRes
-import android.support.v4.content.ContextCompat
 import android.view.Window
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
 import pl.droidsonroids.gif.GifImageView
 import sk.styk.martin.apkanalyzer.R
 
@@ -21,15 +21,24 @@ class FancyDialog(private val activity: Activity) {
         fun onNegativeButtonClicked(context: Activity)
     }
 
-    @StringRes var title :Int? = null
-    @StringRes var message :Int? = null
-    @StringRes var positiveBtnText :Int? = null
-    @StringRes var negativeBtnText: Int? = null
-    @ColorRes var positiveButtonColor: Int = R.color.accent
-    @ColorRes var positiveButtonTextColor: Int = R.color.colorWhite
-    @ColorRes var negativeButtonColor: Int = R.color.grey_500
-    @ColorRes var negativeButtonTextColor: Int = R.color.colorWhite
-    @DrawableRes var gifImageResource: Int = 0
+    @StringRes
+    var title: Int? = null
+    @StringRes
+    var message: Int? = null
+    @StringRes
+    var positiveBtnText: Int? = null
+    @StringRes
+    var negativeBtnText: Int? = null
+    @ColorRes
+    var positiveButtonColor: Int = R.color.accent
+    @ColorRes
+    var positiveButtonTextColor: Int = R.color.colorWhite
+    @ColorRes
+    var negativeButtonColor: Int = R.color.grey_500
+    @ColorRes
+    var negativeButtonTextColor: Int = R.color.colorWhite
+    @DrawableRes
+    var gifImageResource: Int = 0
     var cancelable: Boolean = false
     var actionListener: FancyDialogAction = object : FancyDialogAction {
         override fun onPositiveButtonClicked(context: Activity) {}

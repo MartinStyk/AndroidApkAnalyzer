@@ -1,11 +1,11 @@
 package sk.styk.martin.apkanalyzer.business.analysis.livedata
 
-import android.arch.lifecycle.MutableLiveData
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.AsyncTask
+import androidx.lifecycle.MutableLiveData
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataService
 import sk.styk.martin.apkanalyzer.model.list.AppListData

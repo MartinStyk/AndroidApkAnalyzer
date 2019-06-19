@@ -1,6 +1,6 @@
 package sk.styk.martin.apkanalyzer.util.file
 
-import android.support.v4.content.FileProvider
+import androidx.core.content.FileProvider
 import sk.styk.martin.apkanalyzer.util.AppFlavour
 
 /**

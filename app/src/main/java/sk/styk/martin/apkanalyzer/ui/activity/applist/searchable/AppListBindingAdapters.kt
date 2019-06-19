@@ -1,9 +1,9 @@
 package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
-import android.databinding.BindingAdapter
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.RecyclerView
+import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 /**

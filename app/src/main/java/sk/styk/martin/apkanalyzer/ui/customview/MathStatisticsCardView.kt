@@ -1,10 +1,10 @@
 package sk.styk.martin.apkanalyzer.ui.customview
 
 import android.content.Context
-import android.support.v7.widget.CardView
 import android.text.format.Formatter
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import androidx.cardview.widget.CardView
 import kotlinx.android.synthetic.main.view_math_statistics_card.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics
@@ -40,7 +40,7 @@ class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: 
         LayoutInflater.from(context).inflate(R.layout.view_math_statistics_card, this, true)
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.MathStatisticsCardView, 0, 0)
-        title = attributes.getString(R.styleable.MathStatisticsCardView_title)
+        title = attributes.getString(R.styleable.MathStatisticsCardView_title) ?: ""
         type = Type.valueOf(attributes.getString(R.styleable.MathStatisticsCardView_type)!!.toUpperCase())
         attributes.recycle()
 

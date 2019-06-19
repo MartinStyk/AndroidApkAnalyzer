@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.util
 
 import android.app.Activity
 import android.content.Context
-import android.support.v7.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate
 import sk.styk.martin.apkanalyzer.R
 
 /**

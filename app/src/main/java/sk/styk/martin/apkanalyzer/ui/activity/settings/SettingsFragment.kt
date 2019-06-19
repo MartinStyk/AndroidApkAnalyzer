@@ -2,9 +2,9 @@ package sk.styk.martin.apkanalyzer.ui.activity.settings
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v7.preference.PreferenceFragmentCompat
 import android.view.Menu
 import android.view.MenuInflater
+import androidx.preference.PreferenceFragmentCompat
 import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.ColorThemeHelper

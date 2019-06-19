@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic
 
 import android.content.pm.FeatureInfo
 import android.content.pm.PackageInfo
-import android.support.annotation.WorkerThread
+import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
 import java.util.*
 

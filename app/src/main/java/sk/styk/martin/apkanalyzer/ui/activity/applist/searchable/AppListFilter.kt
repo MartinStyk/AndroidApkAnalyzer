@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
-import android.arch.lifecycle.MutableLiveData
 import android.os.AsyncTask
+import androidx.lifecycle.MutableLiveData
 import sk.styk.martin.apkanalyzer.business.analysis.livedata.AppListLiveData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData

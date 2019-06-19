@@ -2,15 +2,10 @@ package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v4.app.Fragment
-import android.support.v4.content.ContextCompat
 import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.Menu
@@ -19,6 +14,11 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_app_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppListBinding
@@ -154,7 +154,7 @@ class AppListFragment : Fragment() {
         // handle picked apk file and
         if (requestCode == ApkFilePicker.REQUEST_PICK_APK && resultCode == RESULT_OK && data?.data != null) {
             val parentFragment = parentFragment as AppListDetailFragment
-            parentFragment.itemSelectedFromFile(data.data)
+            parentFragment.itemSelectedFromFile(data.data ?: return)
         }
     }
 

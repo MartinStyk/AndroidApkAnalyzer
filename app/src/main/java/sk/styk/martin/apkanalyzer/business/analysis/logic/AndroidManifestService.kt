@@ -4,8 +4,8 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.content.res.XmlResourceParser
-import android.support.annotation.WorkerThread
 import android.text.TextUtils
+import androidx.annotation.WorkerThread
 import java.io.ByteArrayInputStream
 import java.io.StringWriter
 import javax.xml.transform.OutputKeys
