@@ -11,6 +11,8 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:icon="@drawable/ic_file"
+        android:iconTint="@color/colorBlack"
         android:id="@+id/action_analyze_not_installed"
         android:orderInCategory="1"
         android:title="@string/action_analyze_apk_from_file"

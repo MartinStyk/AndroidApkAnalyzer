@@ -3,10 +3,12 @@ package sk.styk.martin.apkanalyzer.ui.activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
@@ -46,7 +48,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         // only on first run redirect to default fragment
         if (savedInstanceState == null) {
             navigation_view.setCheckedItem(R.id.nav_app_list)
-            supportFragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, AppListDetailFragment()).commit()
+            NavigationFragmentWrapper.AppListDetail.navigateToFragment(supportFragmentManager)
         }
         if (AppFlavour.isPremium) {
             navigation_view?.menu?.findItem(R.id.nav_premium)?.isVisible = false
@@ -71,10 +73,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START))
+        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
-        else
+        } else if (!NavigationFragmentWrapper.AppListDetail.isVisible(supportFragmentManager)) {
             super.onBackPressed()
+            navigation_view.setCheckedItem(NavigationFragmentWrapper.currentlyDisplayedFragment(supportFragmentManager).navigationId)
+        } else {
+            finish()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -84,17 +90,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
 
-        val fragment: Fragment = when (item.itemId) {
-            R.id.nav_app_list -> AppListDetailFragment()
-            R.id.nav_local_stats -> LocalStatisticsFragment()
-            R.id.nav_local_permissions -> LocalPermissionsFragment()
-            R.id.nav_about -> AboutFragment()
-            R.id.nav_settings -> SettingsFragment()
-            R.id.nav_premium -> PremiumFragment()
-            else -> throw IllegalStateException()
-        }
+        val fragment = NavigationFragmentWrapper.findFragment(navigationId = item.itemId)
 
-        supportFragmentManager.beginTransaction().replace(R.id.main_activity_placeholder, fragment).commit()
+        if (!fragment.isVisible(supportFragmentManager)) {
+            fragment.navigateToFragment(supportFragmentManager)
+        }
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
@@ -103,4 +103,34 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onPromoDialogShowRequested() = PromoDialog().showPromoDialog(this)
 
     override fun onFeatureDialogShowRequested() = FeatureDialog().showFeatureDialog(this)
+
+    sealed class NavigationFragmentWrapper(
+            @IdRes val navigationId: Int,
+            val tag: String,
+            val factory: () -> Fragment
+    ) {
+        companion object {
+            fun findFragment(@IdRes navigationId: Int) =
+                    listOf(AppListDetail, LocalStatistics, LocalPermissions, About, Settings, Premium).first { it.navigationId == navigationId }
+
+            fun currentlyDisplayedFragment(fragmentManager: FragmentManager) =
+                    listOf(AppListDetail, LocalStatistics, LocalPermissions, About, Settings, Premium).first { fragmentManager.findFragmentByTag(it.tag)?.isVisible == true }
+
+        }
+
+        fun isVisible(fragmentManager: FragmentManager) = fragmentManager.findFragmentByTag(tag)?.isVisible == true
+
+        fun navigateToFragment(fragmentManager: FragmentManager) = fragmentManager.beginTransaction()
+                .replace(R.id.main_activity_placeholder, factory.invoke(), tag)
+                .addToBackStack(tag)
+                .commit()
+
+        object AppListDetail : NavigationFragmentWrapper(R.id.nav_app_list, "app_detail", { AppListDetailFragment() })
+        object LocalStatistics : NavigationFragmentWrapper(R.id.nav_local_stats, "local_stat", { LocalStatisticsFragment() })
+        object LocalPermissions : NavigationFragmentWrapper(R.id.nav_local_permissions, "local_permissions", { LocalPermissionsFragment() })
+        object About : NavigationFragmentWrapper(R.id.nav_about, "about", { AboutFragment() })
+        object Settings : NavigationFragmentWrapper(R.id.nav_settings, "settings", { SettingsFragment() })
+        object Premium : NavigationFragmentWrapper(R.id.nav_premium, "premium", { PremiumFragment() })
+
+    }
 }
