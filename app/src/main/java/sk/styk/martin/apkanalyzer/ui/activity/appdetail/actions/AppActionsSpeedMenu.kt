@@ -30,15 +30,15 @@ abstract class AppActionsSpeedMenu(actionPresenter: AppActionsContract.Presenter
 
     override fun getCount(): Int = menuItems.size
 
-    override fun getMenuItem(context: Context, position: Int): SpeedDialMenuItem = when (menuItems[position]) {
-        AppActions.INSTALL -> SpeedDialMenuItem(context, R.drawable.ic_allow, context.getString(R.string.install_app))
-        AppActions.COPY -> SpeedDialMenuItem(context, R.drawable.ic_allow, context.getString(R.string.copy_apk))
-        AppActions.SHARE -> SpeedDialMenuItem(context, R.drawable.ic_allow, context.getString(R.string.share_apk))
-        AppActions.SAVE_ICON -> SpeedDialMenuItem(context, R.drawable.ic_allow, context.getString(R.string.save_icon))
-        AppActions.SHOW_MANIFEST -> SpeedDialMenuItem(context, R.drawable.ic_allow, context.getString(R.string.show_manifest))
-        AppActions.OPEN_PLAY -> SpeedDialMenuItem(context, R.drawable.ic_allow, context.getString(R.string.show_app_google_play))
-        AppActions.BUILD_INFO -> SpeedDialMenuItem(context, R.drawable.ic_allow, context.getString(R.string.show_app_system_page))
-        AppActions.SHOW_MORE -> SpeedDialMenuItem(context, R.drawable.ic_allow, context.getString(R.string.show_more))
+    override fun getMenuItem(position: Int): SpeedDialMenuItem = when (menuItems[position]) {
+        AppActions.INSTALL -> SpeedDialMenuItem(R.drawable.ic_android, R.string.install_app)
+        AppActions.COPY -> SpeedDialMenuItem(R.drawable.ic_save, R.string.copy_apk)
+        AppActions.SHARE -> SpeedDialMenuItem( R.drawable.ic_share, R.string.share_apk)
+        AppActions.SAVE_ICON -> SpeedDialMenuItem(R.drawable.ic_image, R.string.save_icon)
+        AppActions.SHOW_MANIFEST -> SpeedDialMenuItem(R.drawable.ic_file, R.string.show_manifest)
+        AppActions.OPEN_PLAY -> SpeedDialMenuItem(R.drawable.ic_google_play, R.string.show_app_google_play)
+        AppActions.BUILD_INFO -> SpeedDialMenuItem(R.drawable.ic_info_white, R.string.show_app_system_page)
+        AppActions.SHOW_MORE -> SpeedDialMenuItem( R.drawable.ic_menu_dots, R.string.show_more)
     }
 
     override fun onMenuItemClick(position: Int): Boolean = presenterRef.get()?.let { presenter ->

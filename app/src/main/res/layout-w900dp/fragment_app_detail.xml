@@ -30,7 +30,6 @@
             android:id="@+id/btn_actions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/fab_padding_bottom"
             android:visibility="gone"
             app:buttonIcon="@drawable/ic_menu_dots"
             app:buttonBackgroundColour="@color/accent"
