@@ -12,8 +12,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
+import kotlinx.android.synthetic.main.activity_app_detail.app_bar
 import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout
 import kotlinx.android.synthetic.main.activity_app_detail.toolbar_layout_image
 import kotlinx.android.synthetic.main.fragment_app_detail.*
@@ -26,13 +28,7 @@ import sk.styk.martin.apkanalyzer.business.analysis.task.AppDetailLoader
 import sk.styk.martin.apkanalyzer.business.analysis.task.DrawableSaveService
 import sk.styk.martin.apkanalyzer.business.analysis.task.FileCopyService
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.ApkFileActionsSpeedMenu
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.ApkFileActionsSpeedMenuMinimal
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsDialog
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsPresenter
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.InstalledAppActionsSpeedMenu
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.InstalledAppActionsSpeedMenuMinimal
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.*
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
@@ -111,19 +107,34 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View, AppActio
         activity?.toolbar_layout_image?.setImageDrawable(icon)
         actionButton = btn_actions ?: activity?.findViewById(R.id.btn_actions)
         actionButton?.let {
-
             val displayHeight = DisplayHelper.displayHeightDp(requireContext())
             it.speedDialMenuAdapter = when (appActionsPresenter.appDetailData.analysisMode) {
                 AppDetailData.AnalysisMode.APK_FILE ->
-                    if (displayHeight < 400) ApkFileActionsSpeedMenuMinimal(appActionsPresenter) else ApkFileActionsSpeedMenu(appActionsPresenter)
+                    if (displayHeight < ApkFileActionsSpeedMenu.REQUIRED_HEIGHT_DP) {
+                        ApkFileActionsSpeedMenuMinimal(appActionsPresenter)
+                    } else {
+                        ApkFileActionsSpeedMenu(appActionsPresenter)
+                    }
                 AppDetailData.AnalysisMode.INSTALLED_PACKAGE ->
-                    if (displayHeight < 400) InstalledAppActionsSpeedMenuMinimal(appActionsPresenter) else InstalledAppActionsSpeedMenu(appActionsPresenter)
+                    if (displayHeight < InstalledAppActionsSpeedMenu.REQUIRED_HEIGHT_DP) {
+                        InstalledAppActionsSpeedMenuMinimal(appActionsPresenter)
+                    } else {
+                        InstalledAppActionsSpeedMenu(appActionsPresenter)
+                    }
             }
 
             it.contentCoverEnabled = true
             it.visibility = View.VISIBLE
             it.show()
         }
+
+        activity?.app_bar?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (Math.abs(verticalOffset) - appBarLayout.totalScrollRange == 0) {
+                actionButton?.hide()
+            } else {
+                actionButton?.show()
+            }
+        })
 
         pager.visibility = View.VISIBLE
     }
@@ -213,10 +224,11 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View, AppActio
     }
 
     private fun logSelectEvent(itemId: String) {
-        val bundle = Bundle();
-        bundle.putString(FirebaseAnalytics.Param.ITEM_ID, itemId);
-        bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action");
-        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle);
+        val bundle = Bundle().apply {
+            putString(FirebaseAnalytics.Param.ITEM_ID, itemId)
+            putString(FirebaseAnalytics.Param.CONTENT_TYPE, "apk-action")
+        }
+        FirebaseAnalytics.getInstance(requireContext()).logEvent(FirebaseAnalytics.Event.SELECT_CONTENT, bundle)
     }
 
     companion object {

@@ -32,8 +32,6 @@
     <dimen name="fab_padding">8dp</dimen>
     <dimen name="fab_offset">8dp</dimen>
     <dimen name="fab_padding_bottom">8dp</dimen>
-    <dimen name="bottom_fab_complete_height">72dp</dimen>
-
 
     <dimen name="fab_icon_size">24dp</dimen>
     <dimen name="fab_icon_margin">16dp</dimen>

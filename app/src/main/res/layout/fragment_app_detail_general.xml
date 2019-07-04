@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -22,8 +23,7 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
+        <LinearLayout
             style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -212,17 +212,12 @@
                 app:titleText="@string/last_update"
                 app:valueText="@{data.lastUpdateTime != null ? DateUtils.formatDateTime(context, safeUnbox(data.lastUpdateTime), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME) : null}" />
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/bottom_fab_complete_height"
-                android:visibility="@{data == null ? View.GONE : View.VISIBLE}" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:text="@string/error_loading_package_detail"
-                android:visibility="@{data == null ? View.VISIBLE : View.GONE}"/>
+                android:visibility="@{data == null ? View.VISIBLE : View.GONE, default=gone}"/>
 
         </LinearLayout>
 
