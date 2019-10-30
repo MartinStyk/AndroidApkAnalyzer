@@ -12,6 +12,7 @@ import androidx.fragment.app.FragmentManager
 import com.google.android.material.navigation.NavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.about.AboutFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppListDetailFragment
@@ -40,16 +41,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         navigation_view.setNavigationItemSelectedListener(this)
 
-        StartPromoHelper.execute(this)
-
         // only on first run redirect to default fragment
         if (savedInstanceState == null) {
+            StartPromoHelper.execute(this)
             navigation_view.setCheckedItem(R.id.nav_app_list)
             NavigationFragmentWrapper.AppListDetail.navigateToFragment(supportFragmentManager)
         }
-        if (AppFlavour.isPremium) {
-            navigation_view?.menu?.findItem(R.id.nav_premium)?.isVisible = false
-        }
+
+        navigation_view.menu.findItem(R.id.nav_premium).isVisible = AppFlavour.isPremium && BuildConfig.SHOW_PROMO
 
         AdUtils.displayAd(ad_view, ad_view_container)
     }
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val fragment = supportFragmentManager.findFragmentById(R.id.main_activity_placeholder)
             val consumedInChildFragment = fragment is BackPressedListener && fragment.onBackPressed()
 
-            if(!consumedInChildFragment){
+            if (!consumedInChildFragment) {
                 if (!NavigationFragmentWrapper.AppListDetail.isVisible(supportFragmentManager)) {
                     super.onBackPressed()
                     navigation_view.setCheckedItem(NavigationFragmentWrapper.currentlyDisplayedFragment(supportFragmentManager).navigationId)
@@ -111,7 +110,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     sealed class NavigationFragmentWrapper(
             @IdRes val navigationId: Int,
             val tag: String,
-            val factory: () -> Fragment
+            private val factory: () -> Fragment
     ) {
         companion object {
             fun findFragment(@IdRes navigationId: Int) =
