@@ -13,12 +13,6 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 import sk.styk.martin.apkanalyzer.util.file.ClipBoardHelper
 
-/**
- * Key value pair view
- *
- * @author Martin Styk
- * @version 06.07.2017.
- */
 class DetailItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
     : LinearLayout(context, attrs, R.attr.detailItemViewStyle), View.OnClickListener, View.OnLongClickListener {
 
@@ -52,7 +46,7 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
         descriptionText = attributes.getString(R.styleable.DetailItemView_descriptionText) ?: ""
         attributes.recycle()
 
-        orientation = LinearLayout.HORIZONTAL
+        orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
         setOnClickListener(this)
 

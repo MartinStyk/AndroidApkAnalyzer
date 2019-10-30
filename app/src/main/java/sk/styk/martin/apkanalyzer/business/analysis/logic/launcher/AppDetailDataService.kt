@@ -4,22 +4,9 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.annotation.WorkerThread
-import sk.styk.martin.apkanalyzer.business.analysis.logic.AppComponentsService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.CertificateService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.DexService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.FeaturesService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.FileDataService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.GeneralDataService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.PermissionsService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.ResourceService
+import sk.styk.martin.apkanalyzer.business.analysis.logic.*
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 
-/**
- * Retrieve apps installed on device
- *
- * @author Martin Styk
- * @version 14.06.2017.
- */
 @WorkerThread
 class AppDetailDataService(private val packageManager: PackageManager) {
     private val TAG = AppDetailDataService::class.java.simpleName
@@ -54,7 +41,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
                 }
                 packageName.isNullOrBlank() && !pathToPackage.isNullOrBlank() -> {
                     analysisMode = AppDetailData.AnalysisMode.APK_FILE
-                    packageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage, analysisFlags)
+                    packageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage, analysisFlags) ?: return null
                 }
                 else -> throw IllegalArgumentException("At least one way to getRepackagedDetectionResult package needs to be specified  [$packageName/$pathToPackage]")
             }
@@ -91,7 +78,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
 
     }
 
-    private fun PackageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage: String, analysisFlags: Int): PackageInfo {
+    private fun PackageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage: String, analysisFlags: Int): PackageInfo? {
         val packageInfo = getPackageArchiveInfo(pathToPackage, analysisFlags)
         packageInfo?.applicationInfo?.sourceDir = pathToPackage
 

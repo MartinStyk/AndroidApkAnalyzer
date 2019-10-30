@@ -5,10 +5,6 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailGeneralBinding
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData
 
-/**
- * @author Martin Styk
- * @version 18.06.2017.
- */
 class GeneralDetailFragment : ItemizedAppDetailPageContract.View<GeneralData, FragmentAppDetailGeneralBinding>() {
 
     override val itemizedDataType =  ItemizedDataType.GENERAL_DATA

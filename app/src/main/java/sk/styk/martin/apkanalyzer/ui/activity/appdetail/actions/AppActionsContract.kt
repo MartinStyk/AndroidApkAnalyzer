@@ -5,10 +5,6 @@ import androidx.annotation.StringRes
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 interface AppActionsContract {
     interface View {
         fun createSnackbar(text: String, @StringRes actionName: Int? = null, action: android.view.View.OnClickListener? = null)

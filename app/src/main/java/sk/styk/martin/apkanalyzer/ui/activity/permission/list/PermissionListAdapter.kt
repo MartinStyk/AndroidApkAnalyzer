@@ -1,19 +1,13 @@
 package sk.styk.martin.apkanalyzer.ui.activity.permission.list
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter
 
-/**
- * Permission list adapter used in LocalPermissionFragment
- *
- * @author Martin Styk
- * @version 13.01.2017.
- */
 class PermissionListAdapter(override val presenter: LocalPermissionsContract.Presenter) : GenericListAdapter<PermissionListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_permission_local_data, parent, false))

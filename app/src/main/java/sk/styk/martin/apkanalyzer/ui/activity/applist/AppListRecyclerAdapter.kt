@@ -1,19 +1,12 @@
 package sk.styk.martin.apkanalyzer.ui.activity.applist
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemApplicationBinding
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter
 
-/**
- * App list adapter for recycler view.
- * Used in AppListDialog
- *
- * @author Martin Styk
- * @version 05.01.2017.
- */
 class AppListRecyclerAdapter(override val presenter: AppListContract.Presenter) : GenericListAdapter<AppListRecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

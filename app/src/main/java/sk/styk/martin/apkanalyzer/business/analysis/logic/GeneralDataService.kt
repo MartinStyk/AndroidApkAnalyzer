@@ -12,10 +12,6 @@ import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import java.io.File
 
-/**
- * @author Martin Styk
- * @version 30.06.2017.
- */
 @WorkerThread
 class GeneralDataService {
 
@@ -33,14 +29,14 @@ class GeneralDataService {
                 applicationName = applicationInfo.loadLabel(packageManager).toString(),
                 processName = applicationInfo.processName,
                 versionName = packageInfo.versionName,
-                versionCode = packageInfo.versionCode,
+                versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode else packageInfo.versionCode.toLong(),
                 isSystemApp = isSystemApp,
                 uid = applicationInfo.uid,
                 description = applicationInfo.loadDescription(packageManager)?.toString(),
                 apkDirectory = applicationInfo.sourceDir,
                 dataDirectory = applicationInfo.dataDir,
 
-                source = Companion.getAppSource(packageManager, packageInfo.packageName, isSystemApp),
+                source = getAppSource(packageManager, packageInfo.packageName, isSystemApp),
                 appInstaller = appInstaller,
 
                 installLocation = InstallLocationHelper.resolveInstallLocation(packageInfo.installLocation),

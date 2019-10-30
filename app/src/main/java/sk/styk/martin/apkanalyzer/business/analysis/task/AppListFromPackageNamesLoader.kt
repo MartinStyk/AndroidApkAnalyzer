@@ -5,12 +5,6 @@ import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataS
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 
-/**
- * Loader async task for item for AppListDialog
- *
- * @author Martin Styk
- * @version 05.01.2018.
- */
 class AppListFromPackageNamesLoader(context: Context, private val packageNames: List<String>)
     : ApkAnalyzerAbstractAsyncLoader<List<AppListData>>(context) {
 

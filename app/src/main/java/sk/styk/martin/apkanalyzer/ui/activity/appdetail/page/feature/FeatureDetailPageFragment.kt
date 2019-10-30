@@ -8,10 +8,6 @@ import kotlinx.android.synthetic.main.fragment_app_detail_activity.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract
 
-/**
- * @author Martin Styk
- * @version 30.06.2017.
- */
 class FeatureDetailPageFragment : Fragment(), FeatureDetailPageContract.View {
 
     private lateinit var presenter: FeatureDetailPageContract.Presenter

@@ -6,10 +6,6 @@ import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
 import java.util.*
 
-/**
- * @author Martin Styk
- * @version 12.10.2017.
- */
 @WorkerThread
 class FeaturesService {
 

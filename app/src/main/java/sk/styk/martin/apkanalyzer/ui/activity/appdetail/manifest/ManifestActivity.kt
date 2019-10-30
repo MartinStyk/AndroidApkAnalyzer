@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.loader.app.LoaderManager
 import com.google.android.material.snackbar.Snackbar
 import com.pddstudio.highlightjs.models.Language
 import com.pddstudio.highlightjs.models.Theme
@@ -25,10 +26,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContrac
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestContract.Companion.PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST
 import sk.styk.martin.apkanalyzer.util.AdUtils
 
-/**
- * @author Martin Styk
- * @version 15.09.2017.
- */
 @RuntimePermissions
 class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
@@ -41,13 +38,13 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
 
         presenter = ManifestPresenter(AndroidManifestLoader(
                 this,
-                intent.getStringExtra(ManifestContract.PACKAGE_NAME_FOR_MANIFEST_REQUEST),
-                intent.getStringExtra(ManifestContract.PACKAGE_PATH_FOR_MANIFEST_REQUEST)
-        ), supportLoaderManager)
+                intent.getStringExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST)!!,
+                intent.getStringExtra(PACKAGE_PATH_FOR_MANIFEST_REQUEST)!!
+        ), LoaderManager.getInstance(this))
         presenter.view = this
-        presenter.initialize(intent.getStringExtra(ManifestContract.PACKAGE_NAME_FOR_MANIFEST_REQUEST),
-                intent.getIntExtra(ManifestContract.PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST, 0),
-                intent.getStringExtra(ManifestContract.PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST))
+        presenter.initialize(intent.getStringExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST)!!,
+                intent.getIntExtra(PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST, 0),
+                intent.getStringExtra(PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST))
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

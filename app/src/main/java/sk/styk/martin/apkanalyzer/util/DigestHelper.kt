@@ -3,11 +3,8 @@ package sk.styk.martin.apkanalyzer.util
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.util.*
 
-/**
- * @author Martin Styk
- * @version 10.12.2017.
- */
 object DigestHelper {
 
     fun md5Digest(input: ByteArray): String {
@@ -33,7 +30,7 @@ object DigestHelper {
                 sb.append(0)
             }
 
-            sb.append(sTemp.toUpperCase())
+            sb.append(sTemp.toUpperCase(Locale.getDefault()))
         }
 
         return sb.toString()

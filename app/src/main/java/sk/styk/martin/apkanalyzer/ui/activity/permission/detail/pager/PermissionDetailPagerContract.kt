@@ -5,10 +5,6 @@ import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 interface PermissionDetailPagerContract {
     interface View {
         fun setUpViews()

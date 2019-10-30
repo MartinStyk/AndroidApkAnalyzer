@@ -3,17 +3,9 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.annotation.WorkerThread
-import sk.styk.martin.apkanalyzer.business.analysis.logic.AndroidManifestService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.CertificateService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.FileDataService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.GeneralDataService
-import sk.styk.martin.apkanalyzer.business.analysis.logic.ResourceService
+import sk.styk.martin.apkanalyzer.business.analysis.logic.*
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsAppData
 
-/**
- * @author Martin Styk
- * @version 28.07.2017.
- */
 @WorkerThread
 class LocalApplicationStatisticDataService(private val packageManager: PackageManager) {
 

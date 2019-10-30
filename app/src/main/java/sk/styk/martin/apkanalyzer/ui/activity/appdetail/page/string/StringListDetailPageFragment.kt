@@ -1,18 +1,14 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_app_detail_simple_string_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract
 
-/**
- * @author Martin Styk
- * @version 30.06.2017.
- */
 abstract class StringListDetailPageFragment : Fragment(), StringListDetailPageContract.View {
 
     private lateinit var presenter: StringListDetailPageContract.Presenter

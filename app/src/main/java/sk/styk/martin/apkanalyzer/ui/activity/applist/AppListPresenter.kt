@@ -8,11 +8,6 @@ import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoa
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListContract.Companion.PACKAGES_ARGUMENT
 
-
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class AppListPresenter(
         private val loader: ApkAnalyzerAbstractAsyncLoader<List<AppListData>>,
         private val loaderManager: LoaderManager

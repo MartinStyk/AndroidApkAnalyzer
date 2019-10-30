@@ -4,11 +4,6 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData
 import java.text.Collator
 import java.util.*
 
-/**
- * @author Martin Styk
- * @version 17.06.2017.
- */
-
 class AppBasicInfoComparator : Comparator<AppListData> {
 
     private val sCollator = Collator.getInstance()

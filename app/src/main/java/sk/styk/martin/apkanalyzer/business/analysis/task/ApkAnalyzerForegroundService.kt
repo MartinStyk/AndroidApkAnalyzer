@@ -9,9 +9,6 @@ import android.graphics.Color
 import android.os.Build
 import androidx.annotation.RequiresApi
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 abstract class ApkAnalyzerForegroundService : Service() {
 
     @RequiresApi(Build.VERSION_CODES.O)

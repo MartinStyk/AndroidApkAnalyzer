@@ -1,15 +1,11 @@
 package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemApplicationBinding
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 
-/**
- * @author Martin Styk
- * @date 23.12.2018.
- */
 class AppListAdapter(private val onClickListener: AppListClickListener) :
     RecyclerView.Adapter<AppListAdapter.ViewHolder>() {
 

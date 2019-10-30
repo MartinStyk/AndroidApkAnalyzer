@@ -11,9 +11,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import sk.styk.martin.apkanalyzer.R
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 interface SpeedDialMenuOpenListener {
     fun onOpen(floatingActionButton: FloatingActionButton)
 }

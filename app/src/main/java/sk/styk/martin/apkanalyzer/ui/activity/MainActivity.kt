@@ -26,10 +26,6 @@ import sk.styk.martin.apkanalyzer.util.AppFlavour
 import sk.styk.martin.apkanalyzer.util.BackPressedListener
 import sk.styk.martin.apkanalyzer.util.StartPromoHelper
 
-
-/**
- * @author Martin Styk
- */
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, PromoDialog.PromoDialogController, FeatureDialog.FeatureDialogController {
 
     override fun onCreate(savedInstanceState: Bundle?) {

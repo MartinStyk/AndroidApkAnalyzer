@@ -4,9 +4,6 @@ import androidx.databinding.BindingAdapter
 import sk.styk.martin.apkanalyzer.ui.customview.MyBarChart
 import sk.styk.martin.apkanalyzer.util.ChartDataHelper
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 object LocalStatisticsFragmentBinding {
     @JvmStatic
     @BindingAdapter("chart_data")

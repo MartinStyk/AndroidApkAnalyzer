@@ -3,10 +3,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 import sk.styk.martin.apkanalyzer.ui.base.ListPresenter
 
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 interface ListDetailPageContract {
 
     interface View {

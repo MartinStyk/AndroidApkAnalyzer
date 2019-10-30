@@ -2,11 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string
 
 import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
-
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class StringListDetailPagePresenter(private val dataType: StringDataType) : StringListDetailPageContract.Presenter {
 
     override lateinit var view: StringListDetailPageContract.View

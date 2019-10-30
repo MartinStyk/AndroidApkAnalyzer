@@ -1,54 +1,54 @@
 package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.fragment.app.FragmentPagerAdapter
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListContract
 import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details.PermissionsGeneralDetailsFragment
 
-/**
- * @author Martin Styk
- * @version 18.06.2017.
- */
-class PermissionDetailPagerAdapter(private val presenter: PermissionDetailPagerContract.Presenter, fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+private const val GENERAL_DETAILS_PAGE =  0
+private const val GRANTED_APPS_PAGE =  1
+private const val NOT_GRANTED_APPS_PAGE =  2
 
-    override fun getItem(position: Int): Fragment? {
-        val fragment: Fragment
-        val args = Bundle()
-        when (position) {
-            0 -> {
-                args.putParcelable(PermissionDetailPagerFragment.ARG_CHILD, presenter.localPermissionData.permissionData)
-                args.putInt(PermissionsGeneralDetailsFragment.ARG_NUMBER_GRANTED_APPS, presenter.localPermissionData.grantedPackageNames.size)
-                args.putInt(PermissionsGeneralDetailsFragment.ARG_NUMBER_NOT_GRANTED_APPS, presenter.localPermissionData.notGrantedPackageNames.size)
-                fragment = PermissionsGeneralDetailsFragment()
+class PermissionDetailPagerAdapter(private val presenter: PermissionDetailPagerContract.Presenter, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT ) {
+
+    override fun getItem(position: Int) = when (position) {
+        GENERAL_DETAILS_PAGE -> {
+            PermissionsGeneralDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(PermissionDetailPagerFragment.ARG_CHILD, presenter.localPermissionData.permissionData)
+                    putInt(PermissionsGeneralDetailsFragment.ARG_NUMBER_GRANTED_APPS, presenter.localPermissionData.grantedPackageNames.size)
+                    putInt(PermissionsGeneralDetailsFragment.ARG_NUMBER_NOT_GRANTED_APPS, presenter.localPermissionData.notGrantedPackageNames.size)
+                }
             }
-
-            1 -> {
-                args.putStringArrayList(AppListContract.PACKAGES_ARGUMENT, presenter.localPermissionData.grantedPackageNames as ArrayList<String>)
-                fragment = AppListFragment()
-            }
-
-            2 -> {
-                args.putStringArrayList(AppListContract.PACKAGES_ARGUMENT, presenter.localPermissionData.notGrantedPackageNames as ArrayList<String>)
-                fragment = AppListFragment()
-            }
-
-            else -> throw IllegalStateException()
         }
-        fragment.arguments = args
-        return fragment
+        GRANTED_APPS_PAGE -> {
+            AppListFragment().apply {
+                arguments = Bundle().apply {
+                    putStringArrayList(AppListContract.PACKAGES_ARGUMENT, presenter.localPermissionData.grantedPackageNames as ArrayList<String>)
+                }
+            }
+        }
+        NOT_GRANTED_APPS_PAGE -> {
+            AppListFragment().apply {
+                arguments = Bundle().apply {
+                    putStringArrayList(AppListContract.PACKAGES_ARGUMENT, presenter.localPermissionData.notGrantedPackageNames as ArrayList<String>)
+                }
+            }
+        }
+
+        else -> throw IllegalStateException()
     }
 
     override fun getCount(): Int = 3
 
     override fun getPageTitle(position: Int): CharSequence = when (position) {
-        0 -> context.resources.getString(R.string.permissions_detail)
-        1 -> context.resources.getString(R.string.permissions_granted)
-        2 -> context.resources.getString(R.string.permissions_not_granted)
+        GENERAL_DETAILS_PAGE -> context.resources.getString(R.string.permissions_detail)
+        GRANTED_APPS_PAGE -> context.resources.getString(R.string.permissions_granted)
+        NOT_GRANTED_APPS_PAGE -> context.resources.getString(R.string.permissions_not_granted)
         else -> throw IllegalStateException()
     }
 }

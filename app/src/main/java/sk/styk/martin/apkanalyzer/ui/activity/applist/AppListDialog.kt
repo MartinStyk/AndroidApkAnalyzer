@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.loader.app.LoaderManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.dialog_app_list.*
 import sk.styk.martin.apkanalyzer.R
@@ -15,18 +16,13 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListContract.Companion.PACKAGES_ARGUMENT
 import java.util.*
 
-
-/**
- * @author Martin Styk
- * @version 05.01.2018.
- */
 class AppListDialog : DialogFragment(), AppListContract.View {
 
     private lateinit var presenter: AppListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = AppListPresenter(AppListFromPackageNamesLoader(requireContext(), arguments!!.getStringArrayList(PACKAGES_ARGUMENT)), loaderManager)
+        presenter = AppListPresenter(AppListFromPackageNamesLoader(requireContext(), arguments?.getStringArrayList(PACKAGES_ARGUMENT) ?: emptyList()), LoaderManager.getInstance(this))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,20 +46,20 @@ class AppListDialog : DialogFragment(), AppListContract.View {
     }
 
     override fun setUpViews() {
-        dialog.recycler_view_applications.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+        dialog?.recycler_view_applications?.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 
     override fun hideLoading() {
-        dialog.list_view_progress_bar.visibility = View.GONE
+        dialog?.list_view_progress_bar?.visibility = View.GONE
     }
 
     override fun nothingToDisplay() {
-        dialog.list_view_progress_bar.visibility = View.GONE
-        dialog.nothing_to_show.visibility = View.VISIBLE
+        dialog?.list_view_progress_bar?.visibility = View.GONE
+        dialog?.nothing_to_show?.visibility = View.VISIBLE
     }
 
     override fun showAppList() {
-        dialog.recycler_view_applications.adapter = AppListRecyclerAdapter(presenter)
+        dialog?.recycler_view_applications?.adapter = AppListRecyclerAdapter(presenter)
     }
 
     override fun openAppDetailActivity(packageName: String) {

@@ -3,10 +3,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest
 import androidx.annotation.StringRes
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 interface ManifestContract {
     interface View {
         fun setUpViews()

@@ -5,10 +5,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 
-/**
- * @author Martin Styk
- * @version 22.06.2017.
- */
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class PermissionDataAggregate(

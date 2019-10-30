@@ -3,13 +3,9 @@ package sk.styk.martin.apkanalyzer.util
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
 import sk.styk.martin.apkanalyzer.R
 
-/**
- * @author Martin Styk
- * @version 02.08.2017
- */
 object AndroidVersionHelper {
 
-    const val MAX_SDK_VERSION = 28
+    const val MAX_SDK_VERSION = 29
 
     fun resolveVersion(sdkVersion: Int?): String? {
         if (sdkVersion == null) return null

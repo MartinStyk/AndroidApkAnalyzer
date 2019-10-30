@@ -7,10 +7,6 @@ import java.util.*
 
 /**
  * Represents data obtained from certificate file
- *
- *
- * @author Martin Styk
- * @version 22.06.2017.
  */
 @SuppressLint("ParcelCreator")
 @Parcelize

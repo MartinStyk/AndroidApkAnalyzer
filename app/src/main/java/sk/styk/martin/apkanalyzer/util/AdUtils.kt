@@ -7,9 +7,6 @@ import com.google.android.gms.ads.AdView
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 object AdUtils {
 
     const val isAdEnabled = BuildConfig.SHOW_ADS

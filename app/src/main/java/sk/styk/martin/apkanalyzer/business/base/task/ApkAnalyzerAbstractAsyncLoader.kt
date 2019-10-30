@@ -7,9 +7,6 @@ import androidx.loader.content.AsyncTaskLoader
 /**
  * Abstract parent class for loaders.
  * This is just wrapper around async task loader
- *
- * @author Martin Styk
- * @version 15.06.2017.
  */
 abstract class ApkAnalyzerAbstractAsyncLoader<T> internal constructor(context: Context) : AsyncTaskLoader<T>(context) {
 

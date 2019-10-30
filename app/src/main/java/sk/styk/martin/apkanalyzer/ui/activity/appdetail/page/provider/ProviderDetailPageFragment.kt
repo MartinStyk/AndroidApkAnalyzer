@@ -1,18 +1,13 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_app_detail_provider.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract
 
-/**
- * @author Martin Styk
- * @version 30.06.2017.
- */
 class ProviderDetailPageFragment : Fragment(), ProviderDetailPageContract.View {
 
     private lateinit var presenter: ProviderDetailPageContract.Presenter

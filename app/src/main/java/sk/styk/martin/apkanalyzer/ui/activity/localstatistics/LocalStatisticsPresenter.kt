@@ -8,11 +8,6 @@ import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoa
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 
-
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class LocalStatisticsPresenter(
         private val loader: ApkAnalyzerAbstractAsyncLoader<LocalStatisticsDataWithCharts>,
         private val loaderManager: LoaderManager
@@ -62,7 +57,7 @@ class LocalStatisticsPresenter(
 
     override fun onAppSourceValueSelected(label: String) {
         data?.let {
-            view.showAppLists(it.statisticsData.appSource[AppSource.Companion.valueOf(label)] ?: return)
+            view.showAppLists(it.statisticsData.appSource[AppSource.valueOf(label)] ?: return)
         }
     }
 

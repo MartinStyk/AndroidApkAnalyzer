@@ -7,11 +7,6 @@ import sk.styk.martin.apkanalyzer.business.analysis.task.LocalPermissionsLoader
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 
-
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class LocalPermissionsPresenter(
         private val loader: ApkAnalyzerAbstractAsyncLoader<List<LocalPermissionData>>,
         private val loaderManager: LoaderManager

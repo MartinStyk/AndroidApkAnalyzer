@@ -9,14 +9,9 @@ import kotlinx.android.synthetic.main.view_math_statistics_card.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
+import java.util.*
 
-/**
- * Used in local statistics layout
- * Contains name of attribute and available statistics - mean, median, max, min, deviation, variance
- *
- * @author Martin Styk
- * @version 06.07.2017.
- */
+
 class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : CardView(context, attrs) {
 
     private var type: Type = Type.INTEGRAL
@@ -41,7 +36,7 @@ class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: 
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.MathStatisticsCardView, 0, 0)
         title = attributes.getString(R.styleable.MathStatisticsCardView_title) ?: ""
-        type = Type.valueOf(attributes.getString(R.styleable.MathStatisticsCardView_type)!!.toUpperCase())
+        type = Type.valueOf(attributes.getString(R.styleable.MathStatisticsCardView_type)!!.toUpperCase(Locale.getDefault()))
         attributes.recycle()
 
         useCompatPadding = true

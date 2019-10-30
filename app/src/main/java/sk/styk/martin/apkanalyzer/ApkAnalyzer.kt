@@ -1,18 +1,12 @@
 package sk.styk.martin.apkanalyzer
 
-import android.app.Application
 import android.content.Context
 import android.os.StrictMode
 import androidx.multidex.MultiDexApplication
 import com.google.android.gms.ads.MobileAds
 import com.squareup.leakcanary.LeakCanary
-import sk.styk.martin.apkanalyzer.util.AppFlavour
 import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
 
-/**
- * @author Martin Styk
- * @version 30.10.2017.
- */
 class ApkAnalyzer : MultiDexApplication() {
 
     override fun onCreate() {

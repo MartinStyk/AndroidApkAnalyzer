@@ -5,12 +5,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 import java.math.BigDecimal
 
-/**
- * Math Statistics collected about attributes of Apk file
- *
- * @author Martin Styk
- * @version 28.07.2017.
- */
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class MathStatistics(val arithmeticMean: BigDecimal,

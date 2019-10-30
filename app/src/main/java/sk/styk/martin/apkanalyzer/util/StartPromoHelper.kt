@@ -8,10 +8,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
 import java.util.concurrent.TimeUnit
 
-/**
- * @author Martin Styk
- * @version 15.11.2017.
- */
 object StartPromoHelper {
 
     private const val FIRST_APP_START = "first_app_start"

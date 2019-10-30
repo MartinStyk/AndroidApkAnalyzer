@@ -7,12 +7,6 @@ import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoa
 import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 import sk.styk.martin.apkanalyzer.util.file.FileUtils
 
-/**
- * Loader async task for item for AppDetailPagerFragment and AppDetailActivity
- *
- * @author Martin Styk
- * @version 15.06.2017.
- */
 class AppDetailLoader(context: Context,
                       private val packageName: String?,
                       private val packageUri: Uri?)

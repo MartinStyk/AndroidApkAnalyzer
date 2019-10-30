@@ -3,9 +3,7 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.oninstall
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -15,9 +13,6 @@ import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 
-/**
- * @author Martin Styk
- */
 class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContract.View {
 
     private lateinit var presenter: OnInstallAppDetailContract.Presenter
@@ -46,7 +41,7 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
     }
 
     override fun requestStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), REQUEST_STORAGE_PERMISSIONS)
         } else {
             presenter.storagePermissionGranted()

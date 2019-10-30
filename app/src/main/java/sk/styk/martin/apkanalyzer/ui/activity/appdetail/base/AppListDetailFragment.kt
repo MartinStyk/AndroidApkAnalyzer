@@ -13,8 +13,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFrag
 /**
  * Parent fragment for AppListFragment and AppDetailPagerFragment.
  * Purpose of thi fragment is to provide separated screen areas in landscape orientation of w900dp devices
- *
- * @author Martin Styk
  */
 class AppListDetailFragment : Fragment() {
 

@@ -8,10 +8,6 @@ import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment.Companion.ARG_PERMISSIONS_DATA
 
-/**
- * @author Martin Styk
- * @version 15.01.2017
- */
 class PermissionDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

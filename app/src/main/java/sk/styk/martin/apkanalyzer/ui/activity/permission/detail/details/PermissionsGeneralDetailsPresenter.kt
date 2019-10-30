@@ -3,11 +3,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details
 import android.os.Bundle
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment
 
-
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class PermissionsGeneralDetailsPresenter : PermissionsGeneralDetailsContract.Presenter {
 
     override lateinit var view: PermissionsGeneralDetailsContract.View

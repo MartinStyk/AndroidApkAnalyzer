@@ -9,10 +9,6 @@ import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import sk.styk.martin.apkanalyzer.util.ChartDataHelper
 import java.lang.ref.WeakReference
 
-/**
- * @author Martin Styk
- * @version 15.09.2018
- */
 class LocalStatisticsLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<LocalStatisticsDataWithCharts>(context) {
 
     private lateinit var callbackReference : WeakReference<ProgressCallback>

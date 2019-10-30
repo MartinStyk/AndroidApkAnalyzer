@@ -4,12 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-/**
- * Permission granted/ not granted status for package
- *
- * @author Martin Styk
- * @version 13.01.2018.
- */
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class PermissionStatus(

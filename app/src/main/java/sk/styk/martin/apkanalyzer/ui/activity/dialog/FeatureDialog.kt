@@ -6,9 +6,6 @@ import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
 import sk.styk.martin.apkanalyzer.util.DARK_THEME
 import sk.styk.martin.apkanalyzer.util.LIGHT_THEME
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 class FeatureDialog {
 
     companion object {

@@ -5,12 +5,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-
-/**
- * @author Martin Styk
- * @date 23.12.2018.
- */
-
 object AppListBindingAdapters {
     @JvmStatic
     @BindingAdapter("appListAdapter")

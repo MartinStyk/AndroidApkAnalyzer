@@ -8,10 +8,7 @@ import sk.styk.martin.apkanalyzer.model.detail.ClassPathData
 import java.io.IOException
 import java.util.*
 
-/**
- * @author Martin Styk
- * @version 21.10.2017.
- */
+@Suppress("DEPRECATION")
 @WorkerThread
 class DexService {
 
@@ -39,12 +36,12 @@ class DexService {
                     }
                 }
             } catch (e: IOException) {
-                Log.e(DexService::class.java.simpleName, e.localizedMessage)
+                Log.e(DexService::class.java.simpleName, e.localizedMessage ?: "")
             } finally {
                 try {
                     dexFile?.close()
                 } catch (e: IOException) {
-                    e.printStackTrace()
+                    Log.e(DexService::class.java.simpleName, e.localizedMessage ?: "")
                 }
             }
         }

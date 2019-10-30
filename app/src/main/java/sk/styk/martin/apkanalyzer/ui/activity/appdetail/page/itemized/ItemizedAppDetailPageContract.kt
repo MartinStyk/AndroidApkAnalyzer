@@ -13,10 +13,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerCont
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 interface ItemizedAppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBinding> {
 
     abstract class View<DATA : Parcelable, BINDING : ViewDataBinding> : Fragment() {
@@ -66,6 +62,7 @@ interface ItemizedAppDetailPageContract<DATA : Parcelable, BINDING : ViewDataBin
             }
         }
 
+        @Suppress("UNCHECKED_CAST")
         fun provideData() {
             if (data != null)
                 view.showData(data as DATA)

@@ -14,11 +14,6 @@ import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.AppActionsContract.Companion.PACKAGE_TO_PERFORM_ACTIONS
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment.Companion.TAG
 
-
-/**
- * @author Martin Styk
- * @version 05.01.2018.
- */
 class AppActionsDialog : DialogFragment() {
 
     private lateinit var presenter: AppActionsContract.Presenter
@@ -53,47 +48,40 @@ class AppActionsDialog : DialogFragment() {
                 .create()
     }
 
-    private fun setUpViews() {
-        // setup buttons
-        dialog.findViewById<Button>(R.id.btn_copy).setOnClickListener {
+    private fun setUpViews() = dialog?.apply {
+        findViewById<Button>(R.id.btn_copy)?.setOnClickListener {
             presenter.exportClick()
             dismissAllowingStateLoss()
         }
-
-        dialog.btn_share_apk.setOnClickListener {
+        btn_share_apk?.setOnClickListener {
             presenter.shareClick()
             dismissAllowingStateLoss()
         }
-
-        dialog.btn_save_icon.setOnClickListener {
+        btn_save_icon?.setOnClickListener {
             presenter.saveIconClick()
             dismissAllowingStateLoss()
         }
-
-        dialog.btn_show_app_google_play.setOnClickListener {
+        btn_show_app_google_play.setOnClickListener {
             presenter.showGooglePlayClick()
             dismissAllowingStateLoss()
         }
-
-        dialog.btn_show_manifest.setOnClickListener {
+        btn_show_manifest.setOnClickListener {
             presenter.showManifestClick()
             dismissAllowingStateLoss()
         }
-
-        dialog.btn_show_app_system_page.setOnClickListener {
+        btn_show_app_system_page.setOnClickListener {
             presenter.showSystemPageClick()
             dismissAllowingStateLoss()
         }
-
-        dialog.btn_install_app.setOnClickListener {
+        btn_install_app.setOnClickListener {
             presenter.installAppClick()
             dismissAllowingStateLoss()
         }
 
         if (presenter.appDetailData.isAnalyzedApkFile) {
-            dialog.btn_show_manifest.visibility = View.GONE
-            dialog.btn_show_app_system_page.visibility = View.GONE
-            dialog.btn_install_app.visibility = View.VISIBLE
+            btn_show_manifest.visibility = View.GONE
+            btn_show_app_system_page.visibility = View.GONE
+            btn_install_app.visibility = View.VISIBLE
         }
     }
 

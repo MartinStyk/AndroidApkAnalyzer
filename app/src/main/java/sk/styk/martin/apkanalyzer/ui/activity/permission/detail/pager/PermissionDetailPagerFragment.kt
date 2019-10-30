@@ -1,22 +1,13 @@
 package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_permission_detail_pager.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 
-/**
- * @author Martin Styk
- * @version 15.01.2017
- */
 class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.View {
 
     private lateinit var adapter: PermissionDetailPagerAdapter
@@ -49,17 +40,17 @@ class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.
         tabs.setupWithViewPager(pager)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        description = menu!!.add(R.string.description)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        description = menu.add(R.string.description)
         description.setIcon(R.drawable.ic_info_white)
         description.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
 
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if (description.itemId.equals(item?.itemId))
-            SimpleTextDialog.newInstance(getString(R.string.description), presenter.loadPermissionDescription(requireContext().packageManager)).show(fragmentManager, SimpleTextDialog::class.java.simpleName)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (description.itemId == item.itemId)
+            SimpleTextDialog.newInstance(getString(R.string.description), presenter.loadPermissionDescription(requireContext().packageManager)).show(requireFragmentManager(), SimpleTextDialog::class.java.simpleName)
 
         return super.onOptionsItemSelected(item)
     }
@@ -71,13 +62,10 @@ class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.
         const val ARG_PERMISSIONS_DATA = "permission_args"
         const val ARG_CHILD = "permission_args_to_my_sweetest_child"
 
-        fun create(permissionData: LocalPermissionData): PermissionDetailPagerFragment {
-            val arguments = Bundle()
-            arguments.putParcelable(ARG_PERMISSIONS_DATA, permissionData)
-            val detailFragment = PermissionDetailPagerFragment()
-            detailFragment.arguments = arguments
-            return detailFragment
+        fun create(permissionData: LocalPermissionData) = PermissionDetailPagerFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(ARG_PERMISSIONS_DATA, permissionData)
+            }
         }
     }
-
 }

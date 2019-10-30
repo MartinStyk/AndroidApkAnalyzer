@@ -6,10 +6,6 @@ import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import sk.styk.martin.apkanalyzer.util.PercentagePair
 import java.util.*
 
-/**
- * @author Martin Styk
- * @version 28.07.2017.
- */
 class LocalStatisticsDataBuilder(datasetSize: Int) {
     private val arraySize = datasetSize + 1
 

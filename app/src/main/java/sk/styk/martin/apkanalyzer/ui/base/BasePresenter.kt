@@ -2,9 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.base
 
 /**
  * Interface representing a BasePresenter in a model view pagerPresenter (MVP) pattern.
- *
- * @author Martin Styk
- * @version 28.01.2018.
  */
 interface BasePresenter<View> {
 

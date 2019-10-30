@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
+import androidx.loader.app.LoaderManager
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -43,8 +44,6 @@ import sk.styk.martin.apkanalyzer.util.file.toBitmap
  * This fragment is either contained in a [MainActivity]
  * in two-pane mode (on tablets) or a [AppDetailActivity]
  * on handsets.
- *
- * @author Martin Styk
  */
 @RuntimePermissions
 class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View, AppActionsContract.View, BackPressedListener {
@@ -59,7 +58,7 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View, AppActio
         super.onCreate(savedInstanceState)
         pagerPresenter = AppDetailPagerPresenter(AppDetailLoader(context = requireContext(),
                 packageName = arguments?.getString(ARG_PACKAGE_NAME),
-                packageUri = arguments?.getParcelable(ARG_PACKAGE_PATH)), loaderManager)
+                packageUri = arguments?.getParcelable(ARG_PACKAGE_PATH)), LoaderManager.getInstance(this))
         appActionsPresenter = AppActionsPresenter()
         adapter = AppDetailPagerAdapter(requireContext(), fragmentManager!!, pagerPresenter)
     }
@@ -214,7 +213,7 @@ class AppDetailPagerFragment : Fragment(), AppDetailPagerContract.View, AppActio
     }
 
     override fun showMoreActionsDialog(appDetailData: AppDetailData) {
-        AppActionsDialog.newInstance(appDetailData).show(fragmentManager, AppActionsDialog::class.java.simpleName)
+        AppActionsDialog.newInstance(appDetailData).show(requireFragmentManager(), AppActionsDialog::class.java.simpleName)
         logSelectEvent("show-more")
     }
 

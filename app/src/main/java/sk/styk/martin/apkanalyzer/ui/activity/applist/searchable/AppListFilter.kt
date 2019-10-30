@@ -5,12 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import sk.styk.martin.apkanalyzer.business.analysis.livedata.AppListLiveData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
+import java.util.*
 
-
-/**
- * @author Martin Styk
- * @date 23.12.2018.
- */
 object AppListFilter {
 
     fun performFiltering(
@@ -30,8 +26,8 @@ object AppListFilter {
 
     private fun matchesNameFilter(appListData: AppListData, filterComponent: FilterComponent): Boolean {
         return filterComponent.name == null ||
-                matchesNameFilter(appListData.applicationName.toLowerCase(), filterComponent) ||
-                matchesNameFilter(appListData.packageName.toLowerCase(), filterComponent)
+                matchesNameFilter(appListData.applicationName.toLowerCase(Locale.getDefault()), filterComponent) ||
+                matchesNameFilter(appListData.packageName.toLowerCase(Locale.getDefault()), filterComponent)
     }
 
     private fun matchesNameFilter(valueText: String, filterComponent: FilterComponent): Boolean {
@@ -57,7 +53,7 @@ object AppListFilter {
     class FilterComponent {
         var name: String? = null
             set(value) {
-                field = value?.toLowerCase()
+                field = value?.toLowerCase(Locale.getDefault())
             }
 
         var source: AppSource? = null

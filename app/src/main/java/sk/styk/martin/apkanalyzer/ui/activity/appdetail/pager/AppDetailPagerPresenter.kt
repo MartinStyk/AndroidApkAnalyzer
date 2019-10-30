@@ -9,11 +9,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerCont
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
 import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
-
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class AppDetailPagerPresenter(
         val loader: Loader<String?>,
         val loaderManager: LoaderManager

@@ -2,16 +2,11 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic
 
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAggregate
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
 
-/**
- * @author Martin Styk
- * @version 30.06.2017.
- */
 @WorkerThread
 class PermissionsService {
 
@@ -34,19 +29,13 @@ class PermissionsService {
     fun getUsedPermissions(packageInfo: PackageInfo, packageManager: PackageManager): List<UsedPermissionData> {
 
         val requestedPermissionNames = packageInfo.requestedPermissions ?: return emptyList()
-        val requestedPermissionFlags =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-                    packageInfo.requestedPermissionsFlags
-                else
-                    IntArray(0)
-
-
+        val requestedPermissionFlags = packageInfo.requestedPermissionsFlags
         val requestedPermissions: MutableList<UsedPermissionData> = ArrayList(requestedPermissionNames.size)
 
         requestedPermissionNames.indices.forEach { index ->
 
             val name = requestedPermissionNames[index]
-            val isGranted = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) && (requestedPermissionFlags[index] and PackageInfo.REQUESTED_PERMISSION_GRANTED != 0)
+            val isGranted = (requestedPermissionFlags[index] and PackageInfo.REQUESTED_PERMISSION_GRANTED != 0)
 
             val permissionData =
                     try {

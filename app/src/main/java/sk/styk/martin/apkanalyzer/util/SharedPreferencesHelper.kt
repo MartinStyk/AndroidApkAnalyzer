@@ -1,12 +1,7 @@
 package sk.styk.martin.apkanalyzer.util
 
 import android.content.Context
-import android.preference.PreferenceManager
-
-/**
- * @author Martin Styk
- * @version 06.11.2017.
- */
+import androidx.preference.PreferenceManager
 
 class SharedPreferencesHelper(context: Context) {
 

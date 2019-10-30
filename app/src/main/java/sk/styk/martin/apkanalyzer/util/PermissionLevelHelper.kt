@@ -4,10 +4,6 @@ import android.content.pm.PermissionInfo
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
 import sk.styk.martin.apkanalyzer.R
 
-/**
- * @author Martin Styk
- * @version 02.08.2017.
- */
 object PermissionLevelHelper {
 
     @JvmStatic

@@ -6,10 +6,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import sk.styk.martin.apkanalyzer.R
 
-/**
- * @author Martin Styk
- * @version 23.06.2017.
- */
 class SimpleTextDialog : DialogFragment() {
 
 

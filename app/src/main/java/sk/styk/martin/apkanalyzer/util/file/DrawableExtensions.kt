@@ -5,9 +5,6 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 fun Drawable.toBitmap(): Bitmap? {
     val bitmap: Bitmap?
 

@@ -5,10 +5,6 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
 import sk.styk.martin.apkanalyzer.R
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
-
 const val DARK_THEME = "dark"
 const val LIGHT_THEME = "light"
 const val DEFAULT_THEME = LIGHT_THEME

@@ -10,10 +10,6 @@ import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData
 import java.util.*
 
-/**
- * @author Martin Styk
- * @version 30.06.2017.
- */
 @WorkerThread
 class AppComponentsService {
 

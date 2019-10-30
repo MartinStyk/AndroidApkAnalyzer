@@ -11,10 +11,6 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBinding
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 
-/**
- * @author Martin Styk
- * @version 15.01.2017
- */
 class PermissionsGeneralDetailsFragment : Fragment(), PermissionsGeneralDetailsContract.View {
 
     private lateinit var presenter: PermissionsGeneralDetailsContract.Presenter

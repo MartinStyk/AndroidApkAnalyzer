@@ -6,10 +6,6 @@ import kotlinx.android.parcel.Parcelize
 
 /**
  * Class holding basic application metadata used in application detail view
- *
- *
- * @author Martin Styk
- * @version 22.06.2017.
  */
 
 @SuppressLint("ParcelCreator")

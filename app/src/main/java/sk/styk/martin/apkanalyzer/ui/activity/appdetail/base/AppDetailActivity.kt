@@ -14,15 +14,12 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerCont
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 import sk.styk.martin.apkanalyzer.util.AdUtils
 import sk.styk.martin.apkanalyzer.util.BackPressedListener
-import sk.styk.martin.apkanalyzer.util.DisplayHelper
 
 /**
  * An activity representing a single Item detail screen. This
  * activity is only used narrow width devices. On tablet-size devices,
  * item details are presented side-by-side with a list of items
  * in a [AppListFragment].
- *
- * @author Martin Styk
  */
 class AppDetailActivity : AppCompatActivity(), AppDetailActivityContract.View {
 

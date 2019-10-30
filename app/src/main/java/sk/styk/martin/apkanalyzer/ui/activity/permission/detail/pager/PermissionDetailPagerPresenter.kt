@@ -6,11 +6,6 @@ import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 
-
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class PermissionDetailPagerPresenter : PermissionDetailPagerContract.Presenter {
 
     override lateinit var view: PermissionDetailPagerContract.View

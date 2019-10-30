@@ -10,10 +10,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.StartPromoHelper
 
-/**
- * @author Martin Styk
- * @version 13.12.2017.
- */
 class IntroActivity : AppIntro() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

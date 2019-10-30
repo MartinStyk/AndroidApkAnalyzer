@@ -5,10 +5,6 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailResourceBinding
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData
 
-/**
- * @author Martin Styk
- * @version 03.07.2017.
- */
 class ResourceDetailFragment : ItemizedAppDetailPageContract.View<ResourceData, FragmentAppDetailResourceBinding>() {
 
     override val itemizedDataType =  ItemizedDataType.RESOURCE_DATA

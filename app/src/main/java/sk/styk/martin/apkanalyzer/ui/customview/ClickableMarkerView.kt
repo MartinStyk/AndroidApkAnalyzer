@@ -7,16 +7,10 @@ import android.view.MotionEvent
 import com.github.mikephil.charting.components.MarkerView
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.utils.MPPointF
 import kotlinx.android.synthetic.main.view_chart_marker.view.*
 import sk.styk.martin.apkanalyzer.R
-import com.github.mikephil.charting.utils.MPPointF
 
-
-
-
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 @SuppressLint("ViewConstructor")
 class ClickableMarkerView(context: Context, private val callback: OnMarkerClickListener) : MarkerView(context, R.layout.view_chart_marker) {
 

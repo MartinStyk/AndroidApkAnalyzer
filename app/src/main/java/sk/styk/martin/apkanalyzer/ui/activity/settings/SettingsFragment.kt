@@ -9,9 +9,6 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
 
-/**
- * @author Martin Styk
- */
 class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
@@ -20,12 +17,12 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
 
     override fun onStart() {
         super.onStart()
-        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         FirebaseAnalytics.getInstance(requireContext()).setCurrentScreen(requireActivity(), SettingsFragment::class.java.simpleName, SettingsFragment::class.java.simpleName)
     }
 
     override fun onStop() {
-        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this);
+        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
         super.onStop()
     }
 
@@ -34,9 +31,9 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
             ColorThemeHelper.setTheme(requireContext())
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Hide action bar item for searching
-        menu?.clear()
+        menu.clear()
         super.onCreateOptionsMenu(menu, inflater)
     }
 }

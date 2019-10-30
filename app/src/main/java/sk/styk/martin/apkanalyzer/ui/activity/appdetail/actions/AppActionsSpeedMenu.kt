@@ -8,9 +8,6 @@ import sk.styk.martin.apkanalyzer.ui.customview.SpeedDialMenuAdapter
 import sk.styk.martin.apkanalyzer.ui.customview.SpeedDialMenuItem
 import java.lang.ref.WeakReference
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 abstract class AppActionsSpeedMenu(actionPresenter: AppActionsContract.Presenter) : SpeedDialMenuAdapter() {
 
     private val presenterRef: WeakReference<AppActionsContract.Presenter> = WeakReference(actionPresenter)

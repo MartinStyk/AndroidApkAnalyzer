@@ -5,10 +5,6 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailCertificateBinding
 import sk.styk.martin.apkanalyzer.model.detail.CertificateData
 
-/**
- * @author Martin Styk
- * @version 22.06.2017.
- */
 class CertificateDetailFragment : ItemizedAppDetailPageContract.View<CertificateData, FragmentAppDetailCertificateBinding>() {
 
     override val itemizedDataType = ItemizedDataType.CERTIFICATE_DATA

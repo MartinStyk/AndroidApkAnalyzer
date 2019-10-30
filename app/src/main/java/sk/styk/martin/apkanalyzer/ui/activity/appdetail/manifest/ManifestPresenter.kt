@@ -16,11 +16,6 @@ import sk.styk.martin.apkanalyzer.business.analysis.task.StringToFileSaveService
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import kotlin.properties.Delegates
 
-
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class ManifestPresenter(
         private val loader: ApkAnalyzerAbstractAsyncLoader<String>,
         private val loaderManager: LoaderManager
@@ -28,7 +23,7 @@ class ManifestPresenter(
 
     override lateinit var view: ManifestContract.View
     private lateinit var packageName: String
-    private var versionCode: Int by Delegates.notNull<Int>()
+    private var versionCode: Int by Delegates.notNull()
     private var versionName: String? = null
 
     private var manifest: String = ""

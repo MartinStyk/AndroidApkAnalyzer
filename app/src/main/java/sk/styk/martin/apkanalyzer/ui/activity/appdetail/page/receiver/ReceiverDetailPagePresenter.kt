@@ -3,10 +3,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.receiver
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
 import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class ReceiverDetailPagePresenter : ReceiverDetailPageContract.Presenter {
 
     override lateinit var view: ReceiverDetailPageContract.View

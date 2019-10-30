@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.business.analysis.task
 
 import android.app.NotificationManager
-import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -15,12 +14,6 @@ import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import java.io.File
 import java.io.IOException
 
-/**
- * Async save of string to file
- *
- * @author Martin Styk
- * @version 15.09.2017.
- */
 class StringToFileSaveService : ApkAnalyzerForegroundService() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
@@ -58,7 +51,7 @@ class StringToFileSaveService : ApkAnalyzerForegroundService() {
             }
         }.start()
 
-        return Service.START_NOT_STICKY
+        return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent): IBinder? {

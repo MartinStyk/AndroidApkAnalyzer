@@ -2,15 +2,12 @@ package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 
 import android.graphics.RectF
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.loader.app.LoaderManager
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarEntry
@@ -28,9 +25,6 @@ import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListDialog
 import sk.styk.martin.apkanalyzer.ui.customview.ClickableMarkerView
 import java.util.*
 
-/**
- * @author Martin Styk
- */
 class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View, ClickableMarkerView.OnMarkerClickListener {
 
     private lateinit var binding: FragmentLocalStatisticsBinding
@@ -40,7 +34,7 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View, Clicka
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        presenter = LocalStatisticsPresenter(LocalStatisticsLoader(requireContext()), loaderManager)
+        presenter = LocalStatisticsPresenter(LocalStatisticsLoader(requireContext()), LoaderManager.getInstance(this))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -56,10 +50,9 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View, Clicka
         presenter.initialize()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Hide action bar item for searching
-        menu?.clear()
-
+        menu.clear()
         super.onCreateOptionsMenu(menu, inflater)
     }
 

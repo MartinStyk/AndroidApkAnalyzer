@@ -13,12 +13,6 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.stream.StreamResult
 import javax.xml.transform.stream.StreamSource
 
-/**
- * Tooling for reading data directly from AndroidManifest.xml packaged within application
- *
- * @author Martin Styk
- * @version 22.06.2017.
- */
 @WorkerThread
 class AndroidManifestService(private val packageManager: PackageManager, private val packageName: String, private val packagePath: String) {
 

@@ -7,12 +7,6 @@ import android.widget.RelativeLayout
 import kotlinx.android.synthetic.main.view_loading_bar.view.*
 import sk.styk.martin.apkanalyzer.R
 
-/**
- * Loading bar with progress updates
- *
- * @author Martin Styk
- * @version 06.07.2017.
- */
 class LoadingBarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
 
     init {

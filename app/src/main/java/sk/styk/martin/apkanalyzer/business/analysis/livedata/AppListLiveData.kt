@@ -10,9 +10,6 @@ import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataService
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 class AppListLiveData(context: Context) : MutableLiveData<List<AppListData>?>() {
     private val appListDataService = AppBasicDataService(context.packageManager)
     private var packageIntentReceiver =PackageIntentReceiver(context)

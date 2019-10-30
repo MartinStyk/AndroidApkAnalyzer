@@ -2,12 +2,9 @@ package sk.styk.martin.apkanalyzer.ui.activity.permission.list
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.loader.app.LoaderManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_local_permissions.*
@@ -17,10 +14,6 @@ import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailActivity
 import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment
 
-/**
- * @author Martin Styk
- * @version 15.01.2017
- */
 class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
 
     private lateinit var presenter: LocalPermissionsContract.Presenter
@@ -28,7 +21,7 @@ class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
-        presenter = LocalPermissionsPresenter(LocalPermissionsLoader(requireContext()), loaderManager)
+        presenter = LocalPermissionsPresenter(LocalPermissionsLoader(requireContext()), LoaderManager.getInstance(this))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -53,9 +46,9 @@ class LocalPermissionsFragment : Fragment(), LocalPermissionsContract.View {
         recycler_view_permissions.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         // Hide action bar item for searching
-        menu?.clear()
+        menu.clear()
         super.onCreateOptionsMenu(menu, inflater)
     }
 

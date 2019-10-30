@@ -5,20 +5,13 @@ import android.os.Parcelable
 
 import java.math.BigDecimal
 
-/**
- * Pair of number and its percentage part of total count
- * Used in statistics task
- *
- * @author Martin Styk
- * @version 21.01.2016.
- */
 class PercentagePair : Parcelable {
     var count: Number
     var percentage: BigDecimal
 
     constructor(count: Number, total: Int) {
         this.count = count
-        this.percentage = PercentagePair.Companion.getPercentage(count.toDouble(), total.toDouble())
+        this.percentage = getPercentage(count.toDouble(), total.toDouble())
     }
 
     override fun toString(): String {
@@ -59,6 +52,7 @@ class PercentagePair : Parcelable {
 
     companion object {
 
+        @JvmField
         val CREATOR: Parcelable.Creator<PercentagePair> = object : Parcelable.Creator<PercentagePair> {
             override fun createFromParcel(source: Parcel): PercentagePair {
                 return PercentagePair(source)

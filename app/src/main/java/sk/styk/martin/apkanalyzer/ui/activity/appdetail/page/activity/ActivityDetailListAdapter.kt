@@ -7,10 +7,6 @@ import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailBinding
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter
 
-/**
- * @author Martin Styk
- * @version 07.07.2017.
- */
 class ActivityDetailListAdapter(override val presenter: ActivityDetailPageContract.Presenter) : GenericListAdapter<ActivityDetailListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

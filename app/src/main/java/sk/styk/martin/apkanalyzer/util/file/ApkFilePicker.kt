@@ -3,15 +3,6 @@ package sk.styk.martin.apkanalyzer.util.file
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.AsyncTask
-import com.google.android.gms.tasks.Task
-import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
-import java.io.File
-
-/**
- * @author Martin Styk
- * @version 09.10.2017.
- */
 
 object ApkFilePicker {
 

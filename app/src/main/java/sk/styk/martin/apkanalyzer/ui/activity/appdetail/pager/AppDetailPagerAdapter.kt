@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import sk.styk.martin.apkanalyzer.R
@@ -18,33 +17,27 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.DefinedPermi
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string.UsedPermissionListDetailPageFragment
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 
-/**
- * @author Martin Styk
- * @version 18.06.2017.
- */
 class AppDetailPagerAdapter(
         private val context: Context,
         fm: FragmentManager,
-        private val presenter: AppDetailPagerContract.Presenter) : FragmentStatePagerAdapter(fm) {
+        private val presenter: AppDetailPagerContract.Presenter) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(position: Int): Fragment? {
-        val fragment: Fragment = when (position) {
-            0 -> GeneralDetailFragment()
-            1 -> CertificateDetailFragment()
-            2 -> UsedPermissionListDetailPageFragment()
-            3 -> ActivityDetailPageFragment()
-            4 -> ServiceDetailPageFragment()
-            5 -> ProviderDetailPageFragment()
-            6 -> ReceiverDetailPageFragment()
-            7 -> FeatureDetailPageFragment()
-            8 -> DefinedPermissionListDetailPageFragment()
-            9 -> ResourceDetailFragment()
-            else -> throw IllegalArgumentException()
-        }
-        fragment.arguments = Bundle().apply {
+    override fun getItem(position: Int) = when (position) {
+        0 -> GeneralDetailFragment()
+        1 -> CertificateDetailFragment()
+        2 -> UsedPermissionListDetailPageFragment()
+        3 -> ActivityDetailPageFragment()
+        4 -> ServiceDetailPageFragment()
+        5 -> ProviderDetailPageFragment()
+        6 -> ReceiverDetailPageFragment()
+        7 -> FeatureDetailPageFragment()
+        8 -> DefinedPermissionListDetailPageFragment()
+        9 -> ResourceDetailFragment()
+        else -> throw IllegalArgumentException()
+    }.apply {
+        arguments = Bundle().apply {
             putString(ARG_PACKAGE_NAME, presenter.packageName)
         }
-        return fragment
     }
 
     override fun getCount() = 10

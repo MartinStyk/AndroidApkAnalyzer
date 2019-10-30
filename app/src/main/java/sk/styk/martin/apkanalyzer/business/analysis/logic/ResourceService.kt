@@ -5,10 +5,6 @@ import sk.styk.martin.apkanalyzer.model.detail.FileData
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData
 import java.util.*
 
-/**
- * @author Martin Styk
- * @version 22.06.2017.
- */
 @WorkerThread
 class ResourceService {
 

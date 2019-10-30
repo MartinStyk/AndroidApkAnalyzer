@@ -12,10 +12,6 @@ import java.util.jar.JarFile
 import java.util.jar.Manifest
 import kotlin.collections.Map.Entry
 
-/**
- * @author Martin Styk
- * @version 30.06.2017.
- */
 @WorkerThread
 class FileDataService {
 

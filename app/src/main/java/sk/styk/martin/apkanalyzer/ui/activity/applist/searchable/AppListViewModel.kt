@@ -9,9 +9,6 @@ import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 class AppListViewModel(application: Application) : AndroidViewModel(application), AppListAdapter.AppListClickListener {
 
     val appListData by lazy {

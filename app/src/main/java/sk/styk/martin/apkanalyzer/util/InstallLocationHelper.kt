@@ -4,10 +4,6 @@ import android.content.pm.PackageInfo
 import sk.styk.martin.apkanalyzer.ApkAnalyzer
 import sk.styk.martin.apkanalyzer.R
 
-/**
- * @author Martin Styk
- * @version 02.08.2017.
- */
 object InstallLocationHelper {
 
     private const val INSTALL_LOCATION_AUTO = "Auto"

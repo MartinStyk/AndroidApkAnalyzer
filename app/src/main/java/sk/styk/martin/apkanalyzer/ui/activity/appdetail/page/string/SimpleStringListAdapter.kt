@@ -1,15 +1,11 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.string
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemSimpleStringBinding
 import sk.styk.martin.apkanalyzer.ui.base.GenericListAdapter
 
-/**
- * @author Martin Styk
- * @version 07.07.2017.
- */
 class SimpleStringListAdapter(override val presenter: StringListDetailPageContract.Presenter) : GenericListAdapter<SimpleStringListAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

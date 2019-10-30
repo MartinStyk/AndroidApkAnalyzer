@@ -7,12 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -25,12 +20,6 @@ import sk.styk.martin.apkanalyzer.databinding.FragmentAppListBinding
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppListDetailFragment
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
-
-/**
- * List of all applications
- *
- * @author Martin Styk
- */
 
 class AppListFragment : Fragment() {
 
@@ -82,8 +71,8 @@ class AppListFragment : Fragment() {
         })
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
-        val searchMenuItem = menu?.findItem(R.id.action_search)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        val searchMenuItem = menu.findItem(R.id.action_search)
         val searchView = searchMenuItem?.actionView as? SearchView
         searchView?.apply {
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -107,7 +96,7 @@ class AppListFragment : Fragment() {
             }
         }
 
-        menu?.findItem(
+        menu.findItem(
                 when (viewModel.filterComponent.source) {
                     AppSource.GOOGLE_PLAY -> R.id.menu_show_google_play_apps
                     AppSource.AMAZON_STORE -> R.id.menu_show_amazon_store_apps
@@ -119,8 +108,8 @@ class AppListFragment : Fragment() {
 
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             R.id.action_analyze_not_installed -> startFilePicker()
             R.id.menu_show_all_apps -> {
                 item.isChecked = true

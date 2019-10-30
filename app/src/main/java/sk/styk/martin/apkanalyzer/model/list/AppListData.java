@@ -8,17 +8,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import sk.styk.martin.apkanalyzer.business.analysis.logic.GeneralDataService;
-import sk.styk.martin.apkanalyzer.model.detail.AppDetailData;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 
-/**
- * Class holding basic application metadata used in list view of all apps
- * For more detailed application metadata see {@link AppDetailData}
- * <p>
- *
- * @author Martin Styk
- * @version 15.06.2017.
- */
 public class AppListData implements Parcelable {
 
     private String packageName;

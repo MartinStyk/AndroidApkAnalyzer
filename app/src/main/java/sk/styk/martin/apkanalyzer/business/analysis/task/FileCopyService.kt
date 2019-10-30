@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.business.analysis.task
 
 import android.app.NotificationManager
 import android.app.PendingIntent
-import android.app.Service
 import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
@@ -19,12 +18,6 @@ import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import java.io.File
 import java.io.IOException
 
-/**
- * Async file copy as a foreground service
- *
- * @author Martin Styk
- * @version 21.02.2019.
- */
 class FileCopyService : ApkAnalyzerForegroundService() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
@@ -54,7 +47,7 @@ class FileCopyService : ApkAnalyzerForegroundService() {
                 val directory = target.parentFile
 
                 try {
-                    if (!directory.exists()) {
+                    if (directory?.exists() == false) {
                         directory.mkdirs()
                     }
 
@@ -80,7 +73,7 @@ class FileCopyService : ApkAnalyzerForegroundService() {
             }
         }.start()
 
-        return Service.START_NOT_STICKY
+        return START_NOT_STICKY
     }
 
     override fun onBind(intent: Intent): IBinder? {

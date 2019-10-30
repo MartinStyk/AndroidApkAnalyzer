@@ -4,10 +4,6 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-/**
- * @author Martin Styk
- * @version 22.06.2017.
- */
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class BroadcastReceiverData(

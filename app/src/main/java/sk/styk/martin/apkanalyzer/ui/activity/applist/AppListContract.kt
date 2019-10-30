@@ -5,10 +5,6 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.ui.base.BasePresenter
 import sk.styk.martin.apkanalyzer.ui.base.ListPresenter
 
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 interface AppListContract {
     interface View {
         fun setUpViews()

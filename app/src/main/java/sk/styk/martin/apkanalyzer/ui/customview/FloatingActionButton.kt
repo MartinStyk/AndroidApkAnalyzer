@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.Animation
 import android.view.animation.OvershootInterpolator
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -30,9 +29,6 @@ import kotlinx.android.synthetic.main.list_item_fab_menu.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.DP
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 class FloatingActionButton : RelativeLayout {
 
     private val SPEED_DIAL_ANIMATION_DURATION = 300L
@@ -174,54 +170,39 @@ class FloatingActionButton : RelativeLayout {
     }
 
     private fun setViewLayoutParams(view: View) {
-        val layoutParams = view.layoutParams as RelativeLayout.LayoutParams
+        val layoutParams = view.layoutParams as LayoutParams
         clearParentAlignmentRules(layoutParams)
 
         if (buttonPosition.and(POSITION_TOP) > 0) {
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP)
+            layoutParams.addRule(ALIGN_PARENT_TOP)
         }
         if (buttonPosition.and(POSITION_BOTTOM) > 0) {
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
+            layoutParams.addRule(ALIGN_PARENT_BOTTOM)
         }
         if (buttonPosition.and(POSITION_START) > 0) {
-            if (Build.VERSION.SDK_INT >= 17) {
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_START)
-            } else {
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
-            }
+            layoutParams.addRule(ALIGN_PARENT_START)
         }
         if (buttonPosition.and(POSITION_END) > 0) {
-            if (Build.VERSION.SDK_INT >= 17) {
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END)
-            } else {
-                layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-            }
+            layoutParams.addRule(ALIGN_PARENT_END)
         }
         if (buttonPosition.and(POSITION_LEFT) > 0) {
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT)
+            layoutParams.addRule(ALIGN_PARENT_LEFT)
         }
         if (buttonPosition.and(POSITION_RIGHT) > 0) {
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT)
+            layoutParams.addRule(ALIGN_PARENT_RIGHT)
         }
 
         view.layoutParams = layoutParams
     }
 
-    private fun clearParentAlignmentRules(params: RelativeLayout.LayoutParams) {
+    private fun clearParentAlignmentRules(params: LayoutParams) {
         params.apply {
-            if (Build.VERSION.SDK_INT >= 17) {
-                removeRule(RelativeLayout.ALIGN_PARENT_TOP)
-                removeRule(RelativeLayout.ALIGN_PARENT_BOTTOM)
-                removeRule(RelativeLayout.ALIGN_PARENT_LEFT)
-                removeRule(RelativeLayout.ALIGN_PARENT_RIGHT)
-                removeRule(RelativeLayout.ALIGN_PARENT_START)
-                removeRule(RelativeLayout.ALIGN_PARENT_END)
-            } else {
-                addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
-                addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 0)
-                addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0)
-                addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0)
-            }
+            removeRule(ALIGN_PARENT_TOP)
+            removeRule(ALIGN_PARENT_BOTTOM)
+            removeRule(ALIGN_PARENT_LEFT)
+            removeRule(ALIGN_PARENT_RIGHT)
+            removeRule(ALIGN_PARENT_START)
+            removeRule(ALIGN_PARENT_END)
         }
     }
 
@@ -513,8 +494,6 @@ class FloatingActionButton : RelativeLayout {
             } else {
                 0f
             }
-            val animation: Animation
-
             v.animate()
                     .translationY(translation)
                     .alpha(if (isSpeedDialMenuOpen) 1f else 0f)

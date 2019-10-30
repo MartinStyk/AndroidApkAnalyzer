@@ -6,10 +6,6 @@ import kotlinx.android.parcel.Parcelize
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.util.PercentagePair
 
-/**
- * @author Martin Styk
- * @version 28.07.2017.
- */
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class LocalStatisticsData(

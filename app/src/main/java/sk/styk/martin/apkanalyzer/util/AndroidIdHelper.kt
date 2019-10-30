@@ -5,12 +5,6 @@ import android.content.Context
 import android.provider.Settings
 import java.util.*
 
-/**
- * Unique Android device identification helper.
- *
- * @author Martin Styk
- * @version 06.11.2017.
- */
 object AndroidIdHelper {
 
     const val ANDROID_ID = "android_id"

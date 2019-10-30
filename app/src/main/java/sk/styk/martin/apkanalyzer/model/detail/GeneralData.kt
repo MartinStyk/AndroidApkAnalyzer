@@ -6,10 +6,6 @@ import android.os.Parcelable
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
 
-/**
- * @author Martin Styk
- * @version 01.07.2017.
- */
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class GeneralData(
@@ -17,7 +13,7 @@ data class GeneralData(
         val applicationName: String,
         val processName: String? = null,
         val versionName: String? = null,
-        val versionCode: Int = 0,
+        val versionCode: Long = 0,
         val isSystemApp: Boolean = false,
         val uid: Int? = null,
         val description: String? = null,
@@ -47,7 +43,7 @@ data class GeneralData(
                 applicationName: String,
                 processName: String?,
                 versionName: String?,
-                versionCode: Int,
+                versionCode: Long,
                 isSystemApp: Boolean,
                 uid: Int,
                 description: String?,

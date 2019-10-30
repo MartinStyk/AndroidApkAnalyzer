@@ -1,10 +1,5 @@
 package sk.styk.martin.apkanalyzer.model.detail
 
-/**
- * @author Martin Styk
- * @version 09.10.2017.
- */
-
 enum class AppSource(val sourceName: String, val installerPackageName: String? = null) {
 
     GOOGLE_PLAY("Google Play", "com.android.vending"),
@@ -17,9 +12,7 @@ enum class AppSource(val sourceName: String, val installerPackageName: String? =
     }
 
     companion object {
-        fun valueOf(value: String): AppSource {
-            return AppSource.values().filter { it.sourceName.equals(value) }.first()
-        }
+        fun valueOf(value: String): AppSource = values().firstOrNull { it.sourceName == value } ?: UNKNOWN
     }
 
 }

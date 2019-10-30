@@ -7,13 +7,6 @@ import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.util.AppBasicInfoComparator
 import java.util.*
 
-/**
- * Retrieve apps installed on device
- *
- *
- * @author Martin Styk
- * @version 14.06.2017.
- */
 @WorkerThread
 class AppBasicDataService(val packageManager: PackageManager) {
 

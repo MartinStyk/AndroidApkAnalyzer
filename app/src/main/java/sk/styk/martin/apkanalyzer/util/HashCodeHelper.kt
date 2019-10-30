@@ -1,9 +1,5 @@
 package sk.styk.martin.apkanalyzer.util
 
-/**
- * @author Martin Styk
- * @version 13.11.2017.
- */
 object HashCodeHelper {
 
     /**

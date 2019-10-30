@@ -6,23 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.loader.app.LoaderManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import kotlinx.android.synthetic.main.fragment_permission_app_list.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.task.AppListFromPackageNamesLoader
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity
 
-/**
- * @author Martin Styk
- * @version 15.01.2017
- */
 class AppListFragment : Fragment(), AppListContract.View {
 
     private lateinit var presenter: AppListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = AppListPresenter(AppListFromPackageNamesLoader(requireContext(), arguments!!.getStringArrayList(AppListContract.PACKAGES_ARGUMENT)), loaderManager)
+        presenter = AppListPresenter(AppListFromPackageNamesLoader(requireContext(), arguments!!.getStringArrayList(AppListContract.PACKAGES_ARGUMENT) ?: emptyList()), LoaderManager.getInstance(this))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -4,10 +4,6 @@ import android.os.Bundle
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.util.AppDetailDataExchange
 
-/**
- * @author Martin Styk
- * @version 28.01.2018.
- */
 class AppActionsPresenter : AppActionsContract.Presenter {
 
     override lateinit var view: AppActionsContract.View

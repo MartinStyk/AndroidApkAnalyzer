@@ -13,12 +13,6 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
 import sk.styk.martin.apkanalyzer.util.file.ClipBoardHelper
 
-/**
- * View used inside cardview - representing key value pair placed in cardview creating list of pairs
- *
- * @author Martin Styk
- * @version 06.07.2017.
- */
 class DetailListItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
     : LinearLayout(context, attrs, R.attr.detailListItemViewStyle), View.OnClickListener, View.OnLongClickListener {
 
@@ -45,7 +39,7 @@ class DetailListItemView @JvmOverloads constructor(context: Context, attrs: Attr
         descriptionText = attributes.getString(R.styleable.DetailItemView_descriptionText) ?: ""
         attributes.recycle()
 
-        orientation = LinearLayout.HORIZONTAL
+        orientation = HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
         setOnClickListener(this)
         setOnLongClickListener(this)

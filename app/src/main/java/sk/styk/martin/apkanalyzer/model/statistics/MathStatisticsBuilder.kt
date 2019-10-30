@@ -3,13 +3,6 @@ package sk.styk.martin.apkanalyzer.model.statistics
 import java.math.BigDecimal
 import java.util.*
 
-/**
- * Math Statistics collected about attributes of Apk file
- *
- *
- * @author Martin Styk
- * @version 28.07.2017.
- */
 class MathStatisticsBuilder(private val data: FloatArray) {
 
     fun build(): MathStatistics {

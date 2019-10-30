@@ -4,10 +4,6 @@ import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
 import java.util.*
 
-/**
- * @author Martin Styk
- * @version 13.01.2018.
- */
 class LocalPermissionDataBuilder {
 
     private val data = HashMap<PermissionData, MutableList<PermissionStatus>>()

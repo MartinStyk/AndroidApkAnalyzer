@@ -4,9 +4,6 @@ import android.app.Activity
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 class PromoDialog {
 
     interface PromoDialogController {

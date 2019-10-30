@@ -11,10 +11,6 @@ import java.util.regex.Pattern
 import javax.security.auth.x500.X500Principal
 import javax.security.auth.x500.X500Principal.RFC1779
 
-/**
- * @author Martin Styk
- * @version 22.06.2017.
- */
 @WorkerThread
 class CertificateService {
 
@@ -71,7 +67,7 @@ class CertificateService {
 
     private fun X500Principal.getPrincipalCountry(): String? {
         val name: String? = getName(RFC1779)
-        return if (name.isNullOrBlank()) null else parsePrincipal(name!!, "C=([^,]*)")
+        return if (name.isNullOrBlank()) null else parsePrincipal(name, "C=([^,]*)")
     }
 
     private fun parsePrincipal(principalName: String, patternString: String): String? {

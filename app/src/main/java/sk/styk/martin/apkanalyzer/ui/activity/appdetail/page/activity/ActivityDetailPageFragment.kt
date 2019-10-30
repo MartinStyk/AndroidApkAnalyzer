@@ -10,10 +10,6 @@ import sk.styk.martin.apkanalyzer.R.layout.fragment_app_detail_activity
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 
-/**
- * @author Martin Styk
- * @version 30.06.2017.
- */
 class ActivityDetailPageFragment : Fragment(), ActivityDetailPageContract.View {
 
     private lateinit var presenter: ActivityDetailPageContract.Presenter

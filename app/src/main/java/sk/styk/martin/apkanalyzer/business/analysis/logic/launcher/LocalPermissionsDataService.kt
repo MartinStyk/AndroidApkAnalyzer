@@ -5,10 +5,6 @@ import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.business.analysis.logic.PermissionsService
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
 
-/**
- * @author Martin Styk
- * @version 13.01.2018
- */
 @WorkerThread
 class LocalPermissionsDataService(private val packageManager: PackageManager) {
 

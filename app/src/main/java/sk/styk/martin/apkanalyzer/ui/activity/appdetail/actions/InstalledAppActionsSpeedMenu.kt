@@ -1,8 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions
 
-/**
- * @author Martin Styk {@literal <martin.styk@gmail.com>}
- */
 class InstalledAppActionsSpeedMenu(actionPresenter: AppActionsContract.Presenter) : AppActionsSpeedMenu(actionPresenter) {
 
     companion object{

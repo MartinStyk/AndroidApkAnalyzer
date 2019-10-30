@@ -14,10 +14,6 @@ import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import java.util.*
 import kotlin.math.roundToInt
 
-/**
- * @author Martin Styk
- * @version 22.01.2018
- */
 object ChartDataHelper {
 
     fun wrapperAround(statisticsData: LocalStatisticsData): LocalStatisticsDataWithCharts =
@@ -44,7 +40,7 @@ object ChartDataHelper {
 
             val applicationCount = map[sdk]?.size ?: 0
 
-            values.add(BarEntry(index++, applicationCount.toFloat(), map[sdk]));
+            values.add(BarEntry(index++, applicationCount.toFloat(), map[sdk]))
             axisValues.add(sdk.toString())
         }
 
@@ -68,7 +64,7 @@ object ChartDataHelper {
         var index = 1f
         for ((key, value) in map) {
 
-            values.add(BarEntry(index++, value.size.toFloat(), value));
+            values.add(BarEntry(index++, value.size.toFloat(), value))
             axisValues.add(key.toString())
         }
 
