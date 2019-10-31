@@ -15,13 +15,12 @@ class AppListRecyclerAdapter(override val presenter: AppListContract.Presenter) 
     }
 
     inner class ViewHolder(val binding: ListItemApplicationBinding) : RecyclerView.ViewHolder(binding.root), AppListContract.ItemView {
-        init {
-            binding.root.setOnClickListener { _ -> presenter.onAppClick(adapterPosition) }
-        }
-
         override fun bind(appData: AppListData) {
-            binding.data = appData
-            binding.executePendingBindings()
+            binding.apply {
+                root.setOnClickListener { presenter.onAppClick(appData) }
+                data = appData
+                executePendingBindings()
+            }
         }
     }
 }

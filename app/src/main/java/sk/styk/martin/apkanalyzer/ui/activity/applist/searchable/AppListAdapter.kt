@@ -5,13 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemApplicationBinding
 import sk.styk.martin.apkanalyzer.model.list.AppListData
+import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
-class AppListAdapter(private val onClickListener: AppListClickListener) :
-    RecyclerView.Adapter<AppListAdapter.ViewHolder>() {
+class AppListAdapter: RecyclerView.Adapter<AppListAdapter.ViewHolder>() {
 
-    interface AppListClickListener {
-        fun onAppClick(appListData: AppListData)
-    }
+    val appClicked = SingleLiveEvent<AppListData>()
 
     var data = emptyList<AppListData>()
         set(value) {
@@ -19,13 +17,13 @@ class AppListAdapter(private val onClickListener: AppListClickListener) :
             notifyDataSetChanged()
         }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val itemBinding = ListItemApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(itemBinding, onClickListener)
-    }
-
     init {
         this.setHasStableIds(true)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemBinding = ListItemApplicationBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(data[position])
@@ -35,12 +33,11 @@ class AppListAdapter(private val onClickListener: AppListClickListener) :
     override fun getItemId(position: Int): Long = position.toLong()
 
     inner class ViewHolder(
-        private val binding: ListItemApplicationBinding,
-        private val onClickListener: AppListClickListener
+        private val binding: ListItemApplicationBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(appData: AppListData) {
             binding.data = appData
-            binding.onClickListener = onClickListener
+            binding.root.setOnClickListener { appClicked.value = appData }
             binding.executePendingBindings()
         }
     }

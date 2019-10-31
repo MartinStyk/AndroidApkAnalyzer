@@ -7,9 +7,6 @@
             name="data"
             type="sk.styk.martin.apkanalyzer.model.list.AppListData" />
 
-        <variable name="onClickListener"
-            type="sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListAdapter.AppListClickListener"/>
-
     </data>
 
     <RelativeLayout
@@ -18,8 +15,7 @@
         android:focusable="false"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:background="?android:selectableItemBackground"
-        android:onClick="@{() -> onClickListener.onAppClick(data)}">
+        android:background="?android:selectableItemBackground">
 
         <ImageView
             android:id="@+id/package_img"

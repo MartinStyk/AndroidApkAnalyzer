@@ -9,7 +9,7 @@ import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
-class AppListViewModel(application: Application) : AndroidViewModel(application), AppListAdapter.AppListClickListener {
+class AppListViewModel(application: Application) : AndroidViewModel(application) {
 
     val appListData by lazy {
         MediatorLiveData<List<AppListData>?>().apply {
@@ -26,9 +26,9 @@ class AppListViewModel(application: Application) : AndroidViewModel(application)
 
     val isEmpty by lazy { MutableLiveData<Boolean>().apply { value = false } }
 
-    val adapter by lazy { AppListAdapter(this) }
+    val adapter by lazy { AppListAdapter() }
 
-    val appClicked = SingleLiveEvent<AppListData>()
+    val appClicked by lazy { adapter.appClicked }
 
     val isFilterActive by lazy { MutableLiveData<Boolean>().apply { value = false } }
 
@@ -40,10 +40,6 @@ class AppListViewModel(application: Application) : AndroidViewModel(application)
             isEmpty.value = data.isEmpty()
             adapter.data = data
         }
-    }
-
-    override fun onAppClick(appListData: AppListData) {
-        appClicked.value = appListData
     }
 
     fun filterOnAppName(appName: String?) {

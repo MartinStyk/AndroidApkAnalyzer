@@ -25,7 +25,7 @@ interface AppListContract {
     interface Presenter : BasePresenter<View>, ListPresenter<ItemView> {
         fun initialize(bundle: Bundle)
 
-        fun onAppClick(position: Int)
+        fun onAppClick(app: AppListData)
     }
 
     companion object {

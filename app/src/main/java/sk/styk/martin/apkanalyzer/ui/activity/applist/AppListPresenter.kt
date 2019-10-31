@@ -48,7 +48,7 @@ class AppListPresenter(
 
     override fun itemCount(): Int = appData.size
 
-    override fun onAppClick(position: Int) = view.openAppDetailActivity(packageName = appData[position].packageName)
+    override fun onAppClick(app: AppListData) = view.openAppDetailActivity(packageName = app.packageName)
 
     override fun onBindViewOnPosition(position: Int, holder: AppListContract.ItemView) {
         return holder.bind(appData[position])
