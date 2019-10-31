@@ -15,6 +15,11 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
         setPreferencesFromResource(R.xml.settings, rootKey)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onStart() {
         super.onStart()
         preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
