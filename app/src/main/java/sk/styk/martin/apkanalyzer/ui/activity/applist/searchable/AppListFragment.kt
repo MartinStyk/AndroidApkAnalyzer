@@ -11,8 +11,8 @@ import android.view.*
 import android.widget.SearchView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_app_list.*
 import sk.styk.martin.apkanalyzer.R
@@ -24,19 +24,18 @@ import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
 class AppListFragment : Fragment() {
 
     private lateinit var binding: FragmentAppListBinding
-    private lateinit var viewModel: AppListViewModel
+    private val viewModel: AppListViewModel by viewModels()
 
     private var snackbar: Snackbar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(AppListViewModel::class.java)
         setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAppListBinding.inflate(LayoutInflater.from(context), container, false)
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         return binding.root
     }
@@ -45,25 +44,21 @@ class AppListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         btn_analyze_not_installed.setOnClickListener { startFilePicker(true) }
 
-
         binding.viewModel = viewModel
 
-        viewModel.appListData.observe(this, Observer {
+        viewModel.appListData.observe(viewLifecycleOwner, Observer {
             viewModel.dataChanged(it)
         })
 
-        viewModel.appClicked.observe(this, Observer {
-            if (it != null) {
-                val parentFragment = parentFragment as AppListDetailFragment
-                parentFragment.itemClicked(it.packageName)
-            }
+        viewModel.appClicked.observe(viewLifecycleOwner, Observer {
+            val parentFragment = parentFragment as AppListDetailFragment
+            parentFragment.itemClicked(it.packageName)
         })
 
-        viewModel.isFilterActive.observe(this, Observer { isActive ->
-            if (isActive == true && (snackbar == null || snackbar?.isShown == false))
-                snackbar = Snackbar.make(app_list_container, R.string.app_filtering_active, Snackbar.LENGTH_INDEFINITE).apply {
-                    show()
-
+        viewModel.isFilterActive.observe(viewLifecycleOwner, Observer { isActive ->
+            if (isActive == true && (snackbar == null || snackbar?.isShown == false)) {
+                snackbar = Snackbar.make(app_list_container, R.string.app_filtering_active, Snackbar.LENGTH_INDEFINITE)
+                snackbar?.show()
             } else if (isActive == false) {
                 snackbar?.dismiss()
                 snackbar = null

@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidApkAnalyzer.iml" filepath="$PROJECT_DIR$/AndroidApkAnalyzer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ApkAnalyzer.iml" filepath="$PROJECT_DIR$/ApkAnalyzer.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ApkAnalyzer.iml" filepath="$PROJECT_DIR$/ApkAnalyzer.iml" group="ApkAnalyzer" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ApkAnalyzer/app" />
     </modules>
   </component>
 </project>
