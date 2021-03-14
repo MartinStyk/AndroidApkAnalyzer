@@ -1,54 +1,73 @@
 package sk.styk.martin.apkanalyzer.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
-import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import com.google.android.material.navigation.NavigationView
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
+import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.ui.activity.about.AboutFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppListDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListFragment
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
+import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
 import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.permission.list.LocalPermissionsFragment
 import sk.styk.martin.apkanalyzer.ui.activity.premium.PremiumFragment
 import sk.styk.martin.apkanalyzer.ui.activity.settings.SettingsFragment
-import sk.styk.martin.apkanalyzer.util.AdUtils
-import sk.styk.martin.apkanalyzer.util.AppFlavour
-import sk.styk.martin.apkanalyzer.util.BackPressedListener
-import sk.styk.martin.apkanalyzer.util.StartPromoHelper
+import sk.styk.martin.apkanalyzer.util.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, PromoDialog.PromoDialogController, FeatureDialog.FeatureDialogController {
+class MainActivity : AppCompatActivity() {
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var viewModel: MainActivityViewModel
+
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding.lifecycleOwner = this
+
+        viewModel = provideViewModel(viewModelFactory)
+
+        with(viewModel) {
+            closeDrawer.observe(this@MainActivity, { binding.drawerLayout.closeDrawer(GravityCompat.START) })
+            premiumMenuItemVisible.observe(this@MainActivity, { binding.navigationView.menu.findItem(R.id.nav_premium).isVisible = it })
+            placeInitialFragment.observe(this@MainActivity, { placeAppListFragment() })
+            openAppList.observe(this@MainActivity, { popToAppList() })
+            openStatistics.observe(this@MainActivity, { navigateTo(LocalStatisticsFragment(), FramentTag.LocalStatistics) })
+            openPermissions.observe(this@MainActivity, { navigateTo(LocalPermissionsFragment(), FramentTag.LocalPermissions) })
+            openAbout.observe(this@MainActivity, { navigateTo(AboutFragment(), FramentTag.About) })
+            openSettings.observe(this@MainActivity, { navigateTo(SettingsFragment(), FramentTag.Settings) })
+            openPremium.observe(this@MainActivity, { navigateTo(PremiumFragment(), FramentTag.Premium) })
+            openPromoDialog.observe(this@MainActivity, { PromoDialog().showPromoDialog(this@MainActivity) })
+            openFeatureDialog.observe(this@MainActivity, { FeatureDialog().showFeatureDialog(this@MainActivity) })
+            openOnboarding.observe(this@MainActivity, { this@MainActivity.startActivity(Intent(this@MainActivity, IntroActivity::class.java)) })
+        }
+
+        binding.viewModel = viewModel
 
         setSupportActionBar(toolbar)
 
         val toggle = ActionBarDrawerToggle(this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
-
-        navigation_view.setNavigationItemSelectedListener(this)
-
-        // only on first run redirect to default fragment
-        if (savedInstanceState == null) {
-            StartPromoHelper.execute(this)
-            navigation_view.setCheckedItem(R.id.nav_app_list)
-            NavigationFragmentWrapper.AppListDetail.navigateToFragment(supportFragmentManager)
-        }
-
-        navigation_view.menu.findItem(R.id.nav_premium).isVisible = AppFlavour.isPremium && BuildConfig.SHOW_PROMO
 
         AdUtils.displayAd(ad_view, ad_view_container)
     }
@@ -76,12 +95,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             val consumedInChildFragment = fragment is BackPressedListener && fragment.onBackPressed()
 
             if (!consumedInChildFragment) {
-                if (!NavigationFragmentWrapper.AppListDetail.isVisible(supportFragmentManager)) {
-                    super.onBackPressed()
-                    navigation_view.setCheckedItem(NavigationFragmentWrapper.currentlyDisplayedFragment(supportFragmentManager).navigationId)
-                } else {
-                    finish()
-                }
+                navigation_view.setCheckedItem(R.id.nav_app_list)
+                super.onBackPressed()
             }
         }
     }
@@ -91,49 +106,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
-        val fragment = NavigationFragmentWrapper.findFragment(navigationId = item.itemId)
-
-        if (!fragment.isVisible(supportFragmentManager)) {
-            fragment.navigateToFragment(supportFragmentManager)
+    private fun navigateTo(fragment: Fragment, tag: FramentTag) {
+        if (supportFragmentManager.findFragmentByTag(tag.toString())?.isVisible == true) {
+            return
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
-        return true
-    }
-
-    override fun onPromoDialogShowRequested() = PromoDialog().showPromoDialog(this)
-
-    override fun onFeatureDialogShowRequested() = FeatureDialog().showFeatureDialog(this)
-
-    sealed class NavigationFragmentWrapper(
-            @IdRes val navigationId: Int,
-            val tag: String,
-            private val factory: () -> Fragment
-    ) {
-        companion object {
-            fun findFragment(@IdRes navigationId: Int) =
-                    listOf(AppListDetail, LocalStatistics, LocalPermissions, About, Settings, Premium).first { it.navigationId == navigationId }
-
-            fun currentlyDisplayedFragment(fragmentManager: FragmentManager) =
-                    listOf(AppListDetail, LocalStatistics, LocalPermissions, About, Settings, Premium).first { fragmentManager.findFragmentByTag(it.tag)?.isVisible == true }
-
-        }
-
-        fun isVisible(fragmentManager: FragmentManager) = fragmentManager.findFragmentByTag(tag)?.isVisible == true
-
-        fun navigateToFragment(fragmentManager: FragmentManager) = fragmentManager.beginTransaction()
-                .replace(R.id.main_activity_placeholder, factory.invoke(), tag)
-                .addToBackStack(tag)
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.main_activity_placeholder, fragment, tag.toString())
+                .addToBackStack(tag.toString())
                 .commit()
-
-        object AppListDetail : NavigationFragmentWrapper(R.id.nav_app_list, "app_detail", { AppListDetailFragment() })
-        object LocalStatistics : NavigationFragmentWrapper(R.id.nav_local_stats, "local_stat", { LocalStatisticsFragment() })
-        object LocalPermissions : NavigationFragmentWrapper(R.id.nav_local_permissions, "local_permissions", { LocalPermissionsFragment() })
-        object About : NavigationFragmentWrapper(R.id.nav_about, "about", { AboutFragment() })
-        object Settings : NavigationFragmentWrapper(R.id.nav_settings, "settings", { SettingsFragment() })
-        object Premium : NavigationFragmentWrapper(R.id.nav_premium, "premium", { PremiumFragment() })
-
     }
+
+    private fun placeAppListFragment() {
+        navigation_view.setCheckedItem(R.id.nav_app_list)
+        supportFragmentManager.beginTransaction()
+                .replace(R.id.main_activity_placeholder, AppListFragment(), FramentTag.AppList.toString())
+                .commit()
+    }
+
+    private fun popToAppList() {
+        supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        navigation_view.setCheckedItem(R.id.nav_app_list)
+    }
+
 }

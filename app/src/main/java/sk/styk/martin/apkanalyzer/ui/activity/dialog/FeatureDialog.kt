@@ -12,10 +12,6 @@ class FeatureDialog {
         const val fromVersion: Int = 38
     }
 
-    interface FeatureDialogController {
-        fun onFeatureDialogShowRequested()
-    }
-
     fun showFeatureDialog(context: Activity) {
         FancyDialog(context).apply {
             title = R.string.color_theme_promo_title

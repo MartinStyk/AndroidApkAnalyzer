@@ -6,10 +6,6 @@ import sk.styk.martin.apkanalyzer.util.file.AppOperations
 
 class PromoDialog {
 
-    interface PromoDialogController {
-        fun onPromoDialogShowRequested()
-    }
-
     fun showPromoDialog(context: Activity) {
         FancyDialog(context).apply {
             title = R.string.upgrade_premium

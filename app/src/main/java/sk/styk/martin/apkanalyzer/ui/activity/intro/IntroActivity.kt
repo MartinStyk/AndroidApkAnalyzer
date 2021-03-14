@@ -7,12 +7,19 @@ import com.github.paolorotolo.appintro.AppIntro
 import com.github.paolorotolo.appintro.AppIntroFragment
 import com.github.paolorotolo.appintro.model.SliderPage
 import com.google.firebase.analytics.FirebaseAnalytics
+import dagger.android.AndroidInjection
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.util.StartPromoHelper
+import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
+import javax.inject.Inject
 
 class IntroActivity : AppIntro() {
 
+    // TODO VM
+    @Inject
+    lateinit var persistenceManager: PersistenceManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
         val analyzeAppsSlide = SliderPage()
@@ -62,8 +69,8 @@ class IntroActivity : AppIntro() {
         finishIntro()
     }
 
-    private fun finishIntro(){
-        StartPromoHelper.setFirstStartFinished(applicationContext)
+    private fun finishIntro() {
+        persistenceManager.isFirstStart = false
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle())
         finish()
     }

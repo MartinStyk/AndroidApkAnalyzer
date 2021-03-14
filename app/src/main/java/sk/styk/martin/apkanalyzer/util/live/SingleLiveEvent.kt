@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.util.live
 
 import android.util.Log
+import androidx.annotation.AnyThread
 import androidx.annotation.MainThread
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
@@ -9,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean
 
 open class SingleLiveEvent<T> : MutableLiveData<T>() {
 
-    private val mPending = AtomicBoolean(false)
+    private val pending = AtomicBoolean(false)
 
     @MainThread
     override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
@@ -20,7 +21,7 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
 
         // Observe the internal MutableLiveData
         super.observe(owner, Observer { t ->
-            if (mPending.compareAndSet(true, false)) {
+            if (pending.compareAndSet(true, false)) {
                 observer.onChanged(t)
             }
         })
@@ -28,16 +29,24 @@ open class SingleLiveEvent<T> : MutableLiveData<T>() {
 
     @MainThread
     override fun setValue(t: T?) {
-        mPending.set(true)
+        pending.set(true)
         super.setValue(t)
     }
 
-    /**
-     * Used for cases where T is Void, to make calls cleaner.
-     */
+    @AnyThread
+    override fun postValue(t: T?) {
+        pending.set(true)
+        super.postValue(t)
+    }
+
     @MainThread
     fun call() {
         value = null
+    }
+
+    @AnyThread
+    fun postCall() {
+        postValue(null)
     }
 
     companion object {

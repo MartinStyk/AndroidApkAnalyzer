@@ -3,11 +3,18 @@ package sk.styk.martin.apkanalyzer
 import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.google.android.gms.ads.MobileAds
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import sk.styk.martin.apkanalyzer.dependencyinjection.app.ApplicationComponent
 import sk.styk.martin.apkanalyzer.dependencyinjection.app.DaggerApplicationComponent
 import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
+import javax.inject.Inject
 
-class ApkAnalyzer : MultiDexApplication() {
+class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
 
     lateinit var appComponent: ApplicationComponent
         private set
@@ -26,6 +33,8 @@ class ApkAnalyzer : MultiDexApplication() {
             MobileAds.initialize(this, getString(R.string.ad_mod_app_id))
         }
     }
+
+    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
     // TODO remove
     companion object {
