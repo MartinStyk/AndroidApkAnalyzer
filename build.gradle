@@ -4,6 +4,8 @@ buildscript {
     ext {
         gradle_version = '4.0.1'
         kotlin_version = '1.4.21'
+        daggerVersion = '2.29.1'
+        assistedInjectVersion = '0.6.0'
     }
     repositories {
         jcenter()

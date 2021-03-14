@@ -3,11 +3,19 @@ package sk.styk.martin.apkanalyzer
 import android.content.Context
 import androidx.multidex.MultiDexApplication
 import com.google.android.gms.ads.MobileAds
+import sk.styk.martin.apkanalyzer.dependencyinjection.app.ApplicationComponent
+import sk.styk.martin.apkanalyzer.dependencyinjection.app.DaggerApplicationComponent
 import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
 
 class ApkAnalyzer : MultiDexApplication() {
 
+    lateinit var appComponent: ApplicationComponent
+        private set
+
     override fun onCreate() {
+        appComponent = DaggerApplicationComponent.builder().create(this) as ApplicationComponent
+        appComponent.inject(this)
+
         instance = this
 
         ColorThemeHelper.setTheme(this)
@@ -19,6 +27,7 @@ class ApkAnalyzer : MultiDexApplication() {
         }
     }
 
+    // TODO remove
     companion object {
 
         private lateinit var instance: ApkAnalyzer
