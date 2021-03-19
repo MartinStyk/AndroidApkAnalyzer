@@ -1,58 +1,54 @@
 package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
 
+import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.android.synthetic.main.fragment_permission_detail_pager.*
-import sk.styk.martin.apkanalyzer.R
+import dagger.android.support.AndroidSupportInjection
+import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailPagerBinding
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
+import sk.styk.martin.apkanalyzer.util.components.toDialog
+import sk.styk.martin.apkanalyzer.util.provideViewModel
+import javax.inject.Inject
 
-class PermissionDetailPagerFragment : Fragment(), PermissionDetailPagerContract.View {
+class PermissionDetailPagerFragment : Fragment() {
 
-    private lateinit var adapter: PermissionDetailPagerAdapter
-    private lateinit var presenter: PermissionDetailPagerContract.Presenter
+    @Inject
+    lateinit var viewModelFactory: PermissionDetailPagerViewModel.Factory
 
-    // we add description button to toolbar in this fragment
-    private lateinit var description: MenuItem
+    private lateinit var binding: FragmentPermissionDetailPagerBinding
+
+    private lateinit var viewModel: PermissionDetailPagerViewModel
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-        presenter = PermissionDetailPagerPresenter()
+        viewModel = provideViewModel { viewModelFactory.create(requireNotNull(requireArguments().getParcelable(ARG_PERMISSIONS_DATA))) }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_permission_detail_pager, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentPermissionDetailPagerBinding.inflate(inflater, container, false)
+        binding.pager.adapter = PermissionDetailPagerAdapter(childFragmentManager)
+        binding.tabs.setupWithViewPager(binding.pager)
+        binding.lifecycleOwner = viewLifecycleOwner
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        presenter.view = this
-        presenter.initialize(arguments!!)
+        binding.viewModel = viewModel
 
-    }
-
-    override fun setUpViews() {
-        adapter = PermissionDetailPagerAdapter(presenter, requireFragmentManager())
-        pager.adapter = adapter
-        tabs.setupWithViewPager(pager)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        description = menu.add(R.string.description)
-        description.setIcon(R.drawable.ic_info_white)
-        description.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (description.itemId == item.itemId)
-            SimpleTextDialog.newInstance(getString(R.string.description), presenter.loadPermissionDescription(requireContext().packageManager)).show(requireFragmentManager(), SimpleTextDialog::class.java.simpleName)
-
-        return super.onOptionsItemSelected(item)
+        with(viewModel) {
+            showDialog.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "PermissionDescription") })
+            close.observe(viewLifecycleOwner, { requireActivity().onBackPressed() })
+        }
     }
 
     companion object {

@@ -4,45 +4,49 @@ import android.app.Dialog
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.util.TextInfo
+import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 
 class SimpleTextDialog : DialogFragment() {
 
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val title = arguments?.getString(ARG_TITLE) ?: ""
-        val message = arguments?.getString(ARG_MESSAGE) ?: ""
+        val dialogData = requireNotNull(arguments?.getParcelable<DialogComponent>(ARG_DATA))
 
-        return AlertDialog.Builder(requireContext())
-                .setTitle(title)
-                .setMessage(message)
-                .setNegativeButton(R.string.dismiss) { _, _ -> dismiss() }
-                .create()
+        val context = requireContext()
+        val builder = AlertDialog.Builder(context)
+                .setTitle(dialogData.title.getText(context))
+                .setMessage(dialogData.message.getText(context))
+
+        if (dialogData.positiveButtonText != null) {
+            builder.setPositiveButton(dialogData.positiveButtonText.getText(context)) { _, _ -> dismiss() }
+        }
+
+        if (dialogData.negativeButtonText != null) {
+            builder.setNegativeButton(dialogData.negativeButtonText.getText(context)) { _, _ -> dismiss() }
+        }
+
+        return builder.create()
     }
 
     companion object {
 
-        private const val ARG_TITLE = "title"
-        private const val ARG_MESSAGE = "value"
+        private const val ARG_DATA = "data"
 
         fun newInstance(title: String, message: String): SimpleTextDialog {
-            val frag = SimpleTextDialog()
-            val args = Bundle()
-            args.putString(ARG_TITLE, title)
-            args.putString(ARG_MESSAGE, message)
-            frag.arguments = args
-            return frag
+            return newInstance(DialogComponent(TextInfo.from(title), TextInfo.from(message)))
         }
 
         fun newInstance(title: String, value: String, message: String): SimpleTextDialog {
-            val frag = SimpleTextDialog()
-            val args = Bundle()
-            args.putString(ARG_TITLE, title + ": " + value)
-            args.putString(ARG_MESSAGE, message)
-            frag.arguments = args
-            return frag
+            return newInstance(DialogComponent(TextInfo.from("$title: $value"), TextInfo.from(message)))
         }
+
+        fun newInstance(dialogComponent: DialogComponent): SimpleTextDialog {
+            return SimpleTextDialog().apply {
+                arguments = Bundle().apply {
+                    putParcelable(ARG_DATA, dialogComponent)
+                }
+            }
+        }
+
     }
-
-
 }
