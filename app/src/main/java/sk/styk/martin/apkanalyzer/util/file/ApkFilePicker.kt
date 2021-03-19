@@ -6,8 +6,6 @@ import android.net.Uri
 
 object ApkFilePicker {
 
-    const val REQUEST_PICK_APK = 1324
-
     val filePickerIntent: Intent
         get() {
             val mediaIntent = Intent(Intent.ACTION_GET_CONTENT)

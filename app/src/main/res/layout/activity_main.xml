@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.MainActivityViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivityViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -32,7 +32,7 @@
             android:fitsSystemWindows="true"
             android:focusable="false"
             app:headerLayout="@layout/nav_header_main"
-            app:menu="@menu/activity_main_drawer"
+            app:menu="@menu/navigation_drawer"
             app:navigationItemSelectedListener="@{viewModel}" />
 
     </androidx.drawerlayout.widget.DrawerLayout>

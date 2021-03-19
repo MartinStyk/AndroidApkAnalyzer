@@ -9,6 +9,10 @@
             name="viewModel"
             type="sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListViewModel" />
 
+        <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
+
+        <import type="sk.styk.martin.apkanalyzer.R" />
+
         <import type="android.view.View" />
     </data>
 
@@ -18,43 +22,72 @@
         android:layout_height="match_parent"
         android:animateLayoutChanges="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context="sk.styk.martin.appshare.ui.applist.AppListFragment">
+            android:orientation="vertical">
 
-            <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/list_view_progress_bar"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/nothing_to_show"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_list_empty"
-                android:visibility="@{viewModel.isEmpty() ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:inflateMenu="@{R.menu.app_list}"
+                    app:navigationIconState="@{NavigationIconState.HAMBURGER}"
+                    app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
+                    app:onMenuItemClickListener="@{viewModel}"
+                    app:onQueryTextListener="@{viewModel}"
+                    app:onSearchCloseListener="@{viewModel}"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:searchHint="@{R.string.action_search}"
+                    app:searchQuery="@{viewModel.queryText}"
+                    app:marginTopSystemWindowInsets="@{true}"
+                    app:title="@string/app_name" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_app_list"
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <ViewAnimator
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scrollbars="vertical"
-                app:appListAdapter="@{viewModel.adapter}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/list_item_application" />
+                app:displayedChild="@{viewModel.viewState}">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <ProgressBar
+                    android:id="@+id/list_view_progress_bar"
+                    style="?android:attr/progressBarStyleLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:id="@+id/nothing_to_show"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/app_list_empty" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_app_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"
+                    app:adapter="@{viewModel.adapter}"
+                    app:hasFixedSize="@{true}"
+                    app:itemDecoration="@{true}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:listitem="@layout/list_item_application" />
+
+            </ViewAnimator>
+
+        </LinearLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btn_analyze_not_installed"
@@ -64,9 +97,8 @@
             android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_file"
             android:visibility="invisible"
-            app:layout_anchorGravity="bottom|right|end"
-            app:show="@{!viewModel.isLoading()}"
-            app:useCompatPadding="true" />
+            app:onClickListener="@{() -> viewModel.onFilePickerClick()}"
+            app:show="@{viewModel.viewState != 0}" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

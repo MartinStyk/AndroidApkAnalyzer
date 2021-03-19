@@ -67,7 +67,7 @@
     <string name="services">サービス</string>
     <string name="content_providers">コンテントプロバイダー</string>
     <string name="broadcast_receivers">ブローキャストレシーバー</string>
-    <string name="permissions">ユーザーアクセス許可</string>
+    <string name="used_permissions">ユーザーアクセス許可</string>
     <string name="defined_permissions">定義されたアクセス許可</string>
     <string name="features">特徴</string>
     <string name="files">ファイル</string>

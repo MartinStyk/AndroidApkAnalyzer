@@ -33,11 +33,11 @@ import sk.styk.martin.apkanalyzer.ui.activity.appdetail.actions.*
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_NAME
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerContract.Companion.ARG_PACKAGE_PATH
-import sk.styk.martin.apkanalyzer.ui.customview.FloatingActionButton
 import sk.styk.martin.apkanalyzer.util.BackPressedListener
 import sk.styk.martin.apkanalyzer.util.DisplayHelper
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 import sk.styk.martin.apkanalyzer.util.file.toBitmap
+import sk.styk.martin.apkanalyzer.views.FloatingActionButton
 
 /**
  * A fragment representing a single Item detail screen.

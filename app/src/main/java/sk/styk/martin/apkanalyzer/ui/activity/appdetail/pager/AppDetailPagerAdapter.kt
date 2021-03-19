@@ -46,7 +46,7 @@ class AppDetailPagerAdapter(
             when (position) {
                 0 -> R.string.general
                 1 -> R.string.certificate
-                2 -> R.string.permissions
+                2 -> R.string.used_permissions
                 3 -> R.string.activities
                 4 -> R.string.services
                 5 -> R.string.content_providers

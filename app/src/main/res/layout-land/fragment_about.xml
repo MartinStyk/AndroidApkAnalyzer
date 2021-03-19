@@ -1,109 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.about.AboutFragmentViewModel" />
+
         <import type="sk.styk.martin.apkanalyzer.BuildConfig" />
 
-        <import type="sk.styk.martin.apkanalyzer.util.file.AppOperations" />
+        <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
 
     </data>
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_vertical_margin"
+        android:baselineAligned="false"
         android:orientation="horizontal"
-        tools:context=".ui.activity.about.AboutFragment"
-        android:baselineAligned="false">
+        tools:context=".ui.about.AboutFragment">
 
-        <RelativeLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:layout_weight="2">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:contentDescription="@string/app_icon"
-                android:src="@drawable/ic_launcher_web" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/about_app_name"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/app_name"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:marginTopSystemWindowInsets="@{true}"
+                app:navigationIconState="@{NavigationIconState.HAMBURGER}"
+                app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/app_name" />
 
-            <TextView
-                android:id="@+id/about_app_version"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/about_app_name"
-                android:gravity="center"
-                android:text="@{BuildConfig.VERSION_NAME}"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-            <TextView
-                android:id="@+id/about_app_authors"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/about_app_version"
-                android:gravity="center"
-                android:text="@string/app_author"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.4" />
 
-            <TextView
-                android:id="@+id/about_app_github_link"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/about_app_authors"
-                android:gravity="center"
-                android:text="@string/app_github"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:contentDescription="@string/app_icon"
+            android:src="@drawable/ic_launcher_web"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/app_bar" />
 
-            <TextView
-                android:id="@+id/about_app_privacy_policy"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/about_app_github_link"
-                android:gravity="center"
-                android:text="@string/app_privacy_policy"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/about_app_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@id/about_app_version"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/app_bar" />
 
-            <Button
-                android:id="@+id/about_app_rate"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_below="@id/about_app_privacy_policy"
-                android:layout_centerHorizontal="true"
-                android:layout_margin="@dimen/fab_margin"
-                android:background="@color/accent"
-                android:onClick="@{() -> AppOperations.openGooglePlay(context, context.packageName)}"
-                android:text="@string/app_rate"
-                android:textColor="@color/colorWhite" />
+        <TextView
+            android:id="@+id/about_app_version"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@{BuildConfig.VERSION_NAME}"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintBottom_toTopOf="@id/about_app_authors"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/about_app_name" />
 
-            <TextView
-                android:id="@+id/about_app_dependencies"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center"
-                android:text="@string/app_dependencies"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textSize="@dimen/text_size_super_small" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/about_app_authors"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_author"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintBottom_toTopOf="@id/about_app_github_link"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/about_app_version" />
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/about_app_github_link"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_github"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintBottom_toTopOf="@id/about_app_privacy_policy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/about_app_authors" />
+
+        <TextView
+            android:id="@+id/about_app_privacy_policy"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/app_privacy_policy"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintBottom_toTopOf="@id/about_app_rate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/about_app_github_link" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/about_app_rate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/fab_margin"
+            android:background="@color/accent"
+            android:onClick="@{() -> viewModel.onRateAppClick()}"
+            android:text="@string/app_rate"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/about_app_privacy_policy" />
+
+        <TextView
+            android:id="@+id/about_app_dependencies"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:gravity="center"
+            android:text="@string/app_dependencies"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="@dimen/text_size_super_small"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/guideline"
+            app:layout_constraintTop_toBottomOf="@id/about_app_rate"
+            app:layout_constraintVertical_bias="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

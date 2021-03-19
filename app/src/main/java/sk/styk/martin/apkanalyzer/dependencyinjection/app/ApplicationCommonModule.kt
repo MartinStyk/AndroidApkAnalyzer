@@ -26,12 +26,10 @@ class ApplicationCommonModule {
 
     @Provides
     @Singleton
-    @ApplicationScope
     fun providesResources(application: Application): Resources = application.resources
 
     @Provides
     @Singleton
-    @ApplicationScope
     fun providePackageManager(application: Application): PackageManager = application.packageManager
 
     @Provides

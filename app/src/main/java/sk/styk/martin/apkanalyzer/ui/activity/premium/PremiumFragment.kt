@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import com.google.firebase.analytics.FirebaseAnalytics
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentPremiumBinding
-import sk.styk.martin.apkanalyzer.ui.activity.about.AboutFragment
+import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
 
 class PremiumFragment : Fragment() {
 

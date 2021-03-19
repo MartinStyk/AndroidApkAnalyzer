@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragmentViewModel" />
+
+        <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:marginTopSystemWindowInsets="@{true}"
+                app:navigationIconState="@{NavigationIconState.HAMBURGER}"
+                app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
+                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:title="@string/permissions" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <sk.styk.martin.apkanalyzer.views.LoadingBarView
+            android:id="@+id/loading_bar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"
+            app:currentProgress="@{viewModel.loadingProgress}"
+            app:maxProgress="@{viewModel.loadingProgressMax}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_permissions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:visibility="@{viewModel.isLoading() ? View.GONE : View.VISIBLE}"
+            app:adapter="@{viewModel.permissionListAdapter}"
+            app:itemDecoration="@{true}"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/list_item_permission_local_data" />
+
+    </LinearLayout>
+
+</layout>

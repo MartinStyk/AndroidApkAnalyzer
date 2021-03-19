@@ -80,8 +80,6 @@ public class AppListData implements Parcelable {
         if (applicationName != null ? !applicationName.equals(that.applicationName) : that.applicationName != null)
             return false;
         if (source != that.source) return false;
-        if (packageManager != null ? !packageManager.equals(that.packageManager) : that.packageManager != null)
-            return false;
         return applicationInfo != null ? applicationInfo.equals(that.applicationInfo) : that.applicationInfo == null;
     }
 
@@ -92,7 +90,6 @@ public class AppListData implements Parcelable {
         result = 31 * result + version;
         result = 31 * result + (isSystemApp ? 1 : 0);
         result = 31 * result + (source != null ? source.hashCode() : 0);
-        result = 31 * result + (packageManager != null ? packageManager.hashCode() : 0);
         result = 31 * result + (applicationInfo != null ? applicationInfo.hashCode() : 0);
         return result;
     }

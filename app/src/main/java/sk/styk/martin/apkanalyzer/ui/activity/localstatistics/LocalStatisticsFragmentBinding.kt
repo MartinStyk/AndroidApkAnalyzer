@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 
 import androidx.databinding.BindingAdapter
-import sk.styk.martin.apkanalyzer.ui.customview.MyBarChart
 import sk.styk.martin.apkanalyzer.util.ChartDataHelper
+import sk.styk.martin.apkanalyzer.views.MyBarChart
 
 object LocalStatisticsFragmentBinding {
     @JvmStatic

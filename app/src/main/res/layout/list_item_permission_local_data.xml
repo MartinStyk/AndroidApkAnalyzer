@@ -1,49 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
 
-    <TextView
-        android:id="@+id/permission_simple_name"
-        android:layout_width="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListAdapter.PermissionItemViewModel" />
+
+        <import type="sk.styk.martin.apkanalyzer.R" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="4dp"
-        android:layout_marginEnd="@dimen/text_margin_right_left"
-        android:layout_marginRight="@dimen/text_margin_right_left"
-        android:layout_marginTop="@dimen/text_margin_top_bottom"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAppearance="?android:attr/textAppearanceListItem" />
+        android:onClick="@{() -> viewModel.onClick()}"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-    <TextView
-        android:id="@+id/permission_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@id/permission_simple_name"
-        android:layout_marginBottom="@dimen/text_margin_top_bottom"
-        android:layout_marginEnd="@dimen/text_margin_right_left"
-        android:layout_marginRight="@dimen/text_margin_right_left"
-        android:ellipsize="end"
-        android:maxLines="2"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/permission_simple_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/text_margin_top_bottom"
+            android:layout_marginEnd="@dimen/text_margin_right_left"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.permissionData.permissionData.simpleName}"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            app:layout_constraintBottom_toTopOf="@id/permission_name"
+            app:layout_constraintEnd_toStartOf="@id/affected_apps"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Permission" />
+
+        <TextView
+            android:id="@+id/permission_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/text_margin_right_left"
+            android:layout_marginBottom="@dimen/text_margin_top_bottom"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{viewModel.permissionData.permissionData.name}"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/permission_simple_name"
+            tools:text="package name of permission" />
 
 
-    <TextView
-        android:id="@+id/affected_apps"
-        android:textColor="@color/colorWhite"
-        android:background="@color/primary_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="3dp"
-        android:padding="3dp"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        <TextView
+            android:id="@+id/affected_apps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:background="@color/primary_light"
+            android:padding="3dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/permission_simple_name"
+            tools:text="123 apps"
+            app:pluralCount="@{viewModel.permissionData.permissionStatusList.size}"
+            app:pluralRes="@{R.plurals.permissions_number_apps}" />
 
-</RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

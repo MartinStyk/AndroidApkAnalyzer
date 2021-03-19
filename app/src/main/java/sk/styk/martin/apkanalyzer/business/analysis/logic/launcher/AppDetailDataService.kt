@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.business.analysis.logic.*
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAggregate
 
 @WorkerThread
 class AppDetailDataService(private val packageManager: PackageManager) {
@@ -22,7 +23,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
     private val generalDataService = GeneralDataService()
     private val certificateService = CertificateService()
     private val appComponentsService = AppComponentsService()
-    private val permissionsService = PermissionsService()
+//    private val permissionsService = AppPermissionManager() // TODO
     private val featuresService = FeaturesService()
     private val fileDataService = FileDataService()
     private val resourceService = ResourceService()
@@ -61,7 +62,7 @@ class AppDetailDataService(private val packageManager: PackageManager) {
                     serviceData = appComponentsService.getServices(packageInfo),
                     contentProviderData = appComponentsService.getContentProviders(packageInfo),
                     broadcastReceiverData = appComponentsService.getBroadcastReceivers(packageInfo),
-                    permissionData = permissionsService.get(packageInfo, packageManager),
+                    permissionData = PermissionDataAggregate(emptyList(), emptyList()), // TODO permissionsService.get(packageInfo, packageManager),
                     featureData = featuresService.get(packageInfo),
                     fileData = fileData,
                     resourceData = resourceService.get(fileData),

@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.customview.SpeedDialMenuAdapter
-import sk.styk.martin.apkanalyzer.ui.customview.SpeedDialMenuItem
+import sk.styk.martin.apkanalyzer.views.SpeedDialMenuAdapter
+import sk.styk.martin.apkanalyzer.views.SpeedDialMenuItem
 import java.lang.ref.WeakReference
 
 abstract class AppActionsSpeedMenu(actionPresenter: AppActionsContract.Presenter) : SpeedDialMenuAdapter() {

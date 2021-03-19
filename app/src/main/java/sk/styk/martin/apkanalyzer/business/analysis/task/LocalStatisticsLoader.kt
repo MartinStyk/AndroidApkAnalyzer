@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.business.analysis.task
 
 import android.content.Context
-import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppBasicDataService
+import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.InstalledAppsManager
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.LocalApplicationStatisticDataService
 import sk.styk.martin.apkanalyzer.business.base.task.ApkAnalyzerAbstractAsyncLoader
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataBuilder
@@ -13,7 +13,7 @@ class LocalStatisticsLoader(context: Context) : ApkAnalyzerAbstractAsyncLoader<L
 
     private lateinit var callbackReference : WeakReference<ProgressCallback>
     private val localAppDataService = LocalApplicationStatisticDataService(getContext().packageManager)
-    private val appBasicDataService = AppBasicDataService(getContext().packageManager)
+    private val appBasicDataService = InstalledAppsManager(getContext().packageManager)
 
     interface ProgressCallback {
         fun onProgressChanged(currentProgress: Int, maxProgress: Int)

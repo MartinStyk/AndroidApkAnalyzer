@@ -29,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{data.name}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_service_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
                 app:titleText="@string/activity_permission"
                 app:valueText="@{data.permission ?? @string/none}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_service_exported"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -45,7 +45,7 @@
                 app:titleText="@string/service_exported"
                 app:valueText="@{data.exported ? @string/yes : @string/no}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_service_stop_with_task"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -53,7 +53,7 @@
                 app:titleText="@string/service_stop_with_task"
                 app:valueText="@{data.stopWithTask ? @string/yes : @string/no}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_service_single_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
                 app:titleText="@string/service_single_user"
                 app:valueText="@{data.singleUser ? @string/yes : @string/no}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_service_isolated_process"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 app:titleText="@string/service_isolated_process"
                 app:valueText="@{data.isolatedProcess ? @string/yes : @string/no}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_service_external_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

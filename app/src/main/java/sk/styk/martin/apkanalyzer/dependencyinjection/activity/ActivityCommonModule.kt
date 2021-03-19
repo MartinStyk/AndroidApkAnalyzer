@@ -1,15 +1,15 @@
 package sk.styk.martin.apkanalyzer.dependencyinjection.activity
 
 import android.app.Activity
-import android.app.Application
 import android.content.Context
-import android.content.pm.PackageManager
-import android.content.res.Resources
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ActivityScope
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
-import javax.inject.Singleton
+import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
+import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
 
 @Module
 class ActivityCommonModule {
@@ -20,6 +20,18 @@ class ActivityCommonModule {
 
     @Provides
     @ActivityScope
-    fun providesResources(activity: Activity): Activity = activity
+    fun providesResources(activity: Activity): AppCompatActivity = activity as AppCompatActivity
+
+    @Provides
+    @ActivityScope
+    fun providePermissionsManager(activity: AppCompatActivity): PermissionManager {
+        val permissionsManager: PermissionsManagerImpl = ViewModelProvider(activity, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return PermissionsManagerImpl(activity.applicationContext) as T
+            }
+        }).get(PermissionsManagerImpl::class.java)
+        permissionsManager.bind(activity)
+        return permissionsManager
+    }
 
 }

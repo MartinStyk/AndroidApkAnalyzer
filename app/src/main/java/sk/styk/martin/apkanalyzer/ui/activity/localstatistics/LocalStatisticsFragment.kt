@@ -22,7 +22,7 @@ import sk.styk.martin.apkanalyzer.business.analysis.task.LocalStatisticsLoader
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListDialog
-import sk.styk.martin.apkanalyzer.ui.customview.ClickableMarkerView
+import sk.styk.martin.apkanalyzer.views.ClickableMarkerView
 import java.util.*
 
 class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View, ClickableMarkerView.OnMarkerClickListener {

@@ -13,7 +13,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.ui.activity.MainActivity
+import sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity
 import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import java.io.File
 import java.io.IOException

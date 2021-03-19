@@ -71,7 +71,7 @@
 
     </FrameLayout>
 
-    <sk.styk.martin.apkanalyzer.ui.customview.FloatingActionButton
+    <sk.styk.martin.apkanalyzer.views.FloatingActionButton
         android:id="@+id/btn_actions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

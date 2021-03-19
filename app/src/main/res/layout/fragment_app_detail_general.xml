@@ -29,7 +29,7 @@
             android:layout_height="match_parent"
             tools:context=".ui.activity.appdetail.base.AppDetailActivity">
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_application_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -38,7 +38,7 @@
                 app:titleText="@string/application_name"
                 app:valueText="@{data.applicationName}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_package_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -47,7 +47,7 @@
                 app:titleText="@string/package_name"
                 app:valueText="@{data.packageName}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_process_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -56,7 +56,7 @@
                 app:titleText="@string/process_name"
                 app:valueText="@{data.processName}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_version_name"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -65,7 +65,7 @@
                 app:titleText="@string/version_name"
                 app:valueText="@{data.versionName}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_version_code"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -74,7 +74,7 @@
                 app:titleText="@string/version_code"
                 app:valueText="@{data.versionCode}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_system_application"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -83,7 +83,7 @@
                 app:titleText="@string/system_application"
                 app:valueText="@{data.systemApp ? @string/yes : @string/no}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_uid"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -92,7 +92,7 @@
                 app:titleText="@string/uid"
                 app:valueText="@{data.uid }" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_application_description"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -101,7 +101,7 @@
                 app:titleText="@string/description"
                 app:valueText="@{data.description}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_application_app_installer"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -110,7 +110,7 @@
                 app:titleText="@string/app_installer"
                 app:valueText="@{data.appInstaller}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_application_app_source"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -119,7 +119,7 @@
                 app:titleText="@string/app_source"
                 app:valueText="@{data.source.toString()}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_target_sdk"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -128,7 +128,7 @@
                 app:titleText="@string/target_sdk"
                 app:valueText="@{data.targetSdkVersion != null ? data.targetSdkVersion.toString() : null}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_target_android_version"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -137,7 +137,7 @@
                 app:titleText="@string/target_version"
                 app:valueText="@{data.targetSdkLabel}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_min_sdk"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -147,7 +147,7 @@
                 app:titleText="@string/min_sdk"
                 app:valueText="@{data.minSdkVersion != null ? data.minSdkVersion.toString() : null}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_min_android_version"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -156,7 +156,7 @@
                 app:titleText="@string/min_version"
                 app:valueText="@{data.minSdkLabel}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_apk_directory"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -165,7 +165,7 @@
                 app:titleText="@string/apk_directory"
                 app:valueText="@{data.apkDirectory}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_data_directory"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -174,7 +174,7 @@
                 app:titleText="@string/data_directory"
                 app:valueText="@{data.dataDirectory}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_install_location"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -183,7 +183,7 @@
                 app:titleText="@string/install_loc"
                 app:valueText="@{InstallLocationHelper.showLocalizedLocation(data.installLocation)}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_apk_size"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -192,7 +192,7 @@
                 app:titleText="@string/apk_size"
                 app:valueText="@{Formatter.formatShortFileSize(context, data.apkSize)}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_first_install_time"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"
@@ -202,7 +202,7 @@
                 app:titleText="@string/first_install"
                 app:valueText="@{data.firstInstallTime != null ? DateUtils.formatDateTime(context, safeUnbox(data.firstInstallTime), DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME) : null}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailItemView
+            <sk.styk.martin.apkanalyzer.views.DetailItemView
                 android:id="@+id/item_last_update_time"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/listPreferredItemHeight"

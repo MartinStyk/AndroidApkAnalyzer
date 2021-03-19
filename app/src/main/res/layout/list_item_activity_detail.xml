@@ -32,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{data.name}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_activity_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -40,7 +40,7 @@
                 app:titleText="@string/activity_label"
                 app:valueText="@{data.label ?? @string/NA}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_activity_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -48,7 +48,7 @@
                 app:titleText="@string/activity_parent"
                 app:valueText="@{data.parentName ?? @string/NA}" />
 
-            <sk.styk.martin.apkanalyzer.ui.customview.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.DetailListItemView
                 android:id="@+id/item_activity_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
