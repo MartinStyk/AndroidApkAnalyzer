@@ -31,23 +31,22 @@
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
                     app:inflateMenu="@{R.menu.app_list}"
                     app:navigationIconState="@{NavigationIconState.HAMBURGER}"
                     app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
                     app:onMenuItemClickListener="@{viewModel}"
                     app:onQueryTextListener="@{viewModel}"
                     app:onSearchCloseListener="@{viewModel}"
-                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:popupTheme="@style/AppTheme"
                     app:searchHint="@{R.string.action_search}"
                     app:searchQuery="@{viewModel.queryText}"
                     app:marginTopSystemWindowInsets="@{true}"

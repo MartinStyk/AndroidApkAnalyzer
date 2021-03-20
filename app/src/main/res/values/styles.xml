@@ -5,9 +5,16 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/secondary</item>
         <item name="colorSecondary">@color/accent</item>
         <item name="colorOnSecondary">@color/colorWhite</item>
         <item name="colorAccent">@color/accent</item>
+
+        <item name="android:textColor">@color/textBody</item>
+        <item name="android:textColorHint">@color/textHint</item>
+        <item name="android:textColorPrimary">@color/textTitle</item>
+        <item name="android:textColorSecondary">@color/textBody</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
 
         <item name="detailItemViewStyle">@style/ItemDetail</item>
         <item name="detailListItemViewStyle">@style/ListItemDetail</item>

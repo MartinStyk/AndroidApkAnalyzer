@@ -33,7 +33,8 @@
             android:focusable="false"
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/navigation_drawer"
-            app:navigationItemSelectedListener="@{viewModel}" />
+            app:navigationItemSelectedListener="@{viewModel}"
+            app:paddingTopSystemWindowInsets="@{true}" />
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

@@ -3,8 +3,12 @@
     <color name="primary">#1b2428</color>
     <color name="primary_dark">#182023</color>
     <color name="primary_light">#37474F</color>
-    <color name="accent">#13967c</color>
+    <color name="secondary">#13967c</color>
     <color name="accentLight">#16a085</color>
+
+    <color name="textBody">#9DA4B3</color>
+    <color name="textTitle">#E6EAF2</color>
+    <color name="colorBackground">#171C26</color>
 
     <color name="graph_bar">@color/grey_500</color>
     <color name="overlay">#cc000000</color>

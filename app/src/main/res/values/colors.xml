@@ -3,9 +3,15 @@
     <color name="primary">#37474F</color>
     <color name="primary_dark">#263237</color>
     <color name="primary_light">#B0BEC5</color>
-    <color name="accent">#16a085</color>
+    <color name="secondary">#16a085</color>
+    <color name="accent">@color/secondary</color>
     <color name="accentLight">#1cb89a</color>
     <color name="premium">#FFC107</color>
+
+    <color name="textBody">#5C6373</color>
+    <color name="textHint">@color/textBody</color>>
+    <color name="textTitle">#171C26</color>
+    <color name="colorBackground">@color/colorWhite</color>
 
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#ffffff</color>
