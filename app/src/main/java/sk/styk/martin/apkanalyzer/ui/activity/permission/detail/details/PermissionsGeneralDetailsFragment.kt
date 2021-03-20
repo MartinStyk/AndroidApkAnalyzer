@@ -1,48 +1,52 @@
 package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details
 
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import sk.styk.martin.apkanalyzer.R
+import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBinding
-import sk.styk.martin.apkanalyzer.model.detail.PermissionData
+import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
+import sk.styk.martin.apkanalyzer.util.provideViewModel
+import sk.styk.martin.apkanalyzer.util.provideViewModelOfParentFragment
+import javax.inject.Inject
 
-class PermissionsGeneralDetailsFragment : Fragment(), PermissionsGeneralDetailsContract.View {
+class PermissionsGeneralDetailsFragment : Fragment() {
 
-    private lateinit var presenter: PermissionsGeneralDetailsContract.Presenter
+    @Inject
+    lateinit var viewModelFactory: PermissionsGeneralDetailsViewModel.Factory
+
+    @Inject
+    lateinit var viewModelFactory2: ViewModelFactory
+
     private lateinit var binding: FragmentPermissionDetailGeneralBinding
+
+    private lateinit var viewModel: PermissionsGeneralDetailsViewModel
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
-        presenter = PermissionsGeneralDetailsPresenter()
+        viewModel = provideViewModel {
+            viewModelFactory.create(provideViewModelOfParentFragment())
+        }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_permission_detail_general, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentPermissionDetailGeneralBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        presenter.view = this
-        presenter.initialize(arguments!!)
-    }
-
-    override fun showPermissionDetails(permissionData: PermissionData, grantedApps: Int, notGrantedApss: Int) {
-        binding.data = permissionData
-        binding.granted = grantedApps
-        binding.notGranted = notGrantedApss
-    }
-
-    companion object {
-        const val ARG_NUMBER_GRANTED_APPS = "apps_granted_perm"
-        const val ARG_NUMBER_NOT_GRANTED_APPS = "apps_not_granted_perm"
+        binding.viewModel = viewModel
     }
 
 }

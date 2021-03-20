@@ -20,7 +20,7 @@ class PermissionDetailPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(f
         else -> throw IllegalStateException()
     }
 
-    override fun getCount(): Int = 0
+    override fun getCount(): Int = 1
 
     override fun getPageTitle(position: Int): CharSequence = when (position) {
         GENERAL_DETAILS_PAGE -> context.resources.getString(R.string.permissions_detail)

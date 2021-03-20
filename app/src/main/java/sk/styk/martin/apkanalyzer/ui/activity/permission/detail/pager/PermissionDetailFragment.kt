@@ -7,20 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
-import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailPagerBinding
+import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailBinding
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.util.components.toDialog
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
-class PermissionDetailPagerFragment : Fragment() {
+class PermissionDetailFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: PermissionDetailPagerViewModel.Factory
+    lateinit var viewModelFactory: PermissionDetailFragmentViewModel.Factory
 
-    private lateinit var binding: FragmentPermissionDetailPagerBinding
+    private lateinit var binding: FragmentPermissionDetailBinding
 
-    private lateinit var viewModel: PermissionDetailPagerViewModel
+    private lateinit var viewModel: PermissionDetailFragmentViewModel
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -33,7 +33,7 @@ class PermissionDetailPagerFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentPermissionDetailPagerBinding.inflate(inflater, container, false)
+        binding = FragmentPermissionDetailBinding.inflate(inflater, container, false)
         binding.pager.adapter = PermissionDetailPagerAdapter(childFragmentManager)
         binding.tabs.setupWithViewPager(binding.pager)
         binding.lifecycleOwner = viewLifecycleOwner
@@ -53,12 +53,12 @@ class PermissionDetailPagerFragment : Fragment() {
 
     companion object {
 
-        val TAG = PermissionDetailPagerFragment::class.java.simpleName
+        val TAG = PermissionDetailFragment::class.java.simpleName
 
         const val ARG_PERMISSIONS_DATA = "permission_args"
         const val ARG_CHILD = "permission_args_to_my_sweetest_child"
 
-        fun create(permissionData: LocalPermissionData) = PermissionDetailPagerFragment().apply {
+        fun create(permissionData: LocalPermissionData) = PermissionDetailFragment().apply {
             arguments = Bundle().apply {
                 putParcelable(ARG_PERMISSIONS_DATA, permissionData)
             }

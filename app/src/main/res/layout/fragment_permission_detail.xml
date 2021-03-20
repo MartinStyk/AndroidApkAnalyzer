@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailFragmentViewModel" />
 
         <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
 
@@ -17,7 +17,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"

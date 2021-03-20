@@ -6,8 +6,8 @@ import dagger.android.AndroidInjection
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityPermissionDetailBinding
 import sk.styk.martin.apkanalyzer.ui.activity.ApkAnalyzerBaseActivity
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailPagerFragment.Companion.ARG_PERMISSIONS_DATA
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailFragment
+import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailFragment.Companion.ARG_PERMISSIONS_DATA
 
 class PermissionDetailActivity : ApkAnalyzerBaseActivity() {
 
@@ -19,11 +19,11 @@ class PermissionDetailActivity : ApkAnalyzerBaseActivity() {
         DataBindingUtil.setContentView<ActivityPermissionDetailBinding>(this, R.layout.activity_permission_detail)
 
         if (savedInstanceState == null) {
-            val fragment = PermissionDetailPagerFragment.create(
+            val fragment = PermissionDetailFragment.create(
                     permissionData = requireNotNull(intent.getParcelableExtra(ARG_PERMISSIONS_DATA))
             )
             supportFragmentManager.beginTransaction()
-                    .add(R.id.item_detail_container, fragment, PermissionDetailPagerFragment.TAG)
+                    .add(R.id.item_detail_container, fragment, PermissionDetailFragment.TAG)
                     .commit()
         }
     }

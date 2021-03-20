@@ -13,8 +13,8 @@ import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
-class PermissionDetailPagerViewModel @AssistedInject constructor(
-        @Assisted private val localPermissionData: LocalPermissionData,
+class PermissionDetailFragmentViewModel @AssistedInject constructor(
+        @Assisted val localPermissionData: LocalPermissionData,
         private val packageManager: PackageManager,
 ) : ViewModel(), Toolbar.OnMenuItemClickListener {
 
@@ -53,7 +53,7 @@ class PermissionDetailPagerViewModel @AssistedInject constructor(
 
     @AssistedInject.Factory
     interface Factory {
-        fun create(localPermissionData: LocalPermissionData): PermissionDetailPagerViewModel
+        fun create(localPermissionData: LocalPermissionData): PermissionDetailFragmentViewModel
     }
 
 }
