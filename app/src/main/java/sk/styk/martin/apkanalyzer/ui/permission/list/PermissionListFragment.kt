@@ -11,8 +11,8 @@ import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionListBinding
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailActivity
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailFragment
+import sk.styk.martin.apkanalyzer.ui.permission.detail.PermissionDetailActivity
+import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 

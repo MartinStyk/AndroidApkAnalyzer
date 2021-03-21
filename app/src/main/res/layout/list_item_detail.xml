@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details.DetailInfoAdapter.DetailItemViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.permission.detail.details.DetailInfoAdapter.DetailItemViewModel" />
 
     </data>
 

@@ -65,7 +65,7 @@
             android:label="@string/title_intro"/>
 
         <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.activity.permission.detail.PermissionDetailActivity"
+            android:name="sk.styk.martin.apkanalyzer.ui.permission.detail.PermissionDetailActivity"
             android:label="@string/title_permissions"
             android:parentActivityName="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity">
             <meta-data

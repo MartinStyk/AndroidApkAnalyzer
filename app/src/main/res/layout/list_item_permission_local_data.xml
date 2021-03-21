@@ -30,6 +30,8 @@
             android:layout_marginEnd="@dimen/text_margin_right_left"
             android:layout_marginBottom="4dp"
             android:text="@{viewModel.permissionData.permissionData.simpleName}"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="@dimen/fontSizeSmall"
             app:layout_constraintBottom_toTopOf="@id/permission_name"
             app:layout_constraintEnd_toStartOf="@id/affected_apps"
             app:layout_constraintStart_toStartOf="parent"

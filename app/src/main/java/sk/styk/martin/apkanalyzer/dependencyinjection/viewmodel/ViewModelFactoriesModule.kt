@@ -5,7 +5,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragmentViewModel
-import sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListViewModel
+import sk.styk.martin.apkanalyzer.ui.activity.applist.main.MainAppListViewModel
 import sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivityViewModel
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragmentViewModel
 
@@ -21,8 +21,8 @@ abstract class ViewModelFactoriesModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(value = AppListViewModel::class)
-    abstract fun bindAppListViewModel(viewModel: AppListViewModel): ViewModel
+    @ViewModelKey(value = MainAppListViewModel::class)
+    abstract fun bindAppListViewModel(viewModel: MainAppListViewModel): ViewModel
 
     @Binds
     @IntoMap

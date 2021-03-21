@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail
+package sk.styk.martin.apkanalyzer.ui.permission.detail
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -6,8 +6,8 @@ import dagger.android.AndroidInjection
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityPermissionDetailBinding
 import sk.styk.martin.apkanalyzer.ui.activity.ApkAnalyzerBaseActivity
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailFragment.Companion.ARG_PERMISSIONS_DATA
+import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
+import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment.Companion.ARG_PERMISSIONS_DATA
 
 class PermissionDetailActivity : ApkAnalyzerBaseActivity() {
 

@@ -2,8 +2,8 @@ package sk.styk.martin.apkanalyzer.ui.activity.dialog
 
 import android.app.Dialog
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 
@@ -13,7 +13,7 @@ class SimpleTextDialog : DialogFragment() {
         val dialogData = requireNotNull(arguments?.getParcelable<DialogComponent>(ARG_DATA))
 
         val context = requireContext()
-        val builder = AlertDialog.Builder(context)
+        val builder = MaterialAlertDialogBuilder(context)
                 .setTitle(dialogData.title.getText(context))
                 .setMessage(dialogData.message.getText(context))
 

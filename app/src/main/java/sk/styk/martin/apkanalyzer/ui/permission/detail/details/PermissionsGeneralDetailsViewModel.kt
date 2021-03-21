@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details
+package sk.styk.martin.apkanalyzer.ui.permission.detail.details
 
 import android.content.pm.PermissionInfo
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -9,7 +9,7 @@ import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailFragmentViewModel
+import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent

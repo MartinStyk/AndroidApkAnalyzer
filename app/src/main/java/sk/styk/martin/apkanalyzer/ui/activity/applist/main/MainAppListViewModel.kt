@@ -1,14 +1,17 @@
-package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
+package sk.styk.martin.apkanalyzer.ui.activity.applist.main
 
 import android.Manifest
 import android.app.Activity
 import android.net.Uri
+import android.util.Log
 import android.view.MenuItem
 import android.widget.SearchView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -18,25 +21,22 @@ import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
+import sk.styk.martin.apkanalyzer.ui.activity.applist.*
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 
-private const val LOADING_STATE = 0
-private const val EMPTY_STATE = 1
-private const val DATA_STATE = 2
-
-class AppListViewModel @Inject constructor(
+class MainAppListViewModel @Inject constructor(
         private val permissionManager: PermissionManager,
         private val installedAppsManager: InstalledAppsManager,
-        private val dispatcherProvider: DispatcherProvider,
         private val navigationDrawerModel: NavigationDrawerModel,
-        val adapter: AppListAdapter
-) : ViewModel(), DefaultLifecycleObserver, SearchView.OnQueryTextListener, SearchView.OnCloseListener, Toolbar.OnMenuItemClickListener {
+        dispatcherProvider: DispatcherProvider,
+        adapter: AppListAdapter
+) : BaseAppListViewModel(adapter, dispatcherProvider), SearchView.OnQueryTextListener, SearchView.OnCloseListener, Toolbar.OnMenuItemClickListener {
 
-    private var appListData = listOf<AppListData>()
+    override var appListData = listOf<AppListData>()
         set(value) {
             field = value
             adapter.data = value
@@ -61,11 +61,6 @@ class AppListViewModel @Inject constructor(
     private var queryTextLiveData = MutableLiveData<String>()
     var queryText: LiveData<String> = queryTextLiveData
 
-    private val viewStateLiveData = MutableLiveData(LOADING_STATE)
-    val viewState: LiveData<Int> = viewStateLiveData
-
-    val appClicked by lazy { adapter.appClicked }
-
     private val filteredSourceLiveData = MutableLiveData<AppSource?>()
     val filteredSource: LiveData<AppSource?> = filteredSourceLiveData
 
@@ -79,7 +74,8 @@ class AppListViewModel @Inject constructor(
     }
 
     init {
-        viewModelScope.launch(dispatcherProvider.main()) {
+        viewModelScope.launch(dispatcherProvider.default()) {
+            Log.e("XXX", "installedAppsManager $installedAppsManager")
             val installedApps = installedAppsManager.getAll()
             allApps = installedApps
             withContext(dispatcherProvider.main()) {

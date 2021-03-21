@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details
+package sk.styk.martin.apkanalyzer.ui.permission.detail.details
 
 
 import android.content.Context

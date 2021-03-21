@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager.PermissionDetailFragmentViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragmentViewModel" />
 
         <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
 
@@ -22,20 +22,17 @@
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorSecondary"
-                app:marginTopSystemWindowInsets="@{true}"
                 app:inflateMenu="@{R.menu.permission_detail}"
-                app:onMenuItemClickListener="@{viewModel}"
+                app:marginTopSystemWindowInsets="@{true}"
                 app:navigationIconState="@{NavigationIconState.ARROW}"
                 app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
+                app:onMenuItemClickListener="@{viewModel}"
                 app:title="@{viewModel.title}" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -47,11 +44,9 @@
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"
+                style="@style/TabIndicator"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                app:tabGravity="center"
-                app:tabMode="fixed" />
+                android:layout_height="wrap_content" />
 
         </androidx.viewpager.widget.ViewPager>
 

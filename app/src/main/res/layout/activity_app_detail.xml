@@ -34,13 +34,12 @@
                 android:paddingTop="20dp"
                 app:layout_collapseMode="pin" />
 
-
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/detail_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                android:background="@android:color/transparent"/>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 

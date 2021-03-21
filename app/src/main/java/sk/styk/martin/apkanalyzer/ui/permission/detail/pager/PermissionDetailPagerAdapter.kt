@@ -1,11 +1,11 @@
-package sk.styk.martin.apkanalyzer.ui.activity.permission.detail.pager
+package sk.styk.martin.apkanalyzer.ui.permission.detail.pager
 
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.applist.AppListFragment
-import sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details.PermissionsGeneralDetailsFragment
+import sk.styk.martin.apkanalyzer.ui.permission.detail.apps.PermissionsAppListFragment
+import sk.styk.martin.apkanalyzer.ui.permission.detail.details.PermissionsGeneralDetailsFragment
 
 private const val GENERAL_DETAILS_PAGE = 0
 private const val GRANTED_APPS_PAGE = 1
@@ -15,12 +15,12 @@ class PermissionDetailPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(f
 
     override fun getItem(position: Int) = when (position) {
         GENERAL_DETAILS_PAGE -> PermissionsGeneralDetailsFragment()
-        GRANTED_APPS_PAGE -> AppListFragment()
-        NOT_GRANTED_APPS_PAGE -> AppListFragment()
+        GRANTED_APPS_PAGE -> PermissionsAppListFragment.newInstance(granted = true)
+        NOT_GRANTED_APPS_PAGE -> PermissionsAppListFragment.newInstance(granted = false)
         else -> throw IllegalStateException()
     }
 
-    override fun getCount(): Int = 1
+    override fun getCount(): Int = 3
 
     override fun getPageTitle(position: Int): CharSequence = when (position) {
         GENERAL_DETAILS_PAGE -> context.resources.getString(R.string.permissions_detail)

@@ -15,7 +15,7 @@ import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
 import sk.styk.martin.apkanalyzer.ui.activity.ApkAnalyzerBaseActivity
-import sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListFragment
+import sk.styk.martin.apkanalyzer.ui.activity.applist.main.MainAppListFragment
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
@@ -115,7 +115,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
     private fun placeAppListFragment() {
         navigation_view.setCheckedItem(R.id.nav_app_list)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.main_activity_placeholder, AppListFragment(), FramentTag.AppList.toString())
+                .replace(R.id.main_activity_placeholder, MainAppListFragment(), FramentTag.AppList.toString())
                 .commit()
     }
 

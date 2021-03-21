@@ -33,6 +33,7 @@
             android:focusable="false"
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/navigation_drawer"
+            android:theme="@style/NavigationTextAppearance"
             app:navigationItemSelectedListener="@{viewModel}"
             app:paddingTopSystemWindowInsets="@{true}" />
 

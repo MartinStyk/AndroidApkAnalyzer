@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.applist.searchable.AppListViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.activity.applist.main.MainAppListViewModel" />
 
         <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
 
@@ -36,7 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
-                <androidx.appcompat.widget.Toolbar
+                <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
@@ -46,7 +46,6 @@
                     app:onMenuItemClickListener="@{viewModel}"
                     app:onQueryTextListener="@{viewModel}"
                     app:onSearchCloseListener="@{viewModel}"
-                    app:popupTheme="@style/AppTheme"
                     app:searchHint="@{R.string.action_search}"
                     app:searchQuery="@{viewModel.queryText}"
                     app:marginTopSystemWindowInsets="@{true}"

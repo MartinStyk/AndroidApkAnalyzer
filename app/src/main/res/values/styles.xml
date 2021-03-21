@@ -1,14 +1,16 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorPrimaryVariant">@color/primary_dark</item>
         <item name="colorOnPrimary">@color/secondary</item>
         <item name="colorSecondary">@color/accent</item>
         <item name="colorOnSecondary">@color/colorWhite</item>
         <item name="colorAccent">@color/accent</item>
+        <item name="colorOnSurface">@color/textTitle</item>
 
         <item name="android:textColor">@color/textBody</item>
         <item name="android:textColorHint">@color/textHint</item>
@@ -22,13 +24,18 @@
 
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+
+        <item name="snackbarButtonStyle">@style/SnackbarActionButton</item>
+        <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="toolbarStyle">@style/Toolbar</item>
+        <item name="textAppearanceButton">@style/TextAppearanceButton</item>
+        <item name="materialButtonStyle">@style/MaterialButton</item>
+
     </style>
 
     <style name="AppTheme" parent="BaseAppTheme" />
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.ActionBar" />
 
     <style name="ItemDetail" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <item name="android:background">?android:selectableItemBackground</item>
@@ -87,7 +94,7 @@
     </style>
 
     <style name="ListItemTitle">
-        <item name="android:color">?android:attr/textColorPrimary</item>
+        <item name="android:color">?android:textColorPrimary</item>
         <item name="android:ellipsize">end</item>
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
@@ -100,6 +107,57 @@
         <item name="android:maxLines">1</item>
         <item name="android:singleLine">true</item>
         <item name="android:textSize">@dimen/fontSizeSmaller</item>
+    </style>
+
+    <style name="TabIndicator" parent="Widget.MaterialComponents.TabLayout">
+        <item name="tabSelectedTextColor">?colorSecondary</item>
+        <item name="tabIndicatorColor">?colorSecondary</item>
+        <item name="tabMaxWidth">0dp</item>
+        <item name="tabGravity">center</item>
+        <item name="tabMode">fixed</item>
+    </style>
+
+    <style name="SnackbarActionButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textColor">?colorSecondary</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/DialogTitleTextStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/DialogButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/DialogButtonStyle</item>
+    </style>
+
+    <style name="DialogTitleTextStyle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?colorSecondary</item>
+    </style>
+
+    <style name="Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="colorControlNormal">?colorSecondary</item>
+    </style>
+
+
+    <style name="TextAppearanceButton" parent="@style/TextAppearance.MaterialComponents.Button">
+        <item name="android:letterSpacing" tools:targetApi="lollipop">0</item>
+    </style>
+
+    <style name="MaterialButton" parent="@style/Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlayButton</item>
+    </style>
+
+    <style name="ThemeOverlayButton">
+        <item name="colorPrimary">?attr/colorSecondary</item>
+        <item name="colorOnPrimary">?attr/colorOnSecondary</item>
+    </style>
+
+    <style name="NavigationTextAppearance">
+        <item name="colorPrimary">?android:textColorPrimary</item>
+        <item name="colorOnSurface">?android:textColorPrimary</item>
     </style>
 
 </resources>

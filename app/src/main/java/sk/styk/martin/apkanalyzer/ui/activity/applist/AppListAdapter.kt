@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.applist.searchable
+package sk.styk.martin.apkanalyzer.ui.activity.applist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

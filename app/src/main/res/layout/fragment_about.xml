@@ -27,15 +27,13 @@
             android:layout_height="wrap_content"
             android:theme="@style/AppTheme.AppBarOverlay">
 
-            <androidx.appcompat.widget.Toolbar
+            <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
                 app:marginTopSystemWindowInsets="@{true}"
                 app:navigationIconState="@{NavigationIconState.HAMBURGER}"
                 app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
                 app:title="@string/app_name" />
 
         </com.google.android.material.appbar.AppBarLayout>
