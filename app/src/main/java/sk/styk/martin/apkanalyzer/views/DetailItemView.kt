@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.view_detail_item.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
-import sk.styk.martin.apkanalyzer.util.file.ClipBoardHelper
 
 class DetailItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null)
     : LinearLayout(context, attrs, R.attr.detailItemViewStyle), View.OnClickListener, View.OnLongClickListener {
@@ -61,7 +60,7 @@ class DetailItemView @JvmOverloads constructor(context: Context, attrs: Attribut
     }
 
     override fun onLongClick(p0: View?): Boolean {
-        ClipBoardHelper.copyToClipBoard(context, valueText.toString(), titleText)
+//        ClipBoardManager.copyToClipBoard(context, valueText.toString(), titleText)
         Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show()
         return true
     }

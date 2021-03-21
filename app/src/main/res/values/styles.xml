@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="BaseAppTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary_dark</item>
@@ -24,7 +24,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme" parent="BaseAppTheme"/>
+    <style name="AppTheme" parent="BaseAppTheme" />
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
@@ -72,7 +72,7 @@
         <item name="android:background">?android:selectableItemBackground</item>
     </style>
 
-    <style name="AdDivider" >
+    <style name="AdDivider">
         <item name="android:background">@color/primary</item>
         <item name="android:animateLayoutChanges">true</item>
         <item name="android:visibility">gone</item>
@@ -86,4 +86,21 @@
         <item name="android:background">@drawable/fab_menu_item_card_background</item>
     </style>
 
+    <style name="ListItemTitle">
+        <item name="android:color">?android:attr/textColorPrimary</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/fontSizeSmall</item>
+    </style>
+
+    <style name="ListItemSubtitleTitle">
+        <item name="android:color">?android:attr/textColorSecondary</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/fontSizeSmaller</item>
+    </style>
+
 </resources>
+

@@ -9,7 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBinding
-import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
+import sk.styk.martin.apkanalyzer.util.components.toDialog
+import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import sk.styk.martin.apkanalyzer.util.provideViewModelOfParentFragment
 import javax.inject.Inject
@@ -18,9 +19,6 @@ class PermissionsGeneralDetailsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: PermissionsGeneralDetailsViewModel.Factory
-
-    @Inject
-    lateinit var viewModelFactory2: ViewModelFactory
 
     private lateinit var binding: FragmentPermissionDetailGeneralBinding
 
@@ -47,6 +45,11 @@ class PermissionsGeneralDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+
+        with(viewModel) {
+            openDescription.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "descrition_dialog") })
+            showSnackbar.observe(viewLifecycleOwner, { it.toSnackbar(requireActivity().findViewById(android.R.id.content)).show() })
+        }
     }
 
 }

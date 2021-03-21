@@ -28,6 +28,7 @@
     <string name="none">none</string>
     <string name="allow">Allow</string>
     <string name="dismiss">Dismiss</string>
+    <string name="close">Close</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="permission_not_granted">Permission not granted</string>

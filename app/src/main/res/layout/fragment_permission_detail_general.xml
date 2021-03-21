@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,62 +8,13 @@
             name="viewModel"
             type="sk.styk.martin.apkanalyzer.ui.activity.permission.detail.details.PermissionsGeneralDetailsViewModel" />
 
-        <import type="sk.styk.martin.apkanalyzer.util.PermissionLevelHelper" />
     </data>
 
-
-    <androidx.core.widget.NestedScrollView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:adapter="@{viewModel.detailInfoAdapter}"
+        app:itemDecoration="@{true}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-        <LinearLayout
-            style="@style/ItemDetailLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.activity.permission.detail.PermissionDetailActivity">
-
-            <sk.styk.martin.apkanalyzer.views.DetailItemView
-                android:id="@+id/permission_name"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_name_description"
-                app:titleText="@string/permissions_name"
-                app:valueText="@{viewModel.permissionData.name}" />
-
-            <sk.styk.martin.apkanalyzer.views.DetailItemView
-                android:id="@+id/permission_group_name"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_group_description"
-                app:titleText="@string/permissions_group"
-                app:valueText="@{viewModel.permissionData.groupName}" />
-
-            <sk.styk.martin.apkanalyzer.views.DetailItemView
-                android:id="@+id/permission_protection_level"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_protection_description"
-                app:titleText="@string/permissions_protection"
-                app:valueText="@{PermissionLevelHelper.showLocalized(viewModel.permissionData.protectionLevel)}" />
-
-            <sk.styk.martin.apkanalyzer.views.DetailItemView
-                android:id="@+id/number_apps_granted"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_granted_apps_description"
-                app:titleText="@string/permissions_granted_apps"
-                app:valueText="@{viewModel.grantedApps}" />
-
-            <sk.styk.martin.apkanalyzer.views.DetailItemView
-                android:id="@+id/number_apps_not_granted"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/listPreferredItemHeight"
-                app:descriptionText="@string/permissions_not_granted_apps_description"
-                app:titleText="@string/permissions_not_granted_apps"
-                app:valueText="@{viewModel.notGrantedApps}" />
-
-        </LinearLayout>
-
-    </androidx.core.widget.NestedScrollView>
 </layout>

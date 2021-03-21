@@ -18,10 +18,6 @@
     <dimen name="intro_radio_buttons_margin">20dp</dimen>
     <dimen name="padding_ad">8dp</dimen>
 
-
-
-    <dimen name="text_size_super_small">10sp</dimen>
-
     <dimen name="ad_banner_height_small">32dp</dimen>
     <dimen name="ad_banner_height_medium">50dp</dimen>
     <dimen name="ad_banner_height_large">90dp</dimen>
@@ -43,5 +39,16 @@
 
     <dimen name="speed_dial_disc_icon_size">24dp</dimen>
     <dimen name="speed_dial_disc_icon_margin">8dp</dimen>
+
+
+    <!-- textSize -->
+    <dimen name="fontSizeTiny">10sp</dimen>
+    <dimen name="fontSizeExtraSmall">12sp</dimen>
+    <dimen name="fontSizeSmaller">14sp</dimen>
+    <dimen name="fontSizeSmall">16sp</dimen>
+    <dimen name="fontSizeMedium">18sp</dimen>
+    <dimen name="fontSizeMediumLarge">20sp</dimen>
+    <dimen name="fontSizeLarge">24sp</dimen>
+    <dimen name="fontSizeExtraLarge">32sp</dimen>
 
 </resources>
