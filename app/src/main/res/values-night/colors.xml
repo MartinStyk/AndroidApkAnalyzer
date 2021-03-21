@@ -5,7 +5,7 @@
     <color name="primary_light">#37474F</color>
     <color name="secondary">#13967c</color>
     <color name="accentLight">#16a085</color>
-
+    <color name="border">#1Fd6d6d6</color>
     <color name="textBody">#9DA4B3</color>
     <color name="textTitle">#E6EAF2</color>
     <color name="colorBackground">#171C26</color>

@@ -160,5 +160,9 @@
         <item name="colorOnSurface">?android:textColorPrimary</item>
     </style>
 
+    <style name="AppListRecycler" parent="AppTheme">
+        <item name="android:listDivider">@drawable/divider_app_list</item>
+    </style>
+
 </resources>
 

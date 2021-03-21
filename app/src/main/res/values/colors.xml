@@ -7,6 +7,7 @@
     <color name="accent">@color/secondary</color>
     <color name="accentLight">#1cb89a</color>
     <color name="premium">#FFC107</color>
+    <color name="border">#1F000000</color>
 
     <color name="textBody">#5C6373</color>
     <color name="textHint">@color/textBody</color>>
@@ -21,4 +22,8 @@
     <color name="colorLightGrey">#CFD8DC</color>
     <color name="grey_500">#9E9E9E</color>
     <color name="overlay">#ddffffff</color>
+
+    <color name="bright_gray">#3D424D</color>
+    <color name="catskill_white">#E6EAF2</color>
+
 </resources>
