@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivityViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.main.MainActivityViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout

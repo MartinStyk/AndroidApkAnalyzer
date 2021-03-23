@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     android:animateLayoutChanges="true"
-    tools:context=".ui.activity.mainactivity.MainActivity">
+    tools:context=".ui.main.MainActivity">
 
     <FrameLayout
         android:id="@+id/main_activity_placeholder"

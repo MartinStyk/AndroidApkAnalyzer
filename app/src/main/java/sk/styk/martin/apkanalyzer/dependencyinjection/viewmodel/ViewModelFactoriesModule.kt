@@ -5,8 +5,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragmentViewModel
-import sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivityViewModel
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListViewModel
+import sk.styk.martin.apkanalyzer.ui.main.MainActivityViewModel
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragmentViewModel
 
 @Module(includes = [

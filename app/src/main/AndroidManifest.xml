@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity"
+            android:name="sk.styk.martin.apkanalyzer.ui.main.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,18 +46,18 @@
         <activity
             android:name="sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity">
+            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity" />
+                android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
         </activity>
         <activity
             android:name="sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity"
             android:label="@string/title_manifest"
-            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity">
+            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity" />
+                android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
         </activity>
 
         <activity
@@ -67,10 +67,10 @@
         <activity
             android:name="sk.styk.martin.apkanalyzer.ui.permission.detail.PermissionDetailActivity"
             android:label="@string/title_permissions"
-            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity">
+            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity" />
+                android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
         </activity>
 
         <service android:name=".business.analysis.task.FileCopyService" />

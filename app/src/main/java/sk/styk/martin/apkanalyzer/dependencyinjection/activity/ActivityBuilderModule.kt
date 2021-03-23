@@ -5,7 +5,7 @@ import dagger.android.ContributesAndroidInjector
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.main.MainActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.permission.PermissionDetailActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ActivityScope
-import sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity
+import sk.styk.martin.apkanalyzer.ui.main.MainActivity
 import sk.styk.martin.apkanalyzer.ui.permission.detail.PermissionDetailActivity
 
 @Module
