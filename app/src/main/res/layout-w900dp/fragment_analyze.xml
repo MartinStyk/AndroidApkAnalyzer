@@ -10,7 +10,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <fragment
-        class="sk.styk.martin.apkanalyzer.ui.activity.applist.main.MainAppListFragment"
+        class="sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment"
         android:id="@+id/app_list_container"
         android:layout_width="@dimen/item_width"
         android:layout_height="match_parent"/>

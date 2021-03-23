@@ -8,8 +8,8 @@ import sk.styk.martin.apkanalyzer.dependencyinjection.activity.ActivityCommonMod
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.FragmentScope
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactoriesModule
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
-import sk.styk.martin.apkanalyzer.ui.activity.applist.main.MainAppListFragment
 import sk.styk.martin.apkanalyzer.ui.activity.mainactivity.MainActivity
+import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragment
 
 @Module(includes = [

@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.applist.main
+package sk.styk.martin.apkanalyzer.ui.applist.main
 
 import android.Manifest
 import android.app.Activity
@@ -21,7 +21,7 @@ import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
-import sk.styk.martin.apkanalyzer.ui.activity.applist.*
+import sk.styk.martin.apkanalyzer.ui.applist.*
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider

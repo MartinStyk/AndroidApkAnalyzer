@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.applist
+package sk.styk.martin.apkanalyzer.ui.applist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

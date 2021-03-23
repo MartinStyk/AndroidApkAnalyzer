@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.applist
+package sk.styk.martin.apkanalyzer.ui.applist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

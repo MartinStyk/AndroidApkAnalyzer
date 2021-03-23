@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.applist.BaseAppListViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel" />
     </data>
 
     <ViewAnimator

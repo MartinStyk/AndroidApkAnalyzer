@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.applist
+package sk.styk.martin.apkanalyzer.ui.applist
 
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment

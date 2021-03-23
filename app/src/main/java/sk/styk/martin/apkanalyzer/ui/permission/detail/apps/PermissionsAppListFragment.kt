@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionAppListBinding
-import sk.styk.martin.apkanalyzer.ui.activity.applist.BaseAppListFragment
+import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import sk.styk.martin.apkanalyzer.util.provideViewModelOfParentFragment
 import javax.inject.Inject

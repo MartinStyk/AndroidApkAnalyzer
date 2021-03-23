@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.applist.main
+package sk.styk.martin.apkanalyzer.ui.applist.main
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -14,7 +14,7 @@ import sk.styk.martin.apkanalyzer.databinding.FragmentMainAppListBinding
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity
-import sk.styk.martin.apkanalyzer.ui.activity.applist.BaseAppListFragment
+import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
