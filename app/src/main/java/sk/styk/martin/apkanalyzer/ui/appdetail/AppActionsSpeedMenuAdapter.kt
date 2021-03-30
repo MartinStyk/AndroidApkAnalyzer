@@ -5,9 +5,7 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.channels.BroadcastChannel
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.asFlow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.views.SpeedDialMenuAdapter
 import sk.styk.martin.apkanalyzer.views.SpeedDialMenuItem
@@ -18,29 +16,29 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
 
     var menuItems: List<AppActions> = emptyList()
 
-    private val installAppChannel = BroadcastChannel<Unit>(Channel.CONFLATED)
-    val installApp = installAppChannel.asFlow()
+    private val installAppFlow = MutableSharedFlow<Unit>()
+    val installApp = installAppFlow
 
-    private val exportAppChannel = BroadcastChannel<Unit>(Channel.CONFLATED)
-    val exportApp = exportAppChannel.asFlow()
+    private val exportAppFlow = MutableSharedFlow<Unit>()
+    val exportApp = exportAppFlow
 
-    private val shareAppChannel = BroadcastChannel<Unit>(Channel.CONFLATED)
-    val shareApp = shareAppChannel.asFlow()
+    private val shareAppFlow = MutableSharedFlow<Unit>()
+    val shareApp = shareAppFlow
 
-    private val saveIconChannel = BroadcastChannel<Unit>(Channel.CONFLATED)
-    val saveIcon = saveIconChannel.asFlow()
+    private val saveIconFlow = MutableSharedFlow<Unit>()
+    val saveIcon = saveIconFlow
 
-    private val showManifestChannel = BroadcastChannel<Unit>(Channel.CONFLATED)
-    val showManifest = showManifestChannel.asFlow()
+    private val showManifestFlow = MutableSharedFlow<Unit>()
+    val showManifest = showManifestFlow
 
-    private val openGooglePlayChannel = BroadcastChannel<Unit>(Channel.CONFLATED)
-    val openGooglePlay = openGooglePlayChannel.asFlow()
+    private val openGooglePlayFlow = MutableSharedFlow<Unit>()
+    val openGooglePlay = openGooglePlayFlow
 
-    private val openSystemInfoChannel = BroadcastChannel<Unit>(Channel.CONFLATED)
-    val openSystemInfo = openSystemInfoChannel.asFlow()
+    private val openSystemInfoFlow = MutableSharedFlow<Unit>()
+    val openSystemInfo = openSystemInfoFlow
 
-    private val showMoreChannel = BroadcastChannel<Unit>(Channel.CONFLATED)
-    val showMore = showMoreChannel.asFlow()
+    private val showMoreFlow = MutableSharedFlow<Unit>()
+    val showMore = showMoreFlow
 
     enum class AppActions {
         INSTALL,
@@ -68,14 +66,14 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
 
     override fun onMenuItemClick(position: Int): Boolean {
         when (menuItems[position]) {
-            AppActions.INSTALL -> installAppChannel.offer(Unit)
-            AppActions.COPY -> exportAppChannel.offer(Unit)
-            AppActions.SHARE -> shareAppChannel.offer(Unit)
-            AppActions.SAVE_ICON -> saveIconChannel.offer(Unit)
-            AppActions.SHOW_MANIFEST -> showManifestChannel.offer(Unit)
-            AppActions.OPEN_PLAY -> openGooglePlayChannel.offer(Unit)
-            AppActions.BUILD_INFO -> openSystemInfoChannel.offer(Unit)
-            AppActions.SHOW_MORE -> showMoreChannel.offer(Unit)
+            AppActions.INSTALL -> installAppFlow.tryEmit(Unit)
+            AppActions.COPY -> exportAppFlow.tryEmit(Unit)
+            AppActions.SHARE -> shareAppFlow.tryEmit(Unit)
+            AppActions.SAVE_ICON -> saveIconFlow.tryEmit(Unit)
+            AppActions.SHOW_MANIFEST -> showManifestFlow.tryEmit(Unit)
+            AppActions.OPEN_PLAY -> openGooglePlayFlow.tryEmit(Unit)
+            AppActions.BUILD_INFO -> openSystemInfoFlow.tryEmit(Unit)
+            AppActions.SHOW_MORE -> showMoreFlow.tryEmit(Unit)
         }
         return true
     }
