@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,8 @@ import kotlinx.android.synthetic.main.fab_menu_item_icon.view.*
 import kotlinx.android.synthetic.main.floating_action_button.view.*
 import kotlinx.android.synthetic.main.list_item_fab_menu.view.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.util.DP
+
+//import sk.styk.martin.apkanalyzer.util.DP
 
 class FloatingActionButton : RelativeLayout {
 
@@ -328,7 +330,7 @@ class FloatingActionButton : RelativeLayout {
 
         fab_card.clearAnimation()
         fab_card.animate()
-                .translationY(70.DP(context))
+                .translationY(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70f, context.resources.displayMetrics))
                 .setInterpolator(AccelerateInterpolator(2f))
                 .setDuration(if (immediate) 0L else HIDE_SHOW_ANIMATION_DURATION)
                 .setListener(object : AnimatorListenerAdapter() {
@@ -519,6 +521,14 @@ class FloatingActionButton : RelativeLayout {
     val iconWrapper: LinearLayout
         get() = fab_icon_wrapper
 
+
+    fun setShow(show: Boolean?) {
+        if (show == true && !isShown) {
+            show()
+        } else if (show == false && isShown) {
+            hide()
+        }
+    }
 
     inner class MoveUpwardBehavior : CoordinatorLayout.Behavior<View>() {
 

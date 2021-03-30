@@ -26,6 +26,7 @@ class ApplicationCommonModule {
 
     @Provides
     @Singleton
+    @ApplicationScope
     fun providesResources(application: Application): Resources = application.resources
 
     @Provides

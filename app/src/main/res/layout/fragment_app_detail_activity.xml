@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
- xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/recycler_view_activity"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    app:layoutManager="LinearLayoutManager"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    android:scrollbars="vertical"
-    tools:listitem="@layout/list_item_activity_detail" />
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.AppActivityDetailFragmentViewModel" />
+    </data>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adapter="@{viewModel.adapter}"
+        app:itemDecoration="@{true}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/list_item_activity_detail" />
+
+</layout>

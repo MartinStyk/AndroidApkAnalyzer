@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="value"
-            type="String" />
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.adapters.TextListAdapter.TextItemViewModel" />
 
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onLongClick="@{() -> viewModel.onLongClick()}"
         android:orientation="vertical"
         android:padding="@dimen/text_list_item_margin">
 
@@ -19,7 +21,7 @@
             android:id="@+id/item_detail_string"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{value}" />
+            app:text="@{viewModel.text}" />
 
     </LinearLayout>
 </layout>

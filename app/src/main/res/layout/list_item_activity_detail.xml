@@ -6,10 +6,8 @@
     <data>
 
         <variable
-            name="data"
-            type="sk.styk.martin.apkanalyzer.model.detail.ActivityData" />
-
-        <import type="sk.styk.martin.apkanalyzer.util.file.AppOperations" />
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.AppActivityDetailListAdapter.ActivityDataViewModel" />
 
     </data>
 
@@ -30,38 +28,42 @@
                 style="@style/ItemDetailCardViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{data.name}" />
+                android:text="@{viewModel.name}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_activity_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/activity_label_description"
-                app:titleText="@string/activity_label"
-                app:valueText="@{data.label ?? @string/NA}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.labelDetailItemInfo)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.labelDetailItemInfo)}"
+                app:titleText="@{viewModel.labelDetailItemInfo.name}"
+                app:valueText="@{viewModel.labelDetailItemInfo.value}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_activity_parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/activity_parent_description"
-                app:titleText="@string/activity_parent"
-                app:valueText="@{data.parentName ?? @string/NA}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.parentDetailItemInfo)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.parentDetailItemInfo)}"
+                app:titleText="@{viewModel.parentDetailItemInfo.name}"
+                app:valueText="@{viewModel.parentDetailItemInfo.value}"/>
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_activity_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/activity_permission_description"
-                app:titleText="@string/activity_permission"
-                app:valueText="@{data.permission ?? @string/none}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.permissionDetailItemInfo)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.permissionDetailItemInfo)}"
+                app:titleText="@{viewModel.permissionDetailItemInfo.name}"
+                app:valueText="@{viewModel.permissionDetailItemInfo.value}"/>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/item_activity_run"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@null"
-                android:enabled="@{data.exported}"
+                android:enabled="@{viewModel.runButtonVisible}"
+                android:onClick="@{() -> viewModel.onRunClick()}"
                 android:text="@string/activity_run"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 

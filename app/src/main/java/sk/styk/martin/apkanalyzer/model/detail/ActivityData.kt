@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ActivityData(
         val name: String,
-        val packageName: String? = null,
+        val packageName: String,
         val label: String? = null,
         val targetActivity: String? = null, // If this is an activity alias, this is the real activity class to run for it.
         val permission: String? = null, // Optional name of a permission required to be able to access this Ativity

@@ -32,6 +32,6 @@ abstract class ViewModelFactoriesModule {
     @Binds
     @IntoMap
     @ViewModelKey(value = PermissionListFragmentViewModel::class)
-    abstract fun bindPermissionListFragmentViewModell(viewModel: PermissionListFragmentViewModel): ViewModel
+    abstract fun bindPermissionListFragmentViewModel(viewModel: PermissionListFragmentViewModel): ViewModel
 
 }

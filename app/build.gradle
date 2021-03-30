@@ -78,6 +78,7 @@ dependencies {
     implementation 'androidx.preference:preference:1.1.1'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation('com.github.hotchemi:permissionsdispatcher:3.1.0')
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.10'

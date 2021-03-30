@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="data"
-            type="sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData" />
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider.AppReceiverDetailListAdapter.ReceiverDataViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -16,7 +16,7 @@
         android:padding="@dimen/padding_default"
         card_view:cardUseCompatPadding="true">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,23 +27,25 @@
                 style="@style/ItemDetailCardViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{data.name}" />
+                android:text="@{viewModel.name}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_receiver_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/receiver_permission_description"
-                app:titleText="@string/receiver_permission"
-                app:valueText="@{data.permission ?? @string/none}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.permission)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.permission)}"
+                app:titleText="@{viewModel.permission.name}"
+                app:valueText="@{viewModel.permission.value}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_receiver_exported"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/receiver_exported_description"
-                app:titleText="@string/receiver_exported"
-                app:valueText="@{data.exported ? @string/yes : @string/no}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.exported)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.exported)}"
+                app:titleText="@{viewModel.exported.name}"
+                app:valueText="@{viewModel.exported.value}" />
 
         </LinearLayout>
 

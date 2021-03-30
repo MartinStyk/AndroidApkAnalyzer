@@ -7,6 +7,7 @@ import androidx.appcompat.graphics.drawable.DrawerArrowDrawable
 import androidx.appcompat.widget.Toolbar
 import androidx.databinding.BindingAdapter
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState
 
 
@@ -51,4 +52,9 @@ fun Toolbar.searchQuery(searchQuery: String?) {
     if (searchView.query != searchQuery) {
         searchView.setQuery(searchQuery, false)
     }
+}
+
+@BindingAdapter("title")
+fun Toolbar.setTitle(textInfo: TextInfo) {
+    title = textInfo.getText(context)
 }

@@ -164,5 +164,14 @@
         <item name="android:listDivider">@drawable/divider_app_list</item>
     </style>
 
+
+    <style name="CollapsingToolbar" parent="Widget.Design.CollapsingToolbar">
+        <item name="android:background">?attr/colorSurface</item>
+        <item name="colorControlNormal">?colorSecondary</item>
+        <item name="contentScrim">?colorSurface</item>
+        <item name="liftOnScroll">true</item>
+        <item name="layout_scrollFlags">scroll|exitUntilCollapsed</item>
+    </style>
+
 </resources>
 

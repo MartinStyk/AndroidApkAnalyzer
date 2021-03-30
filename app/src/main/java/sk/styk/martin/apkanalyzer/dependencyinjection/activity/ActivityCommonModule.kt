@@ -34,4 +34,8 @@ class ActivityCommonModule {
         return permissionsManager
     }
 
+//    @Provides
+//    @ActivityScope
+//    fun provideBackPressedManager(backPressManager: BackPressedManager): BackPressedManager = backPressManager
+
 }

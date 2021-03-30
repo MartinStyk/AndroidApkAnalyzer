@@ -85,13 +85,8 @@ class MainActivity : ApkAnalyzerBaseActivity() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            val fragment = supportFragmentManager.findFragmentById(R.id.main_activity_placeholder)
-            val consumedInChildFragment = fragment is BackPressedListener && fragment.onBackPressed()
-
-            if (!consumedInChildFragment) {
-                navigation_view.setCheckedItem(R.id.nav_app_list)
-                super.onBackPressed()
-            }
+            navigation_view.setCheckedItem(R.id.nav_app_list)
+            super.onBackPressed()
         }
     }
 

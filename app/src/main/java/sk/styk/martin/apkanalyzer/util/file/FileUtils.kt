@@ -56,7 +56,6 @@ object FileUtils {
 
     }
 
-    @WorkerThread
     @Throws(IOException::class)
     fun writeBitmap(bitmap: Bitmap, targetFilePath: String) {
         val imageFile = File(targetFilePath)

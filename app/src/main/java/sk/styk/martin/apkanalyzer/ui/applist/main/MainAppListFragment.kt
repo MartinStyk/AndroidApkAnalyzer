@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.applist.main
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,7 @@ import sk.styk.martin.apkanalyzer.databinding.FragmentMainAppListBinding
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailRequest
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
@@ -52,7 +54,7 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
         with(viewModel) {
             showSnack.observe(viewLifecycleOwner, { it.toSnackbar(binding.appListContainer).show() })
             openFilePicker.observe(viewLifecycleOwner, { startFilePicker() })
-            openDetailFromFile.observe(viewLifecycleOwner, { startActivity(AppDetailActivity.createIntent(packageUri = it, context = requireContext())) })
+            openDetailFromFile.observe(viewLifecycleOwner, { startAppDetail(it) })
             indeterminateSnackbar.observe(viewLifecycleOwner, { handleIndefiniteSnackbar(it) })
             filteredSource.observe(viewLifecycleOwner, { handleFilteredSources(it) })
         }
@@ -85,6 +87,13 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
         } catch (exception: ActivityNotFoundException) {
             Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    private fun startAppDetail(uri: Uri) {
+        val intent = Intent(requireContext(), AppDetailActivity::class.java).apply {
+            putExtra(AppDetailActivity.APP_DETAIL_REQUEST, AppDetailRequest.ExternalPackage(uri))
+        }
+        startActivity(intent)
     }
 
     companion object {

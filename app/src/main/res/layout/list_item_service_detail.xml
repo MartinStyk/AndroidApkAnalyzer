@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="data"
-            type="sk.styk.martin.apkanalyzer.model.detail.ServiceData" />
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.AppServiceDetailListAdapter.ServiceDataViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -16,7 +16,7 @@
         android:padding="@dimen/padding_default"
         card_view:cardUseCompatPadding="true">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
             style="@style/ItemDetailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,55 +27,61 @@
                 style="@style/ItemDetailCardViewHeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{data.name}" />
+                android:text="@{viewModel.name}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_service_permission"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/service_permission_description"
-                app:titleText="@string/activity_permission"
-                app:valueText="@{data.permission ?? @string/none}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.permission)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.permission)}"
+                app:titleText="@{viewModel.permission.name}"
+                app:valueText="@{viewModel.permission.value}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_service_exported"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/service_exported_description"
-                app:titleText="@string/service_exported"
-                app:valueText="@{data.exported ? @string/yes : @string/no}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.exported)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.exported)}"
+                app:titleText="@{viewModel.exported.name}"
+                app:valueText="@{viewModel.exported.value}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_service_stop_with_task"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/service_stop_with_task_description"
-                app:titleText="@string/service_stop_with_task"
-                app:valueText="@{data.stopWithTask ? @string/yes : @string/no}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.stopWithTask)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.stopWithTask)}"
+                app:titleText="@{viewModel.stopWithTask.name}"
+                app:valueText="@{viewModel.stopWithTask.value}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_service_single_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/service_single_user_description"
-                app:titleText="@string/service_single_user"
-                app:valueText="@{data.singleUser ? @string/yes : @string/no}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.singleUser)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.singleUser)}"
+                app:titleText="@{viewModel.singleUser.name}"
+                app:valueText="@{viewModel.singleUser.value}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_service_isolated_process"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/service_isolated_process_description"
-                app:titleText="@string/service_isolated_process"
-                app:valueText="@{data.isolatedProcess ? @string/yes : @string/no}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.isolatedProcess)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.isolatedProcess)}"
+                app:titleText="@{viewModel.isolatedProcess.name}"
+                app:valueText="@{viewModel.isolatedProcess.value}" />
 
-            <sk.styk.martin.apkanalyzer.views.DetailListItemView
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
                 android:id="@+id/item_service_external_service"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:descriptionText="@string/service_external_service_description"
-                app:titleText="@string/service_external_service"
-                app:valueText="@{data.externalService ? @string/yes : @string/no}" />
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.external)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.external)}"
+                app:titleText="@{viewModel.external.name}"
+                app:valueText="@{viewModel.external.value}" />
 
         </LinearLayout>
 

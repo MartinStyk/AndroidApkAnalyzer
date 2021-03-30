@@ -1,82 +1,8 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.activity.appdetail.base.AppDetailActivity"
-    tools:ignore="MergeRootFrame">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <com.google.android.material.appbar.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:title="@string/loading"
-            app:toolbarId="@+id/toolbar">
-
-            <ImageView
-                android:id="@+id/toolbar_layout_image"
-                android:layout_width="match_parent"
-                android:layout_height="90dp"
-                android:contentDescription="@string/app_icon"
-                android:minHeight="90dp"
-                android:paddingTop="20dp"
-                app:layout_collapseMode="pin" />
-
-            <com.google.android.material.appbar.MaterialToolbar
-                android:id="@+id/detail_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                android:background="@android:color/transparent"/>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-    </com.google.android.material.appbar.AppBarLayout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <FrameLayout
-        android:id="@+id/item_detail_container"
-        android:layout_width="match_parent"
+        android:id="@+id/container"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        android:layout_width="match_parent" />
 
-    <FrameLayout
-        style="@style/AdDivider"
-        android:id="@+id/ad_view_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom">
-
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/ad_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:visibility="gone"
-            ads:adSize="SMART_BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id"
-            tools:visibility="visible" />
-
-    </FrameLayout>
-
-    <sk.styk.martin.apkanalyzer.views.FloatingActionButton
-        android:id="@+id/btn_actions"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        app:buttonIcon="@drawable/ic_menu_dots"
-        app:buttonBackgroundColour="@color/accent"
-        app:buttonCoverColour="@color/overlay" />
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

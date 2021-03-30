@@ -72,8 +72,10 @@ object AppOperations {
 
     @JvmStatic
     fun startForeignActivity(context: Context, packageName: String, activityName: String) {
-        val intent = Intent()
-        intent.component = ComponentName(packageName, activityName)
+        val intent = Intent().apply {
+            component = ComponentName(packageName, activityName)
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
         try {
             context.startActivity(intent)
         } catch (e: Exception) {

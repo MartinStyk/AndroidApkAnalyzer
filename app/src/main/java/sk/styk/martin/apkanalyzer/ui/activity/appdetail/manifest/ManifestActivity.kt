@@ -128,5 +128,20 @@ class ManifestActivity : AppCompatActivity(), ManifestContract.View {
             intent.putExtra(PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST, appDetailData.generalData.versionCode)
             return intent
         }
+
+        fun createIntent(context: Context, request: ManifestRequest): Intent {
+            val intent = Intent(context, ManifestActivity::class.java)
+            intent.putExtra(PACKAGE_NAME_FOR_MANIFEST_REQUEST, request.packageName)
+            intent.putExtra(PACKAGE_PATH_FOR_MANIFEST_REQUEST, request.apkDirectory)
+            intent.putExtra(PACKAGE_VERSION_NAME_FOR_MANIFEST_REQUEST, request.versionName)
+            intent.putExtra(PACKAGE_VERSION_CODE_FOR_MANIFEST_REQUEST, request.versionCode)
+            return intent
+        }
     }
+
+    data class ManifestRequest(
+            val packageName: String,
+            val apkDirectory: String,
+            val versionName: String?,
+            val versionCode: Long)
 }

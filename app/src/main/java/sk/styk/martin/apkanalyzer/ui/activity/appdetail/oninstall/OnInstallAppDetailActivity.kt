@@ -9,9 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.activity_app_detail.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
+//import sk.styk.martin.apkanalyzer.ui.activity.appdetail.pager.AppDetailPagerFragment
 
 class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContract.View {
 
@@ -27,11 +26,11 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
     }
 
     override fun setupViews() {
-        setSupportActionBar(detail_toolbar)
-        // this happens only in tablet mode when this activity is rotated from horizontal to vertical orientation
-        if (btn_actions == null) {
-            app_bar.setExpanded(false)
-        }
+//        setSupportActionBar(detail_toolbar)
+//        // this happens only in tablet mode when this activity is rotated from horizontal to vertical orientation
+//        if (btn_actions == null) {
+//            app_bar.setExpanded(false)
+//        }
     }
 
     override fun errorLoading() {
@@ -66,12 +65,12 @@ class OnInstallAppDetailActivity : AppCompatActivity(), OnInstallAppDetailContra
 
     override fun setupDetailFragment() {
 
-        val fragment = supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG)
-        if (fragment == null) {
-            supportFragmentManager.beginTransaction()
-                    .add(R.id.item_detail_container, AppDetailPagerFragment.create(packageUri = presenter.packageUri), AppDetailPagerFragment.TAG)
-                    .commitAllowingStateLoss()
-        }
+//        val fragment = supportFragmentManager.findFragmentByTag(AppDetailPagerFragment.TAG)
+//        if (fragment == null) {
+//            supportFragmentManager.beginTransaction()
+//                    .add(R.id.item_detail_container, AppDetailPagerFragment.create(packageUri = presenter.packageUri), AppDetailPagerFragment.TAG)
+//                    .commitAllowingStateLoss()
+//        }
     }
 
     companion object {

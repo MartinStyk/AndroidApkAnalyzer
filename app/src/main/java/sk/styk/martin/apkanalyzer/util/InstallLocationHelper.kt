@@ -1,14 +1,12 @@
 package sk.styk.martin.apkanalyzer.util
 
 import android.content.pm.PackageInfo
-import sk.styk.martin.apkanalyzer.ApkAnalyzer
-import sk.styk.martin.apkanalyzer.R
 
 object InstallLocationHelper {
 
-    private const val INSTALL_LOCATION_AUTO = "Auto"
-    private const val INSTALL_LOCATION_INTERNAL_ONLY = "Internal Only"
-    private const val INSTALL_LOCATION_PREFER_EXTERNAL = "Prefer External"
+    const val INSTALL_LOCATION_AUTO = "Auto"
+    const val INSTALL_LOCATION_INTERNAL_ONLY = "Internal Only"
+    const val INSTALL_LOCATION_PREFER_EXTERNAL = "Prefer External"
 
     fun resolveInstallLocation(installLocation: Int): String {
         return when (installLocation) {
@@ -19,15 +17,4 @@ object InstallLocationHelper {
         }
     }
 
-    @JvmStatic
-    fun showLocalizedLocation(installLocation: String?): String {
-        val context = ApkAnalyzer.context
-
-        return when (installLocation) {
-            INSTALL_LOCATION_AUTO -> context.getString(R.string.install_loc_auto)
-            INSTALL_LOCATION_INTERNAL_ONLY -> context.getString(R.string.install_loc_internal_only)
-            INSTALL_LOCATION_PREFER_EXTERNAL -> context.getString(R.string.install_loc_prefer_external)
-            else -> context.getString(R.string.install_loc_internal_only)
-        }
-    }
 }

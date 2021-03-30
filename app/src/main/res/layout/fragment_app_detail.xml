@@ -1,45 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/container_frame"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
+    <data>
+
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailFragmentViewModel" />
+
+        <import type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailFragmentViewModelKt" />
+
+        <import type="android.view.View" />
+
+        <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
+
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.activity.appdetail.base.AppDetailActivity"
+        tools:ignore="MergeRootFrame">
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/pager"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/app_bar_height"
+            android:fitsSystemWindows="true"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:onOffsetChangeListener="@{viewModel}">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/toolbar_layout"
+                style="@style/CollapsingToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                app:paddingTopSystemWindowInsets="@{true}"
+                app:titleEnabled="false"
+                app:toolbarId="@+id/toolbar">
+
+                <ImageView
+                    android:id="@+id/toolbar_layout_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/app_icon"
+                    app:imageDrawable="@{viewModel.toolbarIcon}" />
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/detail_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:layout_marginBottom="38dp"
+                    android:background="@android:color/transparent"
+                    app:layout_collapseMode="pin"
+                    app:navigationIconState="@{NavigationIconState.ARROW}"
+                    app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
+                    app:title="@{viewModel.toolbarTitle}" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs"
+                    style="@style/TabIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    ads:tabGravity="fill"
+                    ads:tabMode="scrollable"
+                    android:background="@android:color/transparent"
+                    android:visibility="@{viewModel.viewState == AppDetailFragmentViewModelKt.DATA_STATE ? View.VISIBLE : View.GONE}"
+                    app:color="@{viewModel.accentColor}" />
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ViewAnimator
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            app:displayedChild="@{viewModel.viewState}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
+            <ProgressBar
+                android:id="@+id/item_detail_loading"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/item_detail_error"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/error_loading_package_detail" />
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </ViewAnimator>
+
+        <FrameLayout
+            android:id="@+id/ad_view_container"
+            style="@style/AdDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+
+            <com.google.android.gms.ads.AdView
+                android:id="@+id/ad_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                app:tabGravity="fill"
-                app:tabMode="scrollable" />
+                android:layout_gravity="bottom"
+                android:visibility="gone"
+                ads:adSize="SMART_BANNER"
+                ads:adUnitId="@string/banner_ad_unit_id"
+                tools:visibility="visible" />
 
-        </androidx.viewpager.widget.ViewPager>
+        </FrameLayout>
 
-        <ProgressBar
-            android:id="@+id/item_detail_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:indeterminate="true"
-            android:visibility="visible" />
+        <sk.styk.martin.apkanalyzer.views.FloatingActionButton
+            android:id="@+id/btn_actions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:buttonBackgroundColour="@{viewModel.accentColor}"
+            app:buttonCoverColour="@color/overlay"
+            app:buttonIcon="@drawable/ic_menu_dots"
+            app:contentCoverEnabled="@{true}"
+            app:show="@{viewModel.actionButtonVisibility}"
+            app:speedDialMenuAdapter="@{viewModel.actionButtonAdapter}" />
 
-        <TextView
-            android:id="@+id/item_detail_error"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/error_loading_package_detail"
-            android:visibility="gone" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
-    </RelativeLayout>
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
