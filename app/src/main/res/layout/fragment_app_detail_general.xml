@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general.AppGeneralDetailsFragmentViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.page.general.AppGeneralDetailsFragmentViewModel" />
 
     </data>
 

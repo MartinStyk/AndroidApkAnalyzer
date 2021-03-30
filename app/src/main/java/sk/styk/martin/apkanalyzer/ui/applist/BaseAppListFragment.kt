@@ -8,8 +8,8 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.model.list.AppListData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailRequest
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
 
 abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
 

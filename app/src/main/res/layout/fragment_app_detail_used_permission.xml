@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.usedpermission.AppUsedPermissionFragmentViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppUsedPermissionFragmentViewModel" />
 
     </data>
 

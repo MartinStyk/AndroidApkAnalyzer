@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.adapters.TextListAdapter.TextItemViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.adapters.TextListAdapter.TextItemViewModel" />
 
     </data>
 

@@ -6,7 +6,7 @@ import sk.styk.martin.apkanalyzer.dependencyinjection.activity.detail.AppDetailA
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.main.MainActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.permission.PermissionDetailActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ActivityScope
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
 import sk.styk.martin.apkanalyzer.ui.permission.detail.PermissionDetailActivity
 

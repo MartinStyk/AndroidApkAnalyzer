@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.AppServiceDetailFragmentViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.page.service.AppServiceDetailFragmentViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

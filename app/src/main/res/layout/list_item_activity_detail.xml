@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.AppActivityDetailListAdapter.ActivityDataViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.AppActivityDetailListAdapter.ActivityDataViewModel" />
 
     </data>
 

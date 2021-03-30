@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.AppServiceDetailListAdapter.ServiceDataViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.page.service.AppServiceDetailListAdapter.ServiceDataViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

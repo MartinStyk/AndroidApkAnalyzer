@@ -8,9 +8,9 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailFragmentViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel" />
 
-        <import type="sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailFragmentViewModelKt" />
+        <import type="sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModelKt" />
 
         <import type="android.view.View" />
 
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context=".ui.activity.appdetail.base.AppDetailActivity"
+        tools:context=".ui.appdetail.AppDetailActivity"
         tools:ignore="MergeRootFrame">
 
         <com.google.android.material.appbar.AppBarLayout

@@ -7,18 +7,18 @@ import dagger.android.ContributesAndroidInjector
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.ActivityCommonModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.FragmentScope
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactoriesModule
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailActivity
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.base.AppDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.activity.AppActivityDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.certificate.AppCertificateDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.feature.AppFeatureDetailPageFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.general.AppGeneralDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.provider.AppProviderDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.receiver.AppReceiverDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.resource.AppResourceDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.service.AppServiceDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.usedpermission.AppDefinedPermissionDetailFragment
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.page.usedpermission.AppUsedPermissionDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.AppActivityDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.certificate.AppCertificateDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.feature.AppFeatureDetailPageFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.general.AppGeneralDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.provider.AppProviderDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.receiver.AppReceiverDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.resource.AppResourceDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.service.AppServiceDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppDefinedPermissionDetailFragment
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppUsedPermissionDetailFragment
 
 @Module(includes = [
     ActivityCommonModule::class,
