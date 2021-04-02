@@ -9,13 +9,14 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewMod
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.provider.AppReceiverDetailListAdapter
 
 class AppReceiverDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted  appDetailFragmentViewModel: AppDetailFragmentViewModel,
+        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
         private val receiverAdapter: AppReceiverDetailListAdapter,
         clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, receiverAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) {
+    override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         receiverAdapter.items = appDetailData.broadcastReceiverData
+        return appDetailData.broadcastReceiverData.isNotEmpty()
     }
 
     @AssistedInject.Factory

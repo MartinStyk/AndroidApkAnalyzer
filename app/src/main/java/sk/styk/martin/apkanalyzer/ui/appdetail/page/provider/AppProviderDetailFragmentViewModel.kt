@@ -8,13 +8,14 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 
 class AppProviderDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted  appDetailFragmentViewModel: AppDetailFragmentViewModel,
+        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
         private val providerAdapter: AppProviderDetailListAdapter,
         clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, providerAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) {
+    override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         providerAdapter.items = appDetailData.contentProviderData
+        return appDetailData.contentProviderData.isNotEmpty()
     }
 
     @AssistedInject.Factory

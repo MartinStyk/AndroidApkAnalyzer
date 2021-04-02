@@ -22,6 +22,7 @@
     <string name="loading">Loading…</string>
     <string name="loading_failed">Loading failed</string>
     <string name="error_loading_package_detail">Can not load APK detail</string>
+    <string name="no_data">No data</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="NA">N/A</string>

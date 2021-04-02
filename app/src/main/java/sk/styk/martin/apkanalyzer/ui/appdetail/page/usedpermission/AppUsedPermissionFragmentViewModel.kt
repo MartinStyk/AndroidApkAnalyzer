@@ -10,13 +10,14 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewMod
 import sk.styk.martin.apkanalyzer.util.TextInfo
 
 class AppUsedPermissionFragmentViewModel @AssistedInject constructor(
-        @Assisted  appDetailFragmentViewModel: AppDetailFragmentViewModel,
+        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
         private val textAdapter: TextListAdapter,
         clipBoardManager: ClipBoardManager
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, textAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) {
+    override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         textAdapter.items = appDetailData.permissionData.usesPermissionsNames.map { TextInfo.from(it) }
+        return appDetailData.permissionData.usesPermissionsNames.isNotEmpty()
     }
 
     @AssistedInject.Factory

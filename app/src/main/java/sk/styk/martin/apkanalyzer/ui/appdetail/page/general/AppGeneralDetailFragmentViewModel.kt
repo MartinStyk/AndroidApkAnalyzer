@@ -20,7 +20,7 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
         private val formatter: Formatter,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, detailInfoAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) {
+    override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
         val generalData = appDetailData.generalData
         detailInfoAdapter.info = listOfNotNull(
                 DetailInfoAdapter.DetailInfo(
@@ -155,6 +155,7 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
                     )
                 },
         )
+        return true
     }
 
     @AssistedInject.Factory

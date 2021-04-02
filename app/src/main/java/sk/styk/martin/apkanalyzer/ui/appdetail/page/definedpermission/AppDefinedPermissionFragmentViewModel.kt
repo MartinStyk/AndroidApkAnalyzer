@@ -15,8 +15,9 @@ class AppDefinedPermissionFragmentViewModel @AssistedInject constructor(
         clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, textAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) {
+    override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
         textAdapter.items = appDetailData.permissionData.definesPermissionsNames.map { TextInfo.from(it) }
+        return textAdapter.items.isNotEmpty()
     }
 
     @AssistedInject.Factory

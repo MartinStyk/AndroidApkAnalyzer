@@ -13,8 +13,9 @@ class AppServiceDetailFragmentViewModel @AssistedInject constructor(
         clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, serviceAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) {
+    override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
         serviceAdapter.items = appDetailData.serviceData
+        return appDetailData.serviceData.isNotEmpty()
     }
 
     @AssistedInject.Factory

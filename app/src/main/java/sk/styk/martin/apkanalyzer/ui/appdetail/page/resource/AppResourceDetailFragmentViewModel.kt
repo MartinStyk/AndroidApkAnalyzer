@@ -11,12 +11,12 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewMod
 import sk.styk.martin.apkanalyzer.util.TextInfo
 
 class AppResourceDetailsFragmentViewModel @AssistedInject constructor(
-        @Assisted  appDetailFragmentViewModel: AppDetailFragmentViewModel,
+        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
         private val detailInfoAdapter: DetailInfoAdapter,
         clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, detailInfoAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) {
+    override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         val data = appDetailData.resourceData
         detailInfoAdapter.info = listOfNotNull(
                 DetailInfoAdapter.DetailInfo(
@@ -105,6 +105,7 @@ class AppResourceDetailsFragmentViewModel @AssistedInject constructor(
                         TextInfo.from(R.string.different_layouts_description),
                 ),
         )
+        return true
     }
 
     @AssistedInject.Factory

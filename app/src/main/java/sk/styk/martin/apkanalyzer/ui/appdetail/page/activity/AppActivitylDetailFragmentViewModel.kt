@@ -15,8 +15,9 @@ class AppActivityDetailFragmentViewModel @AssistedInject constructor(
 
     val runActivity = activityAdapter.runActivity
 
-    override fun onDataReceived(appDetailData: AppDetailData) {
+    override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
         activityAdapter.items = appDetailData.activityData
+        return appDetailData.activityData.isNotEmpty()
     }
 
     @AssistedInject.Factory
