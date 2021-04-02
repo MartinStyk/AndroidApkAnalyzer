@@ -5,7 +5,9 @@ import androidx.annotation.ColorInt
 import androidx.core.content.ContextCompat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.views.SpeedDialMenuAdapter
 import sk.styk.martin.apkanalyzer.views.SpeedDialMenuItem
@@ -65,15 +67,17 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
     }
 
     override fun onMenuItemClick(position: Int): Boolean {
-        when (menuItems[position]) {
-            AppActions.INSTALL -> installAppFlow.tryEmit(Unit)
-            AppActions.COPY -> exportAppFlow.tryEmit(Unit)
-            AppActions.SHARE -> shareAppFlow.tryEmit(Unit)
-            AppActions.SAVE_ICON -> saveIconFlow.tryEmit(Unit)
-            AppActions.SHOW_MANIFEST -> showManifestFlow.tryEmit(Unit)
-            AppActions.OPEN_PLAY -> openGooglePlayFlow.tryEmit(Unit)
-            AppActions.BUILD_INFO -> openSystemInfoFlow.tryEmit(Unit)
-            AppActions.SHOW_MORE -> showMoreFlow.tryEmit(Unit)
+        GlobalScope.launch {
+            when (menuItems[position]) {
+                AppActions.INSTALL -> installAppFlow.emit(Unit)
+                AppActions.COPY -> exportAppFlow.emit(Unit)
+                AppActions.SHARE -> shareAppFlow.emit(Unit)
+                AppActions.SAVE_ICON -> saveIconFlow.emit(Unit)
+                AppActions.SHOW_MANIFEST -> showManifestFlow.emit(Unit)
+                AppActions.OPEN_PLAY -> openGooglePlayFlow.emit(Unit)
+                AppActions.BUILD_INFO -> openSystemInfoFlow.emit(Unit)
+                AppActions.SHOW_MORE -> showMoreFlow.emit(Unit)
+            }
         }
         return true
     }
