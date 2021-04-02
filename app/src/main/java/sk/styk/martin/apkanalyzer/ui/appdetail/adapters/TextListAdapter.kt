@@ -5,10 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemSimpleStringBinding
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import javax.inject.Inject
 
-class TextListAdapter @Inject constructor() : RecyclerView.Adapter<TextListAdapter.TextViewHolder>() {
+class TextListAdapter @Inject constructor() : DetailInfoDescriptionAdapter<TextListAdapter.TextViewHolder>() {
 
     var items: List<TextInfo> = emptyList()
         set(value) {

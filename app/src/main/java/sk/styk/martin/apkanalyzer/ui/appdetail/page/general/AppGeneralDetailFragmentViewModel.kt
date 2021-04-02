@@ -1,11 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.general
 
 import android.text.format.DateUtils
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
@@ -13,32 +8,20 @@ import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 import sk.styk.martin.apkanalyzer.util.Formatter
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import sk.styk.martin.apkanalyzer.util.TextInfo
-import sk.styk.martin.apkanalyzer.util.components.DialogComponent
-import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 
 class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
-        @Assisted private val appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        val detailInfoAdapter: DetailInfoAdapter,
-        private val clipBoardManager: ClipBoardManager,
+        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+        private val detailInfoAdapter: DetailInfoAdapter,
+        clipBoardManager: ClipBoardManager,
         private val formatter: Formatter,
-) : ViewModel(), DefaultLifecycleObserver {
+) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, detailInfoAdapter, clipBoardManager) {
 
-    val openDescription = detailInfoAdapter.openDescription
-            .map {
-                DialogComponent(it.name, it.description, TextInfo.from(R.string.close))
-            }
-
-    val showSnackbar = detailInfoAdapter.copyToClipboard
-            .map {
-                clipBoardManager.copyToClipBoard(it.value, it.name)
-                SnackBarComponent(TextInfo.from(R.string.copied_to_clipboard), Snackbar.LENGTH_SHORT)
-            }
-
-    private val appDetailsObserver = Observer<AppDetailData> {
-        val generalData = it.generalData
+    override fun onDataReceived(appDetailData: AppDetailData) {
+        val generalData = appDetailData.generalData
         detailInfoAdapter.info = listOfNotNull(
                 DetailInfoAdapter.DetailInfo(
                         TextInfo.from(R.string.application_name),
@@ -172,15 +155,6 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
                     )
                 },
         )
-    }
-
-    init {
-        appDetailFragmentViewModel.appDetails.observeForever(appDetailsObserver)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        appDetailFragmentViewModel.appDetails.removeObserver(appDetailsObserver)
     }
 
     @AssistedInject.Factory

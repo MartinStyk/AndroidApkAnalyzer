@@ -2,27 +2,20 @@ package sk.styk.martin.apkanalyzer.ui.appdetail.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemDetailBinding
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.util.TextInfo
-import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 
-class DetailInfoAdapter @Inject constructor() : RecyclerView.Adapter<DetailInfoAdapter.ViewHolder>() {
+class DetailInfoAdapter @Inject constructor() : DetailInfoDescriptionAdapter<DetailInfoAdapter.ViewHolder>() {
 
     data class DetailInfo(
             val name: TextInfo,
             val value: TextInfo,
             val description: TextInfo
     )
-
-    private val openDescriptionEvent = SingleLiveEvent<DetailInfo>()
-    val openDescription: LiveData<DetailInfo> = openDescriptionEvent
-
-    private val copyToClipboardEvent = SingleLiveEvent<DetailInfo>()
-    val copyToClipboard: LiveData<DetailInfo> = copyToClipboardEvent
 
     var info = emptyList<DetailInfo>()
         set(value) {

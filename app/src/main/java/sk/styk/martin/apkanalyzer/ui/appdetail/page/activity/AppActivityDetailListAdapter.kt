@@ -9,20 +9,15 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailBinding
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 
-class AppActivityDetailListAdapter @Inject constructor() : RecyclerView.Adapter<AppActivityDetailListAdapter.ViewHolder>() {
+class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescriptionAdapter<AppActivityDetailListAdapter.ViewHolder>() {
 
     private val runActivityEvent = SingleLiveEvent<ActivityData>()
     val runActivity: LiveData<ActivityData> = runActivityEvent
-
-    private val openDescriptionEvent = SingleLiveEvent<DetailInfoAdapter.DetailInfo>()
-    val openDescription: LiveData<DetailInfoAdapter.DetailInfo> = openDescriptionEvent
-
-    private val copyToClipboardEvent = SingleLiveEvent<DetailInfoAdapter.DetailInfo>()
-    val copyToClipboard: LiveData<DetailInfoAdapter.DetailInfo> = copyToClipboardEvent
 
     var items = emptyList<ActivityData>()
         set(value) {

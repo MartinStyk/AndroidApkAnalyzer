@@ -1,50 +1,22 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.activity
 
-import androidx.lifecycle.DefaultLifecycleObserver
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
-import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
-import sk.styk.martin.apkanalyzer.util.TextInfo
-import sk.styk.martin.apkanalyzer.util.components.DialogComponent
-import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 
 class AppActivityDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted private val appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        val adapter: AppActivityDetailListAdapter,
-        private val clipBoardManager: ClipBoardManager,
-) : ViewModel(), DefaultLifecycleObserver {
+        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+        val activityAdapter: AppActivityDetailListAdapter,
+        clipBoardManager: ClipBoardManager,
+) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, activityAdapter, clipBoardManager) {
 
-    val openDescription = adapter.openDescription
-            .map {
-                DialogComponent(it.name, it.description, TextInfo.from(R.string.close))
-            }
+    val runActivity = activityAdapter.runActivity
 
-    val showSnackbar = adapter.copyToClipboard
-            .map {
-                clipBoardManager.copyToClipBoard(it.value, it.name)
-                SnackBarComponent(TextInfo.from(R.string.copied_to_clipboard), Snackbar.LENGTH_SHORT)
-            }
-
-    val runActivity = adapter.runActivity
-
-    private val appDetailsObserver = Observer<AppDetailData> {
-        adapter.items = it.activityData
-    }
-
-    init {
-        appDetailFragmentViewModel.appDetails.observeForever(appDetailsObserver)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        appDetailFragmentViewModel.appDetails.removeObserver(appDetailsObserver)
+    override fun onDataReceived(appDetailData: AppDetailData) {
+        activityAdapter.items = appDetailData.activityData
     }
 
     @AssistedInject.Factory
