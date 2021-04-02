@@ -20,6 +20,7 @@ import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
+import sk.styk.martin.apkanalyzer.util.ColorInfo
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
@@ -88,12 +89,15 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         val details = appDetails.value
         when {
             it == LOADING_STATE -> TextInfo.from(R.string.loading)
-            details != null -> TextInfo.from(details.generalData.packageName)
+            details != null -> TextInfo.from(details.generalData.applicationName)
             else -> TextInfo.from(R.string.loading_failed)
         }
     }
 
-    private val accentColorLiveData = MutableLiveData<Int>()
+    val toolbarSubtitle: LiveData<TextInfo> = appDetails.map { TextInfo.from(it.generalData.packageName) }
+    val toolbarSubtitleVisibility: LiveData<Boolean> = viewStateLiveData.map { it == DATA_STATE }
+
+    private val accentColorLiveData = MutableLiveData<Int>(resourcesManager.getColor(ColorInfo.fromColor(R.color.secondary)))
     val accentColor: LiveData<Int> = accentColorLiveData
 
     val toolbarBackground: LiveData<Drawable> = accentColor.map { GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(it, Color.TRANSPARENT)) }
@@ -110,11 +114,11 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                 }
                 appDetailsLiveData.value = detail
                 viewStateLiveData.value = DATA_STATE
-                actionButtonVisibilityLiveData.value = false
+                actionButtonVisibilityLiveData.value = true
                 setupToolbar(detail)
             } catch (e: Exception) {
                 viewStateLiveData.value = ERROR_STATE
-                actionButtonVisibilityLiveData.value = true
+                actionButtonVisibilityLiveData.value = false
             }
         }
         observeApkActions()
@@ -132,7 +136,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     }
 
     override fun onOffsetChanged(bar: AppBarLayout, verticalOffset: Int) {
-        actionButtonVisibilityLiveData.value = abs(verticalOffset) - bar.totalScrollRange != 0
+        actionButtonVisibilityLiveData.value = (abs(verticalOffset) - bar.totalScrollRange != 0) && viewState.value == DATA_STATE
     }
 
     private fun updateActionButtonAdapter() {

@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.permission.detail.apps
 
-import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
@@ -22,7 +21,6 @@ class PermissionsAppListViewModel @AssistedInject constructor(
 
     init {
         viewModelScope.launch(dispatcherProvider.default()) {
-            Log.e("XXX", "permissionDetailFragmentViewModel $permissionDetailFragmentViewModel")
             val packageNames = if (showGranted) {
                 permissionDetailFragmentViewModel.localPermissionData.grantedPackageNames
             } else {

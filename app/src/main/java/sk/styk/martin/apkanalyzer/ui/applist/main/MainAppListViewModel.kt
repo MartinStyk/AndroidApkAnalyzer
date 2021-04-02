@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.ui.applist.main
 import android.Manifest
 import android.app.Activity
 import android.net.Uri
-import android.util.Log
 import android.view.MenuItem
 import android.widget.SearchView
 import androidx.activity.result.ActivityResult
@@ -75,7 +74,6 @@ class MainAppListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcherProvider.default()) {
-            Log.e("XXX", "installedAppsManager $installedAppsManager")
             val installedApps = installedAppsManager.getAll()
             allApps = installedApps
             withContext(dispatcherProvider.main()) {

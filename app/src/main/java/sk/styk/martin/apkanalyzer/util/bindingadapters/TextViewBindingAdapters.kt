@@ -12,6 +12,6 @@ fun TextView.setPluralString(@PluralsRes pluralRes: Int, pluralCount: Int) {
 }
 
 @BindingAdapter("text")
-fun TextView.setText(textInfo: TextInfo) {
-    text = textInfo.getText(context)
+fun TextView.setText(textInfo: TextInfo?) {
+    text = textInfo?.getText(context) ?: ""
 }
