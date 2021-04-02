@@ -43,7 +43,7 @@
                 app:expandedTitleGravity="top|start"
                 app:expandedTitleMarginStart="100dp"
                 app:expandedTitleMarginTop="66dp"
-                app:expandedTitleTextAppearance="?attr/textAppearanceHeadline6"
+                app:expandedTitleTextAppearance="@style/CollapsingToolbarExpandedText"
                 app:title="@{viewModel.toolbarTitle}"
                 tools:title="Apk Analyzer"
                 app:titleEnabled="true"
@@ -80,10 +80,11 @@
                         android:textColor="?android:textColorPrimary"
                         android:textSize="@dimen/fontSizeSmaller"
                         android:visibility="@{viewModel.toolbarSubtitleVisibility ? View.VISIBLE : View.GONE}"
+                        ads:layout_constraintTop_toTopOf="parent"
+                        ads:layout_constraintVertical_bias=".7"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@id/app_image"
-                        android:layout_marginBottom="16dp"
                         app:text="@{viewModel.toolbarSubtitle}" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

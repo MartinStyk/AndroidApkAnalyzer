@@ -173,5 +173,11 @@
         <item name="layout_scrollFlags">scroll|exitUntilCollapsed</item>
     </style>
 
+    <style name="CollapsingToolbarExpandedText" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textSize">22dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 </resources>
 
