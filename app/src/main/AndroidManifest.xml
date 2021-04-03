@@ -73,7 +73,6 @@
                 android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
         </activity>
 
-        <service android:name=".business.analysis.task.FileCopyService" />
         <service android:name=".business.analysis.task.StringToFileSaveService" />
 
         <provider

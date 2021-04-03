@@ -8,6 +8,10 @@ import javax.inject.Inject
 
 class FileManager @Inject constructor(@ApplicationScope private val context: Context) {
 
+    val externalDirectory by lazy {
+        context.getExternalFilesDir(null) ?: throw IOException("External directory not available")
+    }
+
     val dcimDirectory by lazy {
         context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
                 ?: throw IOException("Pictures directory not available")

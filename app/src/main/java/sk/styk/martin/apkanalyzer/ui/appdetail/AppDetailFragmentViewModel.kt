@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppDetailDataManager
+import sk.styk.martin.apkanalyzer.manager.file.ApkSaveManager
 import sk.styk.martin.apkanalyzer.manager.file.DrawableSaveManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
@@ -26,6 +27,7 @@ import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
+import java.io.File
 import kotlin.math.abs
 
 internal const val LOADING_STATE = 0
@@ -42,6 +44,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         private val appActionsAdapter: AppActionsSpeedMenuAdapter,
         private val drawableSaveManager: DrawableSaveManager,
         private val notificationManager: NotificationManager,
+        private val apkSaveManager: ApkSaveManager,
 ) : ViewModel(), AppBarLayout.OnOffsetChangedListener, DefaultLifecycleObserver {
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
@@ -130,7 +133,11 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
 
     private fun setupToolbar(detail: AppDetailData) = viewModelScope.launch(dispatcherProvider.main()) {
         val palette = resourcesManager.generatePalette(detail.generalData.icon!!)
-        val accentColor = palette.getDarkVibrantColor(resourcesManager.getColor(R.color.secondary))
+        val accentColor = if(resourcesManager.isNight()) {
+            palette.getLightVibrantColor(resourcesManager.getColor(R.color.secondary))
+        } else {
+            palette.getDarkVibrantColor(resourcesManager.getColor(R.color.secondary))
+        }
         accentColorLiveData.postValue(accentColor)
     }
 
@@ -168,7 +175,23 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             }
         }
         viewModelScope.launch {
-            appActionsAdapter.exportApp.collect { }
+            appActionsAdapter.exportApp.collect {
+                appDetails.value?.let { data ->
+                    if (permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                        saveApk()
+                    } else {
+                        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
+                            override fun onPermissionDenied(permission: String) {
+                                showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
+                            }
+
+                            override fun onPermissionGranted(permission: String) {
+                                saveApk()
+                            }
+                        })
+                    }
+                }
+            }
         }
         viewModelScope.launch {
             appActionsAdapter.shareApp.collect {
@@ -245,6 +268,19 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                     showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_export_failed))
                 }
             }
+        }
+    }
+
+    private fun saveApk() {
+        val data = appDetails.value ?: return
+        val target = "${data.generalData.packageName}_${data.generalData.versionName}.apk"
+        val source = File(data.generalData.apkDirectory)
+        if (!source.exists()) {
+            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.app_export_failed))
+        }
+        viewModelScope.launch {
+            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.saving_app, data.generalData.applicationName))
+            apkSaveManager.saveApk(data.generalData.applicationName, source, target)
         }
     }
 

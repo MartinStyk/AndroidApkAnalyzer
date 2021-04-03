@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.manager.resources
 
 import android.content.Context
+import android.content.res.Configuration
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
@@ -32,6 +33,8 @@ class ResourcesManager @Inject constructor(
 
     @Dimension(unit = Dimension.DP)
     fun getDisplayHeight(): Float = resources.displayMetrics.run { heightPixels / density }
+
+    fun isNight(): Boolean = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
     suspend fun generatePalette(drawable: Drawable): Palette = suspendCoroutine {
         Palette.from(drawable.toBitmap()).generate { palette ->

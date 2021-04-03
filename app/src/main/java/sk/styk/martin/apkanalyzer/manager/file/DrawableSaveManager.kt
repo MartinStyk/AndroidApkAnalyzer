@@ -19,7 +19,7 @@ class DrawableSaveManager @Inject constructor(
 
     suspend fun saveDrawable(drawable: Drawable, fileName: String): File = withContext(dispatcherProvider.io()) {
         val bitmap = drawable.toBitmap()
-        val imageFile = File(fileManager.dcimDirectory, SUBDIRECTORY + fileName)
+        val imageFile = File(fileManager.dcimDirectory, fileName)
 
         FileOutputStream(imageFile).use {
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)

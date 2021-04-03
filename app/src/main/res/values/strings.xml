@@ -119,7 +119,10 @@
 
     <string name="pick_action">Pick an action </string>
     <string name="copy_apk">Export APK</string>
-    <string name="copy_apk_background">Copying to %s</string>
+    <string name="app_save_channel">App save channel</string>
+    <string name="saving_app">Saving %s</string>
+    <string name="saved_app">Saved %s</string>
+    <string name="app_export_failed">App export failed</string>
     <string name="copy_apk_background_done">Exported APK %s</string>
     <string name="app_icon_saved">%s icon saved</string>
     <string name="icon_saved">Icon saved</string>
