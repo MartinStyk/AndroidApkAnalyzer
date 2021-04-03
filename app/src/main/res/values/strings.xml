@@ -121,9 +121,10 @@
     <string name="copy_apk">Export APK</string>
     <string name="copy_apk_background">Copying to %s</string>
     <string name="copy_apk_background_done">Exported APK %s</string>
-    <string name="save_icon_background">Saving icon to %s</string>
-    <string name="save_icon_background_done">Saved icon %s</string>
+    <string name="app_icon_saved">%s icon saved</string>
     <string name="icon_saved">Icon saved</string>
+    <string name="icon_export_failed">Icon export failed</string>
+    <string name="icon_save_channel">App icon save channel</string>
 
     <string name="show_manifest">View AndroidManifest.xml</string>
     <string name="save_manifest_background">Saving manifest to %s</string>

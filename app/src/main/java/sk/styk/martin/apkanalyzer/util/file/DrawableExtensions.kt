@@ -5,7 +5,7 @@ import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 
-fun Drawable.toBitmap(): Bitmap? {
+fun Drawable.toBitmap(): Bitmap {
     val bitmap: Bitmap?
 
     if (this is BitmapDrawable) {

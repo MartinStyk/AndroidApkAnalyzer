@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.util.file
 
 import android.content.Context
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Environment
 import androidx.annotation.WorkerThread
@@ -54,15 +53,6 @@ object FileUtils {
             it.print(content)
         }
 
-    }
-
-    @Throws(IOException::class)
-    fun writeBitmap(bitmap: Bitmap, targetFilePath: String) {
-        val imageFile = File(targetFilePath)
-
-        FileOutputStream(imageFile).use {
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)
-        }
     }
 
     @WorkerThread

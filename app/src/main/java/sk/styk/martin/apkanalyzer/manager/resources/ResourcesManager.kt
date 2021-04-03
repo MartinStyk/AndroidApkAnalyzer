@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
+import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.palette.graphics.Palette
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
@@ -21,6 +22,8 @@ class ResourcesManager @Inject constructor(
         @ApplicationScope val resources: Resources,
 ) {
 
+    fun getString(@StringRes stringRes: Int, vararg args: Any): CharSequence = context.getString(stringRes, *args)
+
     @ColorInt
     fun getColor(colorInfo: ColorInfo): Int = colorInfo.toColorInt(context)
 
@@ -31,7 +34,7 @@ class ResourcesManager @Inject constructor(
     fun getDisplayHeight(): Float = resources.displayMetrics.run { heightPixels / density }
 
     suspend fun generatePalette(drawable: Drawable): Palette = suspendCoroutine {
-        Palette.from(drawable.toBitmap()!!).generate { palette ->
+        Palette.from(drawable.toBitmap()).generate { palette ->
             if (palette != null) it.resume(palette) else it.resumeWithException(IllegalStateException())
         }
     }

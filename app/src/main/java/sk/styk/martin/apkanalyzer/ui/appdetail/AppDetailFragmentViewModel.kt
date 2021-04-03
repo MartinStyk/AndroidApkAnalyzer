@@ -4,7 +4,6 @@ import android.Manifest
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.os.Environment
 import androidx.lifecycle.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
@@ -16,6 +15,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppDetailDataManager
+import sk.styk.martin.apkanalyzer.manager.file.DrawableSaveManager
+import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
@@ -24,11 +25,7 @@ import sk.styk.martin.apkanalyzer.util.ColorInfo
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
-import sk.styk.martin.apkanalyzer.util.file.FileUtils
-import sk.styk.martin.apkanalyzer.util.file.toBitmap
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
-import java.io.File
-import java.io.IOException
 import kotlin.math.abs
 
 internal const val LOADING_STATE = 0
@@ -43,6 +40,8 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         private val resourcesManager: ResourcesManager,
         private val permissionManager: PermissionManager,
         private val appActionsAdapter: AppActionsSpeedMenuAdapter,
+        private val drawableSaveManager: DrawableSaveManager,
+        private val notificationManager: NotificationManager,
 ) : ViewModel(), AppBarLayout.OnOffsetChangedListener, DefaultLifecycleObserver {
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
@@ -230,21 +229,21 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
 
     private suspend fun saveImage() {
         val data = appDetails.value ?: return
-        val target = File(Environment.getExternalStorageDirectory(), "${data.generalData.packageName}_${data.generalData.versionName}_${data.generalData.versionCode}_icon.png")
-        val icon = data.generalData.icon?.toBitmap()
+        val icon = data.generalData.icon
         if (icon != null) {
             viewModelScope.launch {
-                withContext(dispatcherProvider.io()) {
-                    try {
-                        FileUtils.writeBitmap(icon, target.absolutePath)
-                    } catch (e: IOException) {
-                    }
+                val target = "${data.generalData.packageName}_${data.generalData.versionName}_${data.generalData.versionCode}_icon.png"
+                try {
+                    val exportedFile = drawableSaveManager.saveDrawable(icon, target)
+                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_saved),
+                            action = TextInfo.from(R.string.action_show),
+                            callback = {
+                                openImageEvent.value = exportedFile.absolutePath
+                            })
+                    notificationManager.showImageExportedNotification(data.generalData.applicationName, exportedFile)
+                } catch (e: Exception) {
+                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_export_failed))
                 }
-                showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_saved),
-                        action = TextInfo.from(R.string.action_show),
-                        callback = {
-                            openImageEvent.value = target.absolutePath
-                        })
             }
         }
     }

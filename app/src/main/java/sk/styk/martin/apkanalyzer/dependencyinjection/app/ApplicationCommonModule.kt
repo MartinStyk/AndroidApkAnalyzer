@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.dependencyinjection.app
 
 import android.app.Application
+import android.app.NotificationManager
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -36,5 +37,8 @@ class ApplicationCommonModule {
     @Provides
     @Singleton
     fun providePersistenceSharedPreferences(@ApplicationScope context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+
+    @Provides
+    fun provideNotificationManager(@ApplicationScope context: Context): NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
 }
