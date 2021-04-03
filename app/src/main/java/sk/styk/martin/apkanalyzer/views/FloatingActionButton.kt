@@ -254,6 +254,7 @@ class FloatingActionButton : RelativeLayout {
         } else {
             (fab_card.background as GradientDrawable).setColor(colour)
         }
+        rebuildSpeedDialMenu()
     }
 
     fun setButtonIconResource(@DrawableRes icon: Int) {
@@ -365,14 +366,16 @@ class FloatingActionButton : RelativeLayout {
             speedDialMenuAdapter?.onPrepareItemLabel(context, i, view.menu_item_label)
 
             if (Build.VERSION.SDK_INT >= 21) {
-                (view.menu_item_card as CardView).setCardBackgroundColor(adapter.getBackgroundColour(i, context))
+                (view.menu_item_card as CardView).setCardBackgroundColor(adapter.getBackgroundColour(i, context)
+                        ?: buttonBackgroundColour)
             } else {
-                ((view.menu_item_card as ViewGroup).background as GradientDrawable).setColor(adapter.getBackgroundColour(i, context))
+                ((view.menu_item_card as ViewGroup).background as GradientDrawable).setColor(adapter.getBackgroundColour(i, context)
+                        ?: buttonBackgroundColour)
             }
             speedDialMenuAdapter?.onPrepareItemCard(context, i, view.menu_item_card)
 
             view.menu_item_icon_wrapper.apply {
-                background =  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                background = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     context.resources.getDrawable(menuItem.icon, context.theme)
                 } else {
                     @Suppress("DEPRECATION")

@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.views;
 
 import android.content.Context
-import android.graphics.Color
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -50,7 +49,7 @@ abstract class SpeedDialMenuAdapter {
      * @return the colour of the card behind the icon at the specified position
      */
     @ColorInt
-    open fun getBackgroundColour(position: Int, context: Context): Int = Color.argb(255, 192, 192, 192)
+    open fun getBackgroundColour(position: Int, context: Context): Int? = null
 
     /**
      * Apply formatting to the `TextView` used for the label of the menu item at the given position.

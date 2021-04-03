@@ -1,8 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail
 
-import android.content.Context
-import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.GlobalScope
@@ -81,10 +78,6 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
         }
         return true
     }
-
-    @ColorInt
-    override fun getBackgroundColour(position: Int, context: Context) = ContextCompat.getColor(context, R.color.accentLight)
-
 
     override fun fabRotationDegrees(): Float = 90F
 }
