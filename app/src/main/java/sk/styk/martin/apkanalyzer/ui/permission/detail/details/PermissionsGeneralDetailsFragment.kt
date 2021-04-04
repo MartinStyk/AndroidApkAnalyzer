@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBinding
+import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
+import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.util.components.toDialog
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.provideViewModel
@@ -19,6 +21,9 @@ class PermissionsGeneralDetailsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: PermissionsGeneralDetailsViewModel.Factory
+
+    @Inject
+    lateinit var parentViewModelFactory: PermissionDetailFragmentViewModel.Factory
 
     private lateinit var binding: FragmentPermissionDetailGeneralBinding
 
@@ -32,7 +37,11 @@ class PermissionsGeneralDetailsFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel {
-            viewModelFactory.create(provideViewModelOfParentFragment())
+            viewModelFactory.create(
+                    provideViewModelOfParentFragment {
+                        parentViewModelFactory.create(requireNotNull(requireArguments().getParcelable(PermissionDetailFragment.ARG_PERMISSIONS_DATA)))
+                    }
+            )
         }
     }
 

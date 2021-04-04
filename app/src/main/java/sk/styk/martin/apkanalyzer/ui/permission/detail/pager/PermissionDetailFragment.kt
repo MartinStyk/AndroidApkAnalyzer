@@ -34,7 +34,7 @@ class PermissionDetailFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentPermissionDetailBinding.inflate(inflater, container, false)
-        binding.pager.adapter = PermissionDetailPagerAdapter(requireContext().applicationContext, childFragmentManager)
+        binding.pager.adapter = PermissionDetailPagerAdapter(requireArguments(), requireContext().applicationContext, childFragmentManager)
         binding.tabs.setupWithViewPager(binding.pager)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root

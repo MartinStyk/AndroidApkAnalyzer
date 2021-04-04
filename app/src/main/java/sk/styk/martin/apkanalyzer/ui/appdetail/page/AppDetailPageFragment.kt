@@ -13,6 +13,7 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.util.components.toDialog
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
+import sk.styk.martin.apkanalyzer.util.provideViewModelOfParentFragment
 import javax.inject.Inject
 
 abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDING : ViewDataBinding> : Fragment() {
@@ -47,6 +48,8 @@ abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDIN
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewLifecycleOwner.lifecycle.addObserver(viewModel)
+
         binding.setVariable(BR.viewModel, viewModel)
         with(viewModel) {
             openDescription.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "descrition_dialog") })
@@ -54,8 +57,10 @@ abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDIN
         }
     }
 
-    protected fun parentViewModel() = parentViewModelFactory.create(
-            requireNotNull(requireArguments().getParcelable(AppDetailActivity.APP_DETAIL_REQUEST))
-    )
+    protected fun parentViewModel() = provideViewModelOfParentFragment {
+        parentViewModelFactory.create(
+                requireNotNull(requireArguments().getParcelable(AppDetailActivity.APP_DETAIL_REQUEST))
+        )
+    }
 
 }

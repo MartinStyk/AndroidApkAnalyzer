@@ -1,6 +1,11 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page
 
-import androidx.lifecycle.*
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import com.google.android.material.snackbar.Snackbar
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
@@ -18,7 +23,7 @@ abstract class AppDetailPageFragmentViewModel constructor(
         private val appDetailFragmentViewModel: AppDetailFragmentViewModel,
         val adapter: DetailInfoDescriptionAdapter<*>,
         private val clipBoardManager: ClipBoardManager,
-) : ViewModel() {
+) : ViewModel(), DefaultLifecycleObserver {
 
     val openDescription = adapter.openDescription
             .map {
@@ -34,18 +39,12 @@ abstract class AppDetailPageFragmentViewModel constructor(
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
     val viewState: LiveData<Int> = viewStateLiveData
 
-    private val appDetailsObserver = Observer<AppDetailData> {
-        val hasData = onDataReceived(it)
-        viewStateLiveData.value = if (hasData) DATA_STATE else EMPTY_STATE
-    }
-
-    init {
-        appDetailFragmentViewModel.appDetails.observeForever(appDetailsObserver)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        appDetailFragmentViewModel.appDetails.removeObserver(appDetailsObserver)
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        appDetailFragmentViewModel.appDetails.observe(owner, {
+            val hasData = onDataReceived(it)
+            viewStateLiveData.value = if (hasData) DATA_STATE else EMPTY_STATE
+        })
     }
 
     abstract fun onDataReceived(appDetailData: AppDetailData): Boolean

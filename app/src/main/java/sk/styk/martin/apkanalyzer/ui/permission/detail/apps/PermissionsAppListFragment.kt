@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionAppListBinding
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
+import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
+import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import sk.styk.martin.apkanalyzer.util.provideViewModelOfParentFragment
 import javax.inject.Inject
@@ -18,6 +20,9 @@ class PermissionsAppListFragment : BaseAppListFragment<PermissionsAppListViewMod
 
     @Inject
     lateinit var viewModelFactory: PermissionsAppListViewModel.Factory
+
+    @Inject
+    lateinit var parentViewModelFactory: PermissionDetailFragmentViewModel.Factory
 
     private lateinit var binding: FragmentPermissionAppListBinding
 
@@ -30,7 +35,9 @@ class PermissionsAppListFragment : BaseAppListFragment<PermissionsAppListViewMod
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel {
             viewModelFactory.create(
-                    provideViewModelOfParentFragment(),
+                    provideViewModelOfParentFragment {
+                        parentViewModelFactory.create(requireNotNull(requireArguments().getParcelable(PermissionDetailFragment.ARG_PERMISSIONS_DATA)))
+                    },
                     requireArguments().getBoolean(ARG_GRANTED)
             )
         }

@@ -38,6 +38,16 @@ inline fun <reified VM : ViewModel> Fragment.provideViewModelOfParentFragment(@N
     return ViewModelProvider(this.requireParentFragment()).get(VM::class.java)
 }
 
+
+inline fun <reified VM : ViewModel> Fragment.provideViewModelOfParentFragment(crossinline block: () -> VM): VM {
+    return ViewModelProvider(this.requireParentFragment(), object : ViewModelProvider.Factory {
+        override fun <A : ViewModel> create(modelClass: Class<A>): A {
+            @Suppress("UNCHECKED_CAST")
+            return block() as A
+        }
+    }).get(VM::class.java)
+}
+
 inline fun <reified VM : ViewModel> AppCompatActivity.provideViewModel(@Nullable viewModelFactory: ViewModelProvider.Factory? = null): VM {
     viewModelFactory?.let {
         return ViewModelProvider(this, it).get(VM::class.java)
