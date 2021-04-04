@@ -8,16 +8,18 @@ import android.text.TextUtils
 import androidx.annotation.WorkerThread
 import java.io.ByteArrayInputStream
 import java.io.StringWriter
+import javax.inject.Inject
 import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.stream.StreamResult
 import javax.xml.transform.stream.StreamSource
 
 @WorkerThread
-class AndroidManifestService(private val packageManager: PackageManager, private val packageName: String, private val packagePath: String) {
+class AndroidManifestManager @Inject constructor(
+        private val packageManager: PackageManager,
+) {
 
-    fun loadAndroidManifest(): String {
-
+    fun loadAndroidManifest(packageName: String, packagePath: String): String {
         val manifest = readManifest(packageManager, packageName, packagePath)
         return formatManifest(manifest)
     }
@@ -29,15 +31,16 @@ class AndroidManifestService(private val packageManager: PackageManager, private
 
                 packageManager.getResourcesForApplication(packageName)
 
-            } catch (exception: PackageManager.NameNotFoundException){
+            } catch (exception: PackageManager.NameNotFoundException) {
 
-                packageManager.getPackageArchiveInfo(packagePath,0)?.let {
+                packageManager.getPackageArchiveInfo(packagePath, 0)?.let {
                     packageManager.getResourcesForApplication(it.applicationInfo)
                 }
 
             }
 
-            val parser = apkResources?.assets?.openXmlResourceParser("AndroidManifest.xml") ?: return ""
+            val parser = apkResources?.assets?.openXmlResourceParser("AndroidManifest.xml")
+                    ?: return ""
 
             var eventType: Int = parser.next()
 

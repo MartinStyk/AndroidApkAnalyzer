@@ -27,7 +27,7 @@ import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
+import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
 import sk.styk.martin.apkanalyzer.util.ColorInfo
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
@@ -84,8 +84,8 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     private val openImageEvent = SingleLiveEvent<String>()
     val openImage: LiveData<String> = openImageEvent
 
-    private val showManifestEvent = SingleLiveEvent<ManifestActivity.ManifestRequest>()
-    val showManifest: LiveData<ManifestActivity.ManifestRequest> = showManifestEvent
+    private val showManifestEvent = SingleLiveEvent<ManifestRequest>()
+    val showManifest: LiveData<ManifestRequest> = showManifestEvent
 
     private val openGooglePlayEvent = SingleLiveEvent<String>()
     val openGooglePlay: LiveData<String> = openGooglePlayEvent
@@ -113,7 +113,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
 
     val installPermissionResult = ActivityResultCallback<ActivityResult> {
         val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory
-        if (it?.resultCode == Activity.RESULT_OK && !apkPath.isNullOrBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls()) ) {
+        if (it?.resultCode == Activity.RESULT_OK && !apkPath.isNullOrBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
             installAppEvent.value = apkPath
         }
     }
@@ -254,12 +254,13 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         }
         viewModelScope.launch {
             appActionsAdapter.showManifest.collect {
-                appDetails.value?.let {
-                    showManifestEvent.value = ManifestActivity.ManifestRequest(
-                            packageName = it.generalData.packageName,
-                            apkDirectory = it.generalData.apkDirectory,
-                            versionName = it.generalData.versionName,
-                            versionCode = it.generalData.versionCode)
+                appDetails.value?.generalData?.let {
+                    showManifestEvent.value = ManifestRequest(
+                            appName = it.applicationName,
+                            packageName = it.packageName,
+                            apkPath = it.apkDirectory,
+                            versionName = it.versionName,
+                            versionCode = it.versionCode)
                 }
             }
         }

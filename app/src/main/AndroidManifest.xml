@@ -51,18 +51,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
         </activity>
-        <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity"
-            android:label="@string/title_manifest"
-            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
-        </activity>
 
         <activity
             android:name="sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity"
-            android:label="@string/title_intro"/>
+            android:label="@string/title_intro" />
 
         <activity
             android:name="sk.styk.martin.apkanalyzer.ui.permission.detail.PermissionDetailActivity"
@@ -72,8 +64,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
         </activity>
-
-        <service android:name=".business.analysis.task.StringToFileSaveService" />
 
         <provider
             android:name=".util.file.GenericFileProvider"
@@ -87,7 +77,7 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713"/>
+            android:value="ca-app-pub-3940256099942544~3347511713" />
 
     </application>
 

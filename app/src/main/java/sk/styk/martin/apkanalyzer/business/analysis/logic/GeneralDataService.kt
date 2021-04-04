@@ -60,7 +60,7 @@ class GeneralDataService {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
                 applicationInfo.minSdkVersion
             else if (analysisMode.toString() == AppDetailData.AnalysisMode.INSTALLED_PACKAGE.toString())
-                AndroidManifestService.getMinSdkVersion(applicationInfo, packageManager)
+                AndroidManifestManager.getMinSdkVersion(applicationInfo, packageManager)
             else null
 
     companion object {

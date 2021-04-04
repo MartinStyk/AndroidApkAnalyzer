@@ -12,7 +12,9 @@ import javax.inject.Inject
 class AppDetailDataManager @Inject constructor(
         @ApplicationScope private val context: Context,
         private val packageManager: PackageManager,
-        private val appPermissionManager: AppPermissionManager) {
+        private val appPermissionManager: AppPermissionManager,
+        private val featuresManager: FeaturesManager,
+) {
 
     private val analysisFlags = PackageManager.GET_SIGNATURES or
             PackageManager.GET_ACTIVITIES or
@@ -25,7 +27,6 @@ class AppDetailDataManager @Inject constructor(
     private val generalDataService = GeneralDataService()
     private val certificateService = CertificateService()
     private val appComponentsService = AppComponentsService()
-    private val featuresService = FeaturesService()
     private val fileDataService = FileDataService()
     private val resourceService = ResourceService()
     private val dexService = DexService()
@@ -56,7 +57,7 @@ class AppDetailDataManager @Inject constructor(
                 contentProviderData = appComponentsService.getContentProviders(packageInfo),
                 broadcastReceiverData = appComponentsService.getBroadcastReceivers(packageInfo),
                 permissionData = appPermissionManager.get(packageInfo),
-                featureData = featuresService.get(packageInfo),
+                featureData = featuresManager.get(packageInfo),
                 fileData = fileData,
                 resourceData = resourceService.get(fileData),
                 classPathData = dexService.get(packageInfo)

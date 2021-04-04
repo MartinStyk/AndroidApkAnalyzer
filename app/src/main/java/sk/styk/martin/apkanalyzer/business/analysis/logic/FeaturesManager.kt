@@ -5,9 +5,10 @@ import android.content.pm.PackageInfo
 import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
 import java.util.*
+import javax.inject.Inject
 
 @WorkerThread
-class FeaturesService {
+class FeaturesManager @Inject constructor() {
 
     fun get(packageInfo: PackageInfo): List<FeatureData> {
 

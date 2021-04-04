@@ -25,6 +25,9 @@ private const val ICON_EXPORT_NOTIFICATION_ID = 1_01
 private const val APP_EXPORT_CHANNEL_ID = "App export channel"
 private const val APP_EXPORT_NOTIFICATION_ID = 1_02
 
+private const val MANIFEST_EXPORT_CHANNEL_ID = "Manifest export channel"
+private const val MANIFEST_EXPORT_NOTIFICATION_ID = 1_03
+
 @Singleton
 class NotificationManager @Inject constructor(
         @ApplicationScope private val context: Context,
@@ -34,12 +37,6 @@ class NotificationManager @Inject constructor(
 
     fun showImageExportedNotification(appName: String, drawableFile: File) {
         createChannel(ICON_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.icon_save_channel))
-
-        val builder: NotificationCompat.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationCompat.Builder(context, ICON_EXPORT_CHANNEL_ID)
-        } else {
-            NotificationCompat.Builder(context)
-        }
 
         fun getOpenFolderPendingIntent(): PendingIntent {
             val intent = Intent().apply {
@@ -68,7 +65,7 @@ class NotificationManager @Inject constructor(
             return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
-        val notification = builder
+        val notification = notificationBuilder(ICON_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.app_icon_saved, appName))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
@@ -79,16 +76,10 @@ class NotificationManager @Inject constructor(
         androidNotificationManager.notify(ICON_EXPORT_NOTIFICATION_ID, notification)
     }
 
-    fun showAppExportProgressNotification(appName: String, ): NotificationCompat.Builder {
+    fun showAppExportProgressNotification(appName: String): NotificationCompat.Builder {
         createChannel(APP_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.app_save_channel))
 
-        val builder: NotificationCompat.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationCompat.Builder(context, APP_EXPORT_CHANNEL_ID)
-        } else {
-            NotificationCompat.Builder(context)
-        }
-
-        val notification = builder
+        val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.saving_app, appName))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setOngoing(true)
@@ -108,10 +99,46 @@ class NotificationManager @Inject constructor(
         cancelNotification(APP_EXPORT_NOTIFICATION_ID)
         createChannel(APP_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.app_save_channel))
 
-        val builder: NotificationCompat.Builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationCompat.Builder(context, APP_EXPORT_CHANNEL_ID)
-        } else {
-            NotificationCompat.Builder(context)
+        fun getOpenFolderPendingIntent(): PendingIntent {
+            val intent = Intent().apply {
+                action = Intent.ACTION_GET_CONTENT
+                setDataAndType(Uri.parse(outputFile.parentFile!!.absolutePath), "resource/folder")
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+            val stackBuilder = TaskStackBuilder.create(context).apply {
+                addParentStack(MainActivity::class.java)
+                addNextIntent(intent)
+            }
+            return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+
+        val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
+                .setContentTitle(resourcesManager.getString(R.string.saved_app, appName))
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentText(FileUtils.toRelativePath(outputFile.path))
+                .setOngoing(false)
+                .addAction(R.drawable.ic_get_app, resourcesManager.getString(R.string.action_show), getOpenFolderPendingIntent())
+                .setContentIntent(getOpenFolderPendingIntent())
+                .build()
+
+        androidNotificationManager.notify(APP_EXPORT_NOTIFICATION_ID, notification)
+    }
+
+    fun showManifestSavedNotification(appName: String, outputFile: File) {
+        createChannel(MANIFEST_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.manifest_save_channel))
+
+        fun getOpenContentPendingIntent(): PendingIntent {
+            val intent = Intent().apply {
+                action = Intent.ACTION_VIEW
+                setDataAndType(Uri.parse(outputFile.absolutePath), "text/xml")
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            }
+
+            val stackBuilder = TaskStackBuilder.create(context).apply {
+                addParentStack(MainActivity::class.java)
+                addNextIntent(intent)
+            }
+            return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
         fun getOpenFolderPendingIntent(): PendingIntent {
@@ -127,16 +154,22 @@ class NotificationManager @Inject constructor(
             return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
         }
 
-        val notification = builder
-                .setContentTitle(resourcesManager.getString(R.string.saved_app, appName))
+        val notification = notificationBuilder(MANIFEST_EXPORT_CHANNEL_ID)
+                .setContentTitle(resourcesManager.getString(R.string.save_manifest_background_notification_title_done, appName))
+                .setContentText(outputFile.path)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentText(FileUtils.toRelativePath(outputFile.path))
-                .setOngoing(false)
-                .addAction(R.drawable.ic_get_app, resourcesManager.getString(R.string.action_show), getOpenFolderPendingIntent())
+                .addAction(R.drawable.ic_file, resourcesManager.getString(R.string.action_show), getOpenContentPendingIntent())
                 .setContentIntent(getOpenFolderPendingIntent())
                 .build()
 
-        androidNotificationManager.notify(APP_EXPORT_NOTIFICATION_ID, notification)
+        androidNotificationManager.notify(MANIFEST_EXPORT_NOTIFICATION_ID, notification)
+
+    }
+
+    private fun notificationBuilder(channelId: String) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        NotificationCompat.Builder(context, channelId)
+    } else {
+        NotificationCompat.Builder(context)
     }
 
     private fun createChannel(channelId: String, channelName: CharSequence) {

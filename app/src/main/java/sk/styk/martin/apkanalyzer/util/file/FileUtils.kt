@@ -4,7 +4,10 @@ import android.os.Environment
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
 
 object FileUtils {
 
@@ -34,12 +37,15 @@ object FileUtils {
 
     @WorkerThread
     @Throws(IOException::class)
-    fun writeString(content: String, targetFilePath: String) {
-
-        PrintWriter(targetFilePath).use {
-            it.print(content)
+    fun writeString(content: String, targetFile: File) {
+        val parent = targetFile.parentFile
+        if (parent?.exists() == false) {
+            parent.mkdirs()
         }
 
+        targetFile.printWriter().use {
+            it.println(content)
+        }
     }
 
 

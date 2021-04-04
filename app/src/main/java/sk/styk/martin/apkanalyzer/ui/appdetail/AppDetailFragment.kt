@@ -20,7 +20,8 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailBinding
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedListener
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.manifest.ManifestActivity
+import sk.styk.martin.apkanalyzer.ui.manifest.AndroidManifestFragment
+import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 import sk.styk.martin.apkanalyzer.util.provideViewModel
@@ -76,9 +77,9 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             openSystemInfo.observe(viewLifecycleOwner, { AppOperations.openAppSystemPage(requireContext(), it) })
             openGooglePlay.observe(viewLifecycleOwner, { AppOperations.openGooglePlay(requireContext(), it) })
             installApp.observe(viewLifecycleOwner, { AppOperations.installPackage(requireContext(), it) })
-            showManifest.observe(viewLifecycleOwner, { startActivity(ManifestActivity.createIntent(requireContext(), it)) })
+            showManifest.observe(viewLifecycleOwner, this@AppDetailFragment::openManifestFragment)
             openImage.observe(viewLifecycleOwner, { openImage(it) })
-            openSettingsInstallPermission.observe(viewLifecycleOwner, { startInstallSettings()})
+            openSettingsInstallPermission.observe(viewLifecycleOwner, { startInstallSettings() })
         }
     }
 
@@ -94,7 +95,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
 
     private fun openImage(path: String) {
         try {
-            startActivity( Intent().apply {
+            startActivity(Intent().apply {
                 action = Intent.ACTION_VIEW
                 setDataAndType(Uri.parse(path), "image/png")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -109,12 +110,19 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         try {
             installPermissionResultLauncher.launch(
                     Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
-                       data = Uri.parse(String.format("package:%s", requireContext().packageName))
+                        data = Uri.parse(String.format("package:%s", requireContext().packageName))
                     }
             )
         } catch (exception: ActivityNotFoundException) {
             Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
         }
+    }
+
+    private fun openManifestFragment(manifestRequest: ManifestRequest) {
+        parentFragmentManager.beginTransaction()
+                .replace(R.id.container, AndroidManifestFragment.create(manifestRequest), AndroidManifestFragment.TAG)
+                .addToBackStack(AndroidManifestFragment.TAG)
+                .commit()
     }
 
     companion object {

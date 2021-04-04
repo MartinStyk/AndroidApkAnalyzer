@@ -14,6 +14,7 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.resource.AppResourceDetailFr
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.service.AppServiceDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppDefinedPermissionDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppUsedPermissionDetailFragment
+import sk.styk.martin.apkanalyzer.ui.manifest.AndroidManifestFragment
 
 @Module
 abstract class AppDetailActivityCommonModule {
@@ -61,5 +62,9 @@ abstract class AppDetailActivityCommonModule {
     @FragmentScope
     @ContributesAndroidInjector
     abstract fun appResourceDetailFragmentInjector(): AppResourceDetailFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract fun androidManifestFragmentInjector(): AndroidManifestFragment
 
 }

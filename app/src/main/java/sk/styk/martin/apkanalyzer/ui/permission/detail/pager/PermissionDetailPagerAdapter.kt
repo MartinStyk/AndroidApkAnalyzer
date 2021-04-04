@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.permission.detail.pager
 
+import android.content.Context
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import sk.styk.martin.apkanalyzer.ApkAnalyzer.Companion.context
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.permission.detail.apps.PermissionsAppListFragment
 import sk.styk.martin.apkanalyzer.ui.permission.detail.details.PermissionsGeneralDetailsFragment
@@ -11,7 +11,7 @@ private const val GENERAL_DETAILS_PAGE = 0
 private const val GRANTED_APPS_PAGE = 1
 private const val NOT_GRANTED_APPS_PAGE = 2
 
-class PermissionDetailPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class PermissionDetailPagerAdapter(val context: Context, fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int) = when (position) {
         GENERAL_DETAILS_PAGE -> PermissionsGeneralDetailsFragment()
