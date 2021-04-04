@@ -1,10 +1,10 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail
 
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.LayoutInflater
@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
@@ -105,7 +104,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("InlinedApi")
     private fun startInstallSettings() {
         try {
             installPermissionResultLauncher.launch(

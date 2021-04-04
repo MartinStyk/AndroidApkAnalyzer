@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.core.content.FileProvider
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.ui.activity.appdetail.oninstall.OnInstallAppDetailActivity
 import java.io.File
 
 object AppOperations {
@@ -26,7 +25,7 @@ object AppOperations {
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
             context.startActivity(intent)
         } catch (e: Exception) {
-            Log.e(OnInstallAppDetailActivity::class.java.simpleName, e.toString())
+            Log.e("Apk Install", "Could not install app", e)
             Toast.makeText(context, context.getString(R.string.install_failed), Toast.LENGTH_LONG).show()
         }
     }
