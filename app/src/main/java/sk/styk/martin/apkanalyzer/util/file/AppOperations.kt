@@ -39,21 +39,6 @@ object AppOperations {
         context.startActivity(systemInfoIntent)
     }
 
-    fun shareApkFile(context: Context, pathToApk: String) {
-        val shareIntent = Intent()
-        shareIntent.action = Intent.ACTION_SEND
-        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(File(pathToApk)))
-        shareIntent.type = "application/vnd.android.package-archive"
-
-        try {
-            context.startActivity(Intent.createChooser(shareIntent, context.getString(R.string.share_apk_using)))
-        } catch (e: ActivityNotFoundException) {
-            // this might happen on Android 4.4
-            Toast.makeText(context, context.getString(R.string.activity_not_found_sharing), Toast.LENGTH_LONG).show()
-        }
-
-    }
-
     @JvmStatic
     fun installPremium(context: Context) {
         openGooglePlay(context, BuildConfig.APPLICATION_ID + ".premium")

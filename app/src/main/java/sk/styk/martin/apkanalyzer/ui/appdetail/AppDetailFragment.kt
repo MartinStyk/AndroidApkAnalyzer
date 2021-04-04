@@ -67,7 +67,6 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             close.observe(viewLifecycleOwner, { requireActivity().onBackPressed() })
             openSystemInfo.observe(viewLifecycleOwner, { AppOperations.openAppSystemPage(requireContext(), it) })
             openGooglePlay.observe(viewLifecycleOwner, { AppOperations.openGooglePlay(requireContext(), it) })
-            shareApp.observe(viewLifecycleOwner, { AppOperations.shareApkFile(requireContext(), it) })
             installApp.observe(viewLifecycleOwner, { AppOperations.installPackage(requireContext(), it) })
             showManifest.observe(viewLifecycleOwner, { startActivity(ManifestActivity.createIntent(requireContext(), it)) })
             openImage.observe(viewLifecycleOwner, { openImage(it) })

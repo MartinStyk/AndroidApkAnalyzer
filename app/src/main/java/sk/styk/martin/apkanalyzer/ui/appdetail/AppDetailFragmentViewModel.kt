@@ -68,12 +68,6 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     private val installAppEvent = SingleLiveEvent<String>()
     val installApp: LiveData<String> = installAppEvent
 
-    private val exportAppEvent = SingleLiveEvent<Unit>()
-    val exportApp: LiveData<Unit> = exportAppEvent
-
-    private val shareAppEvent = SingleLiveEvent<String>()
-    val shareApp: LiveData<String> = shareAppEvent
-
     private val openImageEvent = SingleLiveEvent<String>()
     val openImage: LiveData<String> = openImageEvent
 
@@ -152,7 +146,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                 if (displayHeight < 420) {
                     listOf(AppActionsSpeedMenuAdapter.AppActions.SHOW_MORE, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST, AppActionsSpeedMenuAdapter.AppActions.INSTALL)
                 } else {
-                    listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.SHARE,
+                    listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON,
                             AppActionsSpeedMenuAdapter.AppActions.COPY, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST, AppActionsSpeedMenuAdapter.AppActions.INSTALL)
                 }
             is AppDetailRequest.InstalledPackage ->
@@ -160,7 +154,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                     listOf(AppActionsSpeedMenuAdapter.AppActions.SHOW_MORE, AppActionsSpeedMenuAdapter.AppActions.COPY, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
                 } else {
                     listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.BUILD_INFO, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON,
-                            AppActionsSpeedMenuAdapter.AppActions.SHARE, AppActionsSpeedMenuAdapter.AppActions.COPY, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
+                            AppActionsSpeedMenuAdapter.AppActions.COPY, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
                 }
         }
         actionButtonAdapterLiveData.value = appActionsAdapter
@@ -190,13 +184,6 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                             }
                         })
                     }
-                }
-            }
-        }
-        viewModelScope.launch {
-            appActionsAdapter.shareApp.collect {
-                appDetails.value?.let {
-                    shareAppEvent.value = it.generalData.apkDirectory
                 }
             }
         }
