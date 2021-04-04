@@ -37,6 +37,7 @@ abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDIN
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = createViewModel()
+        lifecycle.addObserver(viewModel)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -48,13 +49,16 @@ abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDIN
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewLifecycleOwner.lifecycle.addObserver(viewModel)
-
         binding.setVariable(BR.viewModel, viewModel)
         with(viewModel) {
             openDescription.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "descrition_dialog") })
             showSnackbar.observe(viewLifecycleOwner, { it.toSnackbar(requireParentFragment().requireView()).show() })
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(viewModel)
     }
 
     protected fun parentViewModel() = provideViewModelOfParentFragment {
