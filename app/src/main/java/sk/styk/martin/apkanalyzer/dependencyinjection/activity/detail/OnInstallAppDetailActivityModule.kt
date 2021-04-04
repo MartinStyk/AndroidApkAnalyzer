@@ -5,16 +5,16 @@ import dagger.Binds
 import dagger.Module
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.ActivityCommonModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactoriesModule
-import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.appdetail.OnInstallAppDetailActivity
 
 @Module(includes = [
     ActivityCommonModule::class,
     ViewModelFactoriesModule::class,
     AppDetailActivityCommonModule::class,
 ])
-abstract class AppDetailActivityModule {
+abstract class OnInstallAppDetailActivityModule {
 
     @Binds
-    abstract fun activity(activity: AppDetailActivity): Activity
+    abstract fun activity(activity: OnInstallAppDetailActivity): Activity
 
 }

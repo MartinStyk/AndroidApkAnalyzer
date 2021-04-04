@@ -19,7 +19,6 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
-import sk.styk.martin.apkanalyzer.util.file.ApkFilePicker
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
@@ -83,7 +82,11 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
 
     private fun startFilePicker() {
         try {
-            filePickerResultLuncher.launch(ApkFilePicker.filePickerIntent)
+            filePickerResultLuncher.launch(
+                    Intent(Intent.ACTION_GET_CONTENT).apply {
+                        type = "application/vnd.android.package-archive"
+                    }
+            )
         } catch (exception: ActivityNotFoundException) {
             Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
         }

@@ -18,17 +18,17 @@ object AppOperations {
     fun installPackage(context: Context, packagePath: String) {
         val intent = Intent(Intent.ACTION_VIEW)
                 .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+                .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 
         try {
             val apkUri = FileProvider.getUriForFile(context, GenericFileProvider.AUTHORITY, File(packagePath))
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
+            context.startActivity(intent)
         } catch (e: Exception) {
             Log.e(OnInstallAppDetailActivity::class.java.simpleName, e.toString())
             Toast.makeText(context, context.getString(R.string.install_failed), Toast.LENGTH_LONG).show()
-            return
         }
-
-        context.startActivity(intent)
     }
 
     fun openAppSystemPage(context: Context, packageName: String) {

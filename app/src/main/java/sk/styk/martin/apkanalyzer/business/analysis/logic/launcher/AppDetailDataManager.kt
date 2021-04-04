@@ -3,11 +3,10 @@ package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import android.net.Uri
 import sk.styk.martin.apkanalyzer.business.analysis.logic.*
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
-import sk.styk.martin.apkanalyzer.util.file.FileUtils
+import java.io.File
 import javax.inject.Inject
 
 class AppDetailDataManager @Inject constructor(
@@ -36,11 +35,13 @@ class AppDetailDataManager @Inject constructor(
             packageInfo = packageManager.getPackageInfo(packageName, analysisFlags)
     )
 
-    fun loadForExternalPackage(uri: Uri) = get(
-            analysisMode = AppDetailData.AnalysisMode.APK_FILE,
-            packageInfo = FileUtils.uriToPatch(uri, context)?.let { packageManager.getPackageArchiveInfoWithCorrectPath(it, analysisFlags) }
-                    ?: throw IllegalArgumentException()
-    )
+    fun loadForExternalPackage(accessibleFile: File): AppDetailData {
+        return get(
+                analysisMode = AppDetailData.AnalysisMode.APK_FILE,
+                packageInfo = packageManager.getPackageArchiveInfoWithCorrectPath(accessibleFile.absolutePath, analysisFlags)
+                        ?: throw IllegalArgumentException()
+        )
+    }
 
     private fun get(analysisMode: AppDetailData.AnalysisMode, packageInfo: PackageInfo): AppDetailData {
 

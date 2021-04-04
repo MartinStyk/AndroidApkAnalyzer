@@ -1,9 +1,14 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail
 
 import android.Manifest
+import android.app.Activity
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
+import android.os.Build
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
 import androidx.lifecycle.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
@@ -17,6 +22,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppDetailDataManager
 import sk.styk.martin.apkanalyzer.manager.file.ApkSaveManager
 import sk.styk.martin.apkanalyzer.manager.file.DrawableSaveManager
+import sk.styk.martin.apkanalyzer.manager.file.FileManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
@@ -34,6 +40,8 @@ internal const val LOADING_STATE = 0
 internal const val ERROR_STATE = 1
 internal const val DATA_STATE = 2
 
+private const val ANALYZED_APK_NAME = "analyzed.apk"
+
 @OptIn(ExperimentalCoroutinesApi::class)
 class AppDetailFragmentViewModel @AssistedInject constructor(
         @Assisted val appDetailRequest: AppDetailRequest,
@@ -45,6 +53,8 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         private val drawableSaveManager: DrawableSaveManager,
         private val notificationManager: NotificationManager,
         private val apkSaveManager: ApkSaveManager,
+        private val fileManager: FileManager,
+        private val packageManager: PackageManager
 ) : ViewModel(), AppBarLayout.OnOffsetChangedListener, DefaultLifecycleObserver {
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
@@ -68,6 +78,9 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     private val installAppEvent = SingleLiveEvent<String>()
     val installApp: LiveData<String> = installAppEvent
 
+    private val openSettingsInstallPermissionEvent = SingleLiveEvent<Unit>()
+    val openSettingsInstallPermission: LiveData<Unit> = openSettingsInstallPermissionEvent
+
     private val openImageEvent = SingleLiveEvent<String>()
     val openImage: LiveData<String> = openImageEvent
 
@@ -79,7 +92,6 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
 
     private val openSystemInfoEvent = SingleLiveEvent<String>()
     val openSystemInfo: LiveData<String> = openSystemInfoEvent
-
 
     val toolbarTitle: LiveData<TextInfo> = viewStateLiveData.map {
         val details = appDetails.value
@@ -99,24 +111,33 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     val toolbarBackground: LiveData<Drawable> = accentColor.map { GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(it, Color.TRANSPARENT)) }
     val toolbarIcon: LiveData<Drawable> = appDetails.map { it.generalData.icon!! }
 
+    val installPermissionResult = ActivityResultCallback<ActivityResult> {
+        val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory
+        if (it?.resultCode == Activity.RESULT_OK && !apkPath.isNullOrBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls()) ) {
+            installAppEvent.value = apkPath
+        }
+    }
+
     init {
-        viewModelScope.launch {
-            try {
-                val detail = withContext(dispatcherProvider.default()) {
-                    when (appDetailRequest) {
-                        is AppDetailRequest.InstalledPackage -> appDetailDataManager.loadForInstalledPackage(appDetailRequest.packageName)
-                        is AppDetailRequest.ExternalPackage -> appDetailDataManager.loadForExternalPackage(appDetailRequest.packageUri)
-                    }
+        when (appDetailRequest) {
+            is AppDetailRequest.InstalledPackage -> loadDetail()
+            is AppDetailRequest.ExternalPackage -> {
+                if (permissionManager.hasPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                    loadDetail()
+                } else {
+                    permissionManager.requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
+                        override fun onPermissionDenied(permission: String) {
+                            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
+                        }
+
+                        override fun onPermissionGranted(permission: String) {
+                            loadDetail()
+                        }
+                    })
                 }
-                appDetailsLiveData.value = detail
-                viewStateLiveData.value = DATA_STATE
-                actionButtonVisibilityLiveData.value = true
-                setupToolbar(detail)
-            } catch (e: Exception) {
-                viewStateLiveData.value = ERROR_STATE
-                actionButtonVisibilityLiveData.value = false
             }
         }
+
         observeApkActions()
     }
 
@@ -125,9 +146,30 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         updateActionButtonAdapter()
     }
 
+    private fun loadDetail() = viewModelScope.launch {
+        try {
+            val detail = withContext(dispatcherProvider.default()) {
+                when (appDetailRequest) {
+                    is AppDetailRequest.InstalledPackage -> appDetailDataManager.loadForInstalledPackage(appDetailRequest.packageName)
+                    is AppDetailRequest.ExternalPackage -> {
+                        val tempFile = fileManager.createTempFileFromUri(appDetailRequest.packageUri, ANALYZED_APK_NAME)
+                        appDetailDataManager.loadForExternalPackage(tempFile)
+                    }
+                }
+            }
+            appDetailsLiveData.value = detail
+            viewStateLiveData.value = DATA_STATE
+            actionButtonVisibilityLiveData.value = true
+            setupToolbar(detail)
+        } catch (e: Exception) {
+            viewStateLiveData.value = ERROR_STATE
+            actionButtonVisibilityLiveData.value = false
+        }
+    }
+
     private fun setupToolbar(detail: AppDetailData) = viewModelScope.launch(dispatcherProvider.main()) {
         val palette = resourcesManager.generatePalette(detail.generalData.icon!!)
-        val accentColor = if(resourcesManager.isNight()) {
+        val accentColor = if (resourcesManager.isNight()) {
             palette.getLightVibrantColor(resourcesManager.getColor(R.color.secondary))
         } else {
             palette.getDarkVibrantColor(resourcesManager.getColor(R.color.secondary))
@@ -164,7 +206,11 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         viewModelScope.launch {
             appActionsAdapter.installApp.collect {
                 appDetails.value?.let {
-                    installAppEvent.value = it.generalData.apkDirectory
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls()) {
+                        installAppEvent.value = it.generalData.apkDirectory
+                    } else {
+                        openSettingsInstallPermissionEvent.call()
+                    }
                 }
             }
         }

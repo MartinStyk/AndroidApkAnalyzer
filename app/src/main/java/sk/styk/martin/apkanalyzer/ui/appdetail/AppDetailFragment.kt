@@ -4,12 +4,18 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailBinding
@@ -33,6 +39,8 @@ class AppDetailFragment : Fragment(), BackPressedListener {
 
     private lateinit var viewModel: AppDetailFragmentViewModel
 
+    private lateinit var installPermissionResultLauncher: ActivityResultLauncher<Intent>
+
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -44,6 +52,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             viewModelFactory.create(requireNotNull(requireArguments().getParcelable(AppDetailActivity.APP_DETAIL_REQUEST)))
         }
         lifecycle.addObserver(viewModel)
+        installPermissionResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), viewModel.installPermissionResult)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -70,6 +79,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             installApp.observe(viewLifecycleOwner, { AppOperations.installPackage(requireContext(), it) })
             showManifest.observe(viewLifecycleOwner, { startActivity(ManifestActivity.createIntent(requireContext(), it)) })
             openImage.observe(viewLifecycleOwner, { openImage(it) })
+            openSettingsInstallPermission.observe(viewLifecycleOwner, { startInstallSettings()})
         }
     }
 
@@ -92,6 +102,19 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             })
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(requireContext(), R.string.activity_not_found_image, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun startInstallSettings() {
+        try {
+            installPermissionResultLauncher.launch(
+                    Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
+                       data = Uri.parse(String.format("package:%s", requireContext().packageName))
+                    }
+            )
+        } catch (exception: ActivityNotFoundException) {
+            Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
         }
     }
 
