@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.service
 
+import androidx.lifecycle.LifecycleOwner
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
@@ -13,9 +14,27 @@ class AppServiceDetailFragmentViewModel @AssistedInject constructor(
         clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, serviceAdapter, clipBoardManager) {
 
+    private var serviceData: MutableList<AppServiceDetailListAdapter.ExpandedServiceData> = mutableListOf()
+        set(value) {
+            field = value
+            serviceAdapter.items = serviceData
+        }
+
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        with(serviceAdapter) {
+            serviceUpdate.observe(owner, { updateLocalData(it) })
+        }
+    }
+
     override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
-        serviceAdapter.items = appDetailData.serviceData
+        serviceData = appDetailData.serviceData.map { AppServiceDetailListAdapter.ExpandedServiceData(it, false) }.toMutableList()
         return appDetailData.serviceData.isNotEmpty()
+    }
+
+
+    private fun updateLocalData(editedExpandedServiceData: AppServiceDetailListAdapter.ExpandedServiceData) {
+        serviceData[serviceData.indexOfFirst { it.serviceData == editedExpandedServiceData.serviceData}] = editedExpandedServiceData
     }
 
     @AssistedInject.Factory

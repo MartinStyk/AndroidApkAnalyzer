@@ -181,8 +181,7 @@
     <style name="DatailListItemTitle">
         <item name="android:color">?android:textColorPrimary</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:maxLines">1</item>
-        <item name="android:singleLine">true</item>
+        <item name="android:maxLines">2</item>
         <item name="android:textSize">@dimen/fontSizeSmall</item>
     </style>
 

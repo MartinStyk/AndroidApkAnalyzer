@@ -21,8 +21,6 @@
             android:id="@+id/headerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:focusable="true"
             android:background="?android:selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/padding_default_medium">
@@ -72,13 +70,12 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_weight="0"
-                app:tint="?android:textColorSecondary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/activity_package_name"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_expandable"
-                tools:targetApi="lollipop" />
+                app:tint="?android:textColorSecondary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -134,7 +131,6 @@
             </LinearLayout>
 
         </net.cachapa.expandablelayout.ExpandableLayout>
-
 
     </LinearLayout>
 

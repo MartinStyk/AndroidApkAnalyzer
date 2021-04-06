@@ -15,10 +15,10 @@ import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 
 
-private const val ARROW_ANIMATION_DURATION = 500L
+const val ARROW_ANIMATION_DURATION = 500L
 
-private const val ROTATION_STANDARD = 0f
-private const val ROTATION_FLIPPED = 180f
+const val ROTATION_STANDARD = 0f
+const val ROTATION_FLIPPED = 180f
 
 class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescriptionAdapter<AppActivityDetailListAdapter.ViewHolder>() {
 
