@@ -12,6 +12,7 @@
     <dimen name="text_margin_right_left">16dp</dimen>
     <dimen name="text_margin_top_bottom">6dp</dimen>
     <dimen name="padding_default">4dp</dimen>
+    <dimen name="padding_default_medium">16dp</dimen>
     <dimen name="chart_margin">16dp</dimen>
     <dimen name="padding_cardview_text">8dp</dimen>
     <dimen name="text_list_item_margin">16dp</dimen>

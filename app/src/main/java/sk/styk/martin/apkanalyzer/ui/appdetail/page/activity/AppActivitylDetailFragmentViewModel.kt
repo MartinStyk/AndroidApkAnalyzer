@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.activity
 
+import androidx.lifecycle.LifecycleOwner
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
@@ -15,9 +16,26 @@ class AppActivityDetailFragmentViewModel @AssistedInject constructor(
 
     val runActivity = activityAdapter.runActivity
 
-    override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
-        activityAdapter.items = appDetailData.activityData
+    private var activityData: MutableList<AppActivityDetailListAdapter.ExpandedActivityData> = mutableListOf()
+        set(value) {
+            field = value
+            activityAdapter.items = activityData
+        }
+
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        with(activityAdapter) {
+            activityUpdate.observe(owner, { updateLocalData(it) })
+        }
+    }
+
+    override fun onDataReceived(appDetailData: AppDetailData): Boolean {
+        activityData = appDetailData.activityData.map { AppActivityDetailListAdapter.ExpandedActivityData(it, false) }.toMutableList()
         return appDetailData.activityData.isNotEmpty()
+    }
+
+    private fun updateLocalData(editedExpandedActivityData: AppActivityDetailListAdapter.ExpandedActivityData) {
+        activityData[activityData.indexOfFirst { it.activityData == editedExpandedActivityData.activityData}] = editedExpandedActivityData
     }
 
     @AssistedInject.Factory

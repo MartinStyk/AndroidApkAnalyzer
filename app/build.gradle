@@ -89,6 +89,7 @@ dependencies {
     implementation 'com.github.apl-devs:appintro:v4.2.2'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     implementation 'com.google.firebase:firebase-core:18.0.2'
+    implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"
 
