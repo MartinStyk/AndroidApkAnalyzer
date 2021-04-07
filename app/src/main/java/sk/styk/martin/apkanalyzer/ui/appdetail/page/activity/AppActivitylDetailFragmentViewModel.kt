@@ -19,7 +19,7 @@ class AppActivityDetailFragmentViewModel @AssistedInject constructor(
     private var activityData: MutableList<AppActivityDetailListAdapter.ExpandedActivityData> = mutableListOf()
         set(value) {
             field = value
-            activityAdapter.items = activityData
+            activityAdapter.items = value
         }
 
     override fun onCreate(owner: LifecycleOwner) {

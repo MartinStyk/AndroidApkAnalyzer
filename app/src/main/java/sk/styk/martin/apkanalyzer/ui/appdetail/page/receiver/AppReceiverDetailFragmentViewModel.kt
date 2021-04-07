@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.receiver
 
+import androidx.lifecycle.LifecycleOwner
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
@@ -14,9 +15,27 @@ class AppReceiverDetailFragmentViewModel @AssistedInject constructor(
         clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, receiverAdapter, clipBoardManager) {
 
+    private var receiverData: MutableList<AppReceiverDetailListAdapter.ExpandedBroadcastReceiverData> = mutableListOf()
+        set(value) {
+            field = value
+            receiverAdapter.items = value
+        }
+
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        with(receiverAdapter) {
+            receiverUpdate.observe(owner, { updateLocalData(it) })
+        }
+    }
+
+
     override fun onDataReceived(appDetailData: AppDetailData): Boolean {
-        receiverAdapter.items = appDetailData.broadcastReceiverData
+        receiverData = appDetailData.broadcastReceiverData.map { AppReceiverDetailListAdapter.ExpandedBroadcastReceiverData(it, false) }.toMutableList()
         return appDetailData.broadcastReceiverData.isNotEmpty()
+    }
+
+    private fun updateLocalData(editedExpandedReceiverData: AppReceiverDetailListAdapter.ExpandedBroadcastReceiverData) {
+        receiverData[receiverData.indexOfFirst { it.receiverData == editedExpandedReceiverData.receiverData}] = editedExpandedReceiverData
     }
 
     @AssistedInject.Factory

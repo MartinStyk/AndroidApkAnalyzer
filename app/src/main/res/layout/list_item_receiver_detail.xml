@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -10,44 +10,92 @@
             type="sk.styk.martin.apkanalyzer.ui.appdetail.page.provider.AppReceiverDetailListAdapter.ReceiverDataViewModel" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_default"
-        card_view:cardUseCompatPadding="true">
+        android:orientation="vertical">
 
-        <LinearLayout
-            style="@style/ItemDetailLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/headerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="?android:selectableItemBackground"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_default_medium">
 
             <TextView
-                android:id="@+id/item_receiver_name"
-                style="@style/ItemDetailCardViewHeader"
+                android:id="@+id/activity_package_name"
+                style="@style/DetailListItemSubtitleTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.packageName}"
+                app:layout_constraintBottom_toTopOf="@id/activity_name"
+                app:layout_constraintEnd_toStartOf="@id/toggleArrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="sk.styk.martin.apkanalyzer" />
+
+            <TextView
+                android:id="@+id/activity_name"
+                style="@style/DatailListItemTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.name}"
+                android:textColor="?android:textColorPrimary"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/toggleArrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/activity_package_name"
+                tools:text="MyReceiver" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/toggleArrow"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_weight="0"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/activity_package_name"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_arrow_expandable"
+                app:tint="?android:textColorSecondary" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <net.cachapa.expandablelayout.ExpandableLayout
+            android:id="@+id/expandableContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:el_duration="500"
+            tools:el_expanded="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.name}" />
+                android:orientation="vertical">
 
-            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
-                android:id="@+id/item_receiver_permission"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.onDetailClick(viewModel.permission)}"
-                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.permission)}"
-                app:titleText="@{viewModel.permission.name}"
-                app:valueText="@{viewModel.permission.value}" />
+                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                    android:id="@+id/item_receiver_permission"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.onDetailClick(viewModel.permission)}"
+                    android:onLongClick="@{() -> viewModel.onLongClick(viewModel.permission)}"
+                    app:titleText="@{viewModel.permission.name}"
+                    app:valueText="@{viewModel.permission.value}" />
 
-            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
-                android:id="@+id/item_receiver_exported"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.onDetailClick(viewModel.exported)}"
-                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.exported)}"
-                app:titleText="@{viewModel.exported.name}"
-                app:valueText="@{viewModel.exported.value}" />
+                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                    android:id="@+id/item_receiver_exported"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.onDetailClick(viewModel.exported)}"
+                    android:onLongClick="@{() -> viewModel.onLongClick(viewModel.exported)}"
+                    app:titleText="@{viewModel.exported.name}"
+                    app:valueText="@{viewModel.exported.value}" />
 
-        </LinearLayout>
+            </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+        </net.cachapa.expandablelayout.ExpandableLayout>
+
+    </LinearLayout>
+
 </layout>

@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.provider
 
+import androidx.lifecycle.LifecycleOwner
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
@@ -13,9 +14,26 @@ class AppProviderDetailFragmentViewModel @AssistedInject constructor(
         clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, providerAdapter, clipBoardManager) {
 
+    private var providerData: MutableList<AppProviderDetailListAdapter.ExpandedContentProviderData> = mutableListOf()
+        set(value) {
+            field = value
+            providerAdapter.items = value
+        }
+
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        with(providerAdapter) {
+            providerUpdate.observe(owner, { updateLocalData(it) })
+        }
+    }
+
     override fun onDataReceived(appDetailData: AppDetailData): Boolean {
-        providerAdapter.items = appDetailData.contentProviderData
+        providerData = appDetailData.contentProviderData.map { AppProviderDetailListAdapter.ExpandedContentProviderData(it, false) }.toMutableList()
         return appDetailData.contentProviderData.isNotEmpty()
+    }
+
+    private fun updateLocalData(editedExpandedProviderData: AppProviderDetailListAdapter.ExpandedContentProviderData) {
+        providerData[providerData.indexOfFirst { it.contentProviderData == editedExpandedProviderData.contentProviderData }] = editedExpandedProviderData
     }
 
     @AssistedInject.Factory
