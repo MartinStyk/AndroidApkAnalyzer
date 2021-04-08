@@ -140,25 +140,6 @@
 
         </ViewAnimator>
 
-        <FrameLayout
-            android:id="@+id/ad_view_container"
-            style="@style/AdDivider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom">
-
-            <com.google.android.gms.ads.AdView
-                android:id="@+id/ad_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:visibility="gone"
-                ads:adSize="SMART_BANNER"
-                ads:adUnitId="@string/banner_ad_unit_id"
-                tools:visibility="visible" />
-
-        </FrameLayout>
-
         <sk.styk.martin.apkanalyzer.views.FloatingActionButton
             android:id="@+id/btn_actions"
             android:layout_width="match_parent"

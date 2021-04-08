@@ -33,10 +33,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:contentDescription="@string/no_data"
                 android:layout_marginBottom="16dp"
-                app:tint="?android:textColorSecondary"
-                app:srcCompat="@drawable/ic_box" />
+                android:contentDescription="@string/no_data"
+                app:srcCompat="@drawable/ic_box"
+                app:tint="?android:textColorSecondary" />
 
             <TextView
                 android:id="@+id/item_detail_error"
@@ -46,13 +46,13 @@
                 android:gravity="center"
                 android:text="@string/no_data"
                 android:textColor="?android:textColorSecondary"
-                android:textSize="@dimen/fontSizeMedium"/>
+                android:textSize="@dimen/fontSizeMedium" />
 
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:adapter="@{viewModel.adapter}"
             app:itemDecoration="@{true}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
