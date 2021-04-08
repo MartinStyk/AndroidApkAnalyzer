@@ -21,6 +21,7 @@
             android:id="@+id/headerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:onLongClick="@{() -> viewModel.onTitleLongClick()}"
             android:background="?android:selectableItemBackground"
             android:orientation="horizontal"
             android:padding="@dimen/padding_default_medium">
@@ -119,6 +120,8 @@
                     app:valueText="@{viewModel.permissionDetailItemInfo.value}" />
 
                 <com.google.android.material.button.MaterialButton
+                    style="?attr/borderlessButtonStyle"
+                    android:textColor="?android:textColorPrimary"
                     android:id="@+id/item_activity_run"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

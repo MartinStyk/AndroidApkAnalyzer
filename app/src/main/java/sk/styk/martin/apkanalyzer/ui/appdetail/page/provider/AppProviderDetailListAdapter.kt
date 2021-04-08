@@ -70,11 +70,16 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
         )
 
         fun onDetailClick(detailInfo: DetailInfoAdapter.DetailInfo) {
-            openDescriptionEvent.value = detailInfo
+            openDescriptionEvent.value = Description.from(detailInfo)
         }
 
         fun onLongClick(detailInfo: DetailInfoAdapter.DetailInfo): Boolean {
-            copyToClipboardEvent.value = detailInfo
+            copyToClipboardEvent.value = CopyToClipboard.from(detailInfo)
+            return true
+        }
+
+        fun onTitleLongClick() : Boolean {
+            copyToClipboardEvent.value = CopyToClipboard(TextInfo.from(expandedProviderData.contentProviderData.name))
             return true
         }
 

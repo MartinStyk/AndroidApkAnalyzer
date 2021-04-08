@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppPermissionListAdapter.PermissionDataViewModel" />
+
+        <import type="android.view.View" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/headerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:selectableItemBackground"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:onLongClick="@{() -> viewModel.copyName()}"
+        android:onClick="@{() -> viewModel.showDetail()}"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_default_medium">
+
+        <TextView
+            android:id="@+id/activity_package_name"
+            style="@style/DetailListItemSubtitleTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.completeName}"
+            tools:text="sk.styk.martin.apkanalyzer.My_Permission" />
+
+        <TextView
+            android:id="@+id/activity_name"
+            style="@style/DatailListItemTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.simpleName}"
+            android:textColor="?android:textColorPrimary"
+            tools:text="My Permission" />
+
+    </LinearLayout>
+</layout>

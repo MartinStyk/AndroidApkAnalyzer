@@ -37,11 +37,11 @@ class DetailInfoAdapter @Inject constructor() : DetailInfoDescriptionAdapter<Det
 
     inner class DetailItemViewModel(val info: DetailInfo) {
         fun onClick() {
-            openDescriptionEvent.value = info
+            openDescriptionEvent.value = Description.from(info)
         }
 
         fun onLongClick(): Boolean {
-            copyToClipboardEvent.value = info
+            copyToClipboardEvent.value = CopyToClipboard.from(info)
             return true
         }
     }

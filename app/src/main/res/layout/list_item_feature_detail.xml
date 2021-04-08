@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,37 +8,42 @@
             name="viewModel"
             type="sk.styk.martin.apkanalyzer.ui.appdetail.page.feature.AppFeatureDetailListAdapter.FeatureDataViewModel" />
 
+        <import type="android.view.View" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <LinearLayout
+        android:id="@+id/headerContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/padding_default"
-        card_view:cardUseCompatPadding="true">
+        android:background="?android:selectableItemBackground"
+        android:minHeight="?android:attr/listPreferredItemHeight"
+        android:onLongClick="@{() -> viewModel.copyFeatureName()}"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="@dimen/padding_default_medium">
 
-        <LinearLayout
-            style="@style/ItemDetailLayout"
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/DatailListItemTitle"
+            android:textColor="?android:textColorPrimary"
+            tools:text="Feature"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:text="@{viewModel.name}" />
 
-            <TextView
-                android:id="@+id/item_feature_name"
-                style="@style/ItemDetailCardViewHeader"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.name}" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:paddingHorizontal="6dp"
+            android:paddingVertical="4dp"
+            android:background="@color/border"
+            android:foreground="?selectableItemBackground"
+            android:onClick="@{() -> viewModel.onDetailClick()}"
+            android:text="@string/feature_required"
+            android:textAllCaps="true"
+            android:textSize="@dimen/fontSizeTiny"
+            android:visibility="@{viewModel.required ? View.VISIBLE : View.GONE}" />
 
-            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
-                android:id="@+id/item_feature_required"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:onClick="@{() -> viewModel.onDetailClick(viewModel.exported)}"
-                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.exported)}"
-                app:titleText="@{viewModel.exported.name}"
-                app:valueText="@{viewModel.exported.value}" />
-
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 </layout>

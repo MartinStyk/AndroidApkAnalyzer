@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemFeatureDetailBinding
 import sk.styk.martin.apkanalyzer.model.detail.FeatureData
-import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import javax.inject.Inject
@@ -35,19 +34,14 @@ class AppFeatureDetailListAdapter @Inject constructor() : DetailInfoDescriptionA
     inner class FeatureDataViewModel(private val featureData: FeatureData) {
 
         val name = featureData.name
+        val required = featureData.isRequired
 
-        val exported = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.feature_required),
-                value = TextInfo.from(if (featureData.isRequired) R.string.yes else R.string.no),
-                description = TextInfo.from(R.string.feature_required_description)
-        )
-
-        fun onDetailClick(detailInfo: DetailInfoAdapter.DetailInfo) {
-            openDescriptionEvent.value = detailInfo
+        fun onDetailClick() {
+            openDescriptionEvent.value = Description(TextInfo.from(R.string.feature_required), TextInfo.from(R.string.feature_required_description))
         }
 
-        fun onLongClick(detailInfo: DetailInfoAdapter.DetailInfo): Boolean {
-            copyToClipboardEvent.value = detailInfo
+        fun copyFeatureName(): Boolean {
+            copyToClipboardEvent.value = CopyToClipboard(TextInfo.from(name))
             return true
         }
 

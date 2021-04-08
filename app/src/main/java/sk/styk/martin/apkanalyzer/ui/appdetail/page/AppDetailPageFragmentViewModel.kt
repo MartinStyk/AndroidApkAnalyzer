@@ -27,12 +27,12 @@ abstract class AppDetailPageFragmentViewModel constructor(
 
     val openDescription = adapter.openDescription
             .map {
-                DialogComponent(it.name, it.description, TextInfo.from(R.string.close))
+                DialogComponent(it.title, it.message, TextInfo.from(R.string.close))
             }
 
     val showSnackbar = adapter.copyToClipboard
             .map {
-                clipBoardManager.copyToClipBoard(it.value, it.name)
+                clipBoardManager.copyToClipBoard(it.text, it.label)
                 SnackBarComponent(TextInfo.from(R.string.copied_to_clipboard), Snackbar.LENGTH_SHORT)
             }
 
