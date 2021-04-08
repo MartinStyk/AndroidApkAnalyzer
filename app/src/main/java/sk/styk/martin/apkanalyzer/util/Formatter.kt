@@ -2,12 +2,12 @@ package sk.styk.martin.apkanalyzer.util
 
 import android.content.Context
 import android.text.format.DateUtils
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import javax.inject.Inject
 import android.text.format.Formatter as AndroidFormatter
 
 
-class Formatter @Inject constructor(@ApplicationScope val context: Context) {
+class Formatter @Inject constructor(@ForApplication val context: Context) {
 
     fun formatShortFileSize(size: Long) : String = AndroidFormatter.formatShortFileSize(context, size)
 

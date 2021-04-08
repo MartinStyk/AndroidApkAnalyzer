@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
@@ -62,23 +61,6 @@ class MainActivity : ApkAnalyzerBaseActivity() {
         }
 
         binding.viewModel = viewModel
-
-        AdUtils.displayAd(ad_view, ad_view_container)
-    }
-
-    public override fun onPause() {
-        if (AdUtils.isAdEnabled) ad_view?.pause()
-        super.onPause()
-    }
-
-    public override fun onResume() {
-        super.onResume()
-        if (AdUtils.isAdEnabled) ad_view?.resume()
-    }
-
-    public override fun onDestroy() {
-        if (AdUtils.isAdEnabled) ad_view?.destroy()
-        super.onDestroy()
     }
 
     override fun onBackPressed() {

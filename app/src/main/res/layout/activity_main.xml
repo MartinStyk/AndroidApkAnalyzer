@@ -15,21 +15,19 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
         tools:openDrawer="start">
 
-        <include
-            layout="@layout/app_bar_main"
+        <FrameLayout
+            android:id="@+id/main_activity_placeholder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:focusable="false" />
+            android:layout_weight="1" />
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:fitsSystemWindows="true"
             android:focusable="false"
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/navigation_drawer"

@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_file"
+            app:srcCompat="@drawable/ic_file"
             android:visibility="invisible"
             app:onClickListener="@{() -> viewModel.onFilePickerClick()}"
             app:show="@{viewModel.viewState != 0}" />

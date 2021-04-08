@@ -29,17 +29,14 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/app_bar_height"
-            android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay"
             app:onOffsetChangeListener="@{viewModel}">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
-                app:marginTopSystemWindowInsets="@{true}"
                 android:id="@+id/toolbar_layout"
                 style="@style/CollapsingToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
                 app:expandedTitleGravity="top|start"
                 app:expandedTitleMarginStart="100dp"
                 app:expandedTitleMarginTop="66dp"
@@ -51,7 +48,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="90dp"
                     android:layout_gravity="center"
                     android:animateLayoutChanges="true"
                     android:paddingHorizontal="24dp"

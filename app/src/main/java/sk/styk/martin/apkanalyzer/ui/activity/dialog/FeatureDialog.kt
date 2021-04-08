@@ -2,9 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.activity.dialog
 
 import android.app.Activity
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
-import sk.styk.martin.apkanalyzer.util.DARK_THEME
-import sk.styk.martin.apkanalyzer.util.LIGHT_THEME
 
 class FeatureDialog {
 
@@ -22,10 +19,10 @@ class FeatureDialog {
             negativeButtonColor = R.color.grey_500
             gifImageResource = R.drawable.feature_anim
             cancelable = true
-            actionListener = object : FancyDialog.FancyDialogAction {
-                override fun onPositiveButtonClicked(context: Activity) = ColorThemeHelper.setTheme(DARK_THEME, context)
-                override fun onNegativeButtonClicked(context: Activity) = ColorThemeHelper.setTheme(LIGHT_THEME, context)
-            }
+//            actionListener = object : FancyDialog.FancyDialogAction {
+//                override fun onPositiveButtonClicked(context: Activity) = ColorThemeHelper.setTheme(DARK_THEME, context)
+//                override fun onNegativeButtonClicked(context: Activity) = ColorThemeHelper.setTheme(LIGHT_THEME, context)
+//            }
         }.build().show()
     }
 

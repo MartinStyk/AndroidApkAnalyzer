@@ -4,9 +4,11 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.detail.AppDetailActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.detail.OnInstallAppDetailActivityModule
+import sk.styk.martin.apkanalyzer.dependencyinjection.activity.intro.IntroActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.main.MainActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.permission.PermissionDetailActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ActivityScope
+import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.appdetail.OnInstallAppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
@@ -30,5 +32,8 @@ abstract class ActivityBuilderModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = [OnInstallAppDetailActivityModule::class])
     abstract fun onInstallAppDetailActivityInjector(): OnInstallAppDetailActivity
+
+    @ContributesAndroidInjector(modules = [IntroActivityModule::class])
+    abstract fun introActivityInjector(): IntroActivity
 
 }

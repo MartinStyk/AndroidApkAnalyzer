@@ -4,14 +4,14 @@ import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import kotlinx.coroutines.withContext
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import java.io.File
 import java.io.IOException
 import javax.inject.Inject
 
-class FileManager @Inject constructor(@ApplicationScope private val context: Context,
+class FileManager @Inject constructor(@ForApplication private val context: Context,
                                       private val dispatcherProvider: DispatcherProvider) {
 
     val externalDirectory by lazy {

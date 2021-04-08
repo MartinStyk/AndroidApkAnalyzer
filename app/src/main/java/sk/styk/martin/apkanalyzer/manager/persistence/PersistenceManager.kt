@@ -7,6 +7,7 @@ private const val FIRST_APP_START = "first_app_start"
 private const val PROMO_SHOW_TIME = "promo_shown"
 private const val NEW_FEATURE_SHOW = "new_feature_shown"
 
+
 class PersistenceManager @Inject constructor(
         private val sharedPreferences: SharedPreferences
 ) {

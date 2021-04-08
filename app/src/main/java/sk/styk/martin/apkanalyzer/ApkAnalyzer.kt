@@ -2,19 +2,23 @@ package sk.styk.martin.apkanalyzer
 
 import android.content.Context
 import androidx.multidex.MultiDexApplication
-import com.google.android.gms.ads.MobileAds
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
 import sk.styk.martin.apkanalyzer.dependencyinjection.app.ApplicationComponent
 import sk.styk.martin.apkanalyzer.dependencyinjection.app.DaggerApplicationComponent
-import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
+import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 import javax.inject.Inject
 
 class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
 
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+
+    @Inject
+    @ForApplication
+    lateinit var colorThemeManager: ColorThemeManager
 
     lateinit var appComponent: ApplicationComponent
         private set
@@ -25,13 +29,9 @@ class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
 
         instance = this
 
-        ColorThemeHelper.setTheme(this)
+        colorThemeManager.setTheme()
 
         super.onCreate()
-
-        if (BuildConfig.SHOW_ADS) {
-            MobileAds.initialize(this, getString(R.string.ad_mod_app_id))
-        }
     }
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector

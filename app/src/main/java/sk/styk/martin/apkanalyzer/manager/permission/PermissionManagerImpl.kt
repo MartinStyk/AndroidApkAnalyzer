@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import java.lang.ref.WeakReference
 import java.util.*
 import javax.inject.Inject
@@ -15,7 +15,7 @@ import javax.inject.Inject
 private const val PERMISSIONS_REQUEST_CODE = 777
 
 class PermissionsManagerImpl @Inject constructor(
-        @ApplicationScope private val context: Context,
+        @ForApplication private val context: Context,
 ) : ViewModel(), PermissionManager {
 
     private var activityWeakReference: WeakReference<Activity>? = null

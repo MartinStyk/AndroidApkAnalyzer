@@ -377,10 +377,12 @@
     <string name="color_theme_promo_title" translatable="false">Choose colors you like</string>
     <string name="color_theme_promo_message" translatable="false">Now it\'s possible to switch Apk Analyzer to dark colors. \n You can change your preference later in the settings.</string>
     <string-array name="preference_color_theme_options_values">
+        <item>system</item>
         <item>light</item>
         <item>dark</item>
     </string-array>
     <string-array name="preference_color_theme_options">
+        <item>System</item>
         <item>Light</item>
         <item>Dark</item>
     </string-array>

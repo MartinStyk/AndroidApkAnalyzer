@@ -3,9 +3,7 @@ package sk.styk.martin.apkanalyzer.ui.appdetail
 import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
-import android.graphics.Color
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -25,6 +23,7 @@ import sk.styk.martin.apkanalyzer.manager.file.DrawableSaveManager
 import sk.styk.martin.apkanalyzer.manager.file.FileManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
+import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
@@ -54,7 +53,8 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         private val notificationManager: NotificationManager,
         private val apkSaveManager: ApkSaveManager,
         private val fileManager: FileManager,
-        private val packageManager: PackageManager
+        private val packageManager: PackageManager,
+        private val activityColorThemeManager: ActivityColorThemeManager,
 ) : ViewModel(), AppBarLayout.OnOffsetChangedListener, DefaultLifecycleObserver {
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
@@ -108,7 +108,6 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     private val accentColorLiveData = MutableLiveData<Int>(resourcesManager.getColor(ColorInfo.fromColor(R.color.secondary)))
     val accentColor: LiveData<Int> = accentColorLiveData
 
-    val toolbarBackground: LiveData<Drawable> = accentColor.map { GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, intArrayOf(it, Color.TRANSPARENT)) }
     val toolbarIcon: LiveData<Drawable> = appDetails.map { it.generalData.icon!! }
 
     val installPermissionResult = ActivityResultCallback<ActivityResult> {
@@ -157,20 +156,20 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                     }
                 }
             }
+            setupToolbar(detail)
             appDetailsLiveData.value = detail
             viewStateLiveData.value = DATA_STATE
             actionButtonVisibilityLiveData.value = true
-            setupToolbar(detail)
         } catch (e: Exception) {
             viewStateLiveData.value = ERROR_STATE
             actionButtonVisibilityLiveData.value = false
         }
     }
 
-    private fun setupToolbar(detail: AppDetailData) = viewModelScope.launch(dispatcherProvider.main()) {
+    private suspend fun setupToolbar(detail: AppDetailData) {
         val palette = resourcesManager.generatePalette(detail.generalData.icon!!)
-        val accentColor = if (resourcesManager.isNight()) {
-            palette.getLightVibrantColor(resourcesManager.getColor(R.color.secondary))
+        val accentColor = if (activityColorThemeManager.isNightMode()) {
+            palette.getDominantColor(resourcesManager.getColor(R.color.secondary))
         } else {
             palette.getDarkVibrantColor(resourcesManager.getColor(R.color.secondary))
         }

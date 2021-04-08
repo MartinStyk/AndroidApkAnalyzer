@@ -4,13 +4,13 @@ import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import sk.styk.martin.apkanalyzer.business.analysis.logic.*
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import java.io.File
 import javax.inject.Inject
 
 class AppDetailDataManager @Inject constructor(
-        @ApplicationScope private val context: Context,
+        @ForApplication private val context: Context,
         private val packageManager: PackageManager,
         private val appPermissionManager: AppPermissionManager,
         private val featuresManager: FeaturesManager,

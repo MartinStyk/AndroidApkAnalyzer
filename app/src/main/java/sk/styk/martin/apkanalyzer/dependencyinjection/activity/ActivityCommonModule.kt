@@ -8,8 +8,11 @@ import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ActivityScope
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
+import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
+import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 
 @Module
 class ActivityCommonModule {
@@ -34,8 +37,16 @@ class ActivityCommonModule {
         return permissionsManager
     }
 
-//    @Provides
-//    @ActivityScope
-//    fun provideBackPressedManager(backPressManager: BackPressedManager): BackPressedManager = backPressManager
+    @Provides
+    @ActivityScope
+    fun provideColorThemeManager(activity: AppCompatActivity, @ForApplication applicationColorThemeManager: ColorThemeManager): ActivityColorThemeManager {
+        val activityColorThemeManager: ActivityColorThemeManager = ViewModelProvider(activity, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ActivityColorThemeManager(applicationColorThemeManager) as T
+            }
+        }).get(ActivityColorThemeManager::class.java)
+        activityColorThemeManager.bind(activity)
+        return activityColorThemeManager
+    }
 
 }

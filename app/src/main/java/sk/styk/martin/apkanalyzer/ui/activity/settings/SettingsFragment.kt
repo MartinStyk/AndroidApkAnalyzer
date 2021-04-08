@@ -1,15 +1,28 @@
 package sk.styk.martin.apkanalyzer.ui.activity.settings
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import androidx.preference.PreferenceFragmentCompat
 import com.google.firebase.analytics.FirebaseAnalytics
+import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.util.ColorThemeHelper
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
+import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
+import javax.inject.Inject
 
 class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+
+    @Inject
+    @ForApplication
+    lateinit var colorThemeManager: ColorThemeManager
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.settings, rootKey)
@@ -32,8 +45,7 @@ class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedP
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        if (key == getString(R.string.preference_color_theme_key))
-            ColorThemeHelper.setTheme(requireContext())
+        colorThemeManager.setTheme()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

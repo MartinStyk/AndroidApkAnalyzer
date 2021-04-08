@@ -11,7 +11,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.android.support.AndroidSupportInjectionModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.ActivityBuilderModule
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
+import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
+import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManagerImpl
 import javax.inject.Singleton
 
 @Module(includes = [
@@ -22,12 +24,12 @@ class ApplicationCommonModule {
 
     @Provides
     @Singleton
-    @ApplicationScope
+    @ForApplication
     fun provideApplicationContext(application: Application): Context = application.applicationContext
 
     @Provides
     @Singleton
-    @ApplicationScope
+    @ForApplication
     fun providesResources(application: Application): Resources = application.resources
 
     @Provides
@@ -36,9 +38,13 @@ class ApplicationCommonModule {
 
     @Provides
     @Singleton
-    fun providePersistenceSharedPreferences(@ApplicationScope context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    fun providePersistenceSharedPreferences(@ForApplication context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     @Provides
-    fun provideNotificationManager(@ApplicationScope context: Context): NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    fun provideNotificationManager(@ForApplication context: Context): NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    @Provides
+    @ForApplication
+    fun provideColorThemeManagerImpl(colorThemeManagerImpl: ColorThemeManagerImpl): ColorThemeManager = colorThemeManagerImpl
 
 }

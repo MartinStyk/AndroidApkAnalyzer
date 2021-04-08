@@ -46,8 +46,7 @@
         <activity
             android:name="sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity"
             android:label="@string/title_item_detail"
-            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.main.MainActivity"
-            android:theme="@style/AppTheme">
+            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />

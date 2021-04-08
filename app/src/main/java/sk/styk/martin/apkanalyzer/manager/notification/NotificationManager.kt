@@ -10,7 +10,7 @@ import android.os.Build
 import androidx.annotation.IntRange
 import androidx.core.app.NotificationCompat
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ApplicationScope
+import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
 import sk.styk.martin.apkanalyzer.util.file.FileUtils
@@ -30,7 +30,7 @@ private const val MANIFEST_EXPORT_NOTIFICATION_ID = 1_03
 
 @Singleton
 class NotificationManager @Inject constructor(
-        @ApplicationScope private val context: Context,
+        @ForApplication private val context: Context,
         private val resourcesManager: ResourcesManager,
         private val androidNotificationManager: AndroidNotificationManager,
 ) {
