@@ -1,56 +1,42 @@
 package sk.styk.martin.apkanalyzer.ui.activity.settings
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import androidx.preference.PreferenceFragmentCompat
-import com.google.firebase.analytics.FirebaseAnalytics
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import dagger.android.support.AndroidSupportInjection
-import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
-import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
+import kotlinx.coroutines.launch
+import sk.styk.martin.apkanalyzer.databinding.FragmentSettingsBinding
+import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import javax.inject.Inject
 
-class SettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
+class SettingsFragment : Fragment() {
 
     @Inject
-    @ForApplication
-    lateinit var colorThemeManager: ColorThemeManager
+    lateinit var navigationDrawerModel: NavigationDrawerModel
+
+    private lateinit var binding: FragmentSettingsBinding
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
 
-    override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
-        setPreferencesFromResource(R.xml.settings, rootKey)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.setNavigationOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                navigationDrawerModel.openDrawer()
+            }
+        }
     }
 
-    override fun onStart() {
-        super.onStart()
-        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-        FirebaseAnalytics.getInstance(requireContext()).setCurrentScreen(requireActivity(), SettingsFragment::class.java.simpleName, SettingsFragment::class.java.simpleName)
-    }
-
-    override fun onStop() {
-        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
-        super.onStop()
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        colorThemeManager.setTheme()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // Hide action bar item for searching
-        menu.clear()
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 }
