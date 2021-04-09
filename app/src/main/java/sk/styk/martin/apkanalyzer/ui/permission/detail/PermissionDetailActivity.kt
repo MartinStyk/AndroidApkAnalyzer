@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import dagger.android.AndroidInjection
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityPermissionDetailBinding
-import sk.styk.martin.apkanalyzer.ui.activity.ApkAnalyzerBaseActivity
+import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment.Companion.ARG_PERMISSIONS_DATA
 

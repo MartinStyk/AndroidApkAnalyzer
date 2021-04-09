@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import dagger.android.AndroidInjection
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityAppDetailBinding
-import sk.styk.martin.apkanalyzer.ui.activity.ApkAnalyzerBaseActivity
+import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 
 open class AppDetailActivity : ApkAnalyzerBaseActivity() {
 

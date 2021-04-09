@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity
+package sk.styk.martin.apkanalyzer.ui
 
 import dagger.android.support.DaggerAppCompatActivity
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager

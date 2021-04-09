@@ -8,6 +8,8 @@ import android.os.Build
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.lifecycle.*
+import androidx.palette.graphics.Target
+import androidx.palette.graphics.get
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.inject.assisted.Assisted
@@ -105,8 +107,8 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     val toolbarSubtitle: LiveData<TextInfo> = appDetails.map { TextInfo.from(it.generalData.packageName) }
     val toolbarSubtitleVisibility: LiveData<Boolean> = viewStateLiveData.map { it == DATA_STATE }
 
-    private val accentColorLiveData = MutableLiveData<Int>(resourcesManager.getColor(ColorInfo.fromColor(R.color.secondary)))
-    val accentColor: LiveData<Int> = accentColorLiveData
+    private val accentColorLiveData = MutableLiveData(ColorInfo.SECONDARY)
+    val accentColor: LiveData<ColorInfo> = accentColorLiveData
 
     val toolbarIcon: LiveData<Drawable> = appDetails.map { it.generalData.icon!! }
 
@@ -168,12 +170,15 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
 
     private suspend fun setupToolbar(detail: AppDetailData) {
         val palette = resourcesManager.generatePalette(detail.generalData.icon!!)
-        val accentColor = if (activityColorThemeManager.isNightMode()) {
-            palette.getDominantColor(resourcesManager.getColor(R.color.secondary))
-        } else {
-            palette.getDarkVibrantColor(resourcesManager.getColor(R.color.secondary))
-        }
-        accentColorLiveData.postValue(accentColor)
+
+        val range = if (activityColorThemeManager.isNightMode()) 0.1..0.35 else 0.09..0.45
+
+        val accentColor = listOf(Target.DARK_VIBRANT, Target.DARK_MUTED, Target.VIBRANT, Target.MUTED, Target.LIGHT_VIBRANT, Target.LIGHT_MUTED)
+                .mapNotNull { palette[it]?.rgb }
+                .firstOrNull { resourcesManager.luminance(it) in range }
+                ?.let { ColorInfo.fromColorInt(it) }
+
+        accentColorLiveData.postValue(accentColor ?: ColorInfo.SECONDARY)
     }
 
     override fun onOffsetChanged(bar: AppBarLayout, verticalOffset: Int) {

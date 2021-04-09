@@ -8,6 +8,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.Dimension
 import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.ColorUtils
 import androidx.palette.graphics.Palette
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.util.ColorInfo
@@ -32,6 +33,8 @@ class ResourcesManager @Inject constructor(
 
     @Dimension(unit = Dimension.DP)
     fun getDisplayHeight(): Float = resources.displayMetrics.run { heightPixels / density }
+
+    fun luminance(@ColorInt foreground: Int) = ColorUtils.calculateLuminance(foreground)
 
     suspend fun generatePalette(drawable: Drawable): Palette = suspendCoroutine {
         Palette.from(drawable.toBitmap()).generate { palette ->

@@ -12,8 +12,8 @@ import kotlinx.android.synthetic.main.activity_main.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
+import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
-import sk.styk.martin.apkanalyzer.ui.activity.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity

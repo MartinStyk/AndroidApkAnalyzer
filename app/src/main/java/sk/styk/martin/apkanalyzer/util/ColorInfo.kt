@@ -50,6 +50,8 @@ sealed class ColorInfo : Parcelable {
         @JvmStatic
         fun fromAttr(@AttrRes colorAttr: Int): ColorInfo = ColorInfoAttrRes(colorAttr)
 
+        @JvmStatic
+        fun fromColorInt(@ColorInt colorInt: Int): ColorInfo = ColorInfoInt(colorInt)
     }
 
     @ColorInt
@@ -75,6 +77,13 @@ sealed class ColorInfo : Parcelable {
 
             return color
         }
+
+    }
+
+    @Parcelize
+    private data class ColorInfoInt(@ColorInt private val colorInt: Int) : ColorInfo() {
+
+        override fun toColorInt(context: Context): Int = colorInt
 
     }
 

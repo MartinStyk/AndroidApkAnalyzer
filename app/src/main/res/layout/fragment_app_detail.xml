@@ -107,7 +107,7 @@
                     android:visibility="@{viewModel.viewState == AppDetailFragmentViewModelKt.DATA_STATE ? View.VISIBLE : View.GONE}"
                     ads:tabGravity="fill"
                     ads:tabMode="scrollable"
-                    app:color="@{viewModel.accentColor}" />
+                    app:color="@{viewModel.accentColor.toColorInt(context)}" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -144,7 +144,7 @@
             android:id="@+id/btn_actions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:buttonBackgroundColour="@{viewModel.accentColor}"
+            app:buttonBackgroundColour="@{viewModel.accentColor.toColorInt(context)}"
             app:buttonCoverColour="@color/overlay"
             app:buttonIcon="@drawable/ic_menu_dots"
             app:contentCoverEnabled="@{true}"
