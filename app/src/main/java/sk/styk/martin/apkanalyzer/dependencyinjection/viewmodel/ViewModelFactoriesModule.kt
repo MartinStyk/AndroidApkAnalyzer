@@ -8,6 +8,7 @@ import sk.styk.martin.apkanalyzer.ui.about.AboutFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListViewModel
 import sk.styk.martin.apkanalyzer.ui.main.MainActivityViewModel
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragmentViewModel
+import sk.styk.martin.apkanalyzer.ui.premium.PremiumFragmentViewModel
 
 @Module(includes = [
     AppViewModelFactoriesModule::class,
@@ -33,5 +34,10 @@ abstract class ViewModelFactoriesModule {
     @IntoMap
     @ViewModelKey(value = PermissionListFragmentViewModel::class)
     abstract fun bindPermissionListFragmentViewModel(viewModel: PermissionListFragmentViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(value = PremiumFragmentViewModel::class)
+    abstract fun bindPremiumFragmentViewModel(viewModel: PremiumFragmentViewModel): ViewModel
 
 }

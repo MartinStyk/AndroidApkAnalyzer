@@ -1,35 +1,48 @@
 package sk.styk.martin.apkanalyzer.ui.premium
 
+import android.content.Context
 import android.os.Bundle
-import android.view.*
-import androidx.databinding.DataBindingUtil
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.firebase.analytics.FirebaseAnalytics
-import sk.styk.martin.apkanalyzer.R
+import dagger.android.support.AndroidSupportInjection
 import sk.styk.martin.apkanalyzer.databinding.FragmentPremiumBinding
-import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
+import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
+import sk.styk.martin.apkanalyzer.util.file.AppOperations
+import sk.styk.martin.apkanalyzer.util.provideViewModel
+import javax.inject.Inject
 
 class PremiumFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        return DataBindingUtil.inflate<FragmentPremiumBinding>(inflater, R.layout.fragment_premium, container, false).root
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    private lateinit var binding: FragmentPremiumBinding
+
+    private lateinit var viewModel: PremiumFragmentViewModel
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = provideViewModel(viewModelFactory)
+    }
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentPremiumBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
+
+        binding.viewModel = viewModel
+
+        viewModel.openGooglePlay.observe(viewLifecycleOwner, { AppOperations.openGooglePlay(requireContext(), it) })
     }
 
-    override fun onResume() {
-        super.onResume()
-        FirebaseAnalytics.getInstance(requireContext())
-                .setCurrentScreen(requireActivity(), AboutFragment::class.java.simpleName, AboutFragment::class.java.simpleName)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // Hide action bar item for searching
-        menu.clear()
-        super.onCreateOptionsMenu(menu, inflater)
-    }
 }

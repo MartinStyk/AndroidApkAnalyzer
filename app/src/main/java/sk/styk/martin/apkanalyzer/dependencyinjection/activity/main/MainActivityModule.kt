@@ -11,6 +11,7 @@ import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragment
+import sk.styk.martin.apkanalyzer.ui.premium.PremiumFragment
 import sk.styk.martin.apkanalyzer.ui.settings.MainSettingsFragment
 import sk.styk.martin.apkanalyzer.ui.settings.SettingsFragment
 
@@ -43,6 +44,10 @@ abstract class MainActivityModule {
     @FragmentScope
     @ContributesAndroidInjector
     abstract fun mainSettingsFragmentInjector(): MainSettingsFragment
+
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract fun premiumFragmentInjector(): PremiumFragment
 
 
 }

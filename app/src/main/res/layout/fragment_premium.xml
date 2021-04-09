@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
-        <import type="sk.styk.martin.apkanalyzer.util.file.AppOperations" />
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.premium.PremiumFragmentViewModel" />
+
+        <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
+
         <import type="android.text.Html" />
 
     </data>
@@ -13,9 +18,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/activity_vertical_margin"
-        android:orientation="vertical"
-        tools:context=".ui.about.AboutFragment">
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:marginTopSystemWindowInsets="@{true}"
+                app:navigationIconState="@{NavigationIconState.HAMBURGER}"
+                app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
+                app:title="@string/nav_premium" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -41,10 +61,10 @@
                 android:id="@+id/premium_app_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
                 android:gravity="center"
                 android:text="@string/premium_update_title"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:layout_marginBottom="16dp"/>
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <TextView
                 android:id="@+id/premium_description_head"
@@ -60,8 +80,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/premium_description_head"
                 android:gravity="center"
-                android:text="@{Html.fromHtml(@string/premium_update_description_ad)}"
-                />
+                android:text="@{Html.fromHtml(@string/premium_update_description_ad)}" />
 
             <TextView
                 android:id="@+id/premium_description_ad_support"
@@ -69,31 +88,26 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/premium_description_ad_remove"
                 android:gravity="center"
-                android:text="@{Html.fromHtml(@string/premium_update_description_dev)}"
-                />
+                android:text="@{Html.fromHtml(@string/premium_update_description_dev)}" />
 
             <TextView
                 android:id="@+id/premium_description_features"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/premium_description_ad_support"
-                android:gravity="center"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
                 android:text="@string/premium_same_features" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/premium_upgrade"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/premium_description_features"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/fab_margin"
-                android:background="@color/accent"
-                android:padding="16dp"
-                android:onClick="@{() -> AppOperations.openGooglePlay(context, @string/app_premium_package_name)}"
-                android:text="@string/upgrade_premium"
-                android:textColor="@color/colorWhite" />
-
+                android:onClick="@{() -> viewModel.onUpgradeToPremiumClick()}"
+                android:text="@string/upgrade_premium" />
 
         </RelativeLayout>
 
