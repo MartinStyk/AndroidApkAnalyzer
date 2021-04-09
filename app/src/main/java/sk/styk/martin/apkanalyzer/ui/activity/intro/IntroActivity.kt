@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 class IntroActivity : AppIntro() {
 
-    // TODO VM
     @Inject
     lateinit var persistenceManager: PersistenceManager
 

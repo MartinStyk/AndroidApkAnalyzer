@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.premium
+package sk.styk.martin.apkanalyzer.ui.premium
 
 import android.os.Bundle
 import android.view.*

@@ -30,7 +30,7 @@
 
         <fragment
             android:id="@+id/main_settings_fragment"
-            android:name="sk.styk.martin.apkanalyzer.ui.activity.settings.MainSettingsFragment"
+            android:name="sk.styk.martin.apkanalyzer.ui.settings.MainSettingsFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 

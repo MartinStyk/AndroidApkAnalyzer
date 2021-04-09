@@ -18,10 +18,10 @@ import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
 import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
-import sk.styk.martin.apkanalyzer.ui.activity.premium.PremiumFragment
-import sk.styk.martin.apkanalyzer.ui.activity.settings.SettingsFragment
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragment
+import sk.styk.martin.apkanalyzer.ui.premium.PremiumFragment
+import sk.styk.martin.apkanalyzer.ui.settings.SettingsFragment
 import sk.styk.martin.apkanalyzer.util.*
 import javax.inject.Inject
 

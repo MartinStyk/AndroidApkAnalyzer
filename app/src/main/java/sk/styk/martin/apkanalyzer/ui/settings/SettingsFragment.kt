@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.settings
+package sk.styk.martin.apkanalyzer.ui.settings
 
 import android.content.Context
 import android.os.Bundle
