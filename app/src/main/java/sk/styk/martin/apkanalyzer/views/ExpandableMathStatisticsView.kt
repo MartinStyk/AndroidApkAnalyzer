@@ -4,22 +4,25 @@ import android.content.Context
 import android.text.format.Formatter
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import androidx.cardview.widget.CardView
+import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_math_statistics_card.view.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
 import java.util.*
 
 
-class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : CardView(context, attrs) {
+class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
 
     private var type: Type = Type.INTEGRAL
 
     var title: String = ""
         set(value) {
             field = value
-            item_title.text = value
+            itemTitle.text = value
         }
 
     var statistics: MathStatistics? = null
@@ -30,6 +33,11 @@ class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: 
             }
         }
 
+    var expandListener: OnClickListener? = null
+        set(value) {
+            field = value
+            titleContainer.setOnClickListener(expandListener)
+        }
 
     init {
         LayoutInflater.from(context).inflate(R.layout.view_math_statistics_card, this, true)
@@ -39,13 +47,20 @@ class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: 
         type = Type.valueOf(attributes.getString(R.styleable.MathStatisticsCardView_type)!!.toUpperCase(Locale.getDefault()))
         attributes.recycle()
 
-        useCompatPadding = true
+        orientation = VERTICAL
+    }
+
+    fun setExpanded(isExpanded: Boolean) {
+        toggleArrow.animate().apply {
+            cancel()
+            setDuration(ARROW_ANIMATION_DURATION).rotation(if (isExpanded) ROTATION_FLIPPED else ROTATION_STANDARD)
+        }
+        expandableContainer.setExpanded(isExpanded, true)
     }
 
     internal enum class Type {
         INTEGRAL {
-            override fun setStatistics(statistics: MathStatistics, mean: DetailListItemView, median: DetailListItemView, min: DetailListItemView, max: DetailListItemView, deviation: DetailListItemView, variance: DetailListItemView) {
-
+            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
                 mean.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.arithmeticMean)
                 median.valueText = BigDecimalFormatter.getFormat(0, 0).format(statistics.median)
                 min.valueText = BigDecimalFormatter.getFormat(0, 0).format(statistics.min)
@@ -55,7 +70,7 @@ class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: 
             }
         },
         DECIMAL {
-            override fun setStatistics(statistics: MathStatistics, mean: DetailListItemView, median: DetailListItemView, min: DetailListItemView, max: DetailListItemView, deviation: DetailListItemView, variance: DetailListItemView) {
+            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
                 mean.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.arithmeticMean)
                 median.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.median)
                 min.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.min)
@@ -65,7 +80,7 @@ class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: 
             }
         },
         SIZE {
-            override fun setStatistics(statistics: MathStatistics, mean: DetailListItemView, median: DetailListItemView, min: DetailListItemView, max: DetailListItemView, deviation: DetailListItemView, variance: DetailListItemView) {
+            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
                 mean.valueText = Formatter.formatShortFileSize(mean.context, statistics.arithmeticMean.toLong())
                 median.valueText = Formatter.formatShortFileSize(mean.context, statistics.median.toLong())
                 min.valueText = Formatter.formatShortFileSize(mean.context, statistics.min.toLong())
@@ -75,7 +90,7 @@ class MathStatisticsCardView @JvmOverloads constructor(context: Context, attrs: 
             }
         };
 
-        internal abstract fun setStatistics(statistics: MathStatistics, mean: DetailListItemView, median: DetailListItemView, min: DetailListItemView, max: DetailListItemView, deviation: DetailListItemView, variance: DetailListItemView)
+        internal abstract fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView)
 
     }
 

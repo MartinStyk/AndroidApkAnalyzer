@@ -50,27 +50,8 @@
     </style>
 
     <style name="ListItemDetail" parent="ItemDetail">
-        <item name="android:paddingTop">@dimen/padding_cardview_text</item>
-        <item name="android:paddingBottom">@dimen/padding_cardview_text</item>
-    </style>
-
-    <style name="ItemDetailCardViewHeader">
-        <item name="android:paddingLeft">@dimen/text_margin_right_left</item>
-        <item name="android:paddingRight">@dimen/text_margin_right_left</item>
-        <item name="android:paddingTop">@dimen/padding_cardview_text</item>
-        <item name="android:paddingBottom">@dimen/padding_cardview_text</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
-        <item name="android:background">@color/primary_light</item>
-    </style>
-
-    <style name="DetailCardView" parent="CardView">
-        <item name="cardCornerRadius">0dp</item>
-        <item name="useCompatPadding">true</item>
-        <item name="android:paddingLeft">@dimen/text_margin_right_left</item>
-        <item name="android:paddingRight">@dimen/text_margin_right_left</item>
-        <item name="android:paddingTop">@dimen/padding_cardview_text</item>
-        <item name="android:paddingBottom">@dimen/padding_cardview_text</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceListItem</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
     </style>
 
     <style name="ApkActionButton" parent="Base.Widget.AppCompat.Button">
@@ -142,7 +123,6 @@
         <item name="colorControlNormal">?colorSecondary</item>
     </style>
 
-
     <style name="TextAppearanceButton" parent="@style/TextAppearance.MaterialComponents.Button">
         <item name="android:letterSpacing" tools:targetApi="lollipop">0</item>
     </style>
@@ -164,7 +144,6 @@
     <style name="AppListRecycler" parent="AppTheme">
         <item name="android:listDivider">@drawable/divider_app_list</item>
     </style>
-
 
     <style name="CollapsingToolbar" parent="Widget.Design.CollapsingToolbar">
         <item name="android:background">?attr/colorSurface</item>

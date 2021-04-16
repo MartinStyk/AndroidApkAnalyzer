@@ -56,6 +56,42 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
     private val appSourceExpandedLiveData = MutableLiveData(false)
     val appSourceExpanded: LiveData<Boolean> = appSourceExpandedLiveData
 
+    private val appSizeExpandedLiveData = MutableLiveData(false)
+    val appSizeExpanded: LiveData<Boolean> = appSizeExpandedLiveData
+
+    private val activitiesExpandedLiveData = MutableLiveData(false)
+    val activitiesExpanded: LiveData<Boolean> = activitiesExpandedLiveData
+
+    private val servicesExpandedLiveData = MutableLiveData(false)
+    val servicesExpanded: LiveData<Boolean> = servicesExpandedLiveData
+
+    private val providersExpandedLiveData = MutableLiveData(false)
+    val providersExpanded: LiveData<Boolean> = providersExpandedLiveData
+
+    private val receiversExpandedLiveData = MutableLiveData(false)
+    val receiversExpanded: LiveData<Boolean> = receiversExpandedLiveData
+
+    private val usedPermissionsExpandedLiveData = MutableLiveData(false)
+    val usedPermissionsExpanded: LiveData<Boolean> = usedPermissionsExpandedLiveData
+
+    private val definedPermissionsExpandedLiveData = MutableLiveData(false)
+    val definedPermissionsExpanded: LiveData<Boolean> = definedPermissionsExpandedLiveData
+
+    private val filesExpandedLiveData = MutableLiveData(false)
+    val filesExpanded: LiveData<Boolean> = filesExpandedLiveData
+
+    private val totalDrawablesExpandedLiveData = MutableLiveData(false)
+    val totalDrawablesExpanded: LiveData<Boolean> = totalDrawablesExpandedLiveData
+
+    private val differentDrawablesExpandedLiveData = MutableLiveData(false)
+    val differentDrawablesExpanded: LiveData<Boolean> = differentDrawablesExpandedLiveData
+
+    private val totalLayoutsExpandedLiveData = MutableLiveData(false)
+    val totalLayoutsExpanded: LiveData<Boolean> = totalLayoutsExpandedLiveData
+
+    private val differentLayoutsExpandedLiveData = MutableLiveData(false)
+    val differentLayoutsExpanded: LiveData<Boolean> = differentLayoutsExpandedLiveData
+    
     init {
         viewModelScope.launch {
             localApplicationStatisticManager.loadStatisticsData()
@@ -108,4 +144,52 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
         appSourceExpandedLiveData.value = appSourceExpandedLiveData.value?.not()
     }
 
+    fun toggleAppSizeExpanded() {
+        appSizeExpandedLiveData.value = appSizeExpandedLiveData.value?.not()
+    }
+
+    fun toggleActivitiesExpanded() {
+        activitiesExpandedLiveData.value = activitiesExpandedLiveData.value?.not()
+    }
+
+    fun toggleServicesExpanded() {
+        servicesExpandedLiveData.value = servicesExpandedLiveData.value?.not()
+    }
+    
+    fun toggleReceiversExpanded() {
+        receiversExpandedLiveData.value = receiversExpandedLiveData.value?.not()
+    }
+    
+    fun toggleProvidersExpanded() {
+        providersExpandedLiveData.value = providersExpandedLiveData.value?.not()
+    }
+
+    fun toggleUsedPermissionsExpanded() {
+        usedPermissionsExpandedLiveData.value = usedPermissionsExpandedLiveData.value?.not()
+    }
+
+    fun toggleDefinedPermissionsExpanded() {
+        usedPermissionsExpandedLiveData.value = usedPermissionsExpandedLiveData.value?.not()
+    }
+
+    fun toggleFilesExpanded() {
+        filesExpandedLiveData.value = filesExpandedLiveData.value?.not()
+    }
+
+    fun toggleDifferentDrawablesExpanded() {
+        differentDrawablesExpandedLiveData.value = differentDrawablesExpandedLiveData.value?.not()
+    }
+
+    fun toggleTotalDrawablesExpanded() {
+        totalDrawablesExpandedLiveData.value = totalDrawablesExpandedLiveData.value?.not()
+    }
+
+    fun toggleDifferentLayoutsExpanded() {
+        differentLayoutsExpandedLiveData.value = differentLayoutsExpandedLiveData.value?.not()
+    }
+
+    fun toggleTotalLayoutsExpanded() {
+        totalLayoutsExpandedLiveData.value = totalLayoutsExpandedLiveData.value?.not()
+    }
+    
 }

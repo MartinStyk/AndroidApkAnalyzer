@@ -14,7 +14,6 @@
     <dimen name="padding_default">4dp</dimen>
     <dimen name="padding_default_medium">16dp</dimen>
     <dimen name="chart_margin">16dp</dimen>
-    <dimen name="padding_cardview_text">8dp</dimen>
     <dimen name="text_list_item_margin">16dp</dimen>
     <dimen name="intro_radio_buttons_margin">20dp</dimen>
     <dimen name="padding_ad">8dp</dimen>

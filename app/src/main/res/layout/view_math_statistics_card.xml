@@ -1,70 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:orientation="vertical"
+    tools:parentTag="android.widget.LinearLayout">
 
     <LinearLayout
-        style="@style/ItemDetailLayout"
+        android:id="@+id/titleContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="?android:selectableItemBackground"
+        android:padding="@dimen/padding_default_medium">
 
         <TextView
-            android:id="@+id/item_title"
-            style="@style/ItemDetailCardViewHeader"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-            android:id="@+id/item_arithmetic_mean"
-            android:layout_width="match_parent"
+            android:id="@+id/itemTitle"
+            style="@style/DatailListItemTitle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:descriptionText="@string/arithmetic_mean_description"
-            app:titleText="@string/arithmetic_mean"
-            app:valueText="@string/NA" />
+            android:layout_weight="1"
+            android:textColor="?android:textColorPrimary"
+            tools:text="Title" />
 
-        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-            android:id="@+id/item_median"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/median_description"
-            app:titleText="@string/median"
-            app:valueText="@string/NA" />
-
-        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-            android:id="@+id/item_max"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/max_description"
-            app:titleText="@string/max"
-            app:valueText="@string/NA" />
-
-
-        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-            android:id="@+id/item_min"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/min_description"
-            app:titleText="@string/min"
-            app:valueText="@string/NA" />
-
-        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-            android:id="@+id/item_variance"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/variance_description"
-            app:titleText="@string/variance"
-            app:valueText="@string/NA" />
-
-
-        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-            android:id="@+id/item_deviation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:descriptionText="@string/deviation_description"
-            app:titleText="@string/deviation"
-            app:valueText="@string/NA" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/toggleArrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_weight="0"
+            app:srcCompat="@drawable/ic_arrow_expandable"
+            app:tint="?android:textColorSecondary" />
 
     </LinearLayout>
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/expandableContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_duration="500"
+        tools:el_expanded="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_arithmetic_mean"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:descriptionText="@string/arithmetic_mean_description"
+                app:titleText="@string/arithmetic_mean"
+                app:valueText="@string/NA" />
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_median"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:descriptionText="@string/median_description"
+                app:titleText="@string/median"
+                app:valueText="@string/NA" />
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_max"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:descriptionText="@string/max_description"
+                app:titleText="@string/max"
+                app:valueText="@string/NA" />
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_min"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:descriptionText="@string/min_description"
+                app:titleText="@string/min"
+                app:valueText="@string/NA" />
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_variance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:descriptionText="@string/variance_description"
+                app:titleText="@string/variance"
+                app:valueText="@string/NA" />
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_deviation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:descriptionText="@string/deviation_description"
+                app:titleText="@string/deviation"
+                app:valueText="@string/NA" />
+
+        </LinearLayout>
+
+    </net.cachapa.expandablelayout.ExpandableLayout>
 
 </merge>

@@ -140,7 +140,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:listDivider"/>
+                        android:background="?android:listDivider" />
 
                     <!--MinSdk chart -->
                     <LinearLayout
@@ -197,7 +197,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:listDivider"/>
+                        android:background="?android:listDivider" />
 
                     <!--TargetSdk chart -->
                     <LinearLayout
@@ -253,7 +253,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:listDivider"/>
+                        android:background="?android:listDivider" />
 
                     <!--Install location chart -->
                     <LinearLayout
@@ -309,7 +309,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:listDivider"/>
+                        android:background="?android:listDivider" />
 
                     <!--Sign chart -->
                     <LinearLayout
@@ -365,7 +365,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:listDivider"/>
+                        android:background="?android:listDivider" />
 
                     <!--Application source chart -->
                     <LinearLayout
@@ -421,113 +421,180 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="?android:listDivider"/>
+                        android:background="?android:listDivider" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_apk_size"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.apkSize}"
+                        app:expandListener="@{() -> viewModel.toggleAppSizeExpanded()}"
+                        app:expanded="@{viewModel.appSizeExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.apkSize}"
                         app:title="@string/apk_size"
                         app:type="size" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_activities"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.activities}"
+                        app:expandListener="@{() -> viewModel.toggleActivitiesExpanded()}"
+                        app:expanded="@{viewModel.activitiesExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.activities}"
                         app:title="@string/activities"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_services"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.services}"
+                        app:expandListener="@{() -> viewModel.toggleServicesExpanded()}"
+                        app:expanded="@{viewModel.servicesExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.services}"
                         app:title="@string/services"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_providers"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.providers}"
+                        app:expandListener="@{() -> viewModel.toggleProvidersExpanded()}"
+                        app:expanded="@{viewModel.providersExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.providers}"
                         app:title="@string/content_providers"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_receivers"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.receivers}"
+                        app:expandListener="@{() -> viewModel.toggleReceiversExpanded()}"
+                        app:expanded="@{viewModel.receiversExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.receivers}"
                         app:title="@string/broadcast_receivers"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_used_permissions"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.usedPermissions}"
+                        app:expandListener="@{() -> viewModel.toggleUsedPermissionsExpanded()}"
+                        app:expanded="@{viewModel.usedPermissionsExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.usedPermissions}"
                         app:title="@string/used_permissions"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_defined_permissions"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.definedPermissions}"
+                        app:expandListener="@{() -> viewModel.toggleDefinedPermissionsExpanded()}"
+                        app:expanded="@{viewModel.definedPermissionsExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.definedPermissions}"
                         app:title="@string/defined_permissions"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_files"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.files}"
+                        app:expandListener="@{() -> viewModel.toggleFilesExpanded()}"
+                        app:expanded="@{viewModel.filesExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.files}"
                         app:title="@string/files"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_drawables"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.drawables}"
+                        app:expandListener="@{() -> viewModel.toggleTotalDrawablesExpanded()}"
+                        app:expanded="@{viewModel.totalDrawablesExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.drawables}"
                         app:title="@string/all_drawables"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_drawables_different"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.differentDrawables}"
+                        app:expandListener="@{() -> viewModel.toggleDifferentDrawablesExpanded()}"
+                        app:expanded="@{viewModel.differentDrawablesExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.differentDrawables}"
                         app:title="@string/different_drawables"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_layouts"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.layouts}"
+                        app:expandListener="@{() -> viewModel.toggleTotalLayoutsExpanded()}"
+                        app:expanded="@{viewModel.totalLayoutsExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.layouts}"
                         app:title="@string/all_layouts"
                         app:type="integral" />
 
-                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider" />
+
+                    <sk.styk.martin.apkanalyzer.views.ExpandableMathStatisticsView
                         android:id="@+id/statistics_layouts_different"
-                        style="@style/DetailCardView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:statistics="@{data.statisticsData.differentLayouts}"
+                        app:expandListener="@{() -> viewModel.toggleDifferentLayoutsExpanded()}"
+                        app:expanded="@{viewModel.differentLayoutsExpanded}"
+                        app:statistics="@{viewModel.statisticData.statisticsData.differentLayouts}"
                         app:title="@string/different_layouts"
                         app:type="integral" />
 
