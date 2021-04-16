@@ -16,6 +16,8 @@
         <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
 
         <import type="android.view.View" />
+
+        <import type="sk.styk.martin.apkanalyzer.R"/>
     </data>
 
     <LinearLayout
@@ -34,6 +36,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:marginTopSystemWindowInsets="@{true}"
+                app:inflateMenu="@{R.menu.statistics}"
+                app:onMenuItemClickListener="@{viewModel}"
                 app:navigationIconState="@{NavigationIconState.HAMBURGER}"
                 app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
                 app:title="@string/nav_statistics" />

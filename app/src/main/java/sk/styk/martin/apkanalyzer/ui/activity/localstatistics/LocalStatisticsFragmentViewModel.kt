@@ -1,5 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 
+import android.view.MenuItem
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.*
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
@@ -21,7 +23,7 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
         private val navigationDrawerModel: NavigationDrawerModel,
         private val localApplicationStatisticManager: LocalApplicationStatisticManager,
         private val dispatcherProvider: DispatcherProvider,
-) : ViewModel() {
+) : ViewModel(), Toolbar.OnMenuItemClickListener {
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
     val viewState: LiveData<Int> = viewStateLiveData.distinctUntilChanged()
@@ -91,7 +93,7 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
 
     private val differentLayoutsExpandedLiveData = MutableLiveData(false)
     val differentLayoutsExpanded: LiveData<Boolean> = differentLayoutsExpandedLiveData
-    
+
     init {
         viewModelScope.launch {
             localApplicationStatisticManager.loadStatisticsData()
@@ -155,11 +157,11 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
     fun toggleServicesExpanded() {
         servicesExpandedLiveData.value = servicesExpandedLiveData.value?.not()
     }
-    
+
     fun toggleReceiversExpanded() {
         receiversExpandedLiveData.value = receiversExpandedLiveData.value?.not()
     }
-    
+
     fun toggleProvidersExpanded() {
         providersExpandedLiveData.value = providersExpandedLiveData.value?.not()
     }
@@ -191,5 +193,40 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
     fun toggleTotalLayoutsExpanded() {
         totalLayoutsExpandedLiveData.value = totalLayoutsExpandedLiveData.value?.not()
     }
-    
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_expand_all -> {
+                setAllExpanded(true)
+                true
+            }
+            R.id.action_collapse_all -> {
+                setAllExpanded(false)
+                true
+            }
+            else -> false
+        }
+    }
+
+    private fun setAllExpanded(isExpanded: Boolean) {
+        analysisResultsExpandedLiveData.value = isExpanded
+        minSdkExpandedLiveData.value = isExpanded
+        targetSdkExpandedLiveData.value = isExpanded
+        installLocationExpandedLiveData.value = isExpanded
+        signAlgorithmExpandedLiveData.value = isExpanded
+        appSourceExpandedLiveData.value = isExpanded
+        appSizeExpandedLiveData.value = isExpanded
+        activitiesExpandedLiveData.value = isExpanded
+        servicesExpandedLiveData.value = isExpanded
+        providersExpandedLiveData.value = isExpanded
+        receiversExpandedLiveData.value = isExpanded
+        usedPermissionsExpandedLiveData.value = isExpanded
+        definedPermissionsExpandedLiveData.value = isExpanded
+        filesExpandedLiveData.value = isExpanded
+        totalDrawablesExpandedLiveData.value = isExpanded
+        differentDrawablesExpandedLiveData.value = isExpanded
+        totalLayoutsExpandedLiveData.value = isExpanded
+        differentLayoutsExpandedLiveData.value = isExpanded
+    }
+
 }
