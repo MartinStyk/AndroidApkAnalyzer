@@ -1,9 +1,8 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import kotlinx.coroutines.flow.flow
-import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.InstalledAppsManager
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAggregate
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData

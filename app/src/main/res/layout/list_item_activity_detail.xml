@@ -23,7 +23,6 @@
             android:layout_height="wrap_content"
             android:onLongClick="@{() -> viewModel.onTitleLongClick()}"
             android:background="?android:selectableItemBackground"
-            android:orientation="horizontal"
             android:padding="@dimen/padding_default_medium">
 
             <TextView

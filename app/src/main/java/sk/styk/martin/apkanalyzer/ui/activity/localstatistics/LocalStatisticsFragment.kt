@@ -1,13 +1,15 @@
 package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 
+import android.content.Context
 import android.graphics.RectF
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.loader.app.LoaderManager
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarEntry
@@ -15,61 +17,73 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.MPPointF
-import com.google.firebase.analytics.FirebaseAnalytics
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.fragment_local_statistics.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.analysis.task.LocalStatisticsLoader
 import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
+import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
+import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
 import sk.styk.martin.apkanalyzer.ui.applist.AppListDialog
+import sk.styk.martin.apkanalyzer.util.components.toDialog
+import sk.styk.martin.apkanalyzer.util.provideViewModel
 import sk.styk.martin.apkanalyzer.views.ClickableMarkerView
 import java.util.*
+import javax.inject.Inject
 
-class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View, ClickableMarkerView.OnMarkerClickListener {
+class LocalStatisticsFragment : Fragment(), ClickableMarkerView.OnMarkerClickListener {
+
+    private val onValueSelectedRectF = RectF()
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
 
     private lateinit var binding: FragmentLocalStatisticsBinding
-    private lateinit var presenter: LocalStatisticsContract.Presenter
-    private val onValueSelectedRectF = RectF()
+
+    private lateinit var viewModel: LocalStatisticsFragmentViewModel
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        retainInstance = true
-        presenter = LocalStatisticsPresenter(LocalStatisticsLoader(requireContext()), LoaderManager.getInstance(this))
+        viewModel = provideViewModel(viewModelFactory)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_local_statistics, container, false)
-        setHasOptionsMenu(true)
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        presenter.view = this
-        presenter.initialize()
+        setupCharts()
+        binding.viewModel = viewModel
+
+        with(viewModel) {
+            statisticData.observe(viewLifecycleOwner, { binding.data = it })
+            showDialog.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "description dialog") })
+            analysisResultsExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.analysisResultsToggleArrow, it) })
+            minSdkExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.minSdkToggleArrow, it) })
+            targetSdkExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.targetSdkToggleArrow, it) })
+            installLocationExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.installLocationToggleArrow, it) })
+            signAlgorithmExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.signAlgorithmToggleArrow, it) })
+            appSourceExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.appSourceToggleArrow, it) })
+        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        // Hide action bar item for searching
-        menu.clear()
-        super.onCreateOptionsMenu(menu, inflater)
+    private fun animateArrowExpanded(view: View, expanded: Boolean) {
+        view.animate().apply {
+            cancel()
+            setDuration(ARROW_ANIMATION_DURATION).rotation(if (expanded) ROTATION_FLIPPED else ROTATION_STANDARD)
+        }
     }
 
-    override fun onResume() {
-        super.onResume()
-        FirebaseAnalytics.getInstance(requireContext()).setCurrentScreen(requireActivity(), LocalStatisticsFragment::class.java.simpleName, LocalStatisticsFragment::class.java.simpleName)
-    }
-
-    override fun changeProgress(currentProgress: Int, maxProgress: Int) {
-        loading_bar?.setProgress(currentProgress, maxProgress)
-    }
-
-    override fun showStatistics(data: LocalStatisticsDataWithCharts) {
-        binding.data = data
-    }
-
-    override fun setupCharts() {
+    private fun setupCharts() {
         listOf(chart_min_sdk, chart_target_sdk, chart_app_source, chart_sign_algorithm, chart_install_location).forEach {
             val mv = ClickableMarkerView(requireContext(), this).apply { chartView = it }
 
@@ -122,7 +136,7 @@ class LocalStatisticsFragment : Fragment(), LocalStatisticsContract.View, Clicka
 
     }
 
-    override fun showAppLists(packages: List<String>) {
+    private fun showAppLists(packages: List<String>) {
         AppListDialog.newInstance(packages as ArrayList<String>)
                 .show((context as AppCompatActivity).supportFragmentManager, AppListDialog::class.java.simpleName)
     }

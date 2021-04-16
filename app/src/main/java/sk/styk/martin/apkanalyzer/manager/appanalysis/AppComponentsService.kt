@@ -1,19 +1,18 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
-import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData
 import java.util.*
+import javax.inject.Inject
 
-@WorkerThread
-class AppComponentsService {
+class AppComponentsService @Inject constructor(private val packageManager: PackageManager){
 
-    fun getActivities(packageInfo: PackageInfo, packageManager: PackageManager): List<ActivityData> {
+    fun getActivities(packageInfo: PackageInfo): List<ActivityData> {
 
         val activities = packageInfo.activities ?: return ArrayList(0)
 

@@ -53,7 +53,7 @@
         </activity>
 
         <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity"
+            android:name="sk.styk.martin.apkanalyzer.ui.intro.IntroActivity"
             android:label="@string/title_intro" />
 
         <activity

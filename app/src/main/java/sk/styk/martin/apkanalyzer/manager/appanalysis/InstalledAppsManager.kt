@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.PackageManager
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
@@ -8,11 +8,6 @@ import java.util.*
 import javax.inject.Inject
 
 class InstalledAppsManager @Inject constructor(val packageManager: PackageManager) {
-
-    fun getAllPackageNames(): List<String> {
-        val applications = packageManager.getInstalledApplications(PackageManager.GET_META_DATA)
-        return applications.mapTo(ArrayList<String>(applications.size)) { it.packageName }.sorted()
-    }
 
     fun getAll(): List<AppListData> {
         val applications = packageManager.getInstalledPackages(0)

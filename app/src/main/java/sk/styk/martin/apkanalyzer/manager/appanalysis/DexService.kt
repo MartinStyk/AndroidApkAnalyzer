@@ -1,16 +1,15 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.PackageInfo
 import android.util.Log
-import androidx.annotation.WorkerThread
 import dalvik.system.DexFile
 import sk.styk.martin.apkanalyzer.model.detail.ClassPathData
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-@WorkerThread
-class DexService {
+class DexService @Inject constructor(){
 
     fun get(packageInfo: PackageInfo): ClassPathData {
 

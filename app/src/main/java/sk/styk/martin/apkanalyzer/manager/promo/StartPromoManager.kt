@@ -1,11 +1,8 @@
 package sk.styk.martin.apkanalyzer.manager.promo
 
-import android.content.Intent
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
-import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 

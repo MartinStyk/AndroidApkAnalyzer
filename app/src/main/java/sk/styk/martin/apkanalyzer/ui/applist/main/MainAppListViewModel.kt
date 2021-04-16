@@ -15,7 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.InstalledAppsManager
+import sk.styk.martin.apkanalyzer.manager.appanalysis.InstalledAppsManager
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.model.detail.AppSource

@@ -1,351 +1,513 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragmentViewModel" />
 
         <variable
             name="data"
             type="sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts" />
 
+        <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
+
         <import type="android.view.View" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <sk.styk.martin.apkanalyzer.views.LoadingBarView
-            android:id="@+id/loading_bar"
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_horizontal_margin"
-            android:visibility="@{data == null ? View.VISIBLE : View.GONE}" />
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-        <ScrollView
-            android:id="@+id/local_statistics_content"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="@{data == null ? View.GONE : View.VISIBLE}">
-
-            <LinearLayout
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                android:layout_height="?attr/actionBarSize"
+                app:marginTopSystemWindowInsets="@{true}"
+                app:navigationIconState="@{NavigationIconState.HAMBURGER}"
+                app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
+                app:title="@string/nav_statistics" />
 
-                <!--Analyze results -->
-                <androidx.cardview.widget.CardView
-                    style="@style/DetailCardView"
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ViewAnimator
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:displayedChild="@{viewModel.viewState}">
+
+            <sk.styk.martin.apkanalyzer.views.LoadingBarView
+                android:id="@+id/loading_bar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                app:currentProgress="@{viewModel.loadingProgress}"
+                app:maxProgress="@{viewModel.loadingProgressMax}" />
+
+            <ScrollView
+                android:id="@+id/local_statistics_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
+                    android:orientation="vertical">
 
+                    <!--Analyze results -->
                     <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/analyze_results" />
+                            android:background="?android:selectableItemBackground"
+                            android:onClick="@{() -> viewModel.toggleAnalysisResultExpanded()}"
+                            android:padding="@dimen/padding_default_medium">
 
-                        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-                            android:id="@+id/item_analyze_success"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:descriptionText="@string/analyze_results_success_description"
-                            app:titleText="@string/analyze_results_success"
-                            app:valueText="@{data.statisticsData.analyzeSuccess}" />
+                            <TextView
+                                style="@style/DatailListItemTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/analyze_results"
+                                android:textColor="?android:textColorPrimary" />
 
-                        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-                            android:id="@+id/item_analyze_failed"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            app:descriptionText="@string/analyze_results_failed_description"
-                            app:titleText="@string/analyze_results_failed"
-                            app:valueText="@{data.statisticsData.analyzeFailed}" />
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/analysisResultsToggleArrow"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/ic_arrow_expandable"
+                                app:tint="?android:textColorSecondary" />
 
-                        <sk.styk.martin.apkanalyzer.views.DetailListItemView
-                            android:id="@+id/item_system_apps"
+                        </LinearLayout>
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            app:descriptionText="@string/system_apps"
-                            app:titleText="@string/system_apps"
-                            app:valueText="@{data.statisticsData.systemApps}" />
+                            app:el_duration="500"
+                            app:expanded="@{viewModel.analysisResultsExpanded}"
+                            tools:el_expanded="true">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                                    android:id="@+id/item_analyze_success"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> viewModel.showDetail(@string/analyze_results_success, @string/analyze_results_success_description)}"
+                                    app:titleText="@string/analyze_results_success"
+                                    app:valueText="@{viewModel.statisticData.statisticsData.analyzeSuccess}" />
+
+                                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                                    android:id="@+id/item_analyze_failed"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:onClick="@{() -> viewModel.showDetail(@string/analyze_results_failed, @string/analyze_results_failed_description)}"
+                                    app:titleText="@string/analyze_results_failed"
+                                    app:valueText="@{viewModel.statisticData.statisticsData.analyzeFailed}" />
+
+                                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                                    android:id="@+id/item_system_apps"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    app:descriptionText="@string/system_apps"
+                                    app:titleText="@string/system_apps"
+                                    app:valueText="@{viewModel.statisticData.statisticsData.systemApps}" />
+
+
+                            </LinearLayout>
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
 
                     </LinearLayout>
 
-
-                </androidx.cardview.widget.CardView>
-
-                <!--MinSdk chart -->
-                <androidx.cardview.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
+                    <!--MinSdk chart -->
                     <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/min_sdk" />
+                            android:background="?android:selectableItemBackground"
+                            android:onClick="@{() -> viewModel.toggleMinSdkExpanded()}"
+                            android:padding="@dimen/padding_default_medium">
 
-                        <sk.styk.martin.apkanalyzer.views.MyBarChart
-                            android:id="@+id/chart_min_sdk"
+                            <TextView
+                                style="@style/DatailListItemTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/min_sdk"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/minSdkToggleArrow"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/ic_arrow_expandable"
+                                app:tint="?android:textColorSecondary" />
+
+                        </LinearLayout>
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
+                            android:id="@+id/expandableContainer"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default"
-                            android:layout_marginBottom="@dimen/chart_margin"
-                            app:chart_data="@{data.minSdkChartData}"/>
+                            android:layout_height="wrap_content"
+                            app:el_duration="500"
+                            app:expanded="@{viewModel.minSdkExpanded}"
+                            tools:el_expanded="true">
+
+                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                                android:id="@+id/chart_min_sdk"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/chart_margin"
+                                android:minHeight="350dp"
+                                android:padding="@dimen/padding_default"
+                                app:chart_data="@{viewModel.statisticData.minSdkChartData}" />
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
-                <!--TargetSdk chart -->
-                <androidx.cardview.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
 
+                    <!--TargetSdk chart -->
                     <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/target_sdk" />
+                            android:background="?android:selectableItemBackground"
+                            android:onClick="@{() -> viewModel.toggleTargetSdkExpanded()}"
+                            android:padding="@dimen/padding_default_medium">
 
-                        <sk.styk.martin.apkanalyzer.views.MyBarChart
-                            android:id="@+id/chart_target_sdk"
+                            <TextView
+                                style="@style/DatailListItemTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/target_sdk"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/targetSdkToggleArrow"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/ic_arrow_expandable"
+                                app:tint="?android:textColorSecondary" />
+
+                        </LinearLayout>
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default"
-                            android:layout_marginBottom="@dimen/chart_margin"
-                            app:chart_data="@{data.targetSdkChartData}"/>
+                            android:layout_height="wrap_content"
+                            app:el_duration="500"
+                            app:expanded="@{viewModel.targetSdkExpanded}"
+                            tools:el_expanded="true">
+
+                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                                android:id="@+id/chart_target_sdk"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/chart_margin"
+                                android:minHeight="350dp"
+                                android:padding="@dimen/padding_default"
+                                app:chart_data="@{viewModel.statisticData.targetSdkChartData}" />
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
-                <!--Install locaiton chart -->
-                <androidx.cardview.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
+                    <!--Install location chart -->
                     <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/install_loc" />
+                            android:background="?android:selectableItemBackground"
+                            android:onClick="@{() -> viewModel.toggleInstallLocationExpanded()}"
+                            android:padding="@dimen/padding_default_medium">
 
-                        <sk.styk.martin.apkanalyzer.views.MyBarChart
-                            android:id="@+id/chart_install_location"
+                            <TextView
+                                style="@style/DatailListItemTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/install_loc"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/installLocationToggleArrow"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/ic_arrow_expandable"
+                                app:tint="?android:textColorSecondary" />
+
+                        </LinearLayout>
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default"
-                            android:layout_marginBottom="@dimen/chart_margin"
-                            app:chart_data="@{data.installLocationChartData}"/>
+                            android:layout_height="wrap_content"
+                            app:el_duration="500"
+                            app:expanded="@{viewModel.installLocationExpanded}"
+                            tools:el_expanded="true">
+
+                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                                android:id="@+id/chart_install_location"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/chart_margin"
+                                android:minHeight="350dp"
+                                android:padding="@dimen/padding_default"
+                                app:chart_data="@{viewModel.statisticData.installLocationChartData}" />
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
-                <!--Install locaiton chart -->
-                <androidx.cardview.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
+                    <!--Sign chart -->
                     <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/sign_algorithm" />
+                            android:background="?android:selectableItemBackground"
+                            android:onClick="@{() -> viewModel.toggleSignAlgorithmExpanded()}"
+                            android:padding="@dimen/padding_default_medium">
 
-                        <sk.styk.martin.apkanalyzer.views.MyBarChart
-                            android:id="@+id/chart_sign_algorithm"
+                            <TextView
+                                style="@style/DatailListItemTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/sign_algorithm"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/signAlgorithmToggleArrow"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/ic_arrow_expandable"
+                                app:tint="?android:textColorSecondary" />
+
+                        </LinearLayout>
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default"
-                            android:layout_marginBottom="@dimen/chart_margin"
-                            app:chart_data="@{data.signAlgorithChartData}"/>
+                            android:layout_height="wrap_content"
+                            app:el_duration="500"
+                            app:expanded="@{viewModel.signAlgorithmExpanded}"
+                            tools:el_expanded="true">
+
+                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                                android:id="@+id/chart_sign_algorithm"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/chart_margin"
+                                android:minHeight="350dp"
+                                android:padding="@dimen/padding_default"
+                                app:chart_data="@{viewModel.statisticData.signAlgorithChartData}" />
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
-                <!--Application source chart -->
-                <androidx.cardview.widget.CardView
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardUseCompatPadding="true">
-
+                    <!--Application source chart -->
                     <LinearLayout
-                        style="@style/ItemDetailLayout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            style="@style/ItemDetailCardViewHeader"
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="@string/app_source" />
+                            android:background="?android:selectableItemBackground"
+                            android:onClick="@{() -> viewModel.toggleAppSourceExpanded()}"
+                            android:padding="@dimen/padding_default_medium">
 
-                        <sk.styk.martin.apkanalyzer.views.MyBarChart
-                            android:id="@+id/chart_app_source"
+                            <TextView
+                                style="@style/DatailListItemTitle"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/app_source"
+                                android:textColor="?android:textColorPrimary" />
+
+                            <androidx.appcompat.widget.AppCompatImageView
+                                android:id="@+id/appSourceToggleArrow"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:layout_weight="0"
+                                app:srcCompat="@drawable/ic_arrow_expandable"
+                                app:tint="?android:textColorSecondary" />
+
+                        </LinearLayout>
+
+                        <net.cachapa.expandablelayout.ExpandableLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:minHeight="350dp"
-                            android:padding="@dimen/padding_default"
-                            android:layout_marginBottom="@dimen/chart_margin"
-                            app:chart_data="@{data.appSourceChartData}"/>
+                            android:layout_height="wrap_content"
+                            app:el_duration="500"
+                            app:expanded="@{viewModel.appSourceExpanded}"
+                            tools:el_expanded="true">
+
+                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                                android:id="@+id/chart_app_source"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginBottom="@dimen/chart_margin"
+                                android:minHeight="350dp"
+                                android:padding="@dimen/padding_default"
+                                app:chart_data="@{viewModel.statisticData.appSourceChartData}" />
+
+                        </net.cachapa.expandablelayout.ExpandableLayout>
 
                     </LinearLayout>
-                </androidx.cardview.widget.CardView>
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_apk_size"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.apkSize}"
-                    app:title="@string/apk_size"
-                    app:type="size" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_apk_size"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.apkSize}"
+                        app:title="@string/apk_size"
+                        app:type="size" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_activities"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.activities}"
-                    app:title="@string/activities"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_activities"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.activities}"
+                        app:title="@string/activities"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_services"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.services}"
-                    app:title="@string/services"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_services"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.services}"
+                        app:title="@string/services"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_providers"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.providers}"
-                    app:title="@string/content_providers"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_providers"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.providers}"
+                        app:title="@string/content_providers"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_receivers"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.receivers}"
-                    app:title="@string/broadcast_receivers"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_receivers"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.receivers}"
+                        app:title="@string/broadcast_receivers"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_used_permissions"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.usedPermissions}"
-                    app:title="@string/used_permissions"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_used_permissions"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.usedPermissions}"
+                        app:title="@string/used_permissions"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_defined_permissions"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.definedPermissions}"
-                    app:title="@string/defined_permissions"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_defined_permissions"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.definedPermissions}"
+                        app:title="@string/defined_permissions"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_files"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.files}"
-                    app:title="@string/files"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_files"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.files}"
+                        app:title="@string/files"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_drawables"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.drawables}"
-                    app:title="@string/all_drawables"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_drawables"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.drawables}"
+                        app:title="@string/all_drawables"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_drawables_different"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.differentDrawables}"
-                    app:title="@string/different_drawables"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_drawables_different"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.differentDrawables}"
+                        app:title="@string/different_drawables"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_layouts"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.layouts}"
-                    app:title="@string/all_layouts"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_layouts"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.layouts}"
+                        app:title="@string/all_layouts"
+                        app:type="integral" />
 
-                <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
-                    android:id="@+id/statistics_layouts_different"
-                    style="@style/DetailCardView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:statistics="@{data.statisticsData.differentLayouts}"
-                    app:title="@string/different_layouts"
-                    app:type="integral" />
+                    <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
+                        android:id="@+id/statistics_layouts_different"
+                        style="@style/DetailCardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:statistics="@{data.statisticsData.differentLayouts}"
+                        app:title="@string/different_layouts"
+                        app:type="integral" />
 
-            </LinearLayout>
-        </ScrollView>
-    </RelativeLayout>
+                </LinearLayout>
+
+            </ScrollView>
+
+        </ViewAnimator>
+
+    </LinearLayout>
+
 </layout>

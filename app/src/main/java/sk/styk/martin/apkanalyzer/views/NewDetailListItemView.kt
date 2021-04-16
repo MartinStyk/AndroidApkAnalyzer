@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.view_detail_list_item.view.*
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.util.PercentagePair
 import sk.styk.martin.apkanalyzer.util.TextInfo
 
 class NewDetailListItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs, R.attr.detailListItemViewStyle) {
@@ -34,8 +35,12 @@ class NewDetailListItemView @JvmOverloads constructor(context: Context, attrs: A
         gravity = Gravity.CENTER_VERTICAL
     }
 
-    fun setValueText(textInfo: TextInfo) {
-        valueText = textInfo.getText(context).toString()
+    fun setValueText(textInfo: TextInfo?) {
+        valueText = textInfo?.getText(context)?.toString() ?: ""
+    }
+
+    fun setValueText(percentagePair: PercentagePair?) {
+        valueText = percentagePair?.toString() ?: ""
     }
 
     fun setTitleText(textInfo: TextInfo) {

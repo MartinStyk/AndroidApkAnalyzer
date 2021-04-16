@@ -5,7 +5,7 @@ import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.InstalledAppsManager
+import sk.styk.martin.apkanalyzer.manager.appanalysis.InstalledAppsManager
 import sk.styk.martin.apkanalyzer.ui.applist.AppListAdapter
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragmentViewModel

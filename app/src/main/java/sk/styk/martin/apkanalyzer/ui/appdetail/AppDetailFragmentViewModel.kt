@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.analysis.logic.launcher.AppDetailDataManager
+import sk.styk.martin.apkanalyzer.manager.appanalysis.AppDetailDataManager
 import sk.styk.martin.apkanalyzer.manager.file.ApkSaveManager
 import sk.styk.martin.apkanalyzer.manager.file.DrawableSaveManager
 import sk.styk.martin.apkanalyzer.manager.file.FileManager

@@ -8,7 +8,7 @@ import com.squareup.inject.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.business.analysis.logic.AppPermissionManager
+import sk.styk.martin.apkanalyzer.manager.appanalysis.AppPermissionManager
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel

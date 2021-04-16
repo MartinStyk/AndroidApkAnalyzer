@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.intro
+package sk.styk.martin.apkanalyzer.ui.intro
 
 import android.os.Bundle
 import androidx.core.content.ContextCompat

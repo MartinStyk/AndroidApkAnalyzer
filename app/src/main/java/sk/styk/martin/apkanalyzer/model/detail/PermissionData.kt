@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.content.pm.PermissionInfo
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import sk.styk.martin.apkanalyzer.business.analysis.logic.AppPermissionManager
+import sk.styk.martin.apkanalyzer.manager.appanalysis.AppPermissionManager
 
 @SuppressLint("ParcelCreator")
 @Parcelize

@@ -1,11 +1,10 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.content.res.XmlResourceParser
 import android.text.TextUtils
-import androidx.annotation.WorkerThread
 import java.io.ByteArrayInputStream
 import java.io.StringWriter
 import javax.inject.Inject
@@ -14,10 +13,7 @@ import javax.xml.transform.TransformerFactory
 import javax.xml.transform.stream.StreamResult
 import javax.xml.transform.stream.StreamSource
 
-@WorkerThread
-class AndroidManifestManager @Inject constructor(
-        private val packageManager: PackageManager,
-) {
+class AndroidManifestManager @Inject constructor(private val packageManager: PackageManager) {
 
     fun loadAndroidManifest(packageName: String, packagePath: String): String {
         val manifest = readManifest(packageManager, packageName, packagePath)

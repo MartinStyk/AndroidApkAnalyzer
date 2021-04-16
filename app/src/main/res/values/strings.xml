@@ -108,7 +108,7 @@
     <string name="sdk">SDK</string>
     <string name="target_sdk">Target SDK</string>
     <string name="target_version">Target version</string>
-    <string name="min_sdk">Min SDK</string>
+    <string name="min_sdk">Minimal SDK</string>
     <string name="min_version">Min version</string>
     <string name="apk_directory">Apk path</string>
     <string name="data_directory">Data path</string>

@@ -12,9 +12,10 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
 import java.util.*
+import javax.inject.Inject
 import kotlin.math.roundToInt
 
-object ChartDataHelper {
+class StatisticsChartDataHelper @Inject constructor() {
 
     fun wrapperAround(statisticsData: LocalStatisticsData): LocalStatisticsDataWithCharts =
             LocalStatisticsDataWithCharts(
@@ -75,6 +76,7 @@ object ChartDataHelper {
                                     color = ContextCompat.getColor(ApkAnalyzer.context, columnColor)
                                     highLightColor = ContextCompat.getColor(ApkAnalyzer.context, selectedColumnCOlor)
                                     valueTextColor = color
+                                    isHighlightEnabled = true
                                 })),
                 IAxisValueFormatter { i, _ -> axisValues[i.roundToInt() - 1] })
     }

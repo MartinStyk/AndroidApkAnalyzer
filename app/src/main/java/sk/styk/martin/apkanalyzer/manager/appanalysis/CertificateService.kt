@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.PackageInfo
 import androidx.annotation.WorkerThread
@@ -8,11 +8,12 @@ import java.io.ByteArrayInputStream
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
 import java.util.regex.Pattern
+import javax.inject.Inject
 import javax.security.auth.x500.X500Principal
 import javax.security.auth.x500.X500Principal.RFC1779
 
 @WorkerThread
-class CertificateService {
+class CertificateService @Inject constructor() {
 
     fun get(packageInfo: PackageInfo): CertificateData {
 

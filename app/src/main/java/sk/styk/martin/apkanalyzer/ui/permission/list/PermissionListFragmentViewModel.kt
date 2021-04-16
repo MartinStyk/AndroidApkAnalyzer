@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import sk.styk.martin.apkanalyzer.business.analysis.logic.AppPermissionManager
+import sk.styk.martin.apkanalyzer.manager.appanalysis.AppPermissionManager
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import javax.inject.Inject

@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.FeatureInfo
 import android.content.pm.PackageInfo

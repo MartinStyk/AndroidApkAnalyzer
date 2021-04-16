@@ -1,9 +1,8 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic.launcher
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import sk.styk.martin.apkanalyzer.business.analysis.logic.*
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import java.io.File
@@ -14,6 +13,12 @@ class AppDetailDataManager @Inject constructor(
         private val packageManager: PackageManager,
         private val appPermissionManager: AppPermissionManager,
         private val featuresManager: FeaturesManager,
+        private val generalDataService: GeneralDataService,
+        private val certificateService: CertificateService,
+        private val fileDataService: FileDataService,
+        private val appComponentsService: AppComponentsService,
+        private val resourceService: ResourceService,
+        private val dexService: DexService,
 ) {
 
     private val analysisFlags = PackageManager.GET_SIGNATURES or
@@ -23,13 +28,6 @@ class AppDetailDataManager @Inject constructor(
             PackageManager.GET_RECEIVERS or
             PackageManager.GET_PERMISSIONS or
             PackageManager.GET_CONFIGURATIONS
-
-    private val generalDataService = GeneralDataService()
-    private val certificateService = CertificateService()
-    private val appComponentsService = AppComponentsService()
-    private val fileDataService = FileDataService()
-    private val resourceService = ResourceService()
-    private val dexService = DexService()
 
     fun loadForInstalledPackage(packageName: String) = get(
             analysisMode = AppDetailData.AnalysisMode.INSTALLED_PACKAGE,
@@ -50,9 +48,9 @@ class AppDetailDataManager @Inject constructor(
 
         return AppDetailData(
                 analysisMode = analysisMode,
-                generalData = generalDataService.get(packageInfo, packageManager, analysisMode),
+                generalData = generalDataService.get(packageInfo, analysisMode),
                 certificateData = certificateService.get(packageInfo),
-                activityData = appComponentsService.getActivities(packageInfo, packageManager),
+                activityData = appComponentsService.getActivities(packageInfo),
                 serviceData = appComponentsService.getServices(packageInfo),
                 contentProviderData = appComponentsService.getContentProviders(packageInfo),
                 broadcastReceiverData = appComponentsService.getBroadcastReceivers(packageInfo),

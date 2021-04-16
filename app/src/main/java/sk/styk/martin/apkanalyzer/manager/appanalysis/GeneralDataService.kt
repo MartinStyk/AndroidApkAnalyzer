@@ -1,21 +1,20 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData
 import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import java.io.File
+import javax.inject.Inject
 
-@WorkerThread
-class GeneralDataService {
+class GeneralDataService @Inject constructor(private val packageManager: PackageManager) {
 
-    fun get(packageInfo: PackageInfo, packageManager: PackageManager, analysisMode: AppDetailData.AnalysisMode): GeneralData {
+    fun get(packageInfo: PackageInfo, analysisMode: AppDetailData.AnalysisMode): GeneralData {
 
         val applicationInfo = packageInfo.applicationInfo
 

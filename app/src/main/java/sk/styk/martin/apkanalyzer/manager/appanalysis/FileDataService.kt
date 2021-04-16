@@ -1,8 +1,7 @@
-package sk.styk.martin.apkanalyzer.business.analysis.logic
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.PackageInfo
 import android.util.Log
-import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.FileData
 import sk.styk.martin.apkanalyzer.model.detail.FileEntry
 import java.io.IOException
@@ -10,10 +9,10 @@ import java.util.*
 import java.util.jar.Attributes
 import java.util.jar.JarFile
 import java.util.jar.Manifest
+import javax.inject.Inject
 import kotlin.collections.Map.Entry
 
-@WorkerThread
-class FileDataService {
+class FileDataService @Inject constructor() {
 
     fun get(packageInfo: PackageInfo): FileData {
 

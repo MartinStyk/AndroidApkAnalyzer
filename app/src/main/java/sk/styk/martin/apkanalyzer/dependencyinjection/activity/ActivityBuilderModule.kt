@@ -8,9 +8,9 @@ import sk.styk.martin.apkanalyzer.dependencyinjection.activity.intro.IntroActivi
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.main.MainActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.permission.PermissionDetailActivityModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ActivityScope
-import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.appdetail.OnInstallAppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.intro.IntroActivity
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
 import sk.styk.martin.apkanalyzer.ui.permission.detail.PermissionDetailActivity
 

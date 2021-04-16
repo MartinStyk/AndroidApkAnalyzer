@@ -8,6 +8,7 @@ import sk.styk.martin.apkanalyzer.dependencyinjection.activity.ActivityCommonMod
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.FragmentScope
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactoriesModule
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
+import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragment
@@ -49,5 +50,8 @@ abstract class MainActivityModule {
     @ContributesAndroidInjector
     abstract fun premiumFragmentInjector(): PremiumFragment
 
+    @FragmentScope
+    @ContributesAndroidInjector
+    abstract fun localStatisticsFragmentInjector(): LocalStatisticsFragment
 
 }

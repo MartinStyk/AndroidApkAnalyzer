@@ -5,7 +5,7 @@ import dagger.Binds
 import dagger.Module
 import sk.styk.martin.apkanalyzer.dependencyinjection.activity.ActivityCommonModule
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactoriesModule
-import sk.styk.martin.apkanalyzer.ui.activity.intro.IntroActivity
+import sk.styk.martin.apkanalyzer.ui.intro.IntroActivity
 
 @Module(includes = [
     ActivityCommonModule::class,
