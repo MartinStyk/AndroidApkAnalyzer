@@ -137,6 +137,11 @@
 
                     </LinearLayout>
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider"/>
+
                     <!--MinSdk chart -->
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -189,6 +194,10 @@
 
                     </LinearLayout>
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider"/>
 
                     <!--TargetSdk chart -->
                     <LinearLayout
@@ -241,6 +250,11 @@
 
                     </LinearLayout>
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider"/>
+
                     <!--Install location chart -->
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -291,6 +305,11 @@
                         </net.cachapa.expandablelayout.ExpandableLayout>
 
                     </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider"/>
 
                     <!--Sign chart -->
                     <LinearLayout
@@ -343,6 +362,11 @@
 
                     </LinearLayout>
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider"/>
+
                     <!--Application source chart -->
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -393,6 +417,11 @@
                         </net.cachapa.expandablelayout.ExpandableLayout>
 
                     </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:listDivider"/>
 
                     <sk.styk.martin.apkanalyzer.views.MathStatisticsCardView
                         android:id="@+id/statistics_apk_size"
