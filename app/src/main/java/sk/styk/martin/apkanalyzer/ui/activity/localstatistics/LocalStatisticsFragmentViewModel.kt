@@ -171,7 +171,7 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
     }
 
     fun toggleDefinedPermissionsExpanded() {
-        usedPermissionsExpandedLiveData.value = usedPermissionsExpandedLiveData.value?.not()
+        definedPermissionsExpandedLiveData.value = definedPermissionsExpandedLiveData.value?.not()
     }
 
     fun toggleFilesExpanded() {
