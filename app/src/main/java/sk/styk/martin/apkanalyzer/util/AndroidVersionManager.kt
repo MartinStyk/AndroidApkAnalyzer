@@ -4,7 +4,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import javax.inject.Inject
 
-private const val MAX_SDK_VERSION = 29
+const val MAX_SDK_VERSION = 31
 
 class AndroidVersionManager @Inject constructor(private val resourcesManager: ResourcesManager) {
 

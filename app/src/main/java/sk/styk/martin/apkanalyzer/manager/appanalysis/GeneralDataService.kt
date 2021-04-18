@@ -12,7 +12,10 @@ import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import java.io.File
 import javax.inject.Inject
 
-class GeneralDataService @Inject constructor(private val packageManager: PackageManager) {
+class GeneralDataService @Inject constructor(
+        private val packageManager: PackageManager,
+        private val androidVersionManager: AndroidVersionManager,
+) {
 
     fun get(packageInfo: PackageInfo, analysisMode: AppDetailData.AnalysisMode): GeneralData {
 
@@ -44,10 +47,10 @@ class GeneralDataService @Inject constructor(private val packageManager: Package
                 lastUpdateTime = if (packageInfo.lastUpdateTime > 0) packageInfo.lastUpdateTime else null,
 
                 minSdkVersion = minSdk,
-                minSdkLabel = AndroidVersionManager.resolveVersion(minSdk),
+                minSdkLabel = androidVersionManager.resolveVersion(minSdk),
 
                 targetSdkVersion = applicationInfo.targetSdkVersion,
-                targetSdkLabel = AndroidVersionManager.resolveVersion(applicationInfo.targetSdkVersion),
+                targetSdkLabel = androidVersionManager.resolveVersion(applicationInfo.targetSdkVersion),
 
                 icon = applicationInfo.loadIcon(packageManager)
         )

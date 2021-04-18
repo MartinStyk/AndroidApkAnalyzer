@@ -18,8 +18,8 @@ import sk.styk.martin.apkanalyzer.manager.appanalysis.LocalApplicationStatisticM
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
-import sk.styk.martin.apkanalyzer.util.AndroidVersionManager
 import sk.styk.martin.apkanalyzer.util.ColorInfo
+import sk.styk.martin.apkanalyzer.util.MAX_SDK_VERSION
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
@@ -272,7 +272,7 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
         val values = ArrayList<BarEntry>(map.size)
         val axisValues = ArrayList<String>(map.size)
         var index = 0f
-        for (sdk in 1..AndroidVersionManager.MAX_SDK_VERSION) {
+        for (sdk in 1..MAX_SDK_VERSION) {
             if (map[sdk] == null)
                 continue
 
