@@ -43,28 +43,9 @@
         <item name="android:clickable">true</item>
     </style>
 
-    <style name="ItemDetailLayout" parent="Widget.AppCompat.ListView">
-        <item name="android:divider">?android:attr/listDivider</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:showDividers">beginning|middle</item>
-    </style>
-
     <style name="ListItemDetail" parent="ItemDetail">
         <item name="android:paddingTop">8dp</item>
         <item name="android:paddingBottom">8dp</item>
-    </style>
-
-    <style name="ApkActionButton" parent="Base.Widget.AppCompat.Button">
-        <item name="android:textAppearance">?android:attr/textAppearanceSmall</item>
-        <item name="android:gravity">start|center_vertical</item>
-        <item name="android:padding">@dimen/activity_vertical_margin</item>
-        <item name="android:background">?android:selectableItemBackground</item>
-    </style>
-
-    <style name="AdDivider">
-        <item name="android:background">@color/primary</item>
-        <item name="android:animateLayoutChanges">true</item>
-        <item name="android:visibility">gone</item>
     </style>
 
     <style name="fab_card">

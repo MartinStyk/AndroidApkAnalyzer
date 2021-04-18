@@ -6,9 +6,6 @@
     <string name="app_rate">レート適用</string>
     <string name="app_dependencies">依存関係 : \n com.github.PhilJay:MPAndroidChart com.pddstudio:highlightjs-android com.github.apl-devs:appintro</string>
 
-    <string name="navigation_drawer_open">ナビゲーションドローワーを開く</string>
-    <string name="navigation_drawer_close">ナビゲーションドローワーを閉じる</string>
-
     <string name="action_search">検索</string>
     <string name="action_filter">フィルター</string>
     <string name="action_save">保存</string>
@@ -17,7 +14,6 @@
     <string name="title_item_detail">アイテムの詳細</string>
     <string name="title_intro">イントロ</string>
     <string name="title_permissions">許可の詳細</string>
-    <string name="title_manifest">AndroidManifest</string>
     <string name="loading">読み込み中…</string>
     <string name="loading_failed">読み込みに失敗しました。</string>
     <string name="error_loading_package_detail">APKの詳細を読み込むことができませんでした。</string>
@@ -25,13 +21,9 @@
     <string name="no">いいえ</string>
     <string name="NA">該当なし</string>
     <string name="none">なし</string>
-    <string name="allow">許可する</string>
     <string name="dismiss">却下する</string>
-    <string name="ok">OK</string>
-    <string name="cancel">キャンセル</string>
     <string name="permission_not_granted">許可されていません。</string>
     <string name="activity_not_found_browsing">あなたのデバイス上にファイル閲覧用のアプリが見つかりませんでした。</string>
-    <string name="activity_not_found_sharing">デバイス上にファイルを共有するためのアプリが見つかりませんでした。</string>
     <string name="activity_not_found_image">画像を見るためのアプリケーションが見つかりませんでした</string>
     <string name="activity_not_found_doc">ドキュメントを表示するアプリケーションが見つかりませんでした</string>
 
@@ -59,7 +51,6 @@
     <string name="intro_permissions_description">あなたのアプリケーションで使用されている権限を調べる</string>
     <string name="intro_upload">アプリのメタデータをアップロード</string>
     <string name="intro_upload_description">APKアナライザがアプリのメタデータを収集できるようにしてください。データは、アプリケーションの調査に使用されます。\nあなたのパーソナルアプリのデータは含まれていません。設定で環境設定を調整することができます</string>
-    <string name="intro_upload_require_input">アプリのメタデータのアップロードを承認または拒否する</string>
 
     <string name="general">一般</string>
     <string name="certificate">証明書</string>
@@ -88,7 +79,6 @@
     <string name="description">説明</string>
     <string name="app_source">アプリケーションソース</string>
     <string name="app_installer">インストーラ</string>
-    <string name="sdk">SDK</string>
     <string name="target_sdk">ターゲットSDK</string>
     <string name="target_version">ターゲットバージョン</string>
     <string name="min_sdk">最小SDK</string>
@@ -100,24 +90,17 @@
     <string name="first_install">初回インストール</string>
     <string name="last_update">最終更新日</string>
 
-    <string name="pick_action">アクションを選択してください。</string>
     <string name="copy_apk">APKを出力</string>
-    <string name="copy_apk_background">%s へコピーする</string>
-    <string name="copy_apk_background_done">%s へコピーする</string>
     <string name="show_manifest">AndroidManifest.xmlを見る</string>
     <string name="manifest_saved">%s に保存する</string>
-    <string name="save_manifest_background_notification_title">%s に保存する</string>
     <string name="save_manifest_background_notification_title_done">%s に保存する</string>
     <string name="save_manifest_fail">マニュフェストはまだロードされていません。</string>
     <string name="show_app_system_page">ビルトインアプリ情報</string>
     <string name="show_app_google_play">Google Playのリスティング</string>
-    <string name="share_apk">APKを共有</string>
-    <string name="share_apk_using">APK共有の使用</string>
     <string name="save_icon">保存アイコン</string>
     <string name="show_more">もっと見せる</string>
     <string name="install_failed">APK分析がAPKのインストールに失敗しました。手動で行ってください</string>
     <string name="install_app">APKをインストールする</string>
-    <string name="detect_repackaged">原点を確認する</string>
     <string name="copied_to_clipboard">クリップボードにコピーされました</string>
     <string name="show_apps">%1$d のすべてのアプリを表示</string>
 
@@ -148,9 +131,7 @@
     <string name="sign_algorithm">署名アルゴリズム</string>
     <string name="start_date">開始 : </string>
     <string name="end_date">有効期限  : </string>
-    <string name="public_key_md5">MD5公開鍵</string>
     <string name="cert_md5">MD5証明書</string>
-    <string name="serial_number">シリアルナンバー</string>
     <string name="issuer_name">発行者名</string>
     <string name="issuer_organization">発行組織</string>
     <string name="issuer_country">発行国</string>
@@ -161,9 +142,7 @@
     <string name="sign_algorithm_description">証明書署名アルゴリズムの署名アルゴリズム名。例として、文字列\"SHA256withRSA\"があります。</string>
     <string name="start_date_description">証明書の有効期間の開始</string>
     <string name="end_date_description">証明書の有効期間の終了</string>
-    <string name="public_key_md5_description">証明書の公開鍵のMD5ハッシュ</string>
     <string name="cert_md5_description">証明書のMD5ハッシュ</string>
-    <string name="serial_number_description">証明書のシリアル番号の値。シリアル番号は、各証明書に証明機関によって割り当てられた整数です。所与のCAによって発行された各証明書に対して一意でなければならない(すなわち、発行者名およびシリアル番号が固有の証明書を識別する)</string>
     <string name="issuer_name_description">証明書の発行者の名前</string>
     <string name="issuer_organization_description">証明書の組織の名前</string>
     <string name="issuer_country_description">証明書の発行国の名前</string>
@@ -196,7 +175,6 @@
     <string name="jpg_drawables_description">APKファイルに含まれるJPGドロアブルの数</string>
     <string name="gif_drawables_description">APKファイルに含まれるGIFドロアブルの数</string>
     <string name="xml_drawables_description">APKファイルに含まれるxmlドロアブルの数。 Xmlドロワブルは、形などに関するデータを含むマーカーファイルです。</string>
-    <string name="ldpi_drawables_description">ピクセル密度が低い〜120dpiの画面に最適化されたドロウアブル数</string>
     <string name="mdpi_drawables_description">中画素密度〜160dpiの画面に最適化されたドロウアブル数</string>
     <string name="hdpi_drawables_description">高画素密度〜240dpiの画面に最適化されたドロウアブルの数</string>
     <string name="xhdpi_drawables_description">超高画素密度〜320dpiの画面に最適化されたドロウアブル数</string>
@@ -292,53 +270,6 @@
     <string name="permissions_protection_normal">ノーマル</string>
     <string name="permissions_protection_dangerous">危険な</string>
     <string name="permissions_protection_signature">署名</string>
-
-    <string name="uploading_data">メタデータのアップロード…</string>
-    <string name="running_detection">あなたのアプリをチェック…</string>
-
-    <string name="no_internet_connection">インターネット接続なし</string>
-    <string name="no_internet_connection_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました.</string>
-    <string name="metadata_upload_not_allowed">Apkメタデータのアップロードが許可されていません</string>
-    <string name="metadata_upload_not_allowed_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました.</string>
-    <string name="service_not_available">サービスは利用できません</string>
-    <string name="service_not_available_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました. </string>
-    <string name="repackaged_error">エラー</string>
-    <string name="repackaged_error_description">残念ながら、Apk Analyzerはアプリケーションのチェックに失敗しました.</string>
-    <string name="long_detection">Check back in few minutes</string>
-    <string name="long_detection_description">あなたのアプリの検出は非常に複雑です。 我々はそれを完了するために時間が必要です。 結果を見るには後で戻ってください。</string>
-
-    <string name="repackaged_result_nok">アプリが不審に思える</string>
-    <string name="repackaged_result_ok">アプリは安全です</string>
-    <string name="repackaged_result_insufficient">データ不足</string>
-
-    <string name="repackaged_result_header">検出ステータス</string>
-
-    <string name="repackaged_majority_signature_header">署名</string>
-    <string name="repackaged_app_signature_header">アプリケーションの署名</string>
-    <string name="repackaged_global_signature_header">署名</string>
-
-    <plurals name="repackaged_result_detection_description_general">
-            <item quantity="other">Apk Analyzerは、%1$d つのアプリケーションがこのアプリケーションと非常によく似ていることを発見しました.</item>
-    </plurals>
-    <string name="repackaged_result_insufficient_description">私たちのデータは、このアプリの独創性について何らかの前提をするのに十分ではありません。</string>
-    <string name="repackaged_result_nok_description">下記のデータに基づいて、アプリが変更されている可能性があります。 このアプリが別のダウンロードソースから提供されている場合は、安全であるかどうかを確認するためにセキュリティアプリを使用することを検討してください。</string>
-    <string name="repackaged_result_ok_description">以下に示すデータに基づいて、あなたのアプリケーションはOKと思われます。</string>
-
-    <string name="repackaged_global_signature_description">このアプリケーションに非常に類似したアプリケーションは、複数の開発者によってリリースされ、デジタル署名されています。 上のグラフは、さまざまな開発者による類似アプリの出現回数を示しています。</string>
-    <string name="repackaged_global_signature_current_app_touch">このアプリケーションと同じ開発者のアプリケーションの数。</string>
-    <string name="repackaged_global_signature_other_app_touch">このアプリとは異なる開発者のアプリケーションの数。</string>
-
-    <string name="repackaged_result_detection_app_signature">アプリケーションの署名に基づいて、類似アプリケーションの %s %%はこのアプリケーションと同じ開発者に属します。</string>
-    <string name="repackaged_result_detection_app_signature_same_dev">同じ開発者から： %s %%</string>
-    <string name="repackaged_result_detection_app_signature_other_devs">他の開発者から: %s %%</string>
-    <string name="repackaged_result_detection_app_signature_same_dev_touch">このアプリケーションと同じ証明書（開発者）で署名された類似アプリケーションの比率。</string>
-    <string name="repackaged_result_detection_app_signature_other_devs_touch">あなたのアプリよりも異なる証明書（開発者）が署名した類似のアプリの割合。</string>
-
-    <string name="repackaged_result_detection_majority_signature">最も一般的なデジタル署名は、同様のアプリの ％s %% に署名しました。</string>
-    <string name="repackaged_result_detection_majority_signature_most_common_devs">最も一般的な開発者のアプリ： %s %%</string>
-    <string name="repackaged_result_detection_majority_signature_other_devs">他の開発者のアプリ: %s %%</string>
-    <string name="repackaged_result_detection_majority_signature_most_common_devs_touch">同様のアプリケーションセットで見つかった最も一般的なシグネチャの割合。</string>
-    <string name="repackaged_result_detection_majority_signature_other_devs_touch">同様のアプリケーションセットにある最も一般的なシグネチャ以外の比率。</string>
 
     <string name="preference_color_theme">カラーテーマ</string>
     <string name="preference_color_theme_summary">明るいまたは暗いアプリの外観を選択する</string>
