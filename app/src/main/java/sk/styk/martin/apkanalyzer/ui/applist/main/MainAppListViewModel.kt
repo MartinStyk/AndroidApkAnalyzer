@@ -31,9 +31,9 @@ class MainAppListViewModel @Inject constructor(
         private val permissionManager: PermissionManager,
         private val installedAppsManager: InstalledAppsManager,
         private val navigationDrawerModel: NavigationDrawerModel,
-        dispatcherProvider: DispatcherProvider,
+        private val dispatcherProvider: DispatcherProvider,
         adapter: AppListAdapter
-) : BaseAppListViewModel(adapter, dispatcherProvider), SearchView.OnQueryTextListener, SearchView.OnCloseListener, Toolbar.OnMenuItemClickListener {
+) : BaseAppListViewModel(adapter), SearchView.OnQueryTextListener, SearchView.OnCloseListener, Toolbar.OnMenuItemClickListener {
 
     override var appListData = listOf<AppListData>()
         set(value) {

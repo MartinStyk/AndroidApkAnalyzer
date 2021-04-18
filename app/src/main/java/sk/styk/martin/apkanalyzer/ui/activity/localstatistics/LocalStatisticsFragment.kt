@@ -22,10 +22,9 @@ import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
-import sk.styk.martin.apkanalyzer.ui.applist.AppListDialog
+import sk.styk.martin.apkanalyzer.ui.applist.packagename.AppListFromPackageNamesDialog
 import sk.styk.martin.apkanalyzer.util.components.toDialog
 import sk.styk.martin.apkanalyzer.util.provideViewModel
-import java.util.*
 import javax.inject.Inject
 
 class LocalStatisticsFragment : Fragment() {
@@ -60,7 +59,7 @@ class LocalStatisticsFragment : Fragment() {
 
         with(viewModel) {
             showDialog.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "description dialog") })
-            showAppList.observe(viewLifecycleOwner, { AppListDialog.newInstance(it as ArrayList<String>).show(parentFragmentManager, "AppListDialog") })
+            showAppList.observe(viewLifecycleOwner, { AppListFromPackageNamesDialog.newInstance(it).show(parentFragmentManager, "AppListDialog") })
             analysisResultsExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.analysisResultsToggleArrow, it) })
             minSdkExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.minSdkToggleArrow, it) })
             targetSdkExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.targetSdkToggleArrow, it) })

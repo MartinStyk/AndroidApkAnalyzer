@@ -1,32 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-    <ProgressBar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/list_view_progress_bar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true" />
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/nothing_to_show"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/permissions_no_apps"
-        android:visibility="gone" />
+    <data>
 
-    <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/recycler_view_applications"
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.applist.packagename.AppListFromPackageNamesDialogViewModel" />
+
+    </data>
+
+    <ViewAnimator
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        app:layoutManager="LinearLayoutManager"
-        tools:listitem="@layout/list_item_application" />
+        android:layout_height="match_parent"
+        app:displayedChild="@{viewModel.viewState}">
 
-</RelativeLayout>
+        <ProgressBar
+            android:id="@+id/list_view_progress_bar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+        <TextView
+            android:id="@+id/nothing_to_show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/permissions_no_apps" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_applications"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            app:adapter="@{viewModel.adapter}"
+            app:itemDecoration="@{true}"
+            app:layoutManager="LinearLayoutManager"
+            tools:listitem="@layout/list_item_application" />
+
+    </ViewAnimator>
+
+</layout>

@@ -15,9 +15,9 @@ class PermissionsAppListViewModel @AssistedInject constructor(
         @Assisted private val permissionDetailFragmentViewModel: PermissionDetailFragmentViewModel,
         @Assisted private val showGranted: Boolean,
         private val installedAppsManager: InstalledAppsManager,
-        dispatcherProvider: DispatcherProvider,
+        private val dispatcherProvider: DispatcherProvider,
         adapter: AppListAdapter
-) : BaseAppListViewModel(adapter, dispatcherProvider) {
+) : BaseAppListViewModel(adapter) {
 
     init {
         viewModelScope.launch(dispatcherProvider.default()) {
