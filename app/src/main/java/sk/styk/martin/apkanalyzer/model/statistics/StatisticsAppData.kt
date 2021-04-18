@@ -7,7 +7,7 @@ import sk.styk.martin.apkanalyzer.model.detail.AppSource
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class LocalStatisticsAppData(
+data class StatisticsAppData(
         var packageName: String,
         var isSystemApp: Boolean = false,
         var installLocation: Int = 0,

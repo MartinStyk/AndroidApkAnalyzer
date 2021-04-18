@@ -43,6 +43,7 @@ class AppListFromPackageNamesDialog : DialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         viewModel.appClicked.observe(this, this@AppListFromPackageNamesDialog::startAppDetail)
         return super.onCreateView(inflater, container, savedInstanceState)
     }

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import kotlinx.android.parcel.IgnoredOnParcel
 import kotlinx.android.parcel.Parcelize
+import sk.styk.martin.apkanalyzer.model.InstallLocation
 
 @SuppressLint("ParcelCreator")
 @Parcelize
@@ -20,7 +21,7 @@ data class GeneralData(
         val source: AppSource = AppSource.UNKNOWN,
         val apkDirectory: String,
         val dataDirectory: String? = null,
-        val installLocation: String,
+        val installLocation: InstallLocation,
         val appInstaller: String? = null,
 
         val apkSize: Long = 0, //bytes
@@ -50,7 +51,7 @@ data class GeneralData(
                 source: AppSource,
                 apkDirectory: String,
                 dataDirectory: String?,
-                installLocation: String,
+                installLocation: InstallLocation,
                 appInstaller: String?,
                 apkSize: Long = 0,
                 firstInstallTime: Long?,

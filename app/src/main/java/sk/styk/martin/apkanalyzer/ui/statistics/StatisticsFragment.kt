@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
+package sk.styk.martin.apkanalyzer.ui.statistics
 
 import android.content.Context
 import android.os.Bundle
@@ -15,9 +15,9 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.MPPointF
 import dagger.android.support.AndroidSupportInjection
-import kotlinx.android.synthetic.main.fragment_local_statistics.*
+import kotlinx.android.synthetic.main.fragment_statistics.*
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.databinding.FragmentLocalStatisticsBinding
+import sk.styk.martin.apkanalyzer.databinding.FragmentStatisticsBinding
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
@@ -27,14 +27,14 @@ import sk.styk.martin.apkanalyzer.util.components.toDialog
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
-class LocalStatisticsFragment : Fragment() {
+class StatisticsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    private lateinit var binding: FragmentLocalStatisticsBinding
+    private lateinit var binding: FragmentStatisticsBinding
 
-    private lateinit var viewModel: LocalStatisticsFragmentViewModel
+    private lateinit var viewModel: StatisticsFragmentViewModel
 
     override fun onAttach(context: Context) {
         AndroidSupportInjection.inject(this)
@@ -47,7 +47,7 @@ class LocalStatisticsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_local_statistics, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }

@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
+package sk.styk.martin.apkanalyzer.ui.statistics
 
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
@@ -15,11 +15,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.appanalysis.LocalApplicationStatisticManager
+import sk.styk.martin.apkanalyzer.manager.appanalysis.MAX_SDK_VERSION
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
+import sk.styk.martin.apkanalyzer.model.statistics.StatisticsData
 import sk.styk.martin.apkanalyzer.util.ColorInfo
-import sk.styk.martin.apkanalyzer.util.MAX_SDK_VERSION
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
@@ -33,7 +33,7 @@ private const val DATA_STATE = 1
 
 typealias PackageName = String
 
-class LocalStatisticsFragmentViewModel @Inject constructor(
+class StatisticsFragmentViewModel @Inject constructor(
         private val navigationDrawerModel: NavigationDrawerModel,
         private val localApplicationStatisticManager: LocalApplicationStatisticManager,
         private val resourcesManager: ResourcesManager,
@@ -49,8 +49,8 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
     private val loadingProgressMaxLiveData = MutableLiveData<Int>()
     val loadingProgressMax: LiveData<Int> = loadingProgressMaxLiveData
 
-    private val statisticDataLiveData = MutableLiveData<LocalStatisticsDataWithCharts>()
-    val statisticData: LiveData<LocalStatisticsDataWithCharts> = statisticDataLiveData
+    private val statisticDataLiveData = MutableLiveData<StatisticsDataWithCharts>()
+    val statisticData: LiveData<StatisticsDataWithCharts> = statisticDataLiveData
 
     private val showDialogEvent = SingleLiveEvent<DialogComponent>()
     val showDialog: LiveData<DialogComponent> = showDialogEvent
@@ -125,7 +125,7 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
                             }
                             is LocalApplicationStatisticManager.StatisticsLoadingStatus.Data -> {
                                 val data = withContext(dispatcherProvider.default()) {
-                                    LocalStatisticsDataWithCharts(
+                                    StatisticsDataWithCharts(
                                             statisticsData = it.data,
                                             minSdkChartData = getBarSdkData(it.data.minSdk),
                                             targetSdkChartData = getBarSdkData(it.data.targetSdk),
@@ -326,8 +326,8 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
             val data: BarData,
             val valueFormatter: IAxisValueFormatter)
 
-    data class LocalStatisticsDataWithCharts(
-            val statisticsData: LocalStatisticsData,
+    data class StatisticsDataWithCharts(
+            val statisticsData: StatisticsData,
             val minSdkChartData: BarDataHolder,
             val targetSdkChartData: BarDataHolder,
             val installLocationChartData: BarDataHolder,

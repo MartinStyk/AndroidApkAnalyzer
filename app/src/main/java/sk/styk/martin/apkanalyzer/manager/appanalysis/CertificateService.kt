@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.manager.appanalysis
 import android.content.pm.PackageInfo
 import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.CertificateData
-import sk.styk.martin.apkanalyzer.util.DigestHelper
 import java.io.ByteArrayInputStream
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
@@ -13,7 +12,7 @@ import javax.security.auth.x500.X500Principal
 import javax.security.auth.x500.X500Principal.RFC1779
 
 @WorkerThread
-class CertificateService @Inject constructor() {
+class CertificateService @Inject constructor(private val digestManager: DigestManager) {
 
     fun get(packageInfo: PackageInfo): CertificateData {
 
@@ -25,8 +24,8 @@ class CertificateService @Inject constructor() {
 
             CertificateData(
                     signAlgorithm = certificate.sigAlgName,
-                    certificateHash = DigestHelper.md5Digest(certificate.encoded),
-                    publicKeyMd5 = DigestHelper.md5Digest(DigestHelper.byteToHexString(certificate.publicKey.encoded)),
+                    certificateHash = digestManager.md5Digest(certificate.encoded),
+                    publicKeyMd5 = digestManager.md5Digest(digestManager.byteToHexString(certificate.publicKey.encoded)),
                     startDate = certificate.notBefore,
                     endDate = certificate.notAfter,
                     serialNumber = certificate.serialNumber.toInt(),

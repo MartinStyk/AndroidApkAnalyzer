@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragmentViewModel" />
+            type="sk.styk.martin.apkanalyzer.ui.statistics.StatisticsFragmentViewModel" />
 
         <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
 

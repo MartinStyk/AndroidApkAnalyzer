@@ -3,16 +3,16 @@ package sk.styk.martin.apkanalyzer.model.statistics
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
+import sk.styk.martin.apkanalyzer.model.InstallLocation
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
-import sk.styk.martin.apkanalyzer.util.PercentagePair
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class LocalStatisticsData(
+data class StatisticsData(
         val analyzeSuccess: PercentagePair,
         val analyzeFailed: PercentagePair,
         val systemApps: PercentagePair,
-        val installLocation: Map<String, List<String>>,
+        val installLocation: Map<InstallLocation, List<String>>,
         val targetSdk: Map<Int, List<String>>,
         val minSdk: Map<Int, List<String>>,
         val appSource: Map<AppSource, List<String>>,

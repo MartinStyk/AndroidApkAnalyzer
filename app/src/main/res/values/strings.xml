@@ -322,7 +322,6 @@
     <string name="permissions_protection_dangerous">Dangerous</string>
     <string name="permissions_protection_signature">Signature</string>
 
-
     <string name="uploading_data">Uploading metadata…</string>
     <string name="running_detection">Checking your app…</string>
 

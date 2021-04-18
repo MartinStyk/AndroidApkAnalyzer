@@ -4,11 +4,10 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
+import sk.styk.martin.apkanalyzer.model.InstallLocation
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData
-import sk.styk.martin.apkanalyzer.util.AndroidVersionManager
-import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import java.io.File
 import javax.inject.Inject
 
@@ -41,7 +40,7 @@ class GeneralDataService @Inject constructor(
                 source = getAppSource(packageManager, packageInfo.packageName, isSystemApp),
                 appInstaller = appInstaller,
 
-                installLocation = InstallLocationHelper.resolveInstallLocation(packageInfo.installLocation),
+                installLocation = InstallLocation.from(packageInfo.installLocation),
                 apkSize = computeApkSize(applicationInfo.sourceDir),
                 firstInstallTime = if (packageInfo.firstInstallTime > 0) packageInfo.firstInstallTime else null,
                 lastUpdateTime = if (packageInfo.lastUpdateTime > 0) packageInfo.lastUpdateTime else null,

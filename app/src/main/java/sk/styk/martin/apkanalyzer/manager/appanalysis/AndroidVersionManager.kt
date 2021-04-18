@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.util
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager

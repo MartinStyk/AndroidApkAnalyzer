@@ -1,19 +1,18 @@
 package sk.styk.martin.apkanalyzer.model.statistics
 
+import sk.styk.martin.apkanalyzer.manager.appanalysis.MAX_SDK_VERSION
+import sk.styk.martin.apkanalyzer.model.InstallLocation
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
-import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
-import sk.styk.martin.apkanalyzer.util.MAX_SDK_VERSION
-import sk.styk.martin.apkanalyzer.util.PercentagePair
 import java.util.*
 
-class LocalStatisticsDataBuilder(datasetSize: Int) {
+class StatisticsDataBuilder(datasetSize: Int) {
     private val arraySize = datasetSize + 1
 
     private var analyzeSuccess = 0
     private var analyzeFailed = 0
 
     private var systemApps: Int = 0
-    private val installLocation = HashMap<String, MutableList<String>>(3)
+    private val installLocation = HashMap<InstallLocation, MutableList<String>>(3)
     private val targetSdk = HashMap<Int, MutableList<String>>(MAX_SDK_VERSION)
     private val minSdk = HashMap<Int, MutableList<String>>(MAX_SDK_VERSION)
     private val appSource = HashMap<AppSource, MutableList<String>>(AppSource.values().size)
@@ -38,8 +37,8 @@ class LocalStatisticsDataBuilder(datasetSize: Int) {
     private val layouts = FloatArray(arraySize)
     private val differentLayouts = FloatArray(arraySize)
 
-    fun build(): LocalStatisticsData {
-        return LocalStatisticsData(
+    fun build(): StatisticsData {
+        return StatisticsData(
                 analyzeSuccess = PercentagePair(analyzeSuccess, analyzeSuccess + analyzeFailed),
                 analyzeFailed = PercentagePair(analyzeFailed, analyzeSuccess + analyzeFailed),
                 systemApps = PercentagePair(systemApps, analyzeSuccess),
@@ -66,7 +65,7 @@ class LocalStatisticsDataBuilder(datasetSize: Int) {
                 differentLayouts = MathStatisticsBuilder(differentLayouts).build())
     }
 
-    fun add(appData: LocalStatisticsAppData?) {
+    fun add(appData: StatisticsAppData?) {
         if (appData == null) {
             analyzeFailed++
             return
@@ -74,7 +73,7 @@ class LocalStatisticsDataBuilder(datasetSize: Int) {
 
         analyzeSuccess++
         if (appData.isSystemApp) systemApps++
-        addToMap(installLocation, InstallLocationHelper.resolveInstallLocation(appData.installLocation), appData.packageName)
+        addToMap(installLocation, InstallLocation.from(appData.installLocation), appData.packageName)
         addToMap(targetSdk, appData.targetSdk, appData.packageName)
         addToMap(minSdk, appData.minSdk, appData.packageName)
         apkSize[analyzeSuccess] = appData.apkSize.toFloat()

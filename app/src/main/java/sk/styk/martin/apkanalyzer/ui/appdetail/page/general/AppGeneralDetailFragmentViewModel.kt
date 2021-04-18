@@ -5,12 +5,12 @@ import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
+import sk.styk.martin.apkanalyzer.model.InstallLocation
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 import sk.styk.martin.apkanalyzer.util.Formatter
-import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import sk.styk.martin.apkanalyzer.util.TextInfo
 
 class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
@@ -20,7 +20,7 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
         private val formatter: Formatter,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, detailInfoAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
+    override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         val generalData = appDetailData.generalData
         detailInfoAdapter.info = listOfNotNull(
                 DetailInfoAdapter.DetailInfo(
@@ -127,9 +127,9 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
                         TextInfo.from(R.string.install_loc),
                         TextInfo.from(
                                 when (generalData.installLocation) {
-                                    InstallLocationHelper.INSTALL_LOCATION_AUTO -> R.string.install_loc_auto
-                                    InstallLocationHelper.INSTALL_LOCATION_INTERNAL_ONLY -> R.string.install_loc_internal_only
-                                    InstallLocationHelper.INSTALL_LOCATION_PREFER_EXTERNAL -> R.string.install_loc_prefer_external
+                                    InstallLocation.AUTO -> R.string.install_loc_auto
+                                    InstallLocation.INTERNAL -> R.string.install_loc_internal_only
+                                    InstallLocation.EXTERNAL -> R.string.install_loc_prefer_external
                                     else -> R.string.install_loc_internal_only
                                 }
                         ),
@@ -143,14 +143,14 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
                 generalData.firstInstallTime?.let {
                     DetailInfoAdapter.DetailInfo(
                             TextInfo.from(R.string.first_install),
-                            TextInfo.from(formatter.formatDateTime(generalData.firstInstallTime,  DateUtils.FORMAT_SHOW_DATE or  DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)),
+                            TextInfo.from(formatter.formatDateTime(generalData.firstInstallTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)),
                             TextInfo.from(R.string.first_install_description),
                     )
                 },
                 generalData.lastUpdateTime?.let {
                     DetailInfoAdapter.DetailInfo(
                             TextInfo.from(R.string.last_update),
-                            TextInfo.from(formatter.formatDateTime(generalData.lastUpdateTime,  DateUtils.FORMAT_SHOW_DATE or  DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)),
+                            TextInfo.from(formatter.formatDateTime(generalData.lastUpdateTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)),
                             TextInfo.from(R.string.last_update_description),
                     )
                 },

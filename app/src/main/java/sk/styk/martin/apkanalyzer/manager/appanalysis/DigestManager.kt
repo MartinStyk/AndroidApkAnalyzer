@@ -1,11 +1,12 @@
-package sk.styk.martin.apkanalyzer.util
+package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
+import javax.inject.Inject
 
-object DigestHelper {
+class DigestManager @Inject constructor(){
 
     fun md5Digest(input: ByteArray): String {
         val digest = getDigest("Md5")

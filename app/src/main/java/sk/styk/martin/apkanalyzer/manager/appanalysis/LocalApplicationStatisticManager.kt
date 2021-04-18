@@ -5,9 +5,9 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageManager
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.flow
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsAppData
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataBuilder
+import sk.styk.martin.apkanalyzer.model.statistics.StatisticsAppData
+import sk.styk.martin.apkanalyzer.model.statistics.StatisticsData
+import sk.styk.martin.apkanalyzer.model.statistics.StatisticsDataBuilder
 import javax.inject.Inject
 
 @SuppressLint("PackageManagerGetSignatures")
@@ -30,14 +30,14 @@ class LocalApplicationStatisticManager @Inject constructor(
 
     sealed class StatisticsLoadingStatus {
         data class Loading(val currentProgress: Int, val totalProgress: Int) : StatisticsLoadingStatus()
-        data class Data(val data: LocalStatisticsData) : StatisticsLoadingStatus()
+        data class Data(val data: StatisticsData) : StatisticsLoadingStatus()
     }
 
     suspend fun loadStatisticsData() = flow<StatisticsLoadingStatus> {
         val allApps = installedAppsManager.getAll()
         emit(StatisticsLoadingStatus.Loading(0, allApps.size))
 
-        val statsBuilder = LocalStatisticsDataBuilder(allApps.size)
+        val statsBuilder = StatisticsDataBuilder(allApps.size)
 
         allApps.forEachIndexed { index, appListData ->
             statsBuilder.add(get(appListData.applicationName))
@@ -47,7 +47,7 @@ class LocalApplicationStatisticManager @Inject constructor(
         emit(StatisticsLoadingStatus.Data(statsBuilder.build()))
     }
 
-    fun get(packageName: String): LocalStatisticsAppData? {
+    fun get(packageName: String): StatisticsAppData? {
 
         val packageInfo = try {
             packageManager.getPackageInfo(packageName, ANALYSIS_FLAGS)
@@ -62,7 +62,7 @@ class LocalApplicationStatisticManager @Inject constructor(
         val fileData = fileService.get(packageInfo)
         val resourceData = resourceService.get(fileData)
 
-        return LocalStatisticsAppData(
+        return StatisticsAppData(
                 packageName = packageName,
                 isSystemApp = isSystemApp,
                 installLocation = packageInfo.installLocation,

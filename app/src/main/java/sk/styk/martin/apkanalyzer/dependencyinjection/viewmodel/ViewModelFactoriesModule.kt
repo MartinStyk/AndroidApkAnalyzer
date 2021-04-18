@@ -5,11 +5,11 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragmentViewModel
-import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListViewModel
 import sk.styk.martin.apkanalyzer.ui.main.MainActivityViewModel
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.premium.PremiumFragmentViewModel
+import sk.styk.martin.apkanalyzer.ui.statistics.StatisticsFragmentViewModel
 
 @Module(includes = [
     AppViewModelFactoriesModule::class,
@@ -43,7 +43,7 @@ abstract class ViewModelFactoriesModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(value = LocalStatisticsFragmentViewModel::class)
-    abstract fun bindLocalStatisticsFragmentViewModel(viewModel: LocalStatisticsFragmentViewModel): ViewModel
+    @ViewModelKey(value = StatisticsFragmentViewModel::class)
+    abstract fun bindStatisticsFragmentViewModel(viewModel: StatisticsFragmentViewModel): ViewModel
 
 }

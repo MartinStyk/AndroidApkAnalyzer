@@ -16,12 +16,12 @@ import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
-import sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragment
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment
 import sk.styk.martin.apkanalyzer.ui.intro.IntroActivity
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragment
 import sk.styk.martin.apkanalyzer.ui.premium.PremiumFragment
 import sk.styk.martin.apkanalyzer.ui.settings.SettingsFragment
+import sk.styk.martin.apkanalyzer.ui.statistics.StatisticsFragment
 import sk.styk.martin.apkanalyzer.util.*
 import javax.inject.Inject
 
@@ -50,7 +50,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
             premiumMenuItemVisible.observe(this@MainActivity, { binding.navigationView.menu.findItem(R.id.nav_premium).isVisible = it })
             placeInitialFragment.observe(this@MainActivity, { placeAppListFragment() })
             openAppList.observe(this@MainActivity, { popToAppList() })
-            openStatistics.observe(this@MainActivity, { navigateTo(LocalStatisticsFragment(), FramentTag.LocalStatistics) })
+            openStatistics.observe(this@MainActivity, { navigateTo(StatisticsFragment(), FramentTag.LocalStatistics) })
             openPermissions.observe(this@MainActivity, { navigateTo(PermissionListFragment(), FramentTag.LocalPermissions) })
             openAbout.observe(this@MainActivity, { navigateTo(AboutFragment(), FramentTag.About) })
             openSettings.observe(this@MainActivity, { navigateTo(SettingsFragment(), FramentTag.Settings) })
