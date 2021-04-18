@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.model.statistics
 
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
-import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper
+import sk.styk.martin.apkanalyzer.util.AndroidVersionManager
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import sk.styk.martin.apkanalyzer.util.PercentagePair
 import java.util.*
@@ -14,8 +14,8 @@ class LocalStatisticsDataBuilder(datasetSize: Int) {
 
     private var systemApps: Int = 0
     private val installLocation = HashMap<String, MutableList<String>>(3)
-    private val targetSdk = HashMap<Int, MutableList<String>>(AndroidVersionHelper.MAX_SDK_VERSION)
-    private val minSdk = HashMap<Int, MutableList<String>>(AndroidVersionHelper.MAX_SDK_VERSION)
+    private val targetSdk = HashMap<Int, MutableList<String>>(AndroidVersionManager.MAX_SDK_VERSION)
+    private val minSdk = HashMap<Int, MutableList<String>>(AndroidVersionManager.MAX_SDK_VERSION)
     private val appSource = HashMap<AppSource, MutableList<String>>(AppSource.values().size)
 
     private val apkSize = FloatArray(arraySize)

@@ -1,18 +1,15 @@
 package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 
 import android.content.Context
-import android.graphics.RectF
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
-import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
@@ -28,13 +25,10 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
 import sk.styk.martin.apkanalyzer.ui.applist.AppListDialog
 import sk.styk.martin.apkanalyzer.util.components.toDialog
 import sk.styk.martin.apkanalyzer.util.provideViewModel
-import sk.styk.martin.apkanalyzer.views.ClickableMarkerView
 import java.util.*
 import javax.inject.Inject
 
-class LocalStatisticsFragment : Fragment(), ClickableMarkerView.OnMarkerClickListener {
-
-    private val onValueSelectedRectF = RectF()
+class LocalStatisticsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -65,8 +59,8 @@ class LocalStatisticsFragment : Fragment(), ClickableMarkerView.OnMarkerClickLis
         binding.viewModel = viewModel
 
         with(viewModel) {
-            statisticData.observe(viewLifecycleOwner, { binding.data = it })
             showDialog.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "description dialog") })
+            showAppList.observe(viewLifecycleOwner, { AppListDialog.newInstance(it as ArrayList<String>).show(parentFragmentManager, "AppListDialog") })
             analysisResultsExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.analysisResultsToggleArrow, it) })
             minSdkExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.minSdkToggleArrow, it) })
             targetSdkExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.targetSdkToggleArrow, it) })
@@ -85,10 +79,7 @@ class LocalStatisticsFragment : Fragment(), ClickableMarkerView.OnMarkerClickLis
 
     private fun setupCharts() {
         listOf(chart_min_sdk, chart_target_sdk, chart_app_source, chart_sign_algorithm, chart_install_location).forEach {
-            val mv = ClickableMarkerView(requireContext(), this).apply { chartView = it }
-
             it.apply {
-                marker = mv
                 isDragEnabled = true
                 isScaleXEnabled = true
                 isScaleYEnabled = false
@@ -121,11 +112,7 @@ class LocalStatisticsFragment : Fragment(), ClickableMarkerView.OnMarkerClickLis
                 setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                     override fun onValueSelected(e: Entry?, h: Highlight?) {
                         e ?: return
-
-                        val bounds = onValueSelectedRectF
-                        chart_app_source.getBarBounds(e as BarEntry, bounds)
                         val position = chart_app_source.getPosition(e, YAxis.AxisDependency.RIGHT)
-
                         MPPointF.recycleInstance(position)
                     }
 
@@ -133,15 +120,6 @@ class LocalStatisticsFragment : Fragment(), ClickableMarkerView.OnMarkerClickLis
                 })
             }
         }
-
     }
 
-    private fun showAppLists(packages: List<String>) {
-        AppListDialog.newInstance(packages as ArrayList<String>)
-                .show((context as AppCompatActivity).supportFragmentManager, AppListDialog::class.java.simpleName)
-    }
-
-    override fun onMarkerClick(apps: List<String>) {
-        showAppLists(apps)
-    }
 }

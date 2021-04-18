@@ -9,15 +9,11 @@
             name="viewModel"
             type="sk.styk.martin.apkanalyzer.ui.activity.localstatistics.LocalStatisticsFragmentViewModel" />
 
-        <variable
-            name="data"
-            type="sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts" />
-
         <import type="sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState" />
 
         <import type="android.view.View" />
 
-        <import type="sk.styk.martin.apkanalyzer.R"/>
+        <import type="sk.styk.martin.apkanalyzer.R" />
     </data>
 
     <LinearLayout
@@ -35,11 +31,11 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:marginTopSystemWindowInsets="@{true}"
                 app:inflateMenu="@{R.menu.statistics}"
-                app:onMenuItemClickListener="@{viewModel}"
+                app:marginTopSystemWindowInsets="@{true}"
                 app:navigationIconState="@{NavigationIconState.HAMBURGER}"
                 app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
+                app:onMenuItemClickListener="@{viewModel}"
                 app:title="@string/nav_statistics" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -185,14 +181,16 @@
                             app:expanded="@{viewModel.minSdkExpanded}"
                             tools:el_expanded="true">
 
-                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                            <sk.styk.martin.apkanalyzer.views.chart.MyBarChart
                                 android:id="@+id/chart_min_sdk"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/chart_margin"
                                 android:minHeight="350dp"
                                 android:padding="@dimen/padding_default"
-                                app:chart_data="@{viewModel.statisticData.minSdkChartData}" />
+                                app:data="@{viewModel.statisticData.minSdkChartData.data}"
+                                app:xAxis_valueFormatter="@{viewModel.statisticData.minSdkChartData.valueFormatter}"
+                                app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
                         </net.cachapa.expandablelayout.ExpandableLayout>
 
@@ -241,14 +239,16 @@
                             app:expanded="@{viewModel.targetSdkExpanded}"
                             tools:el_expanded="true">
 
-                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                            <sk.styk.martin.apkanalyzer.views.chart.MyBarChart
                                 android:id="@+id/chart_target_sdk"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/chart_margin"
                                 android:minHeight="350dp"
                                 android:padding="@dimen/padding_default"
-                                app:chart_data="@{viewModel.statisticData.targetSdkChartData}" />
+                                app:data="@{viewModel.statisticData.targetSdkChartData.data}"
+                                app:xAxis_valueFormatter="@{viewModel.statisticData.targetSdkChartData.valueFormatter}"
+                                app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
                         </net.cachapa.expandablelayout.ExpandableLayout>
 
@@ -297,14 +297,16 @@
                             app:expanded="@{viewModel.installLocationExpanded}"
                             tools:el_expanded="true">
 
-                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                            <sk.styk.martin.apkanalyzer.views.chart.MyBarChart
                                 android:id="@+id/chart_install_location"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/chart_margin"
                                 android:minHeight="350dp"
                                 android:padding="@dimen/padding_default"
-                                app:chart_data="@{viewModel.statisticData.installLocationChartData}" />
+                                app:data="@{viewModel.statisticData.installLocationChartData.data}"
+                                app:xAxis_valueFormatter="@{viewModel.statisticData.installLocationChartData.valueFormatter}"
+                                app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
                         </net.cachapa.expandablelayout.ExpandableLayout>
 
@@ -353,14 +355,16 @@
                             app:expanded="@{viewModel.signAlgorithmExpanded}"
                             tools:el_expanded="true">
 
-                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                            <sk.styk.martin.apkanalyzer.views.chart.MyBarChart
                                 android:id="@+id/chart_sign_algorithm"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/chart_margin"
                                 android:minHeight="350dp"
                                 android:padding="@dimen/padding_default"
-                                app:chart_data="@{viewModel.statisticData.signAlgorithChartData}" />
+                                app:data="@{viewModel.statisticData.signAlgorithChartData.data}"
+                                app:xAxis_valueFormatter="@{viewModel.statisticData.signAlgorithChartData.valueFormatter}"
+                                app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
                         </net.cachapa.expandablelayout.ExpandableLayout>
 
@@ -409,14 +413,16 @@
                             app:expanded="@{viewModel.appSourceExpanded}"
                             tools:el_expanded="true">
 
-                            <sk.styk.martin.apkanalyzer.views.MyBarChart
+                            <sk.styk.martin.apkanalyzer.views.chart.MyBarChart
                                 android:id="@+id/chart_app_source"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginBottom="@dimen/chart_margin"
                                 android:minHeight="350dp"
                                 android:padding="@dimen/padding_default"
-                                app:chart_data="@{viewModel.statisticData.appSourceChartData}" />
+                                app:data="@{viewModel.statisticData.appSourceChartData.data}"
+                                app:xAxis_valueFormatter="@{viewModel.statisticData.appSourceChartData.valueFormatter}"
+                                app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
                         </net.cachapa.expandablelayout.ExpandableLayout>
 

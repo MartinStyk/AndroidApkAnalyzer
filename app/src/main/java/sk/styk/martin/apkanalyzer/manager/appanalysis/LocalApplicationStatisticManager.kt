@@ -6,9 +6,8 @@ import android.content.pm.PackageManager
 import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.flow
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsAppData
+import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
 import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataBuilder
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
-import sk.styk.martin.apkanalyzer.util.StatisticsChartDataHelper
 import javax.inject.Inject
 
 @SuppressLint("PackageManagerGetSignatures")
@@ -20,19 +19,18 @@ private const val ANALYSIS_FLAGS = PackageManager.GET_SIGNATURES or
         PackageManager.GET_PERMISSIONS
 
 @WorkerThread
-class LocalApplicationStatisticManager @Inject constructor(private val packageManager: PackageManager,
-                                                           private val installedAppsManager: InstalledAppsManager,
-                                                           private val generalDataService: GeneralDataService,
-                                                           private val fileService: FileDataService,
-                                                           private val resourceService: ResourceService,
-                                                           private val certificateService: CertificateService,
-                                                           private val statisticsChartDataHelper: StatisticsChartDataHelper,
+class LocalApplicationStatisticManager @Inject constructor(
+        private val packageManager: PackageManager,
+        private val installedAppsManager: InstalledAppsManager,
+        private val generalDataService: GeneralDataService,
+        private val fileService: FileDataService,
+        private val resourceService: ResourceService,
+        private val certificateService: CertificateService,
 ) {
-
 
     sealed class StatisticsLoadingStatus {
         data class Loading(val currentProgress: Int, val totalProgress: Int) : StatisticsLoadingStatus()
-        data class Data(val data: LocalStatisticsDataWithCharts) : StatisticsLoadingStatus()
+        data class Data(val data: LocalStatisticsData) : StatisticsLoadingStatus()
     }
 
     suspend fun loadStatisticsData() = flow<StatisticsLoadingStatus> {
@@ -46,7 +44,7 @@ class LocalApplicationStatisticManager @Inject constructor(private val packageMa
             emit(StatisticsLoadingStatus.Loading(index, allApps.size))
         }
 
-        emit(StatisticsLoadingStatus.Data(statisticsChartDataHelper.wrapperAround(statsBuilder.build())))
+        emit(StatisticsLoadingStatus.Data(statsBuilder.build()))
     }
 
     fun get(packageName: String): LocalStatisticsAppData? {

@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer
 
-import android.content.Context
 import androidx.multidex.MultiDexApplication
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -27,8 +26,6 @@ class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
         appComponent = DaggerApplicationComponent.builder().create(this) as ApplicationComponent
         appComponent.inject(this)
 
-        instance = this
-
         colorThemeManager.setTheme()
 
         super.onCreate()
@@ -36,12 +33,4 @@ class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
 
     override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
-    // TODO remove
-    companion object {
-
-        private lateinit var instance: ApkAnalyzer
-
-        val context: Context
-            get() = instance.applicationContext
-    }
 }

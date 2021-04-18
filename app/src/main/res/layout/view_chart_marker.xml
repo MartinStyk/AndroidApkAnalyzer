@@ -6,6 +6,8 @@
     android:layout_height="40dp"
     android:layout_marginBottom="@dimen/padding_default"
     android:background="@drawable/marker"
+    android:clickable="true"
+    android:focusable="true"
     tools:ignore="Overdraw">
 
     <TextView

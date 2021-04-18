@@ -3,25 +3,40 @@ package sk.styk.martin.apkanalyzer.ui.activity.localstatistics
 import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.*
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.appanalysis.LocalApplicationStatisticManager
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
-import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsDataWithCharts
+import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
+import sk.styk.martin.apkanalyzer.model.statistics.LocalStatisticsData
+import sk.styk.martin.apkanalyzer.util.AndroidVersionManager
+import sk.styk.martin.apkanalyzer.util.ColorInfo
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
+import java.util.*
 import javax.inject.Inject
+import kotlin.math.roundToInt
 
 private const val LOADING_STATE = 0
 private const val DATA_STATE = 1
 
+typealias PackageName = String
+
 class LocalStatisticsFragmentViewModel @Inject constructor(
         private val navigationDrawerModel: NavigationDrawerModel,
         private val localApplicationStatisticManager: LocalApplicationStatisticManager,
+        private val resourcesManager: ResourcesManager,
         private val dispatcherProvider: DispatcherProvider,
 ) : ViewModel(), Toolbar.OnMenuItemClickListener {
 
@@ -39,6 +54,9 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
 
     private val showDialogEvent = SingleLiveEvent<DialogComponent>()
     val showDialog: LiveData<DialogComponent> = showDialogEvent
+
+    private val showAppListEvent = SingleLiveEvent<List<PackageName>>()
+    val showAppList: LiveData<List<PackageName>> = showAppListEvent
 
     private val analysisResultsExpandedLiveData = MutableLiveData(true)
     val analysisResultsExpanded: LiveData<Boolean> = analysisResultsExpandedLiveData
@@ -106,7 +124,17 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
                                 viewStateLiveData.value = LOADING_STATE
                             }
                             is LocalApplicationStatisticManager.StatisticsLoadingStatus.Data -> {
-                                statisticDataLiveData.value = it.data
+                                val data = withContext(dispatcherProvider.default()) {
+                                    LocalStatisticsDataWithCharts(
+                                            statisticsData = it.data,
+                                            minSdkChartData = getBarSdkData(it.data.minSdk),
+                                            targetSdkChartData = getBarSdkData(it.data.targetSdk),
+                                            installLocationChartData = getBarData(it.data.installLocation),
+                                            appSourceChartData = getBarData(it.data.appSource),
+                                            signAlgorithChartData = getBarData(it.data.signAlgorithm)
+                                    )
+                                }
+                                statisticDataLiveData.value = data
                                 viewStateLiveData.value = DATA_STATE
                             }
                         }
@@ -120,6 +148,11 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
 
     fun showDetail(title: String, message: String) {
         showDialogEvent.value = DialogComponent(TextInfo.from(title), TextInfo.from(message), TextInfo.from(R.string.close))
+    }
+
+    fun onChartMarkerClick(chartEntry: Entry) {
+        val packageNames = chartEntry.data as? List<PackageName> ?: return
+        showAppListEvent.value = packageNames
     }
 
     fun toggleAnalysisResultExpanded() {
@@ -228,5 +261,78 @@ class LocalStatisticsFragmentViewModel @Inject constructor(
         totalLayoutsExpandedLiveData.value = isExpanded
         differentLayoutsExpandedLiveData.value = isExpanded
     }
+
+
+    private fun getBarSdkData(
+            map: Map<Int, List<String>>,
+            columnColor: ColorInfo = ColorInfo.fromColor(R.color.graph_bar),
+            selectedColumnColor: ColorInfo = ColorInfo.fromColor(R.color.secondary),
+    ): BarDataHolder {
+
+        val values = ArrayList<BarEntry>(map.size)
+        val axisValues = ArrayList<String>(map.size)
+        var index = 0f
+        for (sdk in 1..AndroidVersionManager.MAX_SDK_VERSION) {
+            if (map[sdk] == null)
+                continue
+
+            val applicationCount = map[sdk]?.size ?: 0
+
+            values.add(BarEntry(index++, applicationCount.toFloat(), map[sdk]))
+            axisValues.add(sdk.toString())
+        }
+
+        return BarDataHolder(
+                BarData(listOf<IBarDataSet>(
+                        BarDataSet(values, "mLabel")
+                                .apply {
+                                    color = resourcesManager.getColor(columnColor)
+                                    highLightColor = resourcesManager.getColor(selectedColumnColor)
+                                    highLightAlpha = 255
+                                    valueTextColor = color
+                                    isHighlightEnabled = true
+                                })),
+                { i, _ -> axisValues[i.roundToInt()] })
+    }
+
+    private fun getBarData(map: Map<*, List<String>>,
+                           columnColor: ColorInfo = ColorInfo.fromColor(R.color.graph_bar),
+                           selectedColumnColor: ColorInfo = ColorInfo.fromColor(R.color.secondary),
+    ): BarDataHolder {
+
+        val values = mutableListOf<BarEntry>()
+        val axisValues = mutableListOf<String>()
+        var index = 1f
+        for ((key, value) in map) {
+
+            values.add(BarEntry(index++, value.size.toFloat(), value))
+            axisValues.add(key.toString())
+        }
+
+        return BarDataHolder(
+                BarData(listOf<IBarDataSet>(
+                        BarDataSet(values, "mLabel")
+                                .apply {
+                                    color = resourcesManager.getColor(columnColor)
+                                    highLightColor = resourcesManager.getColor(selectedColumnColor)
+                                    highLightAlpha = 255
+                                    valueTextColor = color
+                                    isHighlightEnabled = true
+                                }))
+        ) { i, _ -> axisValues[i.roundToInt() - 1] }
+    }
+
+    data class BarDataHolder(
+            val data: BarData,
+            val valueFormatter: IAxisValueFormatter)
+
+    data class LocalStatisticsDataWithCharts(
+            val statisticsData: LocalStatisticsData,
+            val minSdkChartData: BarDataHolder,
+            val targetSdkChartData: BarDataHolder,
+            val installLocationChartData: BarDataHolder,
+            val appSourceChartData: BarDataHolder,
+            val signAlgorithChartData: BarDataHolder
+    )
 
 }

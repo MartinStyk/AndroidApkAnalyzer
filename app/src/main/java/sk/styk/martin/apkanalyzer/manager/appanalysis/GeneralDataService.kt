@@ -7,7 +7,7 @@ import android.os.Build
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.detail.GeneralData
-import sk.styk.martin.apkanalyzer.util.AndroidVersionHelper
+import sk.styk.martin.apkanalyzer.util.AndroidVersionManager
 import sk.styk.martin.apkanalyzer.util.InstallLocationHelper
 import java.io.File
 import javax.inject.Inject
@@ -44,10 +44,10 @@ class GeneralDataService @Inject constructor(private val packageManager: Package
                 lastUpdateTime = if (packageInfo.lastUpdateTime > 0) packageInfo.lastUpdateTime else null,
 
                 minSdkVersion = minSdk,
-                minSdkLabel = AndroidVersionHelper.resolveVersion(minSdk),
+                minSdkLabel = AndroidVersionManager.resolveVersion(minSdk),
 
                 targetSdkVersion = applicationInfo.targetSdkVersion,
-                targetSdkLabel = AndroidVersionHelper.resolveVersion(applicationInfo.targetSdkVersion),
+                targetSdkLabel = AndroidVersionManager.resolveVersion(applicationInfo.targetSdkVersion),
 
                 icon = applicationInfo.loadIcon(packageManager)
         )

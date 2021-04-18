@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.views
+package sk.styk.martin.apkanalyzer.views.chart
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -11,31 +11,25 @@ import com.github.mikephil.charting.utils.MPPointF
 import kotlinx.android.synthetic.main.view_chart_marker.view.*
 import sk.styk.martin.apkanalyzer.R
 
+private const val MAX_CLICK_DURATION = 500
+
 @SuppressLint("ViewConstructor")
 class ClickableMarkerView(context: Context, private val callback: OnMarkerClickListener) : MarkerView(context, R.layout.view_chart_marker) {
 
     interface OnMarkerClickListener{
-        fun onMarkerClick(apps: List<String>)
+        fun onMarkerClick(entry: Entry)
     }
 
     var drawingPosX: Float = 0.toFloat()
     var drawingPosY: Float = 0.toFloat()
-    private val MAX_CLICK_DURATION = 500
     private var startClickTime: Long = 0
-
-    init {
-        chart_marker_container.isClickable = true
-    }
 
     override fun refreshContent(e: Entry, highlight: Highlight) {
         e.data ?: return
-        val appList = e.data as List<String>
+        val appList = e.data as List<Any>
         tvContent.text = String.format(context.getString(R.string.show_apps, appList.size))
 
-        chart_marker_container.setOnClickListener {
-            callback.onMarkerClick(appList)
-        }
-
+        chart_marker_container.setOnClickListener { callback.onMarkerClick(entry = e) }
 
         super.refreshContent(e, highlight)
     }
