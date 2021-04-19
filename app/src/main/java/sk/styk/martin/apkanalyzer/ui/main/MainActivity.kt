@@ -81,7 +81,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
     }
 
     private fun placeAppListFragment() {
-        navigation_view.setCheckedItem(R.id.nav_app_list)
+        binding.navigationView.setCheckedItem(R.id.nav_app_list)
         supportFragmentManager.beginTransaction()
                 .replace(R.id.main_activity_placeholder, MainAppListFragment(), FragmentTag.AppList.toString())
                 .commit()
@@ -89,7 +89,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
 
     private fun popToAppList() {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        navigation_view.setCheckedItem(R.id.nav_app_list)
+        binding.navigationView.setCheckedItem(R.id.nav_app_list)
     }
 
 }

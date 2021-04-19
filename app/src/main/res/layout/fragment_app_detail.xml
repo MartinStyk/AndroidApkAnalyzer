@@ -116,6 +116,8 @@
         <ViewAnimator
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:inAnimation="@anim/fade_in"
+            android:outAnimation="@anim/fade_out"
             app:displayedChild="@{viewModel.viewState}"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
