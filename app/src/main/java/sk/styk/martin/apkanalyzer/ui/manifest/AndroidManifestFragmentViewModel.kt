@@ -116,14 +116,14 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
         if (value.isNullOrBlank()) {
             showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.save_manifest_fail))
         } else {
-            openExportFilePickerEvent.value = OutputFilePickerRequest("$manifestRequest.packageName}_${manifestRequest.versionName}_AndroidManifest.xml", "text/xml")
+            openExportFilePickerEvent.value = OutputFilePickerRequest("${manifestRequest.packageName}_${manifestRequest.versionName}_AndroidManifest.xml", "text/xml")
         }
     }
 
     private fun internalExport(target: Uri) {
         try {
             fileManager.writeString(manifest.value!!, target)
-            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.manifest_saved),
+            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.manifest_saved, manifestRequest.appName),
                     duration = Snackbar.LENGTH_LONG,
                     action = TextInfo.from(R.string.action_show)) {
                 showManifestFileEvent.value = target
