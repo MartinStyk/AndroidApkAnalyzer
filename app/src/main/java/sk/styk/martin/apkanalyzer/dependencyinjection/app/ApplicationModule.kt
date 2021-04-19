@@ -1,18 +1,11 @@
 package sk.styk.martin.apkanalyzer.dependencyinjection.app
 
-import android.app.Application
-import dagger.Binds
 import dagger.Module
-import sk.styk.martin.apkanalyzer.ApkAnalyzer
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
+@InstallIn(SingletonComponent::class)
 @Module(includes = [
     ApplicationCommonModule::class,
 ])
-abstract class ApplicationModule {
-
-    @Singleton
-    @Binds
-    abstract fun application(app: ApkAnalyzer): Application
-
-}
+abstract class ApplicationModule

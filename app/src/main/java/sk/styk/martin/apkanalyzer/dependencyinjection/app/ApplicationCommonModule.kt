@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.dependencyinjection.app
 
 import android.app.Application
 import android.app.NotificationManager
+import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -9,17 +10,15 @@ import android.content.res.Resources
 import androidx.preference.PreferenceManager
 import dagger.Module
 import dagger.Provides
-import dagger.android.support.AndroidSupportInjectionModule
-import sk.styk.martin.apkanalyzer.dependencyinjection.activity.ActivityBuilderModule
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManagerImpl
 import javax.inject.Singleton
 
-@Module(includes = [
-    AndroidSupportInjectionModule::class,
-    ActivityBuilderModule::class,
-])
+@InstallIn(SingletonComponent::class)
+@Module
 class ApplicationCommonModule {
 
     @Provides
@@ -35,6 +34,10 @@ class ApplicationCommonModule {
     @Provides
     @Singleton
     fun providePackageManager(application: Application): PackageManager = application.packageManager
+
+    @Provides
+    @Singleton
+    fun provideContentResolver(application: Application): ContentResolver = application.contentResolver
 
     @Provides
     @Singleton

@@ -4,12 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailPageBinding
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragment
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AppActivityDetailFragment : AppDetailPageFragment<AppActivityDetailFragmentViewModel, FragmentAppDetailPageBinding>() {
 
     @Inject

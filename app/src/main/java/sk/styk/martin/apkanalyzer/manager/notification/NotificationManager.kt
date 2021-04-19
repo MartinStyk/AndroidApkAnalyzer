@@ -13,8 +13,6 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
-import sk.styk.martin.apkanalyzer.util.file.FileUtils
-import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
 import android.app.NotificationManager as AndroidNotificationManager
@@ -35,42 +33,27 @@ class NotificationManager @Inject constructor(
         private val androidNotificationManager: AndroidNotificationManager,
 ) {
 
-    fun showImageExportedNotification(appName: String, drawableFile: File) {
+    fun showImageExportedNotification(appName: String, drawableFileUri: Uri) {
         createChannel(ICON_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.icon_save_channel))
 
-        fun getOpenFolderPendingIntent(): PendingIntent {
-            val intent = Intent().apply {
-                action = Intent.ACTION_GET_CONTENT
-                setDataAndType(Uri.parse(drawableFile.parentFile!!.absolutePath), "resource/folder")
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            val stackBuilder = TaskStackBuilder.create(context).apply {
-                addParentStack(MainActivity::class.java)
-                addNextIntent(intent)
-            }
-            return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        val intent = Intent().apply {
+            action = Intent.ACTION_VIEW
+            setDataAndType(drawableFileUri, "image/png")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
 
-        fun getOpenImagePendingIntent(): PendingIntent {
-            val intent = Intent().apply {
-                action = Intent.ACTION_VIEW
-                setDataAndType(Uri.parse(drawableFile.absolutePath), "image/png")
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-
-            val stackBuilder = TaskStackBuilder.create(context).apply {
-                addParentStack(MainActivity::class.java)
-                addNextIntent(intent)
-            }
-            return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        val stackBuilder = TaskStackBuilder.create(context).apply {
+            addParentStack(MainActivity::class.java)
+            addNextIntent(intent)
         }
+        val openIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notification = notificationBuilder(ICON_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.app_icon_saved, appName))
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
-                .setContentIntent(getOpenFolderPendingIntent())
-                .addAction(R.drawable.ic_image, resourcesManager.getString(R.string.action_show), getOpenImagePendingIntent())
+                .setContentIntent(openIntent)
+                .addAction(R.drawable.ic_image, resourcesManager.getString(R.string.action_show), openIntent)
                 .build()
 
         androidNotificationManager.notify(ICON_EXPORT_NOTIFICATION_ID, notification)
@@ -95,71 +78,49 @@ class NotificationManager @Inject constructor(
         return notificationBuilder
     }
 
-    fun showAppExportDoneNotification(appName: String, outputFile: File) {
+    fun showAppExportDoneNotification(appName: String, outputFileUri: Uri) {
         cancelNotification(APP_EXPORT_NOTIFICATION_ID)
         createChannel(APP_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.app_save_channel))
 
-        fun getOpenFolderPendingIntent(): PendingIntent {
-            val intent = Intent().apply {
-                action = Intent.ACTION_GET_CONTENT
-                setDataAndType(Uri.parse(outputFile.parentFile!!.absolutePath), "resource/folder")
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            val stackBuilder = TaskStackBuilder.create(context).apply {
-                addParentStack(MainActivity::class.java)
-                addNextIntent(intent)
-            }
-            return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        val intent = Intent().apply {
+            action = Intent.ACTION_GET_CONTENT
+            setDataAndType(outputFileUri, "resource/folder")
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
+        val stackBuilder = TaskStackBuilder.create(context).apply {
+            addParentStack(MainActivity::class.java)
+            addNextIntent(intent)
+        }
+        val openIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.saved_app, appName))
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentText(FileUtils.toRelativePath(outputFile.path))
                 .setOngoing(false)
-                .addAction(R.drawable.ic_get_app, resourcesManager.getString(R.string.action_show), getOpenFolderPendingIntent())
-                .setContentIntent(getOpenFolderPendingIntent())
+                .addAction(R.drawable.ic_get_app, resourcesManager.getString(R.string.action_show), openIntent)
+                .setContentIntent(openIntent)
                 .build()
 
         androidNotificationManager.notify(APP_EXPORT_NOTIFICATION_ID, notification)
     }
 
-    fun showManifestSavedNotification(appName: String, outputFile: File) {
+    fun showManifestSavedNotification(appName: String, outputFileUri: Uri) {
         createChannel(MANIFEST_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.manifest_save_channel))
 
-        fun getOpenContentPendingIntent(): PendingIntent {
-            val intent = Intent().apply {
+        val openIntent = TaskStackBuilder.create(context).apply {
+            addParentStack(MainActivity::class.java)
+            addNextIntent(Intent().apply {
                 action = Intent.ACTION_VIEW
-                setDataAndType(Uri.parse(outputFile.absolutePath), "text/xml")
+                setDataAndType(outputFileUri, "text/xml")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-
-            val stackBuilder = TaskStackBuilder.create(context).apply {
-                addParentStack(MainActivity::class.java)
-                addNextIntent(intent)
-            }
-            return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-        }
-
-        fun getOpenFolderPendingIntent(): PendingIntent {
-            val intent = Intent().apply {
-                action = Intent.ACTION_GET_CONTENT
-                setDataAndType(Uri.parse(outputFile.parentFile!!.absolutePath), "resource/folder")
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-            val stackBuilder = TaskStackBuilder.create(context).apply {
-                addParentStack(MainActivity::class.java)
-                addNextIntent(intent)
-            }
-            return stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-        }
+            })
+        }.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val notification = notificationBuilder(MANIFEST_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.save_manifest_background_notification_title_done, appName))
-                .setContentText(outputFile.path)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .addAction(R.drawable.ic_file, resourcesManager.getString(R.string.action_show), getOpenContentPendingIntent())
-                .setContentIntent(getOpenFolderPendingIntent())
+                .addAction(R.drawable.ic_file, resourcesManager.getString(R.string.action_show), openIntent)
+                .setContentIntent(openIntent)
                 .build()
 
         androidNotificationManager.notify(MANIFEST_EXPORT_NOTIFICATION_ID, notification)

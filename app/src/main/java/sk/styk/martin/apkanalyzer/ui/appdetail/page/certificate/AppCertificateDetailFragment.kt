@@ -1,23 +1,18 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.certificate
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailPageBinding
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragment
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AppCertificateDetailFragment : AppDetailPageFragment<AppCertificateDetailsFragmentViewModel, FragmentAppDetailPageBinding>() {
 
     @Inject
     lateinit var viewModelFactory: AppCertificateDetailsFragmentViewModel.Factory
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun createViewModel(): AppCertificateDetailsFragmentViewModel {
         return provideViewModel {

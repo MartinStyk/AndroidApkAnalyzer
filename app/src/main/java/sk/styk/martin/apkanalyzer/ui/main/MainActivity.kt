@@ -3,15 +3,15 @@ package sk.styk.martin.apkanalyzer.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
-import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
@@ -22,26 +22,19 @@ import sk.styk.martin.apkanalyzer.ui.premium.PremiumFragment
 import sk.styk.martin.apkanalyzer.ui.settings.SettingsFragment
 import sk.styk.martin.apkanalyzer.ui.statistics.StatisticsFragment
 import sk.styk.martin.apkanalyzer.util.*
-import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ApkAnalyzerBaseActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private lateinit var viewModel: MainActivityViewModel
+    private val viewModel: MainActivityViewModel by viewModels()
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-
         super.onCreate(savedInstanceState)
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
-
-        viewModel = provideViewModel(viewModelFactory)
 
         with(viewModel) {
             closeDrawer.observe(this@MainActivity, { binding.drawerLayout.closeDrawer(GravityCompat.START) })

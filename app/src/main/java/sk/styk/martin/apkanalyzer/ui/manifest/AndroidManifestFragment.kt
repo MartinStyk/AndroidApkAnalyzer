@@ -1,26 +1,27 @@
 package sk.styk.martin.apkanalyzer.ui.manifest
 
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.FileProvider
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.pddstudio.highlightjs.models.Language
 import com.pddstudio.highlightjs.models.Theme
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentManifestBinding
+import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
-import sk.styk.martin.apkanalyzer.util.file.GenericFileProvider
 import sk.styk.martin.apkanalyzer.util.provideViewModel
-import java.io.File
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AndroidManifestFragment : Fragment() {
 
     @Inject
@@ -30,16 +31,14 @@ class AndroidManifestFragment : Fragment() {
 
     private lateinit var viewModel: AndroidManifestFragmentViewModel
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
+    private lateinit var exportPathPickerResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel {
             viewModelFactory.create(requireNotNull(requireArguments().getParcelable(MANIFEST_REQUEST)))
         }
+        exportPathPickerResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), viewModel.exportFilePickerResult)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -58,15 +57,14 @@ class AndroidManifestFragment : Fragment() {
             close.observe(viewLifecycleOwner, { requireActivity().onBackPressed() })
             showSnack.observe(viewLifecycleOwner, { it.toSnackbar(binding.root).show() })
             showManifestFile.observe(viewLifecycleOwner, this@AndroidManifestFragment::showManifestFile)
+            openExportFilePicker.observe(viewLifecycleOwner, { openExportFilePicker(it) })
         }
     }
 
-    private fun showManifestFile(file: File) {
-        val apkUri = FileProvider.getUriForFile(requireContext(), GenericFileProvider.AUTHORITY, file)
-
+    private fun showManifestFile(fileUri: Uri) {
         val intent = Intent().apply {
             action = Intent.ACTION_VIEW
-            setDataAndType(apkUri, "text/xml")
+            setDataAndType(fileUri, "text/xml")
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
 
@@ -74,6 +72,20 @@ class AndroidManifestFragment : Fragment() {
             startActivity(intent)
         } catch (e: ActivityNotFoundException) {
             Toast.makeText(requireContext(), R.string.activity_not_found_doc, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun openExportFilePicker(outputFilePickerRequest: OutputFilePickerRequest) {
+        try {
+            exportPathPickerResultLauncher.launch(
+                    Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        type = outputFilePickerRequest.fileType
+                        putExtra(Intent.EXTRA_TITLE, outputFilePickerRequest.fileName)
+                    }
+            )
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), R.string.activity_not_found_browsing, Toast.LENGTH_LONG).show()
         }
     }
 

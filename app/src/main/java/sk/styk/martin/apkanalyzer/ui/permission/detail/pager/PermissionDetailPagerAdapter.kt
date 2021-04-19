@@ -22,7 +22,12 @@ class PermissionDetailPagerAdapter(val bundle: Bundle,
         NOT_GRANTED_APPS_PAGE -> PermissionsAppListFragment.newInstance(granted = false)
         else -> throw IllegalStateException()
     }.apply {
-        arguments = bundle
+        val fragmentArgs = arguments
+        arguments = bundle.apply {
+            fragmentArgs?.let {
+                putAll(fragmentArgs)
+            }
+        }
     }
 
     override fun getCount(): Int = 3

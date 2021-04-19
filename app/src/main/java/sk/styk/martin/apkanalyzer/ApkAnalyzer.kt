@@ -1,20 +1,14 @@
 package sk.styk.martin.apkanalyzer
 
 import androidx.multidex.MultiDexApplication
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
-import sk.styk.martin.apkanalyzer.dependencyinjection.app.ApplicationComponent
-import sk.styk.martin.apkanalyzer.dependencyinjection.app.DaggerApplicationComponent
+import dagger.hilt.android.HiltAndroidApp
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 import javax.inject.Inject
 
-class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
-
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
+@HiltAndroidApp
+class ApkAnalyzer : MultiDexApplication() {
 
     @Inject
     @ForApplication
@@ -23,20 +17,10 @@ class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
     @Inject
     lateinit var persistenceManager: PersistenceManager
 
-    lateinit var appComponent: ApplicationComponent
-        private set
-
     override fun onCreate() {
-        appComponent = DaggerApplicationComponent.builder().create(this) as ApplicationComponent
-        appComponent.inject(this)
-
-        colorThemeManager.setTheme()
-
-        persistenceManager.appStartNumber++
-
         super.onCreate()
+        colorThemeManager.setTheme()
+        persistenceManager.appStartNumber++
     }
-
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
 
 }

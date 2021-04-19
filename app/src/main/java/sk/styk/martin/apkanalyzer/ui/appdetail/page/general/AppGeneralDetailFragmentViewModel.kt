@@ -1,8 +1,9 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.general
 
 import android.text.format.DateUtils
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.model.InstallLocation
@@ -158,7 +159,7 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
         return true
     }
 
-    @AssistedInject.Factory
+    @AssistedFactory
     interface Factory {
         fun create(appDetailFragmentViewModel: AppDetailFragmentViewModel): AppGeneralDetailsFragmentViewModel
     }

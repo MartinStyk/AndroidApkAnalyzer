@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.os.Build
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
@@ -12,8 +13,9 @@ import androidx.palette.graphics.Target
 import androidx.palette.graphics.get
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -30,6 +32,7 @@ import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
 import sk.styk.martin.apkanalyzer.util.ColorInfo
+import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
@@ -83,8 +86,11 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     private val openSettingsInstallPermissionEvent = SingleLiveEvent<Unit>()
     val openSettingsInstallPermission: LiveData<Unit> = openSettingsInstallPermissionEvent
 
-    private val openImageEvent = SingleLiveEvent<String>()
-    val openImage: LiveData<String> = openImageEvent
+    private val openImageEvent = SingleLiveEvent<Uri>()
+    val openImage: LiveData<Uri> = openImageEvent
+
+    private val openExportFilePickerEvent = SingleLiveEvent<OutputFilePickerRequest>()
+    val openExportFilePicker: LiveData<OutputFilePickerRequest> = openExportFilePickerEvent
 
     private val showManifestEvent = SingleLiveEvent<ManifestRequest>()
     val showManifest: LiveData<ManifestRequest> = showManifestEvent
@@ -116,6 +122,17 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory
         if (it?.resultCode == Activity.RESULT_OK && !apkPath.isNullOrBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
             installAppEvent.value = apkPath
+        }
+    }
+
+    val exportFilePickerResult = ActivityResultCallback<ActivityResult> {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val uri = it.data?.data
+            if (uri != null) {
+                saveApk(uri)
+            } else {
+                showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.app_export_failed))
+            }
         }
     }
 
@@ -222,7 +239,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             appActionsAdapter.exportApp.collect {
                 appDetails.value?.let { data ->
                     if (permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-                        saveApk()
+                        exportAppFileSelection()
                     } else {
                         permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
                             override fun onPermissionDenied(permission: String) {
@@ -230,7 +247,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                             }
 
                             override fun onPermissionGranted(permission: String) {
-                                saveApk()
+                                exportAppFileSelection()
                             }
                         })
                     }
@@ -295,13 +312,13 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             viewModelScope.launch {
                 val target = "${data.generalData.packageName}_${data.generalData.versionName}_${data.generalData.versionCode}_icon.png"
                 try {
-                    val exportedFile = drawableSaveManager.saveDrawable(icon, target)
+                    val exportedFileUri = drawableSaveManager.saveDrawable(icon, target, "image/png")
                     showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_saved),
                             action = TextInfo.from(R.string.action_show),
                             callback = {
-                                openImageEvent.value = exportedFile.absolutePath
+                                openImageEvent.value = exportedFileUri
                             })
-                    notificationManager.showImageExportedNotification(data.generalData.applicationName, exportedFile)
+                    notificationManager.showImageExportedNotification(data.generalData.applicationName, exportedFileUri)
                 } catch (e: Exception) {
                     showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_export_failed))
                 }
@@ -309,20 +326,24 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         }
     }
 
-    private fun saveApk() {
+    private fun exportAppFileSelection() {
         val data = appDetails.value ?: return
-        val target = "${data.generalData.packageName}_${data.generalData.versionName}.apk"
         val source = File(data.generalData.apkDirectory)
         if (!source.exists()) {
             showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.app_export_failed))
         }
+        openExportFilePickerEvent.value = OutputFilePickerRequest("${data.generalData.packageName}_${data.generalData.versionName}.apk", "application/vnd.android.package-archive")
+    }
+
+    private fun saveApk(targetUri: Uri) {
+        val data = appDetails.value ?: return
         viewModelScope.launch {
             showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.saving_app, data.generalData.applicationName))
-            apkSaveManager.saveApk(data.generalData.applicationName, source, target)
+            apkSaveManager.saveApk(data.generalData.applicationName, File(data.generalData.apkDirectory), targetUri)
         }
     }
 
-    @AssistedInject.Factory
+    @AssistedFactory
     interface Factory {
         fun create(appDetailRequest: AppDetailRequest): AppDetailFragmentViewModel
     }

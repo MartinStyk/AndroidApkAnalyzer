@@ -10,9 +10,9 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentMainAppListBinding
-import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
@@ -22,10 +22,11 @@ import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory
+    lateinit var factory: MainAppListViewModel.Factory
 
     private lateinit var binding: FragmentMainAppListBinding
 
@@ -35,7 +36,7 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = provideViewModel(viewModelFactory)
+        viewModel = provideViewModel { factory.create() }
         filePickerResultLuncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), viewModel.filePickerResult)
     }
 

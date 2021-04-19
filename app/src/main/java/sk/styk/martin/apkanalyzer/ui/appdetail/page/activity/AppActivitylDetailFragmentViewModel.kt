@@ -1,8 +1,9 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.activity
 
 import androidx.lifecycle.LifecycleOwner
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
@@ -35,10 +36,10 @@ class AppActivityDetailFragmentViewModel @AssistedInject constructor(
     }
 
     private fun updateLocalData(editedExpandedActivityData: AppActivityDetailListAdapter.ExpandedActivityData) {
-        activityData[activityData.indexOfFirst { it.activityData == editedExpandedActivityData.activityData}] = editedExpandedActivityData
+        activityData[activityData.indexOfFirst { it.activityData == editedExpandedActivityData.activityData }] = editedExpandedActivityData
     }
 
-    @AssistedInject.Factory
+    @AssistedFactory
     interface Factory {
         fun create(appDetailFragmentViewModel: AppDetailFragmentViewModel): AppActivityDetailFragmentViewModel
     }

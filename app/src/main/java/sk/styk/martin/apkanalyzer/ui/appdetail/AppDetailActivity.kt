@@ -3,16 +3,15 @@ package sk.styk.martin.apkanalyzer.ui.appdetail
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityAppDetailBinding
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 
+@AndroidEntryPoint
 open class AppDetailActivity : ApkAnalyzerBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-
         super.onCreate(savedInstanceState)
 
         DataBindingUtil.setContentView<ActivityAppDetailBinding>(this, R.layout.activity_app_detail)

@@ -1,7 +1,6 @@
 package sk.styk.martin.apkanalyzer.ui.applist.packagename
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.DialogAppListBinding
 import sk.styk.martin.apkanalyzer.model.list.AppListData
@@ -18,6 +17,7 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AppListFromPackageNamesDialog : DialogFragment() {
 
     @Inject
@@ -26,11 +26,6 @@ class AppListFromPackageNamesDialog : DialogFragment() {
     private lateinit var viewModel: AppListFromPackageNamesDialogViewModel
 
     private lateinit var binding: DialogAppListBinding
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

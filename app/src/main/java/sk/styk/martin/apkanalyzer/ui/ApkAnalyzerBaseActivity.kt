@@ -1,12 +1,12 @@
 package sk.styk.martin.apkanalyzer.ui
 
-import dagger.android.support.DaggerAppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import javax.inject.Inject
 
-abstract class ApkAnalyzerBaseActivity : DaggerAppCompatActivity() {
+abstract class ApkAnalyzerBaseActivity : AppCompatActivity() {
 
     @Inject
     lateinit var permissionManager: PermissionManager

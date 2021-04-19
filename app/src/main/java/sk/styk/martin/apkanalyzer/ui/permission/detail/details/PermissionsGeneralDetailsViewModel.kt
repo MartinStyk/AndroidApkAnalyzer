@@ -5,8 +5,9 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
@@ -73,7 +74,7 @@ class PermissionsGeneralDetailsViewModel @AssistedInject constructor(
         else -> R.string.permissions_protection_normal
     }
 
-    @AssistedInject.Factory
+    @AssistedFactory
     interface Factory {
         fun create(permissionDetailFragmentViewModel: PermissionDetailFragmentViewModel): PermissionsGeneralDetailsViewModel
     }

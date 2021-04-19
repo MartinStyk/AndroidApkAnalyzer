@@ -9,6 +9,7 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -33,6 +34,7 @@ private const val DATA_STATE = 1
 
 typealias PackageName = String
 
+@HiltViewModel
 class StatisticsFragmentViewModel @Inject constructor(
         private val navigationDrawerModel: NavigationDrawerModel,
         private val localApplicationStatisticManager: LocalApplicationStatisticManager,

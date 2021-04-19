@@ -1,8 +1,9 @@
 package sk.styk.martin.apkanalyzer.ui.applist.packagename
 
 import androidx.lifecycle.viewModelScope
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.manager.appanalysis.InstalledAppsManager
@@ -25,7 +26,7 @@ class AppListFromPackageNamesDialogViewModel @AssistedInject constructor(
         }
     }
 
-    @AssistedInject.Factory
+    @AssistedFactory
     interface Factory {
         fun create(packageNames: List<String>): AppListFromPackageNamesDialogViewModel
     }

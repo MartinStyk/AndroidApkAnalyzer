@@ -7,26 +7,18 @@ import com.github.appintro.AppIntro
 import com.github.appintro.AppIntroFragment
 import com.github.appintro.model.SliderPage
 import com.google.firebase.analytics.FirebaseAnalytics
-import dagger.android.AndroidInjection
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import javax.inject.Inject
 
-class IntroActivity : AppIntro(), HasAndroidInjector {
+@AndroidEntryPoint
+class IntroActivity : AppIntro() {
 
     @Inject
     lateinit var persistenceManager: PersistenceManager
 
-    @Inject
-    lateinit var androidInjector : DispatchingAndroidInjector<Any>
-
-    override fun androidInjector(): AndroidInjector<Any> = androidInjector
-
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         persistenceManager.isOnboardingRequired = false
 

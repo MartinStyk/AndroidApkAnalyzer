@@ -1,12 +1,11 @@
 package sk.styk.martin.apkanalyzer.ui.permission.detail.apps
 
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionAppListBinding
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
@@ -15,7 +14,7 @@ import sk.styk.martin.apkanalyzer.util.provideViewModel
 import sk.styk.martin.apkanalyzer.util.provideViewModelOfParentFragment
 import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class PermissionsAppListFragment : BaseAppListFragment<PermissionsAppListViewModel>() {
 
     @Inject
@@ -26,20 +25,13 @@ class PermissionsAppListFragment : BaseAppListFragment<PermissionsAppListViewMod
 
     private lateinit var binding: FragmentPermissionAppListBinding
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel {
-            viewModelFactory.create(
-                    provideViewModelOfParentFragment {
-                        parentViewModelFactory.create(requireNotNull(requireArguments().getParcelable(PermissionDetailFragment.ARG_PERMISSIONS_DATA)))
-                    },
-                    requireArguments().getBoolean(ARG_GRANTED)
-            )
+            val parentViewModel: PermissionDetailFragmentViewModel = provideViewModelOfParentFragment {
+                parentViewModelFactory.create(requireNotNull(requireArguments().getParcelable(PermissionDetailFragment.ARG_PERMISSIONS_DATA)))
+            }
+            viewModelFactory.create(parentViewModel, requireArguments().getBoolean(ARG_GRANTED))
         }
     }
 

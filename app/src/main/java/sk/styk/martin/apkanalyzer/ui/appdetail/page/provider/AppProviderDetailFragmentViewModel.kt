@@ -1,8 +1,9 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.provider
 
 import androidx.lifecycle.LifecycleOwner
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
@@ -36,7 +37,7 @@ class AppProviderDetailFragmentViewModel @AssistedInject constructor(
         providerData[providerData.indexOfFirst { it.contentProviderData == editedExpandedProviderData.contentProviderData }] = editedExpandedProviderData
     }
 
-    @AssistedInject.Factory
+    @AssistedFactory
     interface Factory {
         fun create(appDetailFragmentViewModel: AppDetailFragmentViewModel): AppProviderDetailFragmentViewModel
     }

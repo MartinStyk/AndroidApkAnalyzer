@@ -12,6 +12,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
@@ -25,10 +27,9 @@ import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
-import javax.inject.Inject
 
-class MainAppListViewModel @Inject constructor(
-        private val permissionManager: PermissionManager,
+class MainAppListViewModel @AssistedInject constructor(
+        private val permissionManager: PermissionManager, // TODO
         private val installedAppsManager: InstalledAppsManager,
         private val navigationDrawerModel: NavigationDrawerModel,
         private val dispatcherProvider: DispatcherProvider,
@@ -172,6 +173,11 @@ class MainAppListViewModel @Inject constructor(
                     appListData = allApps
                 }
         ) else null
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(): MainAppListViewModel
     }
 
 }

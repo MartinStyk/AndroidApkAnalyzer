@@ -1,9 +1,9 @@
 package sk.styk.martin.apkanalyzer.manager.backpress
 
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ActivityScope
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 
-@ActivityScope
+@ActivityScoped
 class BackPressedManager @Inject constructor() {
 
     private val backPressedListeners = mutableMapOf<BackPressedListener, RegistrationData>()

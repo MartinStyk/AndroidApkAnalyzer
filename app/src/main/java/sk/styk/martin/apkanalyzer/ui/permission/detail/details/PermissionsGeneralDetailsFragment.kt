@@ -1,13 +1,12 @@
 package sk.styk.martin.apkanalyzer.ui.permission.detail.details
 
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailGeneralBinding
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragmentViewModel
@@ -17,6 +16,7 @@ import sk.styk.martin.apkanalyzer.util.provideViewModel
 import sk.styk.martin.apkanalyzer.util.provideViewModelOfParentFragment
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class PermissionsGeneralDetailsFragment : Fragment() {
 
     @Inject
@@ -28,11 +28,6 @@ class PermissionsGeneralDetailsFragment : Fragment() {
     private lateinit var binding: FragmentPermissionDetailGeneralBinding
 
     private lateinit var viewModel: PermissionsGeneralDetailsViewModel
-
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

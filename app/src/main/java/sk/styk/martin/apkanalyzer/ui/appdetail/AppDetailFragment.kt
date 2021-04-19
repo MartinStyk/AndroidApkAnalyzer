@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.ui.appdetail
 
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -15,18 +14,20 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import dagger.android.support.AndroidSupportInjection
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailBinding
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedListener
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
 import sk.styk.martin.apkanalyzer.ui.manifest.AndroidManifestFragment
 import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
+import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AppDetailFragment : Fragment(), BackPressedListener {
 
     @Inject
@@ -41,10 +42,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
 
     private lateinit var installPermissionResultLauncher: ActivityResultLauncher<Intent>
 
-    override fun onAttach(context: Context) {
-        AndroidSupportInjection.inject(this)
-        super.onAttach(context)
-    }
+    private lateinit var exportPathPickerResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +51,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         }
         lifecycle.addObserver(viewModel)
         installPermissionResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), viewModel.installPermissionResult)
+        exportPathPickerResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), viewModel.exportFilePickerResult)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -80,6 +79,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             showManifest.observe(viewLifecycleOwner, this@AppDetailFragment::openManifestFragment)
             openImage.observe(viewLifecycleOwner, { openImage(it) })
             openSettingsInstallPermission.observe(viewLifecycleOwner, { startInstallSettings() })
+            openExportFilePicker.observe(viewLifecycleOwner, { openDirectoryPicker(it) })
         }
     }
 
@@ -93,11 +93,11 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         lifecycle.removeObserver(viewModel)
     }
 
-    private fun openImage(path: String) {
+    private fun openImage(path: Uri) {
         try {
             startActivity(Intent().apply {
                 action = Intent.ACTION_VIEW
-                setDataAndType(Uri.parse(path), "image/png")
+                setDataAndType(path, "image/png")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         } catch (e: ActivityNotFoundException) {
@@ -127,6 +127,20 @@ class AppDetailFragment : Fragment(), BackPressedListener {
 
     companion object {
         val TAG = AppDetailFragment::class.java.simpleName
+    }
+
+    private fun openDirectoryPicker(outputFilePickerRequest: OutputFilePickerRequest) {
+        try {
+            exportPathPickerResultLauncher.launch(
+                    Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        type = outputFilePickerRequest.fileType
+                        putExtra(Intent.EXTRA_TITLE, outputFilePickerRequest.fileName)
+                    }
+            )
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), R.string.activity_not_found_browsing, Toast.LENGTH_LONG).show()
+        }
     }
 
     override fun onBackPressed(): Boolean {

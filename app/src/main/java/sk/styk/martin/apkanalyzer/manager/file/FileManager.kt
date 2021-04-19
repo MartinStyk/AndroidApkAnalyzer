@@ -1,45 +1,61 @@
 package sk.styk.martin.apkanalyzer.manager.file
 
+import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
-import android.os.Environment
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
+import kotlinx.coroutines.yield
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
-import sk.styk.martin.apkanalyzer.util.file.FileUtils
-import java.io.File
-import java.io.IOException
+import java.io.*
 import javax.inject.Inject
 
 class FileManager @Inject constructor(@ForApplication private val context: Context,
+                                      private val contentResolver: ContentResolver,
                                       private val dispatcherProvider: DispatcherProvider) {
 
-    val externalDirectory by lazy {
-        context.getExternalFilesDir(null) ?: throw IOException("External directory not available")
-    }
-
-    val dcimDirectory by lazy {
-        context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-                ?: throw IOException("Pictures directory not available")
-    }
-
-    val cacheDirectory by lazy { context.cacheDir }
+    private val cacheDirectory by lazy { context.cacheDir }
 
     @Throws(IOException::class)
     suspend fun createTempFileFromUri(uri: Uri, fileName: String): File = withContext(dispatcherProvider.io()) {
         val tempFile = File(cacheDirectory, fileName)
-        context.contentResolver.openInputStream(uri).use { inputStream ->
+        contentResolver.openInputStream(uri).use { inputStream ->
             if (inputStream != null) {
-                FileUtils.copy(inputStream, tempFile)
+                copy(inputStream, tempFile)
             }
             tempFile
         }
     }
 
     @Throws(IOException::class)
-    fun deleteTempFile(fileName: String)  {
+    fun deleteTempFile(fileName: String) {
         val tempFile = File(cacheDirectory, fileName)
         tempFile.delete()
+    }
+
+    @Throws(IOException::class)
+    fun writeString(content: String, targetFileUri: Uri) {
+        PrintWriter(contentResolver.openOutputStream(targetFileUri)!!).use {
+            it.println(content)
+        }
+    }
+
+    @Throws(IOException::class)
+    suspend fun copy(src: InputStream, dst: File) {
+        FileOutputStream(dst).use { output ->
+
+            val buffer = ByteArray(10240)
+            var len: Int = src.read(buffer)
+            var readBytes = len
+            while (len > 0) {
+                yield()
+                output.write(buffer, 0, len)
+                len = src.read(buffer)
+                readBytes += len
+            }
+        }
+        delay(500)
     }
 
 }

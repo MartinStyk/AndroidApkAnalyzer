@@ -2,18 +2,17 @@ package sk.styk.martin.apkanalyzer.ui.permission.detail
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import dagger.android.AndroidInjection
+import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityPermissionDetailBinding
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment.Companion.ARG_PERMISSIONS_DATA
 
+@AndroidEntryPoint
 class PermissionDetailActivity : ApkAnalyzerBaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AndroidInjection.inject(this)
-
         super.onCreate(savedInstanceState)
 
         DataBindingUtil.setContentView<ActivityPermissionDetailBinding>(this, R.layout.activity_permission_detail)

@@ -1,8 +1,10 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail.page.receiver
 
 import androidx.lifecycle.LifecycleOwner
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
@@ -38,7 +40,7 @@ class AppReceiverDetailFragmentViewModel @AssistedInject constructor(
         receiverData[receiverData.indexOfFirst { it.receiverData == editedExpandedReceiverData.receiverData}] = editedExpandedReceiverData
     }
 
-    @AssistedInject.Factory
+    @AssistedFactory
     interface Factory {
         fun create(appDetailFragmentViewModel: AppDetailFragmentViewModel): AppReceiverDetailFragmentViewModel
     }

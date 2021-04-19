@@ -1,36 +1,36 @@
 package sk.styk.martin.apkanalyzer.ui.manifest
 
 import android.Manifest
-import android.util.Log
+import android.app.Activity
+import android.net.Uri
 import android.view.MenuItem
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.appanalysis.AndroidManifestManager
 import sk.styk.martin.apkanalyzer.manager.file.FileManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
-import sk.styk.martin.apkanalyzer.ui.applist.LOADING_STATE
+import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
-import sk.styk.martin.apkanalyzer.util.file.FileUtils
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
-import java.io.File
 import java.io.IOException
 
 private const val LOADING_STATE = 0
 private const val ERROR_STATE = 1
 private const val DATA_STATE = 2
-
-private const val MANIFEST_SUBDIR = "Manifest"
 
 class AndroidManifestFragmentViewModel @AssistedInject constructor(
         @Assisted private val manifestRequest: ManifestRequest,
@@ -49,14 +49,28 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
     private val closeEvent = SingleLiveEvent<Unit>()
     val close: LiveData<Unit> = closeEvent
 
+    private val openExportFilePickerEvent = SingleLiveEvent<OutputFilePickerRequest>()
+    val openExportFilePicker: LiveData<OutputFilePickerRequest> = openExportFilePickerEvent
+
     private val showSnackEvent = SingleLiveEvent<SnackBarComponent>()
     val showSnack: LiveData<SnackBarComponent> = showSnackEvent
 
-    private val showManifestFileEvent = SingleLiveEvent<File>()
-    val showManifestFile: LiveData<File> = showManifestFileEvent
+    private val showManifestFileEvent = SingleLiveEvent<Uri>()
+    val showManifestFile: LiveData<Uri> = showManifestFileEvent
 
     private val manifestLiveData = MutableLiveData<String>()
     val manifest: LiveData<String> = manifestLiveData
+
+    val exportFilePickerResult = ActivityResultCallback<ActivityResult> {
+        if (it.resultCode == Activity.RESULT_OK) {
+            val uri = it.data?.data
+            if (uri != null) {
+                internalExport(uri)
+            } else {
+                showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.can_not_save_manifest))
+            }
+        }
+    }
 
     init {
         viewModelScope.launch(dispatcherProvider.main()) {
@@ -65,7 +79,6 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
             } catch (e: Exception) {
                 ""
             }
-            Log.e("XXX", "manifest $manifest")
             manifestLiveData.postValue(manifest)
             viewStateLiveData.postValue(if (manifest.isBlank()) ERROR_STATE else DATA_STATE)
         }
@@ -75,37 +88,16 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
 
     override fun onMenuItemClick(item: MenuItem): Boolean {
         return if (item.itemId == R.id.action_save) {
-            exportManifest()
+            onExportManifestClick()
             true
         } else {
             false
         }
     }
 
-    private fun exportManifest() {
-        fun export() {
-            val value = manifest.value
-            if (value.isNullOrBlank()) {
-                showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.save_manifest_fail))
-            } else {
-                try {
-                    val target = File(fileManager.externalDirectory, "$MANIFEST_SUBDIR/${manifestRequest.packageName}_${manifestRequest.versionName}_AndroidManifest.xml")
-                    FileUtils.writeString(value, target)
-                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.manifest_saved),
-                            duration = Snackbar.LENGTH_LONG,
-                            action = TextInfo.from(R.string.action_show)) {
-                        showManifestFileEvent.value = target
-                    }
-                    notificationManager.showManifestSavedNotification(manifestRequest.appName, target)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.can_not_save_manifest))
-                }
-            }
-        }
-
+    private fun onExportManifestClick() {
         if (permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
-            export()
+            exportAppFileSelection()
         } else {
             permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
                 override fun onPermissionDenied(permission: String) {
@@ -113,13 +105,37 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
                 }
 
                 override fun onPermissionGranted(permission: String) {
-                    export()
+                    exportAppFileSelection()
                 }
             })
         }
     }
 
-    @AssistedInject.Factory
+    private fun exportAppFileSelection() {
+        val value = manifest.value
+        if (value.isNullOrBlank()) {
+            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.save_manifest_fail))
+        } else {
+            openExportFilePickerEvent.value = OutputFilePickerRequest("$manifestRequest.packageName}_${manifestRequest.versionName}_AndroidManifest.xml", "text/xml")
+        }
+    }
+
+    private fun internalExport(target: Uri) {
+        try {
+            fileManager.writeString(manifest.value!!, target)
+            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.manifest_saved),
+                    duration = Snackbar.LENGTH_LONG,
+                    action = TextInfo.from(R.string.action_show)) {
+                showManifestFileEvent.value = target
+            }
+            notificationManager.showManifestSavedNotification(manifestRequest.appName, target)
+        } catch (e: IOException) {
+            e.printStackTrace()
+            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.can_not_save_manifest))
+        }
+    }
+
+    @AssistedFactory
     interface Factory {
         fun create(manifestRequest: ManifestRequest): AndroidManifestFragmentViewModel
     }

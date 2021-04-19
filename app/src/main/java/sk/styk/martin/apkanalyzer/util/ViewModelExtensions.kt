@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+
+
+
 inline fun <reified VM : ViewModel> Fragment.provideViewModel(crossinline block: () -> VM): VM {
     return ViewModelProvider(this, object : ViewModelProvider.Factory {
         override fun <A : ViewModel> create(modelClass: Class<A>): A {

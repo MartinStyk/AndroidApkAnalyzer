@@ -7,26 +7,29 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import dagger.Module
 import dagger.Provides
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ActivityScope
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ActivityComponent
+import dagger.hilt.android.scopes.ActivityScoped
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 
+@InstallIn(ActivityComponent::class)
 @Module
 class ActivityCommonModule {
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun provideActivityContext(activity: Activity): Context = activity.baseContext
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun providesResources(activity: Activity): AppCompatActivity = activity as AppCompatActivity
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun providePermissionsManager(activity: AppCompatActivity): PermissionManager {
         val permissionsManager: PermissionsManagerImpl = ViewModelProvider(activity, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -38,7 +41,7 @@ class ActivityCommonModule {
     }
 
     @Provides
-    @ActivityScope
+    @ActivityScoped
     fun provideColorThemeManager(activity: AppCompatActivity, @ForApplication applicationColorThemeManager: ColorThemeManager): ActivityColorThemeManager {
         val activityColorThemeManager: ActivityColorThemeManager = ViewModelProvider(activity, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {

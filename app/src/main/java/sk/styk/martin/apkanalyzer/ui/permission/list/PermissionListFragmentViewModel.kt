@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
@@ -12,7 +13,7 @@ import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import javax.inject.Inject
 
-
+@HiltViewModel
 class PermissionListFragmentViewModel @Inject constructor(
         private val dispatcherProvider: DispatcherProvider,
         val permissionListAdapter: PermissionListAdapter,

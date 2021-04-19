@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.BuildConfig
@@ -16,6 +17,7 @@ import sk.styk.martin.apkanalyzer.util.AppFlavour
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 
+@HiltViewModel
 class MainActivityViewModel @Inject constructor(
         promoManager: StartPromoManager,
         private val navigationDrawerModel: NavigationDrawerModel,
@@ -68,7 +70,6 @@ class MainActivityViewModel @Inject constructor(
             }
         }
 
-        openOnboardingEvent.call()
         viewModelScope.launch {
             navigationDrawerModel.handleState().collect {
                 if(it) openDrawerEvent.call() else closeDrawerEvent.call()

@@ -3,8 +3,9 @@ package sk.styk.martin.apkanalyzer.ui.appdetail.page.definedpermission
 import android.content.pm.PackageManager
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewModelScope
-import com.squareup.inject.assisted.Assisted
-import com.squareup.inject.assisted.AssistedInject
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
@@ -64,7 +65,7 @@ class AppDefinedPermissionFragmentViewModel @AssistedInject constructor(
 
     }
 
-    @AssistedInject.Factory
+    @AssistedFactory
     interface Factory {
         fun create(appDetailFragmentViewModel: AppDetailFragmentViewModel): AppDefinedPermissionFragmentViewModel
     }
