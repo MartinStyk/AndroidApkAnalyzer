@@ -2,7 +2,6 @@ package sk.styk.martin.apkanalyzer.manager.promo
 
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
@@ -15,9 +14,8 @@ class StartPromoManager @Inject constructor(
      */
     fun getPromoAction(): PromoResult {
         return when {
-            persistenceManager.isFirstStart -> PromoResult.ONBOARDING
+            persistenceManager.isOnboardingRequired -> PromoResult.ONBOARDING
             shouldShowPromo() -> PromoResult.PROMO_DIALOG
-            shouldShowNewFeature() -> PromoResult.FEATURE_DIALOG
             else -> PromoResult.NO_ACTION
         }
     }
@@ -38,21 +36,10 @@ class StartPromoManager @Inject constructor(
         }
     }
 
-
-    private fun shouldShowNewFeature(): Boolean {
-        return if (FeatureDialog.fromVersion > persistenceManager.newFeatureShowVersion) {
-            persistenceManager.newFeatureShowVersion = BuildConfig.VERSION_CODE.toLong()
-            true
-        } else {
-            false
-        }
-    }
-
     enum class PromoResult {
         NO_ACTION,
         ONBOARDING,
         PROMO_DIALOG,
-        FEATURE_DIALOG
     }
 
 }

@@ -53,9 +53,6 @@ class MainActivityViewModel @Inject constructor(
     private val openPromoDialogEvent = SingleLiveEvent<Unit>()
     val openPromoDialog: LiveData<Unit> = openPromoDialogEvent
 
-    private val openFeatureDialogEvent = SingleLiveEvent<Unit>()
-    val openFeatureDialog: LiveData<Unit> = openFeatureDialogEvent
-
     private val openOnboardingEvent = SingleLiveEvent<Unit>()
     val openOnboarding: LiveData<Unit> = openOnboardingEvent
 
@@ -66,12 +63,12 @@ class MainActivityViewModel @Inject constructor(
 
         when (promoManager.getPromoAction()) {
             StartPromoManager.PromoResult.ONBOARDING -> openOnboardingEvent.call()
-            StartPromoManager.PromoResult.FEATURE_DIALOG -> openFeatureDialogEvent.call()
             StartPromoManager.PromoResult.PROMO_DIALOG -> openPromoDialogEvent.call()
             StartPromoManager.PromoResult.NO_ACTION -> {
             }
         }
 
+        openOnboardingEvent.call()
         viewModelScope.launch {
             navigationDrawerModel.handleState().collect {
                 if(it) openDrawerEvent.call() else closeDrawerEvent.call()

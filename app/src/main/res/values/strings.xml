@@ -52,14 +52,11 @@
     <string name="unknown_source">Unknown source</string>
 
     <string name="intro_analyze_apps">Analyze apps</string>
-    <string name="intro_analyze_apps_description">Enjoy detailed report not only about installed apps but also about not installed APK files from storage. View app metadata, manifest file, or export the APK package to the storage.</string>
+    <string name="intro_analyze_apps_description">Explore detailed report not only about installed apps but also about not installed APK files from storage. View app metadata, manifest file, or export the APK package to the storage.</string>
     <string name="intro_statistics">View statistics</string>
     <string name="intro_statistics_description">Find out the average number of activities, permissions, or distribution of Android and certificate versions.</string>
     <string name="intro_permissions">Explore permissions</string>
     <string name="intro_permissions_description">Look at permissions used by your apps. Find out which apps have the permission granted.</string>
-    <string name="intro_upload">Upload app metadata</string>
-    <string name="intro_upload_description">Allow APK Analyzer to collect app metadata. Data are used for research of repackaged apps. \nYour personal app data are not included. You can adjust the preference in settings.</string>
-
 
     <string name="general">General</string>
     <string name="certificate">Certificate</string>
@@ -302,12 +299,16 @@
     <string name="permissions_protection_signature">Signature</string>
 
     <string name="preference_color_theme">Color theme</string>
+    <string name="select_color_thene_that_suits_you_best">Select color theme that suits you best. \n You can change your preference later in the settings.</string>
     <string name="preference_color_theme_summary">Select light or dark app\'s appearance</string>
     <string name="preference_color_theme_key" translatable="false">dayNightPref</string>
     <string name="color_theme_promo_stay_light" translatable="false">Keep light</string>
     <string name="color_theme_promo_switch_dark" translatable="false">Switch to dark</string>
     <string name="color_theme_promo_title" translatable="false">Choose colors you like</string>
-    <string name="color_theme_promo_message" translatable="false">Now it\'s possible to switch Apk Analyzer to dark colors. \n You can change your preference later in the settings.</string>
+    <string name="preference_color_system">System</string>
+    <string name="preference_color_light">Light</string>
+    <string name="preference_color_dark">Dark</string>
+
     <string-array name="preference_color_theme_options_values">
         <item>system</item>
         <item>light</item>
@@ -318,7 +319,6 @@
         <item>Light</item>
         <item>Dark</item>
     </string-array>
-
 
 
 

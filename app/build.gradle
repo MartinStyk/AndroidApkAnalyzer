@@ -86,7 +86,7 @@ dependencies {
     kapt 'com.github.hotchemi:permissionsdispatcher-processor:3.1.0'
     implementation 'com.pddstudio:highlightjs-android:1.5.0'
     implementation 'com.google.android.gms:play-services-ads:19.7.0'
-    implementation 'com.github.apl-devs:appintro:v4.2.2'
+    implementation 'com.github.AppIntro:AppIntro:6.1.0'
     implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
     implementation 'com.google.firebase:firebase-core:18.0.2'
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'

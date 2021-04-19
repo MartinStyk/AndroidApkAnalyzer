@@ -274,6 +274,7 @@
     <string name="preference_color_theme">カラーテーマ</string>
     <string name="preference_color_theme_summary">明るいまたは暗いアプリの外観を選択する</string>
     <string-array name="preference_color_theme_options">
+        <item>System</item>
         <item>光</item>
         <item>ダーク</item>
     </string-array>

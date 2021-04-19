@@ -33,6 +33,7 @@ abstract class ActivityBuilderModule {
     @ContributesAndroidInjector(modules = [OnInstallAppDetailActivityModule::class])
     abstract fun onInstallAppDetailActivityInjector(): OnInstallAppDetailActivity
 
+    @ActivityScope
     @ContributesAndroidInjector(modules = [IntroActivityModule::class])
     abstract fun introActivityInjector(): IntroActivity
 

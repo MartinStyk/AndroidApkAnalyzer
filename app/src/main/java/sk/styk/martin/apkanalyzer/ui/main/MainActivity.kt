@@ -14,7 +14,6 @@ import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
 import sk.styk.martin.apkanalyzer.dependencyinjection.viewmodel.ViewModelFactory
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.FeatureDialog
 import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment
 import sk.styk.martin.apkanalyzer.ui.intro.IntroActivity
@@ -56,7 +55,6 @@ class MainActivity : ApkAnalyzerBaseActivity() {
             openSettings.observe(this@MainActivity, { navigateTo(SettingsFragment(), FramentTag.Settings) })
             openPremium.observe(this@MainActivity, { navigateTo(PremiumFragment(), FramentTag.Premium) })
             openPromoDialog.observe(this@MainActivity, { PromoDialog().showPromoDialog(this@MainActivity) })
-            openFeatureDialog.observe(this@MainActivity, { FeatureDialog().showFeatureDialog(this@MainActivity) })
             openOnboarding.observe(this@MainActivity, { this@MainActivity.startActivity(Intent(this@MainActivity, IntroActivity::class.java)) })
         }
 

@@ -7,6 +7,7 @@ import dagger.android.HasAndroidInjector
 import sk.styk.martin.apkanalyzer.dependencyinjection.app.ApplicationComponent
 import sk.styk.martin.apkanalyzer.dependencyinjection.app.DaggerApplicationComponent
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
+import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 import javax.inject.Inject
 
@@ -19,6 +20,9 @@ class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
     @ForApplication
     lateinit var colorThemeManager: ColorThemeManager
 
+    @Inject
+    lateinit var persistenceManager: PersistenceManager
+
     lateinit var appComponent: ApplicationComponent
         private set
 
@@ -27,6 +31,8 @@ class ApkAnalyzer : MultiDexApplication(), HasAndroidInjector {
         appComponent.inject(this)
 
         colorThemeManager.setTheme()
+
+        persistenceManager.appStartNumber++
 
         super.onCreate()
     }

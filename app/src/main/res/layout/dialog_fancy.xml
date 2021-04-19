@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        app:cardBackgroundColor="@android:color/white"
+        app:cardBackgroundColor="?android:background"
         app:cardCornerRadius="10dp"
         app:cardElevation="16dp"
         app:cardUseCompatPadding="true">

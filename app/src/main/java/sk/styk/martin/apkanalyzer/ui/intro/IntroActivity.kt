@@ -3,57 +3,63 @@ package sk.styk.martin.apkanalyzer.ui.intro
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.github.paolorotolo.appintro.AppIntro
-import com.github.paolorotolo.appintro.AppIntroFragment
-import com.github.paolorotolo.appintro.model.SliderPage
+import com.github.appintro.AppIntro
+import com.github.appintro.AppIntroFragment
+import com.github.appintro.model.SliderPage
 import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.HasAndroidInjector
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import javax.inject.Inject
 
-class IntroActivity : AppIntro() {
+class IntroActivity : AppIntro(), HasAndroidInjector {
 
     @Inject
     lateinit var persistenceManager: PersistenceManager
 
+    @Inject
+    lateinit var androidInjector : DispatchingAndroidInjector<Any>
+
+    override fun androidInjector(): AndroidInjector<Any> = androidInjector
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
+        persistenceManager.isOnboardingRequired = false
 
-        val analyzeAppsSlide = SliderPage()
-        analyzeAppsSlide.title = getString(R.string.intro_analyze_apps)
-        analyzeAppsSlide.description = getString(R.string.intro_analyze_apps_description)
-        analyzeAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
-        analyzeAppsSlide.imageDrawable = R.drawable.ic_lupa
+        val analyzeAppsSlide = SliderPage().apply {
+            title = getString(R.string.intro_analyze_apps)
+            description = getString(R.string.intro_analyze_apps_description)
+            backgroundColor = ContextCompat.getColor(this@IntroActivity, R.color.accentLight)
+            imageDrawable = R.drawable.ic_lupa
+        }
 
-        val permissionsAppsSlide = SliderPage()
-        permissionsAppsSlide.title = getString(R.string.intro_permissions)
-        permissionsAppsSlide.description = getString(R.string.intro_permissions_description)
-        permissionsAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
-        permissionsAppsSlide.imageDrawable = R.drawable.ic_permission
+        val permissionsAppsSlide = SliderPage().apply {
+            title = getString(R.string.intro_permissions)
+            description = getString(R.string.intro_permissions_description)
+            backgroundColor = ContextCompat.getColor(this@IntroActivity, R.color.accentLight)
+            imageDrawable = R.drawable.ic_permission
+        }
 
-        val statisticsAppsSlide = SliderPage()
-        statisticsAppsSlide.title = getString(R.string.intro_statistics)
-        statisticsAppsSlide.description = getString(R.string.intro_statistics_description)
-        statisticsAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
-        statisticsAppsSlide.imageDrawable = R.drawable.ic_chart
-
-        val uploadAppsSlide = SliderPage()
-        uploadAppsSlide.title = getString(R.string.intro_upload)
-        uploadAppsSlide.description = getString(R.string.intro_upload_description)
-        uploadAppsSlide.bgColor = ContextCompat.getColor(this, R.color.accentLight)
-        uploadAppsSlide.imageDrawable = R.drawable.ic_upload
+        val statisticsAppsSlide = SliderPage().apply {
+            title = getString(R.string.intro_statistics)
+            description = getString(R.string.intro_statistics_description)
+            backgroundColor = ContextCompat.getColor(this@IntroActivity, R.color.accentLight)
+            imageDrawable = R.drawable.ic_chart
+        }
 
         addSlide(AppIntroFragment.newInstance(analyzeAppsSlide))
         addSlide(AppIntroFragment.newInstance(permissionsAppsSlide))
         addSlide(AppIntroFragment.newInstance(statisticsAppsSlide))
 
-        // Hide Skip/Done button.
-        isProgressButtonEnabled = true
-
-        setVibrate(true)
-        setVibrateIntensity(30)
+        isIndicatorEnabled = true
+        setIndicatorColor(
+                selectedIndicatorColor = ContextCompat.getColor(this, R.color.colorWhite),
+                unselectedIndicatorColor = ContextCompat.getColor(this, R.color.secondary)
+        )
 
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, Bundle())
     }
@@ -69,7 +75,6 @@ class IntroActivity : AppIntro() {
     }
 
     private fun finishIntro() {
-        persistenceManager.isFirstStart = false
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle())
         finish()
     }
