@@ -40,7 +40,7 @@ class LocalApplicationStatisticManager @Inject constructor(
         val statsBuilder = StatisticsDataBuilder(allApps.size)
 
         allApps.forEachIndexed { index, appListData ->
-            statsBuilder.add(get(appListData.applicationName))
+            statsBuilder.add(get(appListData.packageName))
             emit(StatisticsLoadingStatus.Loading(index, allApps.size))
         }
 

@@ -117,7 +117,7 @@
     <string name="icon_save_channel">App icon save channel</string>
 
     <string name="show_manifest">View AndroidManifest.xml</string>
-    <string name="manifest_saved">Manifest saved</string>
+    <string name="manifest_saved">%s manifest saved</string>
     <string name="save_manifest_background_notification_title_done">Saved %s manifest</string>
     <string name="save_manifest_fail">Manifest is not loaded</string>
     <string name="can_not_save_manifest">Can not save manifest</string>

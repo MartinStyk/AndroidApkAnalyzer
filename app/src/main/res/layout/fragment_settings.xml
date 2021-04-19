@@ -28,7 +28,7 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <fragment
+        <androidx.fragment.app.FragmentContainerView
             android:id="@+id/main_settings_fragment"
             android:name="sk.styk.martin.apkanalyzer.ui.settings.MainSettingsFragment"
             android:layout_width="match_parent"

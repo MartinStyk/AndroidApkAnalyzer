@@ -49,8 +49,6 @@
     <string name="intro_statistics_description">アプリコレクションの統計データに興味がありますか？ Androidと証明書のバージョンの平均アクティビティ、権限、または配布数を確認します。</string>
     <string name="intro_permissions">セキュリティのアクセス許可を調べる</string>
     <string name="intro_permissions_description">あなたのアプリケーションで使用されている権限を調べる</string>
-    <string name="intro_upload">アプリのメタデータをアップロード</string>
-    <string name="intro_upload_description">APKアナライザがアプリのメタデータを収集できるようにしてください。データは、アプリケーションの調査に使用されます。\nあなたのパーソナルアプリのデータは含まれていません。設定で環境設定を調整することができます</string>
 
     <string name="general">一般</string>
     <string name="certificate">証明書</string>

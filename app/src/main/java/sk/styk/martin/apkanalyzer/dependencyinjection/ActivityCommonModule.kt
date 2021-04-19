@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.dependencyinjection.activity
+package sk.styk.martin.apkanalyzer.dependencyinjection
 
 import android.app.Activity
 import android.content.Context

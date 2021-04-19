@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.dependencyinjection.app
+package sk.styk.martin.apkanalyzer.dependencyinjection
 
 import android.app.Application
 import android.app.NotificationManager
@@ -19,7 +19,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-class ApplicationCommonModule {
+class ApplicationModule {
 
     @Provides
     @Singleton

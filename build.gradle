@@ -5,7 +5,7 @@ buildscript {
         gradle_version = '4.0.1'
         kotlin_version = '1.4.21'
         hilt_version = '2.33-beta'
-        assistedInjectVersion = '0.6.0'
+        lifecycle_version = '2.3.1'
         coroutinesVersion = '1.4.2'
     }
     repositories {
