@@ -8,9 +8,7 @@ import android.widget.SearchView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.google.android.material.snackbar.Snackbar
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -34,7 +32,7 @@ class MainAppListViewModel @AssistedInject constructor(
         private val navigationDrawerModel: NavigationDrawerModel,
         private val dispatcherProvider: DispatcherProvider,
         adapter: AppListAdapter
-) : BaseAppListViewModel(adapter), SearchView.OnQueryTextListener, SearchView.OnCloseListener, Toolbar.OnMenuItemClickListener {
+) : BaseAppListViewModel(adapter), DefaultLifecycleObserver, SearchView.OnQueryTextListener, SearchView.OnCloseListener, Toolbar.OnMenuItemClickListener {
 
     override var appListData = listOf<AppListData>()
         set(value) {
@@ -60,6 +58,7 @@ class MainAppListViewModel @AssistedInject constructor(
 
     private var queryTextLiveData = MutableLiveData<String>()
     var queryText: LiveData<String> = queryTextLiveData
+    private var queryTextInternal: String = ""
 
     private val filteredSourceLiveData = MutableLiveData<AppSource?>()
     val filteredSource: LiveData<AppSource?> = filteredSourceLiveData
@@ -83,6 +82,11 @@ class MainAppListViewModel @AssistedInject constructor(
         }
     }
 
+    override fun onCreate(owner: LifecycleOwner) {
+        super.onCreate(owner)
+        queryTextLiveData.value = queryTextInternal
+    }
+
     fun onFilePickerClick() {
         if (permissionManager.hasPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
             openFilePickerEvent.call()
@@ -100,7 +104,7 @@ class MainAppListViewModel @AssistedInject constructor(
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        queryTextLiveData.value = newText ?: ""
+        queryTextInternal = newText ?: ""
         setDataFiltered()
         return true
     }
@@ -149,7 +153,7 @@ class MainAppListViewModel @AssistedInject constructor(
     }
 
     private fun setDataFiltered() {
-        val nameQuery = queryText.value
+        val nameQuery = queryTextInternal
         val source = filteredSource.value
         val hasFilters = !nameQuery.isNullOrBlank() || source != null
         appListData = if (!hasFilters) {

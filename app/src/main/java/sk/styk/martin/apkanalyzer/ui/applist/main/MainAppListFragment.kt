@@ -49,6 +49,8 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewLifecycleOwner.lifecycle.addObserver(viewModel)
+
         binding.viewModel = viewModel
 
         with(viewModel) {
@@ -58,6 +60,11 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
             indeterminateSnackbar.observe(viewLifecycleOwner, { handleIndefiniteSnackbar(it) })
             filteredSource.observe(viewLifecycleOwner, { handleFilteredSources(it) })
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewLifecycleOwner.lifecycle.removeObserver(viewModel)
     }
 
     private fun handleFilteredSources(filtered: AppSource?) {
