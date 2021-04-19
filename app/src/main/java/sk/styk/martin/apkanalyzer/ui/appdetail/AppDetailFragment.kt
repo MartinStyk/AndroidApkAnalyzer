@@ -125,10 +125,6 @@ class AppDetailFragment : Fragment(), BackPressedListener {
                 .commit()
     }
 
-    companion object {
-        val TAG = AppDetailFragment::class.java.simpleName
-    }
-
     private fun openDirectoryPicker(outputFilePickerRequest: OutputFilePickerRequest) {
         try {
             exportPathPickerResultLauncher.launch(

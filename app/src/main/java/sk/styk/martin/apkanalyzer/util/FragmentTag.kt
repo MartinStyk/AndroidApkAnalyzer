@@ -1,10 +1,12 @@
 package sk.styk.martin.apkanalyzer.util
 
-enum class FramentTag {
+enum class FragmentTag {
     AppList,
     LocalStatistics,
     LocalPermissions,
     About,
     Settings,
     Premium,
+    AppDetailParent,
+    PermissionDetail,
 }

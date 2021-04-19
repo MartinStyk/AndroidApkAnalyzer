@@ -8,6 +8,7 @@ import sk.styk.martin.apkanalyzer.databinding.ActivityPermissionDetailBinding
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment
 import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFragment.Companion.ARG_PERMISSIONS_DATA
+import sk.styk.martin.apkanalyzer.util.FragmentTag
 
 @AndroidEntryPoint
 class PermissionDetailActivity : ApkAnalyzerBaseActivity() {
@@ -22,7 +23,7 @@ class PermissionDetailActivity : ApkAnalyzerBaseActivity() {
                     permissionData = requireNotNull(intent.getParcelableExtra(ARG_PERMISSIONS_DATA))
             )
             supportFragmentManager.beginTransaction()
-                    .add(R.id.item_detail_container, fragment, PermissionDetailFragment.TAG)
+                    .add(R.id.item_detail_container, fragment, FragmentTag.PermissionDetail.toString())
                     .commit()
         }
     }

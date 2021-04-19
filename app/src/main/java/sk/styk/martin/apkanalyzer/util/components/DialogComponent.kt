@@ -3,7 +3,7 @@ package sk.styk.martin.apkanalyzer.util.components
 import android.os.Parcelable
 import androidx.fragment.app.DialogFragment
 import kotlinx.android.parcel.Parcelize
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.SimpleTextDialog
+import sk.styk.martin.apkanalyzer.ui.dialogs.SimpleTextDialog
 import sk.styk.martin.apkanalyzer.util.TextInfo
 
 @Parcelize

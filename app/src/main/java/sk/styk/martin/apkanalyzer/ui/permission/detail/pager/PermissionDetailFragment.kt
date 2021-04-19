@@ -48,8 +48,6 @@ class PermissionDetailFragment : Fragment() {
 
     companion object {
 
-        val TAG = PermissionDetailFragment::class.java.simpleName
-
         const val ARG_PERMISSIONS_DATA = "permission_args"
 
         fun create(permissionData: LocalPermissionData) = PermissionDetailFragment().apply {

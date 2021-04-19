@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityAppDetailBinding
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
+import sk.styk.martin.apkanalyzer.util.FragmentTag
 
 @AndroidEntryPoint
 open class AppDetailActivity : ApkAnalyzerBaseActivity() {
@@ -28,7 +29,7 @@ open class AppDetailActivity : ApkAnalyzerBaseActivity() {
                 arguments = detailRequest
             }
             supportFragmentManager.beginTransaction()
-                    .add(R.id.container, fragment, AppDetailFragment.TAG)
+                    .add(R.id.container, fragment, FragmentTag.AppDetailParent.toString())
                     .commit()
         }
     }

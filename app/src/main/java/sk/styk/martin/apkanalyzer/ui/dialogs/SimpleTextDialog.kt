@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.ui.activity.dialog
+package sk.styk.martin.apkanalyzer.ui.dialogs
 
 import android.app.Dialog
 import android.os.Bundle

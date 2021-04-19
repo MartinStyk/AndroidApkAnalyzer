@@ -14,8 +14,8 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
-import sk.styk.martin.apkanalyzer.ui.activity.dialog.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment
+import sk.styk.martin.apkanalyzer.ui.dialogs.PromoDialog
 import sk.styk.martin.apkanalyzer.ui.intro.IntroActivity
 import sk.styk.martin.apkanalyzer.ui.permission.list.PermissionListFragment
 import sk.styk.martin.apkanalyzer.ui.premium.PremiumFragment
@@ -42,11 +42,11 @@ class MainActivity : ApkAnalyzerBaseActivity() {
             premiumMenuItemVisible.observe(this@MainActivity, { binding.navigationView.menu.findItem(R.id.nav_premium).isVisible = it })
             placeInitialFragment.observe(this@MainActivity, { placeAppListFragment() })
             openAppList.observe(this@MainActivity, { popToAppList() })
-            openStatistics.observe(this@MainActivity, { navigateTo(StatisticsFragment(), FramentTag.LocalStatistics) })
-            openPermissions.observe(this@MainActivity, { navigateTo(PermissionListFragment(), FramentTag.LocalPermissions) })
-            openAbout.observe(this@MainActivity, { navigateTo(AboutFragment(), FramentTag.About) })
-            openSettings.observe(this@MainActivity, { navigateTo(SettingsFragment(), FramentTag.Settings) })
-            openPremium.observe(this@MainActivity, { navigateTo(PremiumFragment(), FramentTag.Premium) })
+            openStatistics.observe(this@MainActivity, { navigateTo(StatisticsFragment(), FragmentTag.LocalStatistics) })
+            openPermissions.observe(this@MainActivity, { navigateTo(PermissionListFragment(), FragmentTag.LocalPermissions) })
+            openAbout.observe(this@MainActivity, { navigateTo(AboutFragment(), FragmentTag.About) })
+            openSettings.observe(this@MainActivity, { navigateTo(SettingsFragment(), FragmentTag.Settings) })
+            openPremium.observe(this@MainActivity, { navigateTo(PremiumFragment(), FragmentTag.Premium) })
             openPromoDialog.observe(this@MainActivity, { PromoDialog().showPromoDialog(this@MainActivity) })
             openOnboarding.observe(this@MainActivity, { this@MainActivity.startActivity(Intent(this@MainActivity, IntroActivity::class.java)) })
         }
@@ -68,7 +68,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
         return true
     }
 
-    private fun navigateTo(fragment: Fragment, tag: FramentTag) {
+    private fun navigateTo(fragment: Fragment, tag: FragmentTag) {
         if (supportFragmentManager.findFragmentByTag(tag.toString())?.isVisible == true) {
             return
         }
@@ -83,7 +83,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
     private fun placeAppListFragment() {
         navigation_view.setCheckedItem(R.id.nav_app_list)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.main_activity_placeholder, MainAppListFragment(), FramentTag.AppList.toString())
+                .replace(R.id.main_activity_placeholder, MainAppListFragment(), FragmentTag.AppList.toString())
                 .commit()
     }
 
