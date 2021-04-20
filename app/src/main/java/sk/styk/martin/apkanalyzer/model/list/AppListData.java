@@ -20,6 +20,7 @@ public class AppListData implements Parcelable {
 
     private PackageManager packageManager;
     private ApplicationInfo applicationInfo;
+    private Drawable appIcon;
 
     public AppListData(PackageInfo packageInfo, PackageManager packageManager) {
         this.packageManager = packageManager;
@@ -27,9 +28,6 @@ public class AppListData implements Parcelable {
         this.version = packageInfo.versionCode;
         this.isSystemApp = (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
         this.source = GeneralDataService.Companion.getAppSource(packageManager, getPackageName(), isSystemApp);
-    }
-
-    public AppListData() {
     }
 
     protected AppListData(Parcel in) {
@@ -59,7 +57,10 @@ public class AppListData implements Parcelable {
     }
 
     public Drawable getIcon() {
-        return applicationInfo.loadIcon(packageManager);
+        if (appIcon == null) {
+            appIcon = applicationInfo.loadIcon(packageManager);
+        }
+        return appIcon;
     }
 
     public boolean isSystemApp() {

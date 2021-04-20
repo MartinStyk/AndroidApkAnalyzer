@@ -27,7 +27,7 @@ import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
 class MainAppListViewModel @AssistedInject constructor(
-        private val permissionManager: PermissionManager, // TODO
+        private val permissionManager: PermissionManager,
         private val installedAppsManager: InstalledAppsManager,
         private val navigationDrawerModel: NavigationDrawerModel,
         private val dispatcherProvider: DispatcherProvider,

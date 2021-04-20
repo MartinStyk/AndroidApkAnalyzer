@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.ui.applist
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.distinctUntilChanged
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 
 internal const val LOADING_STATE = 0
@@ -24,7 +25,7 @@ abstract class BaseAppListViewModel constructor(
         }
 
     protected val viewStateLiveData = MutableLiveData(LOADING_STATE)
-    val viewState: LiveData<Int> = viewStateLiveData
+    val viewState: LiveData<Int> = viewStateLiveData.distinctUntilChanged()
 
     val appClicked by lazy { adapter.appClicked }
 
