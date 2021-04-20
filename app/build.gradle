@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.firebase.crashlytics'
+
 android {
 
     compileSdkVersion 30
@@ -87,11 +89,14 @@ dependencies {
     implementation 'com.pddstudio:highlightjs-android:1.5.0'
     implementation 'com.google.android.gms:play-services-ads:20.0.0'
     implementation 'com.github.AppIntro:AppIntro:6.1.0'
-    implementation 'com.firebase:firebase-jobdispatcher:0.8.5'
-    implementation 'com.google.firebase:firebase-core:18.0.3'
     implementation 'net.cachapa.expandablelayout:expandablelayout:2.9.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     api "org.jetbrains.kotlinx:kotlinx-coroutines-android:${coroutinesVersion}"
+
+    // Firebase
+    implementation platform('com.google.firebase:firebase-bom:27.0.0')
+    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
 
     // Hilt
     implementation "com.google.dagger:hilt-android:$hilt_version"
