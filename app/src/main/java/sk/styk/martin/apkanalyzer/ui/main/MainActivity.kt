@@ -39,7 +39,9 @@ class MainActivity : ApkAnalyzerBaseActivity() {
         with(viewModel) {
             closeDrawer.observe(this@MainActivity, { binding.drawerLayout.closeDrawer(GravityCompat.START) })
             openDrawer.observe(this@MainActivity, { binding.drawerLayout.openDrawer(GravityCompat.START) })
-            premiumMenuItemVisible.observe(this@MainActivity, { binding.navigationView.menu.findItem(R.id.nav_premium).isVisible = it })
+            premiumMenuItemVisible.observe(this@MainActivity, {
+                binding.navigationView.onViewLaidOut { binding.navigationView.menu.findItem(R.id.nav_premium).isVisible = it }
+            })
             placeInitialFragment.observe(this@MainActivity, { placeAppListFragment() })
             openAppList.observe(this@MainActivity, { popToAppList() })
             openStatistics.observe(this@MainActivity, { navigateTo(StatisticsFragment(), FragmentTag.LocalStatistics) })

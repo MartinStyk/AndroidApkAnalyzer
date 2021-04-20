@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
@@ -59,6 +60,7 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
             openDetailFromFile.observe(viewLifecycleOwner, { startAppDetail(it) })
             indeterminateSnackbar.observe(viewLifecycleOwner, { handleIndefiniteSnackbar(it) })
             filteredSource.observe(viewLifecycleOwner, { handleFilteredSources(it) })
+            setQueryText.observe(viewLifecycleOwner, { handleQueryFilter(it) })
         }
     }
 
@@ -76,6 +78,11 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
             else -> R.id.menu_show_all_apps
         }
         binding.toolbar.menu.findItem(itemId)?.isChecked = true
+    }
+
+    private fun handleQueryFilter(filterQuery: String) {
+        val searchView = binding.toolbar.menu.findItem(R.id.action_search)?.actionView as? SearchView ?: return
+        searchView.setQuery(filterQuery, false)
     }
 
     private fun handleIndefiniteSnackbar(component: SnackBarComponent?) {

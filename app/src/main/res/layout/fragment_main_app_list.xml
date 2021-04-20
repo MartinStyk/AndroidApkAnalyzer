@@ -48,7 +48,6 @@
                     app:onQueryTextListener="@{viewModel}"
                     app:onSearchCloseListener="@{viewModel}"
                     app:searchHint="@{R.string.action_search}"
-                    app:searchQuery="@{viewModel.queryText}"
                     app:title="@string/app_name" />
 
             </com.google.android.material.appbar.AppBarLayout>

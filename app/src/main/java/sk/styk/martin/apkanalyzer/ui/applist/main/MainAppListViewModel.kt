@@ -56,8 +56,8 @@ class MainAppListViewModel @AssistedInject constructor(
     private val indefiniteSnackbarEvent = MutableLiveData<SnackBarComponent?>()
     val indeterminateSnackbar: LiveData<SnackBarComponent?> = indefiniteSnackbarEvent
 
-    private var queryTextLiveData = MutableLiveData<String>()
-    var queryText: LiveData<String> = queryTextLiveData
+    private var setQueryTextLiveData = SingleLiveEvent<String>()
+    var setQueryText: LiveData<String> = setQueryTextLiveData
     private var queryTextInternal: String = ""
 
     private val filteredSourceLiveData = MutableLiveData<AppSource?>()
@@ -84,7 +84,7 @@ class MainAppListViewModel @AssistedInject constructor(
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        queryTextLiveData.value = queryTextInternal
+        setQueryTextLiveData.value = queryTextInternal
     }
 
     fun onFilePickerClick() {
@@ -112,7 +112,8 @@ class MainAppListViewModel @AssistedInject constructor(
     override fun onQueryTextSubmit(p0: String?) = true
 
     override fun onClose(): Boolean {
-        queryTextLiveData.value = ""
+        queryTextInternal = ""
+        setQueryTextLiveData.value = ""
         return false
     }
 
@@ -173,7 +174,7 @@ class MainAppListViewModel @AssistedInject constructor(
                 action = TextInfo.from(R.string.clear),
                 callback = {
                     filteredSourceLiveData.value = null
-                    queryTextLiveData.value = ""
+                    setQueryTextLiveData.value = ""
                     appListData = allApps
                 }
         ) else null
