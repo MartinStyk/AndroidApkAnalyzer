@@ -22,9 +22,11 @@ import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
 import sk.styk.martin.apkanalyzer.ui.manifest.AndroidManifestFragment
 import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
 import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
 import sk.styk.martin.apkanalyzer.util.provideViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -101,6 +103,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
         } catch (e: ActivityNotFoundException) {
+            Timber.tag(TAG_APP_ACTIONS).w(e, "Can not open image in external app")
             Toast.makeText(requireContext(), R.string.activity_not_found_image, Toast.LENGTH_LONG).show()
         }
     }
@@ -114,6 +117,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
                     }
             )
         } catch (exception: ActivityNotFoundException) {
+            Timber.tag(TAG_APP_ACTIONS).w(exception, "Can not open install settings")
             Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
         }
     }
@@ -135,6 +139,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
                     }
             )
         } catch (e: ActivityNotFoundException) {
+            Timber.tag(TAG_APP_ACTIONS).w(e, "Can not open file picker")
             Toast.makeText(requireContext(), R.string.activity_not_found_browsing, Toast.LENGTH_LONG).show()
         }
     }

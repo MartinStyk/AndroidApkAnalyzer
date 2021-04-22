@@ -5,6 +5,8 @@ import dagger.hilt.android.HiltAndroidApp
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
+import sk.styk.martin.apkanalyzer.util.LogUtils
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -21,6 +23,7 @@ class ApkAnalyzer : MultiDexApplication() {
         super.onCreate()
         colorThemeManager.setTheme()
         persistenceManager.appStartNumber++
+        Timber.plant(*LogUtils.logTrees())
     }
 
 }

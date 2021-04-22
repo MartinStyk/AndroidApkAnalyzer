@@ -22,10 +22,12 @@ import sk.styk.martin.apkanalyzer.manager.file.FileManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
+import sk.styk.martin.apkanalyzer.util.TAG_EXPORTS
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
+import timber.log.Timber
 import java.io.IOException
 
 private const val LOADING_STATE = 0
@@ -77,6 +79,7 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
             val manifest = try {
                 androidManifestManager.loadAndroidManifest(manifestRequest.packageName, manifestRequest.apkPath)
             } catch (e: Exception) {
+                Timber.tag(TAG_EXPORTS).e(e, "Error loading manifest for $manifestRequest.")
                 ""
             }
             manifestLiveData.postValue(manifest)
@@ -130,7 +133,7 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
             }
             notificationManager.showManifestSavedNotification(manifestRequest.appName, target)
         } catch (e: IOException) {
-            e.printStackTrace()
+            Timber.tag(TAG_EXPORTS).e(e, "Error saving manifest for $manifestRequest. Target was $target")
             showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.can_not_save_manifest))
         }
     }

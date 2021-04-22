@@ -8,6 +8,8 @@ import sk.styk.martin.apkanalyzer.model.detail.PermissionDataAggregate
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionDataBuilder
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
+import timber.log.Timber
 import javax.inject.Inject
 
 class AppPermissionManager @Inject constructor(private val packageManager: PackageManager,
@@ -28,6 +30,7 @@ class AppPermissionManager @Inject constructor(private val packageManager: Packa
             val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
             getUsedPermissions(packageInfo)
         } catch (e: Exception) {
+            Timber.tag(TAG_APP_ANALYSIS).w(e, "Get permission detail failed")
             null
         }
 

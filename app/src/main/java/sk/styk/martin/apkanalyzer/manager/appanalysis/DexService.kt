@@ -1,9 +1,10 @@
 package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.PackageInfo
-import android.util.Log
 import dalvik.system.DexFile
 import sk.styk.martin.apkanalyzer.model.detail.ClassPathData
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
+import timber.log.Timber
 import java.io.IOException
 import java.util.*
 import javax.inject.Inject
@@ -35,12 +36,12 @@ class DexService @Inject constructor(){
                     }
                 }
             } catch (e: IOException) {
-                Log.e(DexService::class.java.simpleName, e.localizedMessage ?: "")
+                Timber.tag(TAG_APP_ANALYSIS).w(e, "Can not read dex info")
             } finally {
                 try {
                     dexFile?.close()
                 } catch (e: IOException) {
-                    Log.e(DexService::class.java.simpleName, e.localizedMessage ?: "")
+                    Timber.tag(TAG_APP_ANALYSIS).w(e, "Can not close dex file")
                 }
             }
         }

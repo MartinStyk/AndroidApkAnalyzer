@@ -8,6 +8,8 @@ import kotlinx.coroutines.flow.flow
 import sk.styk.martin.apkanalyzer.model.statistics.StatisticsAppData
 import sk.styk.martin.apkanalyzer.model.statistics.StatisticsData
 import sk.styk.martin.apkanalyzer.model.statistics.StatisticsDataBuilder
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
+import timber.log.Timber
 import javax.inject.Inject
 
 @SuppressLint("PackageManagerGetSignatures")
@@ -52,7 +54,7 @@ class LocalApplicationStatisticManager @Inject constructor(
         val packageInfo = try {
             packageManager.getPackageInfo(packageName, ANALYSIS_FLAGS)
         } catch (e: Exception) {
-            e.printStackTrace()
+            Timber.tag(TAG_APP_ANALYSIS).w(e, "Package info for statistics failed. Package name= $packageName")
             return null
         }
 

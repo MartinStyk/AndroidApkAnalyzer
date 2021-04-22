@@ -11,6 +11,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.scopes.ActivityScoped
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
+import sk.styk.martin.apkanalyzer.manager.analytics.AnalyticsTracker
+import sk.styk.martin.apkanalyzer.manager.analytics.FragmentScreenTracker
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
@@ -50,6 +52,18 @@ class ActivityCommonModule {
         }).get(ActivityColorThemeManager::class.java)
         activityColorThemeManager.bind(activity)
         return activityColorThemeManager
+    }
+
+    @Provides
+    @ActivityScoped
+    fun provideFragmentScreenTracker(activity: AppCompatActivity, analyticsTracker: AnalyticsTracker): FragmentScreenTracker {
+        val fragmentScreenTracker: FragmentScreenTracker = ViewModelProvider(activity, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return FragmentScreenTracker(analyticsTracker) as T
+            }
+        }).get(FragmentScreenTracker::class.java)
+        fragmentScreenTracker.bind(activity)
+        return fragmentScreenTracker
     }
 
 }

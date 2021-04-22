@@ -18,9 +18,11 @@ import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.provideViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -103,6 +105,7 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
                     }
             )
         } catch (exception: ActivityNotFoundException) {
+            Timber.tag(TAG_APP_ACTIONS).w(exception, "Can not open file picker")
             Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
         }
     }

@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.manager.analytics.AnalyticsTracker
 import sk.styk.martin.apkanalyzer.manager.appanalysis.AppDetailDataManager
 import sk.styk.martin.apkanalyzer.manager.file.ApkSaveManager
 import sk.styk.martin.apkanalyzer.manager.file.DrawableSaveManager
@@ -31,12 +32,11 @@ import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
-import sk.styk.martin.apkanalyzer.util.ColorInfo
-import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
-import sk.styk.martin.apkanalyzer.util.TextInfo
+import sk.styk.martin.apkanalyzer.util.*
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
+import timber.log.Timber
 import java.io.File
 import kotlin.math.abs
 
@@ -60,6 +60,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         private val fileManager: FileManager,
         private val packageManager: PackageManager,
         private val activityColorThemeManager: ActivityColorThemeManager,
+        private val analyticsTracker: AnalyticsTracker,
 ) : ViewModel(), AppBarLayout.OnOffsetChangedListener, DefaultLifecycleObserver {
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
@@ -182,6 +183,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         } catch (e: Exception) {
             viewStateLiveData.value = ERROR_STATE
             actionButtonVisibilityLiveData.value = false
+            Timber.tag(TAG_APP_DETAIL).w(e, "Loading detail for $appDetailRequest failed")
         }
     }
 
@@ -226,6 +228,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     private fun observeApkActions() {
         viewModelScope.launch {
             appActionsAdapter.installApp.collect {
+                analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.INSTALL)
                 appDetails.value?.let {
                     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls()) {
                         installAppEvent.value = it.generalData.apkDirectory
@@ -237,6 +240,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         }
         viewModelScope.launch {
             appActionsAdapter.exportApp.collect {
+                analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.EXPORT_APK)
                 appDetails.value?.let { data ->
                     if (permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         exportAppFileSelection()
@@ -256,6 +260,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         }
         viewModelScope.launch {
             appActionsAdapter.saveIcon.collect {
+                analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.SAVE_ICON)
                 appDetails.value?.let { data ->
                     if (permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         saveImage()
@@ -274,6 +279,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             }
         }
         viewModelScope.launch {
+            analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.SHOW_MANIFEST)
             appActionsAdapter.showManifest.collect {
                 appDetails.value?.generalData?.let {
                     showManifestEvent.value = ManifestRequest(
@@ -286,6 +292,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             }
         }
         viewModelScope.launch {
+            analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.OPEN_GOOGLE_PLAY)
             appActionsAdapter.openGooglePlay.collect {
                 appDetails.value?.let {
                     openGooglePlayEvent.value = it.generalData.packageName
@@ -293,6 +300,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             }
         }
         viewModelScope.launch {
+            analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.OPEN_SYSTEM_ABOUT)
             appActionsAdapter.openSystemInfo.collect {
                 appDetails.value?.let {
                     openSystemInfoEvent.value = it.generalData.packageName
@@ -320,6 +328,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                             })
                     notificationManager.showImageExportedNotification(data.generalData.applicationName, exportedFileUri)
                 } catch (e: Exception) {
+                    Timber.tag(TAG_EXPORTS).e(e, "Saving icon failed. Data ${data.generalData}")
                     showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_export_failed))
                 }
             }

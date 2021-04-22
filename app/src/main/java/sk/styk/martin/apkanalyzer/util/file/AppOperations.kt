@@ -5,11 +5,12 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.util.Log
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
+import timber.log.Timber
 import java.io.File
 
 object AppOperations {
@@ -25,7 +26,7 @@ object AppOperations {
             intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
             context.startActivity(intent)
         } catch (e: Exception) {
-            Log.e("Apk Install", "Could not install app", e)
+            Timber.tag(TAG_APP_ACTIONS).e(e, "Could not install app from path $packagePath.")
             Toast.makeText(context, context.getString(R.string.install_failed), Toast.LENGTH_LONG).show()
         }
     }
@@ -49,6 +50,7 @@ object AppOperations {
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)))
         } catch (anfe: ActivityNotFoundException) {
             // Google Play not installed, open it in browser
+            Timber.tag(TAG_APP_ACTIONS).w(anfe, "Starting Google play failed. Try to open it in browser.")
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)))
         }
 
@@ -63,6 +65,7 @@ object AppOperations {
         try {
             context.startActivity(intent)
         } catch (e: Exception) {
+            Timber.tag(TAG_APP_ACTIONS).e(e, "Starting foreign activity failed. Intent was $intent")
             Toast.makeText(context, R.string.activity_run_failed, Toast.LENGTH_SHORT).show()
         }
     }

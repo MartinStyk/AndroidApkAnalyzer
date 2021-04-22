@@ -46,7 +46,7 @@ class DigestManager @Inject constructor(){
         try {
             return MessageDigest.getInstance(algorithm)
         } catch (e: NoSuchAlgorithmException) {
-            throw RuntimeException(e.message)
+            throw RuntimeException(e.message, e)
         }
 
     }

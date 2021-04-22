@@ -3,6 +3,8 @@ package sk.styk.martin.apkanalyzer.manager.appanalysis
 import android.content.pm.PackageInfo
 import androidx.annotation.WorkerThread
 import sk.styk.martin.apkanalyzer.model.detail.CertificateData
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
+import timber.log.Timber
 import java.io.ByteArrayInputStream
 import java.security.cert.CertificateFactory
 import java.security.cert.X509Certificate
@@ -49,7 +51,7 @@ class CertificateService @Inject constructor(private val digestManager: DigestMa
                 val certificate = certFactory.generateCertificate(it) as X509Certificate
                 return certificate.sigAlgName
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.tag(TAG_APP_ANALYSIS).e(e, "Could not get sign algo for $packageInfo.")
             }
         }
         return null

@@ -8,6 +8,7 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import androidx.preference.PreferenceManager
+import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,5 +50,8 @@ class ApplicationModule {
     @Provides
     @ForApplication
     fun provideColorThemeManagerImpl(colorThemeManagerImpl: ColorThemeManagerImpl): ColorThemeManager = colorThemeManagerImpl
+
+    @Provides
+    fun provideFirebaseAnalytics(@ForApplication context: Context): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
 
 }

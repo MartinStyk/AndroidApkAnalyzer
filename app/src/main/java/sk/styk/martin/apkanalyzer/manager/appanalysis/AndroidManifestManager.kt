@@ -5,6 +5,8 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.content.res.XmlResourceParser
 import android.text.TextUtils
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
+import timber.log.Timber
 import java.io.ByteArrayInputStream
 import java.io.StringWriter
 import javax.inject.Inject
@@ -24,19 +26,19 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
         val stringBuilder = StringBuilder()
         try {
             val apkResources = try {
-
                 packageManager.getResourcesForApplication(packageName)
-
             } catch (exception: PackageManager.NameNotFoundException) {
-
                 packageManager.getPackageArchiveInfo(packagePath, 0)?.let {
                     packageManager.getResourcesForApplication(it.applicationInfo)
                 }
-
             }
 
-            val parser = apkResources?.assets?.openXmlResourceParser("AndroidManifest.xml")
-                    ?: return ""
+            if (apkResources == null) {
+                Timber.tag(TAG_APP_ANALYSIS).w("Resources for package $packageName not found")
+                return ""
+            }
+
+            val parser = apkResources.assets.openXmlResourceParser("AndroidManifest.xml")
 
             var eventType: Int = parser.next()
 
@@ -68,7 +70,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
                 eventType = parser.next()
             }
         } catch (e: Exception) {
-            e.printStackTrace()
+            Timber.tag(TAG_APP_ANALYSIS).e(e, "Error parsing manifest for $packageName")
         }
 
         return stringBuilder.toString()
@@ -85,7 +87,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
             transformer.transform(source, result)
             result.writer.toString()
         } catch (e: Exception) {
-            e.printStackTrace()
+            Timber.tag(TAG_APP_ANALYSIS).e(e, "Error formatting manifest $manifest")
             ""
         }
     }
@@ -102,7 +104,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
 
                 return TextUtils.htmlEncode(value)
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.tag(TAG_APP_ANALYSIS).w(e, "Error reading attribute value $attributeName, $attributeValue")
             }
 
         }
@@ -130,7 +132,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
                 }
 
             } catch (e: Exception) {
-                e.printStackTrace()
+                Timber.tag(TAG_APP_ANALYSIS).e(e, "Error reading minSdkValue for $applicationInfo")
             }
 
             return null

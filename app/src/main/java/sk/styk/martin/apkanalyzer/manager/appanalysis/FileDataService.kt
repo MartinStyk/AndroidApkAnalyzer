@@ -1,9 +1,10 @@
 package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import android.content.pm.PackageInfo
-import android.util.Log
 import sk.styk.martin.apkanalyzer.model.detail.FileData
 import sk.styk.martin.apkanalyzer.model.detail.FileEntry
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
+import timber.log.Timber
 import java.io.IOException
 import java.util.*
 import java.util.jar.Attributes
@@ -93,7 +94,7 @@ class FileDataService @Inject constructor() {
             jar = JarFile(packageInfo.applicationInfo.sourceDir)
             return jar.manifest
         } catch (e: IOException) {
-            Log.e(FileDataService::class.java.simpleName, "Unable to find manifest", e)
+            Timber.tag(TAG_APP_ANALYSIS).e(e, "Unable to find manifest for $packageInfo.")
         } finally {
             try {
                 jar?.close()

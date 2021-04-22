@@ -10,9 +10,11 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
+import timber.log.Timber
 
 class PermissionDetailFragmentViewModel @AssistedInject constructor(
         @Assisted val localPermissionData: LocalPermissionData,
@@ -40,6 +42,7 @@ class PermissionDetailFragmentViewModel @AssistedInject constructor(
         val description = try {
             packageManager.getPermissionInfo(localPermissionData.permissionData.name, PackageManager.GET_META_DATA).loadDescription(packageManager)
         } catch (e: PackageManager.NameNotFoundException) {
+            Timber.tag(TAG_APP_ANALYSIS).i("No description for permission ${localPermissionData.permissionData.name}")
             null
         }?.takeIf { it.isNotBlank() }
                 ?.let { TextInfo.from(it) }

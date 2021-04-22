@@ -9,7 +9,9 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
+import sk.styk.martin.apkanalyzer.util.TAG_EXPORTS
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
+import timber.log.Timber
 import java.io.File
 import java.io.FileInputStream
 import javax.inject.Inject
@@ -41,7 +43,7 @@ class ApkSaveManager @Inject constructor(
                             }
                         }
             } catch (e: Exception) {
-
+                Timber.tag(TAG_EXPORTS).e(e, "Saving apk failed failed. Appname=${appName}, sourceFile=${sourceFile}, targetUri=$targetUri")
             }
         }
     }
@@ -68,6 +70,7 @@ class ApkSaveManager @Inject constructor(
         }
 
         emit(AppSaveStatus.Done(targetUri))
+
     }.flowOn(dispatcherProvider.io())
 
 

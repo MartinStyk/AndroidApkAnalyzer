@@ -17,8 +17,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentManifestBinding
 import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.provideViewModel
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -71,6 +73,7 @@ class AndroidManifestFragment : Fragment() {
         try {
             startActivity(intent)
         } catch (e: ActivityNotFoundException) {
+            Timber.tag(TAG_APP_ACTIONS).w(e, "Can not show manifest with intent $intent")
             Toast.makeText(requireContext(), R.string.activity_not_found_doc, Toast.LENGTH_LONG).show()
         }
     }
@@ -85,6 +88,7 @@ class AndroidManifestFragment : Fragment() {
                     }
             )
         } catch (e: ActivityNotFoundException) {
+            Timber.tag(TAG_APP_ACTIONS).w(e, "Can not open file picker")
             Toast.makeText(requireContext(), R.string.activity_not_found_browsing, Toast.LENGTH_LONG).show()
         }
     }

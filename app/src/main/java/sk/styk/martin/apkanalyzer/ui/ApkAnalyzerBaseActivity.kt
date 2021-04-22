@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui
 
 import androidx.appcompat.app.AppCompatActivity
+import sk.styk.martin.apkanalyzer.manager.analytics.FragmentScreenTracker
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
@@ -16,6 +17,9 @@ abstract class ApkAnalyzerBaseActivity : AppCompatActivity() {
 
     @Inject
     lateinit var backPressedManager: BackPressedManager
+
+    @Inject
+    lateinit var fragmentScreenTracker: FragmentScreenTracker
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
