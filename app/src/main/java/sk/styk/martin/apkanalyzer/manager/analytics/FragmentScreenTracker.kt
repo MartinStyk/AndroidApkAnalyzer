@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.manager.analytics
 
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -18,7 +17,6 @@ class FragmentScreenTracker @Inject constructor(private val analyticsTracker: An
         override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
             super.onFragmentResumed(fm, f)
             f.tag?.let {
-                Log.e("XXX", "fragment $it")
                 analyticsTracker.trackScreenView(it)
             }
         }
