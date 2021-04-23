@@ -22,7 +22,6 @@ class AboutFragmentViewModel @AssistedInject constructor(
     fun onRateAppClick() = viewModelScope.launch {
         try {
             userReviewManager.openGooglePlayReview()
-            throw IllegalArgumentException()
         } catch (e: Exception) {
             Timber.e(e, "Can not start GPlay review")
             openGooglePlayEvent.call()
