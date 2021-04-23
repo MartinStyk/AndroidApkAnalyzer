@@ -121,8 +121,8 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     val toolbarIcon: LiveData<Drawable> = appDetails.map { it.generalData.icon!! }
 
     val installPermissionResult = ActivityResultCallback<ActivityResult> {
-        val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory
-        if (it?.resultCode == Activity.RESULT_OK && !apkPath.isNullOrBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
+        val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory ?: return@ActivityResultCallback
+        if (it?.resultCode == Activity.RESULT_OK && !apkPath.isBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
             installAppEvent.value = apkPath
         }
     }
