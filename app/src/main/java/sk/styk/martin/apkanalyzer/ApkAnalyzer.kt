@@ -22,7 +22,6 @@ class ApkAnalyzer : MultiDexApplication() {
     override fun onCreate() {
         super.onCreate()
         colorThemeManager.setTheme()
-        persistenceManager.appStartNumber++
         Timber.plant(*LogUtils.logTrees())
     }
 

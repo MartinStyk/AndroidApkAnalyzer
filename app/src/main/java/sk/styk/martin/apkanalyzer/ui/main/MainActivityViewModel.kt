@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
+import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import sk.styk.martin.apkanalyzer.manager.promo.StartPromoManager
 import sk.styk.martin.apkanalyzer.util.AppFlavour
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
@@ -20,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
         promoManager: StartPromoManager,
+        persistenceManager: PersistenceManager,
         private val navigationDrawerModel: NavigationDrawerModel,
 ) :
         ViewModel(),
@@ -61,6 +63,8 @@ class MainActivityViewModel @Inject constructor(
     val premiumMenuItemVisible: LiveData<Boolean> = MutableLiveData(AppFlavour.isPremium && BuildConfig.SHOW_PROMO)
 
     init {
+        persistenceManager.appStartNumber++
+
         placeInitialFragmentEvent.call()
 
         when (promoManager.getPromoAction()) {
