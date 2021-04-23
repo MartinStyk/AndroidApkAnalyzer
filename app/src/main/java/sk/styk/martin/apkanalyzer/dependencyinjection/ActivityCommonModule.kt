@@ -5,6 +5,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.play.core.review.ReviewManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,6 +16,7 @@ import sk.styk.martin.apkanalyzer.manager.analytics.AnalyticsTracker
 import sk.styk.martin.apkanalyzer.manager.analytics.FragmentScreenTracker
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
+import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 
@@ -64,6 +66,19 @@ class ActivityCommonModule {
         }).get(FragmentScreenTracker::class.java)
         fragmentScreenTracker.bind(activity)
         return fragmentScreenTracker
+    }
+
+
+    @Provides
+    @ActivityScoped
+    fun provideUserReviewManager(activity: AppCompatActivity, reviewManager: ReviewManager): UserReviewManager {
+        val userReviewmanager: UserReviewManager = ViewModelProvider(activity, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return UserReviewManager(reviewManager) as T
+            }
+        }).get(UserReviewManager::class.java)
+        userReviewmanager.bind(activity)
+        return userReviewmanager
     }
 
 }

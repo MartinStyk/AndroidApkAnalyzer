@@ -12,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
+import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.ui.about.AboutFragment
 import sk.styk.martin.apkanalyzer.ui.applist.main.MainAppListFragment
@@ -22,9 +23,13 @@ import sk.styk.martin.apkanalyzer.ui.premium.PremiumFragment
 import sk.styk.martin.apkanalyzer.ui.settings.SettingsFragment
 import sk.styk.martin.apkanalyzer.ui.statistics.StatisticsFragment
 import sk.styk.martin.apkanalyzer.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : ApkAnalyzerBaseActivity() {
+
+    @Inject
+    lateinit var userReviewManager: UserReviewManager
 
     private val viewModel: MainActivityViewModel by viewModels()
 

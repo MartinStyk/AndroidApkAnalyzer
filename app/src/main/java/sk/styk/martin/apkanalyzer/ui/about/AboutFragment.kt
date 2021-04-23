@@ -6,17 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.databinding.FragmentAboutBinding
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
+import sk.styk.martin.apkanalyzer.util.provideViewModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AboutFragment : Fragment() {
 
+    @Inject
+    lateinit var factory: AboutFragmentViewModel.Factory
+
     private lateinit var binding: FragmentAboutBinding
 
-    private val viewModel: AboutFragmentViewModel by viewModels()
+    private lateinit var viewModel: AboutFragmentViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = provideViewModel { factory.create() }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAboutBinding.inflate(inflater, container, false)

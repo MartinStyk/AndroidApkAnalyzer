@@ -8,6 +8,8 @@ import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import androidx.preference.PreferenceManager
+import com.google.android.play.core.review.ReviewManager
+import com.google.android.play.core.review.ReviewManagerFactory
 import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
@@ -53,5 +55,8 @@ class ApplicationModule {
 
     @Provides
     fun provideFirebaseAnalytics(@ForApplication context: Context): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
+
+    @Provides
+    fun provideReviewManager(@ForApplication context: Context): ReviewManager = ReviewManagerFactory.create(context)
 
 }
