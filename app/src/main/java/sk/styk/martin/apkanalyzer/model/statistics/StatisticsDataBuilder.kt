@@ -29,14 +29,6 @@ class StatisticsDataBuilder(datasetSize: Int) {
     private val usedPermissions = FloatArray(arraySize)
     private val definedPermissions = FloatArray(arraySize)
 
-    private val files = FloatArray(arraySize)
-
-    private val drawables = FloatArray(arraySize)
-    private val differentDrawables = FloatArray(arraySize)
-
-    private val layouts = FloatArray(arraySize)
-    private val differentLayouts = FloatArray(arraySize)
-
     fun build(): StatisticsData {
         return StatisticsData(
                 analyzeSuccess = PercentagePair(analyzeSuccess, analyzeSuccess + analyzeFailed),
@@ -56,13 +48,7 @@ class StatisticsDataBuilder(datasetSize: Int) {
 
                 usedPermissions = MathStatisticsBuilder(usedPermissions).build(),
                 definedPermissions = MathStatisticsBuilder(definedPermissions).build(),
-                files = MathStatisticsBuilder(files).build(),
-
-                drawables = MathStatisticsBuilder(drawables).build(),
-                differentDrawables = MathStatisticsBuilder(differentDrawables).build(),
-
-                layouts = MathStatisticsBuilder(layouts).build(),
-                differentLayouts = MathStatisticsBuilder(differentLayouts).build())
+        )
     }
 
     fun add(appData: StatisticsAppData?) {
@@ -87,14 +73,6 @@ class StatisticsDataBuilder(datasetSize: Int) {
 
         usedPermissions[analyzeSuccess] = appData.usedPermissions.toFloat()
         definedPermissions[analyzeSuccess] = appData.definedPermissions.toFloat()
-
-        files[analyzeSuccess] = appData.files.toFloat()
-
-        drawables[analyzeSuccess] = appData.drawables.toFloat()
-        differentDrawables[analyzeSuccess] = appData.differentDrawables.toFloat()
-
-        layouts[analyzeSuccess] = appData.layouts.toFloat()
-        differentLayouts[analyzeSuccess] = appData.differentLayouts.toFloat()
     }
 
     private fun <T> addToMap(map: MutableMap<T, MutableList<String>>, key: T, packageName: String) {

@@ -25,8 +25,6 @@ class LocalApplicationStatisticManager @Inject constructor(
         private val packageManager: PackageManager,
         private val installedAppsManager: InstalledAppsManager,
         private val generalDataService: GeneralDataService,
-        private val fileService: FileDataService,
-        private val resourceService: ResourceService,
         private val certificateService: CertificateService,
 ) {
 
@@ -35,7 +33,7 @@ class LocalApplicationStatisticManager @Inject constructor(
         data class Data(val data: StatisticsData) : StatisticsLoadingStatus()
     }
 
-    suspend fun loadStatisticsData() = flow<StatisticsLoadingStatus> {
+    suspend fun loadStatisticsData() = flow {
         val allApps = installedAppsManager.getAll()
         emit(StatisticsLoadingStatus.Loading(0, allApps.size))
 
@@ -61,8 +59,6 @@ class LocalApplicationStatisticManager @Inject constructor(
         val applicationInfo = packageInfo.applicationInfo ?: return null
 
         val isSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-        val fileData = fileService.get(packageInfo)
-        val resourceData = resourceService.get(fileData)
 
         return StatisticsAppData(
                 packageName = packageName,
@@ -79,12 +75,7 @@ class LocalApplicationStatisticManager @Inject constructor(
                 providers = packageInfo.providers?.size ?: 0,
                 receivers = packageInfo.receivers?.size ?: 0,
                 definedPermissions = packageInfo.permissions?.size ?: 0,
-                usedPermissions = packageInfo.requestedPermissions?.size ?: 0,
-                files = fileData.totalFiles,
-                drawables = resourceData.drawables,
-                differentDrawables = resourceData.differentDrawables,
-                layouts = resourceData.layouts,
-                differentLayouts = resourceData.differentLayouts
+                usedPermissions = packageInfo.requestedPermissions?.size ?: 0
         )
     }
 

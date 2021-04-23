@@ -22,8 +22,4 @@ data class StatisticsAppData(
         var receivers: Int = 0,
         var usedPermissions: Int = 0,
         var definedPermissions: Int = 0,
-        var files: Int = 0,
-        var drawables: Int = 0,
-        var differentDrawables: Int = 0,
-        var layouts: Int = 0,
-        var differentLayouts: Int = 0) : Parcelable
+) : Parcelable

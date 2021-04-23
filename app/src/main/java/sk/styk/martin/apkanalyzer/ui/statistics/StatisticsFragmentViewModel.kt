@@ -99,21 +99,6 @@ class StatisticsFragmentViewModel @Inject constructor(
     private val definedPermissionsExpandedLiveData = MutableLiveData(false)
     val definedPermissionsExpanded: LiveData<Boolean> = definedPermissionsExpandedLiveData
 
-    private val filesExpandedLiveData = MutableLiveData(false)
-    val filesExpanded: LiveData<Boolean> = filesExpandedLiveData
-
-    private val totalDrawablesExpandedLiveData = MutableLiveData(false)
-    val totalDrawablesExpanded: LiveData<Boolean> = totalDrawablesExpandedLiveData
-
-    private val differentDrawablesExpandedLiveData = MutableLiveData(false)
-    val differentDrawablesExpanded: LiveData<Boolean> = differentDrawablesExpandedLiveData
-
-    private val totalLayoutsExpandedLiveData = MutableLiveData(false)
-    val totalLayoutsExpanded: LiveData<Boolean> = totalLayoutsExpandedLiveData
-
-    private val differentLayoutsExpandedLiveData = MutableLiveData(false)
-    val differentLayoutsExpanded: LiveData<Boolean> = differentLayoutsExpandedLiveData
-
     init {
         viewModelScope.launch {
             localApplicationStatisticManager.loadStatisticsData()
@@ -209,25 +194,6 @@ class StatisticsFragmentViewModel @Inject constructor(
         definedPermissionsExpandedLiveData.value = definedPermissionsExpandedLiveData.value?.not()
     }
 
-    fun toggleFilesExpanded() {
-        filesExpandedLiveData.value = filesExpandedLiveData.value?.not()
-    }
-
-    fun toggleDifferentDrawablesExpanded() {
-        differentDrawablesExpandedLiveData.value = differentDrawablesExpandedLiveData.value?.not()
-    }
-
-    fun toggleTotalDrawablesExpanded() {
-        totalDrawablesExpandedLiveData.value = totalDrawablesExpandedLiveData.value?.not()
-    }
-
-    fun toggleDifferentLayoutsExpanded() {
-        differentLayoutsExpandedLiveData.value = differentLayoutsExpandedLiveData.value?.not()
-    }
-
-    fun toggleTotalLayoutsExpanded() {
-        totalLayoutsExpandedLiveData.value = totalLayoutsExpandedLiveData.value?.not()
-    }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
@@ -257,11 +223,6 @@ class StatisticsFragmentViewModel @Inject constructor(
         receiversExpandedLiveData.value = isExpanded
         usedPermissionsExpandedLiveData.value = isExpanded
         definedPermissionsExpandedLiveData.value = isExpanded
-        filesExpandedLiveData.value = isExpanded
-        totalDrawablesExpandedLiveData.value = isExpanded
-        differentDrawablesExpandedLiveData.value = isExpanded
-        totalLayoutsExpandedLiveData.value = isExpanded
-        differentLayoutsExpandedLiveData.value = isExpanded
     }
 
 

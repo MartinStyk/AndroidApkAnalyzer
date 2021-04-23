@@ -24,9 +24,4 @@ data class StatisticsData(
         val receivers: MathStatistics,
         val usedPermissions: MathStatistics,
         val definedPermissions: MathStatistics,
-        val files: MathStatistics,
-        val drawables: MathStatistics,
-        val differentDrawables: MathStatistics,
-        val layouts: MathStatistics,
-        val differentLayouts: MathStatistics
 ) : Parcelable
