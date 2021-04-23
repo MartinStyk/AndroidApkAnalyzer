@@ -25,6 +25,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item  name="android:windowActivityTransitions">true</item>
 
         <item name="snackbarButtonStyle">@style/SnackbarActionButton</item>
         <item name="materialAlertDialogTheme">@style/AlertDialogTheme</item>
