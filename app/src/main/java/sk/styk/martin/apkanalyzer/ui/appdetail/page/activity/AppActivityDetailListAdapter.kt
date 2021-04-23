@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailBinding
+import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailExpandedBinding
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
+import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.ExpandableItemViewModel
+import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.LazyExpandableViewHolder
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
@@ -42,17 +44,15 @@ class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescription
         return ViewHolder(itemBinding)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(ActivityDataViewModel(items[position]))
-    }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(ActivityDataViewModel(items[position]))
 
     override fun getItemCount() = items.size
 
-    inner class ActivityDataViewModel(private val expandedActivityData: ExpandedActivityData) {
+    inner class ActivityDataViewModel(private val expandedActivityData: ExpandedActivityData) : ExpandableItemViewModel {
 
         val name = expandedActivityData.activityData.name.substring(expandedActivityData.activityData.name.lastIndexOf(".") + 1)
         val packageName = expandedActivityData.activityData.name.substring(0, expandedActivityData.activityData.name.lastIndexOf("."))
-        val expanded = expandedActivityData.expanded
+        override val expanded = expandedActivityData.expanded
 
         val labelDetailItemInfo = DetailInfoAdapter.DetailInfo(
                 name = TextInfo.from(R.string.activity_label),
@@ -91,30 +91,24 @@ class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescription
             runActivityEvent.value = expandedActivityData.activityData
         }
 
-        fun toggleExpanded(newlyExpanded: Boolean) {
+        override fun toggleExpanded(newlyExpanded: Boolean) {
             activityUpdateEvent.value = expandedActivityData.copy(expanded = newlyExpanded)
         }
 
     }
 
-    inner class ViewHolder(val binding: ListItemActivityDetailBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ListItemActivityDetailBinding) :
+            LazyExpandableViewHolder<ListItemActivityDetailBinding, ListItemActivityDetailExpandedBinding, ActivityDataViewModel>(binding) {
 
-        fun bind(viewModel: ActivityDataViewModel) {
-            binding.viewModel = viewModel
-            updateExpandedState(viewModel.expanded)
-            binding.headerContainer.setOnClickListener {
-                val newlyExpanded = !binding.expandableContainer.isExpanded
-                viewModel.toggleExpanded(newlyExpanded)
-                binding.expandableContainer.isExpanded = newlyExpanded
-                binding.toggleArrow.animate().setDuration(ARROW_ANIMATION_DURATION).rotation(if (newlyExpanded) ROTATION_FLIPPED else ROTATION_STANDARD)
-            }
-        }
+        override fun baseContainer() = baseBinding.container
 
-        private fun updateExpandedState(expanded: Boolean) {
-            binding.expandableContainer.setExpanded(expanded, false)
-            binding.toggleArrow.rotation = if (expanded) ROTATION_FLIPPED else ROTATION_STANDARD
-        }
+        override fun expandedInflation() = ListItemActivityDetailExpandedBinding.inflate(LayoutInflater.from(baseBinding.root.context))
 
+        override fun expandableContainer() = expandedBinding.expandableContainer
+
+        override fun toggleArrow() = baseBinding.toggleArrow
+
+        override fun headerContainer() = baseBinding.headerContainer
     }
 
     private inner class ActivityDiffCallback(private val newList: List<ExpandedActivityData>,

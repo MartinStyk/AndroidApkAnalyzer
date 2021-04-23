@@ -21,4 +21,6 @@
     <color name="grey_500">#9E9E9E</color>
     <color name="overlay">#ddffffff</color>
 
+    <color name="runGreen">#449e48</color>
+
 </resources>

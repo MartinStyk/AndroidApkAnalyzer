@@ -11,6 +11,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -62,40 +63,6 @@
                 app:tint="?android:textColorSecondary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandableContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:el_duration="500"
-            tools:el_expanded="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
-                    android:id="@+id/item_receiver_permission"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.onDetailClick(viewModel.permission)}"
-                    android:onLongClick="@{() -> viewModel.onLongClick(viewModel.permission)}"
-                    app:titleText="@{viewModel.permission.name}"
-                    app:valueText="@{viewModel.permission.value}" />
-
-                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
-                    android:id="@+id/item_receiver_exported"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.onDetailClick(viewModel.exported)}"
-                    android:onLongClick="@{() -> viewModel.onLongClick(viewModel.exported)}"
-                    app:titleText="@{viewModel.exported.name}"
-                    app:valueText="@{viewModel.exported.value}" />
-
-            </LinearLayout>
-
-        </net.cachapa.expandablelayout.ExpandableLayout>
 
     </LinearLayout>
 

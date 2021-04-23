@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="sk.styk.martin.apkanalyzer.ui.appdetail.page.provider.AppProviderDetailListAdapter.ProviderDataViewModel" />
+
+    </data>
+
+
+    <net.cachapa.expandablelayout.ExpandableLayout
+        android:id="@+id/expandableContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:el_duration="500"
+        tools:el_expanded="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_provider_authority"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.authority)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.authority)}"
+                app:titleText="@{viewModel.authority.name}"
+                app:valueText="@{viewModel.authority.value}" />
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_provider_read_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.readPermission)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.readPermission)}"
+                app:titleText="@{viewModel.readPermission.name}"
+                app:valueText="@{viewModel.readPermission.value}" />
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_provider_write_permission"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.writePermission)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.writePermission)}"
+                app:titleText="@{viewModel.writePermission.name}"
+                app:valueText="@{viewModel.writePermission.value}" />
+
+            <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
+                android:id="@+id/item_provider_exported"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewModel.onDetailClick(viewModel.exported)}"
+                android:onLongClick="@{() -> viewModel.onLongClick(viewModel.exported)}"
+                app:titleText="@{viewModel.exported.name}"
+                app:valueText="@{viewModel.exported.value}" />
+
+        </LinearLayout>
+
+    </net.cachapa.expandablelayout.ExpandableLayout>
+
+</layout>

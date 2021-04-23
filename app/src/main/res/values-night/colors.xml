@@ -12,4 +12,7 @@
 
     <color name="graph_bar">@color/grey_500</color>
     <color name="overlay">#cc000000</color>
+
+    <color name="runGreen">#357a38</color>
+
 </resources>

@@ -4,15 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailBinding
+import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailExpandedBinding
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
+import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.ExpandableItemViewModel
+import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.LazyExpandableViewHolder
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
@@ -42,11 +41,11 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
 
     override fun getItemCount() = items.size
 
-    inner class ProviderDataViewModel(private val expandedProviderData: ExpandedContentProviderData) {
+    inner class ProviderDataViewModel(private val expandedProviderData: ExpandedContentProviderData) : ExpandableItemViewModel {
 
         val name = expandedProviderData.contentProviderData.name.substring(expandedProviderData.contentProviderData.name.lastIndexOf(".") + 1)
         val packageName = expandedProviderData.contentProviderData.name.substring(0, expandedProviderData.contentProviderData.name.lastIndexOf("."))
-        val expanded = expandedProviderData.expanded
+        override val expanded = expandedProviderData.expanded
 
         val authority = DetailInfoAdapter.DetailInfo(
                 name = TextInfo.from(R.string.provider_authority),
@@ -83,29 +82,23 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
             return true
         }
 
-        fun toggleExpanded(newlyExpanded: Boolean) {
+        override fun toggleExpanded(newlyExpanded: Boolean) {
             providerUpdateEvent.value = expandedProviderData.copy(expanded = newlyExpanded)
         }
     }
 
-    inner class ViewHolder(val binding: ListItemProviderDetailBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ListItemProviderDetailBinding) :
+            LazyExpandableViewHolder<ListItemProviderDetailBinding, ListItemProviderDetailExpandedBinding, ProviderDataViewModel>(binding) {
 
-        fun bind(viewModel: ProviderDataViewModel) {
-            binding.viewModel = viewModel
-            updateExpandedState(viewModel.expanded)
-            binding.headerContainer.setOnClickListener {
-                val newlyExpanded = !binding.expandableContainer.isExpanded
-                viewModel.toggleExpanded(newlyExpanded)
-                binding.expandableContainer.isExpanded = newlyExpanded
-                binding.toggleArrow.animate().setDuration(ARROW_ANIMATION_DURATION).rotation(if (newlyExpanded) ROTATION_FLIPPED else ROTATION_STANDARD)
-            }
-        }
+        override fun baseContainer() = baseBinding.container
 
-        private fun updateExpandedState(expanded: Boolean) {
-            binding.expandableContainer.setExpanded(expanded, false)
-            binding.toggleArrow.rotation = if (expanded) ROTATION_FLIPPED else ROTATION_STANDARD
-        }
+        override fun expandedInflation() = ListItemProviderDetailExpandedBinding.inflate(LayoutInflater.from(baseBinding.root.context))
 
+        override fun expandableContainer() = expandedBinding.expandableContainer
+
+        override fun toggleArrow() = baseBinding.toggleArrow
+
+        override fun headerContainer() = baseBinding.headerContainer
     }
 
     private inner class ProviderDiffCallback(private val newList: List<ExpandedContentProviderData>,

@@ -4,15 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemReceiverDetailBinding
+import sk.styk.martin.apkanalyzer.databinding.ListItemReceiverDetailExpandedBinding
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
+import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.ExpandableItemViewModel
+import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.LazyExpandableViewHolder
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
@@ -42,11 +41,11 @@ class AppReceiverDetailListAdapter @Inject constructor() : DetailInfoDescription
 
     override fun getItemCount() = items.size
 
-    inner class ReceiverDataViewModel(private val expandedReceiverData: ExpandedBroadcastReceiverData) {
+    inner class ReceiverDataViewModel(private val expandedReceiverData: ExpandedBroadcastReceiverData) : ExpandableItemViewModel {
 
         val name = expandedReceiverData.receiverData.name.substring(expandedReceiverData.receiverData.name.lastIndexOf(".") + 1)
         val packageName = expandedReceiverData.receiverData.name.substring(0, expandedReceiverData.receiverData.name.lastIndexOf("."))
-        val expanded = expandedReceiverData.expanded
+        override val expanded = expandedReceiverData.expanded
 
         val permission = DetailInfoAdapter.DetailInfo(
                 name = TextInfo.from(R.string.receiver_permission),
@@ -68,35 +67,29 @@ class AppReceiverDetailListAdapter @Inject constructor() : DetailInfoDescription
             return true
         }
 
-        fun onTitleLongClick() : Boolean {
+        fun onTitleLongClick(): Boolean {
             copyToClipboardEvent.value = CopyToClipboard(TextInfo.from(expandedReceiverData.receiverData.name))
             return true
         }
 
-        fun toggleExpanded(newlyExpanded: Boolean) {
+        override fun toggleExpanded(newlyExpanded: Boolean) {
             receiverUpdateEvent.value = expandedReceiverData.copy(expanded = newlyExpanded)
         }
 
     }
 
-    inner class ViewHolder(val binding: ListItemReceiverDetailBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ListItemReceiverDetailBinding) :
+            LazyExpandableViewHolder<ListItemReceiverDetailBinding, ListItemReceiverDetailExpandedBinding, ReceiverDataViewModel>(binding) {
 
-        fun bind(viewModel: ReceiverDataViewModel) {
-            binding.viewModel = viewModel
-            updateExpandedState(viewModel.expanded)
-            binding.headerContainer.setOnClickListener {
-                val newlyExpanded = !binding.expandableContainer.isExpanded
-                viewModel.toggleExpanded(newlyExpanded)
-                binding.expandableContainer.isExpanded = newlyExpanded
-                binding.toggleArrow.animate().setDuration(ARROW_ANIMATION_DURATION).rotation(if (newlyExpanded) ROTATION_FLIPPED else ROTATION_STANDARD)
-            }
-        }
+        override fun baseContainer() = baseBinding.container
 
-        private fun updateExpandedState(expanded: Boolean) {
-            binding.expandableContainer.setExpanded(expanded, false)
-            binding.toggleArrow.rotation = if (expanded) ROTATION_FLIPPED else ROTATION_STANDARD
-        }
+        override fun expandedInflation() = ListItemReceiverDetailExpandedBinding.inflate(LayoutInflater.from(baseBinding.root.context))
 
+        override fun expandableContainer() = expandedBinding.expandableContainer
+
+        override fun toggleArrow() = baseBinding.toggleArrow
+
+        override fun headerContainer() = baseBinding.headerContainer
     }
 
     private inner class ReceiverDiffCallback(private val newList: List<ExpandedBroadcastReceiverData>,

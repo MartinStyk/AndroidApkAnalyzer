@@ -4,15 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemServiceDetailBinding
+import sk.styk.martin.apkanalyzer.databinding.ListItemServiceDetailExpandedBinding
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
+import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.ExpandableItemViewModel
+import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.LazyExpandableViewHolder
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
@@ -42,11 +41,11 @@ class AppServiceDetailListAdapter @Inject constructor() : DetailInfoDescriptionA
 
     override fun getItemCount() = items.size
 
-    inner class ServiceDataViewModel(private val expandedServiceData: ExpandedServiceData) {
+    inner class ServiceDataViewModel(private val expandedServiceData: ExpandedServiceData) : ExpandableItemViewModel {
 
         val name = expandedServiceData.serviceData.name.substring(expandedServiceData.serviceData.name.lastIndexOf(".") + 1)
         val packageName = expandedServiceData.serviceData.name.substring(0, expandedServiceData.serviceData.name.lastIndexOf("."))
-        val expanded = expandedServiceData.expanded
+        override val expanded = expandedServiceData.expanded
 
         val permission = DetailInfoAdapter.DetailInfo(
                 name = TextInfo.from(R.string.activity_permission),
@@ -93,29 +92,24 @@ class AppServiceDetailListAdapter @Inject constructor() : DetailInfoDescriptionA
             return true
         }
 
-        fun toggleExpanded(newlyExpanded: Boolean) {
+        override fun toggleExpanded(newlyExpanded: Boolean) {
             serviceUpdateEvent.value = expandedServiceData.copy(expanded = newlyExpanded)
         }
 
     }
 
-    inner class ViewHolder(val binding: ListItemServiceDetailBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(binding: ListItemServiceDetailBinding) :
+            LazyExpandableViewHolder<ListItemServiceDetailBinding, ListItemServiceDetailExpandedBinding, ServiceDataViewModel>(binding) {
 
-        fun bind(viewModel: ServiceDataViewModel) {
-            binding.viewModel = viewModel
-            updateExpandedState(viewModel.expanded)
-            binding.headerContainer.setOnClickListener {
-                val newlyExpanded = !binding.expandableContainer.isExpanded
-                viewModel.toggleExpanded(newlyExpanded)
-                binding.expandableContainer.isExpanded = newlyExpanded
-                binding.toggleArrow.animate().setDuration(ARROW_ANIMATION_DURATION).rotation(if (newlyExpanded) ROTATION_FLIPPED else ROTATION_STANDARD)
-            }
-        }
+        override fun baseContainer() = baseBinding.container
 
-        private fun updateExpandedState(expanded: Boolean) {
-            binding.expandableContainer.setExpanded(expanded, false)
-            binding.toggleArrow.rotation = if (expanded) ROTATION_FLIPPED else ROTATION_STANDARD
-        }
+        override fun expandedInflation() = ListItemServiceDetailExpandedBinding.inflate(LayoutInflater.from(baseBinding.root.context))
+
+        override fun expandableContainer() = expandedBinding.expandableContainer
+
+        override fun toggleArrow() = baseBinding.toggleArrow
+
+        override fun headerContainer() = baseBinding.headerContainer
     }
 
     private inner class ServiceDiffCallback(private val newList: List<ExpandedServiceData>,
