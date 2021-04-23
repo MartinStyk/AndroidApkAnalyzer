@@ -18,18 +18,28 @@
 
 -keepattributes Signature
 -keepattributes *Annotation*
--keep class okhttp3.** { *; }
--keep interface okhttp3.** { *; }
 -dontwarn okhttp3.**
 -dontnote okhttp3.**
 
 # Okio
--keep class sun.misc.Unsafe { *; }
 -dontwarn java.nio.file.*
 -dontwarn okio.**
 
 -dontwarn javax.annotation.**
 # A resource is loaded with a relative path so the package of this class must be preserved.
 -keep,includedescriptorclasses class *
+
+# Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule {
+ <init>(...);
+}
+-keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
+  **[] $VALUES;
+  public *;
+}
+-keep class com.bumptech.glide.load.data.ParcelFileDescriptorRewinder$InternalRewinder {
+  *** rewind();
+}
 
 -keepclassmembers class sk.styk.martin.apkanalyzer.model** { <fields>; }

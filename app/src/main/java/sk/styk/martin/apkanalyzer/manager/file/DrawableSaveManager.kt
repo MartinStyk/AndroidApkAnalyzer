@@ -5,12 +5,12 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.net.toUri
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.manager.media.MediaManager
+import sk.styk.martin.apkanalyzer.manager.permission.hasScopedStorage
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.file.toBitmap
 import java.io.File
@@ -32,7 +32,7 @@ class DrawableSaveManager @Inject constructor(
                              mediaContentUri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI): Uri = withContext(dispatcherProvider.io()) {
         val bitmap = drawable.toBitmap()
 
-        return@withContext if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        return@withContext if (hasScopedStorage()) {
             val values = ContentValues().apply {
                 put(MediaStore.Images.Media.DISPLAY_NAME, fileName)
                 put(MediaStore.Images.Media.MIME_TYPE, mimeType)

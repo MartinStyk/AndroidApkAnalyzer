@@ -21,6 +21,7 @@ import sk.styk.martin.apkanalyzer.manager.appanalysis.AndroidManifestManager
 import sk.styk.martin.apkanalyzer.manager.file.FileManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
+import sk.styk.martin.apkanalyzer.manager.permission.hasScopedStorage
 import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
 import sk.styk.martin.apkanalyzer.util.TAG_EXPORTS
 import sk.styk.martin.apkanalyzer.util.TextInfo
@@ -99,7 +100,7 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
     }
 
     private fun onExportManifestClick() {
-        if (permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             exportAppFileSelection()
         } else {
             permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {

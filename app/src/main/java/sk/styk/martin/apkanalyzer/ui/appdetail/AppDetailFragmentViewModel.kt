@@ -28,6 +28,7 @@ import sk.styk.martin.apkanalyzer.manager.file.DrawableSaveManager
 import sk.styk.martin.apkanalyzer.manager.file.FileManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
+import sk.styk.martin.apkanalyzer.manager.permission.hasScopedStorage
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
@@ -242,7 +243,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             appActionsAdapter.exportApp.collect {
                 analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.EXPORT_APK)
                 appDetails.value?.let { data ->
-                    if (permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         exportAppFileSelection()
                     } else {
                         permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
@@ -262,7 +263,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             appActionsAdapter.saveIcon.collect {
                 analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.SAVE_ICON)
                 appDetails.value?.let { data ->
-                    if (permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         saveImage()
                     } else {
                         permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
@@ -271,7 +272,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                             }
 
                             override fun onPermissionGranted(permission: String) {
-                                viewModelScope.launch { saveImage() }
+                                saveImage()
                             }
                         })
                     }
@@ -313,7 +314,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         closeEvent.call()
     }
 
-    private suspend fun saveImage() {
+    private fun saveImage() {
         val data = appDetails.value ?: return
         val icon = data.generalData.icon
         if (icon != null) {
