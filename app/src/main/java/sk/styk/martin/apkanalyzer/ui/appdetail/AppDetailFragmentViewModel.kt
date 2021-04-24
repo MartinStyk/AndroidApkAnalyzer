@@ -121,7 +121,8 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     val toolbarIcon: LiveData<Drawable> = appDetails.map { it.generalData.icon!! }
 
     val installPermissionResult = ActivityResultCallback<ActivityResult> {
-        val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory ?: return@ActivityResultCallback
+        val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory
+                ?: return@ActivityResultCallback
         if (it?.resultCode == Activity.RESULT_OK && !apkPath.isBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
             installAppEvent.value = apkPath
         }
@@ -139,25 +140,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     }
 
     init {
-        when (appDetailRequest) {
-            is AppDetailRequest.InstalledPackage -> loadDetail()
-            is AppDetailRequest.ExternalPackage -> {
-                if (permissionManager.hasPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    loadDetail()
-                } else {
-                    permissionManager.requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
-                        override fun onPermissionDenied(permission: String) {
-                            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
-                        }
-
-                        override fun onPermissionGranted(permission: String) {
-                            loadDetail()
-                        }
-                    })
-                }
-            }
-        }
-
+        loadDetail()
         observeApkActions()
     }
 

@@ -23,13 +23,9 @@ import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import timber.log.Timber
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
-
-    @Inject
-    lateinit var factory: MainAppListViewModel.Factory
 
     private lateinit var binding: FragmentMainAppListBinding
 
@@ -39,7 +35,7 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = provideViewModel { factory.create() }
+        viewModel = provideViewModel()
         filePickerResultLuncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), viewModel.filePickerResult)
     }
 

@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.applist.main
 
-import android.Manifest
 import android.app.Activity
 import android.net.Uri
 import android.view.MenuItem
@@ -10,14 +9,13 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.*
 import com.google.android.material.snackbar.Snackbar
-import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.appanalysis.InstalledAppsManager
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
-import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.ui.applist.*
@@ -26,8 +24,8 @@ import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
+@HiltViewModel
 class MainAppListViewModel @AssistedInject constructor(
-        private val permissionManager: PermissionManager,
         private val installedAppsManager: InstalledAppsManager,
         private val navigationDrawerModel: NavigationDrawerModel,
         private val dispatcherProvider: DispatcherProvider,
@@ -88,19 +86,7 @@ class MainAppListViewModel @AssistedInject constructor(
     }
 
     fun onFilePickerClick() {
-        if (permissionManager.hasPermissionGranted(Manifest.permission.READ_EXTERNAL_STORAGE)) {
-            openFilePickerEvent.call()
-        } else {
-            permissionManager.requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
-                override fun onPermissionDenied(permission: String) {
-                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
-                }
-
-                override fun onPermissionGranted(permission: String) {
-                    openFilePickerEvent.call()
-                }
-            })
-        }
+        openFilePickerEvent.call()
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
@@ -178,11 +164,6 @@ class MainAppListViewModel @AssistedInject constructor(
                     appListData = allApps
                 }
         ) else null
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(): MainAppListViewModel
     }
 
 }
