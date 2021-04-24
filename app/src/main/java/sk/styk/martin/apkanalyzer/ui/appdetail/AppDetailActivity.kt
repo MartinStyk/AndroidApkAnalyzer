@@ -8,6 +8,8 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityAppDetailBinding
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
 import sk.styk.martin.apkanalyzer.util.FragmentTag
+import sk.styk.martin.apkanalyzer.util.TAG_APP_DETAIL
+import timber.log.Timber
 
 @AndroidEntryPoint
 open class AppDetailActivity : ApkAnalyzerBaseActivity() {
@@ -20,9 +22,11 @@ open class AppDetailActivity : ApkAnalyzerBaseActivity() {
         if (savedInstanceState == null) {
             val detailRequest = getDetailRequestBundle()
 
-            if (detailRequest == null) {
+            if (detailRequest?.getParcelable<AppDetailRequest>(APP_DETAIL_REQUEST) == null) {
                 Toast.makeText(this, R.string.error_loading_package_detail, Toast.LENGTH_LONG).show()
+                Timber.tag(TAG_APP_DETAIL).e(IllegalStateException("No app detail request"))
                 finishAffinity()
+                return
             }
 
             val fragment = AppDetailFragment().apply {
