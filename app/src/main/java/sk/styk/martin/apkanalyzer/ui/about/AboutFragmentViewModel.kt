@@ -19,13 +19,18 @@ class AboutFragmentViewModel @AssistedInject constructor(
     private val openGooglePlayEvent = SingleLiveEvent<Unit>()
     val openGooglePlay: LiveData<Unit> = openGooglePlayEvent
 
-    fun onRateAppClick() = viewModelScope.launch {
-        try {
-            userReviewManager.openGooglePlayReview()
-        } catch (e: Exception) {
-            Timber.e(e, "Can not start GPlay review")
-            openGooglePlayEvent.call()
+    init {
+        viewModelScope.launch {
+            try {
+                userReviewManager.openGooglePlayReview()
+            } catch (e: Exception) {
+                Timber.e(e, "Can not start GPlay review")
+            }
         }
+    }
+
+    fun onRateAppClick() {
+        openGooglePlayEvent.call()
     }
 
     fun onNavigationClick() = viewModelScope.launch {

@@ -9,13 +9,11 @@ class StartPromoManager @Inject constructor(
         private val persistenceManager: PersistenceManager
 ) {
 
-    /**
-     * Execute all actions related to app's first start
-     */
     fun getPromoAction(): PromoResult {
         return when {
             persistenceManager.isOnboardingRequired -> PromoResult.ONBOARDING
             shouldShowPromo() -> PromoResult.PROMO_DIALOG
+            persistenceManager.appStartNumber >= 3 -> PromoResult.INAPP_RATE_DIALOG // Inner GPlay handling ensures dialog is not shown too often
             else -> PromoResult.NO_ACTION
         }
     }
@@ -40,6 +38,7 @@ class StartPromoManager @Inject constructor(
         NO_ACTION,
         ONBOARDING,
         PROMO_DIALOG,
+        INAPP_RATE_DIALOG,
     }
 
 }

@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.material.navigation.NavigationView
-import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.BuildConfig
@@ -14,18 +16,17 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import sk.styk.martin.apkanalyzer.manager.promo.StartPromoManager
+import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
 import sk.styk.martin.apkanalyzer.util.AppFlavour
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
-import javax.inject.Inject
+import timber.log.Timber
 
-@HiltViewModel
-class MainActivityViewModel @Inject constructor(
+class MainActivityViewModel @AssistedInject constructor(
         promoManager: StartPromoManager,
         persistenceManager: PersistenceManager,
         private val navigationDrawerModel: NavigationDrawerModel,
-) :
-        ViewModel(),
-        NavigationView.OnNavigationItemSelectedListener {
+        private val userReviewManager: UserReviewManager,
+) : ViewModel(), NavigationView.OnNavigationItemSelectedListener {
 
     private val closeDrawerEvent = SingleLiveEvent<Unit>()
     val closeDrawer: LiveData<Unit> = closeDrawerEvent
@@ -70,13 +71,16 @@ class MainActivityViewModel @Inject constructor(
         when (promoManager.getPromoAction()) {
             StartPromoManager.PromoResult.ONBOARDING -> openOnboardingEvent.call()
             StartPromoManager.PromoResult.PROMO_DIALOG -> openPromoDialogEvent.call()
+            StartPromoManager.PromoResult.INAPP_RATE_DIALOG -> viewModelScope.launch(CoroutineExceptionHandler { _, throwable -> Timber.e(throwable) }) {
+                userReviewManager.openGooglePlayReview()
+            }
             StartPromoManager.PromoResult.NO_ACTION -> {
             }
         }
 
         viewModelScope.launch {
             navigationDrawerModel.handleState().collect {
-                if(it) openDrawerEvent.call() else closeDrawerEvent.call()
+                if (it) openDrawerEvent.call() else closeDrawerEvent.call()
             }
         }
     }
@@ -93,6 +97,11 @@ class MainActivityViewModel @Inject constructor(
 
         closeDrawerEvent.call()
         return true
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(): MainActivityViewModel
     }
 
 }

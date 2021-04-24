@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.ui.main
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import androidx.activity.viewModels
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -29,9 +28,12 @@ import javax.inject.Inject
 class MainActivity : ApkAnalyzerBaseActivity() {
 
     @Inject
+    lateinit var factory: MainActivityViewModel.Factory
+
+    @Inject
     lateinit var userReviewManager: UserReviewManager
 
-    private val viewModel: MainActivityViewModel by viewModels()
+    private lateinit var viewModel: MainActivityViewModel
 
     private lateinit var binding: ActivityMainBinding
 
@@ -41,6 +43,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
 
+        viewModel = provideViewModel { factory.create() }
         with(viewModel) {
             closeDrawer.observe(this@MainActivity, { binding.drawerLayout.closeDrawer(GravityCompat.START) })
             openDrawer.observe(this@MainActivity, { binding.drawerLayout.openDrawer(GravityCompat.START) })

@@ -9,7 +9,6 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.*
 import com.google.android.material.snackbar.Snackbar
-import dagger.assisted.AssistedInject
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -23,9 +22,10 @@ import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
+import javax.inject.Inject
 
 @HiltViewModel
-class MainAppListViewModel @AssistedInject constructor(
+class MainAppListViewModel @Inject constructor(
         private val installedAppsManager: InstalledAppsManager,
         private val navigationDrawerModel: NavigationDrawerModel,
         private val dispatcherProvider: DispatcherProvider,
