@@ -17,6 +17,8 @@
         <item name="android:textColorPrimary">@color/textTitle</item>
         <item name="android:textColorSecondary">@color/textBody</item>
         <item name="android:colorBackground">@color/colorBackground</item>
+        <item name="android:textDirection">locale</item>
+        <item name="android:textAlignment">gravity</item>
 
         <item name="detailItemViewStyle">@style/ItemDetail</item>
         <item name="detailListItemViewStyle">@style/ListItemDetail</item>
@@ -51,10 +53,14 @@
 
     <style name="fab_card">
         <item name="android:background">@drawable/fab_background</item>
+        <item name="cardBackgroundColor">#ff0099ff</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
     </style>
 
     <style name="speed_dial_item_card">
         <item name="android:background">@drawable/fab_menu_item_card_background</item>
+        <item name="cardBackgroundColor">#c0c0c0</item>
+        <item name="android:foreground">?android:selectableItemBackground</item>
     </style>
 
     <style name="ListItemTitle">
