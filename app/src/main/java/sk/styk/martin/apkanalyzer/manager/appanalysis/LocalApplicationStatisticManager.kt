@@ -24,8 +24,8 @@ private const val ANALYSIS_FLAGS = PackageManager.GET_SIGNATURES or
 class LocalApplicationStatisticManager @Inject constructor(
         private val packageManager: PackageManager,
         private val installedAppsManager: InstalledAppsManager,
-        private val generalDataService: GeneralDataService,
-        private val certificateService: CertificateService,
+        private val generalDataService: AppGeneralDataManager,
+        private val certificateService: CertificateManager,
 ) {
 
     sealed class StatisticsLoadingStatus {
@@ -68,7 +68,7 @@ class LocalApplicationStatisticManager @Inject constructor(
                 minSdk = AndroidManifestManager.getMinSdkVersion(applicationInfo, packageManager)
                         ?: 0,
                 apkSize = if (applicationInfo.sourceDir != null) generalDataService.computeApkSize(applicationInfo.sourceDir) else 0,
-                appSource = GeneralDataService.getAppSource(packageManager, packageName, isSystemApp),
+                appSource = AppGeneralDataManager.getAppSource(packageManager, packageName, isSystemApp),
                 signAlgorithm = certificateService.getSignAlgorithm(packageInfo) ?: "Unknown",
                 activities = packageInfo.activities?.size ?: 0,
                 services = packageInfo.services?.size ?: 0,

@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.model.detail
 
-import android.annotation.SuppressLint
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
@@ -8,7 +7,6 @@ import kotlinx.android.parcel.Parcelize
  * Class holding basic application metadata used in application detail view
  */
 
-@SuppressLint("ParcelCreator")
 @Parcelize
 data class AppDetailData(val analysisMode: AnalysisMode,
                          val generalData: GeneralData,
@@ -21,13 +19,7 @@ data class AppDetailData(val analysisMode: AnalysisMode,
                          var featureData: List<FeatureData>,
                          var fileData: FileData,
                          var resourceData: ResourceData,
-                         var classPathData: ClassPathData) : Parcelable {
-
-    val isAnalyzedApkFile: Boolean
-        get() = AnalysisMode.APK_FILE == analysisMode
-
-    val isAnalyzedInstalledPackage: Boolean
-        get() = AnalysisMode.INSTALLED_PACKAGE == analysisMode
+) : Parcelable {
 
     enum class AnalysisMode {
         INSTALLED_PACKAGE,

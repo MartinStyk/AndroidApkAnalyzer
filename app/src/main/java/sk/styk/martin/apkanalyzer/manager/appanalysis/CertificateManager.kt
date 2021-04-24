@@ -14,7 +14,7 @@ import javax.security.auth.x500.X500Principal
 import javax.security.auth.x500.X500Principal.RFC1779
 
 @WorkerThread
-class CertificateService @Inject constructor(private val digestManager: DigestManager) {
+class CertificateManager @Inject constructor(private val digestManager: DigestManager) {
 
     fun get(packageInfo: PackageInfo): CertificateData {
 

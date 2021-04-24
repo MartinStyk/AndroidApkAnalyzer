@@ -13,12 +13,11 @@ class AppDetailDataManager @Inject constructor(
         private val packageManager: PackageManager,
         private val appPermissionManager: AppPermissionManager,
         private val featuresManager: FeaturesManager,
-        private val generalDataService: GeneralDataService,
-        private val certificateService: CertificateService,
-        private val fileDataService: FileDataService,
-        private val appComponentsService: AppComponentsService,
-        private val resourceService: ResourceService,
-        private val dexService: DexService,
+        private val appGeneralDataManager: AppGeneralDataManager,
+        private val certificateManager: CertificateManager,
+        private val fileDataManager: FileDataManager,
+        private val appComponentsManager: AppComponentsManager,
+        private val appResourceManager: AppResourceManager,
 ) {
 
     private val analysisFlags = PackageManager.GET_SIGNATURES or
@@ -44,21 +43,20 @@ class AppDetailDataManager @Inject constructor(
 
     private fun get(analysisMode: AppDetailData.AnalysisMode, packageInfo: PackageInfo): AppDetailData {
 
-        val fileData = fileDataService.get(packageInfo)
+        val fileData = fileDataManager.get(packageInfo)
 
         return AppDetailData(
                 analysisMode = analysisMode,
-                generalData = generalDataService.get(packageInfo, analysisMode),
-                certificateData = certificateService.get(packageInfo),
-                activityData = appComponentsService.getActivities(packageInfo),
-                serviceData = appComponentsService.getServices(packageInfo),
-                contentProviderData = appComponentsService.getContentProviders(packageInfo),
-                broadcastReceiverData = appComponentsService.getBroadcastReceivers(packageInfo),
+                generalData = appGeneralDataManager.get(packageInfo, analysisMode),
+                certificateData = certificateManager.get(packageInfo),
+                activityData = appComponentsManager.getActivities(packageInfo),
+                serviceData = appComponentsManager.getServices(packageInfo),
+                contentProviderData = appComponentsManager.getContentProviders(packageInfo),
+                broadcastReceiverData = appComponentsManager.getBroadcastReceivers(packageInfo),
                 permissionData = appPermissionManager.get(packageInfo),
                 featureData = featuresManager.get(packageInfo),
                 fileData = fileData,
-                resourceData = resourceService.get(fileData),
-                classPathData = dexService.get(packageInfo)
+                resourceData = appResourceManager.get(fileData),
         )
     }
 

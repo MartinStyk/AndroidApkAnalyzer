@@ -10,7 +10,7 @@ import java.util.*
 import javax.inject.Inject
 
 @Suppress("DEPRECATION")
-class DexService @Inject constructor(){
+class DexManager @Inject constructor(){
 
     fun get(packageInfo: PackageInfo): ClassPathData {
 

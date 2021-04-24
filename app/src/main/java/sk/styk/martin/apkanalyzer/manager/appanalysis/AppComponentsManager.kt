@@ -10,7 +10,7 @@ import sk.styk.martin.apkanalyzer.model.detail.ServiceData
 import java.util.*
 import javax.inject.Inject
 
-class AppComponentsService @Inject constructor(private val packageManager: PackageManager){
+class AppComponentsManager @Inject constructor(private val packageManager: PackageManager){
 
     fun getActivities(packageInfo: PackageInfo): List<ActivityData> {
 

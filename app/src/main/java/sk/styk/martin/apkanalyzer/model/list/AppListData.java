@@ -7,7 +7,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import sk.styk.martin.apkanalyzer.manager.appanalysis.GeneralDataService;
+import sk.styk.martin.apkanalyzer.manager.appanalysis.AppGeneralDataManager;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
 
 public class AppListData implements Parcelable {
@@ -27,7 +27,7 @@ public class AppListData implements Parcelable {
         this.applicationInfo = packageInfo.applicationInfo;
         this.version = packageInfo.versionCode;
         this.isSystemApp = (applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0;
-        this.source = GeneralDataService.Companion.getAppSource(packageManager, getPackageName(), isSystemApp);
+        this.source = AppGeneralDataManager.Companion.getAppSource(packageManager, getPackageName(), isSystemApp);
     }
 
     protected AppListData(Parcel in) {

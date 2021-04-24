@@ -13,7 +13,7 @@ import java.util.jar.Manifest
 import javax.inject.Inject
 import kotlin.collections.Map.Entry
 
-class FileDataService @Inject constructor() {
+class FileDataManager @Inject constructor() {
 
     fun get(packageInfo: PackageInfo): FileData {
 

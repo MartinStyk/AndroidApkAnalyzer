@@ -5,7 +5,7 @@ import sk.styk.martin.apkanalyzer.model.detail.ResourceData
 import java.util.*
 import javax.inject.Inject
 
-class ResourceService @Inject constructor() {
+class AppResourceManager @Inject constructor() {
 
     fun get(fileData: FileData): ResourceData {
 

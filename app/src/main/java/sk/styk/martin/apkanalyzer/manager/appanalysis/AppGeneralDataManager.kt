@@ -11,7 +11,7 @@ import sk.styk.martin.apkanalyzer.model.detail.GeneralData
 import java.io.File
 import javax.inject.Inject
 
-class GeneralDataService @Inject constructor(
+class AppGeneralDataManager @Inject constructor(
         private val packageManager: PackageManager,
         private val androidVersionManager: AndroidVersionManager,
 ) {
