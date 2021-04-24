@@ -17,8 +17,8 @@
         android:id="@+id/expandableContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:el_expanded="false"
         app:el_duration="500"
+        app:el_expanded="false"
         tools:el_expanded="true">
 
         <LinearLayout
@@ -62,7 +62,8 @@
                 android:onClick="@{() -> viewModel.onRunClick()}"
                 android:text="@string/activity_run"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textColor="?android:textColorPrimary" />
+                android:textColor="?android:textColorPrimary"
+                android:visibility="@{viewModel.runButtonVisible ? View.VISIBLE : View.GONE}" />
 
         </LinearLayout>
 
