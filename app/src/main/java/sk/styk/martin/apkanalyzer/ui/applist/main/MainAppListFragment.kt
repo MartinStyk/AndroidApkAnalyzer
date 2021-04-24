@@ -14,6 +14,8 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentMainAppListBinding
+import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedListener
+import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
@@ -23,9 +25,13 @@ import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
+class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>(), BackPressedListener {
+
+    @Inject
+    lateinit var backPressedManager: BackPressedManager
 
     private lateinit var binding: FragmentMainAppListBinding
 
@@ -47,6 +53,7 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        backPressedManager.registerBackPressedListener(this)
 
         viewLifecycleOwner.lifecycle.addObserver(viewModel)
 
@@ -64,6 +71,7 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        backPressedManager.unregisterBackPressedListener(this)
         viewLifecycleOwner.lifecycle.removeObserver(viewModel)
     }
 
@@ -79,7 +87,8 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
     }
 
     private fun handleQueryFilter(filterQuery: String) {
-        val searchView = binding.toolbar.menu.findItem(R.id.action_search)?.actionView as? SearchView ?: return
+        val searchView = binding.toolbar.menu.findItem(R.id.action_search)?.actionView as? SearchView
+                ?: return
         searchView.setQuery(filterQuery, false)
     }
 
@@ -111,6 +120,15 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>() {
             putExtra(AppDetailActivity.APP_DETAIL_REQUEST, AppDetailRequest.ExternalPackage(uri))
         }
         startActivity(intent)
+    }
+
+    override fun onBackPressed(): Boolean {
+        val searchView = binding.toolbar.menu.findItem(R.id.action_search)?.actionView as? SearchView ?: return false
+        if (!searchView.isIconified) {
+            searchView.onActionViewCollapsed()
+            return true
+        }
+        return false
     }
 
     companion object {
