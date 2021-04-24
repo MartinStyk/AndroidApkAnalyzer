@@ -50,7 +50,7 @@ class NotificationManager @Inject constructor(
 
         val notification = notificationBuilder(ICON_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.app_icon_saved, appName))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
                 .setCategory(NotificationCompat.CATEGORY_REMINDER)
                 .setContentIntent(openIntent)
                 .addAction(R.drawable.ic_image, resourcesManager.getString(R.string.action_show), openIntent)
@@ -64,7 +64,7 @@ class NotificationManager @Inject constructor(
 
         val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.saving_app, appName))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
                 .setOngoing(true)
                 .setProgress(100, 0, false)
 
@@ -95,7 +95,7 @@ class NotificationManager @Inject constructor(
 
         val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.saved_app, appName))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
                 .setOngoing(false)
                 .addAction(R.drawable.ic_get_app, resourcesManager.getString(R.string.action_show), openIntent)
                 .setContentIntent(openIntent)
@@ -118,7 +118,7 @@ class NotificationManager @Inject constructor(
 
         val notification = notificationBuilder(MANIFEST_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.save_manifest_background_notification_title_done, appName))
-                .setSmallIcon(R.mipmap.ic_launcher)
+                .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
                 .addAction(R.drawable.ic_file, resourcesManager.getString(R.string.action_show), openIntent)
                 .setContentIntent(openIntent)
                 .build()
