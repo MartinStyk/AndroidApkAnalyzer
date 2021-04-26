@@ -9,6 +9,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailBinding
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.util.components.toDialog
+import sk.styk.martin.apkanalyzer.util.materialContainerTransform
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
@@ -24,6 +25,7 @@ class PermissionDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = requireContext().materialContainerTransform()
         viewModel = provideViewModel { viewModelFactory.create(requireNotNull(requireArguments().getParcelable(ARG_PERMISSIONS_DATA))) }
     }
 

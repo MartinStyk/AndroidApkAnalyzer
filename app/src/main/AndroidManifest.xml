@@ -51,15 +51,6 @@
             android:name="sk.styk.martin.apkanalyzer.ui.intro.IntroActivity"
             android:label="@string/title_intro" />
 
-        <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.permission.detail.PermissionDetailActivity"
-            android:label="@string/title_permissions"
-            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
-        </activity>
-
         <provider
             android:name=".util.file.GenericFileProvider"
             android:authorities="${applicationId}"

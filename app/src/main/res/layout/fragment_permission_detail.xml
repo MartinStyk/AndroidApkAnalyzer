@@ -17,7 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:transitionName="@string/transition_permission_detail">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
@@ -45,7 +46,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

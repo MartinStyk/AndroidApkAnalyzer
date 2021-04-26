@@ -301,6 +301,9 @@
     <string name="transition_app_name" translatable="false">transition_app_%s</string>
     <string name="transition_app_detail" translatable="false">transition_app_detail</string>
 
+    <string name="transition_permission_name" translatable="false">transition_permission_%s</string>
+    <string name="transition_permission_detail" translatable="false">transition_permission_detail</string>
+
     <string name="preference_color_theme">Color theme</string>
     <string name="select_color_thene_that_suits_you_best">Select color theme that suits you best. \n You can change your preference later in the settings.</string>
     <string name="preference_color_theme_summary">Select light or dark app\'s appearance</string>

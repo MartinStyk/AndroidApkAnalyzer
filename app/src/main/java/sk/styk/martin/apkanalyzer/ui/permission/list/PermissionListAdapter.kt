@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.permission.list
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
@@ -8,12 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemPermissionLocalDataBinding
 import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class PermissionListAdapter @Inject constructor() : RecyclerView.Adapter<PermissionListAdapter.ViewHolder>() {
 
-    private val openPermissionEvent = SingleLiveEvent<LocalPermissionData>()
-    val openPermission: LiveData<LocalPermissionData> = openPermissionEvent
+    private val openPermissionEvent = SingleLiveEvent<PermissionClickData>()
+    val openPermission: LiveData<PermissionClickData> = openPermissionEvent
 
     var permissions = emptyList<LocalPermissionData>()
         set(value) {
@@ -34,8 +36,8 @@ class PermissionListAdapter @Inject constructor() : RecyclerView.Adapter<Permiss
     }
 
     inner class PermissionItemViewModel(val permissionData: LocalPermissionData) {
-        fun onClick() {
-            openPermissionEvent.value = permissionData
+        fun onClick(view: View) {
+            openPermissionEvent.value = PermissionClickData(WeakReference(view), permissionData)
         }
     }
 
@@ -52,4 +54,6 @@ class PermissionListAdapter @Inject constructor() : RecyclerView.Adapter<Permiss
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].permissionData.name == newList[newItemPosition].permissionData.name
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition] == newList[newItemPosition]
     }
+
+    data class PermissionClickData(val view: WeakReference<View>, val localPermissionData: LocalPermissionData)
 }

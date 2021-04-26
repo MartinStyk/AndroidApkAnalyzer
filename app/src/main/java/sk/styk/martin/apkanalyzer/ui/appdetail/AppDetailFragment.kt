@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.ui.appdetail
 import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -15,7 +14,6 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.transition.MaterialContainerTransform
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailBinding
@@ -23,12 +21,9 @@ import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedListener
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
 import sk.styk.martin.apkanalyzer.ui.manifest.AndroidManifestFragment
 import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
-import sk.styk.martin.apkanalyzer.util.ColorInfo
-import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
-import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
+import sk.styk.martin.apkanalyzer.util.*
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
-import sk.styk.martin.apkanalyzer.util.provideViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -51,10 +46,7 @@ class AppDetailFragment : Fragment(), BackPressedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        sharedElementEnterTransition = MaterialContainerTransform().apply {
-            scrimColor = Color.TRANSPARENT
-            setAllContainerColors(ColorInfo.SURFACE.toColorInt(requireContext()))
-        }
+        sharedElementEnterTransition = requireContext().materialContainerTransform()
 
         viewModel = provideViewModel {
             viewModelFactory.create(requireNotNull(requireArguments().getParcelable(APP_DETAIL_REQUEST)))

@@ -17,9 +17,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> viewModel.onClick()}"
+        android:background="?android:colorBackground"
+        android:foreground="?selectableItemBackground"
+        android:onClick="@{viewModel::onClick}"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:transitionName="@{@string/transition_permission_name(viewModel.permissionData.permissionData.Name)}">
 
         <TextView
             android:id="@+id/permission_simple_name"
