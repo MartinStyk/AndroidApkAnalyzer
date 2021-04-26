@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnPreDraw
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionAppListBinding
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
@@ -43,8 +44,13 @@ class PermissionsAppListFragment : BaseAppListFragment<PermissionsAppListViewMod
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        binding.recyclerViewAppList.doOnPreDraw { startPostponedEnterTransition() }
+        
         binding.viewModel = viewModel
     }
+
+    override fun fragmentManager() = requireParentFragment().parentFragmentManager
 
     companion object {
         private const val ARG_GRANTED = "arg_granted"

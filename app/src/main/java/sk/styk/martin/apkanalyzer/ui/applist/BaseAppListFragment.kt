@@ -22,15 +22,17 @@ abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
     private fun startAppDetail(appListClickData: AppListAdapter.AppListClickData) {
         exitTransition = MaterialElevationScale(false)
         reenterTransition = MaterialElevationScale(true)
-        parentFragmentManager.beginTransaction()
-                .addSharedElement(appListClickData.view, getString(R.string.transition_app_detail))
-                .replace(R.id.container,
-                        AppDetailFragment.newInstance(AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName)),
-                        FragmentTag.AppDetailParent.toString()
-                )
+        fragmentManager().beginTransaction().apply {
+            appListClickData.view.get()?.let { addSharedElement(it, getString(R.string.transition_app_detail)) }
+        }.replace(R.id.container,
+                AppDetailFragment.newInstance(AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName)),
+                FragmentTag.AppDetailParent.toString()
+        )
                 .setReorderingAllowed(true)
                 .addToBackStack(FragmentTag.AppDetailParent.toString())
                 .commit()
     }
+
+    protected open fun fragmentManager() = parentFragmentManager
 
 }

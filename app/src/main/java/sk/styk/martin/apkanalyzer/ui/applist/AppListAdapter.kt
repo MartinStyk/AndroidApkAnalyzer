@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.databinding.ListItemApplicationBinding
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter.ViewHolder>() {
@@ -35,7 +36,7 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
     inner class ViewHolder(private val binding: ListItemApplicationBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(appData: AppListData) {
             binding.data = appData
-            binding.root.setOnClickListener { appClicked.value = AppListClickData(it, appData) }
+            binding.root.setOnClickListener { appClicked.value = AppListClickData(WeakReference(it), appData) }
         }
     }
 
@@ -47,6 +48,6 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].packageName == newList[newItemPosition].packageName
     }
 
-    data class AppListClickData(val view: View, val appListData: AppListData)
+    data class AppListClickData(val view: WeakReference<View>, val appListData: AppListData)
 
 }

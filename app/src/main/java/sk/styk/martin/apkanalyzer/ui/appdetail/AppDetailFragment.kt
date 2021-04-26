@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentAppDetailBinding
@@ -123,9 +124,13 @@ class AppDetailFragment : Fragment(), BackPressedListener {
     }
 
     private fun openManifestFragment(manifestRequest: ManifestRequest) {
+        exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true)
+        reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
+
         parentFragmentManager.beginTransaction()
                 .replace(R.id.container, AndroidManifestFragment.create(manifestRequest), AndroidManifestFragment.TAG)
                 .addToBackStack(AndroidManifestFragment.TAG)
+                .setReorderingAllowed(true)
                 .commit()
     }
 
