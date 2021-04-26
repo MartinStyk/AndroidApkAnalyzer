@@ -85,7 +85,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
 
         supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction()
-                .replace(R.id.main_activity_placeholder, fragment, tag.toString())
+                .replace(R.id.container, fragment, tag.toString())
                 .addToBackStack(tag.toString())
                 .commit()
     }
@@ -93,7 +93,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
     private fun placeAppListFragment() {
         binding.navigationView.setCheckedItem(R.id.nav_app_list)
         supportFragmentManager.beginTransaction()
-                .replace(R.id.main_activity_placeholder, MainAppListFragment(), FragmentTag.AppList.toString())
+                .replace(R.id.container, MainAppListFragment(), FragmentTag.AppList.toString())
                 .commit()
     }
 

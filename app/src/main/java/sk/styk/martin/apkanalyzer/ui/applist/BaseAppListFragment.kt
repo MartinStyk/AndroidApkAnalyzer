@@ -1,13 +1,14 @@
 package sk.styk.martin.apkanalyzer.ui.applist
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import sk.styk.martin.apkanalyzer.model.list.AppListData
-import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
+import com.google.android.material.transition.MaterialElevationScale
+import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
+import sk.styk.martin.apkanalyzer.util.FragmentTag
 
 abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
 
@@ -18,11 +19,18 @@ abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
         viewModel.appClicked.observe(viewLifecycleOwner, { startAppDetail(it) })
     }
 
-    private fun startAppDetail(appListData: AppListData) {
-        val intent = Intent(requireContext(), AppDetailActivity::class.java).apply {
-            putExtra(AppDetailActivity.APP_DETAIL_REQUEST, AppDetailRequest.InstalledPackage(appListData.packageName))
-        }
-        startActivity(intent)
+    private fun startAppDetail(appListClickData: AppListAdapter.AppListClickData) {
+        exitTransition = MaterialElevationScale(false)
+        reenterTransition = MaterialElevationScale(true)
+        parentFragmentManager.beginTransaction()
+                .addSharedElement(appListClickData.view, getString(R.string.transition_app_detail))
+                .replace(R.id.container,
+                        AppDetailFragment.newInstance(AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName)),
+                        FragmentTag.AppDetailParent.toString()
+                )
+                .setReorderingAllowed(true)
+                .addToBackStack(FragmentTag.AppDetailParent.toString())
+                .commit()
     }
 
 }

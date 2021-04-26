@@ -21,9 +21,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        tools:context=".ui.appdetail.AppDetailActivity"
-        tools:ignore="MergeRootFrame">
+        android:transitionName="@string/transition_app_detail"
+        android:background="?android:colorBackground">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"

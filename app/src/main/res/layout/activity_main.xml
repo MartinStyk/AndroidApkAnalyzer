@@ -18,10 +18,11 @@
         tools:openDrawer="start">
 
         <FrameLayout
-            android:id="@+id/main_activity_placeholder"
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            app:marginTopSystemWindowInsets="@{true}" />
 
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/navigation_view"
@@ -29,9 +30,9 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:focusable="false"
+            android:theme="@style/NavigationTextAppearance"
             app:headerLayout="@layout/nav_header_main"
             app:menu="@menu/navigation_drawer"
-            android:theme="@style/NavigationTextAppearance"
             app:navigationItemSelectedListener="@{viewModel}"
             app:paddingTopSystemWindowInsets="@{true}" />
 

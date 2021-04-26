@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import sk.styk.martin.apkanalyzer.BR
-import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment.Companion.APP_DETAIL_REQUEST
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.util.components.toDialog
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
@@ -56,7 +56,7 @@ abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDIN
 
     protected fun parentViewModel() = provideViewModelOfParentFragment {
         parentViewModelFactory.create(
-                requireNotNull(requireArguments().getParcelable(AppDetailActivity.APP_DETAIL_REQUEST))
+                requireNotNull(requireArguments().getParcelable(APP_DETAIL_REQUEST))
         )
     }
 

@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.ui.applist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import javax.inject.Inject
 
 class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter.ViewHolder>() {
 
-    val appClicked = SingleLiveEvent<AppListData>()
+    val appClicked = SingleLiveEvent<AppListClickData>()
 
     var data = emptyList<AppListData>()
         set(value) {
@@ -34,7 +35,7 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
     inner class ViewHolder(private val binding: ListItemApplicationBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(appData: AppListData) {
             binding.data = appData
-            binding.root.setOnClickListener { appClicked.value = appData }
+            binding.root.setOnClickListener { appClicked.value = AppListClickData(it, appData) }
         }
     }
 
@@ -45,5 +46,7 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].packageName == newList[newItemPosition].packageName
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].packageName == newList[newItemPosition].packageName
     }
+
+    data class AppListClickData(val view: View, val appListData: AppListData)
 
 }

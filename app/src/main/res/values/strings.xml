@@ -73,8 +73,8 @@
 
     <string name="premium_update_title" translatable="false">Apk Analyzer Premium</string>
     <string name="premium_update_description" translatable="false">By upgrading to premium you:</string>
-    <string name="premium_update_description_ad" translatable="false">&#8226; Remove Ads<br/></string>
-    <string name="premium_update_description_dev" translatable="false">&#8226; Support further app development<br/></string>
+    <string name="premium_update_description_ad" translatable="false">&#8226; Remove Ads<br /></string>
+    <string name="premium_update_description_dev" translatable="false">&#8226; Support further app development<br /></string>
     <string name="premium_same_features" translatable="false">Premium contains same features as a free version</string>
     <string name="upgrade" translatable="false">Upgrade</string>
     <string name="upgrade_premium" translatable="false">Upgrade to Premium</string>
@@ -298,6 +298,9 @@
     <string name="permissions_protection_dangerous">Dangerous</string>
     <string name="permissions_protection_signature">Signature</string>
 
+    <string name="transition_app_name" translatable="false">transition_app_%s</string>
+    <string name="transition_app_detail" translatable="false">transition_app_detail</string>
+
     <string name="preference_color_theme">Color theme</string>
     <string name="select_color_thene_that_suits_you_best">Select color theme that suits you best. \n You can change your preference later in the settings.</string>
     <string name="preference_color_theme_summary">Select light or dark app\'s appearance</string>
@@ -319,7 +322,6 @@
         <item>Light</item>
         <item>Dark</item>
     </string-array>
-
 
 
     <string-array name="android_versions">

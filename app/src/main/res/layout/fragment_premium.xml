@@ -30,7 +30,6 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:marginTopSystemWindowInsets="@{true}"
                 app:navigationIconState="@{NavigationIconState.HAMBURGER}"
                 app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
                 app:title="@string/nav_premium" />

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -28,11 +28,10 @@
 
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbar"
-                android:elevation="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp"
                 app:inflateMenu="@{R.menu.android_manifest}"
-                app:marginTopSystemWindowInsets="@{true}"
                 app:navigationIconState="@{NavigationIconState.ARROW}"
                 app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
                 app:onMenuItemClickListener="@{viewModel}"

@@ -11,9 +11,10 @@ import androidx.fragment.app.DialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.DialogAppListBinding
-import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment.Companion.APP_DETAIL_REQUEST
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
+import sk.styk.martin.apkanalyzer.ui.applist.AppListAdapter
 import sk.styk.martin.apkanalyzer.util.provideViewModel
 import javax.inject.Inject
 
@@ -53,9 +54,9 @@ class AppListFromPackageNamesDialog : DialogFragment() {
                 .create()
     }
 
-    private fun startAppDetail(appListData: AppListData) {
+    private fun startAppDetail(appListClickData: AppListAdapter.AppListClickData) {
         val intent = Intent(requireContext(), AppDetailActivity::class.java).apply {
-            putExtra(AppDetailActivity.APP_DETAIL_REQUEST, AppDetailRequest.InstalledPackage(appListData.packageName))
+            putExtra(APP_DETAIL_REQUEST, AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName))
         }
         startActivity(intent)
     }

@@ -7,6 +7,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityAppDetailBinding
 import sk.styk.martin.apkanalyzer.ui.ApkAnalyzerBaseActivity
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment.Companion.APP_DETAIL_REQUEST
 import sk.styk.martin.apkanalyzer.util.FragmentTag
 import sk.styk.martin.apkanalyzer.util.TAG_APP_DETAIL
 import timber.log.Timber
@@ -39,9 +40,5 @@ open class AppDetailActivity : ApkAnalyzerBaseActivity() {
     }
 
     protected open fun getDetailRequestBundle(): Bundle? = intent.extras
-
-    companion object {
-        const val APP_DETAIL_REQUEST = "appDetailRequest"
-    }
 
 }

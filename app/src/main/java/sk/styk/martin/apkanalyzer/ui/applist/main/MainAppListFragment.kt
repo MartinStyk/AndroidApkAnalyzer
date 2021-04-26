@@ -10,16 +10,19 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.doOnPreDraw
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentMainAppListBinding
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedListener
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
-import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity
+import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment
+import sk.styk.martin.apkanalyzer.util.FragmentTag
 import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
@@ -53,6 +56,9 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>(), BackPre
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        binding.recyclerViewAppList.doOnPreDraw { startPostponedEnterTransition() }
+
         backPressedManager.registerBackPressedListener(this)
 
         viewLifecycleOwner.lifecycle.addObserver(viewModel)
@@ -116,14 +122,20 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>(), BackPre
     }
 
     private fun startAppDetail(uri: Uri) {
-        val intent = Intent(requireContext(), AppDetailActivity::class.java).apply {
-            putExtra(AppDetailActivity.APP_DETAIL_REQUEST, AppDetailRequest.ExternalPackage(uri))
-        }
-        startActivity(intent)
+        exitTransition = MaterialElevationScale(false)
+        reenterTransition = MaterialElevationScale(true)
+        parentFragmentManager.beginTransaction()
+                .replace(R.id.container,
+                        AppDetailFragment.newInstance(AppDetailRequest.ExternalPackage(uri)),
+                        FragmentTag.AppDetailParent.toString()
+                )
+                .addToBackStack(FragmentTag.AppDetailParent.toString())
+                .commit()
     }
 
     override fun onBackPressed(): Boolean {
-        val searchView = binding.toolbar.menu.findItem(R.id.action_search)?.actionView as? SearchView ?: return false
+        val searchView = binding.toolbar.menu.findItem(R.id.action_search)?.actionView as? SearchView
+                ?: return false
         if (!searchView.isIconified) {
             searchView.onActionViewCollapsed()
             return true

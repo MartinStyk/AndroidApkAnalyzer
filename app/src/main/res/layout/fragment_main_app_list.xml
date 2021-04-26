@@ -18,6 +18,7 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/app_list_container"
+        android:background="?android:colorBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true">
@@ -41,7 +42,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:inflateMenu="@{R.menu.app_list}"
-                    app:marginTopSystemWindowInsets="@{true}"
                     app:navigationIconState="@{NavigationIconState.HAMBURGER}"
                     app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
                     app:onMenuItemClickListener="@{viewModel}"
@@ -79,6 +79,7 @@
                     android:layout_height="match_parent"
                     android:scrollbars="vertical"
                     android:theme="@style/AppListRecycler"
+                    android:transitionGroup="true"
                     app:adapter="@{viewModel.adapter}"
                     app:hasFixedSize="@{true}"
                     app:itemDecoration="@{true}"
@@ -95,10 +96,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|bottom"
             android:layout_margin="@dimen/fab_margin"
-            app:srcCompat="@drawable/ic_file"
             android:visibility="invisible"
             app:onClickListener="@{() -> viewModel.onFilePickerClick()}"
-            app:show="@{viewModel.viewState != 0}" />
+            app:show="@{viewModel.viewState != 0}"
+            app:srcCompat="@drawable/ic_file" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
