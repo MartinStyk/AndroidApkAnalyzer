@@ -46,7 +46,7 @@ class PermissionsAppListFragment : BaseAppListFragment<PermissionsAppListViewMod
         super.onViewCreated(view, savedInstanceState)
         postponeEnterTransition()
         binding.recyclerViewAppList.doOnPreDraw { startPostponedEnterTransition() }
-        
+
         binding.viewModel = viewModel
     }
 

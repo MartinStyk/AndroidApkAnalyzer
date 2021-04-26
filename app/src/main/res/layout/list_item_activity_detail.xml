@@ -41,7 +41,7 @@
             <TextView
                 android:id="@+id/activity_name"
                 style="@style/DatailListItemTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.name}"
                 android:textColor="?android:textColorPrimary"
@@ -78,61 +78,6 @@
                 app:tint="?android:textColorSecondary" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <net.cachapa.expandablelayout.ExpandableLayout
-            android:id="@+id/expandableContainer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:el_duration="500"
-            tools:el_expanded="true">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
-                    android:id="@+id/item_activity_label"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.onDetailClick(viewModel.labelDetailItemInfo)}"
-                    android:onLongClick="@{() -> viewModel.onLongClick(viewModel.labelDetailItemInfo)}"
-                    app:titleText="@{viewModel.labelDetailItemInfo.name}"
-                    app:valueText="@{viewModel.labelDetailItemInfo.value}" />
-
-                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
-                    android:id="@+id/item_activity_parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.onDetailClick(viewModel.parentDetailItemInfo)}"
-                    android:onLongClick="@{() -> viewModel.onLongClick(viewModel.parentDetailItemInfo)}"
-                    app:titleText="@{viewModel.parentDetailItemInfo.name}"
-                    app:valueText="@{viewModel.parentDetailItemInfo.value}" />
-
-                <sk.styk.martin.apkanalyzer.views.NewDetailListItemView
-                    android:id="@+id/item_activity_permission"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.onDetailClick(viewModel.permissionDetailItemInfo)}"
-                    android:onLongClick="@{() -> viewModel.onLongClick(viewModel.permissionDetailItemInfo)}"
-                    app:titleText="@{viewModel.permissionDetailItemInfo.name}"
-                    app:valueText="@{viewModel.permissionDetailItemInfo.value}" />
-
-                <com.google.android.material.button.MaterialButton
-                    style="?attr/borderlessButtonStyle"
-                    android:textColor="?android:textColorPrimary"
-                    android:id="@+id/item_activity_run"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                    android:onClick="@{() -> viewModel.onRunClick()}"
-                    android:text="@string/activity_run"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:visibility="@{viewModel.runButtonVisible ? View.VISIBLE : View.GONE}" />
-
-            </LinearLayout>
-
-        </net.cachapa.expandablelayout.ExpandableLayout>
 
     </LinearLayout>
 

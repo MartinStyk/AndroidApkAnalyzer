@@ -24,7 +24,6 @@ abstract class LazyExpandableViewHolder<BaseBinding : ViewDataBinding, ExpandBin
 
     abstract fun headerContainer(): View
 
-
     private fun inflateExpandedIfNeeded(viewModel: ViewModel) {
         val baseContainer = baseContainer()
         if (baseContainer.childCount == 1) {
