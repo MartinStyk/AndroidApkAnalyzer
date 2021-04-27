@@ -18,6 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="?android:colorBackground"
         android:transitionName="@string/transition_permission_detail">
 
         <com.google.android.material.appbar.AppBarLayout

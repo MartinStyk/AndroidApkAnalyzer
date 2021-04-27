@@ -2,11 +2,11 @@ package sk.styk.martin.apkanalyzer.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
 import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.material.transition.MaterialFade
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 import sk.styk.martin.apkanalyzer.R
@@ -73,19 +73,22 @@ class MainActivity : ApkAnalyzerBaseActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.app_list, menu)
-        return true
-    }
-
     private fun navigateTo(fragment: Fragment, tag: FragmentTag) {
         if (supportFragmentManager.findFragmentByTag(tag.toString())?.isVisible == true) {
             return
         }
 
+        supportFragmentManager.findFragmentById(R.id.container)?.let {
+            it.enterTransition = null
+            it.reenterTransition = null
+            it.exitTransition = null
+            it.enterTransition = MaterialFade()
+        }
+
         supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction()
                 .replace(R.id.container, fragment, tag.toString())
+                .setReorderingAllowed(true)
                 .addToBackStack(tag.toString())
                 .commit()
     }
@@ -93,6 +96,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
     private fun placeAppListFragment() {
         binding.navigationView.setCheckedItem(R.id.nav_app_list)
         supportFragmentManager.beginTransaction()
+                .setReorderingAllowed(true)
                 .replace(R.id.container, MainAppListFragment(), FragmentTag.AppList.toString())
                 .commit()
     }
