@@ -18,20 +18,19 @@ android {
         versionName "2.7.1"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-firebase.pro', 'proguard-google-play-services.pro', 'proguard-gson.pro'
     }
 
     flavorDimensions "version"
     productFlavors {
         free {
             dimension "version"
-            buildConfigField "boolean", "SHOW_ADS", "false"
             buildConfigField "boolean", "SHOW_PROMO", "false"
         }
         premium {
             dimension "version"
             applicationIdSuffix ".premium"
             versionNameSuffix "-premium"
-            buildConfigField "boolean", "SHOW_ADS", "false"
             buildConfigField "boolean", "SHOW_PROMO", "false"
         }
     }
@@ -39,13 +38,10 @@ android {
         release {
             minifyEnabled true
             shrinkResources true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-firebase.pro', 'proguard-google-play-services.pro', 'proguard-gson.pro'
         }
         debug {
             minifyEnabled false
             shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-firebase.pro', 'proguard-google-play-services.pro', 'proguard-gson.pro'
-//            applicationIdSuffix ".dev"
         }
     }
     buildFeatures {
