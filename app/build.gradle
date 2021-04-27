@@ -9,14 +9,6 @@ apply plugin: 'com.google.firebase.firebase-perf'
 
 android {
 
-    signingConfigs {
-        test {
-            storeFile file('C:\\Users\\mstyk\\Desktop\\test123')
-            storePassword 'test123'
-            keyAlias 'test123'
-            keyPassword 'test123'
-        }
-    }
     compileSdkVersion 30
     defaultConfig {
         applicationId "sk.styk.martin.apkanalyzer"
@@ -26,7 +18,6 @@ android {
         versionName "2.7.1"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
-        signingConfig signingConfigs.test
     }
 
     flavorDimensions "version"
