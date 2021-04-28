@@ -334,6 +334,13 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        if (appDetailRequest is AppDetailRequest.ExternalPackage) {
+            fileManager.deleteTempFile(ANALYZED_APK_NAME)
+        }
+    }
+
     @AssistedFactory
     interface Factory {
         fun create(appDetailRequest: AppDetailRequest): AppDetailFragmentViewModel
