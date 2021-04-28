@@ -13,11 +13,13 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.manager.navigationdrawer.ForegroundFragmentWatcher
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.manager.persistence.PersistenceManager
 import sk.styk.martin.apkanalyzer.manager.promo.StartPromoManager
 import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
 import sk.styk.martin.apkanalyzer.util.AppFlavour
+import sk.styk.martin.apkanalyzer.util.FragmentTag
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import timber.log.Timber
 
@@ -26,6 +28,7 @@ class MainActivityViewModel @AssistedInject constructor(
         persistenceManager: PersistenceManager,
         private val navigationDrawerModel: NavigationDrawerModel,
         private val userReviewManager: UserReviewManager,
+        private val foregroundFragmentWatcher: ForegroundFragmentWatcher,
 ) : ViewModel(), NavigationView.OnNavigationItemSelectedListener {
 
     private val closeDrawerEvent = SingleLiveEvent<Unit>()
@@ -61,6 +64,9 @@ class MainActivityViewModel @AssistedInject constructor(
     private val openOnboardingEvent = SingleLiveEvent<Unit>()
     val openOnboarding: LiveData<Unit> = openOnboardingEvent
 
+    private val selectedMenuItemLiveData = MutableLiveData<Int>()
+    val selectedMenuItem: LiveData<Int> = selectedMenuItemLiveData
+
     val premiumMenuItemVisible: LiveData<Boolean> = MutableLiveData(AppFlavour.isPremium && BuildConfig.SHOW_PROMO)
 
     init {
@@ -81,6 +87,20 @@ class MainActivityViewModel @AssistedInject constructor(
         viewModelScope.launch {
             navigationDrawerModel.handleState().collect {
                 if (it) openDrawerEvent.call() else closeDrawerEvent.call()
+            }
+        }
+
+        viewModelScope.launch {
+            foregroundFragmentWatcher.foregroundFragment.collect {
+                when (it) {
+                    FragmentTag.AppList -> selectedMenuItemLiveData.value = R.id.nav_app_list
+                    FragmentTag.LocalStatistics -> selectedMenuItemLiveData.value = R.id.nav_settings
+                    FragmentTag.LocalPermissions -> selectedMenuItemLiveData.value = R.id.nav_local_permissions
+                    FragmentTag.Settings -> selectedMenuItemLiveData.value = R.id.nav_settings
+                    FragmentTag.About -> selectedMenuItemLiveData.value = R.id.nav_about
+                    FragmentTag.Premium -> selectedMenuItemLiveData.value = R.id.nav_premium
+                    else -> {}
+                }
             }
         }
     }

@@ -34,7 +34,7 @@ open class AppDetailActivity : ApkAnalyzerBaseActivity() {
                 arguments = detailRequest
             }
             supportFragmentManager.beginTransaction()
-                    .add(R.id.container, fragment, FragmentTag.AppDetailParent.toString())
+                    .add(R.id.container, fragment, FragmentTag.AppDetailParent.tag)
                     .commit()
         }
     }

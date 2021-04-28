@@ -44,10 +44,10 @@ class PermissionListFragment : Fragment() {
             permissionClickData.view.get()?.let { addSharedElement(it, getString(R.string.transition_permission_detail)) }
         }.replace(R.id.container,
                 PermissionDetailFragment.create(permissionClickData.localPermissionData),
-                FragmentTag.PermissionDetail.toString()
+                FragmentTag.PermissionDetail.tag
         )
                 .setReorderingAllowed(true)
-                .addToBackStack(FragmentTag.PermissionDetail.toString())
+                .addToBackStack(FragmentTag.PermissionDetail.tag)
                 .commit()
     }
 

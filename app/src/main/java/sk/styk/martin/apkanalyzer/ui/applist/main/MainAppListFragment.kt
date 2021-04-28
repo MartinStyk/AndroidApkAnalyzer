@@ -127,9 +127,9 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>(), BackPre
         parentFragmentManager.beginTransaction()
                 .replace(R.id.container,
                         AppDetailFragment.newInstance(AppDetailRequest.ExternalPackage(uri)),
-                        FragmentTag.AppDetailParent.toString()
+                        FragmentTag.AppDetailParent.tag
                 )
-                .addToBackStack(FragmentTag.AppDetailParent.toString())
+                .addToBackStack(FragmentTag.AppDetailParent.tag)
                 .commit()
     }
 

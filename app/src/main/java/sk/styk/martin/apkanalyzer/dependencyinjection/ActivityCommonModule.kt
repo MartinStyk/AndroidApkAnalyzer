@@ -14,6 +14,7 @@ import dagger.hilt.android.scopes.ActivityScoped
 import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.analytics.AnalyticsTracker
 import sk.styk.martin.apkanalyzer.manager.analytics.FragmentScreenTracker
+import sk.styk.martin.apkanalyzer.manager.navigationdrawer.ForegroundFragmentWatcher
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
 import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
@@ -58,16 +59,25 @@ class ActivityCommonModule {
 
     @Provides
     @ActivityScoped
-    fun provideFragmentScreenTracker(activity: AppCompatActivity, analyticsTracker: AnalyticsTracker): FragmentScreenTracker {
-        val fragmentScreenTracker: FragmentScreenTracker = ViewModelProvider(activity, object : ViewModelProvider.Factory {
+    fun provideFragmentScreenTracker(activity: AppCompatActivity, analyticsTracker: AnalyticsTracker, foregroundWatcher: ForegroundFragmentWatcher): FragmentScreenTracker {
+        return ViewModelProvider(activity, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return FragmentScreenTracker(analyticsTracker) as T
+                return FragmentScreenTracker(foregroundWatcher, analyticsTracker) as T
             }
         }).get(FragmentScreenTracker::class.java)
-        fragmentScreenTracker.bind(activity)
-        return fragmentScreenTracker
     }
 
+    @Provides
+    @ActivityScoped
+    fun provideForegroundFragmentWatcher(activity: AppCompatActivity): ForegroundFragmentWatcher {
+        val foregroundFragmentWatcher: ForegroundFragmentWatcher = ViewModelProvider(activity, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return ForegroundFragmentWatcher() as T
+            }
+        }).get(ForegroundFragmentWatcher::class.java)
+        foregroundFragmentWatcher.bind(activity)
+        return foregroundFragmentWatcher
+    }
 
     @Provides
     @ActivityScoped

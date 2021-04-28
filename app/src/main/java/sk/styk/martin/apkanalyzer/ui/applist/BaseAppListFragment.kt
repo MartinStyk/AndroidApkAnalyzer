@@ -30,10 +30,10 @@ abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
             appListClickData.view.get()?.let { addSharedElement(it, getString(R.string.transition_app_detail)) }
         }.replace(R.id.container,
                 AppDetailFragment.newInstance(AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName)),
-                FragmentTag.AppDetailParent.toString()
+                FragmentTag.AppDetailParent.tag
         )
                 .setReorderingAllowed(true)
-                .addToBackStack(FragmentTag.AppDetailParent.toString())
+                .addToBackStack(FragmentTag.AppDetailParent.tag)
                 .commit()
     }
 

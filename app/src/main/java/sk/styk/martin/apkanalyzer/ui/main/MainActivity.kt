@@ -59,6 +59,7 @@ class MainActivity : ApkAnalyzerBaseActivity() {
             openPremium.observe(this@MainActivity, { navigateTo(PremiumFragment(), FragmentTag.Premium) })
             openPromoDialog.observe(this@MainActivity, { PromoDialog().showPromoDialog(this@MainActivity) })
             openOnboarding.observe(this@MainActivity, { this@MainActivity.startActivity(Intent(this@MainActivity, IntroActivity::class.java)) })
+            selectedMenuItem.observe(this@MainActivity, { binding.navigationView.setCheckedItem(it) })
         }
 
         binding.viewModel = viewModel
@@ -68,7 +69,6 @@ class MainActivity : ApkAnalyzerBaseActivity() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
             drawer_layout.closeDrawer(GravityCompat.START)
         } else {
-            navigation_view.setCheckedItem(R.id.nav_app_list)
             super.onBackPressed()
         }
     }
@@ -94,16 +94,14 @@ class MainActivity : ApkAnalyzerBaseActivity() {
     }
 
     private fun placeAppListFragment() {
-        binding.navigationView.setCheckedItem(R.id.nav_app_list)
         supportFragmentManager.beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.container, MainAppListFragment(), FragmentTag.AppList.toString())
+                .replace(R.id.container, MainAppListFragment(), FragmentTag.AppList.tag)
                 .commit()
     }
 
     private fun popToAppList() {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        binding.navigationView.setCheckedItem(R.id.nav_app_list)
     }
 
 }
