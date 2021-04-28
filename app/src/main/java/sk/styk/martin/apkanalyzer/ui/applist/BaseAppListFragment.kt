@@ -9,6 +9,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
 import sk.styk.martin.apkanalyzer.util.FragmentTag
+import sk.styk.martin.apkanalyzer.util.hideKeyboard
 
 abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
 
@@ -16,7 +17,10 @@ abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.appClicked.observe(viewLifecycleOwner, { startAppDetail(it) })
+        viewModel.appClicked.observe(viewLifecycleOwner, {
+            startAppDetail(it)
+            view.hideKeyboard()
+        })
     }
 
     private fun startAppDetail(appListClickData: AppListAdapter.AppListClickData) {

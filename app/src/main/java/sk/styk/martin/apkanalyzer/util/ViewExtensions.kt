@@ -1,7 +1,10 @@
 package sk.styk.martin.apkanalyzer.util
 
+import android.content.Context
 import android.view.View
 import android.view.ViewTreeObserver
+import android.view.inputmethod.InputMethodManager
+import timber.log.Timber
 
 inline fun View.onViewLaidOut(crossinline onLayoutAction: () -> Unit) {
     viewTreeObserver.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
@@ -10,4 +13,13 @@ inline fun View.onViewLaidOut(crossinline onLayoutAction: () -> Unit) {
             onLayoutAction()
         }
     })
+}
+
+fun View.hideKeyboard() {
+    if (windowToken == null) {
+        Timber.w("hideKeyboard failed: windowToken is null!")
+    } else {
+        val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+        inputMethodManager?.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+    }
 }
