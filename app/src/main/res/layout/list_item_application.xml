@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -15,18 +15,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?android:colorBackground"
-        android:foreground="?android:selectableItemBackground"
-        android:minHeight="?android:attr/listPreferredItemHeight"
         android:clickable="true"
         android:focusable="true"
+        android:foreground="?android:selectableItemBackground"
+        android:minHeight="?android:attr/listPreferredItemHeight"
         android:orientation="horizontal"
-        android:transitionName="@{@string/transition_app_name(data.packageName)}"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:transitionName="@{@string/transition_app_name(data.packageName)}">
 
         <ImageView
             android:id="@+id/package_img"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/app_list_icon"
+            android:layout_height="@dimen/app_list_icon"
             android:contentDescription="@string/app_icon"
             app:srcAsync="@{data.icon}" />
 
@@ -42,9 +42,9 @@
                 style="@style/ListItemTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:layout_marginBottom="4dp"
                 android:text="@{data.applicationName}"
                 android:textColor="?android:attr/textColorPrimary"
                 tools:text="Apk analyzer" />

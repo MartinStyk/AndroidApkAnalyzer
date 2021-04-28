@@ -12,6 +12,7 @@
     <dimen name="padding_default_medium">16dp</dimen>
     <dimen name="chart_margin">16dp</dimen>
     <dimen name="text_list_item_margin">16dp</dimen>
+    <dimen name="app_list_icon">48dp</dimen>
 
     <!-- Fab -->
     <dimen name="fab_size">56dp</dimen>

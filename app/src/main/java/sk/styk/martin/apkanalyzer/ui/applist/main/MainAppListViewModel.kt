@@ -77,6 +77,9 @@ class MainAppListViewModel @Inject constructor(
             withContext(dispatcherProvider.main()) {
                 appListData = allApps
             }
+            withContext(dispatcherProvider.io()) {
+                installedAppsManager.preload(appListData)
+            }
         }
     }
 

@@ -21,8 +21,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:transitionName="@string/transition_app_detail"
-        android:background="?android:colorBackground">
+        android:background="?android:colorBackground"
+        android:transitionName="@string/transition_app_detail">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/app_bar"
@@ -41,9 +41,9 @@
                 app:expandedTitleMarginTop="66dp"
                 app:expandedTitleTextAppearance="@style/CollapsingToolbarExpandedText"
                 app:title="@{viewModel.toolbarTitle}"
-                tools:title="Apk Analyzer"
                 app:titleEnabled="true"
-                app:toolbarId="@+id/toolbar">
+                app:toolbarId="@+id/toolbar"
+                tools:title="Apk Analyzer">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -61,18 +61,18 @@
                         android:contentDescription="@string/app_icon"
                         ads:layout_constraintBottom_toBottomOf="parent"
                         ads:layout_constraintTop_toTopOf="parent"
-                        app:imageDrawable="@{viewModel.toolbarIcon}"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:srcAsync="@{viewModel.toolbarIcon}"
                         tools:srcCompat="@drawable/ic_allow" />
 
                     <TextView
                         android:id="@+id/app_package_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:ellipsize="end"
                         android:maxLines="1"
                         android:singleLine="true"
-                        android:ellipsize="end"
-                        android:layout_marginStart="16dp"
                         android:textColor="?android:textColorPrimary"
                         android:textSize="@dimen/fontSizeSmaller"
                         android:visibility="@{viewModel.toolbarSubtitleVisibility ? View.VISIBLE : View.GONE}"

@@ -40,9 +40,6 @@ class AppDetailDataManager @Inject constructor(
     }
 
     private fun get(analysisMode: AppDetailData.AnalysisMode, packageInfo: PackageInfo): AppDetailData {
-
-        val fileData = fileDataManager.get(packageInfo)
-
         return AppDetailData(
                 analysisMode = analysisMode,
                 generalData = appGeneralDataManager.get(packageInfo, analysisMode),
