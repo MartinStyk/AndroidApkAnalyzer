@@ -18,7 +18,7 @@ android {
         versionName "3.0.0"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
-        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro', 'proguard-firebase.pro', 'proguard-google-play-services.pro', 'proguard-gson.pro'
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
     }
 
     flavorDimensions "version"
