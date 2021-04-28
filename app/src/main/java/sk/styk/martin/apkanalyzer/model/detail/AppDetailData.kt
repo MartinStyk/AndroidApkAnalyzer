@@ -17,8 +17,6 @@ data class AppDetailData(val analysisMode: AnalysisMode,
                          var broadcastReceiverData: List<BroadcastReceiverData>,
                          var permissionData: PermissionDataAggregate,
                          var featureData: List<FeatureData>,
-                         var fileData: FileData,
-                         var resourceData: ResourceData,
 ) : Parcelable {
 
     enum class AnalysisMode {

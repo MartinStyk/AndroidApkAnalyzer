@@ -11,7 +11,6 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.feature.AppFeatureDetailPage
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.general.AppGeneralDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.provider.AppProviderDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.receiver.AppReceiverDetailFragment
-import sk.styk.martin.apkanalyzer.ui.appdetail.page.resource.AppResourceDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.service.AppServiceDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppDefinedPermissionDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppUsedPermissionDetailFragment
@@ -30,13 +29,12 @@ class AppDetailPagerAdapter(val bundle: Bundle,
         6 -> AppReceiverDetailFragment()
         7 -> AppFeatureDetailPageFragment()
         8 -> AppDefinedPermissionDetailFragment()
-        9 -> AppResourceDetailFragment()
         else -> throw IllegalArgumentException()
     }.apply {
         arguments = bundle
     }
 
-    override fun getCount() = 10
+    override fun getCount() = 9
 
     override fun getPageTitle(position: Int): CharSequence = context.resources.getString(
             when (position) {
@@ -49,7 +47,6 @@ class AppDetailPagerAdapter(val bundle: Bundle,
                 6 -> R.string.broadcast_receivers
                 7 -> R.string.features
                 8 -> R.string.defined_permissions
-                9 -> R.string.resources
                 else -> throw IllegalArgumentException()
             })
 }

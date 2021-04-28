@@ -15,9 +15,7 @@ class AppDetailDataManager @Inject constructor(
         private val featuresManager: FeaturesManager,
         private val appGeneralDataManager: AppGeneralDataManager,
         private val certificateManager: CertificateManager,
-        private val fileDataManager: FileDataManager,
         private val appComponentsManager: AppComponentsManager,
-        private val appResourceManager: AppResourceManager,
 ) {
 
     private val analysisFlags = PackageManager.GET_SIGNATURES or
@@ -55,8 +53,6 @@ class AppDetailDataManager @Inject constructor(
                 broadcastReceiverData = appComponentsManager.getBroadcastReceivers(packageInfo),
                 permissionData = appPermissionManager.get(packageInfo),
                 featureData = featuresManager.get(packageInfo),
-                fileData = fileData,
-                resourceData = appResourceManager.get(fileData),
         )
     }
 
