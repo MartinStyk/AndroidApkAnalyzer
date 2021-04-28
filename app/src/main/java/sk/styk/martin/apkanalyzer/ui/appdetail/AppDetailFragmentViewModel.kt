@@ -193,17 +193,15 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         appActionsAdapter.menuItems = when (appDetailRequest) {
             is AppDetailRequest.ExternalPackage ->
                 if (displayHeight < 420) {
-                    listOf(AppActionsSpeedMenuAdapter.AppActions.SHOW_MORE, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST, AppActionsSpeedMenuAdapter.AppActions.INSTALL)
+                    listOf(AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST, AppActionsSpeedMenuAdapter.AppActions.INSTALL)
                 } else {
-                    listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON,
-                            AppActionsSpeedMenuAdapter.AppActions.COPY, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST, AppActionsSpeedMenuAdapter.AppActions.INSTALL)
+                    listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST, AppActionsSpeedMenuAdapter.AppActions.INSTALL)
                 }
             is AppDetailRequest.InstalledPackage ->
                 if (displayHeight < 420) {
-                    listOf(AppActionsSpeedMenuAdapter.AppActions.SHOW_MORE, AppActionsSpeedMenuAdapter.AppActions.COPY, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
+                    listOf(AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.EXPORT_APK, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
                 } else {
-                    listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.BUILD_INFO, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON,
-                            AppActionsSpeedMenuAdapter.AppActions.COPY, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
+                    listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.BUILD_INFO, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.EXPORT_APK, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
                 }
         }
         actionButtonAdapterLiveData.value = appActionsAdapter
