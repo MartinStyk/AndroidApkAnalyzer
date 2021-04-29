@@ -140,6 +140,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     }
 
     init {
+        Timber.tag(TAG_APP_DETAIL).i("Open app detail for request $appDetailRequest")
         loadDetail()
         observeApkActions()
     }

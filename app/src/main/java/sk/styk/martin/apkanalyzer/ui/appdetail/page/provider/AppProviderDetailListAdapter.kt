@@ -49,7 +49,7 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
 
         val authority = DetailInfoAdapter.DetailInfo(
                 name = TextInfo.from(R.string.provider_authority),
-                value = TextInfo.from(expandedProviderData.contentProviderData.authority),
+                value = if (expandedProviderData.contentProviderData.authority != null) TextInfo.from(expandedProviderData.contentProviderData.authority) else TextInfo.from(R.string.none),
                 description = TextInfo.from(R.string.provider_authority_description)
         )
         val readPermission = DetailInfoAdapter.DetailInfo(

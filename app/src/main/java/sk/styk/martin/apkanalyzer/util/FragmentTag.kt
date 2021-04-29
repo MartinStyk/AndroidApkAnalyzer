@@ -8,7 +8,8 @@ enum class FragmentTag(val tag: String) {
     Settings("Settings"),
     Premium("Premium"),
     AppDetailParent("AppDetailParent"),
-    PermissionDetail("PermissionDetail");
+    PermissionDetail("PermissionDetail"),
+    Manifest("Manifest");
 
     fun isTag(stringTag: String?) = tag == stringTag
 

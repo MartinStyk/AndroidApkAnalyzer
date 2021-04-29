@@ -99,7 +99,6 @@ class AndroidManifestFragment : Fragment() {
 
     companion object {
         private const val MANIFEST_REQUEST = "manifest_request"
-        const val TAG = "AndroidManifestFragment"
 
         fun create(manifestRequest: ManifestRequest) = AndroidManifestFragment().apply {
             arguments = Bundle().apply {

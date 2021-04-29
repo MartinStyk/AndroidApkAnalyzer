@@ -22,8 +22,8 @@
             android:id="@+id/headerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onLongClick="@{() -> viewModel.onTitleLongClick()}"
             android:background="?android:selectableItemBackground"
+            android:onLongClick="@{() -> viewModel.onTitleLongClick()}"
             android:padding="@dimen/padding_default_medium">
 
             <TextView
@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{viewModel.packageName}"
                 app:layout_constraintBottom_toTopOf="@id/activity_name"
-                app:layout_constraintEnd_toStartOf="@id/toggleArrow"
+                app:layout_constraintEnd_toStartOf="@id/playArrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="sk.styk.martin.apkanalyzer" />
@@ -55,13 +55,14 @@
                 android:id="@+id/playArrow"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:background="?android:selectableItemBackgroundBorderless"
                 android:onClick="@{() -> viewModel.onRunClick()}"
                 android:visibility="@{viewModel.runButtonVisible ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="@id/activity_name"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/toggleArrow"
-                app:layout_constraintTop_toTopOf="@id/activity_name"
+                app:layout_constraintStart_toEndOf="@id/activity_package_name"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_play"
                 app:tint="?android:textColorSecondary" />
 
@@ -72,7 +73,7 @@
                 android:layout_weight="0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/activity_package_name"
+                app:layout_constraintStart_toEndOf="@+id/playArrow"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/ic_arrow_expandable"
                 app:tint="?android:textColorSecondary" />

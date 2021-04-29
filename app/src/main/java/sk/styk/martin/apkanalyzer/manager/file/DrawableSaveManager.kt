@@ -47,7 +47,11 @@ class DrawableSaveManager @Inject constructor(
             }
         } else {
             val imagePath = Environment.getExternalStoragePublicDirectory(directory).absolutePath
-            val imageFile = File(imagePath, "$SUBDIRECTORY/fileName")
+            val subdirectory = File(imagePath, SUBDIRECTORY)
+            if (!subdirectory.exists()) {
+                subdirectory.mkdirs()
+            }
+            val imageFile = File(imagePath, "$SUBDIRECTORY/$fileName")
             save(FileOutputStream(imageFile), bitmap)
             mediaManager.addMediaRecord(imageFile)
             imageFile.toUri()

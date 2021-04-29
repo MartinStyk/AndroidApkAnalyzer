@@ -20,6 +20,7 @@ import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
 import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
+import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 
 @InstallIn(ActivityComponent::class)
 @Module
@@ -59,10 +60,10 @@ class ActivityCommonModule {
 
     @Provides
     @ActivityScoped
-    fun provideFragmentScreenTracker(activity: AppCompatActivity, analyticsTracker: AnalyticsTracker, foregroundWatcher: ForegroundFragmentWatcher): FragmentScreenTracker {
+    fun provideFragmentScreenTracker(activity: AppCompatActivity, analyticsTracker: AnalyticsTracker, foregroundWatcher: ForegroundFragmentWatcher, dispatcherProvider: DispatcherProvider): FragmentScreenTracker {
         return ViewModelProvider(activity, object : ViewModelProvider.Factory {
             override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return FragmentScreenTracker(foregroundWatcher, analyticsTracker) as T
+                return FragmentScreenTracker(foregroundWatcher, analyticsTracker, dispatcherProvider) as T
             }
         }).get(FragmentScreenTracker::class.java)
     }

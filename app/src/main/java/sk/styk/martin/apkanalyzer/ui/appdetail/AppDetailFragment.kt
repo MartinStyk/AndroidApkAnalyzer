@@ -128,8 +128,8 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
 
         parentFragmentManager.beginTransaction()
-                .replace(R.id.container, AndroidManifestFragment.create(manifestRequest), AndroidManifestFragment.TAG)
-                .addToBackStack(AndroidManifestFragment.TAG)
+                .replace(R.id.container, AndroidManifestFragment.create(manifestRequest), FragmentTag.Manifest.tag)
+                .addToBackStack(FragmentTag.Manifest.tag)
                 .setReorderingAllowed(true)
                 .commit()
     }
