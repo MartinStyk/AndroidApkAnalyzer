@@ -12,7 +12,6 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DUR
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
-import java.util.*
 
 
 class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
@@ -44,7 +43,7 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.MathStatisticsCardView, 0, 0)
         title = attributes.getString(R.styleable.MathStatisticsCardView_title) ?: ""
-        type = Type.valueOf(attributes.getString(R.styleable.MathStatisticsCardView_type)!!.toUpperCase(Locale.getDefault()))
+        type = Type.resolve(attributes.getString(R.styleable.MathStatisticsCardView_type))
         attributes.recycle()
 
         orientation = VERTICAL
@@ -91,6 +90,17 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
         };
 
         internal abstract fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView)
+
+        companion object {
+            fun resolve(stringAttribute: String?): Type {
+                return when (stringAttribute) {
+                    "size" -> SIZE
+                    "decimal" -> DECIMAL
+                    "integral" -> INTEGRAL
+                    else -> INTEGRAL
+                }
+            }
+        }
 
     }
 
