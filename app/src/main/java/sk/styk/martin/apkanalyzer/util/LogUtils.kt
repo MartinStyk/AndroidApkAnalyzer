@@ -9,7 +9,6 @@ const val TAG_APP_DETAIL = "AppDetail"
 const val TAG_EXPORTS = "Exports"
 const val TAG_APP_ANALYSIS = "AppAnalysis"
 const val TAG_APP_ACTIONS = "AppActions"
-const val TAG_PERMISSIONS = "Permissions"
 
 object LogUtils {
 

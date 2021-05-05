@@ -16,6 +16,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.appanalysis.AndroidManifestManager
 import sk.styk.martin.apkanalyzer.manager.file.FileManager
@@ -67,10 +68,11 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
     val exportFilePickerResult = ActivityResultCallback<ActivityResult> {
         if (it.resultCode == Activity.RESULT_OK) {
             val uri = it.data?.data
-            if (uri != null) {
-                internalExport(uri)
+            val manifest = manifest.value
+            if (uri != null && !manifest.isNullOrBlank()) {
+                internalExport(uri, manifest)
             } else {
-                showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.can_not_save_manifest))
+                cannotSaveManifest()
             }
         }
     }
@@ -124,9 +126,11 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
         }
     }
 
-    private fun internalExport(target: Uri) {
+    private fun internalExport(target: Uri, manifest: String) = viewModelScope.launch {
         try {
-            fileManager.writeString(manifest.value!!, target)
+            withContext(dispatcherProvider.io()) {
+                fileManager.writeString(manifest, target)
+            }
             showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.manifest_saved, manifestRequest.appName),
                     duration = Snackbar.LENGTH_LONG,
                     action = TextInfo.from(R.string.action_show)) {
@@ -135,8 +139,12 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
             notificationManager.showManifestSavedNotification(manifestRequest.appName, target)
         } catch (e: IOException) {
             Timber.tag(TAG_EXPORTS).e(e, "Error saving manifest for $manifestRequest. Target was $target")
-            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.can_not_save_manifest))
+            cannotSaveManifest()
         }
+    }
+
+    private fun cannotSaveManifest() {
+        showSnackEvent.postValue(SnackBarComponent(TextInfo.from(R.string.can_not_save_manifest)))
     }
 
     @AssistedFactory

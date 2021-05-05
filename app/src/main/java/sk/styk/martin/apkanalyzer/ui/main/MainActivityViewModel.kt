@@ -94,7 +94,7 @@ class MainActivityViewModel @AssistedInject constructor(
             foregroundFragmentWatcher.foregroundFragment.collect {
                 when (it) {
                     FragmentTag.AppList -> selectedMenuItemLiveData.value = R.id.nav_app_list
-                    FragmentTag.LocalStatistics -> selectedMenuItemLiveData.value = R.id.nav_settings
+                    FragmentTag.LocalStatistics -> selectedMenuItemLiveData.value = R.id.nav_local_stats
                     FragmentTag.LocalPermissions -> selectedMenuItemLiveData.value = R.id.nav_local_permissions
                     FragmentTag.Settings -> selectedMenuItemLiveData.value = R.id.nav_settings
                     FragmentTag.About -> selectedMenuItemLiveData.value = R.id.nav_about
