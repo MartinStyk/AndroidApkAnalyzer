@@ -34,7 +34,7 @@ object AppOperations {
     fun openAppSystemPage(context: Context, packageName: String) {
         val systemInfoIntent = Intent()
         systemInfoIntent.action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        systemInfoIntent.data = Uri.parse("package:" + packageName)
+        systemInfoIntent.data = Uri.parse("package:$packageName")
 
         context.startActivity(systemInfoIntent)
     }
@@ -48,10 +48,10 @@ object AppOperations {
     fun openGooglePlay(context: Context, packageName: String) {
         try {
             context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)))
-        } catch (anfe: ActivityNotFoundException) {
+        } catch (activityNotFound: ActivityNotFoundException) {
             // Google Play not installed, open it in browser
-            Timber.tag(TAG_APP_ACTIONS).w(anfe, "Starting Google play failed. Try to open it in browser.")
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)))
+            Timber.tag(TAG_APP_ACTIONS).w(activityNotFound, "Starting Google play failed. Try to open it in browser.")
+            openBrowser(context, "https://play.google.com/store/apps/details?id=$packageName")
         }
 
     }
@@ -66,6 +66,16 @@ object AppOperations {
             context.startActivity(intent)
         } catch (e: Exception) {
             Timber.tag(TAG_APP_ACTIONS).e(e, "Starting foreign activity failed. Intent was $intent")
+            Toast.makeText(context, R.string.activity_run_failed, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @JvmStatic
+    fun openBrowser(context: Context, url: String) {
+        try {
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+        } catch (activityNotFoundException: ActivityNotFoundException) {
+            Timber.tag(TAG_APP_ACTIONS).w(activityNotFoundException, "Can not open browser.")
             Toast.makeText(context, R.string.activity_run_failed, Toast.LENGTH_SHORT).show()
         }
     }
