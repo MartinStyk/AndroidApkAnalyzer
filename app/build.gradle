@@ -14,8 +14,8 @@ android {
         applicationId "sk.styk.martin.apkanalyzer"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 49
-        versionName "3.0.2"
+        versionCode 50
+        versionName "3.0.3"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
