@@ -51,7 +51,8 @@
                     android:layout_gravity="center"
                     android:animateLayoutChanges="true"
                     android:paddingHorizontal="24dp"
-                    app:layout_collapseMode="parallax">
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="1.2">
 
                     <ImageView
                         android:id="@+id/app_image"
@@ -102,7 +103,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
-                    android:background="@android:color/transparent"
+                    android:background="?colorSurface"
                     android:visibility="@{viewModel.viewState == AppDetailFragmentViewModelKt.DATA_STATE ? View.VISIBLE : View.GONE}"
                     ads:tabGravity="fill"
                     ads:tabMode="scrollable"
