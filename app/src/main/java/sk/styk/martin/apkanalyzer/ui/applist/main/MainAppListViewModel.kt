@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.*
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.perf.metrics.AddTrace
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -72,8 +73,10 @@ class MainAppListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(dispatcherProvider.default()) {
-            val installedApps = installedAppsManager.getAll()
-            allApps = installedApps
+            @AddTrace(name = "initialAppListLoad")
+            fun loadApps() = installedAppsManager.getAll()
+
+            allApps = loadApps()
             withContext(dispatcherProvider.main()) {
                 appListData = allApps
             }
