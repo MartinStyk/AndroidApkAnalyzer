@@ -59,19 +59,19 @@ class AppDetailFragment : Fragment(), BackPressedListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAppDetailBinding.inflate(inflater, container, false)
-        binding.pager.adapter = AppDetailPagerAdapter(
-                requireArguments(),
-                requireContext().applicationContext,
-                childFragmentManager)
-        binding.tabs.setupWithViewPager(binding.pager)
-        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         backPressedManager.registerBackPressedListener(this)
+        binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
+        binding.pager.adapter = AppDetailPagerAdapter(
+                requireArguments(),
+                requireContext().applicationContext,
+                childFragmentManager)
+        binding.tab.setupWithViewPager(binding.pager)
 
         with(viewModel) {
             showSnack.observe(viewLifecycleOwner, { it.toSnackbar(binding.root).show() })

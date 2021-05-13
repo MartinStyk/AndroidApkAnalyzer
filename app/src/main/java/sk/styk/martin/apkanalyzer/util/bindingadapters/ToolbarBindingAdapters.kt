@@ -55,6 +55,6 @@ fun Toolbar.searchQuery(searchQuery: String?) {
 }
 
 @BindingAdapter("title")
-fun Toolbar.setTitle(textInfo: TextInfo) {
-    title = textInfo.getText(context)
+fun Toolbar.setTitle(textInfo: TextInfo?) {
+    title = textInfo?.getText(context) ?: ""
 }

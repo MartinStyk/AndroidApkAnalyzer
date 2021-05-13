@@ -97,7 +97,7 @@
                     app:title="@{viewModel.toolbarTitle}" />
 
                 <com.google.android.material.tabs.TabLayout
-                    android:id="@+id/tabs"
+                    android:id="@+id/tab"
                     style="@style/TabIndicator"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
