@@ -83,11 +83,12 @@
 
                 </LinearLayout>
 
-                <com.pddstudio.highlightjs.HighlightJsView
-                    android:id="@+id/code_view"
+                <FrameLayout
+                    android:id="@+id/code_container"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:source="@{viewModel.manifest}" />
+                    android:layout_height="match_parent">
+
+                </FrameLayout>
 
             </ViewAnimator>
 

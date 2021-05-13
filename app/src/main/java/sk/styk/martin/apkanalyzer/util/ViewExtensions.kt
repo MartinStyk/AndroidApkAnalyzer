@@ -1,6 +1,7 @@
 package sk.styk.martin.apkanalyzer.util
 
 import android.content.Context
+import android.content.res.Configuration
 import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
@@ -22,4 +23,8 @@ fun View.hideKeyboard() {
         val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
         inputMethodManager?.hideSoftInputFromWindow(windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
+}
+
+fun View.isNightMode() : Boolean {
+    return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 }

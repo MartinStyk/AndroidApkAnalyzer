@@ -12,15 +12,14 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import com.google.android.material.transition.MaterialSharedAxis
+import com.pddstudio.highlightjs.HighlightJsView
 import com.pddstudio.highlightjs.models.Language
 import com.pddstudio.highlightjs.models.Theme
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentManifestBinding
-import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
-import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
+import sk.styk.martin.apkanalyzer.util.*
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
-import sk.styk.martin.apkanalyzer.util.provideViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -50,8 +49,6 @@ class AndroidManifestFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentManifestBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.codeView.highlightLanguage = Language.XML
-        binding.codeView.theme = Theme.ATOM_ONE_LIGHT
         return binding.root
     }
 
@@ -60,10 +57,11 @@ class AndroidManifestFragment : Fragment() {
         binding.viewModel = viewModel
 
         with(viewModel) {
-            close.observe(viewLifecycleOwner, { requireActivity().onBackPressed() })
-            showSnack.observe(viewLifecycleOwner, { it.toSnackbar(binding.root).show() })
+            close.observe(viewLifecycleOwner) { requireActivity().onBackPressed() }
+            showSnack.observe(viewLifecycleOwner) { it.toSnackbar(binding.root).show() }
             showManifestFile.observe(viewLifecycleOwner, this@AndroidManifestFragment::showManifestFile)
-            openExportFilePicker.observe(viewLifecycleOwner, { openExportFilePicker(it) })
+            openExportFilePicker.observe(viewLifecycleOwner) { openExportFilePicker(it) }
+            manifest.observe(viewLifecycleOwner) { showManifest(it) }
         }
     }
 
@@ -94,6 +92,24 @@ class AndroidManifestFragment : Fragment() {
         } catch (e: ActivityNotFoundException) {
             Timber.tag(TAG_APP_ACTIONS).w(e, "Can not open file picker")
             Toast.makeText(requireContext(), R.string.activity_not_found_browsing, Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun showManifest(manifest: String) {
+        try {
+            val codeView = HighlightJsView(requireContext()).apply {
+                highlightLanguage = Language.XML
+                theme = if (binding.root.isNightMode()) Theme.ATOM_ONE_DARK else Theme.ATOM_ONE_LIGHT
+                setSource(manifest)
+            }
+            with(binding.codeContainer) {
+                removeAllViews()
+                addView(codeView)
+            }
+        } catch (e: Exception) {
+            Timber.tag(TAG_APP_ANALYSIS).e(e, "Cannot create code view")
+            Toast.makeText(requireContext(), R.string.no_data, Toast.LENGTH_SHORT).show()
+            requireActivity().onBackPressed()
         }
     }
 
