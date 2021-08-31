@@ -1,12 +1,10 @@
 package sk.styk.martin.apkanalyzer.manager.persistence
 
 import android.content.SharedPreferences
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import javax.inject.Inject
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class SettingsManager @Inject constructor(
         private val sharedPreferences: SharedPreferences,
         private val resourcesManager: ResourcesManager,

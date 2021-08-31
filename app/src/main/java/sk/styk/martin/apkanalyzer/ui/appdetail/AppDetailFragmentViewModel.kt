@@ -16,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -47,7 +46,6 @@ internal const val DATA_STATE = 2
 
 private const val ANALYZED_APK_NAME = "analyzed.apk"
 
-@OptIn(ExperimentalCoroutinesApi::class)
 class AppDetailFragmentViewModel @AssistedInject constructor(
         @Assisted val appDetailRequest: AppDetailRequest,
         private val dispatcherProvider: DispatcherProvider,

@@ -148,11 +148,11 @@ class MainAppListViewModel @Inject constructor(
     private fun setDataFiltered() {
         val nameQuery = queryTextInternal
         val source = filteredSource.value
-        val hasFilters = !nameQuery.isNullOrBlank() || source != null
+        val hasFilters = nameQuery.isNotBlank() || source != null
         appListData = if (!hasFilters) {
             allApps
         } else allApps.filter { entry ->
-            fun textSearch(name: String) = nameQuery.isNullOrBlank() ||
+            fun textSearch(name: String) = nameQuery.isBlank() ||
                     name.startsWith(nameQuery, ignoreCase = true) ||
                     name.split(" ".toRegex()).any { it.startsWith(nameQuery, ignoreCase = true) } ||
                     name.split(".".toRegex()).any { it.startsWith(nameQuery, ignoreCase = true) }

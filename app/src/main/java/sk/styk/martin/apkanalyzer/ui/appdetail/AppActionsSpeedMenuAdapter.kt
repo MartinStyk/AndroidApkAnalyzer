@@ -1,37 +1,33 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail
 
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.views.SpeedDialMenuAdapter
 import sk.styk.martin.apkanalyzer.views.SpeedDialMenuItem
 import javax.inject.Inject
 
-@OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() {
 
     var menuItems: List<AppActions> = emptyList()
 
-    private val installAppFlow = MutableSharedFlow<Unit>()
+    private val installAppFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val installApp: Flow<Unit>  = installAppFlow
 
-    private val exportAppFlow = MutableSharedFlow<Unit>()
+    private val exportAppFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val exportApp: Flow<Unit>  = exportAppFlow
 
-    private val saveIconFlow = MutableSharedFlow<Unit>()
+    private val saveIconFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val saveIcon: Flow<Unit>  = saveIconFlow
 
-    private val showManifestFlow = MutableSharedFlow<Unit>()
+    private val showManifestFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val showManifest: Flow<Unit>  = showManifestFlow
 
-    private val openGooglePlayFlow = MutableSharedFlow<Unit>()
+    private val openGooglePlayFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val openGooglePlay: Flow<Unit>  = openGooglePlayFlow
 
-    private val openSystemInfoFlow = MutableSharedFlow<Unit>()
+    private val openSystemInfoFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val openSystemInfo: Flow<Unit> = openSystemInfoFlow
 
     enum class AppActions {
@@ -55,15 +51,13 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
     }
 
     override fun onMenuItemClick(position: Int): Boolean {
-        GlobalScope.launch {
-            when (menuItems[position]) {
-                AppActions.INSTALL -> installAppFlow.emit(Unit)
-                AppActions.EXPORT_APK -> exportAppFlow.emit(Unit)
-                AppActions.SAVE_ICON -> saveIconFlow.emit(Unit)
-                AppActions.SHOW_MANIFEST -> showManifestFlow.emit(Unit)
-                AppActions.OPEN_PLAY -> openGooglePlayFlow.emit(Unit)
-                AppActions.BUILD_INFO -> openSystemInfoFlow.emit(Unit)
-            }
+        when (menuItems[position]) {
+            AppActions.INSTALL -> installAppFlow.tryEmit(Unit)
+            AppActions.EXPORT_APK -> exportAppFlow.tryEmit(Unit)
+            AppActions.SAVE_ICON -> saveIconFlow.tryEmit(Unit)
+            AppActions.SHOW_MANIFEST -> showManifestFlow.tryEmit(Unit)
+            AppActions.OPEN_PLAY -> openGooglePlayFlow.tryEmit(Unit)
+            AppActions.BUILD_INFO -> openSystemInfoFlow.tryEmit(Unit)
         }
         return true
     }

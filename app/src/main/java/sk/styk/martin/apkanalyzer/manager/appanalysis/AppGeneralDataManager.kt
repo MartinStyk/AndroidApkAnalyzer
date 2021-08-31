@@ -58,11 +58,11 @@ class AppGeneralDataManager @Inject constructor(
     fun computeApkSize(sourceDir: String): Long = File(sourceDir).length()
 
     private fun getMinSdk(applicationInfo: ApplicationInfo, packageManager: PackageManager, analysisMode: AppDetailData.AnalysisMode): Int? =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N)
-                applicationInfo.minSdkVersion
-            else if (analysisMode.toString() == AppDetailData.AnalysisMode.INSTALLED_PACKAGE.toString())
-                AndroidManifestManager.getMinSdkVersion(applicationInfo, packageManager)
-            else null
+            when {
+                Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> applicationInfo.minSdkVersion
+                analysisMode.toString() == AppDetailData.AnalysisMode.INSTALLED_PACKAGE.toString() -> AndroidManifestManager.getMinSdkVersion(applicationInfo, packageManager)
+                else -> null
+            }
 
     companion object {
         fun getAppSource(packageManager: PackageManager, packageName: String, isSystem: Boolean): AppSource {

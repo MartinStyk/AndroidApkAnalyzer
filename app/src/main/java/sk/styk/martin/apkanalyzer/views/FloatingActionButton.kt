@@ -4,7 +4,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
-import android.os.Build
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.AttributeSet
@@ -21,6 +20,7 @@ import androidx.annotation.DrawableRes
 import androidx.cardview.widget.CardView
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fab_container.view.*
@@ -62,7 +62,7 @@ class FloatingActionButton : RelativeLayout {
     private var busyAnimatingFabIconRotation = false
     private var busyAnimatingContentCover = false
     private var busyAnimatingSpeedDialMenuItems = false
-    private var isBusyAnimating = false
+    private val isBusyAnimating
         get() = busyAnimatingFabIconRotation || busyAnimatingContentCover || busyAnimatingSpeedDialMenuItems
 
     companion object {
@@ -249,11 +249,7 @@ class FloatingActionButton : RelativeLayout {
 
     fun setButtonBackgroundColour(@ColorInt colour: Int) {
         this.buttonBackgroundColour = colour
-        if (Build.VERSION.SDK_INT >= 21) {
-            (fab_card as CardView).setCardBackgroundColor(colour)
-        } else {
-            (fab_card.background as GradientDrawable).setColor(colour)
-        }
+        (fab_card as CardView).setCardBackgroundColor(colour)
         rebuildSpeedDialMenu()
     }
 
@@ -365,26 +361,14 @@ class FloatingActionButton : RelativeLayout {
             view.menu_item_label.text = context.getText(menuItem.label)
             speedDialMenuAdapter?.onPrepareItemLabel(context, i, view.menu_item_label)
 
-            if (Build.VERSION.SDK_INT >= 21) {
                 (view.menu_item_card as CardView).setCardBackgroundColor(adapter.getBackgroundColour(i, context)
                         ?: buttonBackgroundColour)
-            } else {
-                ((view.menu_item_card as ViewGroup).background as GradientDrawable).setColor(adapter.getBackgroundColour(i, context)
-                        ?: buttonBackgroundColour)
-            }
+
             speedDialMenuAdapter?.onPrepareItemCard(context, i, view.menu_item_card)
 
             view.menu_item_icon_wrapper.apply {
-                background = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    context.resources.getDrawable(menuItem.icon, context.theme)
-                } else {
-                    @Suppress("DEPRECATION")
-                    context.resources.getDrawable(menuItem.icon)
-                }
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    backgroundTintList = ContextCompat.getColorStateList(context, menuItem.iconColor)
-                }
+                background = ResourcesCompat.getDrawable(context.resources, menuItem.icon, context.theme)
+                backgroundTintList = ContextCompat.getColorStateList(context, menuItem.iconColor)
             }
             speedDialMenuAdapter?.onPrepareItemIconWrapper(context, i, view.menu_item_icon_wrapper)
 

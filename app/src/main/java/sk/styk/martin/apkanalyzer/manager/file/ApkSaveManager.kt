@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.manager.file
 import android.content.ContentResolver
 import android.net.Uri
 import androidx.annotation.IntRange
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -18,7 +17,6 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-@OptIn(FlowPreview::class)
 class ApkSaveManager @Inject constructor(
         private val contentResolver: ContentResolver,
         private val notificationManager: NotificationManager,

@@ -26,12 +26,12 @@ class DigestManager @Inject constructor(){
 
         for (var6 in 0 until var5) {
             val aBArray = bArray[var6]
-            val sTemp = Integer.toHexString(255 and aBArray.toChar().toInt())
+            val sTemp = Integer.toHexString(255 and aBArray.toInt().toChar().code)
             if (sTemp.length < 2) {
                 sb.append(0)
             }
 
-            sb.append(sTemp.toUpperCase(Locale.getDefault()))
+            sb.append(sTemp.uppercase(Locale.getDefault()))
         }
 
         return sb.toString()

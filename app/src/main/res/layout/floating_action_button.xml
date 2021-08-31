@@ -1,13 +1,15 @@
-<merge
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:id="@+id/fab_card"
+        style="@style/fab_card"
         android:layout_width="@dimen/fab_size"
         android:layout_height="@dimen/fab_size"
         android:layout_margin="@dimen/fab_padding"
-        style="@style/fab_card"
-        >
+        app:cardCornerRadius="@dimen/fab_radius"
+        app:cardElevation="6dp"
+        app:cardPreventCornerOverlap="false">
 
         <LinearLayout
             android:id="@+id/fab_icon_wrapper"
@@ -15,9 +17,8 @@
             android:layout_height="@dimen/fab_icon_size"
             android:layout_margin="@dimen/fab_icon_margin"
             android:gravity="center"
-            android:orientation="horizontal"
-            />
+            android:orientation="horizontal" />
 
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </merge>

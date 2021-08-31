@@ -125,7 +125,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
 
                 while (eventType != XmlResourceParser.END_DOCUMENT) {
                     if (eventType == XmlResourceParser.START_TAG) {
-                        if ("uses-sdk".equals(parser.name))
+                        if ("uses-sdk" == parser.name)
                             return parser.getAttributeIntValue("http://schemas.android.com/apk/res/android", "minSdkVersion", 0)
                     }
                     eventType = parser.next()
