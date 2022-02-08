@@ -22,11 +22,11 @@ class MainSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSha
 
     override fun onStart() {
         super.onStart()
-        preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
+        preferenceManager.sharedPreferences?.registerOnSharedPreferenceChangeListener(this)
     }
 
     override fun onStop() {
-        preferenceManager.sharedPreferences.unregisterOnSharedPreferenceChangeListener(this)
+        preferenceManager.sharedPreferences?.unregisterOnSharedPreferenceChangeListener(this)
         super.onStop()
     }
 

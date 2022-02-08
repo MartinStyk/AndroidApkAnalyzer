@@ -38,10 +38,10 @@ class ActivityCommonModule {
     @ActivityScoped
     fun providePermissionsManager(activity: AppCompatActivity): PermissionManager {
         val permissionsManager: PermissionsManagerImpl = ViewModelProvider(activity, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return PermissionsManagerImpl(activity.applicationContext) as T
             }
-        }).get(PermissionsManagerImpl::class.java)
+        })[PermissionsManagerImpl::class.java]
         permissionsManager.bind(activity)
         return permissionsManager
     }
@@ -49,11 +49,12 @@ class ActivityCommonModule {
     @Provides
     @ActivityScoped
     fun provideColorThemeManager(activity: AppCompatActivity, @ForApplication applicationColorThemeManager: ColorThemeManager): ActivityColorThemeManager {
-        val activityColorThemeManager: ActivityColorThemeManager = ViewModelProvider(activity, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ActivityColorThemeManager(applicationColorThemeManager) as T
-            }
-        }).get(ActivityColorThemeManager::class.java)
+        val activityColorThemeManager: ActivityColorThemeManager =
+            ViewModelProvider(activity, object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return ActivityColorThemeManager(applicationColorThemeManager) as T
+                }
+            })[ActivityColorThemeManager::class.java]
         activityColorThemeManager.bind(activity)
         return activityColorThemeManager
     }
@@ -62,20 +63,21 @@ class ActivityCommonModule {
     @ActivityScoped
     fun provideFragmentScreenTracker(activity: AppCompatActivity, analyticsTracker: AnalyticsTracker, foregroundWatcher: ForegroundFragmentWatcher, dispatcherProvider: DispatcherProvider): FragmentScreenTracker {
         return ViewModelProvider(activity, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return FragmentScreenTracker(foregroundWatcher, analyticsTracker, dispatcherProvider) as T
             }
-        }).get(FragmentScreenTracker::class.java)
+        })[FragmentScreenTracker::class.java]
     }
 
     @Provides
     @ActivityScoped
     fun provideForegroundFragmentWatcher(activity: AppCompatActivity): ForegroundFragmentWatcher {
-        val foregroundFragmentWatcher: ForegroundFragmentWatcher = ViewModelProvider(activity, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return ForegroundFragmentWatcher() as T
-            }
-        }).get(ForegroundFragmentWatcher::class.java)
+        val foregroundFragmentWatcher: ForegroundFragmentWatcher =
+            ViewModelProvider(activity, object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    return ForegroundFragmentWatcher() as T
+                }
+            })[ForegroundFragmentWatcher::class.java]
         foregroundFragmentWatcher.bind(activity)
         return foregroundFragmentWatcher
     }
@@ -84,10 +86,10 @@ class ActivityCommonModule {
     @ActivityScoped
     fun provideUserReviewManager(activity: AppCompatActivity, reviewManager: ReviewManager): UserReviewManager {
         val userReviewmanager: UserReviewManager = ViewModelProvider(activity, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
                 return UserReviewManager(reviewManager) as T
             }
-        }).get(UserReviewManager::class.java)
+        })[UserReviewManager::class.java]
         userReviewmanager.bind(activity)
         return userReviewmanager
     }

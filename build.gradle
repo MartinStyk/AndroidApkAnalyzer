@@ -2,14 +2,14 @@
 
 buildscript {
     ext {
-        gradle_version = '4.0.1'
-        kotlin_version = '1.5.21'
-        hilt_version = '2.38.1'
-        lifecycle_version = '2.3.1'
-        coroutinesVersion = '1.4.2'
+        gradle_version = '7.1.0'
+        kotlin_version = '1.6.10'
+        hilt_version = '2.40.5'
+        lifecycle_version = '2.4.0'
+        coroutinesVersion = '1.6.0'
     }
     repositories {
-        jcenter()
+        mavenCentral()
         google()
     }
     dependencies {
@@ -17,8 +17,8 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.google.gms:google-services:4.3.10'
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hilt_version"
-        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.7.1'
-        classpath 'com.google.firebase:perf-plugin:1.4.0'
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.8.1'
+        classpath 'com.google.firebase:perf-plugin:1.4.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -31,10 +31,5 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
     }
-}
-
-task clean(type: Delete) {
-    delete rootProject.buildDir
 }
