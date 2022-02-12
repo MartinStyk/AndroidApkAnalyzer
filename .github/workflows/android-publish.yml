@@ -1,0 +1,69 @@
+name: Android Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionNumber:
+        description: 'Version number'
+        required: true
+      versionName:
+        description: 'Version name'
+        required: true
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Create google-services.json
+      uses: 1arp/create-a-file-action@0.2
+      with:
+        path: app
+        file: google-services.json
+        content: ${{secrets.GOOGLE_SERVICES}}
+
+    - name: Set app version
+      uses: chkfung/android-version-actions@v1.1
+      with:
+       gradlePath: app/build.gradle
+       versionCode: ${{ github.event.inputs.versionNumber }}
+       versionName: ${{ github.event.inputs.versionName }}
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+      
+    - name: Build Project
+      run: ./gradlew buildFreeRelease
+
+    - name: Bundle Release AAB
+      run: ./gradlew bundleFreeRelease
+
+    - name: Sign AAB
+      uses: r0adkll/sign-android-release@v1
+      with:
+        releaseDirectory: app/build/outputs/bundle/freeRelease
+        signingKeyBase64: ${{ secrets.SIGN_KEY }}
+        alias: ${{ secrets.SIGN_KEY_ALIAS }}
+        keyStorePassword: ${{ secrets.STORE_KEY_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+    - name: Deploy to Play Store
+      uses: r0adkll/upload-google-play@v1.0.16
+      with:
+        serviceAccountJsonPlainText: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
+        packageName: sk.styk.martin.apkanalyzer
+        releaseFiles: app/build/outputs/bundle/release/app-free-release.aab
+        mappingFile: app/build/outputs/mapping/freeRelease/mapping.txt
+        track: beta
+        status: draft
+        releaseName: ${{ github.event.inputs.versionNumber }} (${{ github.event.inputs.versionName }})
+        
