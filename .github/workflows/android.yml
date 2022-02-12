@@ -20,9 +20,12 @@ jobs:
         distribution: 'temurin'
         cache: gradle
 
-
     - name: Create google-services.json
-      run: echo ${{secrets.GOOGLE_SERVICES}} > app/google-services.json
+      uses: 1arp/create-a-file-action@0.2
+      with:
+        path: app
+        file: google-services.json
+        content: ${{secrets.GOOGLE_SERVICES}}
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
