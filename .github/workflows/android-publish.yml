@@ -49,6 +49,7 @@ jobs:
 
     - name: Sign AAB
       uses: r0adkll/sign-android-release@v1
+      id: sign_app
       with:
         releaseDirectory: app/build/outputs/bundle/freeRelease
         signingKeyBase64: ${{ secrets.SIGN_KEY }}
@@ -61,7 +62,7 @@ jobs:
       with:
         serviceAccountJsonPlainText: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
         packageName: sk.styk.martin.apkanalyzer
-        releaseFiles: app/build/outputs/bundle/release/app-free-release.aab
+        releaseFiles: ${{ steps.sign_app.outputs.signedReleaseFile }}
         mappingFile: app/build/outputs/mapping/freeRelease/mapping.txt
         track: beta
         status: draft
