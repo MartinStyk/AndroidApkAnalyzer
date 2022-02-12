@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.views;
+package sk.styk.martin.apkanalyzer.views
 
 import android.content.Context
 import android.view.View

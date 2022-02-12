@@ -22,7 +22,8 @@
         android:onClick="@{viewModel::onClick}"
         android:orientation="vertical"
         android:padding="8dp"
-        android:transitionName="@{@string/transition_permission_name(viewModel.permissionData.permissionData.Name)}">
+        android:transitionName="@{@string/transition_permission_name(viewModel.permissionData.permissionData.Name)}"
+        tools:targetApi="m">
 
         <TextView
             android:id="@+id/permission_simple_name"

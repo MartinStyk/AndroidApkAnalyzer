@@ -43,14 +43,49 @@ class StatisticsFragment : Fragment() {
         binding.viewModel = viewModel
 
         with(viewModel) {
-            showDialog.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "description dialog") })
-            showAppList.observe(viewLifecycleOwner, { AppListFromPackageNamesDialog.newInstance(it).show(parentFragmentManager, "AppListDialog") })
-            analysisResultsExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.analysisResultsToggleArrow, it) })
-            minSdkExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.minSdkToggleArrow, it) })
-            targetSdkExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.targetSdkToggleArrow, it) })
-            installLocationExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.installLocationToggleArrow, it) })
-            signAlgorithmExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.signAlgorithmToggleArrow, it) })
-            appSourceExpanded.observe(viewLifecycleOwner, { animateArrowExpanded(binding.appSourceToggleArrow, it) })
+            showDialog.observe(viewLifecycleOwner) {
+                it.toDialog().show(parentFragmentManager, "description dialog")
+            }
+            showAppList.observe(viewLifecycleOwner) {
+                AppListFromPackageNamesDialog.newInstance(it)
+                    .show(parentFragmentManager, "AppListDialog")
+            }
+            analysisResultsExpanded.observe(viewLifecycleOwner) {
+                animateArrowExpanded(
+                    binding.analysisResultsToggleArrow,
+                    it
+                )
+            }
+            minSdkExpanded.observe(viewLifecycleOwner) {
+                animateArrowExpanded(
+                    binding.minSdkToggleArrow,
+                    it
+                )
+            }
+            targetSdkExpanded.observe(viewLifecycleOwner) {
+                animateArrowExpanded(
+                    binding.targetSdkToggleArrow,
+                    it
+                )
+            }
+            installLocationExpanded.observe(viewLifecycleOwner) {
+                animateArrowExpanded(
+                    binding.installLocationToggleArrow,
+                    it
+                )
+            }
+            signAlgorithmExpanded.observe(viewLifecycleOwner) {
+                animateArrowExpanded(
+                    binding.signAlgorithmToggleArrow,
+                    it
+                )
+            }
+            appSourceExpanded.observe(viewLifecycleOwner) {
+                animateArrowExpanded(
+                    binding.appSourceToggleArrow,
+                    it
+                )
+            }
         }
     }
 

@@ -26,7 +26,7 @@ class AppReceiverDetailFragmentViewModel @AssistedInject constructor(
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         with(receiverAdapter) {
-            receiverUpdate.observe(owner, { updateLocalData(it) })
+            receiverUpdate.observe(owner) { updateLocalData(it) }
         }
     }
 

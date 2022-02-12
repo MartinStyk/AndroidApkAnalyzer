@@ -51,8 +51,16 @@ class PermissionsGeneralDetailsFragment : Fragment() {
         binding.viewModel = viewModel
 
         with(viewModel) {
-            openDescription.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "descrition_dialog") })
-            showSnackbar.observe(viewLifecycleOwner, { it.toSnackbar(requireActivity().findViewById(android.R.id.content)).show() })
+            openDescription.observe(viewLifecycleOwner) {
+                it.toDialog().show(parentFragmentManager, "descrition_dialog")
+            }
+            showSnackbar.observe(viewLifecycleOwner) {
+                it.toSnackbar(
+                    requireActivity().findViewById(
+                        android.R.id.content
+                    )
+                ).show()
+            }
         }
     }
 

@@ -47,7 +47,7 @@ object AppOperations {
     @JvmStatic
     fun openGooglePlay(context: Context, packageName: String) {
         try {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)))
+            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName")))
         } catch (activityNotFound: ActivityNotFoundException) {
             // Google Play not installed, open it in browser
             Timber.tag(TAG_APP_ACTIONS).w(activityNotFound, "Starting Google play failed. Try to open it in browser.")

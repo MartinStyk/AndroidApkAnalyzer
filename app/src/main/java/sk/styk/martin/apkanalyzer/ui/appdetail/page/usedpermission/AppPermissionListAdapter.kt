@@ -15,7 +15,7 @@ class AppPermissionListAdapter @Inject constructor() : DetailInfoDescriptionAdap
 
     data class DecomposedPermissionData(val completeName: String, val simpleName: String)
 
-    protected val showPermissionDetailEvent = SingleLiveEvent<String>()
+    private val showPermissionDetailEvent = SingleLiveEvent<String>()
     val showPermissionDetail: LiveData<String> = showPermissionDetailEvent
 
     var items = emptyList<DecomposedPermissionData>()

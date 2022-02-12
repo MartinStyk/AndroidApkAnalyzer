@@ -31,7 +31,7 @@ class AppFeatureDetailListAdapter @Inject constructor() : DetailInfoDescriptionA
 
     override fun getItemCount() = items.size
 
-    inner class FeatureDataViewModel(private val featureData: FeatureData) {
+    inner class FeatureDataViewModel(featureData: FeatureData) {
 
         val name = featureData.name
         val required = featureData.isRequired

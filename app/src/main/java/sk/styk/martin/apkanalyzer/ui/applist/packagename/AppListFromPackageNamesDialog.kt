@@ -45,7 +45,7 @@ class AppListFromPackageNamesDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        binding = DialogAppListBinding.inflate(LayoutInflater.from(context), null, false)
+        binding = DialogAppListBinding.inflate(layoutInflater, null, false)
 
         return AlertDialog.Builder(requireContext())
                 .setView(binding.root)

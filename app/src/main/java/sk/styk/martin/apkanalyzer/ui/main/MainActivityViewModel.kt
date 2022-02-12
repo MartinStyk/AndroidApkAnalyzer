@@ -9,7 +9,6 @@ import com.google.android.material.navigation.NavigationView
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R

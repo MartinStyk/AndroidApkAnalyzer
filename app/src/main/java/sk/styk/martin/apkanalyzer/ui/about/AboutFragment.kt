@@ -39,7 +39,12 @@ class AboutFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        viewModel.openGooglePlay.observe(viewLifecycleOwner, { AppOperations.openGooglePlay(requireContext(), requireContext().packageName) })
+        viewModel.openGooglePlay.observe(viewLifecycleOwner) {
+            AppOperations.openGooglePlay(
+                requireContext(),
+                requireContext().packageName
+            )
+        }
     }
 
 }

@@ -24,7 +24,7 @@ class AppServiceDetailFragmentViewModel @AssistedInject constructor(
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         with(serviceAdapter) {
-            serviceUpdate.observe(owner, { updateLocalData(it) })
+            serviceUpdate.observe(owner) { updateLocalData(it) }
         }
     }
 

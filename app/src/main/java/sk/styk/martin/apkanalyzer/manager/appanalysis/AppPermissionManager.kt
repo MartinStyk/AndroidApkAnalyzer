@@ -20,7 +20,7 @@ class AppPermissionManager @Inject constructor(private val packageManager: Packa
         data class Data(val localPermissionData: List<LocalPermissionData>) : PermissionLoadingStatus()
     }
 
-    suspend fun observeAllPermissionData() = flow<PermissionLoadingStatus> {
+    suspend fun observeAllPermissionData() = flow {
         val allApps = installedAppsManager.getAll()
         emit(PermissionLoadingStatus.Loading(0, allApps.size))
 
@@ -54,7 +54,7 @@ class AppPermissionManager @Inject constructor(private val packageManager: Packa
     private fun getDefinedPermissions(packageInfo: PackageInfo): List<PermissionData> {
         val permissionInfos = packageInfo.permissions ?: return ArrayList(0)
 
-        return permissionInfos.mapTo(ArrayList<PermissionData>(permissionInfos.size)) {
+        return permissionInfos.mapTo(ArrayList(permissionInfos.size)) {
             PermissionData(name = it.name, groupName = it.group, protectionLevel = it.protectionLevel)
         }
     }

@@ -74,15 +74,30 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         binding.tab.setupWithViewPager(binding.pager)
 
         with(viewModel) {
-            showSnack.observe(viewLifecycleOwner, { it.toSnackbar(binding.root).show() })
-            close.observe(viewLifecycleOwner, { requireActivity().onBackPressed() })
-            openSystemInfo.observe(viewLifecycleOwner, { AppOperations.openAppSystemPage(requireContext(), it) })
-            openGooglePlay.observe(viewLifecycleOwner, { AppOperations.openGooglePlay(requireContext(), it) })
-            installApp.observe(viewLifecycleOwner, { AppOperations.installPackage(requireContext(), it) })
+            showSnack.observe(viewLifecycleOwner) { it.toSnackbar(binding.root).show() }
+            close.observe(viewLifecycleOwner) { requireActivity().onBackPressed() }
+            openSystemInfo.observe(viewLifecycleOwner) {
+                AppOperations.openAppSystemPage(
+                    requireContext(),
+                    it
+                )
+            }
+            openGooglePlay.observe(viewLifecycleOwner) {
+                AppOperations.openGooglePlay(
+                    requireContext(),
+                    it
+                )
+            }
+            installApp.observe(viewLifecycleOwner) {
+                AppOperations.installPackage(
+                    requireContext(),
+                    it
+                )
+            }
             showManifest.observe(viewLifecycleOwner, this@AppDetailFragment::openManifestFragment)
-            openImage.observe(viewLifecycleOwner, { openImage(it) })
-            openSettingsInstallPermission.observe(viewLifecycleOwner, { startInstallSettings() })
-            openExportFilePicker.observe(viewLifecycleOwner, { openDirectoryPicker(it) })
+            openImage.observe(viewLifecycleOwner) { openImage(it) }
+            openSettingsInstallPermission.observe(viewLifecycleOwner) { startInstallSettings() }
+            openExportFilePicker.observe(viewLifecycleOwner) { openDirectoryPicker(it) }
         }
     }
 

@@ -45,7 +45,7 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
         private val notificationManager: NotificationManager,
 ) : ViewModel(), Toolbar.OnMenuItemClickListener {
 
-    protected val viewStateLiveData = MutableLiveData(LOADING_STATE)
+    private val viewStateLiveData = MutableLiveData(LOADING_STATE)
     val viewState: LiveData<Int> = viewStateLiveData
 
     val appName: LiveData<String> = MutableLiveData(manifestRequest.appName)

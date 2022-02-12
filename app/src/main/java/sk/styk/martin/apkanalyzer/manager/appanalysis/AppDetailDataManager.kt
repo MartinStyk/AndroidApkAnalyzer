@@ -1,21 +1,18 @@
 package sk.styk.martin.apkanalyzer.manager.appanalysis
 
-import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import java.io.File
 import javax.inject.Inject
 
 class AppDetailDataManager @Inject constructor(
-        @ForApplication private val context: Context,
-        private val packageManager: PackageManager,
-        private val appPermissionManager: AppPermissionManager,
-        private val featuresManager: FeaturesManager,
-        private val appGeneralDataManager: AppGeneralDataManager,
-        private val certificateManager: CertificateManager,
-        private val appComponentsManager: AppComponentsManager,
+    private val packageManager: PackageManager,
+    private val appPermissionManager: AppPermissionManager,
+    private val featuresManager: FeaturesManager,
+    private val appGeneralDataManager: AppGeneralDataManager,
+    private val certificateManager: CertificateManager,
+    private val appComponentsManager: AppComponentsManager,
 ) {
 
     private val analysisFlags = PackageManager.GET_SIGNATURES or

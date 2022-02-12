@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.model.statistics
 
 import java.math.BigDecimal
 import java.util.*
+import kotlin.math.sqrt
 
 class MathStatisticsBuilder(private val data: FloatArray) {
 
@@ -15,7 +16,7 @@ class MathStatisticsBuilder(private val data: FloatArray) {
 
         val arithmeticMean = BigDecimal(computeMean())
         val variance = BigDecimal(computeVariance(arithmeticMean.toFloat()))
-        val deviation = BigDecimal(Math.sqrt(variance.toFloat().toDouble()))
+        val deviation = BigDecimal(sqrt(variance.toFloat().toDouble()))
 
         return MathStatistics(
                 arithmeticMean = arithmeticMean,

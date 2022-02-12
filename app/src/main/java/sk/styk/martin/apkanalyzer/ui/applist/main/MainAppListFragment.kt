@@ -66,12 +66,12 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>(), BackPre
         binding.viewModel = viewModel
 
         with(viewModel) {
-            showSnack.observe(viewLifecycleOwner, { it.toSnackbar(binding.appListContainer).show() })
-            openFilePicker.observe(viewLifecycleOwner, { startFilePicker() })
-            openDetailFromFile.observe(viewLifecycleOwner, { startAppDetail(it) })
-            indeterminateSnackbar.observe(viewLifecycleOwner, { handleIndefiniteSnackbar(it) })
-            filteredSource.observe(viewLifecycleOwner, { handleFilteredSources(it) })
-            setQueryText.observe(viewLifecycleOwner, { handleQueryFilter(it) })
+            showSnack.observe(viewLifecycleOwner) { it.toSnackbar(binding.appListContainer).show() }
+            openFilePicker.observe(viewLifecycleOwner) { startFilePicker() }
+            openDetailFromFile.observe(viewLifecycleOwner) { startAppDetail(it) }
+            indeterminateSnackbar.observe(viewLifecycleOwner) { handleIndefiniteSnackbar(it) }
+            filteredSource.observe(viewLifecycleOwner) { handleFilteredSources(it) }
+            setQueryText.observe(viewLifecycleOwner) { handleQueryFilter(it) }
         }
     }
 

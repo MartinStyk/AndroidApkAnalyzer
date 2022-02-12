@@ -3,11 +3,11 @@ package sk.styk.martin.apkanalyzer.manager.appanalysis
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
+import android.os.Build
 import sk.styk.martin.apkanalyzer.model.detail.ActivityData
 import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
 import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
 import sk.styk.martin.apkanalyzer.model.detail.ServiceData
-import java.util.*
 import javax.inject.Inject
 
 class AppComponentsManager @Inject constructor(private val packageManager: PackageManager){
@@ -32,13 +32,15 @@ class AppComponentsManager @Inject constructor(private val packageManager: Packa
         val services = packageInfo.services ?: return ArrayList(0)
 
         return services.mapTo(ArrayList<ServiceData>(packageInfo.services.size)) {
-            ServiceData(name = it.name,
-                    permission = it.permission,
-                    isExported = it.exported,
-                    isStopWithTask = it.flags and ServiceInfo.FLAG_STOP_WITH_TASK > 0,
-                    isSingleUser = it.flags and ServiceInfo.FLAG_SINGLE_USER > 0,
-                    isIsolatedProcess = it.flags and ServiceInfo.FLAG_ISOLATED_PROCESS > 0,
-                    isExternalService = it.flags and ServiceInfo.FLAG_EXTERNAL_SERVICE > 0)
+            ServiceData(
+                name = it.name,
+                permission = it.permission,
+                isExported = it.exported,
+                isStopWithTask = it.flags and ServiceInfo.FLAG_STOP_WITH_TASK > 0,
+                isSingleUser = it.flags and ServiceInfo.FLAG_SINGLE_USER > 0,
+                isIsolatedProcess = it.flags and ServiceInfo.FLAG_ISOLATED_PROCESS > 0,
+                isExternalService =  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) it.flags and ServiceInfo.FLAG_EXTERNAL_SERVICE > 0 else false
+            )
         }
     }
 

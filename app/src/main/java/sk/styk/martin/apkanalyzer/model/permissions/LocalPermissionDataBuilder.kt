@@ -29,9 +29,7 @@ class LocalPermissionDataBuilder {
 
     fun build(): List<LocalPermissionData> {
 
-        val sortedSet = TreeSet<Map.Entry<PermissionData, List<PermissionStatus>>>(
-                Comparator<Map.Entry<PermissionData, List<PermissionStatus>>>
-                { entry1, entry2 -> entry2.value.size - entry1.value.size })
+        val sortedSet = TreeSet<Map.Entry<PermissionData, List<PermissionStatus>>> { entry1, entry2 -> entry2.value.size - entry1.value.size }
         sortedSet.addAll(data.entries)
 
         return sortedSet.mapTo(ArrayList<LocalPermissionData>(sortedSet.size)) { LocalPermissionData(it.key, it.value) }

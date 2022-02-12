@@ -10,7 +10,6 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,7 +24,6 @@ import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
-import java.util.*
 import javax.inject.Inject
 import kotlin.math.roundToInt
 
@@ -254,8 +252,8 @@ class StatisticsFragmentViewModel @Inject constructor(
                                     highLightAlpha = 255
                                     valueTextColor = color
                                     isHighlightEnabled = true
-                                })),
-                { i, _ -> axisValues[i.roundToInt()] })
+                                }))
+        ) { i, _ -> axisValues[i.roundToInt()] }
     }
 
     private fun getBarData(map: Map<*, List<String>>,

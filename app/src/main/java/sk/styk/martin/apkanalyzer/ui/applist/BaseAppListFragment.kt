@@ -17,10 +17,10 @@ abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.appClicked.observe(viewLifecycleOwner, {
+        viewModel.appClicked.observe(viewLifecycleOwner) {
             startAppDetail(it)
             view.hideKeyboard()
-        })
+        }
     }
 
     private fun startAppDetail(appListClickData: AppListAdapter.AppListClickData) {

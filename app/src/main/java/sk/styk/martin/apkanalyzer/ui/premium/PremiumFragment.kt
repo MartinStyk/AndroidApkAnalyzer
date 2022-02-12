@@ -27,7 +27,12 @@ class PremiumFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        viewModel.openGooglePlay.observe(viewLifecycleOwner, { AppOperations.openGooglePlay(requireContext(), it) })
+        viewModel.openGooglePlay.observe(viewLifecycleOwner) {
+            AppOperations.openGooglePlay(
+                requireContext(),
+                it
+            )
+        }
     }
 
 }

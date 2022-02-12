@@ -31,7 +31,12 @@ class AppActivityDetailFragment : AppDetailPageFragment<AppActivityDetailFragmen
         super.onViewCreated(view, savedInstanceState)
 
         with(viewModel) {
-            runActivity.observe(viewLifecycleOwner, { startForeignActivity(it.packageName, it.name) })
+            runActivity.observe(viewLifecycleOwner) {
+                startForeignActivity(
+                    it.packageName,
+                    it.name
+                )
+            }
         }
     }
 

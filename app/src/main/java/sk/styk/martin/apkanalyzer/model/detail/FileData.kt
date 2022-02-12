@@ -34,8 +34,4 @@ data class FileData(
         get() {
             return 3 + otherHashes.size + drawableHashes.size + layoutHashes.size + menuHashes.size
         }
-
-    // TODO remove this
-    fun getOnlyHash(fileEntries: List<FileEntry>): List<String> = fileEntries.mapTo(ArrayList()) { it.hash }
-
 }

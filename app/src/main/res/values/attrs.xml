@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="DetailItemView">
+    <declare-styleable name="NewDetailListItemView">
         <attr name="titleText" format="string" localization="suggested" />
         <attr name="valueText" format="string" localization="suggested" />
         <attr name="descriptionText" format="string" localization="suggested" />
@@ -12,7 +12,7 @@
     <declare-styleable name="DetailListItemViewStyle">
         <attr name="detailListItemViewStyle" format="reference" />
     </declare-styleable>
-    <declare-styleable name="MathStatisticsCardView">
+    <declare-styleable name="ExpandableMathStatisticsView">
         <attr name="title" format="string" localization="suggested" />
         <attr name="type" format="string" />
         <attr name="statistics" format="reference" />

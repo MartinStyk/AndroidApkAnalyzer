@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.views
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
@@ -28,6 +29,7 @@ import kotlinx.android.synthetic.main.fab_menu_item_icon.view.*
 import kotlinx.android.synthetic.main.floating_action_button.view.*
 import kotlinx.android.synthetic.main.list_item_fab_menu.view.*
 import sk.styk.martin.apkanalyzer.R
+import kotlin.math.min
 
 //import sk.styk.martin.apkanalyzer.util.DP
 
@@ -338,6 +340,7 @@ class FloatingActionButton : RelativeLayout {
                 })
     }
 
+    @SuppressLint("InflateParams")
     fun rebuildSpeedDialMenu() {
         speedDialMenuViews.forEach { (it.parent as ViewGroup).removeView(it) }
         speedDialMenuViews.clear()
@@ -409,7 +412,7 @@ class FloatingActionButton : RelativeLayout {
         content_cover.isClickable = isSpeedDialMenuOpen
         content_cover.isFocusable = isSpeedDialMenuOpen
         if (isSpeedDialMenuOpen) {
-            content_cover.setOnClickListener({ toggleSpeedDialMenu() })
+            content_cover.setOnClickListener { toggleSpeedDialMenu() }
         } else {
             content_cover.setOnClickListener(null)
         }
@@ -524,7 +527,7 @@ class FloatingActionButton : RelativeLayout {
         }
 
         override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
-            child.translationY = Math.min(0f, dependency.translationY - dependency.height)
+            child.translationY = min(0f, dependency.translationY - dependency.height)
             return true
         }
 

@@ -21,7 +21,8 @@
         android:minHeight="?android:attr/listPreferredItemHeight"
         android:orientation="horizontal"
         android:padding="8dp"
-        android:transitionName="@{@string/transition_app_name(data.packageName)}">
+        android:transitionName="@{@string/transition_app_name(data.packageName)}"
+        tools:targetApi="m">
 
         <ImageView
             android:id="@+id/package_img"

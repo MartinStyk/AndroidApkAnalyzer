@@ -38,7 +38,7 @@ data class TextInfo internal constructor(@StringRes private val stringResource: 
             try {
                 val list = arrayListOf<Any>()
                 it.mapTo(list) { (it as? TextInfo)?.getText(context) ?: it }
-                return String.format(if (text.isEmpty()) "%s" else text, *list.toArray())
+                return String.format(text.ifEmpty { "%s" }, *list.toArray())
 
             } catch (illegalFormatException: IllegalFormatConversionException) {
             } catch (missingArgumentException: MissingFormatArgumentException) {

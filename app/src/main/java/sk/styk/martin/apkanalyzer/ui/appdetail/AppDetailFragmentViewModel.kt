@@ -16,7 +16,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
@@ -121,7 +120,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     val installPermissionResult = ActivityResultCallback<ActivityResult> {
         val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory
                 ?: return@ActivityResultCallback
-        if (it?.resultCode == Activity.RESULT_OK && !apkPath.isBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
+        if (it?.resultCode == Activity.RESULT_OK && apkPath.isNotBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
             installAppEvent.value = apkPath
         }
     }

@@ -16,7 +16,6 @@
     <string name="action_analyze_apk_from_file">Analyze APK from external file</string>
     <string name="title_item_detail">Item Detail</string>
     <string name="title_intro">Intro</string>
-    <string name="title_permissions">Permissions details</string>
     <string name="loading">Loading…</string>
     <string name="loading_failed">Loading failed</string>
     <string name="error_loading_package_detail">Can not load APK detail</string>
@@ -67,8 +66,6 @@
     <string name="used_permissions">Used Permissions</string>
     <string name="defined_permissions">Defined Permissions</string>
     <string name="features">Features</string>
-    <string name="files">Files</string>
-    <string name="resources">Resources</string>
     <string name="permissions">Permissions</string>
 
     <string name="premium_update_title" translatable="false">Apk Analyzer Premium</string>
@@ -125,7 +122,6 @@
     <string name="show_app_system_page">Built-in app info</string>
     <string name="show_app_google_play">Show in Google Play</string>
     <string name="save_icon">Save icon</string>
-    <string name="show_more">Show more</string>
     <string name="install_failed">Apk Analyzer failed to install your APK. Please do it manually</string>
     <string name="install_app">Install APK</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
@@ -176,41 +172,6 @@
     <string name="subject_name_description">Name of subject of the certificate</string>
     <string name="subject_organization_description">Name of organization of subject of the certificate</string>
     <string name="subject_country_description">Country of subject of the certificate</string>
-
-    <string name="all_drawables">Total drawables</string>
-    <string name="different_drawables">Different drawables</string>
-    <string name="png_drawables">png drawables</string>
-    <string name="nine_patch_drawables">9.png drawables</string>
-    <string name="jpg_drawables">jpg drawables</string>
-    <string name="gif_drawables">gif drawables</string>
-    <string name="xml_drawables">xml drawables</string>
-    <string name="ldpi_drawables">ldpi drawables</string>
-    <string name="mdpi_drawables">mdpi drawables</string>
-    <string name="hdpi_drawables">hdpi drawables</string>
-    <string name="xhdpi_drawables">xhdpi drawables</string>
-    <string name="xxhdpi_drawables">xxhdpi drawables</string>
-    <string name="xxxhdpi_drawables">xxxhdpi drawables</string>
-    <string name="nodpi_drawables">nodpi drawables</string>
-    <string name="tvdpi_drawables">tvdpi drawables</string>
-    <string name="all_layouts">All layouts</string>
-    <string name="different_layouts">Different layouts</string>
-
-    <string name="all_drawables_description">Total number of drawables contained in APK file. This includes all files in /res/drawable directory. Files from support libraries are included as well. If drawable is provided multiple times, e.g. in different resolution, it is counted multiple times.</string>
-    <string name="different_drawables_description">Number of logically unique drawables contained in APK file. Files from support libraries are included as well. If drawable is provided multiple times, e.g. in different resolution, it is counted only once.</string>
-    <string name="png_drawables_description">Number of png drawables included in APK file.</string>
-    <string name="nine_patch_drawables_description">Number of nine patch (9.png) drawables included in APK file. A nine patch drawable graphic is a stretchable bitmap image that you can use as the background of a view. Android automatically resize the graphic to accommodate the contents of the view. </string>
-    <string name="jpg_drawables_description">Number of jpg drawables included in APK file.</string>
-    <string name="gif_drawables_description">Number of gif drawables included in APK file.</string>
-    <string name="xml_drawables_description">Number of xml drawables included in APK file. Xml drawables are marker files containing data about shapes etc.</string>
-    <string name="mdpi_drawables_description">Number of drawables optimized for screens with medium pixel density ~160dpi</string>
-    <string name="hdpi_drawables_description">Number of drawables optimized for screens with high pixel density ~240dpi</string>
-    <string name="xhdpi_drawables_description">Number of drawables optimized for screens with extra high pixel density ~320dpi</string>
-    <string name="xxhdpi_drawables_description">Number of drawables optimized for screens with extra extra high pixel density ~480dpi</string>
-    <string name="xxxhdpi_drawables_description">Number of drawables optimized for screens with extra extra extra high pixel density ~640dpi</string>
-    <string name="nodpi_drawables_description">Number of drawables for all densities. These are density-independent resources. The system does not scale resources tagged with this qualifier, regardless of the current screen\'s density.</string>
-    <string name="tvdpi_drawables_description">Resources for screens somewhere between mdpi and hdpi; approximately 213dpi. This is not considered a "primary" density group. It is mostly intended for televisions and most apps shouldn\'t need it—providing mdpi and hdpi resources is sufficient for most apps and the system will scale them as appropriate.</string>
-    <string name="all_layouts_description">Total number of layouts contained in APK file. This includes all files in /res/layouts directory. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted multiple times.</string>
-    <string name="different_layouts_description">Number of logically unique layouts contained in APK file. Files from support libraries are included as well. If layout is provided multiple times, e.g. one layout name for two layouts - one in landscape and other in portrait mode, it is counted only once.</string>
 
     <string name="activity_label">Label</string>
     <string name="activity_parent">Parent</string>
@@ -305,15 +266,8 @@
     <string name="transition_permission_detail" translatable="false">transition_permission_detail</string>
 
     <string name="preference_color_theme">Color theme</string>
-    <string name="select_color_thene_that_suits_you_best">Select color theme that suits you best. \n You can change your preference later in the settings.</string>
     <string name="preference_color_theme_summary">Select light or dark app\'s appearance</string>
     <string name="preference_color_theme_key" translatable="false">dayNightPref</string>
-    <string name="color_theme_promo_stay_light" translatable="false">Keep light</string>
-    <string name="color_theme_promo_switch_dark" translatable="false">Switch to dark</string>
-    <string name="color_theme_promo_title" translatable="false">Choose colors you like</string>
-    <string name="preference_color_system">System</string>
-    <string name="preference_color_light">Light</string>
-    <string name="preference_color_dark">Dark</string>
 
     <string-array name="preference_color_theme_options_values">
         <item>system</item>

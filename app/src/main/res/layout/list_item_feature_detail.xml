@@ -43,7 +43,8 @@
             android:text="@string/feature_required"
             android:textAllCaps="true"
             android:textSize="@dimen/fontSizeTiny"
-            android:visibility="@{viewModel.required ? View.VISIBLE : View.GONE}" />
+            android:visibility="@{viewModel.required ? View.VISIBLE : View.GONE}"
+            tools:targetApi="m" />
 
     </LinearLayout>
 </layout>

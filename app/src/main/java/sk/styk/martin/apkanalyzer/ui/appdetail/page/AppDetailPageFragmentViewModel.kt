@@ -41,10 +41,10 @@ abstract class AppDetailPageFragmentViewModel constructor(
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
-        appDetailFragmentViewModel.appDetails.observe(owner, {
+        appDetailFragmentViewModel.appDetails.observe(owner) {
             val hasData = onDataReceived(it)
             viewStateLiveData.value = if (hasData) DATA_STATE else EMPTY_STATE
-        })
+        }
     }
 
     abstract fun onDataReceived(appDetailData: AppDetailData): Boolean

@@ -13,7 +13,7 @@ inline fun <reified VM : ViewModel> Fragment.provideViewModel(crossinline block:
             @Suppress("UNCHECKED_CAST")
             return block() as A
         }
-    }).get(VM::class.java)
+    })[VM::class.java]
 }
 
 inline fun <reified VM : ViewModel> AppCompatActivity.provideViewModel(crossinline block: () -> VM): VM {
@@ -22,21 +22,21 @@ inline fun <reified VM : ViewModel> AppCompatActivity.provideViewModel(crossinli
             @Suppress("UNCHECKED_CAST")
             return block() as A
         }
-    }).get(VM::class.java)
+    })[VM::class.java]
 }
 
 inline fun <reified VM : ViewModel> Fragment.provideViewModel(@Nullable viewModelFactory: ViewModelProvider.Factory? = null): VM {
     viewModelFactory?.let {
-        return ViewModelProvider(this, it).get(VM::class.java)
+        return ViewModelProvider(this, it)[VM::class.java]
     }
-    return ViewModelProvider(this).get(VM::class.java)
+    return ViewModelProvider(this)[VM::class.java]
 }
 
 inline fun <reified VM : ViewModel> Fragment.provideViewModelOfParentFragment(@Nullable viewModelFactory: ViewModelProvider.Factory? = null): VM {
     viewModelFactory?.let {
-        return ViewModelProvider(this.requireParentFragment(), it).get(VM::class.java)
+        return ViewModelProvider(this.requireParentFragment(), it)[VM::class.java]
     }
-    return ViewModelProvider(this.requireParentFragment()).get(VM::class.java)
+    return ViewModelProvider(this.requireParentFragment())[VM::class.java]
 }
 
 
@@ -46,12 +46,12 @@ inline fun <reified VM : ViewModel> Fragment.provideViewModelOfParentFragment(cr
             @Suppress("UNCHECKED_CAST")
             return block() as A
         }
-    }).get(VM::class.java)
+    })[VM::class.java]
 }
 
 inline fun <reified VM : ViewModel> AppCompatActivity.provideViewModel(@Nullable viewModelFactory: ViewModelProvider.Factory? = null): VM {
     viewModelFactory?.let {
-        return ViewModelProvider(this, it).get(VM::class.java)
+        return ViewModelProvider(this, it)[VM::class.java]
     }
-    return ViewModelProvider(this).get(VM::class.java)
+    return ViewModelProvider(this)[VM::class.java]
 }

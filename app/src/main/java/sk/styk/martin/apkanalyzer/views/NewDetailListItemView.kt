@@ -26,9 +26,9 @@ class NewDetailListItemView @JvmOverloads constructor(context: Context, attrs: A
     init {
         LayoutInflater.from(context).inflate(R.layout.view_detail_list_item, this, true)
 
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.DetailItemView, 0, 0)
-        titleText = attributes.getString(R.styleable.DetailItemView_titleText) ?: ""
-        valueText = attributes.getString(R.styleable.DetailItemView_valueText) ?: ""
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.NewDetailListItemView, 0, 0)
+        titleText = attributes.getString(R.styleable.NewDetailListItemView_titleText) ?: ""
+        valueText = attributes.getString(R.styleable.NewDetailListItemView_valueText) ?: ""
         attributes.recycle()
 
         orientation = HORIZONTAL

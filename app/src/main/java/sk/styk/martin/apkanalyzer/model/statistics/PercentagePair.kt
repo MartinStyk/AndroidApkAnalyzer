@@ -46,7 +46,7 @@ class PercentagePair : Parcelable {
         return result
     }
 
-    protected constructor(`in`: Parcel) {
+    private constructor(`in`: Parcel) {
         this.count = `in`.readSerializable() as Number
         this.percentage = `in`.readSerializable() as BigDecimal
     }

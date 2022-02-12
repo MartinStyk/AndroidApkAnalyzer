@@ -30,7 +30,9 @@ class AppDefinedPermissionDetailFragment : AppDetailPageFragment<AppDefinedPermi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.showDialog.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "permission_description") })
+        viewModel.showDialog.observe(viewLifecycleOwner) {
+            it.toDialog().show(parentFragmentManager, "permission_description")
+        }
     }
 
 }

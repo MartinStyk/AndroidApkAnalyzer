@@ -43,8 +43,10 @@ class PermissionDetailFragment : Fragment() {
         binding.viewModel = viewModel
 
         with(viewModel) {
-            showDialog.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "PermissionDescription") })
-            close.observe(viewLifecycleOwner, { requireActivity().onBackPressed() })
+            showDialog.observe(viewLifecycleOwner) {
+                it.toDialog().show(parentFragmentManager, "PermissionDescription")
+            }
+            close.observe(viewLifecycleOwner) { requireActivity().onBackPressed() }
         }
     }
 

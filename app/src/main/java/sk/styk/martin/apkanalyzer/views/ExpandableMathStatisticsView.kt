@@ -41,9 +41,9 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
     init {
         LayoutInflater.from(context).inflate(R.layout.view_math_statistics_card, this, true)
 
-        val attributes = context.obtainStyledAttributes(attrs, R.styleable.MathStatisticsCardView, 0, 0)
-        title = attributes.getString(R.styleable.MathStatisticsCardView_title) ?: ""
-        type = Type.resolve(attributes.getString(R.styleable.MathStatisticsCardView_type))
+        val attributes = context.obtainStyledAttributes(attrs, R.styleable.ExpandableMathStatisticsView, 0, 0)
+        title = attributes.getString(R.styleable.ExpandableMathStatisticsView_title) ?: ""
+        type = Type.resolve(attributes.getString(R.styleable.ExpandableMathStatisticsView_type))
         attributes.recycle()
 
         orientation = VERTICAL

@@ -44,8 +44,12 @@ abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDIN
 
         binding.setVariable(BR.viewModel, viewModel)
         with(viewModel) {
-            openDescription.observe(viewLifecycleOwner, { it.toDialog().show(parentFragmentManager, "descrition_dialog") })
-            showSnackbar.observe(viewLifecycleOwner, { it.toSnackbar(requireParentFragment().requireView()).show() })
+            openDescription.observe(viewLifecycleOwner) {
+                it.toDialog().show(parentFragmentManager, "descrition_dialog")
+            }
+            showSnackbar.observe(viewLifecycleOwner) {
+                it.toSnackbar(requireParentFragment().requireView()).show()
+            }
         }
     }
 
