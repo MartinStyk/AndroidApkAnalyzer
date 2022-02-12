@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: set up JDK 11
+    - name: Set up JDK 11
       uses: actions/setup-java@v2
       with:
         java-version: '11'
@@ -65,7 +65,6 @@ jobs:
         releaseFiles: ${{ steps.sign_app.outputs.signedReleaseFile }}
         mappingFile: app/build/outputs/mapping/freeRelease/mapping.txt
         track: beta
-        status: draft
         releaseName: ${{ github.event.inputs.versionNumber }} (${{ github.event.inputs.versionName }})
     
     - name: Push current release tag
