@@ -53,8 +53,8 @@ jobs:
         releaseDirectory: app/build/outputs/bundle/freeRelease
         signingKeyBase64: ${{ secrets.SIGN_KEY }}
         alias: ${{ secrets.SIGN_KEY_ALIAS }}
-        keyStorePassword: ${{ secrets.STORE_KEY_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD }}
+        keyStorePassword: ${{ secrets.SIGN_KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.SIGN_KEY_PASSWORD }}
 
     - name: Deploy to Play Store
       uses: r0adkll/upload-google-play@v1.0.16
