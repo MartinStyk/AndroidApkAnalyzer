@@ -66,4 +66,16 @@ jobs:
         track: beta
         status: draft
         releaseName: ${{ github.event.inputs.versionNumber }} (${{ github.event.inputs.versionName }})
+    
+    - name: Push current release tag
+      uses: actions-ecosystem/action-push-tag@v1.0.0
+      with:
+        tag: ${{ github.event.inputs.versionNumber }}
+
+    - name: Create Github release
+      uses: softprops/action-gh-release@v1
+      with:
+        name: ${{ github.event.inputs.versionName }}
+        tag_name:  ${{ github.event.inputs.versionNumber }}
+
         
