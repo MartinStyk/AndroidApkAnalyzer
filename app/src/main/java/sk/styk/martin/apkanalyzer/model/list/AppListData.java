@@ -3,12 +3,15 @@ package sk.styk.martin.apkanalyzer.model.list;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.Nullable;
 import sk.styk.martin.apkanalyzer.manager.appanalysis.AppGeneralDataManager;
 import sk.styk.martin.apkanalyzer.model.detail.AppSource;
+import timber.log.Timber;
 
 public class AppListData implements Parcelable {
 
@@ -56,9 +59,14 @@ public class AppListData implements Parcelable {
         return source;
     }
 
+    @Nullable
     public Drawable getIcon() {
         if (appIcon == null) {
-            appIcon = applicationInfo.loadIcon(packageManager);
+            try {
+                appIcon = applicationInfo.loadIcon(packageManager);
+            } catch (Resources.NotFoundException notFound) {
+                Timber.e(notFound,"Icon not available for %s", packageName);
+            }
         }
         return appIcon;
     }
