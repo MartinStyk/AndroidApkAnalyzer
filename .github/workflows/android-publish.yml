@@ -65,6 +65,7 @@ jobs:
         releaseFiles: ${{ steps.sign_app.outputs.signedReleaseFile }}
         mappingFile: app/build/outputs/mapping/freeRelease/mapping.txt
         track: beta
+        status: completed
         releaseName: ${{ github.event.inputs.versionNumber }} (${{ github.event.inputs.versionName }})
     
     - name: Push current release tag
