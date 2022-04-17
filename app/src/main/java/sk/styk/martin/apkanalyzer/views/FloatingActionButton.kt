@@ -296,7 +296,10 @@ class FloatingActionButton : RelativeLayout {
 
     fun setContentCoverColour(@ColorInt colour: Int) {
         contentCoverColour = colour
-        (content_cover.background as GradientDrawable).setColor(colour)
+        when (val background = content_cover.background) {
+            is GradientDrawable ->  background.setColor(colour)
+            else -> background.setTint(colour)
+        }
     }
 
     fun show() {
