@@ -77,22 +77,13 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             showSnack.observe(viewLifecycleOwner) { it.toSnackbar(binding.root).show() }
             close.observe(viewLifecycleOwner) { requireActivity().onBackPressed() }
             openSystemInfo.observe(viewLifecycleOwner) {
-                AppOperations.openAppSystemPage(
-                    requireContext(),
-                    it
-                )
+                AppOperations.openAppSystemPage(requireContext(), it)
             }
             openGooglePlay.observe(viewLifecycleOwner) {
-                AppOperations.openGooglePlay(
-                    requireContext(),
-                    it
-                )
+                AppOperations.openGooglePlay(requireContext(), it)
             }
             installApp.observe(viewLifecycleOwner) {
-                AppOperations.installPackage(
-                    requireContext(),
-                    it
-                )
+                AppOperations.installPackage(requireContext(), it)
             }
             showManifest.observe(viewLifecycleOwner, this@AppDetailFragment::openManifestFragment)
             openImage.observe(viewLifecycleOwner) { openImage(it) }

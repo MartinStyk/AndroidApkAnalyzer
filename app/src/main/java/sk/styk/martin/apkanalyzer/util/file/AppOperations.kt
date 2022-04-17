@@ -32,11 +32,14 @@ object AppOperations {
     }
 
     fun openAppSystemPage(context: Context, packageName: String) {
-        val systemInfoIntent = Intent()
-        systemInfoIntent.action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-        systemInfoIntent.data = Uri.parse("package:$packageName")
-
-        context.startActivity(systemInfoIntent)
+        try {
+            context.startActivity(Intent().apply {
+                action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                data = Uri.parse("package:$packageName")
+            })
+        } catch (securityException: SecurityException) {
+            Timber.tag(TAG_APP_ACTIONS).e(securityException, "Could not open system page for $packageName.")
+        }
     }
 
     @JvmStatic
