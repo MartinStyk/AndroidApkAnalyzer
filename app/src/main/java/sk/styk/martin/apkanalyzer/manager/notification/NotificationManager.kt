@@ -33,6 +33,8 @@ class NotificationManager @Inject constructor(
         private val androidNotificationManager: AndroidNotificationManager,
 ) {
 
+    private val flagImmutable = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+
     fun showImageExportedNotification(appName: String, drawableFileUri: Uri) {
         createChannel(ICON_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.icon_save_channel))
 
@@ -46,7 +48,7 @@ class NotificationManager @Inject constructor(
             addParentStack(MainActivity::class.java)
             addNextIntent(intent)
         }
-        val openIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        val openIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or flagImmutable)
 
         val notification = notificationBuilder(ICON_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.app_icon_saved, appName))
@@ -91,7 +93,7 @@ class NotificationManager @Inject constructor(
             addParentStack(MainActivity::class.java)
             addNextIntent(intent)
         }
-        val openIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        val openIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or flagImmutable)
 
         val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.saved_app, appName))
@@ -114,7 +116,7 @@ class NotificationManager @Inject constructor(
                 setDataAndType(outputFileUri, "text/xml")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             })
-        }.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        }.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or flagImmutable)
 
         val notification = notificationBuilder(MANIFEST_EXPORT_CHANNEL_ID)
                 .setContentTitle(resourcesManager.getString(R.string.save_manifest_background_notification_title_done, appName))
