@@ -1,25 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/attribute_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="?android:textColorPrimary"
-        android:layout_marginStart="@dimen/text_margin_right_left"
-        android:layout_weight="0"
-        android:ellipsize="end"
-        android:maxLines="2" />
+    <merge>
 
-    <TextView
-        android:id="@+id/attribute_value"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/text_margin_right_left"
-        android:layout_marginRight="@dimen/text_margin_right_left"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:gravity="end"
-        android:maxLines="2" />
+        <TextView
+            android:id="@+id/attribute_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/text_margin_right_left"
+            android:layout_weight="0"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="?android:textColorPrimary" />
 
-</merge>
+        <TextView
+            android:id="@+id/attribute_value"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/text_margin_right_left"
+            android:layout_marginRight="@dimen/text_margin_right_left"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:maxLines="2" />
+
+    </merge>
+
+</layout>

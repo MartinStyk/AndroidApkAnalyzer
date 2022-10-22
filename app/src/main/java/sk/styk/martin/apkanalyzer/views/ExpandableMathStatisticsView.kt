@@ -5,41 +5,44 @@ import android.text.format.Formatter
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import kotlinx.android.synthetic.main.view_math_statistics_card.view.*
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.databinding.ViewMathStatisticsCardBinding
 import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
 
-
 class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
+
+    private val binding = ViewMathStatisticsCardBinding.inflate(LayoutInflater.from(context), this, true)
 
     private var type: Type = Type.INTEGRAL
 
     var title: String = ""
         set(value) {
             field = value
-            itemTitle.text = value
+            binding.itemTitle.text = value
         }
 
     var statistics: MathStatistics? = null
         set(value) {
             field = value
             value?.let {
-                type.setStatistics(it, item_arithmetic_mean, item_median, item_min, item_max, item_deviation, item_variance)
+                type.setStatistics(it, binding.itemArithmeticMean,
+                    binding.itemMedian, binding.itemMin, binding.itemMax,
+                    binding.itemDeviation, binding.itemVariance
+                )
             }
         }
 
     var expandListener: OnClickListener? = null
         set(value) {
             field = value
-            titleContainer.setOnClickListener(expandListener)
+            binding.titleContainer.setOnClickListener(expandListener)
         }
 
     init {
-        LayoutInflater.from(context).inflate(R.layout.view_math_statistics_card, this, true)
 
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.ExpandableMathStatisticsView, 0, 0)
         title = attributes.getString(R.styleable.ExpandableMathStatisticsView_title) ?: ""
@@ -50,16 +53,17 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
     }
 
     fun setExpanded(isExpanded: Boolean) {
-        toggleArrow.animate().apply {
+        binding.toggleArrow.animate().apply {
             cancel()
             setDuration(ARROW_ANIMATION_DURATION).rotation(if (isExpanded) ROTATION_FLIPPED else ROTATION_STANDARD)
         }
-        expandableContainer.setExpanded(isExpanded, true)
+        binding.expandableContainer.setExpanded(isExpanded, true)
     }
 
     internal enum class Type {
         INTEGRAL {
-            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
+            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView,
+                                       max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
                 mean.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.arithmeticMean)
                 median.valueText = BigDecimalFormatter.getFormat(0, 0).format(statistics.median)
                 min.valueText = BigDecimalFormatter.getFormat(0, 0).format(statistics.min)
@@ -69,7 +73,8 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
             }
         },
         DECIMAL {
-            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
+            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView,
+                                       max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
                 mean.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.arithmeticMean)
                 median.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.median)
                 min.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.min)
@@ -79,7 +84,8 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
             }
         },
         SIZE {
-            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
+            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView,
+                                       max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
                 mean.valueText = Formatter.formatShortFileSize(mean.context, statistics.arithmeticMean.toLong())
                 median.valueText = Formatter.formatShortFileSize(mean.context, statistics.median.toLong())
                 min.valueText = Formatter.formatShortFileSize(mean.context, statistics.min.toLong())
@@ -89,7 +95,8 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
             }
         };
 
-        internal abstract fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView, max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView)
+        internal abstract fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView,
+                                            max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView)
 
         companion object {
             fun resolve(stringAttribute: String?): Type {

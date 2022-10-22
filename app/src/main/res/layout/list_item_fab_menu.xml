@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:padding="@dimen/speed_dial_disc_offset">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TextView
-        android:id="@+id/menu_item_label"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/item_container"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="@dimen/speed_dial_disc_offset">
 
-    <include layout="@layout/fab_menu_item_icon" />
+        <TextView
+            android:id="@+id/menu_item_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-</LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/menu_item_card"
+            style="@style/speed_dial_item_card"
+            android:layout_width="@dimen/speed_dial_disc_size"
+            android:layout_height="@dimen/speed_dial_disc_size"
+            android:layout_margin="@dimen/speed_dial_disc_padding"
+            app:cardCornerRadius="@dimen/speed_dial_disc_radius"
+            app:cardElevation="2dp"
+            app:cardPreventCornerOverlap="false">
+
+            <LinearLayout
+                android:id="@+id/menu_item_icon_wrapper"
+                android:layout_width="@dimen/speed_dial_disc_icon_size"
+                android:layout_height="@dimen/speed_dial_disc_icon_size"
+                android:layout_margin="@dimen/speed_dial_disc_icon_margin"
+                android:gravity="center"
+                android:orientation="vertical" />
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</layout>

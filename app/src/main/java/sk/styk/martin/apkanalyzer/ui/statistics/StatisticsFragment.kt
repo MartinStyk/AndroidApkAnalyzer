@@ -15,7 +15,6 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.github.mikephil.charting.utils.MPPointF
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_statistics.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.FragmentStatisticsBinding
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
@@ -97,7 +96,13 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun setupCharts() {
-        listOf(chart_min_sdk, chart_target_sdk, chart_app_source, chart_sign_algorithm, chart_install_location).forEach {
+        listOf(
+            binding.chartMinSdk,
+            binding.chartTargetSdk,
+            binding.chartAppSource,
+            binding.chartSignAlgorithm,
+            binding.chartInstallLocation
+        ).forEach {
             it.apply {
                 isDragEnabled = true
                 isScaleXEnabled = true
@@ -131,7 +136,7 @@ class StatisticsFragment : Fragment() {
                 setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
                     override fun onValueSelected(e: Entry?, h: Highlight?) {
                         e ?: return
-                        val position = chart_app_source.getPosition(e, YAxis.AxisDependency.RIGHT)
+                        val position = binding.chartAppSource.getPosition(e, YAxis.AxisDependency.RIGHT)
                         MPPointF.recycleInstance(position)
                     }
 

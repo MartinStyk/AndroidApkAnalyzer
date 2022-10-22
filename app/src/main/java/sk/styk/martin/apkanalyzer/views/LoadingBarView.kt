@@ -5,22 +5,17 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.RelativeLayout
 import androidx.databinding.BindingAdapter
-import kotlinx.android.synthetic.main.view_loading_bar.view.*
-import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.databinding.ViewLoadingBarBinding
 
 class LoadingBarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : RelativeLayout(context, attrs) {
 
-    init {
-        LayoutInflater.from(context).inflate(R.layout.view_loading_bar, this, true)
-        loading_progress_bar.progress = 0
-        loading_progress_bar.max = 10
-    }
+    private val binding = ViewLoadingBarBinding.inflate(LayoutInflater.from(context), this, true)
 
     fun setProgress(currentProgress: Int, maxProgress: Int) {
-        if (loading_progress_bar.max != maxProgress)
-            loading_progress_bar.max = maxProgress
+        if (binding.loadingProgressBar.max != maxProgress)
+            binding.loadingProgressBar.max = maxProgress
 
-        loading_progress_bar.progress = currentProgress
+        binding.loadingProgressBar.progress = currentProgress
     }
 
 }

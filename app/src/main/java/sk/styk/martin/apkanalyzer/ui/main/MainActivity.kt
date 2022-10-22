@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.transition.MaterialFade
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ActivityMainBinding
 import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
@@ -97,8 +96,8 @@ class MainActivity : ApkAnalyzerBaseActivity() {
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }

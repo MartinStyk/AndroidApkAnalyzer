@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:padding="@dimen/fab_offset"
+        tools:ignore="RtlSymmetry">
+
+        <View
+            android:id="@+id/content_cover"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/fab_content_cover_circle" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/fab_card"
+            style="@style/fab_card"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/fab_padding"
+            app:cardCornerRadius="@dimen/fab_radius"
+            app:cardElevation="6dp"
+            app:cardPreventCornerOverlap="false">
+
+            <LinearLayout
+                android:id="@+id/fab_icon_wrapper"
+                android:layout_width="@dimen/fab_icon_size"
+                android:layout_height="@dimen/fab_icon_size"
+                android:layout_margin="@dimen/fab_icon_margin"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+        </androidx.cardview.widget.CardView>
+
+
+    </RelativeLayout>
+</layout>
