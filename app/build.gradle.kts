@@ -1,11 +1,12 @@
 plugins {
-    id("com.android.application")
-    id("com.google.gms.google-services")
-    id("dagger.hilt.android.plugin")
-    id("com.google.firebase.crashlytics")
-    id("com.google.firebase.firebase-perf")
+    // Android studio bug shows libs as an error - https://youtrack.jetbrains.com/issue/KTIJ-19369
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.hilt.android)
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.crashlytics)
+    alias(libs.plugins.firebase.perf)
     id("kotlin-parcelize")
-    kotlin("android")
     kotlin("kapt")
 }
 android {
@@ -66,55 +67,45 @@ android {
 }
 
 dependencies {
-    val lifecycleVersion: String by rootProject.extra
-    val coroutinesVersion: String by rootProject.extra
-    val kotlinVersion: String by rootProject.extra
-    val hiltVersion: String by rootProject.extra
+    implementation(libs.koltin.stdlib.jdk8)
+    implementation(libs.koltin.reflect)
+    implementation(libs.kotlinx.coroutines.android)
 
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.1.0") {
-        exclude(group = "com.android.support", module = "support-annotations")
-    }
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("androidx.fragment:fragment-ktx:1.5.3")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    implementation("com.google.android.material:material:1.7.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion")
-    implementation("androidx.legacy:legacy-support-v4:1.0.0")
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("androidx.preference:preference-ktx:1.2.0")
-    implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
-    implementation("androidx.multidex:multidex:2.0.1")
-    implementation("androidx.palette:palette-ktx:1.0.0")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0-alpha")
-    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.10")
-    implementation("com.pddstudio:highlightjs-android:1.5.0")
-    implementation("com.github.AppIntro:AppIntro:6.1.0")
-    implementation("net.cachapa.expandablelayout:expandablelayout:2.9.2")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
-    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion")
+    implementation(libs.fragment.ktx)
+    implementation(libs.preference.ktx)
+    implementation(libs.bundles.lifecycle)
 
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.multidex)
+    implementation(libs.androidx.legacy)
 
-    implementation("com.github.bumptech.glide:glide:4.12.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
-
-    implementation("com.google.android.play:core:1.10.3")
-    implementation("com.google.android.play:core-ktx:1.8.1")
+    implementation(libs.material)
+    implementation(libs.constraintlayout)
+    implementation(libs.recyclerview)
+    implementation(libs.cardview)
+    implementation(libs.palette.ktx)
+    implementation(libs.mp.chart)
+    implementation(libs.gif.drawable)
+    implementation(libs.highlightjs)
+    implementation(libs.appintro)
+    implementation(libs.expandablelayout)
+    implementation(libs.timber)
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
+    implementation(libs.bundles.google.play)
 
     // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:27.0.0"))
+    implementation(platform(libs.firebase.bom))
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-perf")
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:$hiltVersion")
-    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    implementation(libs.hilt)
+    kapt(libs.hilt.compiler)
 
-    debugImplementation("com.squareup.leakcanary:leakcanary-android:2.9.1")
-    testImplementation("junit:junit:4.13.2")
+    debugImplementation(libs.leakcannary)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.espresso.core)
 }
