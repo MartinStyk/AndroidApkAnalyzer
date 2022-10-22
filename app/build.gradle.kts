@@ -64,6 +64,9 @@ android {
             "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi " +
             "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
     }
+    lint {
+        disable += "MissingTranslation"
+    }
 }
 
 dependencies {
