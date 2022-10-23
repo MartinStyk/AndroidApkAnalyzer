@@ -23,11 +23,9 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import com.google.android.material.snackbar.Snackbar
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.databinding.ViewFloatingActionButtonBinding
 import sk.styk.martin.apkanalyzer.databinding.ListItemFabMenuBinding
+import sk.styk.martin.apkanalyzer.databinding.ViewFloatingActionButtonBinding
 import kotlin.math.min
-
-//import sk.styk.martin.apkanalyzer.util.DP
 
 class FloatingActionButton : RelativeLayout {
 
@@ -364,12 +362,11 @@ class FloatingActionButton : RelativeLayout {
             itemBinding.menuItemLabel.text = context.getText(menuItem.label)
             speedDialMenuAdapter?.onPrepareItemLabel(context, i, itemBinding.menuItemLabel)
 
-                itemBinding.menuItemCard.setCardBackgroundColor(adapter.getBackgroundColour(i, context)
-                        ?: buttonBackgroundColour)
+            itemBinding.menuItemCard.setCardBackgroundColor(adapter.getBackgroundColour(i, context) ?: buttonBackgroundColour)
 
             speedDialMenuAdapter?.onPrepareItemCard(context, i, itemBinding.menuItemCard)
 
-            itemBinding.menuItemCard.apply {
+            itemBinding.menuItemIconWrapper.apply {
                 background = ResourcesCompat.getDrawable(context.resources, menuItem.icon, context.theme)
                 backgroundTintList = ContextCompat.getColorStateList(context, menuItem.iconColor)
             }
