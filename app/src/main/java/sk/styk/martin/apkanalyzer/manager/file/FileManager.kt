@@ -3,17 +3,19 @@ package sk.styk.martin.apkanalyzer.manager.file
 import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import java.io.*
 import javax.inject.Inject
 
-class FileManager @Inject constructor(@ForApplication private val context: Context,
-                                      private val contentResolver: ContentResolver,
-                                      private val dispatcherProvider: DispatcherProvider) {
+class FileManager @Inject constructor(
+    @ApplicationContext private val context: Context,
+    private val contentResolver: ContentResolver,
+    private val dispatcherProvider: DispatcherProvider
+) {
 
     private val cacheDirectory by lazy { context.cacheDir }
 

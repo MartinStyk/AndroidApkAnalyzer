@@ -1,23 +1,22 @@
 package sk.styk.martin.apkanalyzer.manager.permission
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
+import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.ref.WeakReference
-import java.util.*
 import javax.inject.Inject
 
 private const val PERMISSIONS_REQUEST_CODE = 777
 
-class PermissionsManagerImpl @Inject constructor(
-        @ForApplication private val context: Context,
-) : ViewModel(), PermissionManager {
+class PermissionsManagerImpl @Inject constructor(application: Application) : AndroidViewModel(application), PermissionManager {
 
     private var activityWeakReference: WeakReference<Activity>? = null
     private val activity: Activity?
@@ -27,7 +26,7 @@ class PermissionsManagerImpl @Inject constructor(
     private var permissionsCallback: PermissionManager.PermissionsCallback? = null
 
     override fun hasPermissionGranted(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+        return ContextCompat.checkSelfPermission(getApplication(), permission) == PackageManager.PERMISSION_GRANTED
     }
 
     override fun shouldShowRationaleForPermission(permission: String): Boolean {

@@ -112,7 +112,7 @@
     </style>
 
     <style name="TextAppearanceButton" parent="@style/TextAppearance.MaterialComponents.Button">
-        <item name="android:letterSpacing" tools:targetApi="lollipop">0</item>
+        <item name="android:letterSpacing">0</item>
     </style>
 
     <style name="MaterialButton" parent="@style/Widget.MaterialComponents.Button">

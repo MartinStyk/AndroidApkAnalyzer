@@ -36,8 +36,7 @@
                 app:navigationIconState="@{NavigationIconState.ARROW}"
                 app:navigationOnClickListener="@{() -> viewModel.onNavigationClick()}"
                 app:onMenuItemClickListener="@{viewModel}"
-                app:title="@{viewModel.appName}"
-                tools:targetApi="lollipop" />
+                app:title="@{viewModel.appName}" />
 
             <ViewAnimator
                 android:id="@+id/animator"

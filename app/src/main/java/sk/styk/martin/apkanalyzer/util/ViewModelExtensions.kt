@@ -25,14 +25,14 @@ inline fun <reified VM : ViewModel> AppCompatActivity.provideViewModel(crossinli
     })[VM::class.java]
 }
 
-inline fun <reified VM : ViewModel> Fragment.provideViewModel(@Nullable viewModelFactory: ViewModelProvider.Factory? = null): VM {
+inline fun <reified VM : ViewModel> Fragment.provideViewModel(viewModelFactory: ViewModelProvider.Factory? = null): VM {
     viewModelFactory?.let {
         return ViewModelProvider(this, it)[VM::class.java]
     }
     return ViewModelProvider(this)[VM::class.java]
 }
 
-inline fun <reified VM : ViewModel> Fragment.provideViewModelOfParentFragment(@Nullable viewModelFactory: ViewModelProvider.Factory? = null): VM {
+inline fun <reified VM : ViewModel> Fragment.provideViewModelOfParentFragment(viewModelFactory: ViewModelProvider.Factory? = null): VM {
     viewModelFactory?.let {
         return ViewModelProvider(this.requireParentFragment(), it)[VM::class.java]
     }
@@ -49,7 +49,7 @@ inline fun <reified VM : ViewModel> Fragment.provideViewModelOfParentFragment(cr
     })[VM::class.java]
 }
 
-inline fun <reified VM : ViewModel> AppCompatActivity.provideViewModel(@Nullable viewModelFactory: ViewModelProvider.Factory? = null): VM {
+inline fun <reified VM : ViewModel> AppCompatActivity.provideViewModel(viewModelFactory: ViewModelProvider.Factory? = null): VM {
     viewModelFactory?.let {
         return ViewModelProvider(this, it)[VM::class.java]
     }

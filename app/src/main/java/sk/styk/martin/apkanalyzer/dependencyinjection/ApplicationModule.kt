@@ -6,7 +6,6 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.content.res.Resources
 import androidx.preference.PreferenceManager
 import com.google.android.play.core.review.ReviewManager
 import com.google.android.play.core.review.ReviewManagerFactory
@@ -14,8 +13,8 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManagerImpl
 import javax.inject.Singleton
@@ -23,16 +22,6 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 @Module
 class ApplicationModule {
-
-    @Provides
-    @Singleton
-    @ForApplication
-    fun provideApplicationContext(application: Application): Context = application.applicationContext
-
-    @Provides
-    @Singleton
-    @ForApplication
-    fun providesResources(application: Application): Resources = application.resources
 
     @Provides
     @Singleton
@@ -44,19 +33,19 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun providePersistenceSharedPreferences(@ForApplication context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    fun providePersistenceSharedPreferences(@ApplicationContext context: Context): SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     @Provides
-    fun provideNotificationManager(@ForApplication context: Context): NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    fun provideNotificationManager(@ApplicationContext context: Context): NotificationManager =
+        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     @Provides
-    @ForApplication
     fun provideColorThemeManagerImpl(colorThemeManagerImpl: ColorThemeManagerImpl): ColorThemeManager = colorThemeManagerImpl
 
     @Provides
-    fun provideFirebaseAnalytics(@ForApplication context: Context): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
+    fun provideFirebaseAnalytics(@ApplicationContext context: Context): FirebaseAnalytics = FirebaseAnalytics.getInstance(context)
 
     @Provides
-    fun provideReviewManager(@ForApplication context: Context): ReviewManager = ReviewManagerFactory.create(context)
+    fun provideReviewManager(@ApplicationContext context: Context): ReviewManager = ReviewManagerFactory.create(context)
 
 }

@@ -9,8 +9,8 @@ import android.net.Uri
 import android.os.Build
 import androidx.annotation.IntRange
 import androidx.core.app.NotificationCompat
+import dagger.hilt.android.qualifiers.ApplicationContext
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
 import javax.inject.Inject
@@ -28,9 +28,9 @@ private const val MANIFEST_EXPORT_NOTIFICATION_ID = 1_03
 
 @Singleton
 class NotificationManager @Inject constructor(
-        @ForApplication private val context: Context,
-        private val resourcesManager: ResourcesManager,
-        private val androidNotificationManager: AndroidNotificationManager,
+    @ApplicationContext private val context: Context,
+    private val resourcesManager: ResourcesManager,
+    private val androidNotificationManager: AndroidNotificationManager,
 ) {
 
     private val flagImmutable = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0

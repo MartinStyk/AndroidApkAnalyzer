@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.dependencyinjection.util.ForApplication
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 import javax.inject.Inject
 
@@ -13,7 +12,6 @@ import javax.inject.Inject
 class MainSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     @Inject
-    @ForApplication
     lateinit var colorThemeManager: ColorThemeManager
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
