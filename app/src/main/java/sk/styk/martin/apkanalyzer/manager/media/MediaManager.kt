@@ -17,5 +17,4 @@ class MediaManager @Inject constructor(@ApplicationContext private val context: 
             context.contentResolver.delete(uri, null, null)
         }
     }
-
 }

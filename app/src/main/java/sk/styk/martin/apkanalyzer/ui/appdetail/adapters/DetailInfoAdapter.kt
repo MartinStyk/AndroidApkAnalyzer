@@ -12,9 +12,9 @@ import javax.inject.Inject
 class DetailInfoAdapter @Inject constructor() : DetailInfoDescriptionAdapter<DetailInfoAdapter.ViewHolder>() {
 
     data class DetailInfo(
-            val name: TextInfo,
-            val value: TextInfo,
-            val description: TextInfo
+        val name: TextInfo,
+        val value: TextInfo,
+        val description: TextInfo,
     )
 
     var info = emptyList<DetailInfo>()
@@ -52,8 +52,10 @@ class DetailInfoAdapter @Inject constructor() : DetailInfoDescriptionAdapter<Det
         }
     }
 
-    private inner class InfoDiffCallback(private val newList: List<DetailInfo>,
-                                         private val oldList: List<DetailInfo>) : DiffUtil.Callback() {
+    private inner class InfoDiffCallback(
+        private val newList: List<DetailInfo>,
+        private val oldList: List<DetailInfo>,
+    ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].name == newList[newItemPosition].name

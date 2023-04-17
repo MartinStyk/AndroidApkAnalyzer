@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 fun ImageView.srcAsync(drawable: Drawable?) {
     drawable?.let {
         Glide.with(this)
-                .load(drawable)
-                .into(this)
+            .load(drawable)
+            .into(this)
     }
 }

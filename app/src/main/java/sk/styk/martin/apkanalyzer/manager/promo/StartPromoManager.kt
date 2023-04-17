@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 class StartPromoManager @Inject constructor(
-        private val persistenceManager: PersistenceManager
+    private val persistenceManager: PersistenceManager,
 ) {
 
     fun getPromoAction(): PromoResult {
@@ -19,8 +19,9 @@ class StartPromoManager @Inject constructor(
     }
 
     private fun shouldShowPromo(): Boolean {
-        if (!BuildConfig.SHOW_PROMO)
+        if (!BuildConfig.SHOW_PROMO) {
             return false
+        }
 
         val showTime = persistenceManager.lastPromoShowTime
         val currentTime = System.currentTimeMillis()
@@ -40,5 +41,4 @@ class StartPromoManager @Inject constructor(
         PROMO_DIALOG,
         INAPP_RATE_DIALOG,
     }
-
 }

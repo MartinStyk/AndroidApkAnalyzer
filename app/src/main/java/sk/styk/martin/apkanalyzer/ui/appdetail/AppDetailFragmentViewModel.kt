@@ -8,7 +8,13 @@ import android.net.Uri
 import android.os.Build
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
-import androidx.lifecycle.*
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
+import androidx.lifecycle.viewModelScope
 import androidx.palette.graphics.Target
 import androidx.palette.graphics.get
 import com.google.android.material.appbar.AppBarLayout
@@ -31,7 +37,11 @@ import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
-import sk.styk.martin.apkanalyzer.util.*
+import sk.styk.martin.apkanalyzer.util.ColorInfo
+import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
+import sk.styk.martin.apkanalyzer.util.TAG_APP_DETAIL
+import sk.styk.martin.apkanalyzer.util.TAG_EXPORTS
+import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
@@ -46,19 +56,19 @@ internal const val DATA_STATE = 2
 private const val ANALYZED_APK_NAME = "analyzed.apk"
 
 class AppDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted val appDetailRequest: AppDetailRequest,
-        private val dispatcherProvider: DispatcherProvider,
-        private val appDetailDataManager: AppDetailDataManager,
-        private val resourcesManager: ResourcesManager,
-        private val permissionManager: PermissionManager,
-        private val appActionsAdapter: AppActionsSpeedMenuAdapter,
-        private val drawableSaveManager: DrawableSaveManager,
-        private val notificationManager: NotificationManager,
-        private val apkSaveManager: ApkSaveManager,
-        private val fileManager: FileManager,
-        private val packageManager: PackageManager,
-        private val activityColorThemeManager: ActivityColorThemeManager,
-        private val analyticsTracker: AnalyticsTracker,
+    @Assisted val appDetailRequest: AppDetailRequest,
+    private val dispatcherProvider: DispatcherProvider,
+    private val appDetailDataManager: AppDetailDataManager,
+    private val resourcesManager: ResourcesManager,
+    private val permissionManager: PermissionManager,
+    private val appActionsAdapter: AppActionsSpeedMenuAdapter,
+    private val drawableSaveManager: DrawableSaveManager,
+    private val notificationManager: NotificationManager,
+    private val apkSaveManager: ApkSaveManager,
+    private val fileManager: FileManager,
+    private val packageManager: PackageManager,
+    private val activityColorThemeManager: ActivityColorThemeManager,
+    private val analyticsTracker: AnalyticsTracker,
 ) : ViewModel(), AppBarLayout.OnOffsetChangedListener, DefaultLifecycleObserver {
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
@@ -119,7 +129,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
 
     val installPermissionResult = ActivityResultCallback<ActivityResult> {
         val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory
-                ?: return@ActivityResultCallback
+            ?: return@ActivityResultCallback
         if (it?.resultCode == Activity.RESULT_OK && apkPath.isNotBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
             installAppEvent.value = apkPath
         }
@@ -175,9 +185,9 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         val range = if (activityColorThemeManager.isNightMode()) 0.1..0.35 else 0.09..0.45
 
         val accentColor = listOf(Target.DARK_VIBRANT, Target.DARK_MUTED, Target.VIBRANT, Target.MUTED, Target.LIGHT_VIBRANT, Target.LIGHT_MUTED)
-                .mapNotNull { palette[it]?.rgb }
-                .firstOrNull { resourcesManager.luminance(it) in range }
-                ?.let { ColorInfo.fromColorInt(it) }
+            .mapNotNull { palette[it]?.rgb }
+            .firstOrNull { resourcesManager.luminance(it) in range }
+            ?.let { ColorInfo.fromColorInt(it) }
 
         accentColorLiveData.postValue(accentColor ?: ColorInfo.SECONDARY)
     }
@@ -199,7 +209,13 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                 if (displayHeight < 420) {
                     listOf(AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.EXPORT_APK, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
                 } else {
-                    listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.BUILD_INFO, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.EXPORT_APK, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
+                    listOf(
+                        AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY,
+                        AppActionsSpeedMenuAdapter.AppActions.BUILD_INFO,
+                        AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON,
+                        AppActionsSpeedMenuAdapter.AppActions.EXPORT_APK,
+                        AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST,
+                    )
                 }
         }
         actionButtonAdapterLiveData.value = appActionsAdapter
@@ -225,15 +241,18 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                     if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         exportAppFileSelection()
                     } else {
-                        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
-                            override fun onPermissionDenied(permission: String) {
-                                showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
-                            }
+                        permissionManager.requestPermission(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            object : PermissionManager.PermissionCallback {
+                                override fun onPermissionDenied(permission: String) {
+                                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
+                                }
 
-                            override fun onPermissionGranted(permission: String) {
-                                exportAppFileSelection()
-                            }
-                        })
+                                override fun onPermissionGranted(permission: String) {
+                                    exportAppFileSelection()
+                                }
+                            },
+                        )
                     }
                 }
             }
@@ -245,15 +264,18 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                     if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                         saveImage()
                     } else {
-                        permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
-                            override fun onPermissionDenied(permission: String) {
-                                showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
-                            }
+                        permissionManager.requestPermission(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            object : PermissionManager.PermissionCallback {
+                                override fun onPermissionDenied(permission: String) {
+                                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
+                                }
 
-                            override fun onPermissionGranted(permission: String) {
-                                saveImage()
-                            }
-                        })
+                                override fun onPermissionGranted(permission: String) {
+                                    saveImage()
+                                }
+                            },
+                        )
                     }
                 }
             }
@@ -263,11 +285,12 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             appActionsAdapter.showManifest.collect {
                 appDetails.value?.generalData?.let {
                     showManifestEvent.value = ManifestRequest(
-                            appName = it.applicationName,
-                            packageName = it.packageName,
-                            apkPath = it.apkDirectory,
-                            versionName = it.versionName,
-                            versionCode = it.versionCode)
+                        appName = it.applicationName,
+                        packageName = it.packageName,
+                        apkPath = it.apkDirectory,
+                        versionName = it.versionName,
+                        versionCode = it.versionCode,
+                    )
                 }
             }
         }
@@ -301,11 +324,13 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                 val target = "${data.generalData.packageName}_${data.generalData.versionName}_${data.generalData.versionCode}_icon.png"
                 try {
                     val exportedFileUri = drawableSaveManager.saveDrawable(icon, target, "image/png")
-                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_saved),
-                            action = TextInfo.from(R.string.action_show),
-                            callback = {
-                                openImageEvent.value = exportedFileUri
-                            })
+                    showSnackEvent.value = SnackBarComponent(
+                        TextInfo.from(R.string.icon_saved),
+                        action = TextInfo.from(R.string.action_show),
+                        callback = {
+                            openImageEvent.value = exportedFileUri
+                        },
+                    )
                     notificationManager.showImageExportedNotification(data.generalData.applicationName, exportedFileUri)
                 } catch (e: Exception) {
                     Timber.tag(TAG_EXPORTS).e(e, "Saving icon failed. Data ${data.generalData}")

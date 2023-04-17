@@ -11,7 +11,7 @@ internal const val EMPTY_STATE = 1
 internal const val DATA_STATE = 2
 
 abstract class BaseAppListViewModel constructor(
-        val adapter: AppListAdapter,
+    val adapter: AppListAdapter,
 ) : ViewModel() {
 
     protected open var appListData = listOf<AppListData>()
@@ -28,5 +28,4 @@ abstract class BaseAppListViewModel constructor(
     val viewState: LiveData<Int> = viewStateLiveData.distinctUntilChanged()
 
     val appClicked by lazy { adapter.appClicked }
-
 }

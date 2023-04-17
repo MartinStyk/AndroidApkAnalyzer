@@ -14,18 +14,18 @@ import javax.inject.Inject
 
 @SuppressLint("PackageManagerGetSignatures")
 private const val ANALYSIS_FLAGS = PackageManager.GET_SIGNATURES or
-        PackageManager.GET_ACTIVITIES or
-        PackageManager.GET_SERVICES or
-        PackageManager.GET_PROVIDERS or
-        PackageManager.GET_RECEIVERS or
-        PackageManager.GET_PERMISSIONS
+    PackageManager.GET_ACTIVITIES or
+    PackageManager.GET_SERVICES or
+    PackageManager.GET_PROVIDERS or
+    PackageManager.GET_RECEIVERS or
+    PackageManager.GET_PERMISSIONS
 
 @WorkerThread
 class LocalApplicationStatisticManager @Inject constructor(
-        private val packageManager: PackageManager,
-        private val installedAppsManager: InstalledAppsManager,
-        private val generalDataService: AppGeneralDataManager,
-        private val certificateService: CertificateManager,
+    private val packageManager: PackageManager,
+    private val installedAppsManager: InstalledAppsManager,
+    private val generalDataService: AppGeneralDataManager,
+    private val certificateService: CertificateManager,
 ) {
 
     sealed class StatisticsLoadingStatus {
@@ -48,7 +48,6 @@ class LocalApplicationStatisticManager @Inject constructor(
     }
 
     fun get(packageName: String): StatisticsAppData? {
-
         val packageInfo = try {
             packageManager.getPackageInfo(packageName, ANALYSIS_FLAGS)
         } catch (e: Exception) {
@@ -61,22 +60,21 @@ class LocalApplicationStatisticManager @Inject constructor(
         val isSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
 
         return StatisticsAppData(
-                packageName = packageName,
-                isSystemApp = isSystemApp,
-                installLocation = packageInfo.installLocation,
-                targetSdk = applicationInfo.targetSdkVersion,
-                minSdk = AndroidManifestManager.getMinSdkVersion(applicationInfo, packageManager)
-                        ?: 0,
-                apkSize = if (applicationInfo.sourceDir != null) generalDataService.computeApkSize(applicationInfo.sourceDir) else 0,
-                appSource = AppGeneralDataManager.getAppSource(packageManager, packageName, isSystemApp),
-                signAlgorithm = certificateService.getSignAlgorithm(packageInfo) ?: "Unknown",
-                activities = packageInfo.activities?.size ?: 0,
-                services = packageInfo.services?.size ?: 0,
-                providers = packageInfo.providers?.size ?: 0,
-                receivers = packageInfo.receivers?.size ?: 0,
-                definedPermissions = packageInfo.permissions?.size ?: 0,
-                usedPermissions = packageInfo.requestedPermissions?.size ?: 0
+            packageName = packageName,
+            isSystemApp = isSystemApp,
+            installLocation = packageInfo.installLocation,
+            targetSdk = applicationInfo.targetSdkVersion,
+            minSdk = AndroidManifestManager.getMinSdkVersion(applicationInfo, packageManager)
+                ?: 0,
+            apkSize = if (applicationInfo.sourceDir != null) generalDataService.computeApkSize(applicationInfo.sourceDir) else 0,
+            appSource = AppGeneralDataManager.getAppSource(packageManager, packageName, isSystemApp),
+            signAlgorithm = certificateService.getSignAlgorithm(packageInfo) ?: "Unknown",
+            activities = packageInfo.activities?.size ?: 0,
+            services = packageInfo.services?.size ?: 0,
+            providers = packageInfo.providers?.size ?: 0,
+            receivers = packageInfo.receivers?.size ?: 0,
+            definedPermissions = packageInfo.permissions?.size ?: 0,
+            usedPermissions = packageInfo.requestedPermissions?.size ?: 0,
         )
     }
-
 }

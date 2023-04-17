@@ -49,8 +49,8 @@ class IntroActivity : AppIntro() {
 
         isIndicatorEnabled = true
         setIndicatorColor(
-                selectedIndicatorColor = ContextCompat.getColor(this, R.color.colorWhite),
-                unselectedIndicatorColor = ContextCompat.getColor(this, R.color.secondary)
+            selectedIndicatorColor = ContextCompat.getColor(this, R.color.colorWhite),
+            unselectedIndicatorColor = ContextCompat.getColor(this, R.color.secondary),
         )
 
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_BEGIN, Bundle())
@@ -70,5 +70,4 @@ class IntroActivity : AppIntro() {
         FirebaseAnalytics.getInstance(this).logEvent(FirebaseAnalytics.Event.TUTORIAL_COMPLETE, Bundle())
         finish()
     }
-
 }

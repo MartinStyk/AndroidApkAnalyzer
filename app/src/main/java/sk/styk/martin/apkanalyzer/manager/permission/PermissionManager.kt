@@ -19,5 +19,4 @@ interface PermissionManager {
     fun requestPermissions(permissions: Array<String>, callback: PermissionsCallback)
 
     fun onRequestPermissionsResult(permissions: Array<String>, grantResults: IntArray)
-
 }

@@ -14,8 +14,8 @@ class SimpleTextDialog : DialogFragment() {
 
         val context = requireContext()
         val builder = MaterialAlertDialogBuilder(context)
-                .setTitle(dialogData.title.getText(context))
-                .setMessage(dialogData.message.getText(context))
+            .setTitle(dialogData.title.getText(context))
+            .setMessage(dialogData.message.getText(context))
 
         if (dialogData.positiveButtonText != null) {
             builder.setPositiveButton(dialogData.positiveButtonText.getText(context)) { _, _ -> dismiss() }
@@ -47,6 +47,5 @@ class SimpleTextDialog : DialogFragment() {
                 }
             }
         }
-
     }
 }

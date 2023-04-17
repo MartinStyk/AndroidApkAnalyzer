@@ -20,21 +20,21 @@ private const val EMPTY_STATE = 1
 private const val DATA_STATE = 2
 
 abstract class AppDetailPageFragmentViewModel constructor(
-        private val appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        val adapter: DetailInfoDescriptionAdapter<*>,
-        private val clipBoardManager: ClipBoardManager,
+    private val appDetailFragmentViewModel: AppDetailFragmentViewModel,
+    val adapter: DetailInfoDescriptionAdapter<*>,
+    private val clipBoardManager: ClipBoardManager,
 ) : ViewModel(), DefaultLifecycleObserver {
 
     val openDescription = adapter.openDescription
-            .map {
-                DialogComponent(it.title, it.message, TextInfo.from(R.string.close))
-            }
+        .map {
+            DialogComponent(it.title, it.message, TextInfo.from(R.string.close))
+        }
 
     val showSnackbar = adapter.copyToClipboard
-            .map {
-                clipBoardManager.copyToClipBoard(it.text, it.label)
-                SnackBarComponent(TextInfo.from(R.string.copied_to_clipboard), Snackbar.LENGTH_SHORT)
-            }
+        .map {
+            clipBoardManager.copyToClipBoard(it.text, it.label)
+            SnackBarComponent(TextInfo.from(R.string.copied_to_clipboard), Snackbar.LENGTH_SHORT)
+        }
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
     val viewState: LiveData<Int> = viewStateLiveData
@@ -48,5 +48,4 @@ abstract class AppDetailPageFragmentViewModel constructor(
     }
 
     abstract fun onDataReceived(appDetailData: AppDetailData): Boolean
-
 }

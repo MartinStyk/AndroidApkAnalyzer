@@ -14,10 +14,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PermissionListFragmentViewModel @Inject constructor(
-        private val dispatcherProvider: DispatcherProvider,
-        val permissionListAdapter: PermissionListAdapter,
-        private val navigationDrawerModel: NavigationDrawerModel,
-        private val appPermissionManager: AppPermissionManager,
+    private val dispatcherProvider: DispatcherProvider,
+    val permissionListAdapter: PermissionListAdapter,
+    private val navigationDrawerModel: NavigationDrawerModel,
+    private val appPermissionManager: AppPermissionManager,
 ) : ViewModel() {
 
     val openPermission = permissionListAdapter.openPermission
@@ -34,25 +34,24 @@ class PermissionListFragmentViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             appPermissionManager.observeAllPermissionData()
-                    .flowOn(dispatcherProvider.default())
-                    .collect {
-                        when (it) {
-                            is AppPermissionManager.PermissionLoadingStatus.Loading -> {
-                                loadingProgressLiveData.value = it.currentProgress
-                                loadingProgressMaxLiveData.value = it.totalProgress
-                                isLoadingLiveData.value = true
-                            }
-                            is AppPermissionManager.PermissionLoadingStatus.Data -> {
-                                permissionListAdapter.permissions = it.localPermissionData
-                                isLoadingLiveData.value = false
-                            }
+                .flowOn(dispatcherProvider.default())
+                .collect {
+                    when (it) {
+                        is AppPermissionManager.PermissionLoadingStatus.Loading -> {
+                            loadingProgressLiveData.value = it.currentProgress
+                            loadingProgressMaxLiveData.value = it.totalProgress
+                            isLoadingLiveData.value = true
+                        }
+                        is AppPermissionManager.PermissionLoadingStatus.Data -> {
+                            permissionListAdapter.permissions = it.localPermissionData
+                            isLoadingLiveData.value = false
                         }
                     }
+                }
         }
     }
 
     fun onNavigationClick() = viewModelScope.launch {
         navigationDrawerModel.openDrawer()
     }
-
 }

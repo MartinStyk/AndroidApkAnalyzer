@@ -33,5 +33,4 @@ class SettingsFragment : Fragment() {
             }
         }
     }
-
 }

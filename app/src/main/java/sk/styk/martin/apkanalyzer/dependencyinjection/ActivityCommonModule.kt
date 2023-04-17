@@ -36,12 +36,15 @@ class ActivityCommonModule {
     @Provides
     @ActivityScoped
     fun providePermissionsManager(activity: AppCompatActivity): PermissionManager {
-        val permissionsManager: PermissionsManagerImpl = ViewModelProvider(activity, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return PermissionsManagerImpl(activity.application) as T
-            }
-        })[PermissionsManagerImpl::class.java]
+        val permissionsManager: PermissionsManagerImpl = ViewModelProvider(
+            activity,
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    @Suppress("UNCHECKED_CAST")
+                    return PermissionsManagerImpl(activity.application) as T
+                }
+            },
+        )[PermissionsManagerImpl::class.java]
         permissionsManager.bind(activity)
         return permissionsManager
     }
@@ -50,12 +53,15 @@ class ActivityCommonModule {
     @ActivityScoped
     fun provideColorThemeManager(activity: AppCompatActivity, applicationColorThemeManager: ColorThemeManager): ActivityColorThemeManager {
         val activityColorThemeManager: ActivityColorThemeManager =
-            ViewModelProvider(activity, object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    @Suppress("UNCHECKED_CAST")
-                    return ActivityColorThemeManager(applicationColorThemeManager) as T
-                }
-            })[ActivityColorThemeManager::class.java]
+            ViewModelProvider(
+                activity,
+                object : ViewModelProvider.Factory {
+                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                        @Suppress("UNCHECKED_CAST")
+                        return ActivityColorThemeManager(applicationColorThemeManager) as T
+                    }
+                },
+            )[ActivityColorThemeManager::class.java]
         activityColorThemeManager.bind(activity)
         return activityColorThemeManager
     }
@@ -63,24 +69,30 @@ class ActivityCommonModule {
     @Provides
     @ActivityScoped
     fun provideFragmentScreenTracker(activity: AppCompatActivity, analyticsTracker: AnalyticsTracker, foregroundWatcher: ForegroundFragmentWatcher, dispatcherProvider: DispatcherProvider): FragmentScreenTracker {
-        return ViewModelProvider(activity, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return FragmentScreenTracker(foregroundWatcher, analyticsTracker, dispatcherProvider) as T
-            }
-        })[FragmentScreenTracker::class.java]
+        return ViewModelProvider(
+            activity,
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    @Suppress("UNCHECKED_CAST")
+                    return FragmentScreenTracker(foregroundWatcher, analyticsTracker, dispatcherProvider) as T
+                }
+            },
+        )[FragmentScreenTracker::class.java]
     }
 
     @Provides
     @ActivityScoped
     fun provideForegroundFragmentWatcher(activity: AppCompatActivity): ForegroundFragmentWatcher {
         val foregroundFragmentWatcher: ForegroundFragmentWatcher =
-            ViewModelProvider(activity, object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    @Suppress("UNCHECKED_CAST")
-                    return ForegroundFragmentWatcher() as T
-                }
-            })[ForegroundFragmentWatcher::class.java]
+            ViewModelProvider(
+                activity,
+                object : ViewModelProvider.Factory {
+                    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                        @Suppress("UNCHECKED_CAST")
+                        return ForegroundFragmentWatcher() as T
+                    }
+                },
+            )[ForegroundFragmentWatcher::class.java]
         foregroundFragmentWatcher.bind(activity)
         return foregroundFragmentWatcher
     }
@@ -88,14 +100,16 @@ class ActivityCommonModule {
     @Provides
     @ActivityScoped
     fun provideUserReviewManager(activity: AppCompatActivity, reviewManager: ReviewManager): UserReviewManager {
-        val userReviewmanager: UserReviewManager = ViewModelProvider(activity, object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                @Suppress("UNCHECKED_CAST")
-                return UserReviewManager(reviewManager) as T
-            }
-        })[UserReviewManager::class.java]
+        val userReviewmanager: UserReviewManager = ViewModelProvider(
+            activity,
+            object : ViewModelProvider.Factory {
+                override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                    @Suppress("UNCHECKED_CAST")
+                    return UserReviewManager(reviewManager) as T
+                }
+            },
+        )[UserReviewManager::class.java]
         userReviewmanager.bind(activity)
         return userReviewmanager
     }
-
 }

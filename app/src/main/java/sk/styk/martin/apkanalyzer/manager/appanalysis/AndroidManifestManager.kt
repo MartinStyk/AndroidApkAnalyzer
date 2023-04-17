@@ -45,10 +45,10 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
             while (eventType != XmlResourceParser.END_DOCUMENT) {
                 // start tag found
                 if (eventType == XmlResourceParser.START_TAG) {
-                    //start with opening element and writing its name
+                    // start with opening element and writing its name
                     stringBuilder.append("<").append(parser.name)
 
-                    //for each attribute in given element append attrName="attrValue"
+                    // for each attribute in given element append attrName="attrValue"
                     for (attribute in 0 until parser.attributeCount) {
                         val attributeName = parser.getAttributeName(attribute)
                         val attributeValue = getAttributeValue(attributeName, parser.getAttributeValue(attribute), apkResources)
@@ -64,7 +64,6 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
                     }
                 } else if (eventType == XmlResourceParser.END_TAG) {
                     stringBuilder.append("</").append(parser.name).append(">")
-
                 }
 
                 eventType = parser.next()
@@ -75,7 +74,6 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
 
         return stringBuilder.toString()
     }
-
 
     private fun formatManifest(manifest: String): String {
         return try {
@@ -106,7 +104,6 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
             } catch (e: Exception) {
                 Timber.tag(TAG_APP_ANALYSIS).w(e, "Error reading attribute value $attributeName, $attributeValue")
             }
-
         }
         return attributeValue
     }
@@ -117,7 +114,6 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
          * It is not possible to get minSdkVersions using Android PackageManager - parse AndroidManifest of app
          */
         fun getMinSdkVersion(applicationInfo: ApplicationInfo, packageManager: PackageManager): Int? {
-
             try {
                 val apkResources = packageManager.getResourcesForApplication(applicationInfo)
                 val parser = apkResources.assets.openXmlResourceParser("AndroidManifest.xml")
@@ -125,12 +121,12 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
 
                 while (eventType != XmlResourceParser.END_DOCUMENT) {
                     if (eventType == XmlResourceParser.START_TAG) {
-                        if ("uses-sdk" == parser.name)
+                        if ("uses-sdk" == parser.name) {
                             return parser.getAttributeIntValue("http://schemas.android.com/apk/res/android", "minSdkVersion", 0)
+                        }
                     }
                     eventType = parser.next()
                 }
-
             } catch (e: Exception) {
                 Timber.tag(TAG_APP_ANALYSIS).e(e, "Error reading minSdkValue for $applicationInfo")
             }

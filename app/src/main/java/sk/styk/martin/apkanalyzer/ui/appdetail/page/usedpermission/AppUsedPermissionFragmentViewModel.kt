@@ -21,15 +21,15 @@ import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
 class AppUsedPermissionFragmentViewModel @AssistedInject constructor(
-        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        private val permissionAdapter: AppPermissionListAdapter,
-        clipBoardManager: ClipBoardManager,
-        private val dispatcherProvider: DispatcherProvider,
-        private val packageManager: PackageManager,
+    @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+    private val permissionAdapter: AppPermissionListAdapter,
+    clipBoardManager: ClipBoardManager,
+    private val dispatcherProvider: DispatcherProvider,
+    private val packageManager: PackageManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, permissionAdapter, clipBoardManager) {
 
     private val showDialogEvent = SingleLiveEvent<DialogComponent>()
-    val showDialog : LiveData<DialogComponent> = showDialogEvent
+    val showDialog: LiveData<DialogComponent> = showDialogEvent
 
     override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         viewModelScope.launch(dispatcherProvider.main()) {
@@ -51,16 +51,15 @@ class AppUsedPermissionFragmentViewModel @AssistedInject constructor(
             } catch (e: PackageManager.NameNotFoundException) {
                 null
             }?.takeIf { it.isNotBlank() }
-                    ?.let { TextInfo.from(it) }
-                    ?: TextInfo.from(R.string.NA)
+                ?.let { TextInfo.from(it) }
+                ?: TextInfo.from(R.string.NA)
 
             showDialogEvent.value = DialogComponent(
-                    title = TextInfo.from(AppPermissionManager.createSimpleName(it)),
-                    message = description,
-                    negativeButtonText = TextInfo.from(R.string.dismiss)
+                title = TextInfo.from(AppPermissionManager.createSimpleName(it)),
+                message = description,
+                negativeButtonText = TextInfo.from(R.string.dismiss),
             )
         }
-
     }
 
     @AssistedFactory

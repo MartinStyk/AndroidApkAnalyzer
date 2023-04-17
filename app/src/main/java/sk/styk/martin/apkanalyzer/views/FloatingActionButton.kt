@@ -73,17 +73,17 @@ class FloatingActionButton : RelativeLayout {
     }
 
     constructor(context: Context) :
-            super(context) {
+        super(context) {
         initView(null)
     }
 
     constructor(context: Context, attrs: AttributeSet) :
-            super(context, attrs) {
+        super(context, attrs) {
         initView(attrs)
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) :
-            super(context, attrs, defStyleAttr) {
+        super(context, attrs, defStyleAttr) {
         initView(attrs)
     }
 
@@ -273,9 +273,9 @@ class FloatingActionButton : RelativeLayout {
     }
 
     @Deprecated(
-            "This method name is incorrect and is kept only for backwards compatibility",
-            ReplaceWith("setOnSpeedDialMenuOpenListener"),
-            DeprecationLevel.WARNING
+        "This method name is incorrect and is kept only for backwards compatibility",
+        ReplaceWith("setOnSpeedDialMenuOpenListener"),
+        DeprecationLevel.WARNING,
     )
     fun setOnSpeedMenuDialOpenListener(listener: SpeedDialMenuOpenListener?) {
         setOnSpeedDialMenuOpenListener(listener)
@@ -292,7 +292,7 @@ class FloatingActionButton : RelativeLayout {
     fun setContentCoverColour(@ColorInt colour: Int) {
         contentCoverColour = colour
         when (val background = binding.contentCover.background) {
-            is GradientDrawable ->  background.setColor(colour)
+            is GradientDrawable -> background.setColor(colour)
             else -> background.setTint(colour)
         }
     }
@@ -307,14 +307,14 @@ class FloatingActionButton : RelativeLayout {
         binding.fabCard.run {
             clearAnimation()
             animate()
-                    .translationY(0.toFloat())
-                    .setInterpolator(AccelerateInterpolator(2f))
-                    .setDuration(HIDE_SHOW_ANIMATION_DURATION)
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            isShowing = true
-                        }
-                    })
+                .translationY(0.toFloat())
+                .setInterpolator(AccelerateInterpolator(2f))
+                .setDuration(HIDE_SHOW_ANIMATION_DURATION)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        isShowing = true
+                    }
+                })
         }
     }
 
@@ -327,15 +327,15 @@ class FloatingActionButton : RelativeLayout {
 
         binding.fabCard.clearAnimation()
         binding.fabCard.animate()
-                .translationY(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70f, context.resources.displayMetrics))
-                .setInterpolator(AccelerateInterpolator(2f))
-                .setDuration(if (immediate) 0L else HIDE_SHOW_ANIMATION_DURATION)
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        binding.fabCard.visibility = View.GONE
-                        isShowing = false
-                    }
-                })
+            .translationY(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 70f, context.resources.displayMetrics))
+            .setInterpolator(AccelerateInterpolator(2f))
+            .setDuration(if (immediate) 0L else HIDE_SHOW_ANIMATION_DURATION)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    binding.fabCard.visibility = View.GONE
+                    isShowing = false
+                }
+            })
     }
 
     @SuppressLint("InflateParams")
@@ -422,15 +422,21 @@ class FloatingActionButton : RelativeLayout {
         busyAnimatingFabIconRotation = true
 
         binding.fabIconWrapper.animate()
-                .rotation(if (isSpeedDialMenuOpen) speedDialMenuAdapter?.fabRotationDegrees()
-                        ?: 0F else 0F)
-                .setInterpolator(OvershootInterpolator(2f))
-                .setDuration(SPEED_DIAL_ANIMATION_DURATION)
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator?) {
-                        busyAnimatingFabIconRotation = false
-                    }
-                })
+            .rotation(
+                if (isSpeedDialMenuOpen) {
+                    speedDialMenuAdapter?.fabRotationDegrees()
+                        ?: 0F
+                } else {
+                    0F
+                },
+            )
+            .setInterpolator(OvershootInterpolator(2f))
+            .setDuration(SPEED_DIAL_ANIMATION_DURATION)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator?) {
+                    busyAnimatingFabIconRotation = false
+                }
+            })
     }
 
     private fun animateContentCover() {
@@ -446,18 +452,18 @@ class FloatingActionButton : RelativeLayout {
 
         binding.contentCover.visibility = View.VISIBLE
         binding.contentCover.animate()
-                .scaleX(if (isSpeedDialMenuOpen) 50f else 0f)
-                .scaleY(if (isSpeedDialMenuOpen) 50f else 0f)
-                .alpha(if (isSpeedDialMenuOpen) 1f else 0f)
-                .setDuration(SPEED_DIAL_ANIMATION_DURATION)
-                .setListener(object : AnimatorListenerAdapter() {
-                    override fun onAnimationEnd(animation: Animator) {
-                        busyAnimatingContentCover = false
-                        if (!isSpeedDialMenuOpen) {
-                            binding.contentCover.visibility = View.GONE
-                        }
+            .scaleX(if (isSpeedDialMenuOpen) 50f else 0f)
+            .scaleY(if (isSpeedDialMenuOpen) 50f else 0f)
+            .alpha(if (isSpeedDialMenuOpen) 1f else 0f)
+            .setDuration(SPEED_DIAL_ANIMATION_DURATION)
+            .setListener(object : AnimatorListenerAdapter() {
+                override fun onAnimationEnd(animation: Animator) {
+                    busyAnimatingContentCover = false
+                    if (!isSpeedDialMenuOpen) {
+                        binding.contentCover.visibility = View.GONE
                     }
-                })
+                }
+            })
     }
 
     private fun animateSpeedDialMenuItems(immediate: Boolean = false) {
@@ -484,18 +490,18 @@ class FloatingActionButton : RelativeLayout {
                 0f
             }
             menuView.itemContainer.animate()
-                    .translationY(translation)
-                    .alpha(if (isSpeedDialMenuOpen) 1f else 0f)
-                    .setDuration(duration)
-                    .setInterpolator(OvershootInterpolator(2f))
-                    .setListener(object : AnimatorListenerAdapter() {
-                        override fun onAnimationEnd(animation: Animator) {
-                            busyAnimatingSpeedDialMenuItems = false
-                            if (!isSpeedDialMenuOpen) {
-                                menuView.itemContainer.visibility = View.GONE
-                            }
+                .translationY(translation)
+                .alpha(if (isSpeedDialMenuOpen) 1f else 0f)
+                .setDuration(duration)
+                .setInterpolator(OvershootInterpolator(2f))
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        busyAnimatingSpeedDialMenuItems = false
+                        if (!isSpeedDialMenuOpen) {
+                            menuView.itemContainer.visibility = View.GONE
                         }
-                    })
+                    }
+                })
         }
     }
 

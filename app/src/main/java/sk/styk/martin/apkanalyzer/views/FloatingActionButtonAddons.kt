@@ -83,8 +83,6 @@ abstract class SpeedDialMenuAdapter {
      * @return `true` if the menu is enabled; `false` if it is not
      */
     open fun isEnabled() = true
-
 }
 
-class SpeedDialMenuItem (@DrawableRes val icon: Int, @StringRes val label: Int, @ColorRes val iconColor: Int = R.color.colorWhite)
-
+class SpeedDialMenuItem(@DrawableRes val icon: Int, @StringRes val label: Int, @ColorRes val iconColor: Int = R.color.colorWhite)

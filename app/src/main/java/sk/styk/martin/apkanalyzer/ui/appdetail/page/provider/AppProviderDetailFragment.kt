@@ -23,5 +23,4 @@ class AppProviderDetailFragment : AppDetailPageFragment<AppProviderDetailFragmen
     override fun createFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentAppDetailPageBinding {
         return FragmentAppDetailPageBinding.inflate(inflater, container, false)
     }
-
 }

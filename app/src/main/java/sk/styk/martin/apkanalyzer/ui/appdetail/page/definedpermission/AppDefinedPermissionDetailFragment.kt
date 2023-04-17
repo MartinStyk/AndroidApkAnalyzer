@@ -34,6 +34,4 @@ class AppDefinedPermissionDetailFragment : AppDetailPageFragment<AppDefinedPermi
             it.toDialog().show(parentFragmentManager, "permission_description")
         }
     }
-
 }
-

@@ -14,5 +14,4 @@ class OnInstallAppDetailActivity : AppDetailActivity() {
             }
         }
     }
-
 }

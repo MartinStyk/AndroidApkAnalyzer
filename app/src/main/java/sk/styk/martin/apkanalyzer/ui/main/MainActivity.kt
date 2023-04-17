@@ -58,26 +58,26 @@ class MainActivity : ApkAnalyzerBaseActivity() {
             openStatistics.observe(this@MainActivity) {
                 navigateTo(
                     StatisticsFragment(),
-                    FragmentTag.LocalStatistics
+                    FragmentTag.LocalStatistics,
                 )
             }
             openPermissions.observe(this@MainActivity) {
                 navigateTo(
                     PermissionListFragment(),
-                    FragmentTag.LocalPermissions
+                    FragmentTag.LocalPermissions,
                 )
             }
             openAbout.observe(this@MainActivity) { navigateTo(AboutFragment(), FragmentTag.About) }
             openSettings.observe(this@MainActivity) {
                 navigateTo(
                     SettingsFragment(),
-                    FragmentTag.Settings
+                    FragmentTag.Settings,
                 )
             }
             openPremium.observe(this@MainActivity) {
                 navigateTo(
                     PremiumFragment(),
-                    FragmentTag.Premium
+                    FragmentTag.Premium,
                 )
             }
             openPromoDialog.observe(this@MainActivity) { PromoDialog().showPromoDialog(this@MainActivity) }
@@ -85,8 +85,8 @@ class MainActivity : ApkAnalyzerBaseActivity() {
                 this@MainActivity.startActivity(
                     Intent(
                         this@MainActivity,
-                        IntroActivity::class.java
-                    )
+                        IntroActivity::class.java,
+                    ),
                 )
             }
             selectedMenuItem.observe(this@MainActivity) { binding.navigationView.setCheckedItem(it) }
@@ -117,21 +117,20 @@ class MainActivity : ApkAnalyzerBaseActivity() {
 
         supportFragmentManager.popBackStack()
         supportFragmentManager.beginTransaction()
-                .replace(R.id.container, fragment, tag.toString())
-                .setReorderingAllowed(true)
-                .addToBackStack(tag.toString())
-                .commit()
+            .replace(R.id.container, fragment, tag.toString())
+            .setReorderingAllowed(true)
+            .addToBackStack(tag.toString())
+            .commit()
     }
 
     private fun placeAppListFragment() {
         supportFragmentManager.beginTransaction()
-                .setReorderingAllowed(true)
-                .replace(R.id.container, MainAppListFragment(), FragmentTag.AppList.tag)
-                .commit()
+            .setReorderingAllowed(true)
+            .replace(R.id.container, MainAppListFragment(), FragmentTag.AppList.tag)
+            .commit()
     }
 
     private fun popToAppList() {
         supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
-
 }

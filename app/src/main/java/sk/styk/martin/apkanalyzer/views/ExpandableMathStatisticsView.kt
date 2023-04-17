@@ -13,7 +13,10 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
 
-class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs) {
+class ExpandableMathStatisticsView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+) : LinearLayout(context, attrs) {
 
     private val binding = ViewMathStatisticsCardBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -29,9 +32,14 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
         set(value) {
             field = value
             value?.let {
-                type.setStatistics(it, binding.itemArithmeticMean,
-                    binding.itemMedian, binding.itemMin, binding.itemMax,
-                    binding.itemDeviation, binding.itemVariance
+                type.setStatistics(
+                    it,
+                    binding.itemArithmeticMean,
+                    binding.itemMedian,
+                    binding.itemMin,
+                    binding.itemMax,
+                    binding.itemDeviation,
+                    binding.itemVariance,
                 )
             }
         }
@@ -43,7 +51,6 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
         }
 
     init {
-
         val attributes = context.obtainStyledAttributes(attrs, R.styleable.ExpandableMathStatisticsView, 0, 0)
         title = attributes.getString(R.styleable.ExpandableMathStatisticsView_title) ?: ""
         type = Type.resolve(attributes.getString(R.styleable.ExpandableMathStatisticsView_type))
@@ -62,8 +69,15 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
 
     internal enum class Type {
         INTEGRAL {
-            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView,
-                                       max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
+            override fun setStatistics(
+                statistics: MathStatistics,
+                mean: NewDetailListItemView,
+                median: NewDetailListItemView,
+                min: NewDetailListItemView,
+                max: NewDetailListItemView,
+                deviation: NewDetailListItemView,
+                variance: NewDetailListItemView,
+            ) {
                 mean.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.arithmeticMean)
                 median.valueText = BigDecimalFormatter.getFormat(0, 0).format(statistics.median)
                 min.valueText = BigDecimalFormatter.getFormat(0, 0).format(statistics.min)
@@ -73,8 +87,15 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
             }
         },
         DECIMAL {
-            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView,
-                                       max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
+            override fun setStatistics(
+                statistics: MathStatistics,
+                mean: NewDetailListItemView,
+                median: NewDetailListItemView,
+                min: NewDetailListItemView,
+                max: NewDetailListItemView,
+                deviation: NewDetailListItemView,
+                variance: NewDetailListItemView,
+            ) {
                 mean.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.arithmeticMean)
                 median.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.median)
                 min.valueText = BigDecimalFormatter.getCommonFormat().format(statistics.min)
@@ -84,8 +105,15 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
             }
         },
         SIZE {
-            override fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView,
-                                       max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView) {
+            override fun setStatistics(
+                statistics: MathStatistics,
+                mean: NewDetailListItemView,
+                median: NewDetailListItemView,
+                min: NewDetailListItemView,
+                max: NewDetailListItemView,
+                deviation: NewDetailListItemView,
+                variance: NewDetailListItemView,
+            ) {
                 mean.valueText = Formatter.formatShortFileSize(mean.context, statistics.arithmeticMean.toLong())
                 median.valueText = Formatter.formatShortFileSize(mean.context, statistics.median.toLong())
                 min.valueText = Formatter.formatShortFileSize(mean.context, statistics.min.toLong())
@@ -95,8 +123,15 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
             }
         };
 
-        internal abstract fun setStatistics(statistics: MathStatistics, mean: NewDetailListItemView, median: NewDetailListItemView, min: NewDetailListItemView,
-                                            max: NewDetailListItemView, deviation: NewDetailListItemView, variance: NewDetailListItemView)
+        internal abstract fun setStatistics(
+            statistics: MathStatistics,
+            mean: NewDetailListItemView,
+            median: NewDetailListItemView,
+            min: NewDetailListItemView,
+            max: NewDetailListItemView,
+            deviation: NewDetailListItemView,
+            variance: NewDetailListItemView,
+        )
 
         companion object {
             fun resolve(stringAttribute: String?): Type {
@@ -108,7 +143,6 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(context: Context, a
                 }
             }
         }
-
     }
 
 }

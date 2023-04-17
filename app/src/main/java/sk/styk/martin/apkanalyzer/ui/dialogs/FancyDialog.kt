@@ -23,20 +23,28 @@ class FancyDialog(private val activity: Activity) {
 
     @StringRes
     var title: Int? = null
+
     @StringRes
     var message: Int? = null
+
     @StringRes
     var positiveBtnText: Int? = null
+
     @StringRes
     var negativeBtnText: Int? = null
+
     @ColorRes
     var positiveButtonColor: Int = R.color.accent
+
     @ColorRes
     var positiveButtonTextColor: Int = R.color.colorWhite
+
     @ColorRes
     var negativeButtonColor: Int = R.color.grey_500
+
     @ColorRes
     var negativeButtonTextColor: Int = R.color.colorWhite
+
     @DrawableRes
     var gifImageResource: Int = 0
     var cancelable: Boolean = false
@@ -84,5 +92,4 @@ class FancyDialog(private val activity: Activity) {
         }
         return dialog
     }
-
 }

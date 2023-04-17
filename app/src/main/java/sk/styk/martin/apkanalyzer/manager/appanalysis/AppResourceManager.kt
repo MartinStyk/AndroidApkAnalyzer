@@ -2,13 +2,11 @@ package sk.styk.martin.apkanalyzer.manager.appanalysis
 
 import sk.styk.martin.apkanalyzer.model.detail.FileData
 import sk.styk.martin.apkanalyzer.model.detail.ResourceData
-import java.util.*
 import javax.inject.Inject
 
 class AppResourceManager @Inject constructor() {
 
     fun get(fileData: FileData): ResourceData {
-
         var numJpg = 0
         var numGif = 0
         var numPng = 0
@@ -58,23 +56,24 @@ class AppResourceManager @Inject constructor() {
         fileData.layoutHashes.forEach { differentLayouts.add(it.fileName) }
 
         return ResourceData(
-                pngDrawables = numPng,
-                ninePatchDrawables = numNinePatchPng,
-                jpgDrawables = numJpg,
-                gifDrawables = numGif,
-                xmlDrawables = numXml,
-                drawables = fileData.drawableHashes.size,
-                differentDrawables = differentDrawables.size,
-                ldpiDrawables = ldpi,
-                mdpiDrawables = mdpi,
-                hdpiDrawables = hdpi,
-                xhdpiDrawables = xhdpi,
-                xxhdpiDrawables = xxhdpi,
-                xxxhdpiDrawables = xxxhdpi,
-                nodpiDrawables = nodpi,
-                tvdpiDrawables = tvdpi,
-                unspecifiedDpiDrawables = unspecifiedDpi,
-                layouts = fileData.layoutHashes.size,
-                differentLayouts = differentLayouts.size)
+            pngDrawables = numPng,
+            ninePatchDrawables = numNinePatchPng,
+            jpgDrawables = numJpg,
+            gifDrawables = numGif,
+            xmlDrawables = numXml,
+            drawables = fileData.drawableHashes.size,
+            differentDrawables = differentDrawables.size,
+            ldpiDrawables = ldpi,
+            mdpiDrawables = mdpi,
+            hdpiDrawables = hdpi,
+            xhdpiDrawables = xhdpi,
+            xxhdpiDrawables = xxhdpi,
+            xxxhdpiDrawables = xxxhdpi,
+            nodpiDrawables = nodpi,
+            tvdpiDrawables = tvdpi,
+            unspecifiedDpiDrawables = unspecifiedDpi,
+            layouts = fileData.layoutHashes.size,
+            differentLayouts = differentLayouts.size,
+        )
     }
 }

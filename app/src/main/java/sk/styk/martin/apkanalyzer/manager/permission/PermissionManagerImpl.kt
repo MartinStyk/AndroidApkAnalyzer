@@ -2,15 +2,12 @@ package sk.styk.martin.apkanalyzer.manager.permission
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -35,15 +32,18 @@ class PermissionsManagerImpl @Inject constructor(application: Application) : And
     }
 
     override fun requestPermission(permission: String, callback: PermissionManager.PermissionCallback) {
-        requestPermissions(arrayOf(permission), object : PermissionManager.PermissionsCallback {
-            override fun onPermissionsDenied(deniedPermissions: List<String>) {
-                callback.onPermissionDenied(deniedPermissions[0])
-            }
+        requestPermissions(
+            arrayOf(permission),
+            object : PermissionManager.PermissionsCallback {
+                override fun onPermissionsDenied(deniedPermissions: List<String>) {
+                    callback.onPermissionDenied(deniedPermissions[0])
+                }
 
-            override fun onPermissionsGranted(grantedPermissions: List<String>) {
-                callback.onPermissionGranted(grantedPermissions[0])
-            }
-        })
+                override fun onPermissionsGranted(grantedPermissions: List<String>) {
+                    callback.onPermissionGranted(grantedPermissions[0])
+                }
+            },
+        )
     }
 
     @Synchronized
@@ -78,7 +78,6 @@ class PermissionsManagerImpl @Inject constructor(application: Application) : And
     fun bind(activity: AppCompatActivity) {
         activityWeakReference = WeakReference(activity)
     }
-
 }
 
 fun hasScopedStorage() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q

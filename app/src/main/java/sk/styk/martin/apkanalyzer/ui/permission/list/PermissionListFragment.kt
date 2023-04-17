@@ -42,13 +42,13 @@ class PermissionListFragment : Fragment() {
         reenterTransition = MaterialElevationScale(true)
         parentFragmentManager.beginTransaction().apply {
             permissionClickData.view.get()?.let { addSharedElement(it, getString(R.string.transition_permission_detail)) }
-        }.replace(R.id.container,
-                PermissionDetailFragment.create(permissionClickData.localPermissionData),
-                FragmentTag.PermissionDetail.tag
+        }.replace(
+            R.id.container,
+            PermissionDetailFragment.create(permissionClickData.localPermissionData),
+            FragmentTag.PermissionDetail.tag,
         )
-                .setReorderingAllowed(true)
-                .addToBackStack(FragmentTag.PermissionDetail.tag)
-                .commit()
+            .setReorderingAllowed(true)
+            .addToBackStack(FragmentTag.PermissionDetail.tag)
+            .commit()
     }
-
 }

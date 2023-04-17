@@ -32,7 +32,7 @@ class AppListFromPackageNamesDialog : DialogFragment() {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel {
             viewModelFactory.create(
-                    packageNames = requireNotNull(requireArguments().getStringArrayList(ARG_PACKAGE_NAMES))
+                packageNames = requireNotNull(requireArguments().getStringArrayList(ARG_PACKAGE_NAMES)),
             )
         }
     }
@@ -48,10 +48,10 @@ class AppListFromPackageNamesDialog : DialogFragment() {
         binding = DialogAppListBinding.inflate(layoutInflater, null, false)
 
         return AlertDialog.Builder(requireContext())
-                .setView(binding.root)
-                .setTitle(R.string.apps)
-                .setNegativeButton(R.string.dismiss) { _, _ -> dismiss() }
-                .create()
+            .setView(binding.root)
+            .setTitle(R.string.apps)
+            .setNegativeButton(R.string.dismiss) { _, _ -> dismiss() }
+            .create()
     }
 
     private fun startAppDetail(appListClickData: AppListAdapter.AppListClickData) {

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.util.FragmentTag
+import sk.styk.martin.apkanalyzer.util.toFragmentTag
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -24,7 +25,7 @@ class ForegroundFragmentWatcher @Inject constructor() : ViewModel() {
     private val lifeCycleCallbacks = object : FragmentManager.FragmentLifecycleCallbacks() {
         override fun onFragmentResumed(fm: FragmentManager, f: Fragment) {
             super.onFragmentResumed(fm, f)
-            FragmentTag.fromString(f.tag)?.let {
+            f.tag?.toFragmentTag()?.let {
                 GlobalScope.launch {
                     foregroundFragmentFlow.emit(it)
                 }
@@ -43,5 +44,4 @@ class ForegroundFragmentWatcher @Inject constructor() : ViewModel() {
         fragmentManager?.get()?.unregisterFragmentLifecycleCallbacks(lifeCycleCallbacks)
         fragmentManager = null
     }
-
 }

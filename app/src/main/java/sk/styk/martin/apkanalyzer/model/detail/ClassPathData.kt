@@ -7,9 +7,9 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class ClassPathData(
-        val packageClasses: List<String> = emptyList(),
-        val otherClasses: List<String> = emptyList(),
-        val numberOfInnerClasses: Int = 0
+    val packageClasses: List<String> = emptyList(),
+    val otherClasses: List<String> = emptyList(),
+    val numberOfInnerClasses: Int = 0,
 ) : Parcelable {
 
     val allClasses: List<String>

@@ -12,8 +12,8 @@ import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import timber.log.Timber
 
 class AboutFragmentViewModel @AssistedInject constructor(
-        private val navigationDrawerModel: NavigationDrawerModel,
-        private val userReviewManager: UserReviewManager,
+    private val navigationDrawerModel: NavigationDrawerModel,
+    private val userReviewManager: UserReviewManager,
 ) : ViewModel() {
 
     private val openGooglePlayEvent = SingleLiveEvent<Unit>()
@@ -41,5 +41,4 @@ class AboutFragmentViewModel @AssistedInject constructor(
     interface Factory {
         fun create(): AboutFragmentViewModel
     }
-
 }

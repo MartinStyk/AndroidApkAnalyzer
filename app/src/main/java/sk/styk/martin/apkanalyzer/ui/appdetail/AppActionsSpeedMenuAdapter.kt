@@ -13,19 +13,19 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
     var menuItems: List<AppActions> = emptyList()
 
     private val installAppFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val installApp: Flow<Unit>  = installAppFlow
+    val installApp: Flow<Unit> = installAppFlow
 
     private val exportAppFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val exportApp: Flow<Unit>  = exportAppFlow
+    val exportApp: Flow<Unit> = exportAppFlow
 
     private val saveIconFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val saveIcon: Flow<Unit>  = saveIconFlow
+    val saveIcon: Flow<Unit> = saveIconFlow
 
     private val showManifestFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val showManifest: Flow<Unit>  = showManifestFlow
+    val showManifest: Flow<Unit> = showManifestFlow
 
     private val openGooglePlayFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val openGooglePlay: Flow<Unit>  = openGooglePlayFlow
+    val openGooglePlay: Flow<Unit> = openGooglePlayFlow
 
     private val openSystemInfoFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val openSystemInfo: Flow<Unit> = openSystemInfoFlow

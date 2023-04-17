@@ -34,6 +34,5 @@ object LogUtils {
             }
             return "$priorityString/$tag: $message"
         }
-
     }
 }

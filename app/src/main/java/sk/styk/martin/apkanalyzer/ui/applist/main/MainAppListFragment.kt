@@ -94,7 +94,7 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>(), BackPre
 
     private fun handleQueryFilter(filterQuery: String) {
         val searchView = binding.toolbar.menu.findItem(R.id.action_search)?.actionView as? SearchView
-                ?: return
+            ?: return
         searchView.setQuery(filterQuery, false)
     }
 
@@ -111,9 +111,9 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>(), BackPre
     private fun startFilePicker() {
         try {
             filePickerResultLuncher.launch(
-                    Intent(Intent.ACTION_GET_CONTENT).apply {
-                        type = "application/vnd.android.package-archive"
-                    }
+                Intent(Intent.ACTION_GET_CONTENT).apply {
+                    type = "application/vnd.android.package-archive"
+                },
             )
         } catch (exception: ActivityNotFoundException) {
             Timber.tag(TAG_APP_ACTIONS).w(exception, "Can not open file picker")
@@ -125,17 +125,18 @@ class MainAppListFragment : BaseAppListFragment<MainAppListViewModel>(), BackPre
         exitTransition = MaterialElevationScale(false)
         reenterTransition = MaterialElevationScale(true)
         parentFragmentManager.beginTransaction()
-                .replace(R.id.container,
-                        AppDetailFragment.newInstance(AppDetailRequest.ExternalPackage(uri)),
-                        FragmentTag.AppDetailParent.tag
-                )
-                .addToBackStack(FragmentTag.AppDetailParent.tag)
-                .commit()
+            .replace(
+                R.id.container,
+                AppDetailFragment.newInstance(AppDetailRequest.ExternalPackage(uri)),
+                FragmentTag.AppDetailParent.tag,
+            )
+            .addToBackStack(FragmentTag.AppDetailParent.tag)
+            .commit()
     }
 
     override fun onBackPressed(): Boolean {
         val searchView = binding.toolbar.menu.findItem(R.id.action_search)?.actionView as? SearchView
-                ?: return false
+            ?: return false
         if (!searchView.isIconified) {
             searchView.onActionViewCollapsed()
             return true

@@ -16,11 +16,14 @@ class MyBarChart : BarChart {
 
     override fun init() {
         super.init()
-        marker = ClickableMarkerView(context, object : ClickableMarkerView.OnMarkerClickListener {
-            override fun onMarkerClick(entry: Entry) {
-                onMarkerClickListener?.onMarkerClick(entry)
-            }
-        }).apply { chartView = this@MyBarChart }
+        marker = ClickableMarkerView(
+            context,
+            object : ClickableMarkerView.OnMarkerClickListener {
+                override fun onMarkerClick(entry: Entry) {
+                    onMarkerClickListener?.onMarkerClick(entry)
+                }
+            },
+        ).apply { chartView = this@MyBarChart }
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {

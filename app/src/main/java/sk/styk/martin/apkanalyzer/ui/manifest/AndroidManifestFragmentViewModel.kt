@@ -37,12 +37,12 @@ private const val ERROR_STATE = 1
 private const val DATA_STATE = 2
 
 class AndroidManifestFragmentViewModel @AssistedInject constructor(
-        @Assisted private val manifestRequest: ManifestRequest,
-        private val permissionManager: PermissionManager,
-        private val androidManifestManager: AndroidManifestManager,
-        private val dispatcherProvider: DispatcherProvider,
-        private val fileManager: FileManager,
-        private val notificationManager: NotificationManager,
+    @Assisted private val manifestRequest: ManifestRequest,
+    private val permissionManager: PermissionManager,
+    private val androidManifestManager: AndroidManifestManager,
+    private val dispatcherProvider: DispatcherProvider,
+    private val fileManager: FileManager,
+    private val notificationManager: NotificationManager,
 ) : ViewModel(), Toolbar.OnMenuItemClickListener {
 
     private val viewStateLiveData = MutableLiveData(LOADING_STATE)
@@ -105,15 +105,18 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
         if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             exportAppFileSelection()
         } else {
-            permissionManager.requestPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE, object : PermissionManager.PermissionCallback {
-                override fun onPermissionDenied(permission: String) {
-                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
-                }
+            permissionManager.requestPermission(
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                object : PermissionManager.PermissionCallback {
+                    override fun onPermissionDenied(permission: String) {
+                        showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
+                    }
 
-                override fun onPermissionGranted(permission: String) {
-                    exportAppFileSelection()
-                }
-            })
+                    override fun onPermissionGranted(permission: String) {
+                        exportAppFileSelection()
+                    }
+                },
+            )
         }
     }
 
@@ -131,9 +134,11 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
             withContext(dispatcherProvider.io()) {
                 fileManager.writeString(manifest, target)
             }
-            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.manifest_saved, manifestRequest.appName),
-                    duration = Snackbar.LENGTH_LONG,
-                    action = TextInfo.from(R.string.action_show)) {
+            showSnackEvent.value = SnackBarComponent(
+                TextInfo.from(R.string.manifest_saved, manifestRequest.appName),
+                duration = Snackbar.LENGTH_LONG,
+                action = TextInfo.from(R.string.action_show),
+            ) {
                 showManifestFileEvent.value = target
             }
             notificationManager.showManifestSavedNotification(manifestRequest.appName, target)
@@ -151,5 +156,4 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
     interface Factory {
         fun create(manifestRequest: ManifestRequest): AndroidManifestFragmentViewModel
     }
-
 }

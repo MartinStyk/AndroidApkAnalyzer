@@ -45,8 +45,10 @@ class TextListAdapter @Inject constructor() : DetailInfoDescriptionAdapter<TextL
         }
     }
 
-    private inner class StringDiffCallback(private val newList: List<TextInfo>,
-                                           private val oldList: List<TextInfo>) : DiffUtil.Callback() {
+    private inner class StringDiffCallback(
+        private val newList: List<TextInfo>,
+        private val oldList: List<TextInfo>,
+    ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition] == newList[newItemPosition]

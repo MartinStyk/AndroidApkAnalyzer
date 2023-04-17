@@ -34,11 +34,10 @@ open class AppDetailActivity : ApkAnalyzerBaseActivity() {
                 arguments = detailRequest
             }
             supportFragmentManager.beginTransaction()
-                    .add(R.id.container, fragment, FragmentTag.AppDetailParent.tag)
-                    .commit()
+                .add(R.id.container, fragment, FragmentTag.AppDetailParent.tag)
+                .commit()
         }
     }
 
     protected open fun getDetailRequestBundle(): Bundle? = intent.extras
-
 }

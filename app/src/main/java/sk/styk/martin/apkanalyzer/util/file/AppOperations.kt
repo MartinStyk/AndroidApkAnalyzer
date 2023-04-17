@@ -17,9 +17,9 @@ object AppOperations {
 
     fun installPackage(context: Context, packagePath: String) {
         val intent = Intent(Intent.ACTION_VIEW)
-                .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-                .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
+            .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 
         try {
             val apkUri = FileProvider.getUriForFile(context, GenericFileProvider.AUTHORITY, File(packagePath))
@@ -33,10 +33,12 @@ object AppOperations {
 
     fun openAppSystemPage(context: Context, packageName: String) {
         try {
-            context.startActivity(Intent().apply {
-                action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                data = Uri.parse("package:$packageName")
-            })
+            context.startActivity(
+                Intent().apply {
+                    action = android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS
+                    data = Uri.parse("package:$packageName")
+                },
+            )
         } catch (securityException: SecurityException) {
             Timber.tag(TAG_APP_ACTIONS).e(securityException, "Could not open system page for $packageName.")
         }
@@ -56,7 +58,6 @@ object AppOperations {
             Timber.tag(TAG_APP_ACTIONS).w(activityNotFound, "Starting Google play failed. Try to open it in browser.")
             openBrowser(context, "https://play.google.com/store/apps/details?id=$packageName")
         }
-
     }
 
     @JvmStatic
@@ -82,5 +83,4 @@ object AppOperations {
             Toast.makeText(context, R.string.activity_run_failed, Toast.LENGTH_SHORT).show()
         }
     }
-
 }

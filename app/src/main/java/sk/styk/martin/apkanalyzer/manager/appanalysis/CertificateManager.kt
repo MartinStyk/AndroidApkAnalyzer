@@ -17,7 +17,6 @@ import javax.security.auth.x500.X500Principal.RFC1779
 class CertificateManager @Inject constructor(private val digestManager: DigestManager) {
 
     fun get(packageInfo: PackageInfo): CertificateData {
-
         val signature = packageInfo.signatures[0] ?: throw IllegalStateException("No signature")
 
         return ByteArrayInputStream(signature.toByteArray()).use {
@@ -25,18 +24,18 @@ class CertificateManager @Inject constructor(private val digestManager: DigestMa
             val certificate = certFactory.generateCertificate(it) as X509Certificate
 
             CertificateData(
-                    signAlgorithm = certificate.sigAlgName,
-                    certificateHash = digestManager.md5Digest(certificate.encoded),
-                    publicKeyMd5 = digestManager.md5Digest(digestManager.byteToHexString(certificate.publicKey.encoded)),
-                    startDate = certificate.notBefore,
-                    endDate = certificate.notAfter,
-                    serialNumber = certificate.serialNumber.toInt(),
-                    issuerName = certificate.issuerX500Principal?.getPrincipalCommonName(),
-                    issuerOrganization = certificate.issuerX500Principal?.getPrincipalOrganization(),
-                    issuerCountry = certificate.issuerX500Principal?.getPrincipalCountry(),
-                    subjectName = certificate.subjectX500Principal?.getPrincipalCommonName(),
-                    subjectOrganization = certificate.subjectX500Principal?.getPrincipalOrganization(),
-                    subjectCountry = certificate.subjectX500Principal?.getPrincipalCountry()
+                signAlgorithm = certificate.sigAlgName,
+                certificateHash = digestManager.md5Digest(certificate.encoded),
+                publicKeyMd5 = digestManager.md5Digest(digestManager.byteToHexString(certificate.publicKey.encoded)),
+                startDate = certificate.notBefore,
+                endDate = certificate.notAfter,
+                serialNumber = certificate.serialNumber.toInt(),
+                issuerName = certificate.issuerX500Principal?.getPrincipalCommonName(),
+                issuerOrganization = certificate.issuerX500Principal?.getPrincipalOrganization(),
+                issuerCountry = certificate.issuerX500Principal?.getPrincipalCountry(),
+                subjectName = certificate.subjectX500Principal?.getPrincipalCommonName(),
+                subjectOrganization = certificate.subjectX500Principal?.getPrincipalOrganization(),
+                subjectCountry = certificate.subjectX500Principal?.getPrincipalCountry(),
             )
         }
     }
@@ -45,7 +44,6 @@ class CertificateManager @Inject constructor(private val digestManager: DigestMa
         val signature = packageInfo.signatures[0]
 
         ByteArrayInputStream(signature.toByteArray()).use {
-
             try {
                 val certFactory = CertificateFactory.getInstance("X509")
                 val certificate = certFactory.generateCertificate(it) as X509Certificate
@@ -76,7 +74,8 @@ class CertificateManager @Inject constructor(private val digestManager: DigestMa
         val matcher = Pattern.compile(patternString).matcher(principalName)
         return if (matcher.find()) {
             matcher.group(1)
-        } else null
+        } else {
+            null
+        }
     }
 }
-

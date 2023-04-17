@@ -10,7 +10,7 @@ class AndroidVersionManager @Inject constructor(private val resourcesManager: Re
 
     fun resolveVersion(sdkVersion: Int?): String? {
         if (sdkVersion == null) return null
-        //java index from 0 - first item is sdk 1
+        // java index from 0 - first item is sdk 1
         val index = sdkVersion - 1
 
         val versions = resourcesManager.getStringArray(R.array.android_versions)

@@ -17,53 +17,53 @@ import sk.styk.martin.apkanalyzer.util.components.DialogComponent
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 
 class PermissionsGeneralDetailsViewModel @AssistedInject constructor(
-        @Assisted private val permissionDetailFragmentViewModel: PermissionDetailFragmentViewModel,
-        val detailInfoAdapter: DetailInfoAdapter,
-        val clipBoardManager: ClipBoardManager
+    @Assisted private val permissionDetailFragmentViewModel: PermissionDetailFragmentViewModel,
+    val detailInfoAdapter: DetailInfoAdapter,
+    val clipBoardManager: ClipBoardManager,
 ) : ViewModel(), DefaultLifecycleObserver {
 
     val openDescription = detailInfoAdapter.openDescription
-            .map {
-                DialogComponent(it.title, it.message, TextInfo.from(R.string.close))
-            }
+        .map {
+            DialogComponent(it.title, it.message, TextInfo.from(R.string.close))
+        }
 
     val showSnackbar = detailInfoAdapter.copyToClipboard
-            .map {
-                clipBoardManager.copyToClipBoard(it.text, it.label)
-                SnackBarComponent(TextInfo.from(R.string.copied_to_clipboard), Snackbar.LENGTH_SHORT)
-            }
+        .map {
+            clipBoardManager.copyToClipBoard(it.text, it.label)
+            SnackBarComponent(TextInfo.from(R.string.copied_to_clipboard), Snackbar.LENGTH_SHORT)
+        }
 
     init {
         val permissionData = permissionDetailFragmentViewModel.localPermissionData.permissionData
 
         detailInfoAdapter.info = listOfNotNull(
+            DetailInfoAdapter.DetailInfo(
+                TextInfo.from(R.string.permissions_name),
+                TextInfo.from(permissionData.name),
+                TextInfo.from(R.string.permissions_name_description),
+            ),
+            permissionData.groupName?.let {
                 DetailInfoAdapter.DetailInfo(
-                        TextInfo.from(R.string.permissions_name),
-                        TextInfo.from(permissionData.name),
-                        TextInfo.from(R.string.permissions_name_description),
-                ),
-                permissionData.groupName?.let {
-                    DetailInfoAdapter.DetailInfo(
-                            TextInfo.from(R.string.permissions_group),
-                            TextInfo.from(permissionData.groupName),
-                            TextInfo.from(R.string.permissions_group_description),
-                    )
-                },
-                DetailInfoAdapter.DetailInfo(
-                        TextInfo.from(R.string.permissions_protection),
-                        TextInfo.from(permissionLevelText(permissionData.protectionLevel)),
-                        TextInfo.from(R.string.permissions_protection_description),
-                ),
-                DetailInfoAdapter.DetailInfo(
-                        TextInfo.from(R.string.permissions_granted_apps),
-                        TextInfo.from(permissionDetailFragmentViewModel.localPermissionData.grantedPackageNames.size.toString()),
-                        TextInfo.from(R.string.permissions_granted_apps_description),
-                ),
-                DetailInfoAdapter.DetailInfo(
-                        TextInfo.from(R.string.permissions_not_granted_apps),
-                        TextInfo.from(permissionDetailFragmentViewModel.localPermissionData.notGrantedPackageNames.size.toString()),
-                        TextInfo.from(R.string.permissions_not_granted_apps_description),
+                    TextInfo.from(R.string.permissions_group),
+                    TextInfo.from(permissionData.groupName),
+                    TextInfo.from(R.string.permissions_group_description),
                 )
+            },
+            DetailInfoAdapter.DetailInfo(
+                TextInfo.from(R.string.permissions_protection),
+                TextInfo.from(permissionLevelText(permissionData.protectionLevel)),
+                TextInfo.from(R.string.permissions_protection_description),
+            ),
+            DetailInfoAdapter.DetailInfo(
+                TextInfo.from(R.string.permissions_granted_apps),
+                TextInfo.from(permissionDetailFragmentViewModel.localPermissionData.grantedPackageNames.size.toString()),
+                TextInfo.from(R.string.permissions_granted_apps_description),
+            ),
+            DetailInfoAdapter.DetailInfo(
+                TextInfo.from(R.string.permissions_not_granted_apps),
+                TextInfo.from(permissionDetailFragmentViewModel.localPermissionData.notGrantedPackageNames.size.toString()),
+                TextInfo.from(R.string.permissions_not_granted_apps_description),
+            ),
         )
     }
 

@@ -11,8 +11,4 @@ enum class AppSource(val sourceName: String, val installerPackageName: String? =
         return sourceName
     }
 
-    companion object {
-        fun valueOf(value: String): AppSource = values().firstOrNull { it.sourceName == value } ?: UNKNOWN
-    }
-
 }

@@ -22,9 +22,13 @@ import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedListener
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
 import sk.styk.martin.apkanalyzer.ui.manifest.AndroidManifestFragment
 import sk.styk.martin.apkanalyzer.ui.manifest.ManifestRequest
-import sk.styk.martin.apkanalyzer.util.*
+import sk.styk.martin.apkanalyzer.util.FragmentTag
+import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
+import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
 import sk.styk.martin.apkanalyzer.util.components.toSnackbar
 import sk.styk.martin.apkanalyzer.util.file.AppOperations
+import sk.styk.martin.apkanalyzer.util.materialContainerTransform
+import sk.styk.martin.apkanalyzer.util.provideViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -68,9 +72,10 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
         binding.pager.adapter = AppDetailPagerAdapter(
-                requireArguments(),
-                requireContext().applicationContext,
-                childFragmentManager)
+            requireArguments(),
+            requireContext().applicationContext,
+            childFragmentManager,
+        )
         binding.tab.setupWithViewPager(binding.pager)
 
         with(viewModel) {
@@ -104,11 +109,13 @@ class AppDetailFragment : Fragment(), BackPressedListener {
 
     private fun openImage(path: Uri) {
         try {
-            startActivity(Intent().apply {
-                action = Intent.ACTION_VIEW
-                setDataAndType(path, "image/png")
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            })
+            startActivity(
+                Intent().apply {
+                    action = Intent.ACTION_VIEW
+                    setDataAndType(path, "image/png")
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                },
+            )
         } catch (e: ActivityNotFoundException) {
             Timber.tag(TAG_APP_ACTIONS).w(e, "Can not open image in external app")
             Toast.makeText(requireContext(), R.string.activity_not_found_image, Toast.LENGTH_LONG).show()
@@ -119,9 +126,9 @@ class AppDetailFragment : Fragment(), BackPressedListener {
     private fun startInstallSettings() {
         try {
             installPermissionResultLauncher.launch(
-                    Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
-                        data = Uri.parse(String.format("package:%s", requireContext().packageName))
-                    }
+                Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
+                    data = Uri.parse(String.format("package:%s", requireContext().packageName))
+                },
             )
         } catch (exception: ActivityNotFoundException) {
             Timber.tag(TAG_APP_ACTIONS).w(exception, "Can not open install settings")
@@ -134,20 +141,20 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
 
         parentFragmentManager.beginTransaction()
-                .replace(R.id.container, AndroidManifestFragment.create(manifestRequest), FragmentTag.Manifest.tag)
-                .addToBackStack(FragmentTag.Manifest.tag)
-                .setReorderingAllowed(true)
-                .commit()
+            .replace(R.id.container, AndroidManifestFragment.create(manifestRequest), FragmentTag.Manifest.tag)
+            .addToBackStack(FragmentTag.Manifest.tag)
+            .setReorderingAllowed(true)
+            .commit()
     }
 
     private fun openDirectoryPicker(outputFilePickerRequest: OutputFilePickerRequest) {
         try {
             exportPathPickerResultLauncher.launch(
-                    Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        type = outputFilePickerRequest.fileType
-                        putExtra(Intent.EXTRA_TITLE, outputFilePickerRequest.fileName)
-                    }
+                Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    addCategory(Intent.CATEGORY_OPENABLE)
+                    type = outputFilePickerRequest.fileType
+                    putExtra(Intent.EXTRA_TITLE, outputFilePickerRequest.fileName)
+                },
             )
         } catch (e: ActivityNotFoundException) {
             Timber.tag(TAG_APP_ACTIONS).w(e, "Can not open file picker")
@@ -173,4 +180,3 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         }
     }
 }
-

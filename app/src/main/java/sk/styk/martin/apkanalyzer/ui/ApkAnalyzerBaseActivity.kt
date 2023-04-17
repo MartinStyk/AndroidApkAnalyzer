@@ -36,5 +36,4 @@ abstract class ApkAnalyzerBaseActivity : AppCompatActivity() {
         }
         super.onBackPressed()
     }
-
 }

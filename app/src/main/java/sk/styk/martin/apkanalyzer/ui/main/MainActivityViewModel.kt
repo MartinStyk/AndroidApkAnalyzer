@@ -23,11 +23,11 @@ import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import timber.log.Timber
 
 class MainActivityViewModel @AssistedInject constructor(
-        promoManager: StartPromoManager,
-        persistenceManager: PersistenceManager,
-        private val navigationDrawerModel: NavigationDrawerModel,
-        private val userReviewManager: UserReviewManager,
-        private val foregroundFragmentWatcher: ForegroundFragmentWatcher,
+    promoManager: StartPromoManager,
+    persistenceManager: PersistenceManager,
+    private val navigationDrawerModel: NavigationDrawerModel,
+    private val userReviewManager: UserReviewManager,
+    private val foregroundFragmentWatcher: ForegroundFragmentWatcher,
 ) : ViewModel(), NavigationView.OnNavigationItemSelectedListener {
 
     private val closeDrawerEvent = SingleLiveEvent<Unit>()
@@ -122,5 +122,4 @@ class MainActivityViewModel @AssistedInject constructor(
     interface Factory {
         fun create(): MainActivityViewModel
     }
-
 }

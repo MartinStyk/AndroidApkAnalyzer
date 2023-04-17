@@ -7,7 +7,11 @@ import android.widget.SearchView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.appcompat.widget.Toolbar
-import androidx.lifecycle.*
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.perf.metrics.AddTrace
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +22,11 @@ import sk.styk.martin.apkanalyzer.manager.appanalysis.InstalledAppsManager
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.model.list.AppListData
-import sk.styk.martin.apkanalyzer.ui.applist.*
+import sk.styk.martin.apkanalyzer.ui.applist.AppListAdapter
+import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel
+import sk.styk.martin.apkanalyzer.ui.applist.DATA_STATE
+import sk.styk.martin.apkanalyzer.ui.applist.EMPTY_STATE
+import sk.styk.martin.apkanalyzer.ui.applist.LOADING_STATE
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
@@ -27,10 +35,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainAppListViewModel @Inject constructor(
-        private val installedAppsManager: InstalledAppsManager,
-        private val navigationDrawerModel: NavigationDrawerModel,
-        private val dispatcherProvider: DispatcherProvider,
-        adapter: AppListAdapter
+    private val installedAppsManager: InstalledAppsManager,
+    private val navigationDrawerModel: NavigationDrawerModel,
+    private val dispatcherProvider: DispatcherProvider,
+    adapter: AppListAdapter,
 ) : BaseAppListViewModel(adapter), DefaultLifecycleObserver, SearchView.OnQueryTextListener, SearchView.OnCloseListener, Toolbar.OnMenuItemClickListener {
 
     override var appListData = listOf<AppListData>()
@@ -151,16 +159,19 @@ class MainAppListViewModel @Inject constructor(
         val hasFilters = nameQuery.isNotBlank() || source != null
         appListData = if (!hasFilters) {
             allApps
-        } else allApps.filter { entry ->
-            fun textSearch(name: String) = nameQuery.isBlank() ||
+        } else {
+            allApps.filter { entry ->
+                fun textSearch(name: String) = nameQuery.isBlank() ||
                     name.startsWith(nameQuery, ignoreCase = true) ||
                     name.split(" ".toRegex()).any { it.startsWith(nameQuery, ignoreCase = true) } ||
                     name.split(".".toRegex()).any { it.startsWith(nameQuery, ignoreCase = true) }
 
-            (source == null || entry.source == source) && (textSearch(entry.applicationName) || textSearch(entry.packageName))
+                (source == null || entry.source == source) && (textSearch(entry.applicationName) || textSearch(entry.packageName))
+            }
         }
 
-        indefiniteSnackbarEvent.value = if (hasFilters) SnackBarComponent(
+        indefiniteSnackbarEvent.value = if (hasFilters) {
+            SnackBarComponent(
                 message = TextInfo.from(R.string.app_filtering_active),
                 duration = Snackbar.LENGTH_INDEFINITE,
                 action = TextInfo.from(R.string.clear),
@@ -168,8 +179,10 @@ class MainAppListViewModel @Inject constructor(
                     filteredSourceLiveData.value = null
                     setQueryTextLiveData.value = ""
                     appListData = allApps
-                }
-        ) else null
+                },
+            )
+        } else {
+            null
+        }
     }
-
 }

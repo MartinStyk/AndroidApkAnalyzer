@@ -49,7 +49,6 @@ class AppPermissionListAdapter @Inject constructor() : DetailInfoDescriptionAdap
             copyToClipboardEvent.value = CopyToClipboard(TextInfo.from(completeName))
             return true
         }
-
     }
 
     inner class ViewHolder(val binding: ListItemAppPermissionDetailBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -59,12 +58,13 @@ class AppPermissionListAdapter @Inject constructor() : DetailInfoDescriptionAdap
         }
     }
 
-    private inner class StringDiffCallback(private val newList: List<DecomposedPermissionData>,
-                                           private val oldList: List<DecomposedPermissionData>) : DiffUtil.Callback() {
+    private inner class StringDiffCallback(
+        private val newList: List<DecomposedPermissionData>,
+        private val oldList: List<DecomposedPermissionData>,
+    ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition] == newList[newItemPosition]
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition] == newList[newItemPosition]
     }
-
 }

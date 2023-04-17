@@ -2,15 +2,16 @@ package sk.styk.martin.apkanalyzer.model.permissions
 
 import sk.styk.martin.apkanalyzer.model.detail.PermissionData
 import sk.styk.martin.apkanalyzer.model.detail.UsedPermissionData
-import java.util.*
+import java.util.TreeSet
 
 class LocalPermissionDataBuilder {
 
     private val data = HashMap<PermissionData, MutableList<PermissionStatus>>()
 
     fun addAll(packageName: String, usedPermissionData: List<UsedPermissionData>?) {
-        if (usedPermissionData == null)
+        if (usedPermissionData == null) {
             return
+        }
 
         for (data in usedPermissionData) {
             add(packageName, data)
@@ -28,11 +29,9 @@ class LocalPermissionDataBuilder {
     }
 
     fun build(): List<LocalPermissionData> {
-
         val sortedSet = TreeSet<Map.Entry<PermissionData, List<PermissionStatus>>> { entry1, entry2 -> entry2.value.size - entry1.value.size }
         sortedSet.addAll(data.entries)
 
         return sortedSet.mapTo(ArrayList<LocalPermissionData>(sortedSet.size)) { LocalPermissionData(it.key, it.value) }
     }
 }
-

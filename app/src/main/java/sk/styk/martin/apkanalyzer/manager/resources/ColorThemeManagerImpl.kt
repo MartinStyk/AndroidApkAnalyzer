@@ -13,5 +13,4 @@ class ColorThemeManagerImpl @Inject constructor(private val settingsManager: Set
         SettingsManager.ColorScheme.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         SettingsManager.ColorScheme.DEFAULT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
     }
-
 }

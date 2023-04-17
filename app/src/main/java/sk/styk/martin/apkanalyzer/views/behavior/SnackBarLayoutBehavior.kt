@@ -32,7 +32,7 @@ class SnackBarLayoutBehavior : CoordinatorLayout.Behavior<View> {
                     super.onAnimationEnd(animation)
                     viewPropertyAnimator.setListener(null)
 
-                    //This method manually triggers the CoordinatorLayout to dispatch actual view state
+                    // This method manually triggers the CoordinatorLayout to dispatch actual view state
                     parent.dispatchDependentViewsChanged(child)
                 }
             })

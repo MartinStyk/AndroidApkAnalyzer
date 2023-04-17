@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.permission.detail.apps
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -60,5 +59,4 @@ class PermissionsAppListFragment : BaseAppListFragment<PermissionsAppListViewMod
             }
         }
     }
-
 }

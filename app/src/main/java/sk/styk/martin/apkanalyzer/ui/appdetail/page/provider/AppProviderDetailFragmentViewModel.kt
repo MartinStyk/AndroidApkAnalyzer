@@ -10,9 +10,9 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 
 class AppProviderDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        private val providerAdapter: AppProviderDetailListAdapter,
-        clipBoardManager: ClipBoardManager,
+    @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+    private val providerAdapter: AppProviderDetailListAdapter,
+    clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, providerAdapter, clipBoardManager) {
 
     private var providerData: MutableList<AppProviderDetailListAdapter.ExpandedContentProviderData> = mutableListOf()

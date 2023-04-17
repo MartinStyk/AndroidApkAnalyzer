@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.model.statistics
 import android.os.Parcel
 import android.os.Parcelable
 import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
-
 import java.math.BigDecimal
 
 class PercentagePair : Parcelable {
@@ -68,5 +67,4 @@ class PercentagePair : Parcelable {
             return BigDecimal(part * 100 / whole)
         }
     }
-
 }

@@ -47,5 +47,4 @@ class ApplicationModule {
 
     @Provides
     fun provideReviewManager(@ApplicationContext context: Context): ReviewManager = ReviewManagerFactory.create(context)
-
 }

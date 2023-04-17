@@ -18,5 +18,4 @@ class ActivityColorThemeManager @Inject constructor(private val colorThemeManage
         val uiMode = activity?.get()?.resources?.configuration?.uiMode ?: return false
         return uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
     }
-
 }

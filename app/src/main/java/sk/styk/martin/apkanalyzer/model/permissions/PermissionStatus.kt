@@ -7,6 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class PermissionStatus(
-        val packageName: String,
-        val isGranted: Boolean = false
+    val packageName: String,
+    val isGranted: Boolean = false,
 ) : Parcelable

@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.model.statistics
 import sk.styk.martin.apkanalyzer.manager.appanalysis.MAX_SDK_VERSION
 import sk.styk.martin.apkanalyzer.model.InstallLocation
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
-import java.util.*
 
 class StatisticsDataBuilder(datasetSize: Int) {
     private val arraySize = datasetSize + 1
@@ -31,23 +30,23 @@ class StatisticsDataBuilder(datasetSize: Int) {
 
     fun build(): StatisticsData {
         return StatisticsData(
-                analyzeSuccess = PercentagePair(analyzeSuccess, analyzeSuccess + analyzeFailed),
-                analyzeFailed = PercentagePair(analyzeFailed, analyzeSuccess + analyzeFailed),
-                systemApps = PercentagePair(systemApps, analyzeSuccess),
-                installLocation = installLocation,
-                targetSdk = targetSdk,
-                minSdk = minSdk,
-                appSource = appSource,
-                apkSize = MathStatisticsBuilder(apkSize).build(),
-                signAlgorithm = signAlgorithm,
+            analyzeSuccess = PercentagePair(analyzeSuccess, analyzeSuccess + analyzeFailed),
+            analyzeFailed = PercentagePair(analyzeFailed, analyzeSuccess + analyzeFailed),
+            systemApps = PercentagePair(systemApps, analyzeSuccess),
+            installLocation = installLocation,
+            targetSdk = targetSdk,
+            minSdk = minSdk,
+            appSource = appSource,
+            apkSize = MathStatisticsBuilder(apkSize).build(),
+            signAlgorithm = signAlgorithm,
 
-                activities = MathStatisticsBuilder(activities).build(),
-                services = MathStatisticsBuilder(services).build(),
-                receivers = MathStatisticsBuilder(receivers).build(),
-                providers = MathStatisticsBuilder(providers).build(),
+            activities = MathStatisticsBuilder(activities).build(),
+            services = MathStatisticsBuilder(services).build(),
+            receivers = MathStatisticsBuilder(receivers).build(),
+            providers = MathStatisticsBuilder(providers).build(),
 
-                usedPermissions = MathStatisticsBuilder(usedPermissions).build(),
-                definedPermissions = MathStatisticsBuilder(definedPermissions).build(),
+            usedPermissions = MathStatisticsBuilder(usedPermissions).build(),
+            definedPermissions = MathStatisticsBuilder(definedPermissions).build(),
         )
     }
 

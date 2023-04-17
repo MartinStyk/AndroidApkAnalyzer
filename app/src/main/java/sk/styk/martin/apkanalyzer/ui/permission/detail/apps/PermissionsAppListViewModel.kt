@@ -13,11 +13,11 @@ import sk.styk.martin.apkanalyzer.ui.permission.detail.pager.PermissionDetailFra
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 
 class PermissionsAppListViewModel @AssistedInject constructor(
-        @Assisted private val permissionDetailFragmentViewModel: PermissionDetailFragmentViewModel,
-        @Assisted private val showGranted: Boolean,
-        private val installedAppsManager: InstalledAppsManager,
-        private val dispatcherProvider: DispatcherProvider,
-        adapter: AppListAdapter
+    @Assisted private val permissionDetailFragmentViewModel: PermissionDetailFragmentViewModel,
+    @Assisted private val showGranted: Boolean,
+    private val installedAppsManager: InstalledAppsManager,
+    private val dispatcherProvider: DispatcherProvider,
+    adapter: AppListAdapter,
 ) : BaseAppListViewModel(adapter) {
 
     init {
@@ -37,8 +37,9 @@ class PermissionsAppListViewModel @AssistedInject constructor(
 
     @AssistedFactory
     interface Factory {
-        fun create(permissionDetailFragmentViewModel: PermissionDetailFragmentViewModel,
-                   showGranted: Boolean): PermissionsAppListViewModel
+        fun create(
+            permissionDetailFragmentViewModel: PermissionDetailFragmentViewModel,
+            showGranted: Boolean,
+        ): PermissionsAppListViewModel
     }
-
 }

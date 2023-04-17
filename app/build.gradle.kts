@@ -62,8 +62,8 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
         freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn " +
-            "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi " +
-            "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
+                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi " +
+                "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
     }
     lint {
         disable += "MissingTranslation"

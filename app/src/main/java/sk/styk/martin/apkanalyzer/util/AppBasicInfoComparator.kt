@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.util
 
 import sk.styk.martin.apkanalyzer.model.list.AppListData
 import java.text.Collator
-import java.util.*
+import java.util.Comparator
 
 class AppBasicInfoComparator : Comparator<AppListData> {
 

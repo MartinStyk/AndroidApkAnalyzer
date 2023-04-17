@@ -40,8 +40,10 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
         }
     }
 
-    private inner class AppDiffCallback(private val newList: List<AppListData>,
-                                        private val oldList: List<AppListData>) : DiffUtil.Callback() {
+    private inner class AppDiffCallback(
+        private val newList: List<AppListData>,
+        private val oldList: List<AppListData>,
+    ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].packageName == newList[newItemPosition].packageName
@@ -49,5 +51,4 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
     }
 
     data class AppListClickData(val view: WeakReference<View>, val appListData: AppListData)
-
 }

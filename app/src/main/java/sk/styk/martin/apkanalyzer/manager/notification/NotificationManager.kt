@@ -51,12 +51,12 @@ class NotificationManager @Inject constructor(
         val openIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or flagImmutable)
 
         val notification = notificationBuilder(ICON_EXPORT_CHANNEL_ID)
-                .setContentTitle(resourcesManager.getString(R.string.app_icon_saved, appName))
-                .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
-                .setCategory(NotificationCompat.CATEGORY_REMINDER)
-                .setContentIntent(openIntent)
-                .addAction(R.drawable.ic_image, resourcesManager.getString(R.string.action_show), openIntent)
-                .build()
+            .setContentTitle(resourcesManager.getString(R.string.app_icon_saved, appName))
+            .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
+            .setCategory(NotificationCompat.CATEGORY_REMINDER)
+            .setContentIntent(openIntent)
+            .addAction(R.drawable.ic_image, resourcesManager.getString(R.string.action_show), openIntent)
+            .build()
 
         androidNotificationManager.notify(ICON_EXPORT_NOTIFICATION_ID, notification)
     }
@@ -65,10 +65,10 @@ class NotificationManager @Inject constructor(
         createChannel(APP_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.app_save_channel))
 
         val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
-                .setContentTitle(resourcesManager.getString(R.string.saving_app, appName))
-                .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
-                .setOngoing(true)
-                .setProgress(100, 0, false)
+            .setContentTitle(resourcesManager.getString(R.string.saving_app, appName))
+            .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
+            .setOngoing(true)
+            .setProgress(100, 0, false)
 
         androidNotificationManager.notify(APP_EXPORT_NOTIFICATION_ID, notification.build())
         return notification
@@ -96,12 +96,12 @@ class NotificationManager @Inject constructor(
         val openIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or flagImmutable)
 
         val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
-                .setContentTitle(resourcesManager.getString(R.string.saved_app, appName))
-                .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
-                .setOngoing(false)
-                .addAction(R.drawable.ic_get_app, resourcesManager.getString(R.string.action_show), openIntent)
-                .setContentIntent(openIntent)
-                .build()
+            .setContentTitle(resourcesManager.getString(R.string.saved_app, appName))
+            .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
+            .setOngoing(false)
+            .addAction(R.drawable.ic_get_app, resourcesManager.getString(R.string.action_show), openIntent)
+            .setContentIntent(openIntent)
+            .build()
 
         androidNotificationManager.notify(APP_EXPORT_NOTIFICATION_ID, notification)
     }
@@ -111,22 +111,23 @@ class NotificationManager @Inject constructor(
 
         val openIntent = TaskStackBuilder.create(context).apply {
             addParentStack(MainActivity::class.java)
-            addNextIntent(Intent().apply {
-                action = Intent.ACTION_VIEW
-                setDataAndType(outputFileUri, "text/xml")
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            })
+            addNextIntent(
+                Intent().apply {
+                    action = Intent.ACTION_VIEW
+                    setDataAndType(outputFileUri, "text/xml")
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                },
+            )
         }.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or flagImmutable)
 
         val notification = notificationBuilder(MANIFEST_EXPORT_CHANNEL_ID)
-                .setContentTitle(resourcesManager.getString(R.string.save_manifest_background_notification_title_done, appName))
-                .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
-                .addAction(R.drawable.ic_file, resourcesManager.getString(R.string.action_show), openIntent)
-                .setContentIntent(openIntent)
-                .build()
+            .setContentTitle(resourcesManager.getString(R.string.save_manifest_background_notification_title_done, appName))
+            .setSmallIcon(R.drawable.ic_apkanalyzer_notification)
+            .addAction(R.drawable.ic_file, resourcesManager.getString(R.string.action_show), openIntent)
+            .setContentIntent(openIntent)
+            .build()
 
         androidNotificationManager.notify(MANIFEST_EXPORT_NOTIFICATION_ID, notification)
-
     }
 
     private fun notificationBuilder(channelId: String) = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -145,5 +146,4 @@ class NotificationManager @Inject constructor(
     private fun cancelNotification(notificationId: Int) {
         androidNotificationManager.cancel(notificationId)
     }
-
 }

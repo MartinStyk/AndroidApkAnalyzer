@@ -47,8 +47,10 @@ class PermissionListAdapter @Inject constructor() : RecyclerView.Adapter<Permiss
         }
     }
 
-    private inner class PermissionDiffCallback(private val newList: List<LocalPermissionData>,
-                                               private val oldList: List<LocalPermissionData>) : DiffUtil.Callback() {
+    private inner class PermissionDiffCallback(
+        private val newList: List<LocalPermissionData>,
+        private val oldList: List<LocalPermissionData>,
+    ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].permissionData.name == newList[newItemPosition].permissionData.name

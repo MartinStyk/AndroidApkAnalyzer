@@ -25,5 +25,4 @@ abstract class DetailInfoDescriptionAdapter<VH> : RecyclerView.Adapter<VH>() whe
 
     protected val copyToClipboardEvent = SingleLiveEvent<CopyToClipboard>()
     val copyToClipboard: LiveData<CopyToClipboard> = copyToClipboardEvent
-
 }

@@ -31,5 +31,4 @@ class MainSettingsFragment : PreferenceFragmentCompat(), SharedPreferences.OnSha
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         colorThemeManager.setTheme()
     }
-
 }

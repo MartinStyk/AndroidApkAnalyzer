@@ -4,7 +4,10 @@ import android.content.ContentResolver
 import android.net.Uri
 import androidx.annotation.IntRange
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
@@ -18,9 +21,10 @@ import javax.inject.Singleton
 
 @Singleton
 class ApkSaveManager @Inject constructor(
-        private val contentResolver: ContentResolver,
-        private val notificationManager: NotificationManager,
-        private val dispatcherProvider: DispatcherProvider) {
+    private val contentResolver: ContentResolver,
+    private val notificationManager: NotificationManager,
+    private val dispatcherProvider: DispatcherProvider,
+) {
 
     sealed class AppSaveStatus(open val outputUri: Uri) {
         data class Progress(@IntRange(from = 0, to = 100) val currentProgress: Int, override val outputUri: Uri) : AppSaveStatus(outputUri)
@@ -31,17 +35,17 @@ class ApkSaveManager @Inject constructor(
         GlobalScope.launch {
             try {
                 saveApkInternal(appName, sourceFile, targetUri)
-                        .distinctUntilChanged()
-                        .debounce(1500)
-                        .collect {
-                            val notificationBuilder = notificationManager.showAppExportProgressNotification(appName)
-                            when (it) {
-                                is AppSaveStatus.Progress -> notificationManager.updateAppExportProgressNotification(notificationBuilder, it.currentProgress)
-                                is AppSaveStatus.Done -> notificationManager.showAppExportDoneNotification(appName, it.outputUri)
-                            }
+                    .distinctUntilChanged()
+                    .debounce(1500)
+                    .collect {
+                        val notificationBuilder = notificationManager.showAppExportProgressNotification(appName)
+                        when (it) {
+                            is AppSaveStatus.Progress -> notificationManager.updateAppExportProgressNotification(notificationBuilder, it.currentProgress)
+                            is AppSaveStatus.Done -> notificationManager.showAppExportDoneNotification(appName, it.outputUri)
                         }
+                    }
             } catch (e: Exception) {
-                Timber.tag(TAG_EXPORTS).e(e, "Saving apk failed failed. Appname=${appName}, sourceFile=${sourceFile}, targetUri=$targetUri")
+                Timber.tag(TAG_EXPORTS).e(e, "Saving apk failed failed. Appname=$appName, sourceFile=$sourceFile, targetUri=$targetUri")
             }
         }
     }
@@ -68,8 +72,5 @@ class ApkSaveManager @Inject constructor(
         }
 
         emit(AppSaveStatus.Done(targetUri))
-
     }.flowOn(dispatcherProvider.io())
-
-
 }

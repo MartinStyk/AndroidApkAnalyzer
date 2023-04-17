@@ -52,37 +52,37 @@ class StatisticsFragment : Fragment() {
             analysisResultsExpanded.observe(viewLifecycleOwner) {
                 animateArrowExpanded(
                     binding.analysisResultsToggleArrow,
-                    it
+                    it,
                 )
             }
             minSdkExpanded.observe(viewLifecycleOwner) {
                 animateArrowExpanded(
                     binding.minSdkToggleArrow,
-                    it
+                    it,
                 )
             }
             targetSdkExpanded.observe(viewLifecycleOwner) {
                 animateArrowExpanded(
                     binding.targetSdkToggleArrow,
-                    it
+                    it,
                 )
             }
             installLocationExpanded.observe(viewLifecycleOwner) {
                 animateArrowExpanded(
                     binding.installLocationToggleArrow,
-                    it
+                    it,
                 )
             }
             signAlgorithmExpanded.observe(viewLifecycleOwner) {
                 animateArrowExpanded(
                     binding.signAlgorithmToggleArrow,
-                    it
+                    it,
                 )
             }
             appSourceExpanded.observe(viewLifecycleOwner) {
                 animateArrowExpanded(
                     binding.appSourceToggleArrow,
-                    it
+                    it,
                 )
             }
         }
@@ -101,7 +101,7 @@ class StatisticsFragment : Fragment() {
             binding.chartTargetSdk,
             binding.chartAppSource,
             binding.chartSignAlgorithm,
-            binding.chartInstallLocation
+            binding.chartInstallLocation,
         ).forEach {
             it.apply {
                 isDragEnabled = true
@@ -145,5 +145,4 @@ class StatisticsFragment : Fragment() {
             }
         }
     }
-
 }

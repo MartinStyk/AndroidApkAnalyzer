@@ -12,8 +12,10 @@ import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
 import timber.log.Timber
 import javax.inject.Inject
 
-class AppPermissionManager @Inject constructor(private val packageManager: PackageManager,
-                                               private val installedAppsManager: InstalledAppsManager) {
+class AppPermissionManager @Inject constructor(
+    private val packageManager: PackageManager,
+    private val installedAppsManager: InstalledAppsManager,
+) {
 
     sealed class PermissionLoadingStatus {
         data class Loading(val currentProgress: Int, val totalProgress: Int) : PermissionLoadingStatus()
@@ -43,7 +45,6 @@ class AppPermissionManager @Inject constructor(private val packageManager: Packa
         emit(PermissionLoadingStatus.Data(builder.build()))
     }
 
-
     fun get(packageInfo: PackageInfo): PermissionDataAggregate {
         val definedPermissions = getDefinedPermissions(packageInfo)
         val requestedPermissions = getUsedPermissions(packageInfo)
@@ -60,7 +61,6 @@ class AppPermissionManager @Inject constructor(private val packageManager: Packa
     }
 
     private fun getUsedPermissions(packageInfo: PackageInfo): List<UsedPermissionData> {
-
         val requestedPermissionNames = packageInfo.requestedPermissions ?: return emptyList()
         val requestedPermissionFlags = packageInfo.requestedPermissionsFlags
         val requestedPermissions: MutableList<UsedPermissionData> = ArrayList(requestedPermissionNames.size)
@@ -71,13 +71,13 @@ class AppPermissionManager @Inject constructor(private val packageManager: Packa
             val isGranted = (requestedPermissionFlags[index] and PackageInfo.REQUESTED_PERMISSION_GRANTED != 0)
 
             val permissionData =
-                    try {
-                        val permissionInfo = packageManager.getPermissionInfo(name, PackageManager.GET_META_DATA)
-                        PermissionData(name = name, groupName = permissionInfo.group, protectionLevel = permissionInfo.protectionLevel)
-                    } catch (e: Exception) {
-                        // we failed to get permission data from package manager. Try to use things we know
-                        PermissionData(name = name)
-                    }
+                try {
+                    val permissionInfo = packageManager.getPermissionInfo(name, PackageManager.GET_META_DATA)
+                    PermissionData(name = name, groupName = permissionInfo.group, protectionLevel = permissionInfo.protectionLevel)
+                } catch (e: Exception) {
+                    // we failed to get permission data from package manager. Try to use things we know
+                    PermissionData(name = name)
+                }
 
             requestedPermissions.add(UsedPermissionData(permissionData, isGranted))
         }
@@ -89,8 +89,9 @@ class AppPermissionManager @Inject constructor(private val packageManager: Packa
             var simpleNameBuilder = StringBuilder(name)
 
             val lastDot = name.lastIndexOf(".")
-            if (lastDot > 0 && lastDot < name.length)
+            if (lastDot > 0 && lastDot < name.length) {
                 simpleNameBuilder = StringBuilder(name.substring(lastDot + 1))
+            }
 
             var i = 0
             var previousSpace = false
@@ -110,5 +111,3 @@ class AppPermissionManager @Inject constructor(private val packageManager: Packa
         }
     }
 }
-
-

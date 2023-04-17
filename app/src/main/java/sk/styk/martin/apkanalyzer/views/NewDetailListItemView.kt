@@ -10,8 +10,11 @@ import sk.styk.martin.apkanalyzer.databinding.ViewDetailListItemBinding
 import sk.styk.martin.apkanalyzer.model.statistics.PercentagePair
 import sk.styk.martin.apkanalyzer.util.TextInfo
 
-class NewDetailListItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(context, attrs,
-    R.attr.detailListItemViewStyle) {
+class NewDetailListItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(
+    context,
+    attrs,
+    R.attr.detailListItemViewStyle,
+) {
 
     private val binding = ViewDetailListItemBinding.inflate(LayoutInflater.from(context), this, true)
 
@@ -47,5 +50,4 @@ class NewDetailListItemView @JvmOverloads constructor(context: Context, attrs: A
     fun setTitleText(textInfo: TextInfo) {
         titleText = textInfo.getText(context).toString()
     }
-
 }

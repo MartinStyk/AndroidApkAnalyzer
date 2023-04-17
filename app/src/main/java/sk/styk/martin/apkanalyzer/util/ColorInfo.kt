@@ -61,7 +61,6 @@ sealed class ColorInfo : Parcelable {
     private data class ColorInfoRes(@ColorRes private val colorRes: Int) : ColorInfo() {
 
         override fun toColorInt(context: Context): Int = ContextCompat.getColor(context, colorRes)
-
     }
 
     @Parcelize
@@ -77,14 +76,11 @@ sealed class ColorInfo : Parcelable {
 
             return color
         }
-
     }
 
     @Parcelize
     private data class ColorInfoInt(@ColorInt private val colorInt: Int) : ColorInfo() {
 
         override fun toColorInt(context: Context): Int = colorInt
-
     }
-
 }

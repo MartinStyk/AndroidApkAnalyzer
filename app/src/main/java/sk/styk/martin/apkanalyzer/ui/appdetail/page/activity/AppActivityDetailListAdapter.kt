@@ -16,7 +16,6 @@ import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 
-
 const val ARROW_ANIMATION_DURATION = 500L
 
 const val ROTATION_STANDARD = 0f
@@ -55,23 +54,22 @@ class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescription
         override val expanded = expandedActivityData.expanded
 
         val labelDetailItemInfo = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.activity_label),
-                value = if (expandedActivityData.activityData.label != null) TextInfo.from(expandedActivityData.activityData.label) else TextInfo.from(R.string.NA),
-                description = TextInfo.from(R.string.activity_label_description)
+            name = TextInfo.from(R.string.activity_label),
+            value = if (expandedActivityData.activityData.label != null) TextInfo.from(expandedActivityData.activityData.label) else TextInfo.from(R.string.NA),
+            description = TextInfo.from(R.string.activity_label_description),
         )
         val parentDetailItemInfo = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.activity_parent),
-                value = if (expandedActivityData.activityData.parentName != null) TextInfo.from(expandedActivityData.activityData.parentName) else TextInfo.from(R.string.NA),
-                description = TextInfo.from(R.string.activity_parent_description)
+            name = TextInfo.from(R.string.activity_parent),
+            value = if (expandedActivityData.activityData.parentName != null) TextInfo.from(expandedActivityData.activityData.parentName) else TextInfo.from(R.string.NA),
+            description = TextInfo.from(R.string.activity_parent_description),
         )
         val permissionDetailItemInfo = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.activity_permission),
-                value = if (expandedActivityData.activityData.permission != null) TextInfo.from(expandedActivityData.activityData.permission) else TextInfo.from(R.string.NA),
-                description = TextInfo.from(R.string.activity_permission_description)
+            name = TextInfo.from(R.string.activity_permission),
+            value = if (expandedActivityData.activityData.permission != null) TextInfo.from(expandedActivityData.activityData.permission) else TextInfo.from(R.string.NA),
+            description = TextInfo.from(R.string.activity_permission_description),
         )
 
         val runButtonVisible = expandedActivityData.activityData.isExported
-
 
         fun onDetailClick(detailInfo: DetailInfoAdapter.DetailInfo) {
             openDescriptionEvent.value = Description.from(detailInfo)
@@ -82,7 +80,7 @@ class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescription
             return true
         }
 
-        fun onTitleLongClick() : Boolean {
+        fun onTitleLongClick(): Boolean {
             copyToClipboardEvent.value = CopyToClipboard(TextInfo.from(expandedActivityData.activityData.name))
             return true
         }
@@ -94,11 +92,10 @@ class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescription
         override fun toggleExpanded(newlyExpanded: Boolean) {
             activityUpdateEvent.value = expandedActivityData.copy(expanded = newlyExpanded)
         }
-
     }
 
     inner class ViewHolder(binding: ListItemActivityDetailBinding) :
-            LazyExpandableViewHolder<ListItemActivityDetailBinding, ListItemActivityDetailExpandedBinding, ActivityDataViewModel>(binding) {
+        LazyExpandableViewHolder<ListItemActivityDetailBinding, ListItemActivityDetailExpandedBinding, ActivityDataViewModel>(binding) {
 
         override fun baseContainer() = baseBinding.container
 
@@ -111,12 +108,13 @@ class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescription
         override fun headerContainer() = baseBinding.headerContainer
     }
 
-    private inner class ActivityDiffCallback(private val newList: List<ExpandedActivityData>,
-                                             private val oldList: List<ExpandedActivityData>) : DiffUtil.Callback() {
+    private inner class ActivityDiffCallback(
+        private val newList: List<ExpandedActivityData>,
+        private val oldList: List<ExpandedActivityData>,
+    ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].activityData == newList[newItemPosition].activityData
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition] == newList[newItemPosition]
     }
-
 }

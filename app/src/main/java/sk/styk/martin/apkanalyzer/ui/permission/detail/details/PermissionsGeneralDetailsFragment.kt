@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.permission.detail.details
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -33,9 +32,9 @@ class PermissionsGeneralDetailsFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = provideViewModel {
             viewModelFactory.create(
-                    provideViewModelOfParentFragment {
-                        parentViewModelFactory.create(requireNotNull(requireArguments().getParcelable(PermissionDetailFragment.ARG_PERMISSIONS_DATA)))
-                    }
+                provideViewModelOfParentFragment {
+                    parentViewModelFactory.create(requireNotNull(requireArguments().getParcelable(PermissionDetailFragment.ARG_PERMISSIONS_DATA)))
+                },
             )
         }
     }
@@ -57,11 +56,10 @@ class PermissionsGeneralDetailsFragment : Fragment() {
             showSnackbar.observe(viewLifecycleOwner) {
                 it.toSnackbar(
                     requireActivity().findViewById(
-                        android.R.id.content
-                    )
+                        android.R.id.content,
+                    ),
                 ).show()
             }
         }
     }
-
 }

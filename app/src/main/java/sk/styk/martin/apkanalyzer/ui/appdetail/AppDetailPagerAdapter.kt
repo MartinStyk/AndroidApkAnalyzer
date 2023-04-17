@@ -15,9 +15,11 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.service.AppServiceDetailFrag
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppDefinedPermissionDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppUsedPermissionDetailFragment
 
-class AppDetailPagerAdapter(val bundle: Bundle,
-                            val context: Context,
-                            fm: FragmentManager) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class AppDetailPagerAdapter(
+    val bundle: Bundle,
+    val context: Context,
+    fm: FragmentManager,
+) : FragmentStatePagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int) = when (position) {
         0 -> AppGeneralDetailFragment()
@@ -37,16 +39,17 @@ class AppDetailPagerAdapter(val bundle: Bundle,
     override fun getCount() = 9
 
     override fun getPageTitle(position: Int): CharSequence = context.resources.getString(
-            when (position) {
-                0 -> R.string.general
-                1 -> R.string.certificate
-                2 -> R.string.used_permissions
-                3 -> R.string.activities
-                4 -> R.string.services
-                5 -> R.string.content_providers
-                6 -> R.string.broadcast_receivers
-                7 -> R.string.features
-                8 -> R.string.defined_permissions
-                else -> throw IllegalArgumentException()
-            })
+        when (position) {
+            0 -> R.string.general
+            1 -> R.string.certificate
+            2 -> R.string.used_permissions
+            3 -> R.string.activities
+            4 -> R.string.services
+            5 -> R.string.content_providers
+            6 -> R.string.broadcast_receivers
+            7 -> R.string.features
+            8 -> R.string.defined_permissions
+            else -> throw IllegalArgumentException()
+        },
+    )
 }

@@ -12,10 +12,10 @@ import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 
 class AppListFromPackageNamesDialogViewModel @AssistedInject constructor(
-        @Assisted packageNames: List<String>,
-        private val installedAppsManager: InstalledAppsManager,
-        private val dispatcherProvider: DispatcherProvider,
-        appListAdapter: AppListAdapter,
+    @Assisted packageNames: List<String>,
+    private val installedAppsManager: InstalledAppsManager,
+    private val dispatcherProvider: DispatcherProvider,
+    appListAdapter: AppListAdapter,
 ) : BaseAppListViewModel(appListAdapter) {
 
     init {
@@ -30,5 +30,4 @@ class AppListFromPackageNamesDialogViewModel @AssistedInject constructor(
     interface Factory {
         fun create(packageNames: List<String>): AppListFromPackageNamesDialogViewModel
     }
-
 }

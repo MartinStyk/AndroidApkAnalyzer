@@ -8,19 +8,20 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
-data class AppDetailData(val analysisMode: AnalysisMode,
-                         val generalData: GeneralData,
-                         val certificateData: CertificateData,
-                         val activityData: List<ActivityData>,
-                         val serviceData: List<ServiceData>,
-                         var contentProviderData: List<ContentProviderData>,
-                         var broadcastReceiverData: List<BroadcastReceiverData>,
-                         var permissionData: PermissionDataAggregate,
-                         var featureData: List<FeatureData>,
+data class AppDetailData(
+    val analysisMode: AnalysisMode,
+    val generalData: GeneralData,
+    val certificateData: CertificateData,
+    val activityData: List<ActivityData>,
+    val serviceData: List<ServiceData>,
+    var contentProviderData: List<ContentProviderData>,
+    var broadcastReceiverData: List<BroadcastReceiverData>,
+    var permissionData: PermissionDataAggregate,
+    var featureData: List<FeatureData>,
 ) : Parcelable {
 
     enum class AnalysisMode {
         INSTALLED_PACKAGE,
-        APK_FILE
+        APK_FILE,
     }
 }

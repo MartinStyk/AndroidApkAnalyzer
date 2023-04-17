@@ -34,7 +34,7 @@ class AppActivityDetailFragment : AppDetailPageFragment<AppActivityDetailFragmen
             runActivity.observe(viewLifecycleOwner) {
                 startForeignActivity(
                     it.packageName,
-                    it.name
+                    it.name,
                 )
             }
         }

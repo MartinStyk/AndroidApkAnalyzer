@@ -3,10 +3,10 @@ package sk.styk.martin.apkanalyzer.manager.appanalysis
 import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
-import java.util.*
+import java.util.Locale
 import javax.inject.Inject
 
-class DigestManager @Inject constructor(){
+class DigestManager @Inject constructor() {
 
     fun md5Digest(input: ByteArray): String {
         val digest = getDigest("Md5")
@@ -48,7 +48,5 @@ class DigestManager @Inject constructor(){
         } catch (e: NoSuchAlgorithmException) {
             throw RuntimeException(e.message, e)
         }
-
     }
-
 }

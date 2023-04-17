@@ -48,14 +48,14 @@ class AppReceiverDetailListAdapter @Inject constructor() : DetailInfoDescription
         override val expanded = expandedReceiverData.expanded
 
         val permission = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.receiver_permission),
-                value = if (expandedReceiverData.receiverData.permission != null) TextInfo.from(expandedReceiverData.receiverData.permission) else TextInfo.from(R.string.none),
-                description = TextInfo.from(R.string.receiver_permission_description)
+            name = TextInfo.from(R.string.receiver_permission),
+            value = if (expandedReceiverData.receiverData.permission != null) TextInfo.from(expandedReceiverData.receiverData.permission) else TextInfo.from(R.string.none),
+            description = TextInfo.from(R.string.receiver_permission_description),
         )
         val exported = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.receiver_exported),
-                value = TextInfo.from(if (expandedReceiverData.receiverData.isExported) R.string.yes else R.string.no),
-                description = TextInfo.from(R.string.receiver_exported_description)
+            name = TextInfo.from(R.string.receiver_exported),
+            value = TextInfo.from(if (expandedReceiverData.receiverData.isExported) R.string.yes else R.string.no),
+            description = TextInfo.from(R.string.receiver_exported_description),
         )
 
         fun onDetailClick(detailInfo: DetailInfoAdapter.DetailInfo) {
@@ -75,11 +75,10 @@ class AppReceiverDetailListAdapter @Inject constructor() : DetailInfoDescription
         override fun toggleExpanded(newlyExpanded: Boolean) {
             receiverUpdateEvent.value = expandedReceiverData.copy(expanded = newlyExpanded)
         }
-
     }
 
     inner class ViewHolder(binding: ListItemReceiverDetailBinding) :
-            LazyExpandableViewHolder<ListItemReceiverDetailBinding, ListItemReceiverDetailExpandedBinding, ReceiverDataViewModel>(binding) {
+        LazyExpandableViewHolder<ListItemReceiverDetailBinding, ListItemReceiverDetailExpandedBinding, ReceiverDataViewModel>(binding) {
 
         override fun baseContainer() = baseBinding.container
 
@@ -92,12 +91,13 @@ class AppReceiverDetailListAdapter @Inject constructor() : DetailInfoDescription
         override fun headerContainer() = baseBinding.headerContainer
     }
 
-    private inner class ReceiverDiffCallback(private val newList: List<ExpandedBroadcastReceiverData>,
-                                             private val oldList: List<ExpandedBroadcastReceiverData>) : DiffUtil.Callback() {
+    private inner class ReceiverDiffCallback(
+        private val newList: List<ExpandedBroadcastReceiverData>,
+        private val oldList: List<ExpandedBroadcastReceiverData>,
+    ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].receiverData == newList[newItemPosition].receiverData
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition] == newList[newItemPosition]
     }
-
 }

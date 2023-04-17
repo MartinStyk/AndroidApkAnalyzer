@@ -48,24 +48,24 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
         override val expanded = expandedProviderData.expanded
 
         val authority = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.provider_authority),
-                value = if (expandedProviderData.contentProviderData.authority != null) TextInfo.from(expandedProviderData.contentProviderData.authority) else TextInfo.from(R.string.none),
-                description = TextInfo.from(R.string.provider_authority_description)
+            name = TextInfo.from(R.string.provider_authority),
+            value = if (expandedProviderData.contentProviderData.authority != null) TextInfo.from(expandedProviderData.contentProviderData.authority) else TextInfo.from(R.string.none),
+            description = TextInfo.from(R.string.provider_authority_description),
         )
         val readPermission = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.provider_read_permission),
-                value = if (expandedProviderData.contentProviderData.readPermission != null) TextInfo.from(expandedProviderData.contentProviderData.readPermission) else TextInfo.from(R.string.none),
-                description = TextInfo.from(R.string.provider_read_permission_description)
+            name = TextInfo.from(R.string.provider_read_permission),
+            value = if (expandedProviderData.contentProviderData.readPermission != null) TextInfo.from(expandedProviderData.contentProviderData.readPermission) else TextInfo.from(R.string.none),
+            description = TextInfo.from(R.string.provider_read_permission_description),
         )
         val writePermission = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.provider_write_permission),
-                value = if (expandedProviderData.contentProviderData.writePermission != null) TextInfo.from(expandedProviderData.contentProviderData.writePermission) else TextInfo.from(R.string.none),
-                description = TextInfo.from(R.string.provider_write_permission_description)
+            name = TextInfo.from(R.string.provider_write_permission),
+            value = if (expandedProviderData.contentProviderData.writePermission != null) TextInfo.from(expandedProviderData.contentProviderData.writePermission) else TextInfo.from(R.string.none),
+            description = TextInfo.from(R.string.provider_write_permission_description),
         )
         val exported = DetailInfoAdapter.DetailInfo(
-                name = TextInfo.from(R.string.provider_exported),
-                value = TextInfo.from(if (expandedProviderData.contentProviderData.isExported) R.string.yes else R.string.no),
-                description = TextInfo.from(R.string.provider_exported_description)
+            name = TextInfo.from(R.string.provider_exported),
+            value = TextInfo.from(if (expandedProviderData.contentProviderData.isExported) R.string.yes else R.string.no),
+            description = TextInfo.from(R.string.provider_exported_description),
         )
 
         fun onDetailClick(detailInfo: DetailInfoAdapter.DetailInfo) {
@@ -77,7 +77,7 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
             return true
         }
 
-        fun onTitleLongClick() : Boolean {
+        fun onTitleLongClick(): Boolean {
             copyToClipboardEvent.value = CopyToClipboard(TextInfo.from(expandedProviderData.contentProviderData.name))
             return true
         }
@@ -88,7 +88,7 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
     }
 
     inner class ViewHolder(binding: ListItemProviderDetailBinding) :
-            LazyExpandableViewHolder<ListItemProviderDetailBinding, ListItemProviderDetailExpandedBinding, ProviderDataViewModel>(binding) {
+        LazyExpandableViewHolder<ListItemProviderDetailBinding, ListItemProviderDetailExpandedBinding, ProviderDataViewModel>(binding) {
 
         override fun baseContainer() = baseBinding.container
 
@@ -101,12 +101,13 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
         override fun headerContainer() = baseBinding.headerContainer
     }
 
-    private inner class ProviderDiffCallback(private val newList: List<ExpandedContentProviderData>,
-                                             private val oldList: List<ExpandedContentProviderData>) : DiffUtil.Callback() {
+    private inner class ProviderDiffCallback(
+        private val newList: List<ExpandedContentProviderData>,
+        private val oldList: List<ExpandedContentProviderData>,
+    ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].contentProviderData == newList[newItemPosition].contentProviderData
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition] == newList[newItemPosition]
     }
-
 }

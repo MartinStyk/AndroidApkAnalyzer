@@ -30,9 +30,8 @@ class PremiumFragment : Fragment() {
         viewModel.openGooglePlay.observe(viewLifecycleOwner) {
             AppOperations.openGooglePlay(
                 requireContext(),
-                it
+                it,
             )
         }
     }
-
 }

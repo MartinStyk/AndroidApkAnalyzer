@@ -43,7 +43,7 @@ abstract class LazyExpandableViewHolder<BaseBinding : ViewDataBinding, ExpandBin
         toggleArrow().rotation = if (isExpanded) ROTATION_FLIPPED else ROTATION_STANDARD
     }
 
-    private fun onExpandedClickBase(viewModel: ViewModel) : Boolean{
+    private fun onExpandedClickBase(viewModel: ViewModel): Boolean {
         inflateExpandedIfNeeded(viewModel)
         val newlyExpanded = !expandableContainer().isExpanded
         expandableContainer().isExpanded = newlyExpanded
@@ -58,5 +58,4 @@ abstract class LazyExpandableViewHolder<BaseBinding : ViewDataBinding, ExpandBin
             viewModel.toggleExpanded(onExpandedClickBase(viewModel))
         }
     }
-
 }

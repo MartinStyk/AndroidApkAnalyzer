@@ -4,7 +4,6 @@ import androidx.lifecycle.LifecycleOwner
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
@@ -12,9 +11,9 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewMod
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.provider.AppReceiverDetailListAdapter
 
 class AppReceiverDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        private val receiverAdapter: AppReceiverDetailListAdapter,
-        clipBoardManager: ClipBoardManager,
+    @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+    private val receiverAdapter: AppReceiverDetailListAdapter,
+    clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, receiverAdapter, clipBoardManager) {
 
     private var receiverData: MutableList<AppReceiverDetailListAdapter.ExpandedBroadcastReceiverData> = mutableListOf()
@@ -30,19 +29,17 @@ class AppReceiverDetailFragmentViewModel @AssistedInject constructor(
         }
     }
 
-
     override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         receiverData = appDetailData.broadcastReceiverData.map { AppReceiverDetailListAdapter.ExpandedBroadcastReceiverData(it, false) }.toMutableList()
         return appDetailData.broadcastReceiverData.isNotEmpty()
     }
 
     private fun updateLocalData(editedExpandedReceiverData: AppReceiverDetailListAdapter.ExpandedBroadcastReceiverData) {
-        receiverData[receiverData.indexOfFirst { it.receiverData == editedExpandedReceiverData.receiverData}] = editedExpandedReceiverData
+        receiverData[receiverData.indexOfFirst { it.receiverData == editedExpandedReceiverData.receiverData }] = editedExpandedReceiverData
     }
 
     @AssistedFactory
     interface Factory {
         fun create(appDetailFragmentViewModel: AppDetailFragmentViewModel): AppReceiverDetailFragmentViewModel
     }
-
 }

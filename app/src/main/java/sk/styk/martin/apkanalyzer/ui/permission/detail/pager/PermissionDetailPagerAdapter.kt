@@ -12,9 +12,11 @@ private const val GENERAL_DETAILS_PAGE = 0
 private const val GRANTED_APPS_PAGE = 1
 private const val NOT_GRANTED_APPS_PAGE = 2
 
-class PermissionDetailPagerAdapter(val bundle: Bundle,
-                                   val context: Context,
-                                   fm: FragmentManager) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
+class PermissionDetailPagerAdapter(
+    val bundle: Bundle,
+    val context: Context,
+    fm: FragmentManager,
+) : FragmentPagerAdapter(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
     override fun getItem(position: Int) = when (position) {
         GENERAL_DETAILS_PAGE -> PermissionsGeneralDetailsFragment()

@@ -21,15 +21,18 @@ import javax.inject.Inject
 private const val SUBDIRECTORY = "ApkAnalyzer"
 
 class DrawableSaveManager @Inject constructor(
-        private val contentResolver: ContentResolver,
-        private val mediaManager: MediaManager,
-        private val dispatcherProvider: DispatcherProvider) {
+    private val contentResolver: ContentResolver,
+    private val mediaManager: MediaManager,
+    private val dispatcherProvider: DispatcherProvider,
+) {
 
-    suspend fun saveDrawable(drawable: Drawable,
-                             fileName: String,
-                             mimeType: String,
-                             directory: String = Environment.DIRECTORY_PICTURES,
-                             mediaContentUri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI): Uri = withContext(dispatcherProvider.io()) {
+    suspend fun saveDrawable(
+        drawable: Drawable,
+        fileName: String,
+        mimeType: String,
+        directory: String = Environment.DIRECTORY_PICTURES,
+        mediaContentUri: Uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+    ): Uri = withContext(dispatcherProvider.io()) {
         val bitmap = drawable.toBitmap()
 
         return@withContext if (hasScopedStorage()) {
@@ -57,7 +60,6 @@ class DrawableSaveManager @Inject constructor(
             imageFile.toUri()
         }
     }
-
 
     private fun save(stream: OutputStream, bitmap: Bitmap) = stream.use {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, it)

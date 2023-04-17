@@ -6,7 +6,6 @@ import sk.styk.martin.apkanalyzer.model.detail.FileEntry
 import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
 import timber.log.Timber
 import java.io.IOException
-import java.util.*
 import java.util.jar.Attributes
 import java.util.jar.JarFile
 import java.util.jar.Manifest
@@ -16,7 +15,6 @@ import kotlin.collections.Map.Entry
 class FileDataManager @Inject constructor() {
 
     fun get(packageInfo: PackageInfo): FileData {
-
         val mf = openManifest(packageInfo) ?: return FileData()
 
         val drawables = ArrayList<FileEntry>()
@@ -65,17 +63,17 @@ class FileDataManager @Inject constructor() {
         }
 
         return FileData(
-                dexHash = dexHash ?: "",
-                arscHash = arscHash ?: "",
-                manifestHash = manifestHash ?: "",
-                drawableHashes = drawables,
-                layoutHashes = layouts,
-                menuHashes = menus,
-                otherHashes = others,
-                numberPngs = numberPngs,
-                numberPngsWithDifferentName = pngsSet.size,
-                numberXmls = numberXmls,
-                numberXmlsWithDifferentName = xmlsSet.size
+            dexHash = dexHash ?: "",
+            arscHash = arscHash ?: "",
+            manifestHash = manifestHash ?: "",
+            drawableHashes = drawables,
+            layoutHashes = layouts,
+            menuHashes = menus,
+            otherHashes = others,
+            numberPngs = numberPngs,
+            numberPngsWithDifferentName = pngsSet.size,
+            numberXmls = numberXmls,
+            numberXmlsWithDifferentName = xmlsSet.size,
         )
     }
 
@@ -86,8 +84,9 @@ class FileDataManager @Inject constructor() {
      * @return all entries on manifest file or null, manifest is not found
      */
     private fun openManifest(packageInfo: PackageInfo): Manifest? {
-        if (packageInfo.applicationInfo == null || packageInfo.applicationInfo.sourceDir == null)
+        if (packageInfo.applicationInfo == null || packageInfo.applicationInfo.sourceDir == null) {
             return null
+        }
 
         var jar: JarFile? = null
         try {

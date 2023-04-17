@@ -9,13 +9,9 @@ enum class FragmentTag(val tag: String) {
     Premium("Premium"),
     AppDetailParent("AppDetailParent"),
     PermissionDetail("PermissionDetail"),
-    Manifest("Manifest");
+    Manifest("Manifest"),
+}
 
-    fun isTag(stringTag: String?) = tag == stringTag
-
-    companion object {
-        fun fromString(stringTag: String?): FragmentTag? {
-            return values().firstOrNull { it.isTag(stringTag) }
-        }
-    }
+fun String.toFragmentTag(): FragmentTag? {
+    return FragmentTag.values().firstOrNull { it.tag == this }
 }

@@ -17,8 +17,8 @@ import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import timber.log.Timber
 
 class PermissionDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted val localPermissionData: LocalPermissionData,
-        private val packageManager: PackageManager,
+    @Assisted val localPermissionData: LocalPermissionData,
+    private val packageManager: PackageManager,
 ) : ViewModel(), Toolbar.OnMenuItemClickListener {
 
     val title = localPermissionData.permissionData.simpleName
@@ -45,13 +45,13 @@ class PermissionDetailFragmentViewModel @AssistedInject constructor(
             Timber.tag(TAG_APP_ANALYSIS).i("No description for permission ${localPermissionData.permissionData.name}")
             null
         }?.takeIf { it.isNotBlank() }
-                ?.let { TextInfo.from(it) }
-                ?: TextInfo.from(R.string.NA)
+            ?.let { TextInfo.from(it) }
+            ?: TextInfo.from(R.string.NA)
 
         showDialogEvent.value = DialogComponent(
-                title = TextInfo.from(localPermissionData.permissionData.simpleName),
-                message = description,
-                negativeButtonText = TextInfo.from(R.string.dismiss)
+            title = TextInfo.from(localPermissionData.permissionData.simpleName),
+            message = description,
+            negativeButtonText = TextInfo.from(R.string.dismiss),
         )
     }
 
@@ -59,5 +59,4 @@ class PermissionDetailFragmentViewModel @AssistedInject constructor(
     interface Factory {
         fun create(localPermissionData: LocalPermissionData): PermissionDetailFragmentViewModel
     }
-
 }

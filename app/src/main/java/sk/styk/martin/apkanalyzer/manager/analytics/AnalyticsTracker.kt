@@ -8,7 +8,7 @@ private const val APP_ACTION = "apk-action"
 
 class AnalyticsTracker @Inject constructor(private val firebaseAnalytics: FirebaseAnalytics) {
 
-    enum class AppAction(val trackingId: String){
+    enum class AppAction(val trackingId: String) {
         SHOW_MANIFEST("show-manifest"),
         EXPORT_APK("export-apk"),
         SAVE_ICON("save-icon"),
@@ -32,5 +32,4 @@ class AnalyticsTracker @Inject constructor(private val firebaseAnalytics: Fireba
         }
         firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SCREEN_VIEW, bundle)
     }
-
 }

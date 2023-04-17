@@ -10,7 +10,6 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.views.toolbar.NavigationIconState
 
-
 @BindingAdapter("navigationIconState")
 fun Toolbar.navigationIconState(iconState: NavigationIconState) {
     navigationIcon = when (iconState) {

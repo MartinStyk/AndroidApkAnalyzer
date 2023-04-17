@@ -60,8 +60,7 @@ abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDIN
 
     protected fun parentViewModel() = provideViewModelOfParentFragment {
         parentViewModelFactory.create(
-                requireNotNull(requireArguments().getParcelable(APP_DETAIL_REQUEST))
+            requireNotNull(requireArguments().getParcelable(APP_DETAIL_REQUEST)),
         )
     }
-
 }

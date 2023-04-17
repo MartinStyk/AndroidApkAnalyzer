@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.applist
 
-
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -28,15 +27,15 @@ abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
         reenterTransition = MaterialElevationScale(true)
         fragmentManager().beginTransaction().apply {
             appListClickData.view.get()?.let { addSharedElement(it, getString(R.string.transition_app_detail)) }
-        }.replace(R.id.container,
-                AppDetailFragment.newInstance(AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName)),
-                FragmentTag.AppDetailParent.tag
+        }.replace(
+            R.id.container,
+            AppDetailFragment.newInstance(AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName)),
+            FragmentTag.AppDetailParent.tag,
         )
-                .setReorderingAllowed(true)
-                .addToBackStack(FragmentTag.AppDetailParent.tag)
-                .commit()
+            .setReorderingAllowed(true)
+            .addToBackStack(FragmentTag.AppDetailParent.tag)
+            .commit()
     }
 
     protected open fun fragmentManager() = parentFragmentManager
-
 }

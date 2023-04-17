@@ -8,13 +8,17 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
 import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
-import java.io.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.PrintWriter
 import javax.inject.Inject
 
 class FileManager @Inject constructor(
     @ApplicationContext private val context: Context,
     private val contentResolver: ContentResolver,
-    private val dispatcherProvider: DispatcherProvider
+    private val dispatcherProvider: DispatcherProvider,
 ) {
 
     private val cacheDirectory by lazy { context.cacheDir }
@@ -59,5 +63,4 @@ class FileManager @Inject constructor(
         }
         delay(500)
     }
-
 }

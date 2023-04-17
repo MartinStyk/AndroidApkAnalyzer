@@ -6,5 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
 @Parcelize
-data class FeatureData(val name: String,
-                       val isRequired: Boolean = false) : Parcelable
+data class FeatureData(
+    val name: String,
+    val isRequired: Boolean = false,
+) : Parcelable

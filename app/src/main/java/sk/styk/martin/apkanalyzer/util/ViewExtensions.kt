@@ -25,6 +25,6 @@ fun View.hideKeyboard() {
     }
 }
 
-fun View.isNightMode() : Boolean {
+fun View.isNightMode(): Boolean {
     return resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 }

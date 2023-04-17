@@ -9,12 +9,12 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 
 class AppFeatureDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        private val featureAdapter: AppFeatureDetailListAdapter,
-        clipBoardManager: ClipBoardManager,
+    @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+    private val featureAdapter: AppFeatureDetailListAdapter,
+    clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, featureAdapter, clipBoardManager) {
 
-    override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
+    override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         featureAdapter.items = appDetailData.featureData
         return appDetailData.featureData.isNotEmpty()
     }

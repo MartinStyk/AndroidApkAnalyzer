@@ -42,9 +42,8 @@ class AboutFragment : Fragment() {
         viewModel.openGooglePlay.observe(viewLifecycleOwner) {
             AppOperations.openGooglePlay(
                 requireContext(),
-                requireContext().packageName
+                requireContext().packageName,
             )
         }
     }
-
 }

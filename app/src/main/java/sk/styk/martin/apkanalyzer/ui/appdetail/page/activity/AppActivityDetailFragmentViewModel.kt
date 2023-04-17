@@ -10,9 +10,9 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 
 class AppActivityDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        val activityAdapter: AppActivityDetailListAdapter,
-        clipBoardManager: ClipBoardManager,
+    @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+    val activityAdapter: AppActivityDetailListAdapter,
+    clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, activityAdapter, clipBoardManager) {
 
     val runActivity = activityAdapter.runActivity

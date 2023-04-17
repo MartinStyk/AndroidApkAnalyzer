@@ -21,11 +21,11 @@ import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
 class AppDefinedPermissionFragmentViewModel @AssistedInject constructor(
-        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        val permissionAdapter: AppPermissionListAdapter,
-        clipBoardManager: ClipBoardManager,
-        private val dispatcherProvider: DispatcherProvider,
-        private val packageManager: PackageManager,
+    @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+    val permissionAdapter: AppPermissionListAdapter,
+    clipBoardManager: ClipBoardManager,
+    private val dispatcherProvider: DispatcherProvider,
+    private val packageManager: PackageManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, permissionAdapter, clipBoardManager) {
 
     private val showDialogEvent = SingleLiveEvent<DialogComponent>()
@@ -51,18 +51,17 @@ class AppDefinedPermissionFragmentViewModel @AssistedInject constructor(
             } catch (e: PackageManager.NameNotFoundException) {
                 null
             }?.takeIf { it.isNotBlank() }
-                    ?.let { TextInfo.from(it) }
-                    ?: TextInfo.from(R.string.NA)
+                ?.let { TextInfo.from(it) }
+                ?: TextInfo.from(R.string.NA)
 
             openDescription
 
             showDialogEvent.value = DialogComponent(
-                    title = TextInfo.from(AppPermissionManager.createSimpleName(it)),
-                    message = description,
-                    negativeButtonText = TextInfo.from(R.string.dismiss)
+                title = TextInfo.from(AppPermissionManager.createSimpleName(it)),
+                message = description,
+                negativeButtonText = TextInfo.from(R.string.dismiss),
             )
         }
-
     }
 
     @AssistedFactory

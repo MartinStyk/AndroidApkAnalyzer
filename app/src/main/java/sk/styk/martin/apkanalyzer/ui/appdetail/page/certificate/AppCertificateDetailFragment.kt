@@ -23,6 +23,4 @@ class AppCertificateDetailFragment : AppDetailPageFragment<AppCertificateDetails
     override fun createFragmentBinding(inflater: LayoutInflater, container: ViewGroup?): FragmentAppDetailPageBinding {
         return FragmentAppDetailPageBinding.inflate(inflater, container, false)
     }
-
 }
-

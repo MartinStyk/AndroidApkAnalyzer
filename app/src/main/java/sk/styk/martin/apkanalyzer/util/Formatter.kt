@@ -11,5 +11,4 @@ class Formatter @Inject constructor(@ApplicationContext val context: Context) {
     fun formatShortFileSize(size: Long): String = AndroidFormatter.formatShortFileSize(context, size)
 
     fun formatDateTime(millis: Long, flags: Int): String = DateUtils.formatDateTime(context, millis, flags)
-
 }

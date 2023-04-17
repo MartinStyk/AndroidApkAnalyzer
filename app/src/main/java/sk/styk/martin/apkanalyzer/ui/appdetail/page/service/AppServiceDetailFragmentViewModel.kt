@@ -10,9 +10,9 @@ import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 
 class AppServiceDetailFragmentViewModel @AssistedInject constructor(
-        @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
-        private val serviceAdapter: AppServiceDetailListAdapter,
-        clipBoardManager: ClipBoardManager,
+    @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
+    private val serviceAdapter: AppServiceDetailListAdapter,
+    clipBoardManager: ClipBoardManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, serviceAdapter, clipBoardManager) {
 
     private var serviceData: MutableList<AppServiceDetailListAdapter.ExpandedServiceData> = mutableListOf()
@@ -28,14 +28,13 @@ class AppServiceDetailFragmentViewModel @AssistedInject constructor(
         }
     }
 
-    override fun onDataReceived(appDetailData: AppDetailData) : Boolean {
+    override fun onDataReceived(appDetailData: AppDetailData): Boolean {
         serviceData = appDetailData.serviceData.map { AppServiceDetailListAdapter.ExpandedServiceData(it, false) }.toMutableList()
         return appDetailData.serviceData.isNotEmpty()
     }
 
-
     private fun updateLocalData(editedExpandedServiceData: AppServiceDetailListAdapter.ExpandedServiceData) {
-        serviceData[serviceData.indexOfFirst { it.serviceData == editedExpandedServiceData.serviceData}] = editedExpandedServiceData
+        serviceData[serviceData.indexOfFirst { it.serviceData == editedExpandedServiceData.serviceData }] = editedExpandedServiceData
     }
 
     @AssistedFactory

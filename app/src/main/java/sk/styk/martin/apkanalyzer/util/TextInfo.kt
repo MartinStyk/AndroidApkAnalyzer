@@ -5,12 +5,14 @@ import android.os.Parcelable
 import androidx.annotation.StringRes
 import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
-import java.util.*
+import java.util.IllegalFormatConversionException
+import java.util.MissingFormatArgumentException
 
 @Parcelize
-data class TextInfo internal constructor(@StringRes private val stringResource: Int = 0,
-                                          private val textData: @RawValue Array<out Any>) : Parcelable {
-
+data class TextInfo internal constructor(
+    @StringRes private val stringResource: Int = 0,
+    private val textData: @RawValue Array<out Any>,
+) : Parcelable {
 
     companion object {
 
@@ -31,7 +33,6 @@ data class TextInfo internal constructor(@StringRes private val stringResource: 
         }
     }
 
-
     fun getText(context: Context): CharSequence {
         val text = if (stringResource == 0) "" else context.getString(stringResource)
         textData.takeIf { it.isNotEmpty() }?.let {
@@ -39,13 +40,11 @@ data class TextInfo internal constructor(@StringRes private val stringResource: 
                 val list = arrayListOf<Any>()
                 it.mapTo(list) { (it as? TextInfo)?.getText(context) ?: it }
                 return String.format(text.ifEmpty { "%s" }, *list.toArray())
-
-            } catch (illegalFormatException: IllegalFormatConversionException) {
-            } catch (missingArgumentException: MissingFormatArgumentException) {
+            } catch (_: IllegalFormatConversionException) {
+            } catch (_: MissingFormatArgumentException) {
             }
         }
 
         return text
     }
-
 }

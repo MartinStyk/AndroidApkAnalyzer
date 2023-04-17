@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PremiumFragmentViewModel @Inject constructor(
-        private val navigationDrawerModel: NavigationDrawerModel,
-        private val resourcesManager: ResourcesManager,
+    private val navigationDrawerModel: NavigationDrawerModel,
+    private val resourcesManager: ResourcesManager,
 ) : ViewModel() {
 
     private val openGooglePlayEvent = SingleLiveEvent<String>()
@@ -27,5 +27,4 @@ class PremiumFragmentViewModel @Inject constructor(
     fun onNavigationClick() = viewModelScope.launch {
         navigationDrawerModel.openDrawer()
     }
-
 }
