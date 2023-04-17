@@ -7,7 +7,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.getColorOrThrow
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import sk.styk.martin.apkanalyzer.R
 
 sealed class ColorInfo : Parcelable {

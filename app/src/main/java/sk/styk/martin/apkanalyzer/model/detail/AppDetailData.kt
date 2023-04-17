@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.model.detail
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Class holding basic application metadata used in application detail view

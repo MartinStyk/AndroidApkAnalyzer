@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.ui.appdetail
 
 import android.net.Uri
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 sealed class AppDetailRequest : Parcelable {
     @Parcelize

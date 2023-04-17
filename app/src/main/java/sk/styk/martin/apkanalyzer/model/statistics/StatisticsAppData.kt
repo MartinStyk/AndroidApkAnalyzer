@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.model.statistics
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import sk.styk.martin.apkanalyzer.model.detail.AppSource
 
 @SuppressLint("ParcelCreator")

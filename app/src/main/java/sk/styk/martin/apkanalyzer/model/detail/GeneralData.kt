@@ -3,8 +3,8 @@ package sk.styk.martin.apkanalyzer.model.detail
 import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Parcelable
-import kotlinx.android.parcel.IgnoredOnParcel
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.IgnoredOnParcel
+import kotlinx.parcelize.Parcelize
 import sk.styk.martin.apkanalyzer.model.InstallLocation
 
 @SuppressLint("ParcelCreator")

@@ -3,7 +3,7 @@ package sk.styk.martin.apkanalyzer.model.detail
 import android.annotation.SuppressLint
 import android.content.pm.PermissionInfo
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import sk.styk.martin.apkanalyzer.manager.appanalysis.AppPermissionManager
 
 @SuppressLint("ParcelCreator")
