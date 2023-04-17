@@ -60,6 +60,7 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 crashlytics = "com.google.firebase.crashlytics:2.9.2"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
 google-services = "com.google.gms.google-services:4.3.14"
+spotless = "com.diffplug.spotless:6.16.0"
 
 [bundles]
 lifecycle = ["lifecycle-livedata-ktx", "lifecycle-viewmodel-ktx", "lifecycle-common-java8", "lifecycle-extensions"]

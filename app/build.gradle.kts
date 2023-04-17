@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.crashlytics)
     alias(libs.plugins.firebase.perf)
+    alias(libs.plugins.spotless)
     id("kotlin-parcelize")
     kotlin("kapt")
 }
@@ -66,6 +67,14 @@ android {
     }
     lint {
         disable += "MissingTranslation"
+    }
+    spotless {
+        kotlin {
+            target("**/*.kt")
+            targetExclude("$buildDir/**/*.kt")
+            targetExclude("bin/**/*.kt")
+            ktlint("0.48.2")
+        }
     }
 }
 

@@ -7,4 +7,5 @@ plugins {
     alias(libs.plugins.google.services) apply false
     alias(libs.plugins.crashlytics) apply false
     alias(libs.plugins.firebase.perf) apply false
+    alias(libs.plugins.spotless) apply false
 }
