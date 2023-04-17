@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.crashlytics)
     alias(libs.plugins.firebase.perf)
     alias(libs.plugins.spotless)
+    alias(libs.plugins.dependency.updates)
     id("kotlin-parcelize")
     kotlin("kapt")
 }

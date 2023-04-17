@@ -1,12 +1,12 @@
 [versions]
-kotlin = "1.7.20"
+kotlin = "1.8.20"
 gradle-plugin = "7.4.1"
-hilt = "2.44"
+hilt = "2.45"
 lifecycle = "2.5.1"
 coroutines = "1.6.4"
 androidx-appcompat = "1.5.1"
 material = "1.7.0"
-glide = "4.12.0"
+glide = "4.15.1"
 
 [libraries]
 koltin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -24,7 +24,7 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 androidx-legacy = "androidx.legacy:legacy-support-v4:1.0.0"
 androidx-multidex = "androidx.multidex:multidex:2.0.1"
 
-fragment-ktx = "androidx.fragment:fragment-ktx:1.5.3"
+fragment-ktx = "androidx.fragment:fragment-ktx:1.5.6"
 preference-ktx = "androidx.preference:preference-ktx:1.2.0"
 palette-ktx = "androidx.palette:palette-ktx:1.0.0"
 
@@ -46,7 +46,7 @@ google-play-core-ktx = "com.google.android.play:core-ktx:1.8.1"
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 
-firebase-bom = "com.google.firebase:firebase-bom:27.0.0"
+firebase-bom = "com.google.firebase:firebase-bom:31.5.0"
 
 leakcannary = "com.squareup.leakcanary:leakcanary-android:2.9.1"
 junit = "junit:junit:4.13.2"
@@ -61,6 +61,7 @@ crashlytics = "com.google.firebase.crashlytics:2.9.2"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
 google-services = "com.google.gms.google-services:4.3.14"
 spotless = "com.diffplug.spotless:6.16.0"
+dependency-updates = "com.github.ben-manes.versions:0.46.0"
 
 [bundles]
 lifecycle = ["lifecycle-livedata-ktx", "lifecycle-viewmodel-ktx", "lifecycle-common-java8", "lifecycle-extensions"]
