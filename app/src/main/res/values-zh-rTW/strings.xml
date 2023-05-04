@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Apk 分析儀</string>
+    <string name="app_github">開放原始碼位於 <a href="https://github.com/MartinStyk/AndroidApkAnalyzer">GitHub</a></string>
+    <string name="app_privacy_policy">使用本應用程式即表示您同意我們的<a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">隱私權政策</a>。</string>
+    <string name="app_rate">評價應用程式</string>
+    <string name="app_dependencies">技術關聯：
+\ncom.github.PhilJay:MPAndroidChart、com.pddstudio:highlightjs-android、com.github.apl-devs:appintro</string>
+
+    <string name="action_search">搜尋</string>
+    <string name="action_filter">篩選器</string>
+    <string name="action_save">儲存</string>
+    <string name="action_show">顯示</string>
+    <string name="action_expand_all">展開全部</string>
+    <string name="action_collapse_all">收合全部</string>
+    <string name="action_analyze_apk_from_file">分析檔案中的 APK</string>
+    <string name="title_item_detail">項目資訊</string>
+    <string name="title_intro">介紹</string>
+    <string name="loading">正在載入…</string>
+    <string name="loading_failed">載入失敗</string>
+    <string name="error_loading_package_detail">無法載入 APK 資訊</string>
+    <string name="no_data">沒有任何資料</string>
+    <string name="yes">是</string>
+    <string name="no">否</string>
+    <string name="NA">無資料</string>
+    <string name="none">無</string>
+    <string name="dismiss">離開</string>
+    <string name="close">關閉</string>
+    <string name="permission_not_granted">未授予權限</string>
+    <string name="activity_not_found_browsing">找不到檔案管理應用程式</string>
+    <string name="activity_not_found_image">找不到影像瀏覽應用程式</string>
+    <string name="activity_not_found_doc">找不到文件檢視應用程式</string>
+
+    <string name="nav_application_list">應用程式</string>
+    <string name="nav_statistics">統計</string>
+    <string name="nav_permissions">權限</string>
+    <string name="nav_settings">設定</string>
+    <string name="nav_about">關於</string>
+
+    <string name="apps">應用程式</string>
+    <string name="all_apps">所有應用程式</string>
+    <string name="system_apps">系統應用程式</string>
+    <string name="app_list_empty">未安裝任何應用程式</string>
+    <string name="app_filtering_active">篩選器已啟用</string>
+    <string name="clear">清除</string>
+    <string name="google_play">Google Play</string>
+    <string name="amazon_store">Amazon 商店</string>
+    <string name="system_pre_installed">系統內建</string>
+    <string name="unknown_source">未知來源</string>
+
+    <string name="intro_analyze_apps">分析應用程式</string>
+    <string name="intro_analyze_apps_description">檢視已安裝應用程式的詳細報告，也能分析儲存空間中尚未安裝的 APK 檔案。
+\n讀取應用程式中繼資料、資訊清單或匯出 APK 到裝置上。</string>
+    <string name="intro_statistics">統計資料</string>
+    <string name="intro_statistics_description">檢視平均活動量、權限或各個 Android 版本的憑證分布。</string>
+    <string name="intro_permissions">瀏覽權限</string>
+    <string name="intro_permissions_description">檢視您的應用程式所使用的權限，找出哪些已被授予權限。</string>
+
+    <string name="general">一般</string>
+    <string name="certificate">憑證</string>
+    <string name="activities">活動</string>
+    <string name="services">服務</string>
+    <string name="content_providers">內容提供者</string>
+    <string name="broadcast_receivers">廣播接收器</string>
+    <string name="used_permissions">使用權限</string>
+    <string name="defined_permissions">限定權限</string>
+    <string name="features">特殊功能</string>
+    <string name="permissions">權限</string>
+
+    <string name="install_loc_auto">自動</string>
+    <string name="install_loc_internal_only">僅限內部儲存空間</string>
+    <string name="install_loc_prefer_external">外部儲存空間優先</string>
+
+
+    <string name="application_name">應用程式名稱</string>
+    <string name="package_name">套件名稱</string>
+    <string name="process_name">處理程序名稱</string>
+    <string name="version_name">版本名稱</string>
+    <string name="version_code">版本代碼</string>
+    <string name="system_application">系統應用程式</string>
+    <string name="uid">UID</string>
+    <string name="description">簡介</string>
+    <string name="app_source">應用程式來源</string>
+    <string name="app_installer">安裝程式</string>
+    <string name="target_sdk">目標 SDK</string>
+    <string name="target_version">目標版本</string>
+    <string name="min_sdk">最低 SDK</string>
+    <string name="min_version">最低版本</string>
+    <string name="apk_directory">Apk 路徑</string>
+    <string name="data_directory">資料路徑</string>
+    <string name="install_loc">安裝位置</string>
+    <string name="apk_size">Apk 大小</string>
+    <string name="first_install">首次安裝</string>
+    <string name="last_update">最後更新</string>
+
+    <string name="copy_apk">匯出 APK</string>
+    <string name="app_save_channel">應用程式儲存位置</string>
+    <string name="saving_app">正在儲存應用程式 %s…</string>
+    <string name="saved_app">已儲存應用程式 %s</string>
+    <string name="app_export_failed">匯出應用程式失敗</string>
+    <string name="app_icon_saved">已儲存 %s 的圖示</string>
+    <string name="icon_saved">已儲存圖示</string>
+    <string name="icon_export_failed">匯出圖示失敗</string>
+    <string name="icon_save_channel">圖示儲存位置</string>
+
+    <string name="show_manifest">檢視 AndroidManifest.xml</string>
+    <string name="manifest_saved">已儲存 %s 的資訊清單</string>
+    <string name="save_manifest_background_notification_title_done">已儲存 %s 的資訊清單</string>
+    <string name="save_manifest_fail">無法載入資訊清單</string>
+    <string name="can_not_save_manifest">無法儲存資訊清單</string>
+    <string name="manifest_save_channel">資訊清單儲存位置</string>
+    <string name="show_app_system_page">應用程式資訊</string>
+    <string name="show_app_google_play">Google Play 頁面</string>
+    <string name="save_icon">儲存圖示</string>
+    <string name="install_failed">Apk 分析儀無法安裝您的 APK，請手動進行。</string>
+    <string name="install_app">安裝 APK</string>
+    <string name="copied_to_clipboard">已複製到剪貼簿</string>
+    <string name="show_apps">顯示 %1$d 個應用程式</string>
+
+    <string name="app_icon">應用程式圖示</string>
+
+
+    <string name="application_name_description">向使用者展示的應用程式名稱。
+\nAndroid 內部則使用套件名稱識別每個應用程式。</string>
+
+    <string name="package_name_description">套件名稱，來自 Android 資訊清單中的 name。
+\n用於識別每個應用程式。
+\n亦是應用程式預設的處理程序及相關活動名稱。</string>
+
+    <string name="process_name_description">應用程式執行時的處理程序名稱，來自 process。
+\n若未設定則與套件名稱相同。</string>
+
+    <string name="version_name_description">向使用者展示的版本號碼，此外並無其他用途。
+\nversionCode 則具有提供內部使用的重要版本編號。</string>
+
+    <string name="version_code_description">內部版本編號。
+\n用於判定兩個版本間的新舊狀態，數字越大表示越新。
+\n這並非向使用者展示的版本名稱，它將由另一個 versionName 元素決定。</string>
+	
+    <string name="system_application_description">如果設為「true」，應用程式將會安裝於裝置的系統映像內。</string>
+	
+    <string name="uid_description">配給這個應用程式的內核使用者 ID。
+\n這並非唯一的 ID，因為相同的 UID 能被複數的應用程式使用。</string>
+	
+    <string name="description_description">應用程式概要，由開發者撰寫。</string>
+	
+    <string name="description_app_source">安裝 APK 檔案的來源。</string>
+	
+    <string name="description_app_installer">安裝這個應用程式的來源套件。</string>
+	
+    <string name="target_sdk_description">應用程式所指定的目標 Android API 級別。
+\n這項元素告知系統已針對目標版本測試，不須進行任何向上相容的維護措施。
+\n應用程式仍可於舊版 (最低 SDK) 上執行。</string>
+
+    <string name="target_version_description">目標 SDK 對應的 Android 版本。</string>
+
+    <string name="min_sdk_description">應用程式所指定能夠執行的最低 Android API 級別。
+\n若裝置的 API 級別低於指定數值，系統將會拒絕使用者安裝這個應用程式。
+\nGoogle Play 透過這個數值為每個裝置篩選符合版本需求的應用程式。</string>
+
+    <string name="min_version_description">最低 SDK 對應的 Android 版本。</string>
+	
+    <string name="apk_directory_description">應用程式皆以 Android 套件 (APK) 發布。
+\n原始檔會在安裝後存放至儲存空間。這項元素指定應用程式的 APK 位置。</string>
+
+    <string name="data_directory_description">配給套件存放重要資料的完整路徑。</string>
+
+    <string name="install_loc_description">應用程式預設安裝位置。
+
+\n\n可使用下列數值：
+
+\n\n<b>僅限內部</b> - 僅能安裝於裝置內部儲存空間。
+\n設定後將會阻擋應用程式安裝至外部儲存空間。
+\n內部儲存空間耗盡時，系統不會執行任何安裝作業。
+\n這也是預設動作。
+
+\n\n<b>自動</b> - 允許安裝至外部儲存空間，但系統仍會優先安裝至內部儲存空間。
+\n內部儲存空間耗盡時，系統將會安裝至外部儲存空間。
+\n安裝後，使用者仍可前往設定移動位置。
+
+\n\n<b>外部優先</b> - 將會優先安裝至外部儲存空間 (SD 卡)。
+\n系統可能不會完全遵循這項要求。
+\n外部儲存空間無法使用或耗盡時，應用程式可能會安裝至內部儲存空間
+\n安裝後，使用者仍可前往設定移動位置。</string>
+
+    <string name="apk_size_description">應用程式檔案大小。</string>
+    <string name="first_install_description">應用程式首次安裝時間。</string>
+    <string name="last_update_description">應用程式最後更新時間。</string>
+
+    <string name="sign_algorithm">簽章演算法</string>
+    <string name="start_date">有效日期</string>
+    <string name="end_date">截止日期</string>
+    <string name="cert_md5">MD5 憑證</string>
+    <string name="issuer_name">發行者名稱</string>
+    <string name="issuer_organization">發行機構</string>
+    <string name="issuer_country">發行國家</string>
+    <string name="subject_name">主體名稱</string>
+    <string name="subject_organization">主體機構</string>
+    <string name="subject_country">主體國家</string>
+
+    <string name="sign_algorithm_description">數位簽章演算法類型。
+\n例如 SHA256withRSA。</string>
+    <string name="start_date_description">憑證生效起始日期。</string>
+    <string name="end_date_description">憑證效力截止日期。</string>
+    <string name="cert_md5_description">憑證的 MD5 雜湊值。</string>
+    <string name="issuer_name_description">憑證發行者名稱。</string>
+    <string name="issuer_organization_description">憑證發行機構名稱。</string>
+    <string name="issuer_country_description">發行憑證的國家代號。</string>
+    <string name="subject_name_description">憑證主體名稱。</string>
+    <string name="subject_organization_description">憑證主體機構。</string>
+    <string name="subject_country_description">憑證主體國家代號。</string>
+
+    <string name="activity_label">名稱</string>
+    <string name="activity_parent">上層</string>
+    <string name="activity_permission">權限</string>
+
+    <string name="activity_label_description">供使用者辨認的活動名稱。必須展示活動時，畫面將會顯示名稱。
+\n通常會包含活動圖示。</string>
+
+    <string name="activity_parent_description">指定的上層活動。
+\n使用者按下返回鍵時，應用程式將會引導至所屬上層活動。</string>
+
+    <string name="activity_permission_description">啟動客戶端活動或以其他形式傳遞意圖時必須擁有的權限名稱。</string>
+
+    <string name="activity_run">執行活動</string>
+    <string name="activity_run_failed">無法啟動活動</string>
+
+    <string name="service_exported">輸出</string>
+    <string name="service_stop_with_task">終止程序</string>
+    <string name="service_single_user">單使用者</string>
+    <string name="service_isolated_process">獨立處理程序</string>
+    <string name="service_external_service">外部</string>
+
+    <string name="service_permission_description">存取這項服務所需的權限名稱。</string>
+    <string name="service_exported_description">如果設為「true」，服務可能會被其他活動使用。</string>
+    <string name="service_stop_with_task_description">使用者移除應用程式來源活動中的某項程序時，系統將會自動停止該項服務。</string>
+    <string name="service_single_user_description">服務中的單一例項將為裝置上的所有使用者執行。</string>
+    <string name="service_isolated_process_description">服務將會於個別的處理程序中執行。</string>
+    <string name="service_external_service_description">服務可與呼叫應用程式的套件產生關連並執行，而非包含在被聲明的套件中。</string>
+
+    <string name="provider_authority">名稱</string>
+    <string name="provider_read_permission">讀取權限</string>
+    <string name="provider_write_permission">寫入權限</string>
+    <string name="provider_exported">輸出</string>
+
+    <string name="provider_authority_description">內容提供者載明的權威機構識別資料，並由這個機構發行。</string>
+    <string name="provider_read_permission_description">要求讀取這個內容提供者的權限。</string>
+    <string name="provider_write_permission_description">要求寫入這個內容提供者的權限。</string>
+    <string name="provider_exported_description">決定內容提供者是否被其他應用程式使用：
+\n\ntrue：允許。
+\n應用程式皆能在提供者指定的權限內使用其內容 URI 進行存取。
+\n\nfalse：不允許。
+\n設定「android:exported="false"」以限制應用程式存取內容提供者。
+\n僅限擁有和提供者相同的 UID 才能存取。</string>
+
+    <string name="receiver_permission">權限</string>
+    <string name="receiver_exported">輸出</string>
+
+    <string name="receiver_permission_description">廣播者向接收器推送訊息必須具備的權限名稱。
+\n如果尚未設定，將會套用應用程式元件的權限配置至廣播接收器。  
+\n如果兩種皆未設定，接收者將不受權限保護。</string>
+
+    <string name="receiver_exported_description">廣播接收器能否透過應用程式外的來源接收訊息。
+\n「是」允許，「否」不允許。
+\n「否」僅能接收來自同一應用程式的元件或具有相同 UID 的應用程式所推送的訊息。</string>
+
+    <string name="feature_required">要求</string>
+    <string name="feature_required_description">應用程式需要這項功能。</string>
+
+    <string name="arithmetic_mean">算術平均數</string>
+    <string name="median">中位數</string>
+    <string name="max">最大值</string>
+    <string name="min">最小值</string>
+    <string name="variance">變異數</string>
+    <string name="deviation">標準差</string>
+
+    <string name="arithmetic_mean_description">一組數值的總和除以其中的個數。</string>
+
+    <string name="median_description">將數據樣本中較高與較低的部分各半展開後所取得的數值。
+\n在一個資料集中可能會被視為中間值。</string>
+
+    <string name="max_description">最高的數值。</string>
+    <string name="min_description">最低的數值。</string>
+    <string name="variance_description">測量一組數字偏離平均值的程度。</string>
+    <string name="deviation_description">量化一組數值的變化或離散程度。</string>
+
+    <string name="analyze_results">分析結果</string>
+    <string name="analyze_results_success">分析完成</string>
+    <string name="analyze_results_success_description">Apk 分析儀完成統計的應用程式數量。</string>
+    <string name="analyze_results_failed">分析失敗</string>
+    <string name="analyze_results_failed_description">Apk 分析儀無法處理的應用程式數量。</string>
+
+    <plurals name="permissions_number_apps">
+        <item quantity="one">%1$d 個應用程式</item>
+        <item quantity="other">%1$d 個應用程式</item>
+    </plurals>
+    <string name="permissions_detail">資訊</string>
+    <string name="permissions_no_apps">沒有應用程式</string>
+    <string name="permissions_granted">已授予</string>
+    <string name="permissions_not_granted">未授予</string>
+    <string name="permissions_name">名稱</string>
+    <string name="permissions_name_description">用於識別權限的完整定義名稱。</string>
+    <string name="permissions_group">群組</string>
+    <string name="permissions_group_description">聲明用於相關權限的邏輯分組名稱。.</string>
+    <string name="permissions_granted_apps">已授予權限的應用程式</string>
+    <string name="permissions_granted_apps_description">您的裝置中已授予這項權限的應用程式數量。</string>
+    <string name="permissions_not_granted_apps">未授予權限的應用程式</string>
+    <string name="permissions_not_granted_apps_description">您的裝置中未授予這項權限的應用程式數量。</string>
+    <string name="permissions_protection">保護級別</string>
+    <string name="permissions_protection_description">這項權限在 protectionLevel 的存取等級。</string>
+    <string name="permissions_protection_normal">低潛在風險</string>
+    <string name="permissions_protection_dangerous">高潛在風險</string>
+    <string name="permissions_protection_signature">簽署憑證</string>
+
+    <string name="preference_color_theme">主題色彩</string>
+    <string name="preference_color_theme_summary">選擇淺色或深色主題</string>
+
+    <string-array name="preference_color_theme_options">
+        <item>系統</item>
+        <item>淺色</item>
+        <item>深色</item>
+    </string-array>
+
+    <string name="app_intro_back_button">返回</string>
+    <string name="app_intro_done_button">完成</string>
+    <string name="app_intro_next_button">下一步</string>
+    <string name="app_intro_skip_button">略過</string>
+
+</resources>
