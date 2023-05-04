@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Apk 分析儀</string>
-    <string name="app_github">開放原始碼位於 <a href="https://github.com/MartinStyk/AndroidApkAnalyzer">GitHub</a></string>
+    <string name="app_github">原始碼位於 <a href="https://github.com/MartinStyk/AndroidApkAnalyzer">GitHub</a></string>
     <string name="app_privacy_policy">使用本應用程式即表示您同意我們的<a href="https://github.com/MartinStyk/AndroidApkAnalyzer/blob/master/PrivacyPolicy.MD">隱私權政策</a>。</string>
     <string name="app_rate">評價應用程式</string>
     <string name="app_dependencies">技術關聯：
