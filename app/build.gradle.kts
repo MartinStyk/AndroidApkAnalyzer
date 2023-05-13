@@ -18,8 +18,8 @@ android {
         applicationId = "sk.styk.martin.apkanalyzer"
 
         minSdk = 21
-        targetSdk = 32
-        compileSdk = 32
+        targetSdk = 33
+        compileSdk = 33
 
         versionCode = 1
         versionName = "dev"

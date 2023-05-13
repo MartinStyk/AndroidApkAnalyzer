@@ -34,8 +34,14 @@ class NotificationManager @Inject constructor(
 ) {
 
     private val flagImmutable = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) PendingIntent.FLAG_IMMUTABLE else 0
+    private val shouldShowNotification: Boolean
+        get() = Build.VERSION.SDK_INT < Build.VERSION_CODES.N || androidNotificationManager.areNotificationsEnabled()
 
     fun showImageExportedNotification(appName: String, drawableFileUri: Uri) {
+        if (!shouldShowNotification) {
+            return
+        }
+
         createChannel(ICON_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.icon_save_channel))
 
         val intent = Intent().apply {
@@ -61,8 +67,10 @@ class NotificationManager @Inject constructor(
         androidNotificationManager.notify(ICON_EXPORT_NOTIFICATION_ID, notification)
     }
 
-    fun showAppExportProgressNotification(appName: String): NotificationCompat.Builder {
-        createChannel(APP_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.app_save_channel))
+    fun showAppExportProgressNotification(appName: String): NotificationCompat.Builder? {
+        if (!shouldShowNotification) {
+            return null
+        }
 
         val notification = notificationBuilder(APP_EXPORT_CHANNEL_ID)
             .setContentTitle(resourcesManager.getString(R.string.saving_app, appName))
@@ -81,6 +89,10 @@ class NotificationManager @Inject constructor(
     }
 
     fun showAppExportDoneNotification(appName: String, outputFileUri: Uri) {
+        if (!shouldShowNotification) {
+            return
+        }
+
         cancelNotification(APP_EXPORT_NOTIFICATION_ID)
         createChannel(APP_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.app_save_channel))
 
@@ -107,6 +119,10 @@ class NotificationManager @Inject constructor(
     }
 
     fun showManifestSavedNotification(appName: String, outputFileUri: Uri) {
+        if (!shouldShowNotification) {
+            return
+        }
+
         createChannel(MANIFEST_EXPORT_CHANNEL_ID, resourcesManager.getString(R.string.manifest_save_channel))
 
         val openIntent = TaskStackBuilder.create(context).apply {

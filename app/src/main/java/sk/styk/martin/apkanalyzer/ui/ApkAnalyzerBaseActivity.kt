@@ -30,6 +30,7 @@ abstract class ApkAnalyzerBaseActivity : AppCompatActivity() {
         permissionManager.onRequestPermissionsResult(permissions, grantResults)
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         if (backPressedManager.onBackPressed()) {
             return

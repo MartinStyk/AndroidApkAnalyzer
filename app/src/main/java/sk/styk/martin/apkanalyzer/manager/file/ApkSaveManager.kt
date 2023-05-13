@@ -3,12 +3,12 @@ package sk.styk.martin.apkanalyzer.manager.file
 import android.content.ContentResolver
 import android.net.Uri
 import androidx.annotation.IntRange
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.yield
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.util.TAG_EXPORTS
@@ -31,26 +31,14 @@ class ApkSaveManager @Inject constructor(
         data class Done(override val outputUri: Uri) : AppSaveStatus(outputUri)
     }
 
-    suspend fun saveApk(appName: String, sourceFile: File, targetUri: Uri) {
-        GlobalScope.launch {
-            try {
-                saveApkInternal(appName, sourceFile, targetUri)
-                    .distinctUntilChanged()
-                    .debounce(1500)
-                    .collect {
-                        val notificationBuilder = notificationManager.showAppExportProgressNotification(appName)
-                        when (it) {
-                            is AppSaveStatus.Progress -> notificationManager.updateAppExportProgressNotification(notificationBuilder, it.currentProgress)
-                            is AppSaveStatus.Done -> notificationManager.showAppExportDoneNotification(appName, it.outputUri)
-                        }
-                    }
-            } catch (e: Exception) {
-                Timber.tag(TAG_EXPORTS).e(e, "Saving apk failed failed. Appname=$appName, sourceFile=$sourceFile, targetUri=$targetUri")
-            }
-        }
+    fun saveApk(appName: String, sourceFile: File, targetUri: Uri): Flow<AppSaveStatus> {
+        return saveApkInternal(sourceFile, targetUri)
+            .distinctUntilChanged()
+            .debounce(1500)
+            .catch { Timber.tag(TAG_EXPORTS).e(it, "Saving apk failed failed. Appname=$appName, sourceFile=$sourceFile, targetUri=$targetUri") }
     }
 
-    private suspend fun saveApkInternal(appName: String, sourceFile: File, targetUri: Uri) = flow {
+    private fun saveApkInternal(sourceFile: File, targetUri: Uri) = flow {
         emit(AppSaveStatus.Progress(0, targetUri))
         val fileSize = sourceFile.length()
 

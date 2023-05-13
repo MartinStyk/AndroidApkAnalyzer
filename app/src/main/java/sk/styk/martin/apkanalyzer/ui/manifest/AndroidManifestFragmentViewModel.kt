@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.manifest
 
-import android.Manifest
 import android.app.Activity
 import android.net.Uri
 import android.view.MenuItem
@@ -22,7 +21,8 @@ import sk.styk.martin.apkanalyzer.manager.appanalysis.AndroidManifestManager
 import sk.styk.martin.apkanalyzer.manager.file.FileManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
-import sk.styk.martin.apkanalyzer.manager.permission.hasScopedStorage
+import sk.styk.martin.apkanalyzer.manager.permission.withNotificationPermission
+import sk.styk.martin.apkanalyzer.manager.permission.withStoragePermission
 import sk.styk.martin.apkanalyzer.util.OutputFilePickerRequest
 import sk.styk.martin.apkanalyzer.util.TAG_EXPORTS
 import sk.styk.martin.apkanalyzer.util.TextInfo
@@ -102,21 +102,10 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
     }
 
     private fun onExportManifestClick() {
-        if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        permissionManager.withStoragePermission(withoutPermission = {
+            showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
+        }) {
             exportAppFileSelection()
-        } else {
-            permissionManager.requestPermission(
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                object : PermissionManager.PermissionCallback {
-                    override fun onPermissionDenied(permission: String) {
-                        showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
-                    }
-
-                    override fun onPermissionGranted(permission: String) {
-                        exportAppFileSelection()
-                    }
-                },
-            )
         }
     }
 
@@ -141,7 +130,9 @@ class AndroidManifestFragmentViewModel @AssistedInject constructor(
             ) {
                 showManifestFileEvent.value = target
             }
-            notificationManager.showManifestSavedNotification(manifestRequest.appName, target)
+            permissionManager.withNotificationPermission {
+                notificationManager.showManifestSavedNotification(manifestRequest.appName, target)
+            }
         } catch (e: IOException) {
             Timber.tag(TAG_EXPORTS).e(e, "Error saving manifest for $manifestRequest. Target was $target")
             cannotSaveManifest()

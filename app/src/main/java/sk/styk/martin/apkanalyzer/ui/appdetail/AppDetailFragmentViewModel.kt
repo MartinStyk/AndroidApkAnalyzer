@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail
 
-import android.Manifest
 import android.app.Activity
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
@@ -32,7 +31,8 @@ import sk.styk.martin.apkanalyzer.manager.file.DrawableSaveManager
 import sk.styk.martin.apkanalyzer.manager.file.FileManager
 import sk.styk.martin.apkanalyzer.manager.notification.NotificationManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
-import sk.styk.martin.apkanalyzer.manager.permission.hasScopedStorage
+import sk.styk.martin.apkanalyzer.manager.permission.withNotificationPermission
+import sk.styk.martin.apkanalyzer.manager.permission.withStoragePermission
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
@@ -238,21 +238,10 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             appActionsAdapter.exportApp.collect {
                 analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.EXPORT_APK)
                 appDetails.value?.let { data ->
-                    if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    permissionManager.withStoragePermission(withoutPermission = {
+                        showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
+                    }) {
                         exportAppFileSelection()
-                    } else {
-                        permissionManager.requestPermission(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            object : PermissionManager.PermissionCallback {
-                                override fun onPermissionDenied(permission: String) {
-                                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
-                                }
-
-                                override fun onPermissionGranted(permission: String) {
-                                    exportAppFileSelection()
-                                }
-                            },
-                        )
                     }
                 }
             }
@@ -261,21 +250,10 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
             appActionsAdapter.saveIcon.collect {
                 analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.SAVE_ICON)
                 appDetails.value?.let { data ->
-                    if (hasScopedStorage() || permissionManager.hasPermissionGranted(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+                    permissionManager.withStoragePermission(withoutPermission = {
+                        showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
+                    }) {
                         saveImage()
-                    } else {
-                        permissionManager.requestPermission(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            object : PermissionManager.PermissionCallback {
-                                override fun onPermissionDenied(permission: String) {
-                                    showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.permission_not_granted), Snackbar.LENGTH_LONG)
-                                }
-
-                                override fun onPermissionGranted(permission: String) {
-                                    saveImage()
-                                }
-                            },
-                        )
                     }
                 }
             }
@@ -331,7 +309,9 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
                             openImageEvent.value = exportedFileUri
                         },
                     )
-                    notificationManager.showImageExportedNotification(data.generalData.applicationName, exportedFileUri)
+                    permissionManager.withNotificationPermission {
+                        notificationManager.showImageExportedNotification(data.generalData.applicationName, exportedFileUri)
+                    }
                 } catch (e: Exception) {
                     Timber.tag(TAG_EXPORTS).e(e, "Saving icon failed. Data ${data.generalData}")
                     showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.icon_export_failed))
@@ -354,6 +334,15 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         viewModelScope.launch {
             showSnackEvent.value = SnackBarComponent(TextInfo.from(R.string.saving_app, data.generalData.applicationName))
             apkSaveManager.saveApk(data.generalData.applicationName, File(data.generalData.apkDirectory), targetUri)
+                .collect {
+                    permissionManager.withNotificationPermission {
+                        val notificationBuilder = notificationManager.showAppExportProgressNotification(data.generalData.applicationName) ?: return@withNotificationPermission
+                        when (it) {
+                            is ApkSaveManager.AppSaveStatus.Progress -> notificationManager.updateAppExportProgressNotification(notificationBuilder, it.currentProgress)
+                            is ApkSaveManager.AppSaveStatus.Done -> notificationManager.showAppExportDoneNotification(data.generalData.applicationName, it.outputUri)
+                        }
+                    }
+                }
         }
     }
 

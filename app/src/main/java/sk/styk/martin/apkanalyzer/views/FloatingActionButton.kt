@@ -433,7 +433,7 @@ class FloatingActionButton : RelativeLayout {
             .setInterpolator(OvershootInterpolator(2f))
             .setDuration(SPEED_DIAL_ANIMATION_DURATION)
             .setListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationEnd(animation: Animator?) {
+                override fun onAnimationEnd(animation: Animator) {
                     busyAnimatingFabIconRotation = false
                 }
             })

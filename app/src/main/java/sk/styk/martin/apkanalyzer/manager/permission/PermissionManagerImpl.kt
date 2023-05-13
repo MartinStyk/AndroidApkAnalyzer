@@ -81,3 +81,4 @@ class PermissionsManagerImpl @Inject constructor(application: Application) : And
 }
 
 fun hasScopedStorage() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+fun needsNotificationPermission() = Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
