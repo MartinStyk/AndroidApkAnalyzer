@@ -1,11 +1,9 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail
 
-import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +11,6 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
@@ -45,8 +42,6 @@ class AppDetailFragment : Fragment(), BackPressedListener {
 
     private lateinit var viewModel: AppDetailFragmentViewModel
 
-    private lateinit var installPermissionResultLauncher: ActivityResultLauncher<Intent>
-
     private lateinit var exportPathPickerResultLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +52,6 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             viewModelFactory.create(requireNotNull(requireArguments().getParcelable(APP_DETAIL_REQUEST)))
         }
         lifecycle.addObserver(viewModel)
-        installPermissionResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), viewModel.installPermissionResult)
         exportPathPickerResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult(), viewModel.exportFilePickerResult)
     }
 
@@ -87,12 +81,8 @@ class AppDetailFragment : Fragment(), BackPressedListener {
             openGooglePlay.observe(viewLifecycleOwner) {
                 AppOperations.openGooglePlay(requireContext(), it)
             }
-            installApp.observe(viewLifecycleOwner) {
-                AppOperations.installPackage(requireContext(), it)
-            }
             showManifest.observe(viewLifecycleOwner, this@AppDetailFragment::openManifestFragment)
             openImage.observe(viewLifecycleOwner) { openImage(it) }
-            openSettingsInstallPermission.observe(viewLifecycleOwner) { startInstallSettings() }
             openExportFilePicker.observe(viewLifecycleOwner) { openDirectoryPicker(it) }
         }
     }
@@ -119,20 +109,6 @@ class AppDetailFragment : Fragment(), BackPressedListener {
         } catch (e: ActivityNotFoundException) {
             Timber.tag(TAG_APP_ACTIONS).w(e, "Can not open image in external app")
             Toast.makeText(requireContext(), R.string.activity_not_found_image, Toast.LENGTH_LONG).show()
-        }
-    }
-
-    @SuppressLint("InlinedApi")
-    private fun startInstallSettings() {
-        try {
-            installPermissionResultLauncher.launch(
-                Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
-                    data = Uri.parse(String.format("package:%s", requireContext().packageName))
-                },
-            )
-        } catch (exception: ActivityNotFoundException) {
-            Timber.tag(TAG_APP_ACTIONS).w(exception, "Can not open install settings")
-            Snackbar.make(requireActivity().findViewById(android.R.id.content), R.string.activity_not_found_browsing, Snackbar.LENGTH_LONG).show()
         }
     }
 

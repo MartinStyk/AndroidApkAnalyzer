@@ -112,8 +112,6 @@
     <string name="show_app_system_page">應用程式資訊</string>
     <string name="show_app_google_play">Google Play 頁面</string>
     <string name="save_icon">儲存圖示</string>
-    <string name="install_failed">Apk 分析儀無法安裝您的套件，請手動進行。</string>
-    <string name="install_app">安裝 APK</string>
     <string name="copied_to_clipboard">已複製到剪貼簿</string>
     <string name="show_apps">顯示 %1$d 個應用程式</string>
 

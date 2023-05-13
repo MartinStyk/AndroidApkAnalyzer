@@ -122,8 +122,6 @@
     <string name="show_app_system_page">Built-in app info</string>
     <string name="show_app_google_play">Show in Google Play</string>
     <string name="save_icon">Save icon</string>
-    <string name="install_failed">Apk Analyzer failed to install your APK. Please do it manually</string>
-    <string name="install_app">Install APK</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="show_apps">Show %1$d apps</string>
 

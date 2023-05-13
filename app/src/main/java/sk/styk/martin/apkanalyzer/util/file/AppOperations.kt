@@ -6,30 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
-import androidx.core.content.FileProvider
 import sk.styk.martin.apkanalyzer.BuildConfig
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.util.TAG_APP_ACTIONS
 import timber.log.Timber
-import java.io.File
 
 object AppOperations {
-
-    fun installPackage(context: Context, packagePath: String) {
-        val intent = Intent(Intent.ACTION_VIEW)
-            .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION)
-            .addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-
-        try {
-            val apkUri = FileProvider.getUriForFile(context, GenericFileProvider.AUTHORITY, File(packagePath))
-            intent.setDataAndType(apkUri, "application/vnd.android.package-archive")
-            context.startActivity(intent)
-        } catch (e: Exception) {
-            Timber.tag(TAG_APP_ACTIONS).e(e, "Could not install app from path $packagePath.")
-            Toast.makeText(context, context.getString(R.string.install_failed), Toast.LENGTH_LONG).show()
-        }
-    }
 
     fun openAppSystemPage(context: Context, packageName: String) {
         try {

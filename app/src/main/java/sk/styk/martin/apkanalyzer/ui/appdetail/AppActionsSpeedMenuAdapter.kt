@@ -12,9 +12,6 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
 
     var menuItems: List<AppActions> = emptyList()
 
-    private val installAppFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
-    val installApp: Flow<Unit> = installAppFlow
-
     private val exportAppFlow = MutableSharedFlow<Unit>(extraBufferCapacity = 1, onBufferOverflow = BufferOverflow.DROP_OLDEST)
     val exportApp: Flow<Unit> = exportAppFlow
 
@@ -31,7 +28,6 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
     val openSystemInfo: Flow<Unit> = openSystemInfoFlow
 
     enum class AppActions {
-        INSTALL,
         EXPORT_APK,
         SAVE_ICON,
         SHOW_MANIFEST,
@@ -42,7 +38,6 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
     override fun getCount(): Int = menuItems.size
 
     override fun getMenuItem(position: Int): SpeedDialMenuItem = when (menuItems[position]) {
-        AppActions.INSTALL -> SpeedDialMenuItem(R.drawable.ic_android, R.string.install_app)
         AppActions.EXPORT_APK -> SpeedDialMenuItem(R.drawable.ic_save, R.string.copy_apk)
         AppActions.SAVE_ICON -> SpeedDialMenuItem(R.drawable.ic_image, R.string.save_icon)
         AppActions.SHOW_MANIFEST -> SpeedDialMenuItem(R.drawable.ic_file, R.string.show_manifest)
@@ -52,7 +47,6 @@ class AppActionsSpeedMenuAdapter @Inject constructor() : SpeedDialMenuAdapter() 
 
     override fun onMenuItemClick(position: Int): Boolean {
         when (menuItems[position]) {
-            AppActions.INSTALL -> installAppFlow.tryEmit(Unit)
             AppActions.EXPORT_APK -> exportAppFlow.tryEmit(Unit)
             AppActions.SAVE_ICON -> saveIconFlow.tryEmit(Unit)
             AppActions.SHOW_MANIFEST -> showManifestFlow.tryEmit(Unit)

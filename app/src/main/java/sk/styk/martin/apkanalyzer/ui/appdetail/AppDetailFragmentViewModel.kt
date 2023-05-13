@@ -1,10 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.appdetail
 
 import android.app.Activity
-import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.Build
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.lifecycle.DefaultLifecycleObserver
@@ -66,7 +64,6 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     private val notificationManager: NotificationManager,
     private val apkSaveManager: ApkSaveManager,
     private val fileManager: FileManager,
-    private val packageManager: PackageManager,
     private val activityColorThemeManager: ActivityColorThemeManager,
     private val analyticsTracker: AnalyticsTracker,
 ) : ViewModel(), AppBarLayout.OnOffsetChangedListener, DefaultLifecycleObserver {
@@ -88,12 +85,6 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
 
     private val closeEvent = SingleLiveEvent<Unit>()
     val close: LiveData<Unit> = closeEvent
-
-    private val installAppEvent = SingleLiveEvent<String>()
-    val installApp: LiveData<String> = installAppEvent
-
-    private val openSettingsInstallPermissionEvent = SingleLiveEvent<Unit>()
-    val openSettingsInstallPermission: LiveData<Unit> = openSettingsInstallPermissionEvent
 
     private val openImageEvent = SingleLiveEvent<Uri>()
     val openImage: LiveData<Uri> = openImageEvent
@@ -126,14 +117,6 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     val accentColor: LiveData<ColorInfo> = accentColorLiveData
 
     val toolbarIcon: LiveData<Drawable> = appDetails.map { it.generalData.icon!! }
-
-    val installPermissionResult = ActivityResultCallback<ActivityResult> {
-        val apkPath = appDetailsLiveData.value?.generalData?.apkDirectory
-            ?: return@ActivityResultCallback
-        if (it?.resultCode == Activity.RESULT_OK && apkPath.isNotBlank() && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls())) {
-            installAppEvent.value = apkPath
-        }
-    }
 
     val exportFilePickerResult = ActivityResultCallback<ActivityResult> {
         if (it.resultCode == Activity.RESULT_OK) {
@@ -200,11 +183,7 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         val displayHeight = resourcesManager.getDisplayHeight()
         appActionsAdapter.menuItems = when (appDetailRequest) {
             is AppDetailRequest.ExternalPackage ->
-                if (displayHeight < 420) {
-                    listOf(AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST, AppActionsSpeedMenuAdapter.AppActions.INSTALL)
-                } else {
-                    listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST, AppActionsSpeedMenuAdapter.AppActions.INSTALL)
-                }
+                listOf(AppActionsSpeedMenuAdapter.AppActions.OPEN_PLAY, AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
             is AppDetailRequest.InstalledPackage ->
                 if (displayHeight < 420) {
                     listOf(AppActionsSpeedMenuAdapter.AppActions.SAVE_ICON, AppActionsSpeedMenuAdapter.AppActions.EXPORT_APK, AppActionsSpeedMenuAdapter.AppActions.SHOW_MANIFEST)
@@ -222,18 +201,6 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
     }
 
     private fun observeApkActions() {
-        viewModelScope.launch {
-            appActionsAdapter.installApp.collect {
-                analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.INSTALL)
-                appDetails.value?.let {
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O || packageManager.canRequestPackageInstalls()) {
-                        installAppEvent.value = it.generalData.apkDirectory
-                    } else {
-                        openSettingsInstallPermissionEvent.call()
-                    }
-                }
-            }
-        }
         viewModelScope.launch {
             appActionsAdapter.exportApp.collect {
                 analyticsTracker.trackAppActionAction(AnalyticsTracker.AppAction.EXPORT_APK)

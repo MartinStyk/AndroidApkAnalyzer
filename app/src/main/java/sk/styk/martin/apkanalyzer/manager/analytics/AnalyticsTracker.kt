@@ -14,7 +14,6 @@ class AnalyticsTracker @Inject constructor(private val firebaseAnalytics: Fireba
         SAVE_ICON("save-icon"),
         OPEN_SYSTEM_ABOUT("open-system-about"),
         OPEN_GOOGLE_PLAY("open-google-play"),
-        INSTALL("install-apk"),
     }
 
     fun trackAppActionAction(action: AppAction) {

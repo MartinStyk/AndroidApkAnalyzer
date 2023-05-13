@@ -93,8 +93,6 @@
     <string name="show_app_system_page">ビルトインアプリ情報</string>
     <string name="show_app_google_play">Google Playのリスティング</string>
     <string name="save_icon">保存アイコン</string>
-    <string name="install_failed">APK分析がAPKのインストールに失敗しました。手動で行ってください</string>
-    <string name="install_app">APKをインストールする</string>
     <string name="copied_to_clipboard">クリップボードにコピーされました</string>
     <string name="show_apps">%1$d のすべてのアプリを表示</string>
 
