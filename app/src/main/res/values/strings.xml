@@ -314,7 +314,8 @@
         <item>Android 11</item>
         <item>Android 12</item>
         <item>Android 12L</item>
-        <item>Android 13</item>
+        <item>Android 13 Tiramisu</item>
+        <item>Android 14 Upside Down Cake</item>
     </string-array>
 
     <!-- This is an ad unit ID for a test ad. Replace with your own banner ad unit id. -->
