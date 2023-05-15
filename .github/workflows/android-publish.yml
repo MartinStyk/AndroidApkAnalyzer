@@ -69,7 +69,7 @@ jobs:
         releaseName: ${{ github.event.inputs.versionNumber }} (${{ github.event.inputs.versionName }})
     
     - name: Push current release tag
-      uses: actions-ecosystem/action-push-tag@v1.0.0
+      uses: thejeff77/action-push-tag@v1.0.0
       with:
         tag: ${{ github.event.inputs.versionNumber }}
 
