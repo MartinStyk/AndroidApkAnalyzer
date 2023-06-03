@@ -21,8 +21,8 @@ object AppOperations {
                     data = Uri.parse("package:$packageName")
                 },
             )
-        } catch (securityException: SecurityException) {
-            Timber.tag(TAG_APP_ACTIONS).e(securityException, "Could not open system page for $packageName.")
+        } catch (exception: Exception) {
+            Timber.tag(TAG_APP_ACTIONS).e(exception, "Could not open system page for $packageName.")
         }
     }
 
