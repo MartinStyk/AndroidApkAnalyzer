@@ -34,7 +34,7 @@ jobs:
     - name: Set app version
       uses: chkfung/android-version-actions@v1.1
       with:
-       gradlePath: app/build.gradle
+       gradlePath: app/build.gradle.kts
        versionCode: ${{ github.event.inputs.versionNumber }}
        versionName: ${{ github.event.inputs.versionName }}
 
@@ -69,7 +69,7 @@ jobs:
         releaseName: ${{ github.event.inputs.versionNumber }} (${{ github.event.inputs.versionName }})
     
     - name: Push current release tag
-      uses: actions-ecosystem/action-push-tag@v1.0.0
+      uses: thejeff77/action-push-tag@v1.0.0
       with:
         tag: ${{ github.event.inputs.versionNumber }}
 
