@@ -1,12 +1,13 @@
 [versions]
 kotlin = "1.8.21"
-gradle-plugin = "7.4.1"
+gradle-plugin = "8.0.2"
 hilt = "2.46.1"
 lifecycle = "2.6.1"
 coroutines = "1.7.1"
 androidx-appcompat = "1.6.1"
 material = "1.7.0"
 glide = "4.15.1"
+spotless = "6.19.0"
 
 [libraries]
 koltin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
@@ -47,10 +48,18 @@ hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 
 firebase-bom = "com.google.firebase:firebase-bom:32.0.0"
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics-ktx" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics-ktx" }
+firebase-performance = { group = "com.google.firebase", name = "firebase-perf-ktx" }
 
 leakcannary = "com.squareup.leakcanary:leakcanary-android:2.9.1"
 junit = "junit:junit:4.13.2"
 espresso-core = "androidx.test.espresso:espresso-core:3.1.0"
+
+# Dependencies of the included build-logic
+android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle-plugin" }
+kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+spotless-gradle-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle-plugin" }
@@ -60,7 +69,7 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 crashlytics = "com.google.firebase.crashlytics:2.9.2"
 firebase-perf = "com.google.firebase.firebase-perf:1.4.2"
 google-services = "com.google.gms.google-services:4.3.14"
-spotless = "com.diffplug.spotless:6.16.0"
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
 dependency-updates = "com.github.ben-manes.versions:0.46.0"
 
 [bundles]

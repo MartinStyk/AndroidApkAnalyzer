@@ -1,31 +1,16 @@
 plugins {
     // Android studio bug shows libs as an error - https://youtrack.jetbrains.com/issue/KTIJ-19369
-    alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.hilt.android)
-    alias(libs.plugins.google.services)
-    alias(libs.plugins.crashlytics)
-    alias(libs.plugins.firebase.perf)
-    alias(libs.plugins.spotless)
-    alias(libs.plugins.dependency.updates)
+    id("apkanalyzer.application")
+    id("apkanalyzer.hilt")
+    id("apkanalyzer.spotless")
     id("kotlin-parcelize")
-    kotlin("kapt")
+    alias(libs.plugins.dependency.updates)
 }
 android {
     namespace = "sk.styk.martin.apkanalyzer"
 
     defaultConfig {
         applicationId = "sk.styk.martin.apkanalyzer"
-
-        minSdk = 21
-        targetSdk = 33
-        compileSdk = 33
-
-        versionCode = 1
-        versionName = "dev"
-
-        multiDexEnabled = true
-        vectorDrawables.useSupportLibrary = true
         proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
     }
 
@@ -42,40 +27,13 @@ android {
             buildConfigField("boolean", "SHOW_PROMO", "false")
         }
     }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = true
-            isShrinkResources = true
-        }
-        getByName("debug") {
-            isMinifyEnabled = false
-            isShrinkResources = false
-        }
-    }
+
     buildFeatures {
         viewBinding = true
         dataBinding = true
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_1_8.toString()
-        freeCompilerArgs = freeCompilerArgs + "-Xopt-in=kotlin.RequiresOptIn " +
-                "-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi " +
-                "-Xuse-experimental=kotlinx.coroutines.FlowPreview"
-    }
     lint {
         disable += "MissingTranslation"
-    }
-    spotless {
-        kotlin {
-            target("**/*.kt")
-            targetExclude("$buildDir/**/*.kt")
-            targetExclude("bin/**/*.kt")
-            ktlint("0.48.2")
-        }
     }
 }
 
@@ -106,16 +64,6 @@ dependencies {
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
     implementation(libs.bundles.google.play)
-
-    // Firebase
-    implementation(platform(libs.firebase.bom))
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-perf")
-
-    // Hilt
-    implementation(libs.hilt)
-    kapt(libs.hilt.compiler)
 
     debugImplementation(libs.leakcannary)
 

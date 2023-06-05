@@ -1,9 +1,9 @@
-rootProject.name = "ApkAnalyzer"
+rootProject.name = "apk-analyzer"
 include(":app")
 
-enableFeaturePreview("VERSION_CATALOGS")
-
 pluginManagement {
+    includeBuild("build-logic")
+
     repositories {
         mavenCentral()
         gradlePluginPortal()
