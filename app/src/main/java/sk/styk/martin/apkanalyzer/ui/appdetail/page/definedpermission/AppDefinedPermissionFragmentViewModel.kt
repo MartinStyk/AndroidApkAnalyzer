@@ -9,15 +9,15 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.manager.appanalysis.AppPermissionManager
+import sk.styk.martin.apkanalyzer.core.appanalysis.AppPermissionManager
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
-import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.usedpermission.AppPermissionListAdapter
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
-import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 
 class AppDefinedPermissionFragmentViewModel @AssistedInject constructor(

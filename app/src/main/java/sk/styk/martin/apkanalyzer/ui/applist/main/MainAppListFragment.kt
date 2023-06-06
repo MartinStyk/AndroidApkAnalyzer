@@ -15,10 +15,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialElevationScale
 import dagger.hilt.android.AndroidEntryPoint
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppSource
 import sk.styk.martin.apkanalyzer.databinding.FragmentMainAppListBinding
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedListener
 import sk.styk.martin.apkanalyzer.manager.backpress.BackPressedManager
-import sk.styk.martin.apkanalyzer.model.detail.AppSource
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailRequest
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListFragment

@@ -7,11 +7,11 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ViewMathStatisticsCardBinding
-import sk.styk.martin.apkanalyzer.model.statistics.MathStatistics
+import sk.styk.martin.apkanalyzer.core.appstatistics.model.MathStatistics
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
-import sk.styk.martin.apkanalyzer.util.BigDecimalFormatter
+import sk.styk.martin.apkanalyzer.core.common.util.BigDecimalFormatter
 
 class ExpandableMathStatisticsView @JvmOverloads constructor(
     context: Context,

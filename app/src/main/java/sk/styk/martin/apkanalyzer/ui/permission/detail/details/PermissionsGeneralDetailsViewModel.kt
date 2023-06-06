@@ -45,7 +45,7 @@ class PermissionsGeneralDetailsViewModel @AssistedInject constructor(
             permissionData.groupName?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.permissions_group),
-                    TextInfo.from(permissionData.groupName),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.permissions_group_description),
                 )
             },

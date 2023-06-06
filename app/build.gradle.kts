@@ -62,6 +62,14 @@ dependencies {
     implementation(libs.expandablelayout)
     implementation(libs.timber)
     implementation(libs.glide)
+
+    implementation(project(":core:app-analysis-core"))
+    implementation(project(":core:app-list"))
+    implementation(project(":core:app-permissions"))
+    implementation(project(":core:app-statistics"))
+    implementation(project(":core:common"))
+    implementation(project(":core:ui-library"))
+
     annotationProcessor(libs.glide.compiler)
     implementation(libs.bundles.google.play)
 

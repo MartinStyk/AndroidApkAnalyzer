@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailBinding
 import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailExpandedBinding
-import sk.styk.martin.apkanalyzer.model.detail.ContentProviderData
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.ContentProviderData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.ExpandableItemViewModel
@@ -49,17 +49,17 @@ class AppProviderDetailListAdapter @Inject constructor() : DetailInfoDescription
 
         val authority = DetailInfoAdapter.DetailInfo(
             name = TextInfo.from(R.string.provider_authority),
-            value = if (expandedProviderData.contentProviderData.authority != null) TextInfo.from(expandedProviderData.contentProviderData.authority) else TextInfo.from(R.string.none),
+            value = expandedProviderData.contentProviderData.authority.orNone(),
             description = TextInfo.from(R.string.provider_authority_description),
         )
         val readPermission = DetailInfoAdapter.DetailInfo(
             name = TextInfo.from(R.string.provider_read_permission),
-            value = if (expandedProviderData.contentProviderData.readPermission != null) TextInfo.from(expandedProviderData.contentProviderData.readPermission) else TextInfo.from(R.string.none),
+            value = expandedProviderData.contentProviderData.readPermission.orNone(),
             description = TextInfo.from(R.string.provider_read_permission_description),
         )
         val writePermission = DetailInfoAdapter.DetailInfo(
             name = TextInfo.from(R.string.provider_write_permission),
-            value = if (expandedProviderData.contentProviderData.writePermission != null) TextInfo.from(expandedProviderData.contentProviderData.writePermission) else TextInfo.from(R.string.none),
+            value = expandedProviderData.contentProviderData.writePermission.orNone(),
             description = TextInfo.from(R.string.provider_write_permission_description),
         )
         val exported = DetailInfoAdapter.DetailInfo(

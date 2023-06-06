@@ -43,9 +43,10 @@ class ApplicationPlugin : Plugin<Project> {
                         isShrinkResources = false
                     }
                 }
+
+                configureKotlin(this)
             }
 
-            configureKotlin()
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {

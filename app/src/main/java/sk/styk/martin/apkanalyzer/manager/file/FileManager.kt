@@ -7,7 +7,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import kotlinx.coroutines.yield
-import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

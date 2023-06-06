@@ -5,9 +5,9 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.InstallLocation
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
-import sk.styk.martin.apkanalyzer.model.InstallLocation
-import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
@@ -37,14 +37,14 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
             generalData.processName?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.process_name),
-                    TextInfo.from(generalData.processName),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.process_name_description),
                 )
             },
             generalData.versionName?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.version_name),
-                    TextInfo.from(generalData.versionName),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.version_name_description),
                 )
             },
@@ -68,14 +68,14 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
             generalData.description?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.description),
-                    TextInfo.from(generalData.description),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.description_description),
                 )
             },
             generalData.appInstaller?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.app_installer),
-                    TextInfo.from(generalData.appInstaller),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.description_app_installer),
                 )
             },
@@ -94,7 +94,7 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
             generalData.targetSdkLabel?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.target_version),
-                    TextInfo.from(generalData.targetSdkLabel),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.target_version_description),
                 )
             },
@@ -108,7 +108,7 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
             generalData.minSdkLabel?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.min_version),
-                    TextInfo.from(generalData.minSdkLabel),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.min_version_description),
                 )
             },
@@ -120,7 +120,7 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
             generalData.dataDirectory?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.data_directory),
-                    TextInfo.from(generalData.dataDirectory),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.data_directory_description),
                 )
             },
@@ -144,14 +144,14 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
             generalData.firstInstallTime?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.first_install),
-                    TextInfo.from(formatter.formatDateTime(generalData.firstInstallTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)),
+                    TextInfo.from(formatter.formatDateTime(it, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)),
                     TextInfo.from(R.string.first_install_description),
                 )
             },
             generalData.lastUpdateTime?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.last_update),
-                    TextInfo.from(formatter.formatDateTime(generalData.lastUpdateTime, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)),
+                    TextInfo.from(formatter.formatDateTime(it, DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_NUMERIC_DATE or DateUtils.FORMAT_SHOW_TIME)),
                     TextInfo.from(R.string.last_update_description),
                 )
             },

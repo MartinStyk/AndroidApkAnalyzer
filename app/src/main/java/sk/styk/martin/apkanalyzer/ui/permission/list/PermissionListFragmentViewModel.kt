@@ -7,9 +7,10 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import sk.styk.martin.apkanalyzer.manager.appanalysis.AppPermissionManager
+import sk.styk.martin.apkanalyzer.core.appanalysis.AppPermissionManager
+import sk.styk.martin.apkanalyzer.core.apppermissions.LocalPermissionManager
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
-import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,7 +18,7 @@ class PermissionListFragmentViewModel @Inject constructor(
     private val dispatcherProvider: DispatcherProvider,
     val permissionListAdapter: PermissionListAdapter,
     private val navigationDrawerModel: NavigationDrawerModel,
-    private val appPermissionManager: AppPermissionManager,
+    private val localPermissionManager: LocalPermissionManager,
 ) : ViewModel() {
 
     val openPermission = permissionListAdapter.openPermission
@@ -33,16 +34,17 @@ class PermissionListFragmentViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            appPermissionManager.observeAllPermissionData()
+            localPermissionManager.observeAllPermissionData()
                 .flowOn(dispatcherProvider.default())
                 .collect {
                     when (it) {
-                        is AppPermissionManager.PermissionLoadingStatus.Loading -> {
+                        is LocalPermissionManager.PermissionLoadingStatus.Loading -> {
                             loadingProgressLiveData.value = it.currentProgress
                             loadingProgressMaxLiveData.value = it.totalProgress
                             isLoadingLiveData.value = true
                         }
-                        is AppPermissionManager.PermissionLoadingStatus.Data -> {
+
+                        is LocalPermissionManager.PermissionLoadingStatus.Data -> {
                             permissionListAdapter.permissions = it.localPermissionData
                             isLoadingLiveData.value = false
                         }

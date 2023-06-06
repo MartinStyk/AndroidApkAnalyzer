@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.distinctUntilChanged
-import sk.styk.martin.apkanalyzer.model.list.AppListData
+import sk.styk.martin.apkanalyzer.core.applist.model.AppListData
 
 internal const val LOADING_STATE = 0
 internal const val EMPTY_STATE = 1

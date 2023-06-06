@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import sk.styk.martin.apkanalyzer.core.applist.model.AppListData
 import sk.styk.martin.apkanalyzer.databinding.ListItemApplicationBinding
-import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import java.lang.ref.WeakReference
 import javax.inject.Inject

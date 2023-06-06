@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ViewDetailListItemBinding
-import sk.styk.martin.apkanalyzer.model.statistics.PercentagePair
+import sk.styk.martin.apkanalyzer.core.appstatistics.model.PercentagePair
 import sk.styk.martin.apkanalyzer.util.TextInfo
 
 class NewDetailListItemView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : LinearLayout(

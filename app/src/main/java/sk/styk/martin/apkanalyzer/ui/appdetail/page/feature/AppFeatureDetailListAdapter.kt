@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemFeatureDetailBinding
-import sk.styk.martin.apkanalyzer.model.detail.FeatureData
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.FeatureData
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import javax.inject.Inject

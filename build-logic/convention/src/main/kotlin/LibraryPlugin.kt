@@ -19,9 +19,8 @@ class LibraryPlugin : Plugin<Project> {
                 defaultConfig {
                     minSdk = MinSdk
                 }
+                configureKotlin(this)
             }
-
-            configureKotlin()
         }
     }
 }

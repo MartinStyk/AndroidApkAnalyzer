@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailBinding
 import sk.styk.martin.apkanalyzer.databinding.ListItemActivityDetailExpandedBinding
-import sk.styk.martin.apkanalyzer.model.detail.ActivityData
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.ActivityData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.ExpandableItemViewModel
@@ -55,17 +55,17 @@ class AppActivityDetailListAdapter @Inject constructor() : DetailInfoDescription
 
         val labelDetailItemInfo = DetailInfoAdapter.DetailInfo(
             name = TextInfo.from(R.string.activity_label),
-            value = if (expandedActivityData.activityData.label != null) TextInfo.from(expandedActivityData.activityData.label) else TextInfo.from(R.string.NA),
+            value = expandedActivityData.activityData.label.orNa(),
             description = TextInfo.from(R.string.activity_label_description),
         )
         val parentDetailItemInfo = DetailInfoAdapter.DetailInfo(
             name = TextInfo.from(R.string.activity_parent),
-            value = if (expandedActivityData.activityData.parentName != null) TextInfo.from(expandedActivityData.activityData.parentName) else TextInfo.from(R.string.NA),
+            value = expandedActivityData.activityData.parentName.orNa(),
             description = TextInfo.from(R.string.activity_parent_description),
         )
         val permissionDetailItemInfo = DetailInfoAdapter.DetailInfo(
             name = TextInfo.from(R.string.activity_permission),
-            value = if (expandedActivityData.activityData.permission != null) TextInfo.from(expandedActivityData.activityData.permission) else TextInfo.from(R.string.NA),
+            value = expandedActivityData.activityData.permission.orNa(),
             description = TextInfo.from(R.string.activity_permission_description),
         )
 

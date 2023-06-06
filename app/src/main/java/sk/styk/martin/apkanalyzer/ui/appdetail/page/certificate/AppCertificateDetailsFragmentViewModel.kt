@@ -6,7 +6,7 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
-import sk.styk.martin.apkanalyzer.model.detail.AppDetailData
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppDetailData
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
@@ -46,42 +46,42 @@ class AppCertificateDetailsFragmentViewModel @AssistedInject constructor(
             data.issuerName?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.issuer_name),
-                    TextInfo.from(data.issuerName),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.issuer_name_description),
                 )
             },
             data.issuerOrganization?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.issuer_organization),
-                    TextInfo.from(data.issuerOrganization),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.issuer_organization_description),
                 )
             },
             data.issuerCountry?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.issuer_country),
-                    TextInfo.from(data.issuerCountry),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.issuer_country_description),
                 )
             },
             data.subjectName?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.subject_name),
-                    TextInfo.from(data.subjectName),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.subject_name_description),
                 )
             },
             data.subjectOrganization?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.subject_organization),
-                    TextInfo.from(data.subjectOrganization),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.subject_organization_description),
                 )
             },
             data.subjectCountry?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.subject_country),
-                    TextInfo.from(data.subjectCountry),
+                    TextInfo.from(it),
                     TextInfo.from(R.string.subject_country_description),
                 )
             },

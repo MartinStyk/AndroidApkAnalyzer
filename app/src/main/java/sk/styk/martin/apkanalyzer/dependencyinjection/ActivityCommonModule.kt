@@ -19,7 +19,7 @@ import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
 import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
-import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 
 @InstallIn(ActivityComponent::class)
 @Module

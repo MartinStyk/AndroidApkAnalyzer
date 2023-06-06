@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.databinding.ListItemReceiverDetailBinding
 import sk.styk.martin.apkanalyzer.databinding.ListItemReceiverDetailExpandedBinding
-import sk.styk.martin.apkanalyzer.model.detail.BroadcastReceiverData
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.BroadcastReceiverData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.ExpandableItemViewModel
@@ -49,7 +49,7 @@ class AppReceiverDetailListAdapter @Inject constructor() : DetailInfoDescription
 
         val permission = DetailInfoAdapter.DetailInfo(
             name = TextInfo.from(R.string.receiver_permission),
-            value = if (expandedReceiverData.receiverData.permission != null) TextInfo.from(expandedReceiverData.receiverData.permission) else TextInfo.from(R.string.none),
+            value = expandedReceiverData.receiverData.permission.orNone(),
             description = TextInfo.from(R.string.receiver_permission_description),
         )
         val exported = DetailInfoAdapter.DetailInfo(

@@ -9,7 +9,7 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.model.permissions.LocalPermissionData
+import sk.styk.martin.apkanalyzer.core.apppermissions.model.LocalPermissionData
 import sk.styk.martin.apkanalyzer.util.TAG_APP_ANALYSIS
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent

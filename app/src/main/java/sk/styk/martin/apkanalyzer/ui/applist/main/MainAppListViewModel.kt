@@ -18,10 +18,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.manager.appanalysis.InstalledAppsManager
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppSource
+import sk.styk.martin.apkanalyzer.core.applist.InstalledAppsRepository
+import sk.styk.martin.apkanalyzer.core.applist.model.AppListData
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
-import sk.styk.martin.apkanalyzer.model.detail.AppSource
-import sk.styk.martin.apkanalyzer.model.list.AppListData
 import sk.styk.martin.apkanalyzer.ui.applist.AppListAdapter
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel
 import sk.styk.martin.apkanalyzer.ui.applist.DATA_STATE
@@ -29,13 +29,13 @@ import sk.styk.martin.apkanalyzer.ui.applist.EMPTY_STATE
 import sk.styk.martin.apkanalyzer.ui.applist.LOADING_STATE
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
-import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 
 @HiltViewModel
 class MainAppListViewModel @Inject constructor(
-    private val installedAppsManager: InstalledAppsManager,
+    private val installedAppsRepository: InstalledAppsRepository,
     private val navigationDrawerModel: NavigationDrawerModel,
     private val dispatcherProvider: DispatcherProvider,
     adapter: AppListAdapter,
@@ -82,14 +82,14 @@ class MainAppListViewModel @Inject constructor(
     init {
         viewModelScope.launch(dispatcherProvider.default()) {
             @AddTrace(name = "initialAppListLoad")
-            fun loadApps() = installedAppsManager.getAll()
+            fun loadApps() = installedAppsRepository.getAll()
 
             allApps = loadApps()
             withContext(dispatcherProvider.main()) {
                 appListData = allApps
             }
             withContext(dispatcherProvider.io()) {
-                installedAppsManager.preload(appListData)
+                installedAppsRepository.preload(appListData)
             }
         }
     }

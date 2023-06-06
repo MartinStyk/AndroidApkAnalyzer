@@ -11,7 +11,7 @@ import androidx.annotation.IntRange
 import androidx.core.app.NotificationCompat
 import dagger.hilt.android.qualifiers.ApplicationContext
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.manager.resources.ResourcesManager
+import sk.styk.martin.apkanalyzer.core.common.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.ui.main.MainActivity
 import javax.inject.Inject
 import javax.inject.Singleton

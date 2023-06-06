@@ -1,6 +1,3 @@
-rootProject.name = "apk-analyzer"
-include(":app")
-
 pluginManagement {
     includeBuild("build-logic")
 
@@ -22,3 +19,12 @@ dependencyResolutionManagement {
         jcenter()
     }
 }
+
+rootProject.name = "apk-analyzer"
+include(":app")
+include(":core:app-analysis-core")
+include(":core:app-list")
+include(":core:app-permissions")
+include(":core:app-statistics")
+include(":core:common")
+include(":core:ui-library")

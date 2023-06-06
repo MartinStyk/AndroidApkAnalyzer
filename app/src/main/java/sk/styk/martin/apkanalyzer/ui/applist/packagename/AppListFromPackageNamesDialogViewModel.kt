@@ -6,14 +6,14 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import sk.styk.martin.apkanalyzer.manager.appanalysis.InstalledAppsManager
+import sk.styk.martin.apkanalyzer.core.applist.InstalledAppsRepository
 import sk.styk.martin.apkanalyzer.ui.applist.AppListAdapter
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel
-import sk.styk.martin.apkanalyzer.util.coroutines.DispatcherProvider
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 
 class AppListFromPackageNamesDialogViewModel @AssistedInject constructor(
     @Assisted packageNames: List<String>,
-    private val installedAppsManager: InstalledAppsManager,
+    private val installedAppsRepository: InstalledAppsRepository,
     private val dispatcherProvider: DispatcherProvider,
     appListAdapter: AppListAdapter,
 ) : BaseAppListViewModel(appListAdapter) {
@@ -21,7 +21,7 @@ class AppListFromPackageNamesDialogViewModel @AssistedInject constructor(
     init {
         viewModelScope.launch {
             appListData = withContext(dispatcherProvider.default()) {
-                installedAppsManager.getForPackageNames(packageNames)
+                installedAppsRepository.getForPackageNames(packageNames)
             }
         }
     }
