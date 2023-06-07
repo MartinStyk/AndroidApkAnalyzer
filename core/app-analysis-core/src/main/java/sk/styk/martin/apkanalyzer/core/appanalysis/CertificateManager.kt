@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.core.appanalysis
 
 import android.content.pm.PackageInfo
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.CertificateData
+import sk.styk.martin.apkanalyzer.core.common.digest.DigestManager
 import timber.log.Timber
 import java.io.ByteArrayInputStream
 import java.security.cert.CertificateFactory
@@ -13,7 +14,7 @@ import javax.security.auth.x500.X500Principal.RFC1779
 
 class CertificateManager @Inject internal constructor(private val digestManager: DigestManager) {
 
-    fun get(packageInfo: PackageInfo): CertificateData {
+    fun getCertificateData(packageInfo: PackageInfo): CertificateData {
         val signature = packageInfo.signatures[0] ?: throw IllegalStateException("No signature")
 
         return ByteArrayInputStream(signature.toByteArray()).use {

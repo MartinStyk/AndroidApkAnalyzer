@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppSource
 import sk.styk.martin.apkanalyzer.core.applist.InstalledAppsRepository
-import sk.styk.martin.apkanalyzer.core.applist.model.AppListData
+import sk.styk.martin.apkanalyzer.core.applist.model.LazyAppListData
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.ui.applist.AppListAdapter
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel
@@ -41,7 +41,7 @@ class MainAppListViewModel @Inject constructor(
     adapter: AppListAdapter,
 ) : BaseAppListViewModel(adapter), DefaultLifecycleObserver, SearchView.OnQueryTextListener, SearchView.OnCloseListener, Toolbar.OnMenuItemClickListener {
 
-    override var appListData = listOf<AppListData>()
+    var appListData = listOf<LazyAppListData>()
         set(value) {
             field = value
             adapter.data = value
@@ -52,7 +52,7 @@ class MainAppListViewModel @Inject constructor(
             }
         }
 
-    private var allApps: List<AppListData> = emptyList()
+    private var allApps: List<LazyAppListData> = emptyList()
 
     private val openFilePickerEvent = SingleLiveEvent<Unit>()
     val openFilePicker: LiveData<Unit> = openFilePickerEvent

@@ -15,8 +15,8 @@ class AppPermissionListAdapter @Inject constructor() : DetailInfoDescriptionAdap
 
     data class DecomposedPermissionData(val completeName: String, val simpleName: String)
 
-    private val showPermissionDetailEvent = SingleLiveEvent<String>()
-    val showPermissionDetail: LiveData<String> = showPermissionDetailEvent
+    private val showPermissionDetailEvent = SingleLiveEvent<DecomposedPermissionData>()
+    val showPermissionDetail: LiveData<DecomposedPermissionData> = showPermissionDetailEvent
 
     var items = emptyList<DecomposedPermissionData>()
         set(value) {
@@ -42,7 +42,7 @@ class AppPermissionListAdapter @Inject constructor() : DetailInfoDescriptionAdap
         val completeName = permission.completeName
 
         fun showDetail() {
-            showPermissionDetailEvent.value = permission.completeName
+            showPermissionDetailEvent.value = permission
         }
 
         fun copyName(): Boolean {

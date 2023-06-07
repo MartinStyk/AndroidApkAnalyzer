@@ -29,7 +29,7 @@ abstract class BaseAppListFragment<VM : BaseAppListViewModel> : Fragment() {
             appListClickData.view.get()?.let { addSharedElement(it, getString(R.string.transition_app_detail)) }
         }.replace(
             R.id.container,
-            AppDetailFragment.newInstance(AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName)),
+            AppDetailFragment.newInstance(AppDetailRequest.InstalledPackage(appListClickData.lazyAppListData.packageName)),
             FragmentTag.AppDetailParent.tag,
         )
             .setReorderingAllowed(true)

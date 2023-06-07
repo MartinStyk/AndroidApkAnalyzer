@@ -13,25 +13,21 @@ import javax.inject.Inject
 class AppComponentsManager @Inject constructor(private val packageManager: PackageManager) {
 
     fun getActivities(packageInfo: PackageInfo): List<ActivityData> {
-        val activities = packageInfo.activities ?: return ArrayList(0)
-
-        return activities.mapTo(ArrayList(packageInfo.activities.size)) {
+        return packageInfo.activities.orEmpty().map {
             ActivityData(
-                it.name,
-                it.packageName,
-                it.loadLabel(packageManager).toString(),
-                it.targetActivity,
-                it.permission,
-                it.parentActivityName,
-                it.exported,
+                name = it.name,
+                packageName = it.packageName,
+                label = it.loadLabel(packageManager).toString(),
+                targetActivity = it.targetActivity,
+                permission = it.permission,
+                parentName = it.parentActivityName,
+                isExported = it.exported,
             )
         }
     }
 
     fun getServices(packageInfo: PackageInfo): List<ServiceData> {
-        val services = packageInfo.services ?: return ArrayList(0)
-
-        return services.mapTo(ArrayList<ServiceData>(packageInfo.services.size)) {
+        return packageInfo.services.orEmpty().map {
             ServiceData(
                 name = it.name,
                 permission = it.permission,
@@ -45,18 +41,24 @@ class AppComponentsManager @Inject constructor(private val packageManager: Packa
     }
 
     fun getContentProviders(packageInfo: PackageInfo): List<ContentProviderData> {
-        val providers = packageInfo.providers ?: return ArrayList(0)
-
-        return providers.mapTo(ArrayList<ContentProviderData>(packageInfo.providers.size)) {
-            ContentProviderData(it.name, it.authority, it.readPermission, it.writePermission, it.exported)
+        return packageInfo.providers.orEmpty().map {
+            ContentProviderData(
+                name = it.name,
+                authority = it.authority,
+                readPermission = it.readPermission,
+                writePermission = it.writePermission,
+                isExported = it.exported,
+            )
         }
     }
 
     fun getBroadcastReceivers(packageInfo: PackageInfo): List<BroadcastReceiverData> {
-        val receivers = packageInfo.receivers ?: return ArrayList(0)
-
-        return receivers.mapTo(ArrayList<BroadcastReceiverData>(packageInfo.receivers.size)) {
-            BroadcastReceiverData(it.name, it.permission, it.exported)
+        return packageInfo.receivers.orEmpty().map {
+            BroadcastReceiverData(
+                name = it.name,
+                permission = it.permission,
+                isExported = it.exported,
+            )
         }
     }
 }

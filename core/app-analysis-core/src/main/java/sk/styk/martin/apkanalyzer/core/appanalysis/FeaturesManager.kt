@@ -7,10 +7,8 @@ import javax.inject.Inject
 
 class FeaturesManager @Inject constructor() {
 
-    fun get(packageInfo: PackageInfo): List<FeatureData> {
-        val featureInfos = packageInfo.reqFeatures ?: return ArrayList(0)
-
-        return featureInfos.mapTo(ArrayList(featureInfos.size)) {
+    fun getFeatures(packageInfo: PackageInfo): List<FeatureData> {
+        return packageInfo.reqFeatures.orEmpty().map {
             FeatureData(
                 name = it.name ?: it.glEsVersion,
                 isRequired = (it.flags and FeatureInfo.FLAG_REQUIRED) > 0,

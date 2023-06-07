@@ -56,7 +56,7 @@ class AppListFromPackageNamesDialog : DialogFragment() {
 
     private fun startAppDetail(appListClickData: AppListAdapter.AppListClickData) {
         val intent = Intent(requireContext(), AppDetailActivity::class.java).apply {
-            putExtra(APP_DETAIL_REQUEST, AppDetailRequest.InstalledPackage(appListClickData.appListData.packageName))
+            putExtra(APP_DETAIL_REQUEST, AppDetailRequest.InstalledPackage(appListClickData.lazyAppListData.packageName))
         }
         startActivity(intent)
     }

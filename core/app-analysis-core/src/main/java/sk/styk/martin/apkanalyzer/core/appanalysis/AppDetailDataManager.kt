@@ -23,32 +23,30 @@ class AppDetailDataManager @Inject internal constructor(
             PackageManager.GET_PERMISSIONS or
             PackageManager.GET_CONFIGURATIONS
 
-    fun loadForInstalledPackage(packageName: String) = get(
+    fun installedPackageDetails(packageName: String) = getPackageDetails(
         analysisMode = AppDetailData.AnalysisMode.INSTALLED_PACKAGE,
         packageInfo = packageManager.getPackageInfo(packageName, analysisFlags),
     )
 
-    fun loadForExternalPackage(accessibleFile: File): AppDetailData {
-        return get(
+    fun apkFilePackageDetails(accessibleFile: File): AppDetailData {
+        return getPackageDetails(
             analysisMode = AppDetailData.AnalysisMode.APK_FILE,
             packageInfo = packageManager.getPackageArchiveInfoWithCorrectPath(accessibleFile.absolutePath, analysisFlags)
                 ?: throw IllegalArgumentException(),
         )
     }
 
-    private fun get(analysisMode: AppDetailData.AnalysisMode, packageInfo: PackageInfo): AppDetailData {
-        return AppDetailData(
-            analysisMode = analysisMode,
-            generalData = appGeneralDataManager.get(packageInfo, analysisMode.toAnalysisMode()),
-            certificateData = certificateManager.get(packageInfo),
-            activityData = appComponentsManager.getActivities(packageInfo),
-            serviceData = appComponentsManager.getServices(packageInfo),
-            contentProviderData = appComponentsManager.getContentProviders(packageInfo),
-            broadcastReceiverData = appComponentsManager.getBroadcastReceivers(packageInfo),
-            permissionData = appPermissionManager.get(packageInfo),
-            featureData = featuresManager.get(packageInfo),
-        )
-    }
+    private fun getPackageDetails(analysisMode: AppDetailData.AnalysisMode, packageInfo: PackageInfo) = AppDetailData(
+        analysisMode = analysisMode,
+        generalData = appGeneralDataManager.get(packageInfo, analysisMode.toAnalysisMode()),
+        certificateData = certificateManager.getCertificateData(packageInfo),
+        activityData = appComponentsManager.getActivities(packageInfo),
+        serviceData = appComponentsManager.getServices(packageInfo),
+        contentProviderData = appComponentsManager.getContentProviders(packageInfo),
+        broadcastReceiverData = appComponentsManager.getBroadcastReceivers(packageInfo),
+        permissionData = appPermissionManager.getPermissions(packageInfo),
+        featureData = featuresManager.getFeatures(packageInfo),
+    )
 
     private fun PackageManager.getPackageArchiveInfoWithCorrectPath(pathToPackage: String, analysisFlags: Int): PackageInfo? {
         val packageInfo = getPackageArchiveInfo(pathToPackage, analysisFlags)

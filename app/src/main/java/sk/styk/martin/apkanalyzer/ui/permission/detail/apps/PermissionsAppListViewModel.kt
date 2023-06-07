@@ -30,7 +30,7 @@ class PermissionsAppListViewModel @AssistedInject constructor(
             val installedApps = installedAppsRepository.getForPackageNames(packageNames)
 
             withContext(dispatcherProvider.main()) {
-                appListData = installedApps
+                lazyAppListData = installedApps
             }
         }
     }

@@ -16,4 +16,5 @@ class AndroidVersionManager @Inject constructor(private val resourcesManager: Re
 
         return if (index >= 0 && index < versions.size) versions[index] else null
     }
+
 }

@@ -11,7 +11,7 @@ import sk.styk.martin.apkanalyzer.core.appstatistics.model.MathStatistics
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
-import sk.styk.martin.apkanalyzer.core.common.util.BigDecimalFormatter
+import sk.styk.martin.apkanalyzer.core.appstatistics.util.BigDecimalFormatter
 
 class ExpandableMathStatisticsView @JvmOverloads constructor(
     context: Context,

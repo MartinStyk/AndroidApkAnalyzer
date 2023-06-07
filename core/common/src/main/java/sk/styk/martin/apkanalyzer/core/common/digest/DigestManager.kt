@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.core.appanalysis
+package sk.styk.martin.apkanalyzer.core.common.digest
 
 import java.math.BigInteger
 import java.security.MessageDigest

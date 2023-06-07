@@ -24,7 +24,6 @@ class AppDefinedPermissionFragmentViewModel @AssistedInject constructor(
     @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
     val permissionAdapter: AppPermissionListAdapter,
     clipBoardManager: ClipBoardManager,
-    private val dispatcherProvider: DispatcherProvider,
     private val packageManager: PackageManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, permissionAdapter, clipBoardManager) {
 
@@ -32,32 +31,25 @@ class AppDefinedPermissionFragmentViewModel @AssistedInject constructor(
     val showDialog = SingleLiveEvent<DialogComponent>()
 
     override fun onDataReceived(appDetailData: AppDetailData): Boolean {
-        viewModelScope.launch(dispatcherProvider.main()) {
-            val items = withContext(dispatcherProvider.default()) {
-                appDetailData.permissionData.definesPermissionsNames.map {
-                    AppPermissionListAdapter.DecomposedPermissionData(it, AppPermissionManager.createSimpleName(it))
-                }
-            }
-            permissionAdapter.items = items
+        permissionAdapter.items = appDetailData.permissionData.definesPermissions.map {
+            AppPermissionListAdapter.DecomposedPermissionData(it.name, it.simpleName)
         }
-        return appDetailData.permissionData.definesPermissionsNames.isNotEmpty()
+        return permissionAdapter.items.isNotEmpty()
     }
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         permissionAdapter.showPermissionDetail.observe(owner) { it ->
             val description = try {
-                packageManager.getPermissionInfo(it, PackageManager.GET_META_DATA).loadDescription(packageManager)
+                packageManager.getPermissionInfo(it.completeName, PackageManager.GET_META_DATA).loadDescription(packageManager)
             } catch (e: PackageManager.NameNotFoundException) {
                 null
             }?.takeIf { it.isNotBlank() }
                 ?.let { TextInfo.from(it) }
                 ?: TextInfo.from(R.string.NA)
 
-            openDescription
-
             showDialogEvent.value = DialogComponent(
-                title = TextInfo.from(AppPermissionManager.createSimpleName(it)),
+                title = TextInfo.from(it.simpleName),
                 message = description,
                 negativeButtonText = TextInfo.from(R.string.dismiss),
             )

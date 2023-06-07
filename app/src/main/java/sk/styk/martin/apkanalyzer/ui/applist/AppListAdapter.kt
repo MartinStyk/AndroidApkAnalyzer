@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import sk.styk.martin.apkanalyzer.core.applist.model.AppListData
+import sk.styk.martin.apkanalyzer.core.applist.model.LazyAppListData
 import sk.styk.martin.apkanalyzer.databinding.ListItemApplicationBinding
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import java.lang.ref.WeakReference
@@ -15,7 +15,7 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
 
     val appClicked = SingleLiveEvent<AppListClickData>()
 
-    var data = emptyList<AppListData>()
+    var data = emptyList<LazyAppListData>()
         set(value) {
             val diffResult = DiffUtil.calculateDiff(AppDiffCallback(value, field))
             field = value
@@ -34,15 +34,15 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
     override fun getItemId(position: Int): Long = position.toLong()
 
     inner class ViewHolder(private val binding: ListItemApplicationBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(appData: AppListData) {
+        fun bind(appData: LazyAppListData) {
             binding.data = appData
             binding.root.setOnClickListener { appClicked.value = AppListClickData(WeakReference(it), appData) }
         }
     }
 
     private inner class AppDiffCallback(
-        private val newList: List<AppListData>,
-        private val oldList: List<AppListData>,
+        private val newList: List<LazyAppListData>,
+        private val oldList: List<LazyAppListData>,
     ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
         override fun getNewListSize() = newList.size
@@ -50,5 +50,5 @@ class AppListAdapter @Inject constructor() : RecyclerView.Adapter<AppListAdapter
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) = oldList[oldItemPosition].packageName == newList[newItemPosition].packageName
     }
 
-    data class AppListClickData(val view: WeakReference<View>, val appListData: AppListData)
+    data class AppListClickData(val view: WeakReference<View>, val lazyAppListData: LazyAppListData)
 }

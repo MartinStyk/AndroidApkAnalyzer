@@ -1,12 +1,10 @@
 package sk.styk.martin.apkanalyzer.core.appanalysis.model
 
-import android.annotation.SuppressLint
 import android.graphics.drawable.Drawable
 import android.os.Parcelable
 import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 
-@SuppressLint("ParcelCreator")
 @Parcelize
 data class GeneralData(
     val packageName: String,

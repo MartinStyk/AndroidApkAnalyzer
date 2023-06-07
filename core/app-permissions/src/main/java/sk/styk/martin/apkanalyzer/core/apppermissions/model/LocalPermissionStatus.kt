@@ -1,12 +1,10 @@
-package sk.styk.martin.apkanalyzer.core.appanalysis
+package sk.styk.martin.apkanalyzer.core.apppermissions.model
 
-import android.annotation.SuppressLint
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-@SuppressLint("ParcelCreator")
 @Parcelize
-data class PermissionStatus(
+data class LocalPermissionStatus(
     val packageName: String,
     val isGranted: Boolean = false,
 ) : Parcelable

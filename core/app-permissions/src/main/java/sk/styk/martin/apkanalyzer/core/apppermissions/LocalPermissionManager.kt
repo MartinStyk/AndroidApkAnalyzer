@@ -2,10 +2,11 @@ package sk.styk.martin.apkanalyzer.core.apppermissions;
 
 import kotlinx.coroutines.flow.flow
 import sk.styk.martin.apkanalyzer.core.appanalysis.AppPermissionManager
-import sk.styk.martin.apkanalyzer.core.appanalysis.PermissionStatus
+import sk.styk.martin.apkanalyzer.core.apppermissions.model.LocalPermissionStatus
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.PermissionData
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.UsedPermissionData
 import sk.styk.martin.apkanalyzer.core.applist.InstalledAppsRepository
+import sk.styk.martin.apkanalyzer.core.applist.model.LazyAppListData
 import sk.styk.martin.apkanalyzer.core.apppermissions.model.LocalPermissionData
 import java.util.TreeSet
 import javax.inject.Inject
@@ -27,40 +28,32 @@ class LocalPermissionManager @Inject constructor(
         val builder = LocalPermissionDataBuilder()
 
         allApps.forEachIndexed { index, appListData ->
-            val packageName = appListData.packageName
-            builder.addAll(packageName, appPermissionManager.getUsedPermissions(packageName))
+            builder += appListData
             emit(PermissionLoadingStatus.Loading(index, allApps.size))
         }
 
         emit(PermissionLoadingStatus.Data(builder.build()))
     }
 
-    internal class LocalPermissionDataBuilder {
+    private inner class LocalPermissionDataBuilder {
 
-        private val data = HashMap<PermissionData, MutableList<PermissionStatus>>()
+        private val data = HashMap<PermissionData, MutableList<LocalPermissionStatus>>()
 
-        fun addAll(packageName: String, usedPermissionData: List<UsedPermissionData>?) {
-            if (usedPermissionData == null) {
-                return
-            }
-
-            for (data in usedPermissionData) {
-                add(packageName, data)
+        operator fun plusAssign(lazyAppListData: LazyAppListData) {
+            val packageName = lazyAppListData.packageName
+            appPermissionManager.getUsedPermissions(packageName)?.forEach { permissionData ->
+                add(packageName, permissionData)
             }
         }
 
         private fun add(packageName: String, usedPermissionData: UsedPermissionData) {
-            var packageNamesForGivenPermissions: MutableList<PermissionStatus>? = data[usedPermissionData.permissionData]
-
-            if (packageNamesForGivenPermissions == null) {
-                packageNamesForGivenPermissions = ArrayList()
-                data[usedPermissionData.permissionData] = packageNamesForGivenPermissions
-            }
-            packageNamesForGivenPermissions.add(PermissionStatus(packageName, usedPermissionData.isGranted))
+            val packageNamesForGivenPermissions = data[usedPermissionData.permissionData] ?: mutableListOf()
+            packageNamesForGivenPermissions.add(LocalPermissionStatus(packageName, usedPermissionData.isGranted))
+            data[usedPermissionData.permissionData] = packageNamesForGivenPermissions
         }
 
         fun build(): List<LocalPermissionData> {
-            val sortedSet = TreeSet<Map.Entry<PermissionData, List<PermissionStatus>>> { entry1, entry2 -> entry2.value.size - entry1.value.size }
+            val sortedSet = TreeSet<Map.Entry<PermissionData, List<LocalPermissionStatus>>> { entry1, entry2 -> entry2.value.size - entry1.value.size }
             sortedSet.addAll(data.entries)
 
             return sortedSet.mapTo(ArrayList(sortedSet.size)) { LocalPermissionData(it.key, it.value) }

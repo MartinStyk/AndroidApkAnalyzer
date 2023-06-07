@@ -24,7 +24,6 @@ class AppUsedPermissionFragmentViewModel @AssistedInject constructor(
     @Assisted appDetailFragmentViewModel: AppDetailFragmentViewModel,
     private val permissionAdapter: AppPermissionListAdapter,
     clipBoardManager: ClipBoardManager,
-    private val dispatcherProvider: DispatcherProvider,
     private val packageManager: PackageManager,
 ) : AppDetailPageFragmentViewModel(appDetailFragmentViewModel, permissionAdapter, clipBoardManager) {
 
@@ -32,22 +31,17 @@ class AppUsedPermissionFragmentViewModel @AssistedInject constructor(
     val showDialog: LiveData<DialogComponent> = showDialogEvent
 
     override fun onDataReceived(appDetailData: AppDetailData): Boolean {
-        viewModelScope.launch(dispatcherProvider.main()) {
-            val items = withContext(dispatcherProvider.default()) {
-                appDetailData.permissionData.usesPermissionsNames.map {
-                    AppPermissionListAdapter.DecomposedPermissionData(it, AppPermissionManager.createSimpleName(it))
-                }
-            }
-            permissionAdapter.items = items
+        permissionAdapter.items = appDetailData.permissionData.usesPermissions.map {
+            AppPermissionListAdapter.DecomposedPermissionData(it.permissionData.name, it.permissionData.simpleName)
         }
-        return appDetailData.permissionData.usesPermissionsNames.isNotEmpty()
+        return permissionAdapter.items.isNotEmpty()
     }
 
     override fun onCreate(owner: LifecycleOwner) {
         super.onCreate(owner)
         permissionAdapter.showPermissionDetail.observe(owner) { it ->
             val description = try {
-                packageManager.getPermissionInfo(it, PackageManager.GET_META_DATA).loadDescription(packageManager)
+                packageManager.getPermissionInfo(it.completeName, PackageManager.GET_META_DATA).loadDescription(packageManager)
             } catch (e: PackageManager.NameNotFoundException) {
                 null
             }?.takeIf { it.isNotBlank() }
@@ -55,7 +49,7 @@ class AppUsedPermissionFragmentViewModel @AssistedInject constructor(
                 ?: TextInfo.from(R.string.NA)
 
             showDialogEvent.value = DialogComponent(
-                title = TextInfo.from(AppPermissionManager.createSimpleName(it)),
+                title = TextInfo.from(it.simpleName),
                 message = description,
                 negativeButtonText = TextInfo.from(R.string.dismiss),
             )

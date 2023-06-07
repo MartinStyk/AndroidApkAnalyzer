@@ -20,7 +20,7 @@ class AppListFromPackageNamesDialogViewModel @AssistedInject constructor(
 
     init {
         viewModelScope.launch {
-            appListData = withContext(dispatcherProvider.default()) {
+            lazyAppListData = withContext(dispatcherProvider.default()) {
                 installedAppsRepository.getForPackageNames(packageNames)
             }
         }

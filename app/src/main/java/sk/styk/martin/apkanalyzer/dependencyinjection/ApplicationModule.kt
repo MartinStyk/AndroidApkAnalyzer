@@ -25,10 +25,6 @@ class ApplicationModule {
 
     @Provides
     @Singleton
-    fun providePackageManager(application: Application): PackageManager = application.packageManager
-
-    @Provides
-    @Singleton
     fun provideContentResolver(application: Application): ContentResolver = application.contentResolver
 
     @Provides

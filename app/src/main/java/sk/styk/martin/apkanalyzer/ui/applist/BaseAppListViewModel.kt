@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.distinctUntilChanged
-import sk.styk.martin.apkanalyzer.core.applist.model.AppListData
+import sk.styk.martin.apkanalyzer.core.applist.model.LazyAppListData
 
 internal const val LOADING_STATE = 0
 internal const val EMPTY_STATE = 1
@@ -14,7 +14,7 @@ abstract class BaseAppListViewModel constructor(
     val adapter: AppListAdapter,
 ) : ViewModel() {
 
-    protected open var appListData = listOf<AppListData>()
+    protected open var lazyAppListData = listOf<LazyAppListData>()
         set(value) {
             field = value
             adapter.data = value

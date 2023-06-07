@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.core.appanalysis.model
 
-import android.annotation.SuppressLint
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import java.util.Date
@@ -8,7 +7,6 @@ import java.util.Date
 /**
  * Represents data obtained from certificate file
  */
-@SuppressLint("ParcelCreator")
 @Parcelize
 data class CertificateData(
     val signAlgorithm: String,

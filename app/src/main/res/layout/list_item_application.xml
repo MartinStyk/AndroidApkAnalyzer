@@ -7,7 +7,7 @@
 
         <variable
             name="data"
-            type="sk.styk.martin.apkanalyzer.core.applist.model.AppListData" />
+            type="sk.styk.martin.apkanalyzer.core.applist.model.LazyAppListData" />
 
     </data>
 

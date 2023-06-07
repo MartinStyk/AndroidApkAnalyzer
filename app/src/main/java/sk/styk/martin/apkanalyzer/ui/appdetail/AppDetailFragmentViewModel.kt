@@ -144,10 +144,10 @@ class AppDetailFragmentViewModel @AssistedInject constructor(
         try {
             val detail = withContext(dispatcherProvider.default()) {
                 when (appDetailRequest) {
-                    is AppDetailRequest.InstalledPackage -> appDetailDataManager.loadForInstalledPackage(appDetailRequest.packageName)
+                    is AppDetailRequest.InstalledPackage -> appDetailDataManager.installedPackageDetails(appDetailRequest.packageName)
                     is AppDetailRequest.ExternalPackage -> {
                         val tempFile = fileManager.createTempFileFromUri(appDetailRequest.packageUri, ANALYZED_APK_NAME)
-                        appDetailDataManager.loadForExternalPackage(tempFile)
+                        appDetailDataManager.apkFilePackageDetails(tempFile)
                     }
                 }
             }

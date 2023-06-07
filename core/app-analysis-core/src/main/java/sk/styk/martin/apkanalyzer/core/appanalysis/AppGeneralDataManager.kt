@@ -14,6 +14,7 @@ class AppGeneralDataManager @Inject constructor(
     private val packageManager: PackageManager,
     private val androidVersionManager: AndroidVersionManager,
     private val androidManifestManager: AndroidManifestManager,
+    private val appInstallSourceManager: AppInstallSourceManager,
 ) {
 
     sealed interface AnalysisMode {
@@ -24,9 +25,6 @@ class AppGeneralDataManager @Inject constructor(
     fun get(packageInfo: PackageInfo, analysisMode: AnalysisMode): GeneralData {
         val applicationInfo = packageInfo.applicationInfo
 
-        val isSystemApp = (applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
-        val appInstaller = findAppInstaller(packageInfo.packageName, packageManager)
-
         val minSdk = getMinSdk(applicationInfo, analysisMode)
 
         return GeneralData(
@@ -35,14 +33,14 @@ class AppGeneralDataManager @Inject constructor(
             processName = applicationInfo.processName,
             versionName = packageInfo.versionName,
             versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode else packageInfo.versionCode.toLong(),
-            isSystemApp = isSystemApp,
+            isSystemApp = appInstallSourceManager.isSystemInstalledApp(packageInfo),
             uid = applicationInfo.uid,
             description = applicationInfo.loadDescription(packageManager)?.toString(),
             apkDirectory = applicationInfo.sourceDir,
             dataDirectory = applicationInfo.dataDir,
 
-            source = getAppSource(packageManager, packageInfo.packageName, isSystemApp),
-            appInstaller = appInstaller,
+            source = appInstallSourceManager.getAppInstallSource(packageInfo),
+            appInstaller = appInstallSourceManager.appInstallingPackage(packageInfo),
 
             installLocation = InstallLocation.from(packageInfo.installLocation),
             apkSize = computeApkSize(applicationInfo.sourceDir),
@@ -68,27 +66,4 @@ class AppGeneralDataManager @Inject constructor(
             else -> null
         }
 
-    companion object {
-        fun getAppSource(packageManager: PackageManager, packageName: String, isSystem: Boolean): AppSource {
-            val installer = findAppInstaller(packageName, packageManager)
-
-            return if (installer == AppSource.GOOGLE_PLAY.installerPackageName) {
-                AppSource.GOOGLE_PLAY
-            } else if (installer == AppSource.AMAZON_STORE.installerPackageName) {
-                AppSource.AMAZON_STORE
-            } else if (installer == AppSource.SYSTEM_PREINSTALED.installerPackageName || isSystem) {
-                AppSource.SYSTEM_PREINSTALED
-            } else {
-                AppSource.UNKNOWN
-            }
-        }
-
-        private fun findAppInstaller(packageName: String, packageManager: PackageManager): String? {
-            return try {
-                packageManager.getInstallerPackageName(packageName)
-            } catch (e: Exception) {
-                null // this means package is not installed
-            }
-        }
-    }
 }

@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.core.common.util
+package sk.styk.martin.apkanalyzer.core.appstatistics.util
 
 import java.text.DecimalFormat
 
