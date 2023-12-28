@@ -26,9 +26,6 @@ class ApplicationPlugin : Plugin<Project> {
                     compileSdk = TargetSdk
                     minSdk = MinSdk
 
-                    versionCode = 1
-                    versionName = "dev"
-
                     multiDexEnabled = true
                     vectorDrawables.useSupportLibrary = true
                 }

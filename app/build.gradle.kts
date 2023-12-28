@@ -12,6 +12,9 @@ android {
     defaultConfig {
         applicationId = "sk.styk.martin.apkanalyzer"
         proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+
+        versionCode = 1
+        versionName = "dev"
     }
 
     flavorDimensions += "version"
