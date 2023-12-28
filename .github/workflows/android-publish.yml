@@ -32,7 +32,7 @@ jobs:
         content: ${{secrets.GOOGLE_SERVICES}}
 
     - name: Set app version
-      uses: Devofure/advance-android-version-actions@v1.6.1
+      uses: chkfung/android-version-actions@v1.2.1
       with:
        gradlePath: app/build.gradle.kts
        versionCode: ${{ github.event.inputs.versionNumber }}
