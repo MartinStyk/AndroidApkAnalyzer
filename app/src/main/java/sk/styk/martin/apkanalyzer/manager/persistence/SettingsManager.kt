@@ -3,7 +3,7 @@ package sk.styk.martin.apkanalyzer.manager.persistence
 import android.content.SharedPreferences
 import javax.inject.Inject
 
-private const val DAY_NIGHT_KEY = "dayNightPref"
+const val DAY_NIGHT_KEY = "dayNightPref"
 
 class SettingsManager @Inject constructor(
     private val sharedPreferences: SharedPreferences,
@@ -17,7 +17,7 @@ class SettingsManager @Inject constructor(
         fun persist() = persisted
 
         companion object {
-            fun from(persisted: String) = values()
+            fun from(persisted: String) = entries
                 .firstOrNull { it.persisted == persisted }
                 ?: DEFAULT
         }

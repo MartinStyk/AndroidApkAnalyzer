@@ -8,7 +8,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 
 internal fun Project.configureKotlin(
-    commonExtension: CommonExtension<*, *, *, *>
+    commonExtension: CommonExtension<*, *, *, *, *>,
 ) {
     commonExtension.compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

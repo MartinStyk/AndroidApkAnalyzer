@@ -1,6 +1,19 @@
 package sk.styk.martin.apkanalyzer.manager.resources
 
-interface ColorThemeManager {
+import androidx.appcompat.app.AppCompatDelegate
+import sk.styk.martin.apkanalyzer.manager.persistence.SettingsManager
+import javax.inject.Inject
+import javax.inject.Singleton
 
-    fun setTheme()
+@Singleton
+class ColorThemeManager @Inject constructor(
+    private val settingsManager: SettingsManager,
+) {
+    fun setTheme() {
+        when (settingsManager.colorScheme) {
+            SettingsManager.ColorScheme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            SettingsManager.ColorScheme.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            SettingsManager.ColorScheme.DEFAULT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
+    }
 }

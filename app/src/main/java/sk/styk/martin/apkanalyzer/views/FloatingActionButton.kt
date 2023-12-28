@@ -515,6 +515,7 @@ class FloatingActionButton : RelativeLayout {
 
     inner class MoveUpwardBehavior : CoordinatorLayout.Behavior<View>() {
 
+        @SuppressLint("RestrictedApi")
         override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
             return buttonPosition.and(POSITION_BOTTOM) > 0 && dependency is Snackbar.SnackbarLayout
         }

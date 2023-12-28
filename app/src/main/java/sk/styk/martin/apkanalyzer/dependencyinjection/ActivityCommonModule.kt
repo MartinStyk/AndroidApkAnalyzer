@@ -11,6 +11,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.android.scopes.ActivityScoped
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.manager.analytics.AnalyticsTracker
 import sk.styk.martin.apkanalyzer.manager.analytics.FragmentScreenTracker
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.ForegroundFragmentWatcher
@@ -18,8 +19,6 @@ import sk.styk.martin.apkanalyzer.manager.permission.PermissionManager
 import sk.styk.martin.apkanalyzer.manager.permission.PermissionsManagerImpl
 import sk.styk.martin.apkanalyzer.manager.promo.UserReviewManager
 import sk.styk.martin.apkanalyzer.manager.resources.ActivityColorThemeManager
-import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
-import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 
 @InstallIn(ActivityComponent::class)
 @Module
@@ -51,14 +50,14 @@ class ActivityCommonModule {
 
     @Provides
     @ActivityScoped
-    fun provideColorThemeManager(activity: AppCompatActivity, applicationColorThemeManager: ColorThemeManager): ActivityColorThemeManager {
+    fun provideColorThemeManager(activity: AppCompatActivity): ActivityColorThemeManager {
         val activityColorThemeManager: ActivityColorThemeManager =
             ViewModelProvider(
                 activity,
                 object : ViewModelProvider.Factory {
                     override fun <T : ViewModel> create(modelClass: Class<T>): T {
                         @Suppress("UNCHECKED_CAST")
-                        return ActivityColorThemeManager(applicationColorThemeManager) as T
+                        return ActivityColorThemeManager() as T
                     }
                 },
             )[ActivityColorThemeManager::class.java]

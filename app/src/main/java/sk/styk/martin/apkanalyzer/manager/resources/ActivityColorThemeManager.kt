@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
-class ActivityColorThemeManager @Inject constructor(private val colorThemeManager: ColorThemeManager) : ViewModel(), ColorThemeManager by colorThemeManager {
+class ActivityColorThemeManager @Inject constructor() : ViewModel() {
 
     private var activity: WeakReference<Activity>? = null
 

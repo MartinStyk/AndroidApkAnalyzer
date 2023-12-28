@@ -10,7 +10,6 @@ private const val APP_START_NUMBER = "app_start_number"
 class PersistenceManager @Inject constructor(
     private val sharedPreferences: SharedPreferences,
 ) {
-
     var isOnboardingRequired: Boolean
         get() = sharedPreferences.getBoolean(FIRST_APP_START, true)
         set(value) = sharedPreferences.edit().putBoolean(FIRST_APP_START, value).apply()
