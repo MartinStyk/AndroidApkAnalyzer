@@ -124,6 +124,7 @@
     <string name="start_date">開始 : </string>
     <string name="end_date">有効期限  : </string>
     <string name="cert_md5">MD5証明書</string>
+    <string name="cert_sha256">SHA-256証明書</string>
     <string name="issuer_name">発行者名</string>
     <string name="issuer_organization">発行組織</string>
     <string name="issuer_country">発行国</string>
@@ -135,6 +136,7 @@
     <string name="start_date_description">証明書の有効期間の開始</string>
     <string name="end_date_description">証明書の有効期間の終了</string>
     <string name="cert_md5_description">証明書のMD5ハッシュ</string>
+    <string name="cert_sha256_description">証明書のSHA-256ハッシュ</string>
     <string name="issuer_name_description">証明書の発行者の名前</string>
     <string name="issuer_organization_description">証明書の組織の名前</string>
     <string name="issuer_country_description">証明書の発行国の名前</string>

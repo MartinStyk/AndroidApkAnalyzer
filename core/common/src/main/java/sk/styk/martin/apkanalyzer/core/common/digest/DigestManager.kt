@@ -20,6 +20,18 @@ class DigestManager @Inject constructor() {
         return getHexString(digest.digest())
     }
 
+    fun sha256Digest(input: ByteArray): String {
+        val digest = getDigest("SHA-256")
+        digest.update(input)
+        return getHexString(digest.digest())
+    }
+
+    fun sha256Digest(input: String): String {
+        val digest = getDigest("SHA-256")
+        digest.update(input.toByteArray())
+        return getHexString(digest.digest())
+    }
+
     fun byteToHexString(bArray: ByteArray): String {
         val sb = StringBuilder(bArray.size)
         val var5 = bArray.size

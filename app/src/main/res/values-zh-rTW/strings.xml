@@ -189,6 +189,7 @@
     <string name="start_date">有效日期</string>
     <string name="end_date">截止日期</string>
     <string name="cert_md5">MD5 憑證</string>
+    <string name="cert_sha256">SHA-256 憑證</string>
     <string name="issuer_name">發行者名稱</string>
     <string name="issuer_organization">發行機構</string>
     <string name="issuer_country">發行國家</string>
@@ -201,6 +202,7 @@
     <string name="start_date_description">憑證生效起始日期。</string>
     <string name="end_date_description">憑證效力截止日期。</string>
     <string name="cert_md5_description">憑證的 MD5 雜湊值。</string>
+    <string name="cert_sha256_description">憑證的 SHA-256 雜湊值。</string>
     <string name="issuer_name_description">憑證發行者名稱。</string>
     <string name="issuer_organization_description">憑證發行機構名稱。</string>
     <string name="issuer_country_description">發行憑證的國家代號。</string>
