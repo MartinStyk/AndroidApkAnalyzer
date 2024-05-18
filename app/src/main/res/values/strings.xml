@@ -154,6 +154,7 @@
     <string name="start_date">Valid from</string>
     <string name="end_date">Valid to</string>
     <string name="cert_md5">Certificate MD5</string>
+    <string name="cert_sha256">Certificate SHA-256</string>
     <string name="issuer_name">Issuer name</string>
     <string name="issuer_organization">Issuer organization</string>
     <string name="issuer_country">Issuer country</string>
@@ -165,6 +166,7 @@
     <string name="start_date_description">Start of validity period of the certificate.</string>
     <string name="end_date_description">End of validity period of the certificate.</string>
     <string name="cert_md5_description">MD5 hash of the certificate.</string>
+    <string name="cert_sha256_description">SHA-256 hash of the certificate.</string>
     <string name="issuer_name_description">Name of issuer of the certificate</string>
     <string name="issuer_organization_description">Name of organization of issuer of the certificate</string>
     <string name="issuer_country_description">Country of issuer of the certificate</string>

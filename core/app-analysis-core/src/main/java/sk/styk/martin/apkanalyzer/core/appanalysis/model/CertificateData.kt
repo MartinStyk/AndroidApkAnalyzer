@@ -10,8 +10,10 @@ import java.util.Date
 @Parcelize
 data class CertificateData(
     val signAlgorithm: String,
-    val certificateHash: String,
+    val certificateHashMd5: String,
+    val certificateHashSha256: String,
     val publicKeyMd5: String,
+    val publicKeySha256: String,
     val startDate: Date,
     val endDate: Date,
     val serialNumber: Int = 0,
