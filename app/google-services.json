@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "649677360257",
+    "project_id": "apkanalyzer-public",
+    "storage_bucket": "apkanalyzer-public.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649677360257:android:d5ed46969a2b7a13301180",
+        "android_client_info": {
+          "package_name": "sk.styk.martin.apkanalyzer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmqtnxwkbFaiks5hRo65R7ahjoZtkGUzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:649677360257:android:64853d421cf4949a301180",
+        "android_client_info": {
+          "package_name": "sk.styk.martin.apkanalyzer.premium"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDmqtnxwkbFaiks5hRo65R7ahjoZtkGUzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
