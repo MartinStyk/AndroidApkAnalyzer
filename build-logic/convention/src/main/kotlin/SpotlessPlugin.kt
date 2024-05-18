@@ -12,7 +12,7 @@ class SpotlessPlugin : Plugin<Project> {
             extensions.configure<SpotlessExtension> {
                 kotlin {
                     target("**/*.kt")
-                    targetExclude("$buildDir/**/*.kt")
+                    targetExclude("${layout.buildDirectory}/**/*.kt")
                     targetExclude("bin/**/*.kt")
                     ktlint("0.48.2")
                 }
