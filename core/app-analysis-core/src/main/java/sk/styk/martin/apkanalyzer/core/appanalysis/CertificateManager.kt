@@ -24,7 +24,7 @@ class CertificateManager @Inject internal constructor(private val digestManager:
             CertificateData(
                 signAlgorithm = certificate.sigAlgName,
                 certificateHashMd5 = digestManager.md5Digest(certificate.encoded),
-                certificateHashSha256 = digestManager.md5Digest(certificate.encoded),
+                certificateHashSha256 = digestManager.sha256Digest(certificate.encoded),
                 publicKeyMd5 = digestManager.md5Digest(digestManager.byteToHexString(certificate.publicKey.encoded)),
                 publicKeySha256 = digestManager.sha256Digest(digestManager.byteToHexString(certificate.publicKey.encoded)),
                 startDate = certificate.notBefore,
