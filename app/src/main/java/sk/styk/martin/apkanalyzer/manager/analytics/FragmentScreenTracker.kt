@@ -6,9 +6,9 @@ import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.ForegroundFragmentWatcher
 import sk.styk.martin.apkanalyzer.util.FragmentTag
-import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import javax.inject.Inject
 
 @ActivityScoped

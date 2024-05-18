@@ -5,9 +5,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import sk.styk.martin.apkanalyzer.R
+import sk.styk.martin.apkanalyzer.core.appanalysis.model.ContentProviderData
 import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailBinding
 import sk.styk.martin.apkanalyzer.databinding.ListItemProviderDetailExpandedBinding
-import sk.styk.martin.apkanalyzer.core.appanalysis.model.ContentProviderData
 import sk.styk.martin.apkanalyzer.ui.appdetail.adapters.DetailInfoAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.DetailInfoDescriptionAdapter
 import sk.styk.martin.apkanalyzer.ui.appdetail.recycler.ExpandableItemViewModel

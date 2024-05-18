@@ -3,8 +3,8 @@ package sk.styk.martin.apkanalyzer.ui.appdetail.page.feature
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
-import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppDetailData
+import sk.styk.martin.apkanalyzer.manager.clipboard.ClipBoardManager
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.AppDetailPageFragmentViewModel
 

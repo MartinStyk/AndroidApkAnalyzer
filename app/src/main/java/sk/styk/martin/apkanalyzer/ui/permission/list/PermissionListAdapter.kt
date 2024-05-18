@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import sk.styk.martin.apkanalyzer.databinding.ListItemPermissionLocalDataBinding
 import sk.styk.martin.apkanalyzer.core.apppermissions.model.LocalPermissionData
+import sk.styk.martin.apkanalyzer.databinding.ListItemPermissionLocalDataBinding
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import java.lang.ref.WeakReference
 import javax.inject.Inject

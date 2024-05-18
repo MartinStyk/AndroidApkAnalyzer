@@ -6,12 +6,12 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import sk.styk.martin.apkanalyzer.R
-import sk.styk.martin.apkanalyzer.databinding.ViewMathStatisticsCardBinding
 import sk.styk.martin.apkanalyzer.core.appstatistics.model.MathStatistics
+import sk.styk.martin.apkanalyzer.core.appstatistics.util.BigDecimalFormatter
+import sk.styk.martin.apkanalyzer.databinding.ViewMathStatisticsCardBinding
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
-import sk.styk.martin.apkanalyzer.core.appstatistics.util.BigDecimalFormatter
 
 class ExpandableMathStatisticsView @JvmOverloads constructor(
     context: Context,
@@ -121,7 +121,8 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(
                 deviation.valueText = Formatter.formatShortFileSize(mean.context, statistics.deviation.toLong())
                 variance.valueText = Formatter.formatShortFileSize(mean.context, statistics.variance.toLong())
             }
-        };
+        },
+        ;
 
         internal abstract fun setStatistics(
             statistics: MathStatistics,
@@ -144,5 +145,4 @@ class ExpandableMathStatisticsView @JvmOverloads constructor(
             }
         }
     }
-
 }

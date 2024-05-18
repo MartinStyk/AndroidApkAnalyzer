@@ -21,6 +21,7 @@ import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppSource
 import sk.styk.martin.apkanalyzer.core.applist.InstalledAppsRepository
 import sk.styk.martin.apkanalyzer.core.applist.model.LazyAppListData
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
 import sk.styk.martin.apkanalyzer.ui.applist.AppListAdapter
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel
@@ -29,7 +30,6 @@ import sk.styk.martin.apkanalyzer.ui.applist.EMPTY_STATE
 import sk.styk.martin.apkanalyzer.ui.applist.LOADING_STATE
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.SnackBarComponent
-import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 

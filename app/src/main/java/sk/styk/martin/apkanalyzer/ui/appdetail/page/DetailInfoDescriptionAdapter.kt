@@ -27,6 +27,6 @@ abstract class DetailInfoDescriptionAdapter<VH> : RecyclerView.Adapter<VH>() whe
     protected val copyToClipboardEvent = SingleLiveEvent<CopyToClipboard>()
     val copyToClipboard: LiveData<CopyToClipboard> = copyToClipboardEvent
 
-    protected fun String?.orNa() : TextInfo = this?.let { TextInfo.from(it) } ?: TextInfo.from(R.string.NA)
-    protected fun String?.orNone() : TextInfo = this?.let { TextInfo.from(it) } ?: TextInfo.from(R.string.none)
+    protected fun String?.orNa(): TextInfo = this?.let { TextInfo.from(it) } ?: TextInfo.from(R.string.NA)
+    protected fun String?.orNone(): TextInfo = this?.let { TextInfo.from(it) } ?: TextInfo.from(R.string.none)
 }

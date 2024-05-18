@@ -19,14 +19,14 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.core.appanalysis.MAX_SDK_VERSION
+import sk.styk.martin.apkanalyzer.core.appstatistics.LocalApplicationStatisticManager
+import sk.styk.martin.apkanalyzer.core.appstatistics.model.StatisticsData
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.core.common.resources.ResourcesManager
 import sk.styk.martin.apkanalyzer.core.uilibrary.ColorInfo
-import sk.styk.martin.apkanalyzer.core.appstatistics.LocalApplicationStatisticManager
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
-import sk.styk.martin.apkanalyzer.core.appstatistics.model.StatisticsData
 import sk.styk.martin.apkanalyzer.util.TextInfo
 import sk.styk.martin.apkanalyzer.util.components.DialogComponent
-import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.live.SingleLiveEvent
 import javax.inject.Inject
 import kotlin.math.roundToInt

@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailBinding
 import sk.styk.martin.apkanalyzer.core.apppermissions.model.LocalPermissionData
+import sk.styk.martin.apkanalyzer.databinding.FragmentPermissionDetailBinding
 import sk.styk.martin.apkanalyzer.util.components.toDialog
 import sk.styk.martin.apkanalyzer.util.materialContainerTransform
 import sk.styk.martin.apkanalyzer.util.provideViewModel

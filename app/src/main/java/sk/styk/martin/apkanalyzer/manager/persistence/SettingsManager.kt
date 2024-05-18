@@ -12,7 +12,8 @@ class SettingsManager @Inject constructor(
     enum class ColorScheme(private val persisted: String) {
         LIGHT("light"),
         DARK("dark"),
-        DEFAULT("system");
+        DEFAULT("system"),
+        ;
 
         fun persist() = persisted
 

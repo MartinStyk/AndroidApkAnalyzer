@@ -24,7 +24,7 @@ jobs:
         distribution: 'zulu'
         cache: gradle
 
-    - name: Create google-services.json
+    - name: Create production google-services.json
       uses: 1arp/create-a-file-action@0.2
       with:
         path: app

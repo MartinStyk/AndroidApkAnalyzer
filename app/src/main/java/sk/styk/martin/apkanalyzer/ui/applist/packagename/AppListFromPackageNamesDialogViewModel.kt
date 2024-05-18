@@ -7,9 +7,9 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.core.applist.InstalledAppsRepository
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.ui.applist.AppListAdapter
 import sk.styk.martin.apkanalyzer.ui.applist.BaseAppListViewModel
-import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 
 class AppListFromPackageNamesDialogViewModel @AssistedInject constructor(
     @Assisted packageNames: List<String>,

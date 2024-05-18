@@ -9,9 +9,9 @@ import android.os.Environment
 import android.provider.MediaStore
 import androidx.core.net.toUri
 import kotlinx.coroutines.withContext
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.manager.media.MediaManager
 import sk.styk.martin.apkanalyzer.manager.permission.hasScopedStorage
-import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.util.file.toBitmap
 import java.io.File
 import java.io.FileOutputStream

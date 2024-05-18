@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
-import sk.styk.martin.apkanalyzer.core.appanalysis.AppPermissionManager
 import sk.styk.martin.apkanalyzer.core.apppermissions.LocalPermissionManager
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.manager.navigationdrawer.NavigationDrawerModel
