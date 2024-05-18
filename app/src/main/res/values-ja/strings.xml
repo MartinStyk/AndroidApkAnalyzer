@@ -94,7 +94,9 @@
     <string name="show_app_google_play">Google Playのリスティング</string>
     <string name="save_icon">保存アイコン</string>
     <string name="copied_to_clipboard">クリップボードにコピーされました</string>
-    <string name="show_apps">%1$d のすべてのアプリを表示</string>
+    <plurals name="show_apps">
+        <item quantity="other">%1$d のすべてのアプリを表示</item>
+    </plurals>
 
     <string name="app_icon">アプリアイコン</string>
 

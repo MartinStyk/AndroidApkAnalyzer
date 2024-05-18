@@ -30,7 +30,7 @@ class ClickableMarkerView(context: Context, private val callback: OnMarkerClickL
     override fun refreshContent(e: Entry, highlight: Highlight) {
         e.data ?: return
         val appList = e.data as List<*>
-        rootView.findViewById<TextView>(R.id.tvContent).text = String.format(context.getString(R.string.show_apps, appList.size))
+        rootView.findViewById<TextView>(R.id.tvContent).text = context.resources.getQuantityString(R.plurals.show_apps, appList.size, appList.size)
 
         rootView.setOnClickListener { callback.onMarkerClick(entry = e) }
 

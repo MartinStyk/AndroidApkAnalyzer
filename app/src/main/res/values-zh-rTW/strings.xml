@@ -113,8 +113,9 @@
     <string name="show_app_google_play">Google Play 頁面</string>
     <string name="save_icon">儲存圖示</string>
     <string name="copied_to_clipboard">已複製到剪貼簿</string>
-    <string name="show_apps">顯示 %1$d 個應用程式</string>
-
+    <plurals name="show_apps">
+        <item quantity="other">顯示 %1$d 個應用程式</item>
+    </plurals>
     <string name="app_icon">應用程式圖示</string>
 
 

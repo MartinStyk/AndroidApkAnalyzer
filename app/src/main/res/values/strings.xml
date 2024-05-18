@@ -123,10 +123,11 @@
     <string name="show_app_google_play">Show in Google Play</string>
     <string name="save_icon">Save icon</string>
     <string name="copied_to_clipboard">Copied to clipboard</string>
-    <string name="show_apps">Show %1$d apps</string>
-
+    <plurals name="show_apps">
+        <item quantity="one">Show %1$d app</item>
+        <item quantity="other">Show %1$d apps</item>
+    </plurals>
     <string name="app_icon">Application icon</string>
-
 
     <string name="application_name_description">The name of this application. This name is displayed to users. Internally, Android uses package name attribute as a unique identifier of application. </string>
     <string name="package_name_description">The name of this package. From the Android Manifest tag\'s "name" attribute. The package name serves as a unique identifier for the application. It\'s also the default name for the application process and the default task affinity of an activity.</string>
