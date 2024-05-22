@@ -36,6 +36,11 @@ android {
         dataBinding = true
         buildConfig = true
     }
+
+    androidResources {
+        generateLocaleConfig = true
+    }
+
     lint {
         disable += "MissingTranslation"
     }
