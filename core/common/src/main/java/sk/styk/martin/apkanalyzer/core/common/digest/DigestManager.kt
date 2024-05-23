@@ -12,6 +12,10 @@ class DigestManager @Inject constructor() {
 
     fun md5Digest(input: String): String = md5Digest(input.toByteArray())
 
+    fun sha1Digest(input: ByteArray): String = computeHash(algorithm = "SHA-1", input)
+
+    fun sha1Digest(input: String): String = sha1Digest(input.toByteArray())
+
     fun sha256Digest(input: ByteArray): String = computeHash(algorithm = "SHA-256", input)
 
     fun sha256Digest(input: String): String = sha256Digest(input.toByteArray())

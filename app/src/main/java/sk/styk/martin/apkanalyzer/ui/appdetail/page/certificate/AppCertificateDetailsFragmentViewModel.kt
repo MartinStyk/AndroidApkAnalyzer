@@ -44,6 +44,11 @@ class AppCertificateDetailsFragmentViewModel @AssistedInject constructor(
                 TextInfo.from(R.string.cert_md5_description),
             ),
             DetailInfoAdapter.DetailInfo(
+                TextInfo.from(R.string.cert_sha1),
+                TextInfo.from(data.certificateHashSha1),
+                TextInfo.from(R.string.cert_sha1_description),
+            ),
+            DetailInfoAdapter.DetailInfo(
                 TextInfo.from(R.string.cert_sha256),
                 TextInfo.from(data.certificateHashSha256),
                 TextInfo.from(R.string.cert_sha256_description),
