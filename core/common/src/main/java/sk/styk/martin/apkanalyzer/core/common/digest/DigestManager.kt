@@ -8,29 +8,13 @@ import javax.inject.Inject
 
 class DigestManager @Inject constructor() {
 
-    fun md5Digest(input: ByteArray): String {
-        val digest = getDigest("Md5")
-        digest.update(input)
-        return getHexString(digest.digest())
-    }
+    fun md5Digest(input: ByteArray): String = computeHash(algorithm = "Md5", input)
 
-    fun md5Digest(input: String): String {
-        val digest = getDigest("Md5")
-        digest.update(input.toByteArray())
-        return getHexString(digest.digest())
-    }
+    fun md5Digest(input: String): String = md5Digest(input.toByteArray())
 
-    fun sha256Digest(input: ByteArray): String {
-        val digest = getDigest("SHA-256")
-        digest.update(input)
-        return getHexString(digest.digest())
-    }
+    fun sha256Digest(input: ByteArray): String = computeHash(algorithm = "SHA-256", input)
 
-    fun sha256Digest(input: String): String {
-        val digest = getDigest("SHA-256")
-        digest.update(input.toByteArray())
-        return getHexString(digest.digest())
-    }
+    fun sha256Digest(input: String): String = sha256Digest(input.toByteArray())
 
     fun byteToHexString(bArray: ByteArray): String {
         val sb = StringBuilder(bArray.size)
@@ -60,5 +44,11 @@ class DigestManager @Inject constructor() {
         } catch (e: NoSuchAlgorithmException) {
             throw RuntimeException(e.message, e)
         }
+    }
+
+    private fun computeHash(algorithm: String, input: ByteArray): String {
+        val digest = getDigest(algorithm)
+        digest.update(input)
+        return getHexString(digest.digest())
     }
 }
