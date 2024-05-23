@@ -40,7 +40,7 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="end"
-            android:maxLines="2"
+            android:maxLines="3"
             android:textAppearance="?android:attr/textAppearanceListItemSmall"
             app:text="@{viewModel.info.value}" />
 
