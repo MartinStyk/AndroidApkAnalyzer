@@ -42,7 +42,7 @@ class AppPermissionManager @Inject internal constructor(private val packageManag
         val requestedPermissions: MutableList<UsedPermissionData> = ArrayList(requestedPermissionNames.size)
 
         requestedPermissionNames.forEachIndexed { index, name ->
-            val isGranted = (requestedPermissionFlags[index] and PackageInfo.REQUESTED_PERMISSION_GRANTED != 0)
+            val isGranted = ((requestedPermissionFlags?.get(index) ?: 0) and PackageInfo.REQUESTED_PERMISSION_GRANTED != 0)
 
             val permissionData =
                 try {

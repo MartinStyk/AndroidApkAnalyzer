@@ -28,7 +28,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
                 packageManager.getResourcesForApplication(packageName)
             } catch (exception: PackageManager.NameNotFoundException) {
                 packageManager.getPackageArchiveInfo(packagePath, 0)?.let {
-                    packageManager.getResourcesForApplication(it.applicationInfo)
+                    it.applicationInfo?.let { it1 -> packageManager.getResourcesForApplication(it1) }
                 }
             }
 

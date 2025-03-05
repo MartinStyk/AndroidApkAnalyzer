@@ -68,7 +68,7 @@ dependencies {
     implementation(libs.gif.drawable)
     implementation(libs.highlightjs)
     implementation(libs.appintro)
-    implementation(libs.expandablelayout)
+    //implementation(libs.expandablelayout)
     implementation(libs.timber)
     implementation(libs.glide)
 
