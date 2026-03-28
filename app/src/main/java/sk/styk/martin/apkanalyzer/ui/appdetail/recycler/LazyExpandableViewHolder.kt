@@ -4,11 +4,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import net.cachapa.expandablelayout.ExpandableLayout
 import sk.styk.martin.apkanalyzer.BR
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
+import sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout
 
 abstract class LazyExpandableViewHolder<BaseBinding : ViewDataBinding, ExpandBinding : ViewDataBinding, ViewModel : ExpandableItemViewModel>(val baseBinding: BaseBinding) : RecyclerView.ViewHolder(baseBinding.root) {
 

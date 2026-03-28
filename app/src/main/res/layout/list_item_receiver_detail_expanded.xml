@@ -10,7 +10,7 @@
             type="sk.styk.martin.apkanalyzer.ui.appdetail.page.provider.AppReceiverDetailListAdapter.ReceiverDataViewModel" />
     </data>
 
-    <net.cachapa.expandablelayout.ExpandableLayout
+    <sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout
         android:id="@+id/expandableContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,6 +42,6 @@
 
         </LinearLayout>
 
-    </net.cachapa.expandablelayout.ExpandableLayout>
+    </sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout>
 
 </layout>

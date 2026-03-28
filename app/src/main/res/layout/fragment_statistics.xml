@@ -95,7 +95,7 @@
 
                         </LinearLayout>
 
-                        <net.cachapa.expandablelayout.ExpandableLayout
+                        <sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:el_duration="500"
@@ -134,7 +134,7 @@
 
                             </LinearLayout>
 
-                        </net.cachapa.expandablelayout.ExpandableLayout>
+                        </sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout>
 
                     </LinearLayout>
 
@@ -174,7 +174,7 @@
 
                         </LinearLayout>
 
-                        <net.cachapa.expandablelayout.ExpandableLayout
+                        <sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout
                             android:id="@+id/expandableContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -193,7 +193,7 @@
                                 app:xAxis_valueFormatter="@{viewModel.statisticData.minSdkChartData.valueFormatter}"
                                 app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
-                        </net.cachapa.expandablelayout.ExpandableLayout>
+                        </sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout>
 
                     </LinearLayout>
 
@@ -233,7 +233,7 @@
 
                         </LinearLayout>
 
-                        <net.cachapa.expandablelayout.ExpandableLayout
+                        <sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:el_duration="500"
@@ -251,7 +251,7 @@
                                 app:xAxis_valueFormatter="@{viewModel.statisticData.targetSdkChartData.valueFormatter}"
                                 app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
-                        </net.cachapa.expandablelayout.ExpandableLayout>
+                        </sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout>
 
                     </LinearLayout>
 
@@ -291,7 +291,7 @@
 
                         </LinearLayout>
 
-                        <net.cachapa.expandablelayout.ExpandableLayout
+                        <sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:el_duration="500"
@@ -309,7 +309,7 @@
                                 app:xAxis_valueFormatter="@{viewModel.statisticData.installLocationChartData.valueFormatter}"
                                 app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
-                        </net.cachapa.expandablelayout.ExpandableLayout>
+                        </sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout>
 
                     </LinearLayout>
 
@@ -349,7 +349,7 @@
 
                         </LinearLayout>
 
-                        <net.cachapa.expandablelayout.ExpandableLayout
+                        <sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:el_duration="500"
@@ -367,7 +367,7 @@
                                 app:xAxis_valueFormatter="@{viewModel.statisticData.signAlgorithChartData.valueFormatter}"
                                 app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
-                        </net.cachapa.expandablelayout.ExpandableLayout>
+                        </sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout>
 
                     </LinearLayout>
 
@@ -407,7 +407,7 @@
 
                         </LinearLayout>
 
-                        <net.cachapa.expandablelayout.ExpandableLayout
+                        <sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:el_duration="500"
@@ -425,7 +425,7 @@
                                 app:xAxis_valueFormatter="@{viewModel.statisticData.appSourceChartData.valueFormatter}"
                                 app:onMarkerClickListener="@{viewModel::onChartMarkerClick}" />
 
-                        </net.cachapa.expandablelayout.ExpandableLayout>
+                        </sk.styk.martin.apkanalyzer.ui.expandableLayout.ExpandableLayout>
 
                     </LinearLayout>
 

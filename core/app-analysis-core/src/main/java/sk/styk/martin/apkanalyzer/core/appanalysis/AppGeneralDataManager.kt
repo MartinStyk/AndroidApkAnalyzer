@@ -25,35 +25,35 @@ class AppGeneralDataManager @Inject constructor(
     fun get(packageInfo: PackageInfo, analysisMode: AnalysisMode): GeneralData {
         val applicationInfo = packageInfo.applicationInfo
 
-        val minSdk = getMinSdk(applicationInfo, analysisMode)
+        val minSdk = applicationInfo?.let { getMinSdk(it, analysisMode) }
 
         return GeneralData(
             packageName = packageInfo.packageName,
-            applicationName = applicationInfo.loadLabel(packageManager).toString(),
-            processName = applicationInfo.processName,
+            applicationName = applicationInfo?.loadLabel(packageManager).toString(),
+            processName = applicationInfo?.processName,
             versionName = packageInfo.versionName,
             versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode else packageInfo.versionCode.toLong(),
             isSystemApp = appInstallSourceManager.isSystemInstalledApp(packageInfo),
-            uid = applicationInfo.uid,
-            description = applicationInfo.loadDescription(packageManager)?.toString(),
-            apkDirectory = applicationInfo.sourceDir,
-            dataDirectory = applicationInfo.dataDir,
+            uid = applicationInfo?.uid?.toInt() ?: 0,
+            description = applicationInfo?.loadDescription(packageManager)?.toString(),
+            apkDirectory = applicationInfo?.sourceDir.toString(),
+            dataDirectory = applicationInfo?.dataDir,
 
             source = appInstallSourceManager.getAppInstallSource(packageInfo),
             appInstaller = appInstallSourceManager.appInstallingPackage(packageInfo),
 
             installLocation = InstallLocation.from(packageInfo.installLocation),
-            apkSize = computeApkSize(applicationInfo.sourceDir),
+            apkSize = computeApkSize(applicationInfo?.sourceDir.toString()),
             firstInstallTime = if (packageInfo.firstInstallTime > 0) packageInfo.firstInstallTime else null,
             lastUpdateTime = if (packageInfo.lastUpdateTime > 0) packageInfo.lastUpdateTime else null,
 
             minSdkVersion = minSdk,
             minSdkLabel = androidVersionManager.resolveVersion(minSdk),
 
-            targetSdkVersion = applicationInfo.targetSdkVersion,
-            targetSdkLabel = androidVersionManager.resolveVersion(applicationInfo.targetSdkVersion),
+            targetSdkVersion = applicationInfo?.targetSdkVersion?:35,
+            targetSdkLabel = androidVersionManager.resolveVersion(applicationInfo?.targetSdkVersion),
 
-            icon = applicationInfo.loadIcon(packageManager),
+            icon = applicationInfo?.loadIcon(packageManager),
         )
     }
 
