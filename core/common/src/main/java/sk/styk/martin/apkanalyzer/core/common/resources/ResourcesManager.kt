@@ -12,6 +12,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.toBitmap
 import androidx.palette.graphics.Palette
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.suspendCancellableCoroutine
 import sk.styk.martin.apkanalyzer.core.uilibrary.ColorInfo
 import javax.inject.Inject
 import kotlin.coroutines.resume
@@ -35,7 +36,7 @@ class ResourcesManager @Inject constructor(@ApplicationContext val context: Cont
 
     fun luminance(@ColorInt foreground: Int) = ColorUtils.calculateLuminance(foreground)
 
-    suspend fun generatePalette(drawable: Drawable): Palette = suspendCoroutine {
+    suspend fun generatePalette(drawable: Drawable): Palette = suspendCancellableCoroutine {
         Palette.from(drawable.toBitmap()).generate { palette ->
             if (palette != null) it.resume(palette) else it.resumeWithException(IllegalStateException())
         }

@@ -56,13 +56,13 @@ sealed class ColorInfo : Parcelable {
     abstract fun toColorInt(context: Context): Int
 
     @kotlinx.parcelize.Parcelize
-    private data class ColorInfoRes(@ColorRes private val colorRes: Int) : ColorInfo() {
+    private data class ColorInfoRes(@field:ColorRes private val colorRes: Int) : ColorInfo() {
 
         override fun toColorInt(context: Context): Int = ContextCompat.getColor(context, colorRes)
     }
 
     @kotlinx.parcelize.Parcelize
-    private data class ColorInfoAttrRes(@AttrRes private val attrRes: Int) : ColorInfo() {
+    private data class ColorInfoAttrRes(@field:AttrRes private val attrRes: Int) : ColorInfo() {
 
         override fun toColorInt(context: Context): Int {
             val attrs = intArrayOf(attrRes)
@@ -77,7 +77,7 @@ sealed class ColorInfo : Parcelable {
     }
 
     @kotlinx.parcelize.Parcelize
-    private data class ColorInfoInt(@ColorInt private val colorInt: Int) : ColorInfo() {
+    private data class ColorInfoInt(@field:ColorInt private val colorInt: Int) : ColorInfo() {
 
         override fun toColorInt(context: Context): Int = colorInt
     }

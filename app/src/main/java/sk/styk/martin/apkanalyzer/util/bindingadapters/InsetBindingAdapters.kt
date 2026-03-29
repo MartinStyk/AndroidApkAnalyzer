@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.databinding.BindingAdapter
-import kotlin.math.roundToInt
+
 
 // inspired by https://medium.com/androiddevelopers/windowinsets-listeners-to-layouts-8f9ccc8fa4d1
 @BindingAdapter(
@@ -23,11 +23,12 @@ fun applySystemWindowsPadding(
     applyBottom: Boolean,
 ) {
     val initialPadding = recordInitialPadding(view)
-    view.doOnApplyWindowInsets(view) { insets ->
-        val left = if (applyLeft) insets.systemWindowInsetLeft else 0
-        val top = if (applyTop) insets.systemWindowInsetTop else 0
-        val right = if (applyRight) insets.systemWindowInsetRight else 0
-        val bottom = if (applyBottom) insets.systemWindowInsetBottom else 0
+    view.doOnApplyWindowInsets { insets ->
+        val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+        val left = if (applyLeft) systemBars.left else 0
+        val top = if (applyTop) systemBars.top else 0
+        val right = if (applyRight) systemBars.right else 0
+        val bottom = if (applyBottom) systemBars.bottom else 0
         view.setPadding(
             initialPadding.left + left,
             initialPadding.top + top,
@@ -54,11 +55,12 @@ fun applySystemWindowsMargin(
     val layoutParams = view.layoutParams as? ViewGroup.MarginLayoutParams
     layoutParams?.let {
         val initialMargin = recordInitialMargin(it)
-        view.doOnApplyWindowInsets(view) { insets ->
-            val left = if (applyLeft) insets.systemWindowInsetLeft else 0
-            val top = if (applyTop) insets.systemWindowInsetTop else 0
-            val right = if (applyRight) insets.systemWindowInsetRight else 0
-            val bottom = if (applyBottom) insets.systemWindowInsetBottom else 0
+        view.doOnApplyWindowInsets { insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            val left = if (applyLeft) systemBars.left else 0
+            val top = if (applyTop) systemBars.top else 0
+            val right = if (applyRight) systemBars.right else 0
+            val bottom = if (applyBottom) systemBars.bottom else 0
             it.setMargins(
                 initialMargin.left + left,
                 initialMargin.top + top,
@@ -69,35 +71,8 @@ fun applySystemWindowsMargin(
     }
 }
 
-@BindingAdapter(
-    "paddingLeftSystemWindowInsetsFraction",
-    "paddingTopSystemWindowInsetsFraction",
-    "paddingRightSystemWindowInsetsFraction",
-    "paddingBottomSystemWindowInsetsFraction",
-    requireAll = false,
-)
-fun applySystemWindowsPaddingFraction(
-    view: View,
-    applyLeftFraction: Float?,
-    applyTopFraction: Float?,
-    applyRightFraction: Float?,
-    applyBottomFraction: Float?,
-) {
-    view.doOnApplyWindowInsets(view) { insets ->
-        val left = applyLeftFraction?.let { (insets.systemWindowInsetLeft * it).roundToInt() }
-            ?: view.paddingLeft
-        val top = applyTopFraction?.let { (insets.systemWindowInsetTop * it).roundToInt() }
-            ?: view.paddingTop
-        val right = applyRightFraction?.let { (insets.systemWindowInsetRight * it).roundToInt() }
-            ?: view.paddingRight
-        val bottom = applyBottomFraction?.let { (insets.systemWindowInsetBottom * it).roundToInt() }
-            ?: view.paddingBottom
-        view.setPadding(left, top, right, bottom)
-    }
-}
-
-fun View.doOnApplyWindowInsets(view: View, f: (WindowInsetsCompat) -> Unit) {
-    ViewCompat.setOnApplyWindowInsetsListener(view) { _, insets ->
+fun View.doOnApplyWindowInsets(f: (WindowInsetsCompat) -> Unit) {
+    ViewCompat.setOnApplyWindowInsetsListener(this) { _, insets ->
         f(insets)
         insets
     }
@@ -116,32 +91,6 @@ fun View.requestApplyInsetsWhenAttached() {
 
             override fun onViewDetachedFromWindow(v: View) = Unit
         })
-    }
-}
-
-@BindingAdapter("matchTopInsetHeight")
-fun matchTopInsetHeight(view: View, matchTopInsetHeight: Boolean) {
-    if (!matchTopInsetHeight) {
-        return
-    }
-
-    val layoutParams = view.layoutParams as? ViewGroup.MarginLayoutParams
-    layoutParams?.let {
-        view.doOnApplyWindowInsets(view) { insets ->
-            it.height = insets.systemWindowInsetTop
-        }
-    }
-}
-
-@BindingAdapter("minHeightTopSystemWindowInsets")
-fun setMinHeighTopSystemWindowInsets(view: View, minHeightTopSystemWindowInsets: Boolean) {
-    if (!minHeightTopSystemWindowInsets) {
-        return
-    }
-
-    view.doOnApplyWindowInsets(view) { insets ->
-        view.minimumHeight = insets.systemWindowInsetTop
-        view.requestLayout()
     }
 }
 

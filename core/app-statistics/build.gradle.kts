@@ -1,7 +1,7 @@
 plugins {
-    id("apkanalyzer.library")
-    id("apkanalyzer.hilt")
-    id("kotlin-parcelize")
+    alias(libs.plugins.apkanalyzer.library)
+    alias(libs.plugins.apkanalyzer.hilt)
+    alias(libs.plugins.parcelize)
 }
 
 android {

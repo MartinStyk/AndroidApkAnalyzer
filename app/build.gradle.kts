@@ -1,17 +1,20 @@
+import com.android.build.api.dsl.ApplicationExtension
+
 plugins {
-    // Android studio bug shows libs as an error - https://youtrack.jetbrains.com/issue/KTIJ-19369
-    id("apkanalyzer.application")
-    id("apkanalyzer.hilt")
-    id("apkanalyzer.spotless")
-    id("kotlin-parcelize")
+    alias(libs.plugins.apkanalyzer.application)
+    alias(libs.plugins.apkanalyzer.hilt)
+    alias(libs.plugins.apkanalyzer.spotless)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.parcelize)
     alias(libs.plugins.dependency.updates)
 }
-android {
+
+extensions.configure<ApplicationExtension> {
     namespace = "sk.styk.martin.apkanalyzer"
 
     defaultConfig {
         applicationId = "sk.styk.martin.apkanalyzer"
-        proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+        proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
 
         versionCode = 1
         versionName = "dev"
@@ -56,7 +59,6 @@ dependencies {
     implementation(libs.bundles.lifecycle)
 
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.multidex)
     implementation(libs.androidx.legacy)
 
     implementation(libs.material)
@@ -79,7 +81,7 @@ dependencies {
     implementation(project(":core:common"))
     implementation(project(":core:ui-library"))
 
-    annotationProcessor(libs.glide.compiler)
+    ksp(libs.glide.compiler)
     implementation(libs.bundles.google.play)
 
     debugImplementation(libs.leakcannary)

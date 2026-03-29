@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import net.cachapa.expandablelayout.ExpandableLayout
-import sk.styk.martin.apkanalyzer.BR
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ARROW_ANIMATION_DURATION
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_FLIPPED
 import sk.styk.martin.apkanalyzer.ui.appdetail.page.activity.ROTATION_STANDARD
@@ -28,7 +27,7 @@ abstract class LazyExpandableViewHolder<BaseBinding : ViewDataBinding, ExpandBin
         val baseContainer = baseContainer()
         if (baseContainer.childCount == 1) {
             expandedBinding = expandedInflation()
-            expandedBinding.setVariable(BR.viewModel, viewModel)
+//            expandedBinding.setVariable(BR.viewModel, viewModel)
             baseContainer.addView(expandedBinding.root)
         }
     }
@@ -52,7 +51,7 @@ abstract class LazyExpandableViewHolder<BaseBinding : ViewDataBinding, ExpandBin
     }
 
     fun bind(viewModel: ViewModel) {
-        baseBinding.setVariable(BR.viewModel, viewModel)
+//        baseBinding.setVariable(BR.viewModel, viewModel)
         updateExpandedState(viewModel, viewModel.expanded)
         headerContainer().setOnClickListener {
             viewModel.toggleExpanded(onExpandedClickBase(viewModel))

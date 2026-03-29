@@ -1,6 +1,6 @@
 plugins {
-    id("apkanalyzer.library")
-    id("apkanalyzer.hilt")
+    alias(libs.plugins.apkanalyzer.library)
+    alias(libs.plugins.apkanalyzer.hilt)
 }
 
 android {

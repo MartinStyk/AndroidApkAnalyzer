@@ -112,11 +112,13 @@ class AppGeneralDetailsFragmentViewModel @AssistedInject constructor(
                     TextInfo.from(R.string.min_version_description),
                 )
             },
-            DetailInfoAdapter.DetailInfo(
-                TextInfo.from(R.string.apk_directory),
-                TextInfo.from(generalData.apkDirectory),
-                TextInfo.from(R.string.apk_directory_description),
-            ),
+            generalData.apkDirectory?.let {
+                DetailInfoAdapter.DetailInfo(
+                    TextInfo.from(R.string.apk_directory),
+                    TextInfo.from(it),
+                    TextInfo.from(R.string.apk_directory_description),
+                )
+            },
             generalData.dataDirectory?.let {
                 DetailInfoAdapter.DetailInfo(
                     TextInfo.from(R.string.data_directory),

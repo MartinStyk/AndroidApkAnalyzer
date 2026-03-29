@@ -16,19 +16,21 @@ import javax.xml.transform.stream.StreamSource
 
 class AndroidManifestManager @Inject constructor(private val packageManager: PackageManager) {
 
-    fun loadAndroidManifest(packageName: String, packagePath: String): String {
+    fun loadAndroidManifest(packageName: String, packagePath: String?): String {
         val manifest = readManifest(packageManager, packageName, packagePath)
         return formatManifest(manifest)
     }
 
-    private fun readManifest(packageManager: PackageManager, packageName: String, packagePath: String): String {
+    private fun readManifest(packageManager: PackageManager, packageName: String, packagePath: String?): String {
         val stringBuilder = StringBuilder()
         try {
             val apkResources = try {
                 packageManager.getResourcesForApplication(packageName)
             } catch (exception: PackageManager.NameNotFoundException) {
-                packageManager.getPackageArchiveInfo(packagePath, 0)?.let {
-                    packageManager.getResourcesForApplication(it.applicationInfo)
+                packagePath?.let {
+                    packageManager.getPackageArchiveInfo(it, 0)?.applicationInfo?.let {
+                        packageManager.getResourcesForApplication(it)
+                    }
                 }
             }
 

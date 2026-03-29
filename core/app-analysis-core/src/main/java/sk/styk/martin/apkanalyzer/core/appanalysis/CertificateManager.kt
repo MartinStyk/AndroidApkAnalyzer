@@ -15,7 +15,7 @@ import javax.security.auth.x500.X500Principal.RFC1779
 class CertificateManager @Inject internal constructor(private val digestManager: DigestManager) {
 
     fun getCertificateData(packageInfo: PackageInfo): CertificateData {
-        val signature = packageInfo.signatures[0] ?: throw IllegalStateException("No signature")
+        val signature = packageInfo.signatures?.getOrNull(0) ?: throw IllegalStateException("No signature")
 
         return ByteArrayInputStream(signature.toByteArray()).use {
             val certFactory = CertificateFactory.getInstance("X509")
@@ -43,7 +43,7 @@ class CertificateManager @Inject internal constructor(private val digestManager:
     }
 
     fun getSignAlgorithm(packageInfo: PackageInfo): String? {
-        val signature = packageInfo.signatures[0]
+        val signature = packageInfo.signatures?.getOrNull(0) ?: return null
 
         ByteArrayInputStream(signature.toByteArray()).use {
             try {

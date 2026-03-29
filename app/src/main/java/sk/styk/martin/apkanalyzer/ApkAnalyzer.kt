@@ -1,6 +1,6 @@
 package sk.styk.martin.apkanalyzer
 
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 import sk.styk.martin.apkanalyzer.manager.resources.ColorThemeManager
 import sk.styk.martin.apkanalyzer.util.LogUtils
@@ -8,7 +8,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltAndroidApp
-class ApkAnalyzer : MultiDexApplication() {
+class ApkAnalyzer : Application() {
 
     @Inject
     lateinit var colorThemeManager: ColorThemeManager

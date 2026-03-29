@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import sk.styk.martin.apkanalyzer.BR
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragment.Companion.APP_DETAIL_REQUEST
 import sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailFragmentViewModel
 import sk.styk.martin.apkanalyzer.util.components.toDialog
@@ -42,7 +41,7 @@ abstract class AppDetailPageFragment<VM : AppDetailPageFragmentViewModel, BINDIN
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.setVariable(BR.viewModel, viewModel)
+//        binding.setVariable(BR.viewModel, viewModel)
         with(viewModel) {
             openDescription.observe(viewLifecycleOwner) {
                 it.toDialog().show(parentFragmentManager, "descrition_dialog")

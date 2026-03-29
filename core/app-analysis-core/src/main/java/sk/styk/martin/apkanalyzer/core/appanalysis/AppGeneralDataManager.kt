@@ -25,39 +25,39 @@ class AppGeneralDataManager @Inject constructor(
     fun get(packageInfo: PackageInfo, analysisMode: AnalysisMode): GeneralData {
         val applicationInfo = packageInfo.applicationInfo
 
-        val minSdk = getMinSdk(applicationInfo, analysisMode)
+        val minSdk = applicationInfo?.let { getMinSdk(applicationInfo, analysisMode) }
 
         return GeneralData(
             packageName = packageInfo.packageName,
-            applicationName = applicationInfo.loadLabel(packageManager).toString(),
-            processName = applicationInfo.processName,
+            applicationName = applicationInfo?.loadLabel(packageManager).toString(),
+            processName = applicationInfo?.processName,
             versionName = packageInfo.versionName,
             versionCode = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) packageInfo.longVersionCode else packageInfo.versionCode.toLong(),
             isSystemApp = appInstallSourceManager.isSystemInstalledApp(packageInfo),
-            uid = applicationInfo.uid,
-            description = applicationInfo.loadDescription(packageManager)?.toString(),
-            apkDirectory = applicationInfo.sourceDir,
-            dataDirectory = applicationInfo.dataDir,
+            uid = applicationInfo?.uid ,
+            description = applicationInfo?.loadDescription(packageManager)?.toString(),
+            apkDirectory = applicationInfo?.sourceDir,
+            dataDirectory = applicationInfo?.dataDir,
 
             source = appInstallSourceManager.getAppInstallSource(packageInfo),
             appInstaller = appInstallSourceManager.appInstallingPackage(packageInfo),
 
             installLocation = InstallLocation.from(packageInfo.installLocation),
-            apkSize = computeApkSize(applicationInfo.sourceDir),
+            apkSize = computeApkSize(applicationInfo?.sourceDir),
             firstInstallTime = if (packageInfo.firstInstallTime > 0) packageInfo.firstInstallTime else null,
             lastUpdateTime = if (packageInfo.lastUpdateTime > 0) packageInfo.lastUpdateTime else null,
 
             minSdkVersion = minSdk,
             minSdkLabel = androidVersionManager.resolveVersion(minSdk),
 
-            targetSdkVersion = applicationInfo.targetSdkVersion,
-            targetSdkLabel = androidVersionManager.resolveVersion(applicationInfo.targetSdkVersion),
+            targetSdkVersion = applicationInfo?.targetSdkVersion,
+            targetSdkLabel = androidVersionManager.resolveVersion(applicationInfo?.targetSdkVersion),
 
-            icon = applicationInfo.loadIcon(packageManager),
+            icon = applicationInfo?.loadIcon(packageManager),
         )
     }
 
-    fun computeApkSize(sourceDir: String): Long = File(sourceDir).length()
+    fun computeApkSize(sourceDir: String?): Long = sourceDir?.let { File(it).length() } ?: 0L
 
     private fun getMinSdk(applicationInfo: ApplicationInfo, analysisMode: AnalysisMode): Int? =
         when {

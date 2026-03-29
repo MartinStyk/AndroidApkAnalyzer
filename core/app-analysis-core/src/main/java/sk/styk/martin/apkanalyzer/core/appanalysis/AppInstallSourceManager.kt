@@ -36,6 +36,6 @@ class AppInstallSourceManager @Inject constructor(private val packageManager: Pa
     }
 
     fun isSystemInstalledApp(packageInfo: PackageInfo): Boolean {
-        return (packageInfo.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM) != 0
+        return packageInfo.applicationInfo?.let { it.flags and ApplicationInfo.FLAG_SYSTEM != 0 } ?: false
     }
 }
