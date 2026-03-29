@@ -4,9 +4,8 @@ import android.content.pm.ApplicationInfo
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
-import kotlinx.parcelize.IgnoredOnParcel
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.AppSource
-import timber.log.Timber
+import sk.styk.martin.apkanalyzer.core.common.logger.Logger
 
 data class LazyAppListData(
     val packageName: String,
@@ -25,7 +24,7 @@ data class LazyAppListData(
 
     val icon: Drawable? by lazy {
         kotlin.runCatching { applicationInfo?.loadIcon(packageManager) }
-            .onFailure { Timber.e(it, "Icon not available for %s", packageName) }
+            .onFailure { Logger.e("AppList", it, "Icon not available for $packageName") }
             .getOrNull()
     }
 

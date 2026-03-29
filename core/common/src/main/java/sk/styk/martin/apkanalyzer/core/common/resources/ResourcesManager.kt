@@ -10,10 +10,8 @@ import androidx.annotation.StringRes
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.drawable.toBitmap
-import androidx.palette.graphics.Palette
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.suspendCancellableCoroutine
-import sk.styk.martin.apkanalyzer.core.uilibrary.ColorInfo
 import javax.inject.Inject
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
@@ -26,19 +24,10 @@ class ResourcesManager @Inject constructor(@ApplicationContext val context: Cont
     fun getStringArray(@ArrayRes stringArrayRes: Int): Array<String> = context.resources.getStringArray(stringArrayRes)
 
     @ColorInt
-    fun getColor(colorInfo: ColorInfo): Int = colorInfo.toColorInt(context)
-
-    @ColorInt
     fun getColor(@ColorRes colorRes: Int): Int = ResourcesCompat.getColor(context.resources, colorRes, context.theme)
 
     @Dimension(unit = Dimension.DP)
     fun getDisplayHeight(): Float = context.resources.displayMetrics.run { heightPixels / density }
 
     fun luminance(@ColorInt foreground: Int) = ColorUtils.calculateLuminance(foreground)
-
-    suspend fun generatePalette(drawable: Drawable): Palette = suspendCancellableCoroutine {
-        Palette.from(drawable.toBitmap()).generate { palette ->
-            if (palette != null) it.resume(palette) else it.resumeWithException(IllegalStateException())
-        }
-    }
 }

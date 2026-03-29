@@ -5,7 +5,7 @@ import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.content.res.XmlResourceParser
 import android.text.TextUtils
-import timber.log.Timber
+import sk.styk.martin.apkanalyzer.core.common.logger.Logger
 import java.io.ByteArrayInputStream
 import java.io.StringWriter
 import javax.inject.Inject
@@ -35,7 +35,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
             }
 
             if (apkResources == null) {
-                Timber.tag(TAG_APP_ANALYSIS).w("Resources for package $packageName not found")
+                Logger.w(TAG_APP_ANALYSIS, "Resources for package $packageName not found")
                 return ""
             }
 
@@ -70,7 +70,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
                 eventType = parser.next()
             }
         } catch (e: Exception) {
-            Timber.tag(TAG_APP_ANALYSIS).e(e, "Error parsing manifest for $packageName")
+            Logger.e(TAG_APP_ANALYSIS, e, "Error parsing manifest for $packageName")
         }
 
         return stringBuilder.toString()
@@ -86,7 +86,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
             transformer.transform(source, result)
             result.writer.toString()
         } catch (e: Exception) {
-            Timber.tag(TAG_APP_ANALYSIS).e(e, "Error formatting manifest $manifest")
+            Logger.e(TAG_APP_ANALYSIS, e, "Error formatting manifest $manifest")
             ""
         }
     }
@@ -103,7 +103,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
 
                 return TextUtils.htmlEncode(value)
             } catch (e: Exception) {
-                Timber.tag(TAG_APP_ANALYSIS).w(e, "Error reading attribute value $attributeName, $attributeValue")
+                Logger.w(TAG_APP_ANALYSIS, e, "Error reading attribute value $attributeName, $attributeValue")
             }
         }
         return attributeValue
@@ -127,7 +127,7 @@ class AndroidManifestManager @Inject constructor(private val packageManager: Pac
                 eventType = parser.next()
             }
         } catch (e: Exception) {
-            Timber.tag(TAG_APP_ANALYSIS).e(e, "Error reading minSdkValue for $applicationInfo")
+            Logger.e(TAG_APP_ANALYSIS, e, "Error reading minSdkValue for $applicationInfo")
         }
 
         return null

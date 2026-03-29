@@ -33,5 +33,9 @@ gradlePlugin {
             id = "apkanalyzer.spotless"
             implementationClass = "SpotlessPlugin"
         }
+        register("apkanalyzer.compose") {
+            id = "apkanalyzer.compose"
+            implementationClass = "ComposePlugin"
+        }
     }
 }

@@ -8,6 +8,8 @@ import org.gradle.kotlin.dsl.getByType
 import sk.styk.martin.apkanalyzer.CompileSdk
 import sk.styk.martin.apkanalyzer.MinSdk
 import sk.styk.martin.apkanalyzer.TargetSdk
+import sk.styk.martin.apkanalyzer.utils.implementation
+import sk.styk.martin.apkanalyzer.utils.libs
 
 class ApplicationPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -40,13 +42,12 @@ class ApplicationPlugin : Plugin<Project> {
 
             configureKotlin()
 
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
             dependencies {
                 val bom = libs.findLibrary("firebase-bom").get()
-                add("implementation", platform(bom))
-                "implementation"(libs.findLibrary("firebase.analytics").get())
-                "implementation"(libs.findLibrary("firebase.performance").get())
-                "implementation"(libs.findLibrary("firebase.crashlytics").get())
+                implementation(platform(bom))
+                implementation(libs.findLibrary("firebase.analytics").get())
+                implementation(libs.findLibrary("firebase.performance").get())
+                implementation(libs.findLibrary("firebase.crashlytics").get())
             }
         }
     }

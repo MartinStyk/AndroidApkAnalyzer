@@ -22,44 +22,30 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.main.MainActivity"
+            android:name=".ui.ApkAnalyzerActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.appdetail.OnInstallAppDetailActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.INSTALL_PACKAGE" />
+        <!--        <activity-->
+        <!--            android:name=".ApkAnalyzerActivity"-->
+        <!--            android:exported="true">-->
+        <!--            <intent-filter>-->
+        <!--                <action android:name="android.intent.action.VIEW" />-->
+        <!--                <action android:name="android.intent.action.INSTALL_PACKAGE" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
 
-                <data android:scheme="package" />
-                <data android:scheme="content" />
-                <data android:scheme="file" />
-                <data android:mimeType="application/vnd.android.package-archive" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.appdetail.AppDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName="sk.styk.martin.apkanalyzer.ui.main.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="sk.styk.martin.apkanalyzer.ui.main.MainActivity" />
-        </activity>
-
-        <activity
-            android:name="sk.styk.martin.apkanalyzer.ui.intro.IntroActivity"
-            android:label="@string/title_intro" />
+        <!--                <data android:scheme="package" />-->
+        <!--                <data android:scheme="content" />-->
+        <!--                <data android:scheme="file" />-->
+        <!--                <data android:mimeType="application/vnd.android.package-archive" />-->
+        <!--            </intent-filter>-->
+        <!--        </activity>-->
 
         <provider
             android:name=".util.file.GenericFileProvider"

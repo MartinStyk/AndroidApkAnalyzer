@@ -16,7 +16,7 @@ import sk.styk.martin.apkanalyzer.core.applist.InstalledAppsRepository
 import sk.styk.martin.apkanalyzer.core.appstatistics.model.PercentagePair
 import sk.styk.martin.apkanalyzer.core.appstatistics.model.StatisticsData
 import sk.styk.martin.apkanalyzer.core.appstatistics.model.toMathStats
-import timber.log.Timber
+import sk.styk.martin.apkanalyzer.core.common.logger.Logger
 import javax.inject.Inject
 
 @SuppressLint("PackageManagerGetSignatures")
@@ -60,7 +60,7 @@ class LocalApplicationStatisticManager @Inject internal constructor(
         val packageInfo = try {
             packageManager.getPackageInfo(packageName, ANALYSIS_FLAGS)
         } catch (e: Exception) {
-            Timber.tag("AppStatistics").w(e, "Package info for statistics failed. Package name= $packageName")
+            Logger.w("AppStatistics", e, "Package info for statistics failed. Package name= $packageName")
             return null
         }
 

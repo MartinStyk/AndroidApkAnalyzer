@@ -11,7 +11,5 @@ android {
 dependencies {
     implementation(project(":core:app-analysis-core"))
     implementation(project(":core:app-list"))
-
-    implementation(libs.timber)
-    implementation(libs.kotlinx.coroutines.android)
+    implementation(project(":core:common"))
 }

@@ -5,7 +5,7 @@ import android.content.pm.PackageManager
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.PermissionData
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.PermissionDataAggregate
 import sk.styk.martin.apkanalyzer.core.appanalysis.model.UsedPermissionData
-import timber.log.Timber
+import sk.styk.martin.apkanalyzer.core.common.logger.Logger
 import javax.inject.Inject
 
 class AppPermissionManager @Inject internal constructor(private val packageManager: PackageManager) {
@@ -21,7 +21,7 @@ class AppPermissionManager @Inject internal constructor(private val packageManag
         val packageInfo = packageManager.getPackageInfo(packageName, PackageManager.GET_PERMISSIONS)
         getUsedPermissions(packageInfo)
     } catch (e: Exception) {
-        Timber.tag(TAG_APP_ANALYSIS).w(e, "Get permission detail failed")
+        Logger.w(TAG_APP_ANALYSIS, e, "Get permission detail failed")
         null
     }
 

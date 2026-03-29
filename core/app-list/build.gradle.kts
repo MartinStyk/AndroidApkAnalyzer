@@ -10,6 +10,5 @@ android {
 
 dependencies {
     implementation(project(":core:app-analysis-core"))
-
-    implementation(libs.timber)
+    implementation(project(":core:common"))
 }

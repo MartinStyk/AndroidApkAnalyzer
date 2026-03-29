@@ -2,47 +2,49 @@
 kotlin = "2.3.20"
 ksp = "2.3.4"
 gradle-plugin = "9.1.0"
+compose = "2026.03.01"
 hilt = "2.59.2"
-lifecycle = "2.10.0"
-coroutines = "1.10.2"
-androidx-appcompat = "1.7.1"
-material = "1.13.0"
-glide = "5.0.5"
+coreKtx = "1.18.0"
+appcompat = "1.7.0"
+activityCompose = "1.13.0"
+lifecycleRuntimeKtx = "2.10.0"
 spotless = "8.4.0"
+nav3Core = "1.0.1"
+lifecycleViewmodelNav3 = "2.11.0-alpha03"
+kotlinSerialization = "2.3.20"
+kotlinxSerializationCore = "1.10.0"
+hiltNavigationCompose = "1.3.0"
+googlePlayReview = "2.0.2"
+datastore = "1.2.1"
+firebaseCrashlyticsKtx = "20.0.4"
+foundationLayout = "1.10.6"
+foundation = "1.10.6"
+material3 = "1.4.0"
 
 [libraries]
-koltin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
-koltin-reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
-kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-runtime-compose = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
+androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "compose" }
+androidx-compose-ui = { group = "androidx.compose.ui", name = "ui" }
+androidx-compose-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
+androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-compose-ui-text-google-fonts = { group = "androidx.compose.ui", name = "ui-text-google-fonts" }
+androidx-compose-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
+androidx-compose-foundation = { group = "androidx.compose.foundation", name = "foundation", version.ref = "foundation" }
 
-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
-lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
-lifecycle-extensions = "androidx.lifecycle:lifecycle-extensions:2.2.0"
+androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "nav3Core" }
+androidx-navigation3-ui = { module = "androidx.navigation3:navigation3-ui", version.ref = "nav3Core" }
+androidx-hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationCompose" }
+androidx-lifecycle-viewmodel-navigation3 = { module = "androidx.lifecycle:lifecycle-viewmodel-navigation3", version.ref = "lifecycleViewmodelNav3" }
+kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore" }
+android-play-review = { module = "com.google.android.play:review-ktx", version.ref = "googlePlayReview" }
 
-material = { module = "com.google.android.material:material", version.ref = "material" }
-
-androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
-androidx-legacy = "androidx.legacy:legacy-support-v4:1.0.0"
-
-fragment-ktx = "androidx.fragment:fragment-ktx:1.8.9"
-preference-ktx = "androidx.preference:preference-ktx:1.2.1"
-palette-ktx = "androidx.palette:palette-ktx:1.0.0"
-
-constraintlayout = "androidx.constraintlayout:constraintlayout:2.2.1"
-recyclerview = "androidx.recyclerview:recyclerview:1.4.0"
-cardview = "androidx.cardview:cardview:1.0.0"
-mp-chart = "com.github.PhilJay:MPAndroidChart:v3.1.0-alpha"
-gif-drawable = "pl.droidsonroids.gif:android-gif-drawable:1.2.31"
-highlightjs = "com.pddstudio:highlightjs-android:1.5.0"
-appintro = "com.github.AppIntro:AppIntro:6.1.0"
-expandablelayout = "com.github.cachapa:ExpandableLayout:2.9.2"
 timber = "com.jakewharton.timber:timber:5.0.1"
-glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
-glide-compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
-
-google-play-core = "com.google.android.play:core:1.10.3"
-google-play-core-ktx = "com.google.android.play:core-ktx:1.8.1"
+androidx-datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
@@ -52,32 +54,35 @@ firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 firebase-performance = { group = "com.google.firebase", name = "firebase-perf" }
 
-leakcannary = "com.squareup.leakcanary:leakcanary-android:2.9.1"
-junit = "junit:junit:4.13.2"
-espresso-core = "androidx.test.espresso:espresso-core:3.5.1"
+leakcannary = "com.squareup.leakcanary:leakcanary-android:2.14"
 
 # Dependencies of the included build-logic
 android-gradle-plugin = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle-plugin" }
 kotlin-gradle-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 ksp-gradle-plugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
 spotless-gradle-plugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
+firebase-crashlytics-ktx = { group = "com.google.firebase", name = "firebase-crashlytics-ktx", version.ref = "firebaseCrashlyticsKtx" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "gradle-plugin" }
 android-library = { id = "com.android.library", version.ref = "gradle-plugin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 crashlytics = "com.google.firebase.crashlytics:3.0.6"
 firebase-perf = "com.google.firebase.firebase-perf:2.0.2"
 google-services = "com.google.gms.google-services:4.4.4"
 spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
-dependency-updates = "com.github.ben-manes.versions:0.53.0"
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 apkanalyzer-hilt = { id = "apkanalyzer.hilt" }
 apkanalyzer-library = { id = "apkanalyzer.library" }
 apkanalyzer-application = { id = "apkanalyzer.application" }
 apkanalyzer-spotless = { id = "apkanalyzer.spotless" }
-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+apkanalyzer-compose = { id = "apkanalyzer.compose" }
 
 [bundles]
-lifecycle = ["lifecycle-livedata-ktx", "lifecycle-viewmodel-ktx", "lifecycle-common-java8", "lifecycle-extensions"]
-google-play = ["google-play-core", "google-play-core-ktx"]
+compose = ["androidx-compose-ui", "androidx-compose-ui-tooling"]
+navigation3 = ["androidx-navigation3-runtime", "androidx-navigation3-ui", "androidx-hilt-navigation-compose", "androidx-lifecycle-viewmodel-navigation3"]

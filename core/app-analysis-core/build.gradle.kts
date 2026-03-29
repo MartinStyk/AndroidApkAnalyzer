@@ -10,7 +10,4 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
-
-    implementation(libs.timber)
-    implementation(libs.kotlinx.coroutines.android)
 }

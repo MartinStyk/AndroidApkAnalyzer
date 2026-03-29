@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.apkanalyzer.library)
-    alias(libs.plugins.apkanalyzer.hilt)
-    alias(libs.plugins.parcelize)
+    alias(libs.plugins.apkanalyzer.compose)
 }
 
 android {
@@ -9,5 +8,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.material)
+    implementation(libs.androidx.compose.material3)
+    implementation(libs.androidx.compose.ui.text.google.fonts)
 }

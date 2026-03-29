@@ -8,7 +8,8 @@ android {
 }
 
 dependencies {
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.crashlytics)
     implementation(libs.timber)
-    implementation(libs.palette.ktx)
-    implementation(project(":core:ui-library"))
+    implementation(libs.androidx.datastore.preferences)
 }
