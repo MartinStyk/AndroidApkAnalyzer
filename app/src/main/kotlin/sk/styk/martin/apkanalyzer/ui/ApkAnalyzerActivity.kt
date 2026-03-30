@@ -54,14 +54,7 @@ class ApkAnalyzerActivity : ComponentActivity() {
             }
 
             ApkAnalyzerTheme(isDarkTheme = isDarkTheme) {
-                Box(
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .background(MaterialTheme.colorScheme.primary)
-                        .fillMaxSize()
-                ) {
-
-                }
+                ApkAnalyzerApp()
             }
         }
     }

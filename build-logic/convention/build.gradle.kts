@@ -17,25 +17,33 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        register("apkanalyzer.hilt") {
-            id = "apkanalyzer.hilt"
-            implementationClass = "HiltPlugin"
+        register("apkanalyzer.application") {
+            id = "apkanalyzer.application"
+            implementationClass = "sk.styk.martin.apkanalyzer.ApplicationPlugin"
         }
         register("apkanalyzer.library") {
             id = "apkanalyzer.library"
-            implementationClass = "LibraryPlugin"
+            implementationClass = "sk.styk.martin.apkanalyzer.LibraryPlugin"
         }
-        register("apkanalyzer.application") {
-            id = "apkanalyzer.application"
-            implementationClass = "ApplicationPlugin"
+        register("apkanalyzer.feature.api") {
+            id = "apkanalyzer.feature.api"
+            implementationClass = "sk.styk.martin.apkanalyzer.FeatureApiPlugin"
+        }
+        register("apkanalyzer.feature.impl") {
+            id = "apkanalyzer.feature.impl"
+            implementationClass = "sk.styk.martin.apkanalyzer.FeatureImplPlugin"
+        }
+        register("apkanalyzer.hilt") {
+            id = "apkanalyzer.hilt"
+            implementationClass = "sk.styk.martin.apkanalyzer.HiltPlugin"
         }
         register("apkanalyzer.spotless") {
             id = "apkanalyzer.spotless"
-            implementationClass = "SpotlessPlugin"
+            implementationClass = "sk.styk.martin.apkanalyzer.SpotlessPlugin"
         }
         register("apkanalyzer.compose") {
             id = "apkanalyzer.compose"
-            implementationClass = "ComposePlugin"
+            implementationClass = "sk.styk.martin.apkanalyzer.ComposePlugin"
         }
     }
 }

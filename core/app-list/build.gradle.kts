@@ -9,6 +9,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:app-analysis-core"))
-    implementation(project(":core:common"))
+    implementation(projects.core.appAnalysisCore)
+    implementation(projects.core.common)
 }

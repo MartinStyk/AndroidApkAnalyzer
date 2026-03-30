@@ -36,19 +36,27 @@ extensions.configure<ApplicationExtension> {
 }
 
 dependencies {
+    implementation(projects.core.appAnalysisCore)
+    implementation(projects.core.appList)
+    implementation(projects.core.appPermissions)
+    implementation(projects.core.appStatistics)
+    implementation(projects.core.common)
+    implementation(projects.core.navigation)
+    implementation(projects.core.uiLibrary)
+
+    implementation(projects.feature.apps.impl)
+    implementation(projects.feature.permissions.impl)
+    implementation(projects.feature.statistics.impl)
+
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.compose)
+    implementation(libs.bundles.navigation3)
+    implementation(libs.kotlinx.collections.immutable)
 
-    implementation(project(":core:app-analysis-core"))
-    implementation(project(":core:app-list"))
-    implementation(project(":core:app-permissions"))
-    implementation(project(":core:app-statistics"))
-    implementation(project(":core:common"))
-    implementation(project(":core:ui-library"))
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.androidx.compose.foundation)
     implementation(libs.androidx.material3)

@@ -16,12 +16,22 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
-rootProject.name = "apk-analyzer"
-include(":app")
-include(":core:app-analysis-core")
-include(":core:app-list")
-include(":core:app-permissions")
-include(":core:app-statistics")
-include(":core:common")
-include(":core:ui-library")
+rootProject.name = "ApkAnalyzer"
+include(
+    ":app",
+    ":core:app-analysis-core",
+    ":core:app-list",
+    ":core:app-permissions",
+    ":core:app-statistics",
+    ":core:common",
+    ":core:ui-library",
+    ":core:navigation",
+    ":feature:apps:api",
+    ":feature:apps:impl",
+    ":feature:statistics:api",
+    ":feature:statistics:impl",
+    ":feature:permissions:api",
+    ":feature:permissions:impl",
+)

@@ -9,7 +9,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":core:app-analysis-core"))
-    implementation(project(":core:app-list"))
-    implementation(project(":core:common"))
+    implementation(projects.core.appAnalysisCore)
+    implementation(projects.core.appList)
+    implementation(projects.core.common)
 }
