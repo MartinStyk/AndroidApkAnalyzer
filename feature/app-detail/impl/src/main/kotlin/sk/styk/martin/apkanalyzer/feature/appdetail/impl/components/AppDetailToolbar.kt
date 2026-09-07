@@ -161,7 +161,7 @@ internal fun AppDetailToolbar(
                     val placeable = measurable.measure(
                         constraints.copy(
                             minWidth = 0,
-                            maxWidth = parentWidth - APP_NAME_HORIZONTAL_MARGIN.roundToPx() * 2,
+                            maxWidth = (parentWidth - APP_NAME_HORIZONTAL_MARGIN.roundToPx() * 2).coerceAtLeast(0),
                         ),
                     )
                     layout(placeable.width, placeable.height) {
