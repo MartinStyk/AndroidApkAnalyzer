@@ -93,8 +93,12 @@ grouping/junction table.
   `PermissionDetails`, `ComponentIntentFilter`, `NativeLibraryFile` all live in `core:apps` and
   evolve on its schedule. `core:user-preferences/AGENTS.md` requires a `Migration` for every schema
   change — fine for one or two small, stable entities, but a real ongoing tax across nine-plus
-  actively-evolving domain models this module doesn't control. JSON absorbs a new field for free;
-  old rows simply don't have it, the same way `@Serializable` already defaults missing fields.
+  actively-evolving domain models this module doesn't control. JSON can absorb a schema change
+  without a `Migration`, but not automatically: a field added to a `capture/snapshot/` DTO must
+  declare a Kotlin default, or decoding an old blob that lacks it throws
+  `MissingFieldException` instead of defaulting; a future reader also needs
+  `Json { ignoreUnknownKeys = true }` to tolerate blobs written by a newer app version. That
+  discipline is still far cheaper than a `Migration` per section per change.
 * **Nothing here ever queries into the content with SQL.** Every read path in `app-history.md` — the
   stub label, the diff detail screen, "since you installed it" — loads one section's content for one
   snapshot (or two, to diff) and works with it as a deserialized Kotlin object. Row-level SQL

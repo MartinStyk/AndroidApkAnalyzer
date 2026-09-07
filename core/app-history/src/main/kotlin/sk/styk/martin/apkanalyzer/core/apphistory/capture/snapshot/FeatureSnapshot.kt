@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.core.apphistory.capture.snapshot
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.Feature
 
@@ -7,6 +8,7 @@ import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.Feature
 internal sealed interface FeatureSnapshot {
 
     @Serializable
+    @SerialName("hardware")
     data class Hardware(
         val name: String,
         val version: Int,
@@ -14,6 +16,7 @@ internal sealed interface FeatureSnapshot {
     ) : FeatureSnapshot
 
     @Serializable
+    @SerialName("open_gl_es")
     data class OpenGlEs(val reqGlEsVersion: Int, val isRequired: Boolean) : FeatureSnapshot
 }
 
