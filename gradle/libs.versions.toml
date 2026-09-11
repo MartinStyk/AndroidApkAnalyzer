@@ -48,9 +48,9 @@ androidx-appfunctions = "1.0.0-alpha11"
 # Third-party
 timber = "5.0.1"
 leakcanary = "2.14"
-coil = "3.6.0"
+coil = "3.6.1"
 spotless = "8.10.1"
-compose-rules-ktlint = "0.6.4"
+compose-rules-ktlint = "0.6.6"
 detekt = "2.0.0-alpha.6"
 triplet-play = "4.1.1"
 
