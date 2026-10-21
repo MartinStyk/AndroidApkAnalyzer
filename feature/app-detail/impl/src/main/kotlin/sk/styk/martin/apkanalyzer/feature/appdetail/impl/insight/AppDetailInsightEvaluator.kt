@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import sk.styk.martin.apkanalyzer.core.apps.AppClassificationThresholds
 import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
-import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionLevel
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificateTrustLevel
 import sk.styk.martin.apkanalyzer.core.common.model.isSideloaded
 import java.time.Duration
@@ -47,10 +46,7 @@ internal object AppDetailInsightEvaluator {
                     }
                 }
                 val grantedDangerousPermissionNames = permissions.used
-                    .filter {
-                        it.isGranted &&
-                            it.permissionData.details?.protectionLevel == ProtectionLevel.Dangerous
-                    }
+                    .filter { it.isGranted && it.isDangerous }
                     .map { it.permissionData.name }
                     .toSet()
                 sensitivePermissionGroups.forEach { (access, names) ->

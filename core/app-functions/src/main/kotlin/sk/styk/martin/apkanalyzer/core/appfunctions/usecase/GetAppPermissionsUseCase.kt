@@ -3,7 +3,6 @@ package sk.styk.martin.apkanalyzer.core.appfunctions.usecase
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.core.appfunctions.model.PermissionGrantSummary
 import sk.styk.martin.apkanalyzer.core.apps.AppDetailRepository
-import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionLevel
 import sk.styk.martin.apkanalyzer.core.apps.permissions.UsedPermission
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
@@ -18,7 +17,7 @@ internal class GetAppPermissionsUseCase @Inject constructor(
         appDetailRepository.details(AppReference.InstalledPackage(PackageName(packageName)))
             .getOrElse { throw appDetailLookupFailure(packageName, it) }
             .permissions.used
-            .filter { it.permissionData.details?.protectionLevel == ProtectionLevel.Dangerous }
+            .filter { it.isDangerous }
             .map { it.toPermissionGrantSummary() }
     }
 }

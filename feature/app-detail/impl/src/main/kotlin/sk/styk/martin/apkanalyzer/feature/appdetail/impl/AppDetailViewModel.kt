@@ -31,7 +31,6 @@ import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.Feature
 import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.FeatureAvailability
 import sk.styk.martin.apkanalyzer.core.apps.export.AppExportManager
 import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
-import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionLevel
 import sk.styk.martin.apkanalyzer.core.common.clipboard.ClipboardManager
 import sk.styk.martin.apkanalyzer.core.common.clipboard.CopyResult
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
@@ -326,9 +325,7 @@ internal class AppDetailViewModel @AssistedInject constructor(
     )
 
     private fun AppDetail.toLoadedState(deviceFeatures: DeviceFeatures): AppDetailState.Loaded {
-        val dangerousPermissions = permissions.used.filter {
-            it.permissionData.details?.protectionLevel == ProtectionLevel.Dangerous
-        }
+        val dangerousPermissions = permissions.used.filter { it.isDangerous }
         val relevantDangerousPermissions = when (analysisMode) {
             AppDetail.AnalysisMode.InstalledPackage -> dangerousPermissions.filter { it.isGranted }
             AppDetail.AnalysisMode.ApkFile -> dangerousPermissions
