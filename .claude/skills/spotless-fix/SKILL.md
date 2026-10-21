@@ -20,8 +20,8 @@ Fix a specific module:
 ./gradlew :app:spotlessApply
 ./gradlew :core:apps:spotlessApply
 ./gradlew :core:design-system:phone:spotlessApply
-./gradlew :feature:apps:impl:spotlessApply
-./gradlew :feature:app-detail:impl:spotlessApply
+./gradlew :feature:apps:phone:spotlessApply
+./gradlew :feature:app-detail:phone:spotlessApply
 ```
 
 Check without fixing (see violations only):

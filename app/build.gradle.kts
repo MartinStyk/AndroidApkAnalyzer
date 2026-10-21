@@ -53,10 +53,10 @@ dependencies {
     implementation(projects.core.navigation)
     implementation(projects.core.designSystem.phone)
 
-    implementation(projects.feature.apps.impl)
-    implementation(projects.feature.browse.impl)
-    implementation(projects.feature.settings.impl)
-    implementation(projects.feature.appDetail.impl)
+    implementation(projects.feature.apps.phone)
+    implementation(projects.feature.browse.phone)
+    implementation(projects.feature.settings.phone)
+    implementation(projects.feature.appDetail.phone)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.appcompat)

@@ -6,7 +6,7 @@ Home for on-device AI features. Today it holds exactly one: a short, factual sum
 (installed package or APK file) generated from data already produced by `core:apps`. The package is
 `sk.styk.martin.apkanalyzer.core.aiinsights`.
 
-This module owns no UI. `feature/app-detail/impl`'s `components/aisummary/` package owns the
+This module owns no UI. `feature/app-detail/phone`'s `components/aisummary/` package owns the
 `AiSummaryCard` composable and its ViewModel, and they are the only consumers of
 `AppAiDescriptionRepository`.
 

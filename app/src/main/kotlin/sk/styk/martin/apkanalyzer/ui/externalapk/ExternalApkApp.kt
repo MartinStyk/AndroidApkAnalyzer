@@ -28,7 +28,7 @@ import sk.styk.martin.apkanalyzer.core.navigation.rememberNavigationState
 import sk.styk.martin.apkanalyzer.core.navigation.toEntries
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailNavKey
-import sk.styk.martin.apkanalyzer.feature.appdetail.impl.navigation.appDetailEntries
+import sk.styk.martin.apkanalyzer.feature.appdetail.phone.navigation.appDetailEntries
 
 @Composable
 internal fun ExternalApkApp(

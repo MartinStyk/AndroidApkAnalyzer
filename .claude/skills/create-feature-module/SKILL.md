@@ -43,16 +43,16 @@ If the NavKey needs parameters, use `data class` instead:
 data class <Name>NavKey(val id: String) : NavKey
 ```
 
-## Step 2 — Create impl module
+## Step 2 — Create phone module
 
-**`feature/<name>/impl/build.gradle.kts`**
+**`feature/<name>/phone/build.gradle.kts`**
 ```kotlin
 plugins {
-    alias(libs.plugins.apkanalyzer.feature.impl)
+    alias(libs.plugins.apkanalyzer.feature.phone)
 }
 
 android {
-    namespace = "sk.styk.martin.apkanalyzer.feature.<name>.impl"
+    namespace = "sk.styk.martin.apkanalyzer.feature.<name>.phone"
 
     androidResources.enable = false
 }
@@ -71,16 +71,16 @@ Drop the `androidResources.enable` line as soon as the screen has real UI copy a
 
 ## Step 3 — Create entry provider
 
-**`feature/<name>/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/<name>/impl/navigation/<Name>EntryProvider.kt`**
+**`feature/<name>/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/<name>/phone/navigation/<Name>EntryProvider.kt`**
 
 Without navigation (self-contained screen):
 ```kotlin
-package sk.styk.martin.apkanalyzer.feature.<name>.impl.navigation
+package sk.styk.martin.apkanalyzer.feature.<name>.phone.navigation
 
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import sk.styk.martin.apkanalyzer.feature.<name>.api.<Name>NavKey
-import sk.styk.martin.apkanalyzer.feature.<name>.impl.<Name>Screen
+import sk.styk.martin.apkanalyzer.feature.<name>.phone.<Name>Screen
 
 fun EntryProviderScope<NavKey>.<name>Entries() {
     entry<<Name>NavKey> {
@@ -91,13 +91,13 @@ fun EntryProviderScope<NavKey>.<name>Entries() {
 
 With navigation (back or to other screens):
 ```kotlin
-package sk.styk.martin.apkanalyzer.feature.<name>.impl.navigation
+package sk.styk.martin.apkanalyzer.feature.<name>.phone.navigation
 
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
 import sk.styk.martin.apkanalyzer.feature.<name>.api.<Name>NavKey
-import sk.styk.martin.apkanalyzer.feature.<name>.impl.<Name>Screen
+import sk.styk.martin.apkanalyzer.feature.<name>.phone.<Name>Screen
 
 fun EntryProviderScope<NavKey>.<name>Entries(navigator: Navigator) {
     entry<<Name>NavKey> {
@@ -110,9 +110,9 @@ fun EntryProviderScope<NavKey>.<name>Entries(navigator: Navigator) {
 
 ## Step 4 — Create screen composable (placeholder)
 
-**`feature/<name>/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/<name>/impl/<Name>Screen.kt`**
+**`feature/<name>/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/<name>/phone/<Name>Screen.kt`**
 ```kotlin
-package sk.styk.martin.apkanalyzer.feature.<name>.impl
+package sk.styk.martin.apkanalyzer.feature.<name>.phone
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -147,20 +147,20 @@ private fun <Name>ScreenPreview() {
 Add inside `include(...)`:
 ```kotlin
 ":feature:<name>:api",
-":feature:<name>:impl",
+":feature:<name>:phone",
 ```
 
 ## Step 6 — Add dependency in `app/build.gradle.kts`
 
 ```kotlin
-implementation(projects.feature.<name>.impl)
+implementation(projects.feature.<name>.phone)
 ```
 
 ## Step 7 — Wire in `app/src/main/kotlin/sk/styk/martin/apkanalyzer/ui/ApkAnalyzerApp.kt`
 
 Add import:
 ```kotlin
-import sk.styk.martin.apkanalyzer.feature.<name>.impl.navigation.<name>Entries
+import sk.styk.martin.apkanalyzer.feature.<name>.phone.navigation.<name>Entries
 ```
 
 Add inside `entryProvider { }` block:
@@ -178,9 +178,9 @@ Add to `app/src/main/kotlin/sk/styk/martin/apkanalyzer/ui/navigation/TopLevelDes
 ## Step 9 — Create module docs
 
 Every feature carries one `AGENTS.md` at `feature/<name>/AGENTS.md` covering **both** its `api`
-and `impl` submodules (not two separate files — see `feature/settings/AGENTS.md` or
+and `phone` submodules (not two separate files — see `feature/settings/AGENTS.md` or
 `feature/app-detail/AGENTS.md` for the exact format: Purpose, Sub-modules, API module key types,
-Impl Structure, Key Patterns, Dependencies), plus a one-line `CLAUDE.md` pointer at the same level:
+Phone Structure, Key Patterns, Dependencies), plus a one-line `CLAUDE.md` pointer at the same level:
 
 **`feature/<name>/CLAUDE.md`**
 ```
@@ -200,7 +200,7 @@ The root `AGENTS.md` does not list individual modules, so there is nothing to up
 | Thing | Convention | Example |
 |-------|-----------|---------|
 | Module directory | kebab-case | `app-detail` |
-| Gradle accessor | camelCase | `projects.feature.appDetail.impl` |
-| Package segment | concatenated lowercase | `feature.appdetail.impl` |
+| Gradle accessor | camelCase | `projects.feature.appDetail.phone` |
+| Package segment | concatenated lowercase | `feature.appdetail.phone` |
 | NavKey class | PascalCase + `NavKey` | `AppDetailNavKey` |
 | Entry provider function | camelCase + `Entries` | `appDetailEntries` |

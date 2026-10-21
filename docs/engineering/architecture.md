@@ -10,14 +10,14 @@ reviewer who wants the reasoning, not just the rule.
 ```mermaid
 graph TD
     app[":app<br/>Activities, nav host, Hilt graph"]
-    fimpl["feature/&lt;name&gt;/impl<br/>screens + ViewModels"]
+    fphone["feature/&lt;name&gt;/phone<br/>screens + ViewModels"]
     fapi["feature/&lt;name&gt;/api<br/>NavKeys only"]
     core["core/*<br/>domain, data, design system"]
 
-    app --> fimpl
+    app --> fphone
     app --> core
-    fimpl --> fapi
-    fimpl --> core
+    fphone --> fapi
+    fphone --> core
     core --> core
 ```
 
@@ -27,14 +27,14 @@ graph TD
 
 * **`feature/*/api` depends on nothing.** It holds only `@Serializable` NavKeys and the feature's
   tab label. This is what lets one feature navigate into another without compiling against its
-  implementation — the whole point of the api/impl split.
-* **`feature/*/impl` depends on its own `api` plus whichever `core` modules it needs.** Never on
-  another feature's `impl`. If two features need the same behaviour, it moves into a `core` module.
+  implementation — the whole point of the api split.
+* **`feature/*/phone` depends on its own `api` plus whichever `core` modules it needs.** Never on
+  another feature's `phone` or `tv`. If two features need the same behaviour, it moves into a `core` module.
 * **`core/*` may depend on other `core` modules, never on a `feature`.**
 * **`app` is wiring only** — the launcher Activity, the external-APK document Activity, nav hosts,
   and app-scoped Hilt bindings. No feature logic lands here.
 * A module's package matches its directory with hyphens removed: `core/user-preferences` →
-  `core.userpreferences`, `feature/app-detail/impl` → `feature.appdetail.impl`.
+  `core.userpreferences`, `feature/app-detail/phone` → `feature.appdetail.phone`.
 
 ## Module ownership
 
@@ -87,9 +87,9 @@ arguments out of a `SavedStateHandle`.
 
 Production references:
 
-* [`AppDetailViewModel`](../../feature/app-detail/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/impl/AppDetailViewModel.kt)
+* [`AppDetailViewModel`](../../feature/app-detail/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/phone/AppDetailViewModel.kt)
   — assisted injection, private `MutableStateFlow` sources combined into one public state.
-* [`SettingsViewModel`](../../feature/settings/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/settings/impl/SettingsViewModel.kt)
+* [`SettingsViewModel`](../../feature/settings/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/settings/phone/SettingsViewModel.kt)
   — the plain flow-backed shape with state, events, and actions.
 
 ## Data-layer conventions
@@ -128,7 +128,7 @@ Colors and type come from `AppTheme.colors` / `AppTheme.typography`, icons from 
 Navigation 3 (`androidx.navigation3`) only — no legacy Jetpack Navigation. NavKeys are
 `@Serializable` and implement `NavKey`: a `data class` when it carries parameters, a `data object`
 when it does not. Keys reachable from another feature live in `feature/*/api`; keys internal to one
-feature live in that feature's `impl/navigation/`.
+feature live in that feature's `phone/navigation/` or `tv/navigation/`.
 
 Each feature exposes `EntryProviderScope<NavKey>.<feature>Entries(navigator: Navigator)`, which is
 wired into the `entryProvider { }` block in

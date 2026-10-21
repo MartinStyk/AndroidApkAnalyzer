@@ -6,7 +6,7 @@ Secondary destination for color-scheme selection and the recently viewed apps pr
 reached through explicit navigation rather than the bottom navigation bar.
 
 The API module exposes only the navigation key. Implementation code uses the package
-`sk.styk.martin.apkanalyzer.feature.settings.impl`.
+`sk.styk.martin.apkanalyzer.feature.settings.phone`.
 
 ## State and Navigation Rules
 

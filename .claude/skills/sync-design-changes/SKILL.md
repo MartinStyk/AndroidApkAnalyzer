@@ -46,15 +46,15 @@ Claude Design) — use it whenever the flow is *design project → this codebase
 | `components/inputs.html` | `.../components/Checkbox.kt`, `Switch.kt`, `RangeSlider.kt` |
 | `components/search-bar.html` | `.../components/SearchBarActive.kt`, `SearchBarInactive.kt` |
 | `components/navigation.html` | `.../components/Toolbar.kt`, `NavigationBar.kt` |
-| `components/cards-lists.html` | `.../modifier/CardModifier.kt`; the grouped/position-rounded row pattern lives in `feature/apps/impl/src/main/kotlin/.../components/appitem/AppListItemRow.kt` |
+| `components/cards-lists.html` | `.../modifier/CardModifier.kt`; the grouped/position-rounded row pattern lives in `feature/apps/phone/src/main/kotlin/.../components/appitem/AppListItemRow.kt` |
 | `components/feedback.html` | `.../components/LoadingSpinner.kt`, `SkeletonBox.kt`, `modifier/Shimmer.kt`, `BottomSheet.kt` |
-| `screens/apps-list.html` | `feature/apps/impl/src/main/kotlin/.../list/AppsScreen.kt` |
-| `screens/app-search.html` | `feature/apps/impl/src/main/kotlin/.../search/AppSearchScreen.kt` |
-| `screens/filter.html` | `feature/apps/impl/src/main/kotlin/.../filter/FilterScreen.kt` |
-| `screens/permission-filter.html` | `feature/apps/impl/src/main/kotlin/.../filter/permission/PermissionFilterScreen.kt` |
-| `screens/app-detail.html` | `feature/app-detail/impl/src/main/kotlin/.../AppDetailScreen.kt` (+ `components/AppDetailToolbar.kt` for the collapsing header) |
-| `screens/general-info.html` | `feature/app-detail/impl/src/main/kotlin/.../generalinfo/GeneralInfoScreen.kt` |
-| `screens/settings.html` | `feature/settings/impl/src/main/kotlin/.../SettingsScreen.kt` |
+| `screens/apps-list.html` | `feature/apps/phone/src/main/kotlin/.../list/AppsScreen.kt` |
+| `screens/app-search.html` | `feature/apps/phone/src/main/kotlin/.../search/AppSearchScreen.kt` |
+| `screens/filter.html` | `feature/apps/phone/src/main/kotlin/.../filter/FilterScreen.kt` |
+| `screens/permission-filter.html` | `feature/apps/phone/src/main/kotlin/.../filter/permission/PermissionFilterScreen.kt` |
+| `screens/app-detail.html` | `feature/app-detail/phone/src/main/kotlin/.../AppDetailScreen.kt` (+ `components/AppDetailToolbar.kt` for the collapsing header) |
+| `screens/general-info.html` | `feature/app-detail/phone/src/main/kotlin/.../generalinfo/GeneralInfoScreen.kt` |
+| `screens/settings.html` | `feature/settings/phone/src/main/kotlin/.../SettingsScreen.kt` |
 
 All paths under `core/design-system/phone` are rooted at
 `core/design-system/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/core/designsystem/phone/`.

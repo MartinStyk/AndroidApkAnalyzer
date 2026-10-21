@@ -504,7 +504,7 @@ pulls in, and that work is justified by the screen being built in that same step
 Shared work this step pulls in:
 
 - Promote `InfoRowItem` + `RationaleBottomSheet` out of `GeneralInfoScreen.kt` into
-  `impl/components/`, and repoint `GeneralInfoScreen` at the shared version. This is a genuine
+  `phone/components/`, and repoint `GeneralInfoScreen` at the shared version. This is a genuine
   second consumer, not a prediction — the permission item sheet is the same tap-to-explain /
   long-press-to-copy row.
 - A `SelectorChip` in `:core:design-system:phone` — `OutlinedChip` with `ArrowDropDown` opening a
@@ -532,7 +532,7 @@ Screen work:
      app, "Defined by <package>". Never a placeholder that says nothing.
 - Protection-level decoding: base level via `PROTECTION_MASK_BASE`, plus the interesting
   `PROTECTION_FLAG_*` flags (appop, privileged, instant) shown in the item sheet.
-- `PermissionsNavKey` in `impl/navigation/`, entry wired in `AppDetailEntryProvider`.
+- `PermissionsNavKey` in `phone/navigation/`, entry wired in `AppDetailEntryProvider`.
 - ViewModel / State / Action / Event following the `GeneralInfoViewModel` shape, with the filter
   query in state and the narrowing done in the ViewModel.
 - Screen: pinned toolbar only; `SearchBarActive` and the filter row — scope chip first, property
@@ -548,7 +548,7 @@ Permissions). Leave it duplicated — extract it in Step 2, when a third consume
 
 Shared work this step pulls in:
 
-- Extract the Loading / Error / Loaded section scaffold into `impl/components/` now that three
+- Extract the Loading / Error / Loaded section scaffold into `phone/components/` now that three
   screens share it, and repoint General Info and Permissions at it.
 - Extend `SelectorChip` from Step 1 only if the five-option scope exposes a gap the two-option
   use did not.

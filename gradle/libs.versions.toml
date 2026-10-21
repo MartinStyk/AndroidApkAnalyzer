@@ -166,7 +166,7 @@ apkanalyzer-library = { id = "apkanalyzer.library" }
 apkanalyzer-application = { id = "apkanalyzer.application" }
 apkanalyzer-agent-context = { id = "apkanalyzer.agent-context" }
 apkanalyzer-feature-api = { id = "apkanalyzer.feature.api" }
-apkanalyzer-feature-impl = { id = "apkanalyzer.feature.impl" }
+apkanalyzer-feature-phone = { id = "apkanalyzer.feature.phone" }
 apkanalyzer-feature-tv = { id = "apkanalyzer.feature.tv" }
 apkanalyzer-hilt = { id = "apkanalyzer.hilt" }
 apkanalyzer-spotless = { id = "apkanalyzer.spotless" }

@@ -71,7 +71,7 @@ by copying an existing file.
 
 | Skill | Use it when |
 |---|---|
-| [`create-feature-module`](../../.claude/skills/create-feature-module/SKILL.md) | Adding a feature area — creates the `api`/`impl` pair, plugins, package structure, nav wiring |
+| [`create-feature-module`](../../.claude/skills/create-feature-module/SKILL.md) | Adding a feature area — creates the `api`/`phone` pair, plugins, package structure, nav wiring |
 | [`create-core-module`](../../.claude/skills/create-core-module/SKILL.md) | Adding a domain/data module — interface + `internal Impl` + Hilt binding + `AGENTS.md` |
 | [`create-compose-component`](../../.claude/skills/create-compose-component/SKILL.md) | A feature needs a UI component that doesn't exist in `core:design-system:phone` yet |
 | [`implement-navigation`](../../.claude/skills/implement-navigation/SKILL.md) | Adding a destination, NavKey, or entry provider, or navigating between features |

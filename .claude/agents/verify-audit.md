@@ -84,7 +84,7 @@ about what would verify it.
 ### Example 1: clean anchored finding
 
 Input finding:
-> 1. [BLOCKER] [security] feature/app-detail/impl/.../AppDetailScreen.kt:124
+> 1. [BLOCKER] [security] feature/app-detail/phone/.../AppDetailScreen.kt:124
 >    subcategory: behavior
 >    Problem: Export button onClick is `{}`; the row is wired up in AppDetailState but never calls
 >    onAction(ExportRequested).

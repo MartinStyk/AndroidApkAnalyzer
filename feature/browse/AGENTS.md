@@ -6,7 +6,7 @@ Top-level "Browse by attribute" destination. Users choose a dimension, choose on
 view the live apps in that bucket before navigating to app detail.
 
 The API module exposes the top-level navigation key and tab label. Implementation code uses the
-package `sk.styk.martin.apkanalyzer.feature.browse.impl`.
+package `sk.styk.martin.apkanalyzer.feature.browse.phone`.
 
 ## Package Map
 

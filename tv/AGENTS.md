@@ -12,7 +12,7 @@ Android TV track. Version codes must stay unique across both bundles.
 ## Dependency Rules
 
 `tv` depends only on shared `core` modules, `core:design-system:tv`, and feature `api` and `tv` modules. It never
-depends on `app`, `core:design-system:phone`, Material3, a feature `impl` module, or phone-only core modules
+depends on `app`, `core:design-system:phone`, Material3, a feature `phone` module, or phone-only core modules
 (`core:app-functions`, `core:ai-insights`, `core:apk-files`).
 
 ## Wiring

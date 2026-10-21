@@ -86,7 +86,7 @@ Two things a green build proves nothing about:
 
 ```bash
 ./gradlew spotlessApply                                   # required before every commit
-./gradlew :feature:apps:impl:compileDebugKotlin           # fast single-module check while iterating
+./gradlew :feature:apps:phone:compileDebugKotlin           # fast single-module check while iterating
 ./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug
 ./gradlew validateAgentContext                            # after touching AGENTS.md or a skill
 ```

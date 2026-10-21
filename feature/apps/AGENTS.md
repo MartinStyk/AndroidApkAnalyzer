@@ -6,7 +6,7 @@ The start destination for browsing installed apps, searching, filtering, sorting
 and navigating to app details or settings.
 
 The API module exposes only the top-level navigation key. Implementation code uses the package
-`sk.styk.martin.apkanalyzer.feature.apps.impl`.
+`sk.styk.martin.apkanalyzer.feature.apps.phone`.
 
 ## Package Map
 
@@ -35,7 +35,7 @@ cannot share `FilterViewModel`'s in-memory state directly.
 
 `feature/apps/tv` (package `sk.styk.martin.apkanalyzer.feature.apps.tv`) is the TV app list: a
 focusable grid of installed apps with the recently viewed row on top. It has its own `TvApps*`
-ViewModel and never depends on `impl`. Unlike the phone, TV shows recently viewed under every sort,
+ViewModel and never depends on `phone`. Unlike the phone, TV shows recently viewed under every sort,
 because typing with a remote is slow and the row costs only one line above the grid. Like the phone,
 it hides the row while filters are active, so everything on screen matches the filter.
 

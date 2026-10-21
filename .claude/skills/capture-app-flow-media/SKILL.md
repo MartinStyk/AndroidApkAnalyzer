@@ -17,7 +17,7 @@ Don't improvise taps against a live recording — look up the exact on-screen st
 trial and error:
 
 ```bash
-grep -n 'string name=".*"' feature/<module>/impl/src/main/res/values/strings.xml
+grep -n 'string name=".*"' feature/<module>/phone/src/main/res/values/strings.xml
 ```
 
 Write out the flow as a numbered list of screens and taps (starting point → each tap → end state)

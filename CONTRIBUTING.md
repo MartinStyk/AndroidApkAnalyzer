@@ -73,7 +73,7 @@ Then, if you want to pre-empt CI:
 ```
 
 While iterating, a single-module compile is much faster:
-`./gradlew :feature:apps:impl:compileDebugKotlin`.
+`./gradlew :feature:apps:phone:compileDebugKotlin`.
 
 Two things no gate catches, so check them by hand:
 

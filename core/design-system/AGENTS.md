@@ -7,7 +7,7 @@ The app's design system, split so the phone and TV apps each get only their own 
 | Module | Package | Built on | Used by |
 |---|---|---|---|
 | `foundation` | `core.designsystem.foundation` | Compose UI only | `phone` and `tv` |
-| `phone` | `core.designsystem.phone` | Material3 | `app` and feature `impl` modules |
+| `phone` | `core.designsystem.phone` | Material3 | `app` and feature `phone` modules |
 | `tv` | `core.designsystem.tv` | TV Material (`androidx.tv:tv-material`) | the `tv` app and TV modules |
 
 `foundation` never depends on Material3 or TV Material. `phone` and `tv` never depend on each other.
