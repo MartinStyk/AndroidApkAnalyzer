@@ -14,13 +14,13 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.core.apps.InstalledAppsRepository
+import sk.styk.martin.apkanalyzer.core.apps.filtering.AppFilterRepository
+import sk.styk.martin.apkanalyzer.core.apps.filtering.filterBy
 import sk.styk.martin.apkanalyzer.core.apps.model.InstalledApp
+import sk.styk.martin.apkanalyzer.core.apps.search.search
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.core.userpreferences.searchhistory.SearchHistoryRepository
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.AppFilterRepository
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.FilterAppsUseCase
 import sk.styk.martin.apkanalyzer.feature.apps.impl.list.AppListItem
-import sk.styk.martin.apkanalyzer.feature.apps.impl.search.domain.SearchAppsUseCase
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,8 +28,6 @@ class AppSearchViewModel @Inject constructor(
     installedAppsRepository: InstalledAppsRepository,
     private val searchHistoryRepository: SearchHistoryRepository,
     private val appFilterRepository: AppFilterRepository,
-    filterApps: FilterAppsUseCase,
-    searchApps: SearchAppsUseCase,
     dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 
@@ -42,13 +40,13 @@ class AppSearchViewModel @Inject constructor(
 
     private val filteredAppsFlow = combine(allApps, appFilterRepository.filter) { apps, filter ->
         FilteredSearchApps(
-            items = filterApps(apps, filter).map { it.toListItem() },
+            items = apps.filterBy(filter),
             totalCount = apps.size,
         )
     }.flowOn(dispatcherProvider.default())
 
     private val searchResultsFlow = combine(filteredAppsFlow, query) { (apps, _), query ->
-        searchApps(query, apps)
+        apps.search(query).map { it.toListItem() }
     }.flowOn(dispatcherProvider.default())
 
     private val searchHistoryFlow = searchHistoryRepository.history().map { entries ->
@@ -134,4 +132,4 @@ class AppSearchViewModel @Inject constructor(
     }
 }
 
-private data class FilteredSearchApps(val items: List<AppListItem>, val totalCount: Int)
+private data class FilteredSearchApps(val items: List<InstalledApp>, val totalCount: Int)

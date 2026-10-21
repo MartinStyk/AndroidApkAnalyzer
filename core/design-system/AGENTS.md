@@ -52,7 +52,26 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
   `ApkAnalyzerTvTypography` is pinned explicitly: it keeps the phone scale's weights
   and letter spacing, with title, body, and label sizes raised for reading across a room, plus a
   `monospace` style for fingerprints and hashes.
-* `components/` - TV wrappers. Names mirror their phone counterparts (`Text`, `NavigationDrawer`).
+* `components/` - thin wrappers over TV Material components, styled with the palette. Prefer a TV
+  Material component over a hand-built layout. `ScreenSurface` (root background and text color),
+  `NavigationDrawer` (TV Material's modal drawer; it reserves the collapsed rail's width so content
+  never sits under it), `WideCard` (`WideClassicCard`: image start, title, subtitle, and an accent
+  description line), `FilterChip`, `ConfirmDialog` (focus starts on the confirm button), `Button`,
+  `SearchField`, `SidePanel` (an end-aligned panel over the dimmed screen, for options that belong
+  to the current screen), `SelectableListItem` (a TV `ListItem` with a check, or a caller-supplied icon and supporting
+  line, when selected), `Text`.
+* `SearchField` is built on `BasicTextField` because TV Material has no text field. A text field
+  swallows D-pad Up/Down for cursor movement, which traps remote users; it hands those keys back to
+  focus navigation and keeps Left/Right for the cursor.
+* `SearchField` takes `query`/`onQueryChange`, like the phone's `SearchBarActive`. The ViewModel must
+  put the query into `state` synchronously and run only the expensive work (search, mapping) behind
+  `flowOn`. If the whole state combine runs on a background dispatcher, the field re-renders stale
+  text over the keystroke the keyboard just sent and typed letters disappear.
+* `modifier/` - `bleedHorizontally` lets a horizontal row extend past the screen margins so a
+  focused item's scale and border are not clipped at the row edges; pair it with matching
+  horizontal content padding.
+* TV Material marks some components experimental (`FilterChip` in 1.1.0). Opt in only inside the
+  wrapper here, never in a feature, so an API change touches one file.
 
 * Every interactive component must be reachable and operable with a D-pad alone; touch is not
   required on TV.

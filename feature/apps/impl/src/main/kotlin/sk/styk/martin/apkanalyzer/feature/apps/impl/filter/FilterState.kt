@@ -1,10 +1,10 @@
 package sk.styk.martin.apkanalyzer.feature.apps.impl.filter
 
 import androidx.compose.runtime.Immutable
+import sk.styk.martin.apkanalyzer.core.apps.filtering.AppFilterState
+import sk.styk.martin.apkanalyzer.core.apps.filtering.AppSizeRange
+import sk.styk.martin.apkanalyzer.core.apps.filtering.PermissionPreset
 import sk.styk.martin.apkanalyzer.core.common.model.AppSource
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.AppFilterState
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.AppSizeRange
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.PermissionPreset
 
 @Immutable
 sealed interface ApkSizeSectionState {

@@ -12,9 +12,9 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import sk.styk.martin.apkanalyzer.core.apppermissions.DevicePermissionsRepository
 import sk.styk.martin.apkanalyzer.core.apppermissions.model.DevicePermission
+import sk.styk.martin.apkanalyzer.core.apps.filtering.PermissionPreset
 import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.PermissionFilterCoordinator
 import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.PermissionFilterDraft
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.PermissionPreset
 import javax.inject.Inject
 
 @HiltViewModel

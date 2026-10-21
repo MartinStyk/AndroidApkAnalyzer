@@ -22,17 +22,17 @@ import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import sk.styk.martin.apkanalyzer.core.apps.sorting.AppSortType
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.AppIcon
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
-import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.AppIcon
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.lazylist.ListItemPosition
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
 import sk.styk.martin.apkanalyzer.feature.apps.impl.R
 import sk.styk.martin.apkanalyzer.feature.apps.impl.list.AppListItem
-import sk.styk.martin.apkanalyzer.feature.apps.impl.list.SortType
 import java.text.DateFormat
 import java.time.Instant
 import java.util.Date
@@ -43,7 +43,7 @@ internal fun AppListItemRow(
     onClick: () -> Unit,
     position: ListItemPosition,
     modifier: Modifier = Modifier,
-    sortType: SortType = SortType.Name,
+    sortType: AppSortType = AppSortType.Name,
     trailingContent: (@Composable () -> Unit)? = null,
 ) {
     val shape: Shape = listItemShape(position)
@@ -83,7 +83,7 @@ internal fun AppListItemRow(
             )
         }
 
-        if (sortType != SortType.Name) {
+        if (sortType != AppSortType.Name) {
             Spacer(modifier = Modifier.width(8.dp))
             SortValueBadge(app = app, sortType = sortType)
         }
@@ -98,17 +98,17 @@ internal fun AppListItemRow(
 @Composable
 private fun SortValueBadge(
     app: AppListItem,
-    sortType: SortType,
+    sortType: AppSortType,
     modifier: Modifier = Modifier,
 ) {
     val (icon, value) = when (sortType) {
-        SortType.ApkSize -> ApkAnalyzerIcons.FileUpload to app.apkSize.formatted()
-        SortType.TotalSize -> ApkAnalyzerIcons.Storage to (app.totalSize?.formatted() ?: "—")
-        SortType.InstallDate -> ApkAnalyzerIcons.Calendar to app.installTime.toShortDate(stringResource(R.string.preinstalled))
-        SortType.TargetSdk -> ApkAnalyzerIcons.Android to app.targetSdk.toString()
-        SortType.LastUpdated -> ApkAnalyzerIcons.Calendar to app.lastUpdateTime.toShortDate(stringResource(R.string.preinstalled))
-        SortType.LastUsed -> ApkAnalyzerIcons.Calendar to (app.lastUsedTime?.toShortDate(stringResource(R.string.never)) ?: stringResource(R.string.never))
-        SortType.Name -> return
+        AppSortType.ApkSize -> ApkAnalyzerIcons.FileUpload to app.apkSize.formatted()
+        AppSortType.TotalSize -> ApkAnalyzerIcons.Storage to (app.totalSize?.formatted() ?: "—")
+        AppSortType.InstallDate -> ApkAnalyzerIcons.Calendar to app.installTime.toShortDate(stringResource(R.string.preinstalled))
+        AppSortType.TargetSdk -> ApkAnalyzerIcons.Android to app.targetSdk.toString()
+        AppSortType.LastUpdated -> ApkAnalyzerIcons.Calendar to app.lastUpdateTime.toShortDate(stringResource(R.string.preinstalled))
+        AppSortType.LastUsed -> ApkAnalyzerIcons.Calendar to (app.lastUsedTime?.toShortDate(stringResource(R.string.never)) ?: stringResource(R.string.never))
+        AppSortType.Name -> return
     }
 
     Row(

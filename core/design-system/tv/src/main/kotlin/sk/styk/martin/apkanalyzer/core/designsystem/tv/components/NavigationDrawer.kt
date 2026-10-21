@@ -20,7 +20,7 @@ import androidx.tv.material3.Icon
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
-import androidx.tv.material3.NavigationDrawer as TvMaterialNavigationDrawer
+import androidx.tv.material3.ModalNavigationDrawer as TvMaterialModalNavigationDrawer
 import androidx.tv.material3.NavigationDrawerItem as TvMaterialNavigationDrawerItem
 
 @Immutable
@@ -38,7 +38,7 @@ fun NavigationDrawer(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit,
 ) {
-    TvMaterialNavigationDrawer(
+    TvMaterialModalNavigationDrawer(
         modifier = modifier,
         drawerContent = {
             Column(
@@ -59,9 +59,14 @@ fun NavigationDrawer(
                 }
             }
         },
-        content = content,
-    )
+    ) {
+        Box(modifier = Modifier.padding(start = CollapsedDrawerWidth)) {
+            content()
+        }
+    }
 }
+
+private val CollapsedDrawerWidth = 80.dp
 
 private data object PreviewAppsKey : NavKey
 

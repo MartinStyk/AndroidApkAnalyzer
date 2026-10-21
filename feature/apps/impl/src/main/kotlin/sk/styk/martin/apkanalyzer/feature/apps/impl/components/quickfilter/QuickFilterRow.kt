@@ -18,6 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.apps.filtering.ActivityQuickFilter
+import sk.styk.martin.apkanalyzer.core.apps.filtering.QuickFilter
+import sk.styk.martin.apkanalyzer.core.apps.filtering.SourceQuickFilter
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Chip
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.MultiSelectorChip
@@ -27,9 +30,6 @@ import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.feature.apps.impl.R
 import sk.styk.martin.apkanalyzer.feature.apps.impl.components.AppDataPermission
 import sk.styk.martin.apkanalyzer.feature.apps.impl.components.PermissionRationaleBottomSheet
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.ActivityQuickFilter
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.QuickFilter
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.SourceQuickFilter
 
 @Composable
 internal fun QuickFilterRow(

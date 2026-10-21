@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.feature.apps.impl.filter.permission
 
 import androidx.compose.runtime.Immutable
 import sk.styk.martin.apkanalyzer.core.apppermissions.model.DevicePermission
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.PermissionPreset
+import sk.styk.martin.apkanalyzer.core.apps.filtering.PermissionPreset
 
 @Immutable
 data class PermissionFilterState(

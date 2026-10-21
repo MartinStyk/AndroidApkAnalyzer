@@ -80,11 +80,14 @@ import, and no gate will tell you — check by hand.
 
 ## Module Rules
 
-Modules live under `app/`, `tv/`, `core/<name>/`, and `feature/<name>/{api,impl}/`;
+Modules live under `app/`, `tv/`, `core/<name>/`, and `feature/<name>/{api,impl,tv}/`;
 `settings.gradle.kts` is the authoritative list.
 
 * `feature/*/api` — depends on nothing, holds only `@Serializable` NavKeys and the tab-label string.
 * `feature/*/impl` — `api(projects.feature.<name>.api)` plus whichever `core` modules it needs.
+* `feature/*/tv` — the TV screens for that feature, applied with `apkanalyzer.feature.tv`. Same rule
+  as `impl`, but it never depends on its sibling `impl`; logic both need moves to `core` when the
+  second consumer appears.
 * `core/*` — may depend on other `core` modules. **Never** depends on a `feature` module.
 * A feature never depends on another feature's `impl`. Cross-feature navigation goes through the
   target's `api` module.

@@ -21,6 +21,12 @@ files. Implementation code uses the package
 Each destination keeps its own State/Action/Event/ViewModel set. Runtime navigation inputs use
 assisted injection and seed ViewModel state exactly once.
 
+## TV Module
+
+`feature/app-detail/tv` (package `sk.styk.martin.apkanalyzer.feature.appdetail.tv`) handles
+`AppDetailNavKey` on TV. It currently shows the app's icon, name, package, and version, and records
+the app as recently viewed exactly like the phone hub does. It never depends on `impl`.
+
 ## Cross-Cutting Interaction Rules
 
 Every detail list row follows **tap = explain, long-press = copy**. If a row has no explanation yet,

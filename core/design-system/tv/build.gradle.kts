@@ -12,4 +12,5 @@ android {
 dependencies {
     api(projects.core.designSystem.foundation)
     implementation(libs.androidx.tv.material)
+    implementation(projects.core.common)
 }

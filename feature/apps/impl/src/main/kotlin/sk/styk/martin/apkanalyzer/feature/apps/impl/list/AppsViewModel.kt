@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.core.apps.InstalledAppsRepository
+import sk.styk.martin.apkanalyzer.core.apps.filtering.AppFilterRepository
+import sk.styk.martin.apkanalyzer.core.apps.filtering.filterBy
 import sk.styk.martin.apkanalyzer.core.apps.model.InstalledApp
+import sk.styk.martin.apkanalyzer.core.apps.sorting.AppSortType
+import sk.styk.martin.apkanalyzer.core.apps.sorting.comparator
 import sk.styk.martin.apkanalyzer.core.apps.storagestats.StorageStatsRepository
 import sk.styk.martin.apkanalyzer.core.apps.usagestats.UsageStatsRepository
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.core.userpreferences.recentlyviewed.RecentlyViewedAppsRepository
 import sk.styk.martin.apkanalyzer.feature.apps.impl.components.AppDataPermission
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.AppFilterRepository
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.FilterAppsUseCase
-import java.text.Collator
-import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -30,13 +30,12 @@ class AppsViewModel @Inject constructor(
     installedAppsRepository: InstalledAppsRepository,
     recentlyViewedAppsRepository: RecentlyViewedAppsRepository,
     private val appFilterRepository: AppFilterRepository,
-    filterApps: FilterAppsUseCase,
     private val usageStatsRepository: UsageStatsRepository,
     private val storageStatsRepository: StorageStatsRepository,
     dispatcherProvider: DispatcherProvider,
 ) : ViewModel() {
 
-    private val sortType = MutableStateFlow(SortType.Name)
+    private val sortType = MutableStateFlow(AppSortType.Name)
     private val sortAscending = MutableStateFlow(true)
     private val sortPermissionRationale = MutableStateFlow<AppDataPermission?>(null)
 
@@ -56,8 +55,7 @@ class AppsViewModel @Inject constructor(
         installedAppsRepository.apps(),
         appFilterRepository.filter,
     ) { rawApps, filter ->
-        val filtered = filterApps(rawApps, filter)
-        filtered.map { it.toListItem() } to filter
+        rawApps.filterBy(filter) to filter
     }.flowOn(dispatcherProvider.default())
 
     val state = combine(
@@ -68,16 +66,17 @@ class AppsViewModel @Inject constructor(
         sortPermissionRationale,
     ) { (filteredApps, filter), recents, sort, ascending, rationale ->
         val (effectiveSortType, effectiveAscending) = when {
-            filter.isRecentInstallActive -> SortType.InstallDate to false
-            filter.isRecentUpdateActive -> SortType.LastUpdated to false
-            filter.isRecentlyUsedActive -> SortType.LastUsed to false
-            filter.isUnusedFilterActive -> SortType.LastUsed to true
-            filter.isLargeTotalFilterActive -> SortType.TotalSize to false
+            filter.isRecentInstallActive -> AppSortType.InstallDate to false
+            filter.isRecentUpdateActive -> AppSortType.LastUpdated to false
+            filter.isRecentlyUsedActive -> AppSortType.LastUsed to false
+            filter.isUnusedFilterActive -> AppSortType.LastUsed to true
+            filter.isLargeTotalFilterActive -> AppSortType.TotalSize to false
             else -> sort to ascending
         }
 
         val sortedItems = filteredApps
             .sortedWith(effectiveSortType.comparator(effectiveAscending))
+            .map { it.toListItem() }
 
         AppsState(
             apps = AppListState.Content(apps = sortedItems),
@@ -95,8 +94,8 @@ class AppsViewModel @Inject constructor(
         when (action) {
             is AppsAction.SortTypeSelected -> {
                 val missingPermission = when {
-                    action.sortType == SortType.TotalSize && !storageStatsRepository.isPermissionGranted.value -> AppDataPermission.StorageAccess
-                    action.sortType == SortType.LastUsed && !usageStatsRepository.isPermissionGranted.value -> AppDataPermission.UsageAccess
+                    action.sortType == AppSortType.TotalSize && !storageStatsRepository.isPermissionGranted.value -> AppDataPermission.StorageAccess
+                    action.sortType == AppSortType.LastUsed && !usageStatsRepository.isPermissionGranted.value -> AppDataPermission.UsageAccess
                     else -> null
                 }
                 if (missingPermission != null) {
@@ -130,42 +129,6 @@ class AppsViewModel @Inject constructor(
                 eventChannel.trySend(AppsEvent.OpenUsageAccessSettings)
             }
         }
-    }
-
-    private fun SortType.comparator(ascending: Boolean): Comparator<AppListItem> {
-        val base: Comparator<AppListItem> = when (this) {
-            SortType.Name -> {
-                val collator = Collator.getInstance(Locale.getDefault()).apply { strength = Collator.SECONDARY }
-                Comparator { a, b -> collator.compare(a.applicationName, b.applicationName) }
-            }
-
-            SortType.ApkSize -> compareBy { it.apkSize }
-
-            SortType.TotalSize -> Comparator { a, b ->
-                when {
-                    a.totalSize == null && b.totalSize == null -> 0
-                    a.totalSize == null -> -1
-                    b.totalSize == null -> 1
-                    else -> a.totalSize.compareTo(b.totalSize)
-                }
-            }
-
-            SortType.InstallDate -> compareBy { it.installTime }
-
-            SortType.TargetSdk -> compareBy { it.targetSdk }
-
-            SortType.LastUpdated -> compareBy { it.lastUpdateTime }
-
-            SortType.LastUsed -> Comparator { a, b ->
-                when {
-                    a.lastUsedTime == null && b.lastUsedTime == null -> 0
-                    a.lastUsedTime == null -> -1
-                    b.lastUsedTime == null -> 1
-                    else -> a.lastUsedTime.compareTo(b.lastUsedTime)
-                }
-            }
-        }
-        return if (ascending) base else base.reversed()
     }
 
     private fun InstalledApp.toListItem() = AppListItem(

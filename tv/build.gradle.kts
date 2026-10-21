@@ -22,12 +22,17 @@ android {
 }
 
 dependencies {
+    implementation(projects.core.apps)
     implementation(projects.core.common)
-    implementation(projects.core.navigation)
     implementation(projects.core.designSystem.tv)
+    implementation(projects.core.navigation)
+    implementation(projects.core.userPreferences)
 
-    implementation(projects.feature.apps.api)
+    implementation(projects.feature.apps.tv)
+    implementation(projects.feature.appDetail.tv)
     implementation(projects.feature.browse.api)
 
     implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.lifecycle.process)
+    implementation(libs.coil.compose)
 }

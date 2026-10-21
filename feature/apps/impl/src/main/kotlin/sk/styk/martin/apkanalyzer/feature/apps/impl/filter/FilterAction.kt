@@ -1,10 +1,10 @@
 package sk.styk.martin.apkanalyzer.feature.apps.impl.filter
 
+import sk.styk.martin.apkanalyzer.core.apps.filtering.AppSizeRange
+import sk.styk.martin.apkanalyzer.core.apps.filtering.DateRange
+import sk.styk.martin.apkanalyzer.core.apps.filtering.PermissionPreset
+import sk.styk.martin.apkanalyzer.core.apps.filtering.UnusedAppsPeriod
 import sk.styk.martin.apkanalyzer.core.common.model.AppSource
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.AppSizeRange
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.DateRange
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.PermissionPreset
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.UnusedAppsPeriod
 
 sealed interface FilterAction {
     data class SourceToggled(val source: AppSource, val selected: Boolean) : FilterAction

@@ -39,13 +39,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.apps.sorting.AppSortType
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
 import sk.styk.martin.apkanalyzer.core.common.model.AppSource
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.common.model.megabytes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.AppIcon
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
-import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.AppIcon
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.BottomSheet
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Chip
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
@@ -221,7 +222,7 @@ private fun AppsContent(
 
 private fun LazyListScope.recentsSectionItems(
     recents: RecentsState,
-    sortType: SortType,
+    sortType: AppSortType,
     onAppClicked: (PackageName) -> Unit,
 ) {
     when (recents) {
@@ -229,7 +230,7 @@ private fun LazyListScope.recentsSectionItems(
             RecentsSkeleton(modifier = Modifier.animateItem())
         }
 
-        is RecentsState.Content -> if (sortType == SortType.Name) {
+        is RecentsState.Content -> if (sortType == AppSortType.Name) {
             item(key = "recents_section") {
                 RecentsContent(
                     recentApps = recents.apps,
@@ -246,7 +247,7 @@ private fun LazyListScope.recentsSectionItems(
 private fun LazyListScope.appsSectionItems(
     apps: AppListState,
     isFiltering: Boolean,
-    sortType: SortType,
+    sortType: AppSortType,
     onAppClicked: (PackageName) -> Unit,
     onClearFilters: () -> Unit,
     onShowSort: () -> Unit,
@@ -263,7 +264,7 @@ private fun LazyListScope.appsSectionItems(
                 )
                 IconButton(
                     imageVector = ApkAnalyzerIcons.Sort,
-                    style = if (sortType == SortType.Name) IconButtonStyle.Standard else IconButtonStyle.Highlighted,
+                    style = if (sortType == AppSortType.Name) IconButtonStyle.Standard else IconButtonStyle.Highlighted,
                     onClick = onShowSort,
                     modifier = Modifier.size(22.dp),
                     contentDescription = stringResource(R.string.content_description_sort),
@@ -339,9 +340,9 @@ private fun EmptyFilteredState(onClearFilters: () -> Unit, modifier: Modifier = 
 
 @Composable
 private fun SortBottomSheet(
-    sortType: SortType,
+    sortType: AppSortType,
     sortAscending: Boolean,
-    onSortSelect: (SortType) -> Unit,
+    onSortSelect: (AppSortType) -> Unit,
     onDismiss: () -> Unit,
 ) {
     BottomSheet(onDismiss = onDismiss) {
@@ -356,7 +357,7 @@ private fun SortBottomSheet(
                 color = AppTheme.colors.onSurface,
                 modifier = Modifier.padding(bottom = 8.dp),
             )
-            SortType.entries.forEach { type ->
+            AppSortType.entries.forEach { type ->
                 SortOptionRow(
                     type = type,
                     isSelected = sortType == type,
@@ -371,7 +372,7 @@ private fun SortBottomSheet(
 
 @Composable
 private fun SortOptionRow(
-    type: SortType,
+    type: AppSortType,
     isSelected: Boolean,
     ascending: Boolean,
     onClick: () -> Unit,
@@ -483,14 +484,14 @@ private fun RecentAppItem(
 }
 
 @Composable
-private fun SortType.displayName(): String = when (this) {
-    SortType.Name -> stringResource(R.string.sort_name)
-    SortType.ApkSize -> stringResource(R.string.sort_size)
-    SortType.TotalSize -> stringResource(R.string.sort_total_size)
-    SortType.InstallDate -> stringResource(R.string.sort_install_date)
-    SortType.TargetSdk -> stringResource(R.string.sort_target_sdk)
-    SortType.LastUpdated -> stringResource(R.string.sort_last_updated)
-    SortType.LastUsed -> stringResource(R.string.sort_last_used)
+private fun AppSortType.displayName(): String = when (this) {
+    AppSortType.Name -> stringResource(R.string.sort_name)
+    AppSortType.ApkSize -> stringResource(R.string.sort_size)
+    AppSortType.TotalSize -> stringResource(R.string.sort_total_size)
+    AppSortType.InstallDate -> stringResource(R.string.sort_install_date)
+    AppSortType.TargetSdk -> stringResource(R.string.sort_target_sdk)
+    AppSortType.LastUpdated -> stringResource(R.string.sort_last_updated)
+    AppSortType.LastUsed -> stringResource(R.string.sort_last_used)
 }
 
 private fun AppDataPermission.sortTitleRes(): Int = when (this) {

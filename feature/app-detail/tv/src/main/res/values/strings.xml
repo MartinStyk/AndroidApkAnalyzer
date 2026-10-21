@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tv_app_detail_loading">Loading app details…</string>
+    <string name="tv_app_detail_error">This app\'s details couldn\'t be loaded.</string>
+    <string name="tv_app_detail_version">Version %1$s</string>
+</resources>

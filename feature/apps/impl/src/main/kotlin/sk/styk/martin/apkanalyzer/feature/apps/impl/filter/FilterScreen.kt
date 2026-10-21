@@ -39,6 +39,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.apps.filtering.AppFilterState
+import sk.styk.martin.apkanalyzer.core.apps.filtering.AppSizeRange
+import sk.styk.martin.apkanalyzer.core.apps.filtering.DateRange
+import sk.styk.martin.apkanalyzer.core.apps.filtering.PermissionPreset
+import sk.styk.martin.apkanalyzer.core.apps.filtering.UnusedAppsPeriod
 import sk.styk.martin.apkanalyzer.core.common.model.AppSource
 import sk.styk.martin.apkanalyzer.core.common.model.megabytes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
@@ -57,11 +62,6 @@ import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Toolbar
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.card
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.feature.apps.impl.R
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.AppFilterState
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.AppSizeRange
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.DateRange
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.PermissionPreset
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.UnusedAppsPeriod
 import java.text.DateFormat
 import java.time.Instant
 import java.util.Date

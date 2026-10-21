@@ -50,6 +50,10 @@ gradlePlugin {
             id = "apkanalyzer.feature.impl"
             implementationClass = "sk.styk.martin.apkanalyzer.FeatureImplPlugin"
         }
+        register("apkanalyzer.feature.tv") {
+            id = "apkanalyzer.feature.tv"
+            implementationClass = "sk.styk.martin.apkanalyzer.FeatureTvPlugin"
+        }
         register("apkanalyzer.hilt") {
             id = "apkanalyzer.hilt"
             implementationClass = "sk.styk.martin.apkanalyzer.HiltPlugin"

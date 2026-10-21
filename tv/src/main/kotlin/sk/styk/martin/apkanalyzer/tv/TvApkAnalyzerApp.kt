@@ -1,6 +1,5 @@
 package sk.styk.martin.apkanalyzer.tv
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -19,12 +18,15 @@ import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzer
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.NavigationDrawer
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.NavigationDrawerItem
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.ScreenSurface
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
 import sk.styk.martin.apkanalyzer.core.navigation.rememberNavigationState
 import sk.styk.martin.apkanalyzer.core.navigation.toEntries
+import sk.styk.martin.apkanalyzer.feature.appdetail.tv.navigation.tvAppDetailEntries
 import sk.styk.martin.apkanalyzer.feature.apps.api.AppsNavKey
+import sk.styk.martin.apkanalyzer.feature.apps.tv.navigation.tvAppEntries
 import sk.styk.martin.apkanalyzer.feature.browse.api.BrowseNavKey
 import sk.styk.martin.apkanalyzer.feature.apps.api.R as AppsR
 import sk.styk.martin.apkanalyzer.feature.browse.api.R as BrowseR
@@ -54,23 +56,23 @@ internal fun TvApkAnalyzerApp(onBackAtRoot: () -> Unit) {
         )
     }
 
-    NavigationDrawer(
-        items = items,
-        selectedKey = navigationState.currentTopLevelKey,
-        onSelectKey = navigator::navigate,
-        modifier = Modifier
-            .fillMaxSize()
-            .background(AppTheme.colors.background),
-    ) {
-        NavDisplay(
-            entries = navigationState.toEntries(
-                entryProvider {
-                    entry<AppsNavKey> { DestinationTitle(title = appsTitle) }
-                    entry<BrowseNavKey> { DestinationTitle(title = browseTitle) }
-                },
-            ),
-            onBack = navigator::goBack,
-        )
+    ScreenSurface {
+        NavigationDrawer(
+            items = items,
+            selectedKey = navigationState.currentTopLevelKey,
+            onSelectKey = navigator::navigate,
+        ) {
+            NavDisplay(
+                entries = navigationState.toEntries(
+                    entryProvider {
+                        tvAppEntries(navigator)
+                        tvAppDetailEntries()
+                        entry<BrowseNavKey> { DestinationTitle(title = browseTitle) }
+                    },
+                ),
+                onBack = navigator::goBack,
+            )
+        }
     }
 }
 

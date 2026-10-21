@@ -27,6 +27,12 @@ models, implementation, and private analysis helpers together.
 * `usagestats/` and `storagestats/` - permission-gated device statistics.
 * `export/` - APK and icon export.
 * `sdkversion/` - Android version labels.
+* `sorting/` - `AppSortType` and its comparator over `InstalledApp`, shared by the phone and TV app
+  lists so both order apps identically. Which options a screen offers stays with the screen.
+* `filtering/` - `AppFilterState`, the `filterBy` predicate, permission presets, quick filters, and
+  the in-memory `AppFilterRepository` both app lists filter through.
+* `search/` - `List<InstalledApp>.search(query)`, the fuzzy name-and-package matcher both search
+  screens use.
 
 Keep the Hilt bindings grouped by these domains. A new independent repository family earns its own
 domain package; do not return to flat `analysis/`, `model/`, or `util/` grab-bags.

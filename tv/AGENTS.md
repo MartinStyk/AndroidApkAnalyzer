@@ -11,7 +11,7 @@ Android TV track. Version codes must stay unique across both bundles.
 
 ## Dependency Rules
 
-`tv` depends only on shared `core` modules, `core:design-system:tv`, and feature `api` modules. It never
+`tv` depends only on shared `core` modules, `core:design-system:tv`, and feature `api` and `tv` modules. It never
 depends on `app`, `core:design-system:phone`, Material3, a feature `impl` module, or phone-only core modules
 (`core:app-functions`, `core:ai-insights`, `core:apk-files`).
 
@@ -19,13 +19,17 @@ depends on `app`, `core:design-system:phone`, Material3, a feature `impl` module
 
 `TvApkAnalyzerApp.kt` is the assembly point for the TV Navigation 3 host and the side menu. Its
 top-level destinations reuse the feature `api` NavKeys and tab labels, so a destination has the same
-key and name on phone and TV. The destinations currently render only their title until the TV
-screens exist.
+key and name on phone and TV. Each feature registers its TV screens through a `tv<Feature>Entries`
+function in its `feature/*/tv/navigation/` package; a top-level destination without a TV module yet
+renders only its title.
 
 ## Manifest Contracts
 
 * `android.software.leanback` is required, so Play offers this bundle only to TVs.
 * `android.hardware.touchscreen` is not required.
+* `QUERY_ALL_PACKAGES` and `PACKAGE_USAGE_STATS` match the phone manifest. Without the first,
+  Android hides most installed apps from the list; without the second, the TV usage access screen
+  never lists the app.
 * The `LEANBACK_LAUNCHER` Activity and `android:banner` are mandatory for the TV home screen.
   `res/drawable/tv_banner.xml` is a placeholder; Play's TV review expects a 320x180 banner that
   shows the app name.

@@ -1,6 +1,6 @@
 package sk.styk.martin.apkanalyzer.feature.apps.impl.filter.permission
 
-import sk.styk.martin.apkanalyzer.feature.apps.impl.filter.domain.PermissionPreset
+import sk.styk.martin.apkanalyzer.core.apps.filtering.PermissionPreset
 
 sealed interface PermissionFilterAction {
     data class PermissionToggled(val permissionName: String) : PermissionFilterAction
