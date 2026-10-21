@@ -4,43 +4,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import sk.styk.martin.apkanalyzer.core.apps.model.InstalledApp
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
-import sk.styk.martin.apkanalyzer.core.common.model.AppSize
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.common.model.megabytes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.AppIcon
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.WideCard
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import java.time.Instant
-
-@Immutable
-internal data class TvAppItem(
-    val packageName: PackageName,
-    val applicationName: String,
-    val targetSdk: Int,
-    val apkSize: AppSize,
-    val totalSize: AppSize?,
-    val installTime: Instant,
-    val lastUpdateTime: Instant,
-    val lastUsedTime: Instant?,
-)
-
-internal fun InstalledApp.toTvAppItem() = TvAppItem(
-    packageName = packageName,
-    applicationName = applicationName,
-    targetSdk = targetSdk,
-    apkSize = apkSize,
-    totalSize = totalSize,
-    installTime = installTime,
-    lastUpdateTime = lastUpdateTime,
-    lastUsedTime = lastUsedTime,
-)
 
 internal val TvAppCardWidth = 280.dp
 

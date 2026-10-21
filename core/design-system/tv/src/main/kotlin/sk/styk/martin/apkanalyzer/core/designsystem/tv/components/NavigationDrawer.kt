@@ -8,10 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -22,13 +20,6 @@ import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import androidx.tv.material3.ModalNavigationDrawer as TvMaterialModalNavigationDrawer
 import androidx.tv.material3.NavigationDrawerItem as TvMaterialNavigationDrawerItem
-
-@Immutable
-data class NavigationDrawerItem(
-    val navKey: NavKey,
-    val icon: ImageVector,
-    val title: String,
-)
 
 @Composable
 fun NavigationDrawer(

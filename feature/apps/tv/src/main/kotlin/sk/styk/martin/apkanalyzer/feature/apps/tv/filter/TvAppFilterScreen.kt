@@ -238,7 +238,7 @@ private fun quickFilterKey(filter: QuickFilter) = "quick:${filter.name}"
 
 private fun activityKey(filter: ActivityQuickFilter) = "activity:${filter.name}"
 
-private fun presetKey(preset: PermissionPreset) = "preset:${preset::class.simpleName}"
+private fun presetKey(preset: PermissionPreset) = "preset:$preset"
 
 private fun sdkKey(sdk: Int) = "sdk:$sdk"
 
