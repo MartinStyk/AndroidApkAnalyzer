@@ -69,7 +69,7 @@ running the app on a device. Use them instead of copying an existing file and ho
 Then, if you want to pre-empt CI:
 
 ```bash
-./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug
+./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug :tv:assembleDebug
 ```
 
 While iterating, a single-module compile is much faster:

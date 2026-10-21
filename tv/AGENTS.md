@@ -7,7 +7,10 @@ The Android TV application: wiring only, like `app` is for phones. It owns the T
 `sk.styk.martin.apkanalyzer.tv`.
 
 It ships as its own app bundle under the same application ID as `app`, uploaded to the Play Console
-Android TV track. Version codes must stay unique across both bundles.
+Android TV track. Both bundles take the same `version.code`.
+
+CI assembles the TV debug APK on every push and pull request and keeps it as the `apk-analyzer-tv`
+artifact. Release builds the TV bundle but does not publish it yet.
 
 ## Dependency Rules
 

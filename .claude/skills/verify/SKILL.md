@@ -30,7 +30,7 @@ The user invoked: `/verify $ARGUMENTS`
 
 - `--base=<ref>` — git ref to diff against. Default: `develop` (this repo's main branch).
 - `--full` — also run the whole-app check (`spotlessCheck detektDebug
-  :build-logic:convention:detektMain lintDebug :app:assembleDebug`) in Stage 5, matching what CI
+  :build-logic:convention:detektMain lintDebug :app:assembleDebug :tv:assembleDebug`) in Stage 5, matching what CI
   gates on. Without it, Stage 5 only runs `spotlessApply` plus a compile of the touched modules —
   fast, matching the "iterate on a single-module compile" guidance in root `AGENTS.md`.
 
@@ -124,7 +124,7 @@ Collect every JSON response. Build a single `findings` list of issues (each tagg
 3. **Conditional — `context_files_touched` is `true` OR `--full` was passed:**
    `./gradlew validateAgentContext`.
 4. **Conditional — `--full` was passed:** the whole-app check —
-   `./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug`.
+   `./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug :tv:assembleDebug`.
 
 Capture PASS / FAIL and the full failing-task output verbatim for every task actually run.
 

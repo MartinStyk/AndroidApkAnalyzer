@@ -67,7 +67,7 @@ follow-up commit instead of gating local iteration on them.
 |---|---|
 | Iterating on one module | `./gradlew :feature:apps:phone:compileDebugKotlin` |
 | Before committing | `./gradlew spotlessApply` — the only gate required locally |
-| Whole-app check (what CI gates on — don't run this locally unless debugging a CI failure) | `./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug` |
+| Whole-app check (what CI gates on — don't run this locally unless debugging a CI failure) | `./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug :tv:assembleDebug` |
 | After changing a context file, skill, adapter, or the module graph | `./gradlew validateAgentContext` — skip this too; CI covers it |
 
 A successful compile is not proof a Compose layout is correct. For visual or layout changes, use

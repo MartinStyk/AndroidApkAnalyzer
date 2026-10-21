@@ -191,7 +191,7 @@ nothing to configure. CI replaces it with a freshly fetched config at build time
 ./gradlew installDebug          # build + install debug on a connected device/emulator
 ./gradlew spotlessApply         # auto-fix formatting — run before every commit
 ./gradlew :feature:apps:phone:compileDebugKotlin   # fast single-module check while iterating
-./gradlew spotlessCheck detektDebug lintDebug :app:assembleDebug   # what CI gates on
+./gradlew spotlessCheck detektDebug lintDebug :app:assembleDebug :tv:assembleDebug   # what CI gates on
 ./gradlew validateAgentContext  # verify the shared Claude/Copilot context files
 ```
 
