@@ -5,8 +5,8 @@ import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import sk.styk.martin.apkanalyzer.core.common.util.openAppSystemPage
 import sk.styk.martin.apkanalyzer.core.common.util.openGooglePlay
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.animation.slideFromEndEntryMetadata
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
-import sk.styk.martin.apkanalyzer.core.uilibrary.animation.slideFromEndEntryMetadata
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailNavKey
 import sk.styk.martin.apkanalyzer.feature.appdetail.impl.AppDetailScreen
 import sk.styk.martin.apkanalyzer.feature.appdetail.impl.appcomponents.ComponentScope

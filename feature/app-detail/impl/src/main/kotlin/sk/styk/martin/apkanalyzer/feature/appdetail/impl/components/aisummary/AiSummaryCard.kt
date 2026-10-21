@@ -23,15 +23,15 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sk.styk.martin.apkanalyzer.core.aiinsights.appdescription.AppAiDescription
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Icon
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.LoadingSpinner
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.SkeletonBox
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Text
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.TextButton
-import sk.styk.martin.apkanalyzer.core.uilibrary.icons.ApkAnalyzerIcons
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.AppTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.Shapes
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.LoadingSpinner
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.SkeletonBox
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.TextButton
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
 import sk.styk.martin.apkanalyzer.feature.appdetail.impl.R
 
 @Composable

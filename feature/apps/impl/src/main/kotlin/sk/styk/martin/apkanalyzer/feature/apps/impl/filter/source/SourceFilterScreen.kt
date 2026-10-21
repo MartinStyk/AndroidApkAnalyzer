@@ -27,15 +27,15 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sk.styk.martin.apkanalyzer.core.common.model.AppSource
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Checkbox
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Text
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.TextButton
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Toolbar
-import sk.styk.martin.apkanalyzer.core.uilibrary.lazylist.ListItemPosition
-import sk.styk.martin.apkanalyzer.core.uilibrary.lazylist.itemsPositioned
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.AppTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.Shapes
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Checkbox
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.TextButton
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Toolbar
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.lazylist.ListItemPosition
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.lazylist.itemsPositioned
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
 import sk.styk.martin.apkanalyzer.feature.apps.impl.R
 
 @Composable

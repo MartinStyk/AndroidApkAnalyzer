@@ -13,12 +13,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Chip
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.ChipVariant
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Text
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.AppTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.Shapes
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Chip
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.ChipVariant
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
 
 @Composable
 internal fun SectionCard(

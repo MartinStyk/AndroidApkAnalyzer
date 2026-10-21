@@ -16,13 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.BottomSheet
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Button
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Icon
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Text
-import sk.styk.martin.apkanalyzer.core.uilibrary.icons.ApkAnalyzerIcons
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.BottomSheet
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Button
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 
 @Immutable
 sealed interface AppDataPermission {

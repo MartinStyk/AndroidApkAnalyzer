@@ -1,5 +1,5 @@
 name: Fetch Firebase google-services.json
-description: Downloads app/google-services.json via the Firebase CLI
+description: Downloads app/google-services.json via the Firebase CLI and shares it with tv/, which uses the same application ID
 
 inputs:
   firebase-token:
@@ -22,3 +22,4 @@ runs:
         npx --yes firebase-tools@15.26.0 apps:sdkconfig ANDROID "$FIREBASE_APP_ID" \
           --project "$FIREBASE_PROJECT_ID" \
           -o app/google-services.json
+        cp app/google-services.json tv/google-services.json

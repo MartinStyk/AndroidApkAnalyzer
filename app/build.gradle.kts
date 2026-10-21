@@ -51,7 +51,7 @@ dependencies {
     implementation(projects.core.common)
     implementation(projects.core.userPreferences)
     implementation(projects.core.navigation)
-    implementation(projects.core.uiLibrary)
+    implementation(projects.core.designSystem.phone)
 
     implementation(projects.feature.apps.impl)
     implementation(projects.feature.browse.impl)

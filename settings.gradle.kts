@@ -26,6 +26,7 @@ rootProject.name = "ApkAnalyzer"
 include(
     ":app",
     ":app:baselineprofile",
+    ":tv",
     ":core:apk-files",
     ":core:apps",
     ":core:app-permissions",
@@ -35,7 +36,9 @@ include(
     ":core:app-history",
     ":core:common",
     ":core:user-preferences",
-    ":core:ui-library",
+    ":core:design-system:foundation",
+    ":core:design-system:phone",
+    ":core:design-system:tv",
     ":core:navigation",
     ":feature:apps:api",
     ":feature:apps:impl",

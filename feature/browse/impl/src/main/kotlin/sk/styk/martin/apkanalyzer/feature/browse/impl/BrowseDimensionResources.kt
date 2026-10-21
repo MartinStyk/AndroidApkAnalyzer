@@ -3,7 +3,7 @@ package sk.styk.martin.apkanalyzer.feature.browse.impl
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
-import sk.styk.martin.apkanalyzer.core.uilibrary.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.feature.browse.impl.model.BrowseDimension
 
 internal fun BrowseDimension.icon(): ImageVector = when (this) {

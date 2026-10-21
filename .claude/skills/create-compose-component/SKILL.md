@@ -1,23 +1,23 @@
 ---
 name: create-compose-component
-description: Use when creating a new reusable Compose UI component that should live in core:ui-library. Triggered by phrases like "add UI component", "create component", "add reusable composable", "new composable component", "create a card", "create a button variant", "add to ui library".
+description: Use when creating a new reusable Compose UI component that should live in core:design-system:phone. Triggered by phrases like "add UI component", "create component", "add reusable composable", "new composable component", "create a card", "create a button variant", "add to ui library".
 ---
 
 # Create Compose UI Component
 
 All reusable components belong in:
-`core/ui-library/src/main/kotlin/sk/styk/martin/apkanalyzer/core/uilibrary/components/<Name>.kt`
+`core/design-system/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/core/designsystem/phone/components/<Name>.kt`
 
 ## Component Template
 
 ```kotlin
-package sk.styk.martin.apkanalyzer.core.uilibrary.components
+package sk.styk.martin.apkanalyzer.core.designsystem.phone.components
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 
 @Composable
 fun <Name>(
@@ -73,7 +73,7 @@ Preview additional states when relevant (selected, disabled, loading, error).
 - Wrap `androidx.compose.material3` — feature modules must **not** import material3 directly.
 - Use `AppTheme.colors.*` for all colors (never hardcoded hex or `MaterialTheme.colorScheme` in components).
 - Use `AppTheme.typography.*` for all text styles.
-- Use shapes from `sk.styk.martin.apkanalyzer.core.uilibrary.theme.Shapes`.
+- Use shapes from `sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes`.
 - Always include `modifier: Modifier = Modifier` parameter.
 - Callback names: present tense (`onClick`, `onValueChange`, `onDismiss`). Never past tense.
 - Preview functions: `private`, suffixed `Preview`, wrapped in `ApkAnalyzerTheme`.
@@ -112,7 +112,7 @@ class <Name>State(...)
 
 ## Before Creating a New Component
 
-Read the component inventory in [`core/ui-library/AGENTS.md`](../../../core/ui-library/AGENTS.md)
+Read the component inventory in [`core/design-system/AGENTS.md`](../../../core/design-system/AGENTS.md)
 first — you may be able to extend an existing component instead. That table is the single
 maintained list; don't duplicate it here.
 

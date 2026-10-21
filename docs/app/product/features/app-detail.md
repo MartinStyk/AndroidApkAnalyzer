@@ -96,7 +96,7 @@ matching `provider`, which are exported?* Narrowing happens **in place**, on one
 the surrounding context is what makes the narrowed set meaningful.
 
 What does transfer from `AppsScreen` is the **layout machinery, not the navigation model**:
-`collapsingHeader` / `collapsingHeaderContainer` from `:core:ui-library/modifier/`. Search and
+`collapsingHeader` / `collapsingHeaderContainer` from `:core:design-system:phone/modifier/`. Search and
 filters are on screen when you arrive, scroll away while you read, and come back when you scroll
 up.
 
@@ -507,12 +507,12 @@ Shared work this step pulls in:
   `impl/components/`, and repoint `GeneralInfoScreen` at the shared version. This is a genuine
   second consumer, not a prediction — the permission item sheet is the same tap-to-explain /
   long-press-to-copy row.
-- A `SelectorChip` in `:core:ui-library` — `OutlinedChip` with `ArrowDropDown` opening a
-  `BottomSheet` of options. Every piece already exists in `:core:ui-library`; this composes them
+- A `SelectorChip` in `:core:design-system:phone` — `OutlinedChip` with `ArrowDropDown` opening a
+  `BottomSheet` of options. Every piece already exists in `:core:design-system:phone`; this composes them
   into a generic, reusable chip any screen can drive.
 - Add only the icons this screen needs to `ApkAnalyzerIcons` (permission groups, copy, info).
 
-No `TabRow` is built. An earlier revision of this plan added one to `:core:ui-library`; the
+No `TabRow` is built. An earlier revision of this plan added one to `:core:design-system:phone`; the
 [scope selector](#no-tab-rows--the-scope-selector) replaced it, and the component that replaced it
 is assembled from parts the design system already ships.
 

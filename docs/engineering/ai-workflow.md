@@ -73,7 +73,7 @@ by copying an existing file.
 |---|---|
 | [`create-feature-module`](../../.claude/skills/create-feature-module/SKILL.md) | Adding a feature area — creates the `api`/`impl` pair, plugins, package structure, nav wiring |
 | [`create-core-module`](../../.claude/skills/create-core-module/SKILL.md) | Adding a domain/data module — interface + `internal Impl` + Hilt binding + `AGENTS.md` |
-| [`create-compose-component`](../../.claude/skills/create-compose-component/SKILL.md) | A feature needs a UI component that doesn't exist in `core:ui-library` yet |
+| [`create-compose-component`](../../.claude/skills/create-compose-component/SKILL.md) | A feature needs a UI component that doesn't exist in `core:design-system:phone` yet |
 | [`implement-navigation`](../../.claude/skills/implement-navigation/SKILL.md) | Adding a destination, NavKey, or entry provider, or navigating between features |
 | [`spotless-fix`](../../.claude/skills/spotless-fix/SKILL.md) | Formatting or ktlint violations that `spotlessApply` doesn't resolve outright |
 | [`translate-strings`](../../.claude/skills/translate-strings/SKILL.md) | Adding or changing user-facing copy, or auditing a locale |

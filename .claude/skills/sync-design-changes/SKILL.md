@@ -11,7 +11,7 @@ description: Use when translating tweaks made in the "Apk Analyzer Design System
 ## Context
 
 "Apk Analyzer Design System" (Claude Design project id `27e93cdf-f571-4833-b11b-6b3a8bd48254`) is a
-hand-built HTML/CSS export of this app's theme tokens, `core:ui-library` components, and real
+hand-built HTML/CSS export of this app's theme tokens, `core:design-system:phone` components, and real
 screens, pushed there via the `DesignSync` tool so the design could be tweaked visually in a
 browser. Claude Design has **no live connection to this repo** — it only knows HTML/CSS, never
 Kotlin. Every change made there must be read back and re-implemented here by hand. This skill is
@@ -38,9 +38,9 @@ Claude Design) — use it whenever the flow is *design project → this codebase
 
 | Claude Design file | Kotlin destination |
 |---|---|
-| `tokens/colors.html` | `core/ui-library/src/main/kotlin/.../theme/Color.kt` — `LightApkAnalyzerColors` / `DarkApkAnalyzerColors` |
-| `tokens/typography.html` | `core/ui-library/src/main/kotlin/.../theme/Typography.kt` — `ApkAnalyzerTypography` |
-| `tokens/spacing-shapes-icons.html` | `core/ui-library/src/main/kotlin/.../theme/Shapes.kt` (`Shapes.CardShape`); spacing has **no** token object in this codebase — changes land as inline `Ndp` literals at each call site |
+| `tokens/colors.html` | `core/design-system/foundation/src/main/kotlin/.../theme/ApkAnalyzerColorPalette.kt` — `LightApkAnalyzerColors` / `DarkApkAnalyzerColors` |
+| `tokens/typography.html` | `core/design-system/phone/src/main/kotlin/.../theme/Typography.kt` — `ApkAnalyzerTypography` |
+| `tokens/spacing-shapes-icons.html` | `core/design-system/phone/src/main/kotlin/.../theme/Shapes.kt` (`Shapes.CardShape`); spacing has **no** token object in this codebase — changes land as inline `Ndp` literals at each call site |
 | `components/buttons.html` | `.../components/Button.kt`, `IconButton.kt` |
 | `components/chips.html` | `.../components/Chip.kt` (covers `Chip`, static `ChipVariant`, `OutlinedChip`, and the sort-value badge pattern) |
 | `components/inputs.html` | `.../components/Checkbox.kt`, `Switch.kt`, `RangeSlider.kt` |
@@ -56,8 +56,8 @@ Claude Design) — use it whenever the flow is *design project → this codebase
 | `screens/general-info.html` | `feature/app-detail/impl/src/main/kotlin/.../generalinfo/GeneralInfoScreen.kt` |
 | `screens/settings.html` | `feature/settings/impl/src/main/kotlin/.../SettingsScreen.kt` |
 
-All paths under `core/ui-library` are rooted at
-`core/ui-library/src/main/kotlin/sk/styk/martin/apkanalyzer/core/uilibrary/`.
+All paths under `core/design-system/phone` are rooted at
+`core/design-system/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/core/designsystem/phone/`.
 
 ## Translating CSS → Compose values
 
@@ -79,7 +79,7 @@ All paths under `core/ui-library` are rooted at
 ## Rules to preserve (from `AGENTS.md` — do not relax these while syncing)
 
 - Feature modules never import `androidx.compose.material3` directly — only through
-  `:core:ui-library` wrappers.
+  `:core:design-system:phone` wrappers.
 - All colors via `AppTheme.colors.*`; never a hardcoded hex outside `Color.kt` itself.
 - All text styles via `AppTheme.typography.*`; never an inline `TextStyle` literal in a screen.
 - No comments in generated/edited code — self-documenting names only.

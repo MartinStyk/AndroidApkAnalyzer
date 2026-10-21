@@ -17,11 +17,11 @@ import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import sk.styk.martin.apkanalyzer.core.common.logger.Logger
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.NavigationBar
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.LocalSharedTransitionScope
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
 import sk.styk.martin.apkanalyzer.core.navigation.rememberNavigationState
 import sk.styk.martin.apkanalyzer.core.navigation.toEntries
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.NavigationBar
-import sk.styk.martin.apkanalyzer.core.uilibrary.modifier.LocalSharedTransitionScope
 import sk.styk.martin.apkanalyzer.feature.appdetail.impl.navigation.appDetailEntries
 import sk.styk.martin.apkanalyzer.feature.apps.api.AppsNavKey
 import sk.styk.martin.apkanalyzer.feature.apps.impl.navigation.appEntries

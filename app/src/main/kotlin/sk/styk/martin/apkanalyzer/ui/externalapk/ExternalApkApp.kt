@@ -20,12 +20,12 @@ import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import sk.styk.martin.apkanalyzer.R
 import sk.styk.martin.apkanalyzer.core.common.logger.Logger
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.LoadingSpinner
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.LocalSharedTransitionScope
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
 import sk.styk.martin.apkanalyzer.core.navigation.rememberNavigationState
 import sk.styk.martin.apkanalyzer.core.navigation.toEntries
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.LoadingSpinner
-import sk.styk.martin.apkanalyzer.core.uilibrary.modifier.LocalSharedTransitionScope
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailNavKey
 import sk.styk.martin.apkanalyzer.feature.appdetail.impl.navigation.appDetailEntries

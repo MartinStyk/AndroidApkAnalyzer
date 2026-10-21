@@ -21,12 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.SkeletonBox
-import sk.styk.martin.apkanalyzer.core.uilibrary.lazylist.ListItemPosition
-import sk.styk.martin.apkanalyzer.core.uilibrary.modifier.card
-import sk.styk.martin.apkanalyzer.core.uilibrary.modifier.shimmer
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.AppTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.Shapes
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.SkeletonBox
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.lazylist.ListItemPosition
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.card
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.shimmer
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
 
 private val SKELETON_ICON_SIZE = 44.dp
 private val SKELETON_RECENT_ICON_SIZE = 56.dp

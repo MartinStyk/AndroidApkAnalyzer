@@ -29,16 +29,16 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sk.styk.martin.apkanalyzer.core.common.applanguage.AppLanguageSetting
 import sk.styk.martin.apkanalyzer.core.common.settings.ColorAppScheme
 import sk.styk.martin.apkanalyzer.core.common.util.openAppLanguageSettings
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Chip
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Icon
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Switch
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Text
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.Toolbar
-import sk.styk.martin.apkanalyzer.core.uilibrary.icons.ApkAnalyzerIcons
-import sk.styk.martin.apkanalyzer.core.uilibrary.modifier.card
-import sk.styk.martin.apkanalyzer.core.uilibrary.modifier.sharedBounds
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Chip
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Switch
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Toolbar
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.card
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.sharedBounds
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 
 private val SettingsRowMinHeight = 48.dp
 

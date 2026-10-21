@@ -1,8 +1,8 @@
 package sk.styk.martin.apkanalyzer.ui.navigation
 
 import androidx.navigation3.runtime.NavKey
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.NavigationBarItem
-import sk.styk.martin.apkanalyzer.core.uilibrary.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.NavigationBarItem
 import sk.styk.martin.apkanalyzer.feature.apps.api.AppsNavKey
 import sk.styk.martin.apkanalyzer.feature.browse.api.BrowseNavKey
 import sk.styk.martin.apkanalyzer.feature.apps.api.R as AppsR

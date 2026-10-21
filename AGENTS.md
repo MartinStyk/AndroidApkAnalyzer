@@ -80,8 +80,8 @@ import, and no gate will tell you — check by hand.
 
 ## Module Rules
 
-Modules live under `app/`, `core/<name>/`, and `feature/<name>/{api,impl}/`; `settings.gradle.kts`
-is the authoritative list.
+Modules live under `app/`, `tv/`, `core/<name>/`, and `feature/<name>/{api,impl}/`;
+`settings.gradle.kts` is the authoritative list.
 
 * `feature/*/api` — depends on nothing, holds only `@Serializable` NavKeys and the tab-label string.
 * `feature/*/impl` — `api(projects.feature.<name>.api)` plus whichever `core` modules it needs.
@@ -90,6 +90,10 @@ is the authoritative list.
   target's `api` module.
 * `app` — wiring only: the launcher Activity, the external-APK document Activity, nav hosts, and
   app-scoped Hilt bindings. Put no feature logic here.
+* `tv` — the Android TV app, wiring only, shipped as a separate bundle under the same application
+  ID. TV code depends only on shared `core` modules, `core:design-system:tv`, and feature `api`
+  modules — never on `app`, `core:design-system:phone`, Material3, or a feature `impl`. Phone code never
+  depends on TV modules. See [`tv/AGENTS.md`](tv/AGENTS.md).
 * Declare dependencies with typesafe accessors (`projects.core.appPermissions`), never
   `project(":core:app-permissions")`. Apply plugins with `alias(libs.plugins.apkanalyzer.*)`.
 * A module's package matches its directory with hyphens removed: `core/user-preferences` →
@@ -138,19 +142,20 @@ is the authoritative list.
   `app/src/main/kotlin/sk/styk/martin/apkanalyzer/ui/ApkAnalyzerApp.kt`. A screen that isn't wired
   there is unreachable.
 * Transitions: `bottomEntryMetadata()` / `slideFromEndEntryMetadata()` from
-  `sk.styk.martin.apkanalyzer.core.uilibrary.animation`.
+  `sk.styk.martin.apkanalyzer.core.designsystem.phone.animation`.
 * Multi-stack state lives in `:core:navigation` — see [`core/navigation/AGENTS.md`](core/navigation/AGENTS.md).
 
 ## Compose
 
 * **Feature modules must never import `androidx.compose.material3`.** Use Compose foundation APIs
-  plus the wrappers in `:core:ui-library`. If a component isn't wrapped yet, wrap it there first —
+  plus the wrappers in `:core:design-system:phone`. If a component isn't wrapped yet, wrap it there first —
   see the `create-compose-component` skill. (`app` uses material3 directly for `Scaffold` and theme
-  plumbing; that is the only exception.)
+  plumbing; that is the only exception.) TV code follows the same rule with
+  `androidx.tv.material3` and the wrappers in `:core:design-system:tv`.
 * Colors and type come from `AppTheme.colors` / `AppTheme.typography`, icons from
   `ApkAnalyzerIcons`. Never hardcode a color or reach for `MaterialTheme.colorScheme` outside
-  `:core:ui-library`.
-* Check the component inventory in [`core/ui-library/AGENTS.md`](core/ui-library/AGENTS.md) before
+  `:core:design-system:phone`.
+* Check the component inventory in [`core/design-system/AGENTS.md`](core/design-system/AGENTS.md) before
   calling a component — names don't always match file names.
 * Collections in State classes and Composable parameters are plain read-only `List`, `Set`, and
   `Map`. [`.compose/stability.conf`](.compose/stability.conf) declares them stable to the Compose

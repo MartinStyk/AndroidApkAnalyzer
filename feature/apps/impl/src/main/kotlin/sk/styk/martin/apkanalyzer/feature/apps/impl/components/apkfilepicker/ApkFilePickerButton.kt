@@ -16,11 +16,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.IconButton
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.IconButtonStyle
-import sk.styk.martin.apkanalyzer.core.uilibrary.icons.ApkAnalyzerIcons
-import sk.styk.martin.apkanalyzer.core.uilibrary.launcher.launchSafely
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.IconButton
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.IconButtonStyle
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.launcher.launchSafely
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.feature.apps.impl.R
 
 @Composable

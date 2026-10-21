@@ -47,7 +47,7 @@ graph TD
 | [`core:ai-insights`](../../core/ai-insights/AGENTS.md) | On-device AI features and the ML Kit engine wrapper |
 | [`core:user-preferences`](../../core/user-preferences/AGENTS.md) | Recently viewed apps and search history |
 | [`core:navigation`](../../core/navigation/AGENTS.md) | Navigation 3 infrastructure for independent bottom-nav stacks |
-| [`core:ui-library`](../../core/ui-library/AGENTS.md) | The design system: theme, icons, components, animation metadata |
+| [`core:design-system`](../../core/design-system/AGENTS.md) | The design system: shared `foundation` (palette, icons), Material3 `phone` components, TV Material `tv` components |
 | [`core:common`](../../core/common/AGENTS.md) | Dispatchers, logging, and models shared across domains |
 | [`feature:apps`](../../feature/apps/AGENTS.md) | The installed-app list: search, filter, sort |
 | [`feature:app-detail`](../../feature/app-detail/AGENTS.md) | The full report for one app or APK |
@@ -115,13 +115,13 @@ The details, including the cancellation-safe `runCatchingCancellable` wrapper, a
 
 Feature modules never import `androidx.compose.material3`. They use Compose foundation APIs plus the
 wrappers, theme, icons, and animation metadata in
-[`core:ui-library`](../../core/ui-library/AGENTS.md). If a component does not exist there yet, it is
+[`core:design-system:phone`](../../core/design-system/AGENTS.md). If a component does not exist there yet, it is
 wrapped there first — the [`create-compose-component`](../../.claude/skills/create-compose-component/SKILL.md)
 skill covers the procedure. `app` uses material3 directly for `Scaffold` and theme plumbing; that is
 the only exception in the repository.
 
 Colors and type come from `AppTheme.colors` / `AppTheme.typography`, icons from `ApkAnalyzerIcons`.
-`MaterialTheme.colorScheme` is never reached for outside `core:ui-library`.
+`MaterialTheme.colorScheme` is never reached for outside `core:design-system:phone`.
 
 ## Navigation
 

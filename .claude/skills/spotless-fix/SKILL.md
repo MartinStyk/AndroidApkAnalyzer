@@ -19,7 +19,7 @@ Fix a specific module:
 # Examples:
 ./gradlew :app:spotlessApply
 ./gradlew :core:apps:spotlessApply
-./gradlew :core:ui-library:spotlessApply
+./gradlew :core:design-system:phone:spotlessApply
 ./gradlew :feature:apps:impl:spotlessApply
 ./gradlew :feature:app-detail:impl:spotlessApply
 ```
