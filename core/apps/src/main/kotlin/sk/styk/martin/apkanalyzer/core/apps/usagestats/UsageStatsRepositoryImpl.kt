@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.app.AppOpsManager
 import android.app.usage.UsageStatsManager
 import android.content.Context
+import android.content.Intent
 import android.os.Process
+import android.provider.Settings
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -44,6 +46,10 @@ internal class UsageStatsRepositoryImpl @Inject constructor(
 
     final override val isPermissionGranted: StateFlow<Boolean>
         field = MutableStateFlow(checkPermission())
+
+    override val canRequestPermission: Boolean by lazy {
+        context.packageManager.resolveActivity(Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS), 0) != null
+    }
 
     final override val lastUsedTimes: StateFlow<Map<PackageName, Instant>>
         field = MutableStateFlow<Map<PackageName, Instant>>(emptyMap())

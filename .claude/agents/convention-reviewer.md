@@ -41,7 +41,7 @@ Categories worth flagging, all grounded in root `AGENTS.md` / the touched module
   in `gradle/libs.versions.toml`, a code comment or KDoc, a hardcoded user-facing string, a
   hardcoded SDK level or JVM toolchain in a module `build.gradle.kts`.
 - Architecture / module-boundary violations — `feature/*/api` depending on something beyond a NavKey
-  and tab-label string, a feature depending on another feature's `impl`, `core` depending on
+  and tab-label string, a feature depending on another feature's `phone` or `tv`, `core` depending on
   `feature`, wiring logic placed in `app` beyond the launcher Activity / document Activity / nav
   hosts / app-scoped Hilt bindings.
 - ViewModel shape — anything other than one `state: StateFlow<FeatureState>` and one

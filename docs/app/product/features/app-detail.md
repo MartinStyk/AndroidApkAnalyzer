@@ -96,7 +96,7 @@ matching `provider`, which are exported?* Narrowing happens **in place**, on one
 the surrounding context is what makes the narrowed set meaningful.
 
 What does transfer from `AppsScreen` is the **layout machinery, not the navigation model**:
-`collapsingHeader` / `collapsingHeaderContainer` from `:core:ui-library/modifier/`. Search and
+`collapsingHeader` / `collapsingHeaderContainer` from `:core:design-system:phone/modifier/`. Search and
 filters are on screen when you arrive, scroll away while you read, and come back when you scroll
 up.
 
@@ -504,15 +504,15 @@ pulls in, and that work is justified by the screen being built in that same step
 Shared work this step pulls in:
 
 - Promote `InfoRowItem` + `RationaleBottomSheet` out of `GeneralInfoScreen.kt` into
-  `impl/components/`, and repoint `GeneralInfoScreen` at the shared version. This is a genuine
+  `phone/components/`, and repoint `GeneralInfoScreen` at the shared version. This is a genuine
   second consumer, not a prediction — the permission item sheet is the same tap-to-explain /
   long-press-to-copy row.
-- A `SelectorChip` in `:core:ui-library` — `OutlinedChip` with `ArrowDropDown` opening a
-  `BottomSheet` of options. Every piece already exists in `:core:ui-library`; this composes them
+- A `SelectorChip` in `:core:design-system:phone` — `OutlinedChip` with `ArrowDropDown` opening a
+  `BottomSheet` of options. Every piece already exists in `:core:design-system:phone`; this composes them
   into a generic, reusable chip any screen can drive.
 - Add only the icons this screen needs to `ApkAnalyzerIcons` (permission groups, copy, info).
 
-No `TabRow` is built. An earlier revision of this plan added one to `:core:ui-library`; the
+No `TabRow` is built. An earlier revision of this plan added one to `:core:design-system:phone`; the
 [scope selector](#no-tab-rows--the-scope-selector) replaced it, and the component that replaced it
 is assembled from parts the design system already ships.
 
@@ -532,7 +532,7 @@ Screen work:
      app, "Defined by <package>". Never a placeholder that says nothing.
 - Protection-level decoding: base level via `PROTECTION_MASK_BASE`, plus the interesting
   `PROTECTION_FLAG_*` flags (appop, privileged, instant) shown in the item sheet.
-- `PermissionsNavKey` in `impl/navigation/`, entry wired in `AppDetailEntryProvider`.
+- `PermissionsNavKey` in `phone/navigation/`, entry wired in `AppDetailEntryProvider`.
 - ViewModel / State / Action / Event following the `GeneralInfoViewModel` shape, with the filter
   query in state and the narrowing done in the ViewModel.
 - Screen: pinned toolbar only; `SearchBarActive` and the filter row — scope chip first, property
@@ -548,7 +548,7 @@ Permissions). Leave it duplicated — extract it in Step 2, when a third consume
 
 Shared work this step pulls in:
 
-- Extract the Loading / Error / Loaded section scaffold into `impl/components/` now that three
+- Extract the Loading / Error / Loaded section scaffold into `phone/components/` now that three
   screens share it, and repoint General Info and Permissions at it.
 - Extend `SelectorChip` from Step 1 only if the five-option scope exposes a gap the two-option
   use did not.

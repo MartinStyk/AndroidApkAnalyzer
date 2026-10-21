@@ -2,7 +2,7 @@
 
 ## Purpose and Boundary
 
-The top-level Android application module wires `core/*` and `feature/*/impl` modules together. It
+The top-level Android application module wires `core/*` and `feature/*/phone` modules together. It
 owns application and Activity setup, app-scoped bindings, top-level navigation hosts, and manifest
 entry points. Put no feature or analysis logic here.
 

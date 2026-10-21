@@ -46,9 +46,13 @@ gradlePlugin {
             id = "apkanalyzer.feature.api"
             implementationClass = "sk.styk.martin.apkanalyzer.FeatureApiPlugin"
         }
-        register("apkanalyzer.feature.impl") {
-            id = "apkanalyzer.feature.impl"
-            implementationClass = "sk.styk.martin.apkanalyzer.FeatureImplPlugin"
+        register("apkanalyzer.feature.phone") {
+            id = "apkanalyzer.feature.phone"
+            implementationClass = "sk.styk.martin.apkanalyzer.FeaturePhonePlugin"
+        }
+        register("apkanalyzer.feature.tv") {
+            id = "apkanalyzer.feature.tv"
+            implementationClass = "sk.styk.martin.apkanalyzer.FeatureTvPlugin"
         }
         register("apkanalyzer.hilt") {
             id = "apkanalyzer.hilt"

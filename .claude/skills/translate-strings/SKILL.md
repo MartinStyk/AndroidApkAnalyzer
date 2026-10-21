@@ -62,7 +62,7 @@ count and order, key names, sentence type).
 filter`, `Permission`, `Manifest`, `Package`, `APK`, `SDK` are Android platform terms, not ordinary
 English prose — this app's strings already render them as short category labels
 (`components_type_activities` = "Activities", `components_scope_providers` = "Providers", etc., see
-`feature/app-detail/impl/src/main/res/values/strings.xml`). The right call is neither "always
+`feature/app-detail/phone/src/main/res/values/strings.xml`). The right call is neither "always
 translate" nor "always keep English" — it's **use whichever term Android's own official localization
 already uses for that exact word in that language**, so it matches what a user may already recognize
 from Android Studio, developer.android.com, or the Play Console in their language:
@@ -99,11 +99,11 @@ an audit:
   `permission_label_ad_custom_audience` → `Ad Audiences`, `permission_label_ad_topics` → `Ad Topics`
   (all `core/app-permissions`).
 - `permission_label_bluetooth_advertise` → `Bluetooth Advertise` (`core/app-permissions`).
-- `permissions_level_dangerous` / `_signature` / `_internal` / `_normal` (`feature/app-detail/impl`)
-  and their `browse_protection_level_*` counterparts (`feature/browse/impl`) → `Dangerous` /
+- `permissions_level_dangerous` / `_signature` / `_internal` / `_normal` (`feature/app-detail/phone`)
+  and their `browse_protection_level_*` counterparts (`feature/browse/phone`) → `Dangerous` /
   `Signature` / `Internal` / `Normal`.
-- `app_detail_target_sdk` and `general_info_target_sdk` (`feature/app-detail/impl`) → `Target SDK`.
-  `sort_target_sdk` (`feature/apps/impl`) → `Target Android SDK` (matches that key's own English
+- `app_detail_target_sdk` and `general_info_target_sdk` (`feature/app-detail/phone`) → `Target SDK`.
+  `sort_target_sdk` (`feature/apps/phone`) → `Target Android SDK` (matches that key's own English
   source, which includes "Android" where the other two don't — copy each key's own default text
   verbatim rather than harmonizing the three into one phrase).
 
@@ -177,7 +177,7 @@ multiple reviewers (human or agent) are available.
      omitting the placeholder is not permission to omit it — the count is always passed to
      `pluralStringResource`. Check with:
      ```bash
-     grep -n '<item quantity=' feature/*/impl/src/main/res/values-{fr,pt-rBR,hi,ru,uk}/strings.xml \
+     grep -n '<item quantity=' feature/*/phone/src/main/res/values-{fr,pt-rBR,hi,ru,uk}/strings.xml \
        | grep -v '%'
      ```
    - `content_description_*` strings stay terse (they're for screen readers, not visible copy).

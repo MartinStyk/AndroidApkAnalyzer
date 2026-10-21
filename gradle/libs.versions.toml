@@ -24,6 +24,9 @@ androidx-hilt-work = "1.4.0"
 compose-bom = "2026.09.00"
 compose-foundation = "1.12.1"
 
+# Compose for TV
+tv-material = "1.1.0"
+
 # Navigation
 navigation3 = "1.2.0"
 lifecycle-viewmodel-nav3 = "2.11.0"
@@ -88,6 +91,9 @@ androidx-compose-material-icons-extended = { module = "androidx.compose.material
 # Compose (version-pinned)
 androidx-compose-foundation = { module = "androidx.compose.foundation:foundation", version.ref = "compose-foundation" }
 androidx-compose-foundation-layout = { module = "androidx.compose.foundation:foundation-layout", version.ref = "compose-foundation" }
+
+# Compose for TV
+androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "tv-material" }
 
 # Navigation 3
 androidx-navigation3-runtime = { module = "androidx.navigation3:navigation3-runtime", version.ref = "navigation3" }
@@ -160,7 +166,8 @@ apkanalyzer-library = { id = "apkanalyzer.library" }
 apkanalyzer-application = { id = "apkanalyzer.application" }
 apkanalyzer-agent-context = { id = "apkanalyzer.agent-context" }
 apkanalyzer-feature-api = { id = "apkanalyzer.feature.api" }
-apkanalyzer-feature-impl = { id = "apkanalyzer.feature.impl" }
+apkanalyzer-feature-phone = { id = "apkanalyzer.feature.phone" }
+apkanalyzer-feature-tv = { id = "apkanalyzer.feature.tv" }
 apkanalyzer-hilt = { id = "apkanalyzer.hilt" }
 apkanalyzer-spotless = { id = "apkanalyzer.spotless" }
 apkanalyzer-detekt = { id = "apkanalyzer.detekt" }

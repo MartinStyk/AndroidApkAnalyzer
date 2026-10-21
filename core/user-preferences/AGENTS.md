@@ -50,7 +50,7 @@ is the same atomic upsert-increment shape as `recentlyviewed`'s `addRecent`.
 `recentlyviewed`'s `recents()` — but here a miss is *kept*, not filtered out: `SearchHistoryEntry.app`
 is nullable, so a row for an app that's since been uninstalled still exists, with `app == null` as the
 signal for the consuming feature to fall back to rendering the remembered `query` text instead of an
-app row. `feature/apps/impl/search` is the only consumer and owns that fallback rendering plus the
+app row. `feature/apps/phone/search` is the only consumer and owns that fallback rendering plus the
 tap behavior (open the app vs. re-run the query) — this module only guarantees the row survives and
 says whether the app currently resolves.
 

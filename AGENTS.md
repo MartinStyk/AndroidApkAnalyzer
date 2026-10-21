@@ -65,9 +65,9 @@ follow-up commit instead of gating local iteration on them.
 
 | When | Run |
 |---|---|
-| Iterating on one module | `./gradlew :feature:apps:impl:compileDebugKotlin` |
+| Iterating on one module | `./gradlew :feature:apps:phone:compileDebugKotlin` |
 | Before committing | `./gradlew spotlessApply` — the only gate required locally |
-| Whole-app check (what CI gates on — don't run this locally unless debugging a CI failure) | `./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug` |
+| Whole-app check (what CI gates on — don't run this locally unless debugging a CI failure) | `./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug :tv:assembleDebug` |
 | After changing a context file, skill, adapter, or the module graph | `./gradlew validateAgentContext` — skip this too; CI covers it |
 
 A successful compile is not proof a Compose layout is correct. For visual or layout changes, use
@@ -80,20 +80,27 @@ import, and no gate will tell you — check by hand.
 
 ## Module Rules
 
-Modules live under `app/`, `core/<name>/`, and `feature/<name>/{api,impl}/`; `settings.gradle.kts`
-is the authoritative list.
+Modules live under `app/`, `tv/`, `core/<name>/`, and `feature/<name>/{api,phone,tv}/`;
+`settings.gradle.kts` is the authoritative list.
 
 * `feature/*/api` — depends on nothing, holds only `@Serializable` NavKeys and the tab-label string.
-* `feature/*/impl` — `api(projects.feature.<name>.api)` plus whichever `core` modules it needs.
+* `feature/*/phone` — `api(projects.feature.<name>.api)` plus whichever `core` modules it needs.
+* `feature/*/tv` — the TV screens for that feature, applied with `apkanalyzer.feature.tv`. Same rules
+  as `phone`, but it never depends on its sibling `phone`; logic both need moves to `core` when the
+  second consumer appears.
 * `core/*` — may depend on other `core` modules. **Never** depends on a `feature` module.
-* A feature never depends on another feature's `impl`. Cross-feature navigation goes through the
+* A feature never depends on another feature's `phone` or `tv`. Cross-feature navigation goes through the
   target's `api` module.
 * `app` — wiring only: the launcher Activity, the external-APK document Activity, nav hosts, and
   app-scoped Hilt bindings. Put no feature logic here.
+* `tv` — the Android TV app, wiring only, shipped as a separate bundle under the same application
+  ID. TV code depends only on shared `core` modules, `core:design-system:tv`, and feature `api`
+  modules — never on `app`, `core:design-system:phone`, Material3, or a feature `phone` module. Phone code never
+  depends on TV modules. See [`tv/AGENTS.md`](tv/AGENTS.md).
 * Declare dependencies with typesafe accessors (`projects.core.appPermissions`), never
   `project(":core:app-permissions")`. Apply plugins with `alias(libs.plugins.apkanalyzer.*)`.
 * A module's package matches its directory with hyphens removed: `core/user-preferences` →
-  `core.userpreferences`, `feature/app-detail/impl` → `feature.appdetail.impl`. `app` uses the root
+  `core.userpreferences`, `feature/app-detail/phone` → `feature.appdetail.phone`. `app` uses the root
   package `sk.styk.martin.apkanalyzer` with no suffix.
 ## Architecture
 
@@ -132,25 +139,26 @@ is the authoritative list.
 * **Navigation 3** only. No legacy Jetpack Navigation.
 * NavKeys are `@Serializable` and implement `NavKey`. `data class` when carrying parameters,
   `data object` when not. Keys reachable from other features go in `feature/*/api`; keys internal
-  to one feature go in that feature's `impl/navigation/`.
+  to one feature go in that feature's `phone/navigation/` or `tv/navigation/`.
 * Register screens via `EntryProviderScope<NavKey>.<feature>Entries(navigator: Navigator)` in
-  `feature/*/impl/navigation/`, then wire that call into the `entryProvider { }` block in
+  `feature/*/phone/navigation/`, then wire that call into the `entryProvider { }` block in
   `app/src/main/kotlin/sk/styk/martin/apkanalyzer/ui/ApkAnalyzerApp.kt`. A screen that isn't wired
   there is unreachable.
 * Transitions: `bottomEntryMetadata()` / `slideFromEndEntryMetadata()` from
-  `sk.styk.martin.apkanalyzer.core.uilibrary.animation`.
+  `sk.styk.martin.apkanalyzer.core.designsystem.phone.animation`.
 * Multi-stack state lives in `:core:navigation` — see [`core/navigation/AGENTS.md`](core/navigation/AGENTS.md).
 
 ## Compose
 
 * **Feature modules must never import `androidx.compose.material3`.** Use Compose foundation APIs
-  plus the wrappers in `:core:ui-library`. If a component isn't wrapped yet, wrap it there first —
+  plus the wrappers in `:core:design-system:phone`. If a component isn't wrapped yet, wrap it there first —
   see the `create-compose-component` skill. (`app` uses material3 directly for `Scaffold` and theme
-  plumbing; that is the only exception.)
+  plumbing; that is the only exception.) TV code follows the same rule with
+  `androidx.tv.material3` and the wrappers in `:core:design-system:tv`.
 * Colors and type come from `AppTheme.colors` / `AppTheme.typography`, icons from
   `ApkAnalyzerIcons`. Never hardcode a color or reach for `MaterialTheme.colorScheme` outside
-  `:core:ui-library`.
-* Check the component inventory in [`core/ui-library/AGENTS.md`](core/ui-library/AGENTS.md) before
+  `:core:design-system:phone`.
+* Check the component inventory in [`core/design-system/AGENTS.md`](core/design-system/AGENTS.md) before
   calling a component — names don't always match file names.
 * Collections in State classes and Composable parameters are plain read-only `List`, `Set`, and
   `Map`. [`.compose/stability.conf`](.compose/stability.conf) declares them stable to the Compose
@@ -245,5 +253,5 @@ tool.
 
 Read these instead of copying a template into a new file:
 
-* [Assisted-injected ViewModel with `MutableStateFlow`](feature/app-detail/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/impl/AppDetailViewModel.kt)
-* [Standard flow-backed ViewModel with state, events, and actions](feature/settings/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/settings/impl/SettingsViewModel.kt)
+* [Assisted-injected ViewModel with `MutableStateFlow`](feature/app-detail/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/phone/AppDetailViewModel.kt)
+* [Standard flow-backed ViewModel with state, events, and actions](feature/settings/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/settings/phone/SettingsViewModel.kt)

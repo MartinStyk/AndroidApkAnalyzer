@@ -141,7 +141,7 @@ Get-ChildItem new_*.png | ForEach-Object {
 
 **Check that every sampled color matches** (they should all be identical — either the light
 `#f7f7f7` background token or the dark `#000000` token, per `ApkAnalyzerColorPalette` in
-[`Color.kt`](../../../core/ui-library/src/main/kotlin/sk/styk/martin/apkanalyzer/core/uilibrary/theme/Color.kt)).
+[`Color.kt`](../../../core/design-system/foundation/src/main/kotlin/sk/styk/martin/apkanalyzer/core/designsystem/foundation/theme/ApkAnalyzerColorPalette.kt)).
 If one screenshot samples differently, that screen likely has a non-standard top background (e.g. a
 colored app bar) — flag it to the user rather than silently forcing a mismatched gap color.
 
@@ -209,7 +209,7 @@ unicode punctuation otherwise.
 
 If a screenshot's own accent color changed (e.g. a redesigned AI-summary card, a new brand color),
 update the surrounding frame theme to match it rather than leave it clashing. Re-read
-[`Color.kt`](../../../core/ui-library/src/main/kotlin/sk/styk/martin/apkanalyzer/core/uilibrary/theme/Color.kt)
+[`Color.kt`](../../../core/design-system/foundation/src/main/kotlin/sk/styk/martin/apkanalyzer/core/designsystem/foundation/theme/ApkAnalyzerColorPalette.kt)
 for the current tokens rather than trusting a cached value — this table was correct as of the last
 verification, but the source file is canonical:
 

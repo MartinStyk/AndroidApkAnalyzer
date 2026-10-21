@@ -17,16 +17,16 @@ import androidx.compose.ui.semantics.testTagsAsResourceId
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.ui.NavDisplay
 import sk.styk.martin.apkanalyzer.core.common.logger.Logger
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.NavigationBar
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.LocalSharedTransitionScope
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
 import sk.styk.martin.apkanalyzer.core.navigation.rememberNavigationState
 import sk.styk.martin.apkanalyzer.core.navigation.toEntries
-import sk.styk.martin.apkanalyzer.core.uilibrary.components.NavigationBar
-import sk.styk.martin.apkanalyzer.core.uilibrary.modifier.LocalSharedTransitionScope
-import sk.styk.martin.apkanalyzer.feature.appdetail.impl.navigation.appDetailEntries
+import sk.styk.martin.apkanalyzer.feature.appdetail.phone.navigation.appDetailEntries
 import sk.styk.martin.apkanalyzer.feature.apps.api.AppsNavKey
-import sk.styk.martin.apkanalyzer.feature.apps.impl.navigation.appEntries
-import sk.styk.martin.apkanalyzer.feature.browse.impl.navigation.browseEntries
-import sk.styk.martin.apkanalyzer.feature.settings.impl.navigation.settingsEntries
+import sk.styk.martin.apkanalyzer.feature.apps.phone.navigation.appEntries
+import sk.styk.martin.apkanalyzer.feature.browse.phone.navigation.browseEntries
+import sk.styk.martin.apkanalyzer.feature.settings.phone.navigation.settingsEntries
 import sk.styk.martin.apkanalyzer.ui.navigation.TOP_LEVEL_DESTINATIONS
 import sk.styk.martin.apkanalyzer.ui.navigation.TOP_LEVEL_KEYS
 

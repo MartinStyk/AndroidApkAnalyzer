@@ -229,7 +229,7 @@ focused architecture checks rather than AST lint rules.
 After all steps, the main quality gate should be equivalent to:
 
 ```shell
-./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug
+./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug :tv:assembleDebug
 ```
 
 `spotlessApply` remains the only automatic formatting command. Detekt and Android Lint remain

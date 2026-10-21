@@ -25,9 +25,9 @@ if (lastUsed.isBefore(now.minus(Duration.ofDays(180)))) {
 ```
 
 **After** — what the repository actually contains, in
-[`AppDetailViewModel`](../../feature/app-detail/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/impl/AppDetailViewModel.kt)
+[`AppDetailViewModel`](../../feature/app-detail/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/phone/AppDetailViewModel.kt)
 and
-[`AppDetailInsightEvaluator`](../../feature/app-detail/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/impl/insight/AppDetailInsightEvaluator.kt):
+[`AppDetailInsightEvaluator`](../../feature/app-detail/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/phone/insight/AppDetailInsightEvaluator.kt):
 
 ```kotlin
 if (effectiveSize >= AppClassificationThresholds.LARGE_SIZE) add(AppDetailBadge.Large)
@@ -127,7 +127,7 @@ val state: StateFlow<ApkFilePickerState>
     field = MutableStateFlow<ApkFilePickerState>(ApkFilePickerState.Ready)
 ```
 
-— [`ApkFilePickerViewModel`](../../feature/apps/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/apps/impl/components/apkfilepicker/ApkFilePickerViewModel.kt).
+— [`ApkFilePickerViewModel`](../../feature/apps/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/apps/phone/components/apkfilepicker/ApkFilePickerViewModel.kt).
 
 ## Prefer one combined state over several fine-grained flows
 
@@ -143,8 +143,8 @@ val state: StateFlow<AppDetailState> = combine(source, exportInProgress) { sourc
 }
 ```
 
-— [`AppDetailViewModel`](../../feature/app-detail/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/impl/AppDetailViewModel.kt).
-[`AppsViewModel`](../../feature/apps/impl/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/apps/impl/list/AppsViewModel.kt)
+— [`AppDetailViewModel`](../../feature/app-detail/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/appdetail/phone/AppDetailViewModel.kt).
+[`AppsViewModel`](../../feature/apps/phone/src/main/kotlin/sk/styk/martin/apkanalyzer/feature/apps/phone/list/AppsViewModel.kt)
 is the larger case: the filtered list, recents, sort type, sort direction and a permission rationale
 collapse into one `AppsState`, and the sort override that quick filters imply is resolved once,
 inside that `combine`, instead of in each consumer.

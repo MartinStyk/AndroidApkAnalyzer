@@ -19,9 +19,9 @@ Fix a specific module:
 # Examples:
 ./gradlew :app:spotlessApply
 ./gradlew :core:apps:spotlessApply
-./gradlew :core:ui-library:spotlessApply
-./gradlew :feature:apps:impl:spotlessApply
-./gradlew :feature:app-detail:impl:spotlessApply
+./gradlew :core:design-system:phone:spotlessApply
+./gradlew :feature:apps:phone:spotlessApply
+./gradlew :feature:app-detail:phone:spotlessApply
 ```
 
 Check without fixing (see violations only):

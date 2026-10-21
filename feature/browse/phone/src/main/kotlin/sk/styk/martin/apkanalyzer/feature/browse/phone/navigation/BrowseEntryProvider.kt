@@ -1,0 +1,49 @@
+package sk.styk.martin.apkanalyzer.feature.browse.phone.navigation
+
+import androidx.navigation3.runtime.EntryProviderScope
+import androidx.navigation3.runtime.NavKey
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.animation.slideFromEndEntryMetadata
+import sk.styk.martin.apkanalyzer.core.navigation.Navigator
+import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
+import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailNavKey
+import sk.styk.martin.apkanalyzer.feature.browse.api.BrowseNavKey
+import sk.styk.martin.apkanalyzer.feature.browse.phone.BrowseScreen
+import sk.styk.martin.apkanalyzer.feature.browse.phone.apps.BrowseAppsScreen
+import sk.styk.martin.apkanalyzer.feature.browse.phone.options.BrowseOptionsScreen
+
+fun EntryProviderScope<NavKey>.browseEntries(navigator: Navigator) {
+    entry<BrowseNavKey> {
+        BrowseScreen(
+            onOpenDimension = { dimension ->
+                navigator.navigate(BrowseOptionsNavKey(dimension))
+            },
+        )
+    }
+
+    entry<BrowseOptionsNavKey>(
+        metadata = slideFromEndEntryMetadata(),
+    ) { key ->
+        BrowseOptionsScreen(
+            dimension = key.dimension,
+            onBack = { navigator.goBack() },
+            onOpenOption = { bucketKey, bucketLabel, subAttribute ->
+                navigator.navigate(BrowseAppsNavKey(key.dimension, bucketKey, bucketLabel, subAttribute))
+            },
+        )
+    }
+
+    entry<BrowseAppsNavKey>(
+        metadata = slideFromEndEntryMetadata(),
+    ) { key ->
+        BrowseAppsScreen(
+            dimension = key.dimension,
+            bucketKey = key.bucketKey,
+            bucketLabel = key.bucketLabel,
+            subAttribute = key.subAttribute,
+            onBack = { navigator.goBack() },
+            onOpenApp = { packageName ->
+                navigator.navigate(AppDetailNavKey(AppDetailInput.InstalledPackage(packageName.value)))
+            },
+        )
+    }
+}

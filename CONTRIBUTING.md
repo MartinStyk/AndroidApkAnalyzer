@@ -50,7 +50,7 @@ These come from [`AGENTS.md`](AGENTS.md); they're the ones PRs most often trip o
 * **No hardcoded user-facing strings.** Use `stringResource` backed by the owning module's
   `strings.xml`.
 * **Feature modules never import `androidx.compose.material3`.** Use the wrappers in
-  [`core:ui-library`](core/ui-library/AGENTS.md); add one there first if it doesn't exist.
+  [`core:design-system:phone`](core/design-system/AGENTS.md); add one there first if it doesn't exist.
 * **Never hardcode SDK levels or the JVM toolchain** in a module's `build.gradle.kts` — they come
   from `build-logic`.
 * **Don't add tests or test dependencies** unless the issue explicitly asks. There is no test
@@ -69,11 +69,11 @@ running the app on a device. Use them instead of copying an existing file and ho
 Then, if you want to pre-empt CI:
 
 ```bash
-./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug
+./gradlew spotlessCheck detektDebug :build-logic:convention:detektMain lintDebug :app:assembleDebug :tv:assembleDebug
 ```
 
 While iterating, a single-module compile is much faster:
-`./gradlew :feature:apps:impl:compileDebugKotlin`.
+`./gradlew :feature:apps:phone:compileDebugKotlin`.
 
 Two things no gate catches, so check them by hand:
 

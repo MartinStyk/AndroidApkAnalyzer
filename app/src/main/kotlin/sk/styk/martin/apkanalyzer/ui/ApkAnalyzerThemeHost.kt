@@ -10,7 +10,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
 import sk.styk.martin.apkanalyzer.core.common.settings.ColorAppScheme
-import sk.styk.martin.apkanalyzer.core.uilibrary.theme.ApkAnalyzerTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 
 @Composable
 internal fun ApkAnalyzerThemeHost(state: ApkAnalyzerState, content: @Composable () -> Unit) {

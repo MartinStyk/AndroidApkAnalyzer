@@ -189,6 +189,6 @@ don't restructure ahead of need.
 | `core/app-permissions` | `core.apppermissions` |
 | `core/app-index` | `core.appindex` |
 | `core/user-preferences` | `core.userpreferences` |
-| `core/ui-library` | `core.uilibrary` |
+| `core/design-system/phone` | `core.designsystem.phone` |
 | `core/common` | `core.common` |
 

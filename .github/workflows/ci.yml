@@ -69,23 +69,34 @@ jobs:
           firebase-app-id: ${{ secrets.FIREBASE_APP_ID }}
           firebase-project-id: ${{ secrets.FIREBASE_PROJECT_ID }}
 
-      - name: Build debug APK
+      - name: Build debug APKs
         run: |
           if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
             VERSION_NAME="pr${{ github.event.pull_request.number }}.$GITHUB_RUN_NUMBER"
           else
             VERSION_NAME="dev.$GITHUB_RUN_NUMBER"
           fi
-          ./gradlew :app:assembleDebug -Pversion.name="$VERSION_NAME"
+          ./gradlew :app:assembleDebug :tv:assembleDebug -Pversion.name="$VERSION_NAME"
 
-      - name: Rename APK
-        run: mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/apk-analyzer.apk
+      - name: Rename APKs
+        run: |
+          mv app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/apk-analyzer.apk
+          mv tv/build/outputs/apk/debug/tv-debug.apk tv/build/outputs/apk/debug/apk-analyzer-tv.apk
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v7
         with:
           name: apk-analyzer
           path: app/build/outputs/apk/debug/apk-analyzer.apk
+          retention-days: 14
+          compression-level: 0
+          if-no-files-found: error
+
+      - name: Upload TV APK artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: apk-analyzer-tv
+          path: tv/build/outputs/apk/debug/apk-analyzer-tv.apk
           retention-days: 14
           compression-level: 0
           if-no-files-found: error

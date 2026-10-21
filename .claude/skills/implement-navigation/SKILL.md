@@ -8,15 +8,15 @@ description: Use when adding a new screen destination to a feature, wiring navig
 ## Scenario A — Add an internal screen within an existing feature
 
 Internal screens are sub-destinations within a feature (not top-level tabs).
-Their NavKeys live in `feature/<feature>/impl/navigation/`.
+Their NavKeys live in `feature/<feature>/phone/navigation/`.
 
 ### 1. Create internal NavKey
 
-**`feature/<feature>/impl/src/main/kotlin/.../navigation/<Name>NavKey.kt`**
+**`feature/<feature>/phone/src/main/kotlin/.../navigation/<Name>NavKey.kt`**
 
 Without parameters:
 ```kotlin
-package sk.styk.martin.apkanalyzer.feature.<feature>.impl.navigation
+package sk.styk.martin.apkanalyzer.feature.<feature>.phone.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
@@ -33,7 +33,7 @@ internal data class <Name>NavKey(val id: String) : NavKey
 
 ### 2. Create the screen composable
 
-**`feature/<feature>/impl/src/main/kotlin/.../<subpackage>/<Name>Screen.kt`**
+**`feature/<feature>/phone/src/main/kotlin/.../<subpackage>/<Name>Screen.kt`**
 ```kotlin
 @Composable
 internal fun <Name>Screen(
@@ -111,7 +111,7 @@ onAppDetails = { packageName ->
 
 ## Transition Metadata
 
-Import from `sk.styk.martin.apkanalyzer.core.uilibrary.animation.*`
+Import from `sk.styk.martin.apkanalyzer.core.designsystem.phone.animation.*`
 
 | Metadata | Use For |
 |----------|---------|

@@ -1,0 +1,41 @@
+# tv Module
+
+## Purpose and Boundary
+
+The Android TV application: wiring only, like `app` is for phones. It owns the TV `Application`, the
+`LEANBACK_LAUNCHER` Activity, the TV navigation host, and the TV manifest. The package is
+`sk.styk.martin.apkanalyzer.tv`.
+
+It ships as its own app bundle under the same application ID as `app`, uploaded to the Play Console
+Android TV track. Both bundles take the same `version.code`.
+
+CI assembles the TV debug APK on every push and pull request and keeps it as the `apk-analyzer-tv`
+artifact. Release builds the TV bundle but does not publish it yet.
+
+## Dependency Rules
+
+`tv` depends only on shared `core` modules, `core:design-system:tv`, and feature `api` and `tv` modules. It never
+depends on `app`, `core:design-system:phone`, Material3, a feature `phone` module, or phone-only core modules
+(`core:app-functions`, `core:ai-insights`, `core:apk-files`).
+
+## Wiring
+
+`TvApkAnalyzerApp.kt` is the assembly point for the TV Navigation 3 host and the side menu. Its
+top-level destinations reuse the feature `api` NavKeys and tab labels, so a destination has the same
+key and name on phone and TV. Each feature registers its TV screens through a `tv<Feature>Entries`
+function in its `feature/*/tv/navigation/` package; a top-level destination without a TV module yet
+renders only its title.
+
+## Manifest Contracts
+
+* `android.software.leanback` is required, so Play offers this bundle only to TVs.
+* `android.hardware.touchscreen` is not required.
+* `QUERY_ALL_PACKAGES` and `PACKAGE_USAGE_STATS` match the phone manifest. Without the first,
+  Android hides most installed apps from the list; without the second, the TV usage access screen
+  never lists the app.
+* The `LEANBACK_LAUNCHER` Activity and `android:banner` are mandatory for the TV home screen.
+  `res/drawable/tv_banner.xml` is a placeholder; Play's TV review expects a 320x180 banner that
+  shows the app name.
+
+`google-services.json` is a copy of the phone app's file; CI's `fetch-google-services` action writes
+both. `debug.keystore` matches `app`'s so debug builds share one signature.

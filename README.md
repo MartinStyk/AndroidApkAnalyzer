@@ -141,20 +141,20 @@ single source of truth; nothing pins a version elsewhere.
 
 ## Architecture
 
-A multi-module Gradle project with one strict dependency direction: `app` → `feature/*/impl` →
+A multi-module Gradle project with one strict dependency direction: `app` → `feature/*/phone` →
 `feature/*/api` + `core/*`, and `core/*` never looks back at a feature.
 
 ```mermaid
 graph TD
     app[":app<br/>Activities, nav host, Hilt graph"]
-    fimpl["feature/&lt;name&gt;/impl<br/>screens + ViewModels"]
+    fphone["feature/&lt;name&gt;/phone<br/>screens + ViewModels"]
     fapi["feature/&lt;name&gt;/api<br/>NavKeys only"]
     core["core/*<br/>domain, data, design system"]
 
-    app --> fimpl
+    app --> fphone
     app --> core
-    fimpl --> fapi
-    fimpl --> core
+    fphone --> fapi
+    fphone --> core
     core --> core
 ```
 
@@ -190,8 +190,8 @@ nothing to configure. CI replaces it with a freshly fetched config at build time
 ```bash
 ./gradlew installDebug          # build + install debug on a connected device/emulator
 ./gradlew spotlessApply         # auto-fix formatting — run before every commit
-./gradlew :feature:apps:impl:compileDebugKotlin   # fast single-module check while iterating
-./gradlew spotlessCheck detektDebug lintDebug :app:assembleDebug   # what CI gates on
+./gradlew :feature:apps:phone:compileDebugKotlin   # fast single-module check while iterating
+./gradlew spotlessCheck detektDebug lintDebug :app:assembleDebug :tv:assembleDebug   # what CI gates on
 ./gradlew validateAgentContext  # verify the shared Claude/Copilot context files
 ```
 
@@ -212,7 +212,7 @@ sources into a single screen state — are in
 ```
 app/           Activities, nav host, app-scoped Hilt bindings — wiring only
 core/          Domain, data, and design-system modules
-feature/       One api + impl pair per feature area
+feature/       api + phone (+ tv) modules per feature area
 build-logic/   Convention plugins; SDK levels and the JVM toolchain live here
 config/        Detekt and static-analysis configuration
 docs/          Product roadmap and feature design, engineering docs, technical decision records
