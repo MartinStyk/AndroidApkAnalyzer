@@ -32,6 +32,7 @@ fun InfoCard(
     modifier: Modifier = Modifier,
     icon: ImageVector? = null,
     tone: InfoCardTone = InfoCardTone.Default,
+    stackedHeader: Boolean = false,
     content: @Composable ColumnScope.() -> Unit = {},
 ) {
     val accent = when (tone) {
@@ -66,20 +67,27 @@ fun InfoCard(
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            if (stackedHeader) {
                 if (icon != null) {
                     IconBadge(icon = icon, tint = accent, size = 28.dp)
                 }
-                Text(
-                    text = title,
-                    style = AppTheme.typography.titleMedium,
-                    maxLines = 3,
-                    overflow = TextOverflow.Ellipsis,
-                )
+                CardTitle(title = title, maxLines = 1)
+            } else {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+                    if (icon != null) {
+                        IconBadge(icon = icon, tint = accent, size = 28.dp)
+                    }
+                    CardTitle(title = title, maxLines = 3)
+                }
             }
             content()
         }
     }
+}
+
+@Composable
+private fun CardTitle(title: String, maxLines: Int) {
+    Text(text = title, style = AppTheme.typography.titleMedium, maxLines = maxLines, overflow = TextOverflow.Ellipsis)
 }
 
 private val CardShape = RoundedCornerShape(12.dp)

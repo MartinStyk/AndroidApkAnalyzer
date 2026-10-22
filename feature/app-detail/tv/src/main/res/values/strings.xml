@@ -8,7 +8,6 @@
     <string name="tv_app_detail_action_play_store">Play Store</string>
     <string name="tv_app_detail_worth_knowing">Worth knowing</string>
     <string name="tv_app_detail_details">Details</string>
-    <string name="tv_app_detail_updated">Updated %1$s</string>
     <string name="tv_app_detail_permissions_none">No permissions requested</string>
     <string name="tv_label_count">%1$s · %2$d</string>
     <string name="tv_permissions_empty">This app requests no permissions.</string>
@@ -27,6 +26,7 @@
     <string name="tv_app_detail_requirements_none">No device requirements declared</string>
     <string name="tv_app_detail_manifest_description">Everything this app declares in its manifest file</string>
     <string name="tv_app_detail_stat_version">Version</string>
+    <string name="tv_app_detail_stat_updated">Updated</string>
     <string name="tv_app_detail_stat_target">Target API</string>
     <string name="tv_app_detail_stat_size">On device</string>
     <string name="tv_app_detail_stat_apk">APK</string>
