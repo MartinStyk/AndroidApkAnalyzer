@@ -30,6 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimensionSummary
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Chip
@@ -40,7 +42,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.navigationBarContentPadding
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.R as AppIndexR
 
 @Composable
 internal fun BrowseScreen(
@@ -109,8 +111,8 @@ private fun BrowseHeader(state: BrowseState, modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = when (state) {
-                is BrowseState.Loading -> stringResource(R.string.browse_subtitle_loading)
-                is BrowseState.Loaded -> pluralStringResource(R.plurals.browse_subtitle, state.totalApps, state.totalApps)
+                is BrowseState.Loading -> stringResource(AppIndexR.string.browse_subtitle_loading)
+                is BrowseState.Loaded -> pluralStringResource(AppIndexR.plurals.browse_subtitle, state.totalApps, state.totalApps)
             },
             style = AppTheme.typography.bodyMedium,
             color = AppTheme.colors.onSurfaceVariant,
@@ -120,7 +122,7 @@ private fun BrowseHeader(state: BrowseState, modifier: Modifier = Modifier) {
 
 @Composable
 private fun DimensionCard(
-    summary: DimensionSummary,
+    summary: BrowseDimensionSummary,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -188,7 +190,7 @@ private fun DimensionCard(
 
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = pluralStringResource(R.plurals.browse_dimension_option_count, summary.optionCount, summary.optionCount),
+            text = pluralStringResource(AppIndexR.plurals.browse_dimension_option_count, summary.optionCount, summary.optionCount),
             style = AppTheme.typography.labelMedium,
             color = AppTheme.colors.primary,
             modifier = Modifier.padding(start = 76.dp, end = 16.dp, bottom = 16.dp),
@@ -245,27 +247,27 @@ private fun BrowseContentLoadedPreview() {
 private fun sampleLoadedState() = BrowseState.Loaded(
     totalApps = 187,
     dimensions = listOf(
-        DimensionSummary(
+        BrowseDimensionSummary(
             dimension = BrowseDimension.Permission,
             optionCount = 143,
             topLabels = listOf("Full network access", "Camera", "Precise location", "Contacts"),
         ),
-        DimensionSummary(
+        BrowseDimensionSummary(
             dimension = BrowseDimension.SigningCertificate,
             optionCount = 96,
             topLabels = listOf("Google LLC", "Samsung Electronics", "Unknown signer"),
         ),
-        DimensionSummary(
+        BrowseDimensionSummary(
             dimension = BrowseDimension.TargetSdk,
             optionCount = 12,
             topLabels = listOf("Android 14", "Android 13", "Android 15"),
         ),
-        DimensionSummary(
+        BrowseDimensionSummary(
             dimension = BrowseDimension.MinSdk,
             optionCount = 9,
             topLabels = listOf("Android 8.0", "Android 7.0", "Android 10"),
         ),
-        DimensionSummary(
+        BrowseDimensionSummary(
             dimension = BrowseDimension.InstallSource,
             optionCount = 3,
             topLabels = listOf("Google Play", "System", "Unknown"),

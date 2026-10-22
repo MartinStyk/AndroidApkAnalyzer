@@ -41,6 +41,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.apps.components.ComponentFlag
+import sk.styk.martin.apkanalyzer.core.apps.components.labelRes
 import sk.styk.martin.apkanalyzer.core.common.util.sendForeignBroadcast
 import sk.styk.martin.apkanalyzer.core.common.util.startForeignActivity
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
@@ -65,6 +67,7 @@ import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.ListSectionHeader
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionError
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionLoading
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Composable
 internal fun ComponentsScreen(
@@ -92,9 +95,9 @@ internal fun ComponentsScreen(
                         else -> context.startForeignActivity(event.packageName, event.className)
                     }
                     val message = when {
-                        result.isFailure -> R.string.components_launch_failed
-                        event.type == ComponentType.Receiver -> R.string.components_launch_broadcast_sent
-                        else -> R.string.components_launch_started
+                        result.isFailure -> AppsR.string.components_launch_failed
+                        event.type == ComponentType.Receiver -> AppsR.string.components_launch_broadcast_sent
+                        else -> AppsR.string.components_launch_started
                     }
                     Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                 }
@@ -125,14 +128,14 @@ private fun ComponentsContent(
             .background(AppTheme.colors.background),
     ) {
         Toolbar(
-            title = stringResource(R.string.components_title),
+            title = stringResource(AppsR.string.components_title),
             onBack = onBack,
         )
         when (state) {
             is ComponentsState.Loading -> SectionLoading()
 
             is ComponentsState.Error -> SectionError(
-                message = stringResource(R.string.components_error),
+                message = stringResource(AppsR.string.components_error),
                 onRetry = { onAction(ComponentsAction.Retry) },
             )
 
@@ -326,19 +329,19 @@ private fun ComponentRow(
                     if (item.isUnprotected) {
                         Icon(
                             imageVector = ApkAnalyzerIcons.Warning,
-                            contentDescription = stringResource(R.string.components_tag_unprotected),
+                            contentDescription = stringResource(AppsR.string.components_tag_unprotected),
                             tint = AppTheme.colors.warning,
                             modifier = Modifier.size(16.dp),
                         )
                     }
                     if (item.isLauncher) {
                         Tag(
-                            text = stringResource(R.string.components_tag_launcher),
+                            text = stringResource(AppsR.string.components_tag_launcher),
                             highlighted = true,
                         )
                     }
                     if (item.isExported) {
-                        Tag(text = stringResource(R.string.components_tag_exported))
+                        Tag(text = stringResource(AppsR.string.components_tag_exported))
                     }
                     item.flags.forEach { flag ->
                         Tag(text = stringResource(flag.labelRes))
@@ -352,7 +355,7 @@ private fun ComponentRow(
                 imageVector = ApkAnalyzerIcons.PlayArrow,
                 onClick = onLaunch,
                 style = IconButtonStyle.Filled,
-                contentDescription = stringResource(R.string.components_launch),
+                contentDescription = stringResource(AppsR.string.components_launch),
                 iconSize = 18.dp,
                 modifier = Modifier.size(34.dp),
             )

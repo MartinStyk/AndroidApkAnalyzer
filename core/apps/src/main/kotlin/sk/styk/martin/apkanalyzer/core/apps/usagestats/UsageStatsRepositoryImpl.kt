@@ -109,6 +109,7 @@ internal class UsageStatsRepositoryImpl @Inject constructor(
         val now = Instant.now()
         val yearAgo = now - 365.days.toJavaDuration()
         usageStatsManager.queryUsageStats(UsageStatsManager.INTERVAL_BEST, yearAgo.toEpochMilli(), now.toEpochMilli())
+            .filter { it.lastTimeUsed > 0 }
     } catch (_: SecurityException) {
         emptyList()
     }

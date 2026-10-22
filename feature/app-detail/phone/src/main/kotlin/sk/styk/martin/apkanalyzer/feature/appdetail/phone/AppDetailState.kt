@@ -1,14 +1,14 @@
 package sk.styk.martin.apkanalyzer.feature.appdetail.phone
 
 import androidx.compose.runtime.Immutable
+import sk.styk.martin.apkanalyzer.core.apps.insight.AppDetailBadge
+import sk.styk.martin.apkanalyzer.core.apps.insight.AppDetailInsight
 import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificatePrincipal
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificateTrustLevel
 import sk.styk.martin.apkanalyzer.core.common.model.AppSize
 import sk.styk.martin.apkanalyzer.core.common.model.AppSource
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.AppDetailBadge
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.insight.AppDetailInsight
 import java.time.Instant
 
 internal enum class AppDetailExport {

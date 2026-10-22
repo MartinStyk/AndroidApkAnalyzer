@@ -8,6 +8,7 @@ android {
 
 dependencies {
     api(projects.feature.appDetail.api)
+    implementation(projects.core.appPermissions)
     implementation(projects.core.apps)
     implementation(projects.core.common)
     implementation(projects.core.userPreferences)

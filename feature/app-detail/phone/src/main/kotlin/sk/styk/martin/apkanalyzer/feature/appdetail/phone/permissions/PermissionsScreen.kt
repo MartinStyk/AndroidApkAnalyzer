@@ -42,6 +42,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.GrantState
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.PermissionItem
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.PermissionScope
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.explanationRes
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.labelRes
 import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionFlag
 import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionLevel
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
@@ -65,6 +70,7 @@ import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.ListSectionHeader
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionError
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionLoading
+import sk.styk.martin.apkanalyzer.core.apppermissions.R as PermissionsR
 
 private const val UNRESOLVED_SECTION_KEY = "unresolved"
 
@@ -112,14 +118,14 @@ private fun PermissionsContent(
             .background(AppTheme.colors.background),
     ) {
         Toolbar(
-            title = stringResource(R.string.permissions_title),
+            title = stringResource(PermissionsR.string.permissions_title),
             onBack = onBack,
         )
         when (state) {
             is PermissionsState.Loading -> SectionLoading()
 
             is PermissionsState.Error -> SectionError(
-                message = stringResource(R.string.permissions_error),
+                message = stringResource(PermissionsR.string.permissions_error),
                 onRetry = { onAction(PermissionsAction.Retry) },
             )
 

@@ -9,6 +9,15 @@ human-readable device-wide list consumed by permission browsing. The package is
 This differs from `core:apps/permissions`, which models permissions declared or used by one analyzed
 app.
 
+## Per-App Permission Detail
+
+`detail/` holds what both app-detail UIs need to show one app's permissions: `PermissionItemMapper`
+(requested and defined items, duplicates merged, sorted by label), `PermissionDescriptionProvider`
+(curated descriptions, then the platform description, then the declaring package), `GrantState`,
+`PermissionScope`, and the labels and explanations for protection levels, extra rules, and grant
+states. Grant explanations depend on both protection level and grant state; APK files have no grant
+state.
+
 ## Permission Semantics
 
 The repository derives its data from the installed-app flow and shares the result lazily with one

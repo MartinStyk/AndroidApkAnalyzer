@@ -1,32 +1,10 @@
 package sk.styk.martin.apkanalyzer.feature.appdetail.phone.permissions
 
 import androidx.compose.runtime.Immutable
-import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionFlag
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.GrantState
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.PermissionItem
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.PermissionScope
 import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionLevel
-import sk.styk.martin.apkanalyzer.core.common.model.PackageName
-
-internal enum class PermissionScope {
-    Requested,
-    Defined,
-}
-
-internal enum class GrantState {
-    Granted,
-    NotGranted,
-}
-
-@Immutable
-internal data class PermissionItem(
-    val name: String,
-    val label: String,
-    val description: String?,
-    val groupName: String?,
-    val protectionLevel: ProtectionLevel?,
-    val protectionFlags: List<ProtectionFlag>,
-    val grantState: GrantState?,
-    val declaringPackage: PackageName?,
-    val isSelfDeclared: Boolean,
-)
 
 @Immutable
 internal data class PermissionSection(val protectionLevel: ProtectionLevel?, val permissions: List<PermissionItem>)

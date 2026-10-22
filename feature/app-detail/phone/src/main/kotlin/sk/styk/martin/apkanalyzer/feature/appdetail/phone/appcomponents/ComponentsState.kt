@@ -2,6 +2,7 @@ package sk.styk.martin.apkanalyzer.feature.appdetail.phone.appcomponents
 
 import androidx.compose.runtime.Immutable
 import kotlinx.serialization.Serializable
+import sk.styk.martin.apkanalyzer.core.apps.components.ComponentFlag
 import sk.styk.martin.apkanalyzer.core.apps.components.IntentFilterDataRuleType
 import sk.styk.martin.apkanalyzer.core.apps.components.ProviderPathMatchType
 
@@ -26,13 +27,6 @@ internal enum class ComponentType {
     Service,
     Receiver,
     Provider,
-}
-
-internal enum class ComponentFlag {
-    StopWithTask,
-    SingleUser,
-    IsolatedProcess,
-    ExternalService,
 }
 
 @Immutable

@@ -145,7 +145,7 @@ Modules live under `app/`, `tv/`, `core/<name>/`, and `feature/<name>/{api,phone
   `app/src/main/kotlin/sk/styk/martin/apkanalyzer/ui/ApkAnalyzerApp.kt`. A screen that isn't wired
   there is unreachable.
 * Transitions: `bottomEntryMetadata()` / `slideFromEndEntryMetadata()` from
-  `sk.styk.martin.apkanalyzer.core.designsystem.phone.animation`.
+  `sk.styk.martin.apkanalyzer.core.designsystem.foundation.animation`.
 * Multi-stack state lives in `:core:navigation` — see [`core/navigation/AGENTS.md`](core/navigation/AGENTS.md).
 
 ## Compose

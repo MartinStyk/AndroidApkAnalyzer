@@ -40,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sk.styk.martin.apkanalyzer.core.apps.components.IntentFilterDataRuleType
+import sk.styk.martin.apkanalyzer.core.apps.components.labelRes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.SearchBarActive
@@ -56,6 +57,7 @@ import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionError
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionLoading
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Composable
 internal fun IntentFiltersScreen(
@@ -111,7 +113,7 @@ private fun IntentFiltersContent(
             )
 
             IntentFiltersState.Unavailable -> SectionError(
-                message = stringResource(R.string.components_detail_intent_filters_unavailable),
+                message = stringResource(AppsR.string.components_detail_intent_filters_unavailable),
             )
 
             is IntentFiltersState.Loaded -> IntentFiltersLoadedContent(state = state, onAction = onAction)
@@ -266,12 +268,12 @@ private fun IntentFilterRow(
             }
         }
         IntentFilterChipField(
-            label = stringResource(R.string.components_detail_intent_actions),
+            label = stringResource(AppsR.string.components_detail_intent_actions),
             values = actionValues,
             emphasized = true,
         )
         IntentFilterChipField(
-            label = stringResource(R.string.components_detail_intent_categories),
+            label = stringResource(AppsR.string.components_detail_intent_categories),
             values = categoryValues,
         )
         dataRules.groupedByType().forEach { (type, values) ->

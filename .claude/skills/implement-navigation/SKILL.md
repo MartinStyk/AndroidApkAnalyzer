@@ -111,7 +111,7 @@ onAppDetails = { packageName ->
 
 ## Transition Metadata
 
-Import from `sk.styk.martin.apkanalyzer.core.designsystem.phone.animation.*`
+Import from `sk.styk.martin.apkanalyzer.core.designsystem.foundation.animation.*`
 
 | Metadata | Use For |
 |----------|---------|

@@ -30,6 +30,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import sk.styk.martin.apkanalyzer.core.apps.insight.AppDetailBadge
+import sk.styk.martin.apkanalyzer.core.apps.insight.labelRes
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.AppIcon
@@ -215,7 +217,7 @@ internal fun AppDetailToolbar(
                 ) {
                     state.badges.forEach { badge ->
                         Chip(
-                            label = stringResource(badge.labelRes()),
+                            label = stringResource(badge.labelRes),
                             variant = badge.chipVariant(),
                             leadingIcon = badge.icon(),
                         )
@@ -235,15 +237,6 @@ private fun AppDetailBadge.chipVariant(): ChipVariant = when (this) {
     AppDetailBadge.RecentlyUpdated,
     AppDetailBadge.RecentlyUsed,
     -> ChipVariant.Default
-}
-
-private fun AppDetailBadge.labelRes(): Int = when (this) {
-    AppDetailBadge.Large -> R.string.app_detail_badge_large
-    AppDetailBadge.System -> R.string.app_detail_badge_system
-    AppDetailBadge.GooglePlay -> R.string.app_detail_badge_google_play
-    AppDetailBadge.RecentlyInstalled -> R.string.app_detail_badge_recently_installed
-    AppDetailBadge.RecentlyUpdated -> R.string.app_detail_badge_recently_updated
-    AppDetailBadge.RecentlyUsed -> R.string.app_detail_badge_recently_used
 }
 
 private fun AppDetailBadge.icon(): ImageVector = when (this) {

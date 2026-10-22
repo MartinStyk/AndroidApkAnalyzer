@@ -43,8 +43,9 @@ it hides the row while filters are active, so everything on screen matches the f
   the side menu. Card keys carry their section (`recent:` / `installed:`) because one app can appear
   in both.
 * Selecting an app opens `AppDetailNavKey`, the same key the phone uses.
-* Sorting lives in a side panel opened from the Sort button next to Search and Filters, keeping the
-  grid one tap from the top row. Each row has three states: off, then its natural direction on the
+* The list has a fixed header (title, app count, Search, Sort, Filters) above a scrolling grid of
+  `AppCard` tiles tinted with each app's color; when sorted by anything but name, each tile shows its
+  sort value. Sorting lives in a side panel opened from the Sort button. Each row has three states: off, then its natural direction on the
   first press (name and target SDK ascending, sizes and dates largest/newest first), then reversed on
   every further press, so changing direction never means scrolling to a separate control. Every dialog or panel on the screen is one `TvAppsOverlay` value, so two can
   never show at once.
@@ -63,7 +64,7 @@ it hides the row while filters are active, so everything on screen matches the f
   and date ranges are reduced to the quick options because picking ranges with a remote is
   impractical. Usage-based options appear only with usage access, since without it every app's
   last-used time is unknown and the results would be wrong.
-* Every TV screen restores focus through `rememberRestorableFocus` in `components/`: give each
+* Every TV screen restores focus through `rememberRestorableFocus` from `core:design-system:tv`: give each
   focusable a stable key that carries its section, and list the keys currently on screen so a
   vanished item falls back to the default instead of requesting focus on nothing.
 

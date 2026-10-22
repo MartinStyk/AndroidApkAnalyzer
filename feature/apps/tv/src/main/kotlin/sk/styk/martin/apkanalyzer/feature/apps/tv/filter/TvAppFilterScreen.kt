@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
@@ -27,12 +28,14 @@ import sk.styk.martin.apkanalyzer.core.common.model.AppSource
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Button
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.FilterChip
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SectionHeader
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.apps.tv.R
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.RestorableFocus
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.rememberRestorableFocus
 
 @Composable
 internal fun TvAppFilterScreen(viewModel: TvAppFilterViewModel = hiltViewModel()) {
@@ -72,7 +75,7 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                 selected = option.selected,
                 onClick = { onAction(TvAppFilterAction.SourceToggled(option.value)) },
                 label = stringResource(R.string.tv_filter_option_count, option.value.label(), option.appCount),
-                modifier = focus.modifierFor(sourceKey(option.value)),
+                modifier = Modifier.restorableFocus(focus, sourceKey(option.value)),
             )
         }
         chipSection(
@@ -84,7 +87,7 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                 selected = option.selected,
                 onClick = { onAction(TvAppFilterAction.QuickFilterToggled(option.value)) },
                 label = option.value.label(),
-                modifier = focus.modifierFor(quickFilterKey(option.value)),
+                modifier = Modifier.restorableFocus(focus, quickFilterKey(option.value)),
             )
         }
         chipSection(
@@ -97,14 +100,14 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                     selected = option.selected,
                     onClick = { onAction(TvAppFilterAction.QuickFilterToggled(value)) },
                     label = value.label(),
-                    modifier = focus.modifierFor(quickFilterKey(value)),
+                    modifier = Modifier.restorableFocus(focus, quickFilterKey(value)),
                 )
 
                 is ActivityQuickFilter -> FilterChip(
                     selected = option.selected,
                     onClick = { onAction(TvAppFilterAction.ActivityFilterToggled(value)) },
                     label = value.label(),
-                    modifier = focus.modifierFor(activityKey(value)),
+                    modifier = Modifier.restorableFocus(focus, activityKey(value)),
                 )
             }
         }
@@ -117,7 +120,7 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                 selected = option.selected,
                 onClick = { onAction(TvAppFilterAction.PermissionPresetToggled(option.value)) },
                 label = option.value.label(),
-                modifier = focus.modifierFor(presetKey(option.value)),
+                modifier = Modifier.restorableFocus(focus, presetKey(option.value)),
             )
         }
         chipSection(
@@ -132,7 +135,7 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                 selected = option.selected,
                 onClick = { onAction(TvAppFilterAction.SdkVersionToggled(option.sdk)) },
                 label = stringResource(R.string.tv_filter_option_count, versionLabel, option.appCount),
-                modifier = focus.modifierFor(sdkKey(option.sdk)),
+                modifier = Modifier.restorableFocus(focus, sdkKey(option.sdk)),
             )
         }
     }
@@ -146,10 +149,10 @@ private fun Header(
 ) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(24.dp)) {
         Column {
-            Text(text = stringResource(R.string.tv_filter_title), style = AppTheme.typography.headlineMedium)
+            Text(text = stringResource(R.string.tv_filter_title), style = AppTheme.typography.headlineSmall)
             Text(
                 text = pluralStringResource(R.plurals.tv_filter_matching, state.matchingAppCount, state.matchingAppCount),
-                style = AppTheme.typography.bodyLarge,
+                style = AppTheme.typography.bodyMedium,
                 color = AppTheme.colors.onSurfaceVariant,
             )
         }
@@ -157,7 +160,7 @@ private fun Header(
             Button(
                 onClick = { onAction(TvAppFilterAction.ClearAll) },
                 label = stringResource(R.string.tv_filter_clear_all),
-                modifier = focus.modifierFor(CLEAR_KEY),
+                modifier = Modifier.restorableFocus(focus, CLEAR_KEY),
             )
         }
     }
@@ -172,7 +175,7 @@ private fun <T> LazyListScope.chipSection(
     if (options.isEmpty()) return
     item(key = key) {
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(text = stringResource(titleRes), style = AppTheme.typography.titleLarge)
+            SectionHeader(text = stringResource(titleRes), modifier = Modifier.padding(top = 8.dp))
             LazyRow(
                 modifier = Modifier.bleedHorizontally(FocusBleed),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),

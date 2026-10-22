@@ -2,8 +2,8 @@ package sk.styk.martin.apkanalyzer.feature.browse.phone.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.BrowseSubAttribute
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseSubAttribute
 
 @Serializable
 internal data class BrowseAppsNavKey(

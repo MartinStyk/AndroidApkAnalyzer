@@ -11,14 +11,12 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import sk.styk.martin.apkanalyzer.core.appindex.AppIndexRepository
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimensionLabeler
+import sk.styk.martin.apkanalyzer.core.appindex.browse.dimensionSummaries
 import sk.styk.martin.apkanalyzer.core.appindex.model.AppIndexStatus
 import sk.styk.martin.apkanalyzer.core.apps.InstalledAppsRepository
 import sk.styk.martin.apkanalyzer.core.apps.model.InstalledApp
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.BrowseDimensionLabeler
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.BrowseSubAttribute
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.bucketsFor
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
 import javax.inject.Inject
 
 private const val TOP_LABELS_COUNT = 6
@@ -60,19 +58,7 @@ internal class BrowseViewModel @Inject constructor(
 
         is AppIndexStatus.Data -> BrowseState.Loaded(
             totalApps = apps.size,
-            dimensions = BrowseDimension.entries.map { dimension ->
-                val previewSubAttribute =
-                    if (dimension == BrowseDimension.SigningCertificate) BrowseSubAttribute.CertificateOrganization else null
-                val buckets = index.bucketsFor(dimension, previewSubAttribute)
-                DimensionSummary(
-                    dimension = dimension,
-                    optionCount = index.bucketsFor(dimension).size,
-                    topLabels = buckets.entries
-                        .sortedByDescending { it.value.size }
-                        .take(TOP_LABELS_COUNT)
-                        .map { labeler.label(dimension, it.key, previewSubAttribute) },
-                )
-            },
+            dimensions = index.dimensionSummaries(labeler, TOP_LABELS_COUNT),
         )
     }
 }

@@ -31,6 +31,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -41,6 +42,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sk.styk.martin.apkanalyzer.core.apps.packaging.InstalledSplitApk
 import sk.styk.martin.apkanalyzer.core.apps.packaging.SplitApkKind
+import sk.styk.martin.apkanalyzer.core.apps.packaging.friendlyQualifier
+import sk.styk.martin.apkanalyzer.core.apps.packaging.labelRes
 import sk.styk.martin.apkanalyzer.core.common.model.megabytes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
@@ -57,6 +60,7 @@ import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionError
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionLoading
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Composable
 internal fun SplitApksScreen(
@@ -98,14 +102,14 @@ private fun SplitApksContent(
             .background(AppTheme.colors.background),
     ) {
         Toolbar(
-            title = stringResource(R.string.splitapks_title),
+            title = stringResource(AppsR.string.splitapks_title),
             onBack = { onAction(SplitApksAction.Back) },
         )
         when (state) {
             SplitApksState.Loading -> SectionLoading()
 
             SplitApksState.Error -> SectionError(
-                message = stringResource(R.string.splitapks_error),
+                message = stringResource(AppsR.string.splitapks_error),
                 onRetry = { onAction(SplitApksAction.Retry) },
             )
 
@@ -145,13 +149,13 @@ private fun SplitApksLoadedContent(
                 .collapsingHeader(collapsingState),
         ) {
             Text(
-                text = pluralStringResource(R.plurals.splitapks_heading, state.totalCount, state.totalCount),
+                text = pluralStringResource(AppsR.plurals.splitapks_heading, state.totalCount, state.totalCount),
                 style = AppTheme.typography.titleSmall,
                 color = AppTheme.colors.onBackground,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
             )
             Text(
-                text = stringResource(R.string.splitapks_explanation),
+                text = stringResource(AppsR.string.splitapks_explanation),
                 style = AppTheme.typography.bodySmall,
                 color = AppTheme.colors.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
@@ -229,7 +233,7 @@ private fun SplitApkRow(
         Spacer(modifier = Modifier.width(12.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
-                text = split.kind.friendlyQualifier(split.qualifier),
+                text = split.kind.friendlyQualifier(split.qualifier, LocalResources.current),
                 style = AppTheme.typography.titleSmall,
                 color = AppTheme.colors.onBackground,
             )
@@ -266,7 +270,7 @@ private fun EmptySplitApks(
     ) {
         Text(
             text = if (totalCount == 0 || query.isBlank()) {
-                stringResource(R.string.splitapks_empty)
+                stringResource(AppsR.string.splitapks_empty)
             } else {
                 stringResource(R.string.splitapks_empty_query, query)
             },

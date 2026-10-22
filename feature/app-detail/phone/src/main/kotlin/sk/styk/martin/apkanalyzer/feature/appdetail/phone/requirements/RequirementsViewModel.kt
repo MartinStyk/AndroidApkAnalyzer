@@ -13,17 +13,13 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.core.apps.AppDetailRepository
-import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.DeviceFeatures
 import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.DeviceFeaturesRepository
-import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.Feature
-import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.FeatureAvailability
-import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
+import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.requirements
 import sk.styk.martin.apkanalyzer.core.common.clipboard.ClipboardManager
 import sk.styk.martin.apkanalyzer.core.common.clipboard.CopyResult
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.toAppReference
-import java.util.Locale
 
 @HiltViewModel(assistedFactory = RequirementsViewModel.Factory::class)
 internal class RequirementsViewModel @AssistedInject constructor(
@@ -68,60 +64,9 @@ internal class RequirementsViewModel @AssistedInject constructor(
             state.value = withContext(dispatcherProvider.default()) {
                 appDetailRepository.details(appDetailInput.toAppReference())
             }.fold(
-                onSuccess = { it.toRequirementsState(deviceFeatures) },
+                onSuccess = { detail -> detail.requirements(deviceFeatures).let { RequirementsState.Loaded(it.sections, it.missingRequiredCount) } },
                 onFailure = { RequirementsState.Error },
             )
         }
-    }
-}
-
-private fun AppDetail.toRequirementsState(deviceFeatures: DeviceFeatures): RequirementsState.Loaded {
-    val (required, optional) = features
-        .map { it.toRequirementItem(deviceFeatures) }
-        .sortedByDescending { it.isRequired }
-        .distinctBy { it.identifier }
-        .partition { it.isRequired }
-
-    return RequirementsState.Loaded(
-        sections = listOfNotNull(
-            required.toSectionOrNull(isRequired = true),
-            optional.toSectionOrNull(isRequired = false),
-        ),
-        missingRequiredCount = required.count { it.availability == FeatureAvailability.Missing },
-    )
-}
-
-private fun List<RequirementItem>.toSectionOrNull(isRequired: Boolean) = takeIf { it.isNotEmpty() }
-    ?.let {
-        RequirementSection(
-            isRequired = isRequired,
-            requirements = it.sortedWith(requirementOrder),
-        )
-    }
-
-private val requirementOrder = compareBy<RequirementItem>(
-    { it.availability != FeatureAvailability.Missing },
-    { it is RequirementItem.OpenGlEs },
-    { it.identifier },
-)
-
-private fun Feature.toRequirementItem(deviceFeatures: DeviceFeatures): RequirementItem {
-    val availability = deviceFeatures.availabilityOf(this)
-    return when (this) {
-        is Feature.Hardware -> RequirementItem.Hardware(
-            name = name,
-            requiredVersion = version,
-            deviceVersion = deviceFeatures.versionOf(name),
-            isRequired = isRequired,
-            availability = availability,
-        )
-
-        is Feature.OpenGlEs -> RequirementItem.OpenGlEs(
-            versionName = versionName,
-            deviceVersionName = deviceFeatures.openGlEsVersionName,
-            identifier = "0x%08X".format(Locale.ROOT, reqGlEsVersion),
-            isRequired = isRequired,
-            availability = availability,
-        )
     }
 }

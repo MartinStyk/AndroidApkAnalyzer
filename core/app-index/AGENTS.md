@@ -5,8 +5,14 @@
 Builds device-wide `attribute -> apps` indexes for `feature:browse`. The package is
 `sk.styk.martin.apkanalyzer.core.appindex`.
 
-This is a pure bucketing layer over public `core:apps` repositories. It owns no `PackageManager`
-access and must never reach into analysis internals.
+The index itself is a pure bucketing layer over public `core:apps` repositories. It owns no
+`PackageManager` access and must never reach into analysis internals.
+
+`browse/` holds everything the phone and TV Browse screens share on top of the index: the
+`BrowseDimension` and `BrowseSubAttribute` enums, bucket lookup, `BrowseDimensionLabeler` (friendly
+labels and raw identifiers), hub summaries, option building and matching, and
+`BrowseBucketDetailResolver`, plus their localized strings. Each app keeps only its own layout, icons,
+and screen copy; a rule or label both Browse screens show goes here.
 
 ## Index Semantics
 

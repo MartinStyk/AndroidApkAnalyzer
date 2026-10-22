@@ -3,6 +3,7 @@ package sk.styk.martin.apkanalyzer.feature.apps.tv.navigation
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.animation.bottomEntryMetadata
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailNavKey
@@ -24,7 +25,7 @@ fun EntryProviderScope<NavKey>.tvAppEntries(navigator: Navigator) {
         )
     }
 
-    entry<TvAppFilterNavKey> {
+    entry<TvAppFilterNavKey>(metadata = bottomEntryMetadata()) {
         TvAppFilterScreen()
     }
 

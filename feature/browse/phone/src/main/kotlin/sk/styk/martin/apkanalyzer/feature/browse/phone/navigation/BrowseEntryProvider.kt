@@ -2,7 +2,7 @@ package sk.styk.martin.apkanalyzer.feature.browse.phone.navigation
 
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
-import sk.styk.martin.apkanalyzer.core.designsystem.phone.animation.slideFromEndEntryMetadata
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.animation.slideFromEndEntryMetadata
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailNavKey

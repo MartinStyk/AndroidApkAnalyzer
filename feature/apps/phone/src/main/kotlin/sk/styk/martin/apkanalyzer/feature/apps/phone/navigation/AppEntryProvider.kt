@@ -7,8 +7,8 @@ import androidx.compose.animation.togetherWith
 import androidx.navigation3.runtime.EntryProviderScope
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.ui.NavDisplay
-import sk.styk.martin.apkanalyzer.core.designsystem.phone.animation.bottomEntryMetadata
-import sk.styk.martin.apkanalyzer.core.designsystem.phone.animation.slideFromEndEntryMetadata
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.animation.bottomEntryMetadata
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.animation.slideFromEndEntryMetadata
 import sk.styk.martin.apkanalyzer.core.navigation.Navigator
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.ApkFileLifetime
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput

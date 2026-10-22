@@ -27,6 +27,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sk.styk.martin.apkanalyzer.core.apps.installsource.InstallSourceChain
+import sk.styk.martin.apkanalyzer.core.apps.installsource.labelRes
+import sk.styk.martin.apkanalyzer.core.apps.installsource.rationaleRes
 import sk.styk.martin.apkanalyzer.core.common.model.AppSource
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.common.model.megabytes
@@ -47,6 +49,7 @@ import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.Date
 import java.util.Locale
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Composable
 internal fun GeneralInfoScreen(
@@ -95,13 +98,13 @@ private fun GeneralInfoContent(
             .background(AppTheme.colors.background),
     ) {
         Toolbar(
-            title = stringResource(R.string.general_info_title),
+            title = stringResource(AppsR.string.general_info_title),
             onBack = onBack,
         )
         when (state) {
             is GeneralInfoState.Loading -> SectionLoading()
 
-            is GeneralInfoState.Error -> SectionError(message = stringResource(R.string.general_info_error))
+            is GeneralInfoState.Error -> SectionError(message = stringResource(AppsR.string.general_info_error))
 
             is GeneralInfoState.Loaded -> LoadedContent(
                 state = state,
@@ -131,103 +134,103 @@ private fun LoadedContent(
             .padding(horizontal = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
     ) {
-        SectionCard(title = stringResource(R.string.general_info_section_identification)) {
+        SectionCard(title = stringResource(AppsR.string.general_info_section_identification)) {
             InfoRowItem(
-                label = stringResource(R.string.general_info_application_name),
+                label = stringResource(AppsR.string.general_info_application_name),
                 value = state.applicationName,
-                rationale = stringResource(R.string.general_info_rationale_application_name),
+                rationale = stringResource(AppsR.string.general_info_rationale_application_name),
                 onShowRationale = { rationaleRow = it },
                 onCopy = onCopy,
             )
             InfoRowItem(
-                label = stringResource(R.string.general_info_package_name),
+                label = stringResource(AppsR.string.general_info_package_name),
                 value = state.packageName.value,
-                rationale = stringResource(R.string.general_info_rationale_package_name),
+                rationale = stringResource(AppsR.string.general_info_rationale_package_name),
                 onShowRationale = { rationaleRow = it },
                 onCopy = onCopy,
             )
             state.processName?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_process_name),
+                    label = stringResource(AppsR.string.general_info_process_name),
                     value = value,
-                    rationale = stringResource(R.string.general_info_rationale_process_name),
+                    rationale = stringResource(AppsR.string.general_info_rationale_process_name),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.uid?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_uid),
+                    label = stringResource(AppsR.string.general_info_uid),
                     value = value.toString(),
-                    rationale = stringResource(R.string.general_info_rationale_uid),
+                    rationale = stringResource(AppsR.string.general_info_rationale_uid),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.sharedUserId?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_shared_user_id),
+                    label = stringResource(AppsR.string.general_info_shared_user_id),
                     value = value,
-                    rationale = stringResource(R.string.general_info_rationale_shared_user_id),
+                    rationale = stringResource(AppsR.string.general_info_rationale_shared_user_id),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.description?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_description),
+                    label = stringResource(AppsR.string.general_info_description),
                     value = value,
-                    rationale = stringResource(R.string.general_info_rationale_description),
+                    rationale = stringResource(AppsR.string.general_info_rationale_description),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
         }
 
-        SectionCard(title = stringResource(R.string.general_info_section_versioning)) {
+        SectionCard(title = stringResource(AppsR.string.general_info_section_versioning)) {
             state.versionName?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_version_name),
+                    label = stringResource(AppsR.string.general_info_version_name),
                     value = value,
-                    rationale = stringResource(R.string.general_info_rationale_version_name),
+                    rationale = stringResource(AppsR.string.general_info_rationale_version_name),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             InfoRowItem(
-                label = stringResource(R.string.general_info_version_code),
+                label = stringResource(AppsR.string.general_info_version_code),
                 value = state.versionCode.toString(),
-                rationale = stringResource(R.string.general_info_rationale_version_code),
+                rationale = stringResource(AppsR.string.general_info_rationale_version_code),
                 onShowRationale = { rationaleRow = it },
                 onCopy = onCopy,
             )
         }
 
-        SectionCard(title = stringResource(R.string.general_info_section_api_targets)) {
+        SectionCard(title = stringResource(AppsR.string.general_info_section_api_targets)) {
             state.minSdkVersion?.let { version ->
                 val value = if (state.minSdkLabel != null) {
-                    stringResource(R.string.app_detail_sdk_version, version, state.minSdkLabel)
+                    stringResource(AppsR.string.app_detail_sdk_version, version, state.minSdkLabel)
                 } else {
-                    stringResource(R.string.app_detail_sdk_version_no_label, version)
+                    stringResource(AppsR.string.app_detail_sdk_version_no_label, version)
                 }
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_min_sdk),
+                    label = stringResource(AppsR.string.general_info_min_sdk),
                     value = value,
-                    rationale = stringResource(R.string.general_info_rationale_min_sdk),
+                    rationale = stringResource(AppsR.string.general_info_rationale_min_sdk),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.targetSdkVersion?.let { version ->
                 val value = if (state.targetSdkLabel != null) {
-                    stringResource(R.string.app_detail_sdk_version, version, state.targetSdkLabel)
+                    stringResource(AppsR.string.app_detail_sdk_version, version, state.targetSdkLabel)
                 } else {
-                    stringResource(R.string.app_detail_sdk_version_no_label, version)
+                    stringResource(AppsR.string.app_detail_sdk_version_no_label, version)
                 }
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_target_sdk),
+                    label = stringResource(AppsR.string.general_info_target_sdk),
                     value = value,
-                    rationale = stringResource(R.string.general_info_rationale_target_sdk),
+                    rationale = stringResource(AppsR.string.general_info_rationale_target_sdk),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
@@ -240,119 +243,119 @@ private fun LoadedContent(
             onCopy = onCopy,
         )
 
-        SectionCard(title = stringResource(R.string.general_info_section_installation)) {
+        SectionCard(title = stringResource(AppsR.string.general_info_section_installation)) {
             InfoRowItem(
-                label = stringResource(R.string.general_info_app_type),
+                label = stringResource(AppsR.string.general_info_app_type),
                 value = if (state.isSystemApp) {
-                    stringResource(R.string.general_info_app_type_system)
+                    stringResource(AppsR.string.general_info_app_type_system)
                 } else {
-                    stringResource(R.string.general_info_app_type_user)
+                    stringResource(AppsR.string.general_info_app_type_user)
                 },
-                rationale = stringResource(R.string.general_info_rationale_app_type),
+                rationale = stringResource(AppsR.string.general_info_rationale_app_type),
                 onShowRationale = { rationaleRow = it },
                 onCopy = onCopy,
             )
             InfoRowItem(
-                label = stringResource(R.string.general_info_install_source),
-                value = state.source.displayName(),
-                rationale = state.source.installSourceRationale(),
+                label = stringResource(AppsR.string.general_info_install_source),
+                value = stringResource(state.source.labelRes),
+                rationale = stringResource(state.source.rationaleRes),
                 onShowRationale = { rationaleRow = it },
                 onCopy = onCopy,
             )
             state.installSourceChain.installingPackage?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_installer_package),
+                    label = stringResource(AppsR.string.general_info_installer_package),
                     value = value.value,
-                    rationale = stringResource(R.string.general_info_rationale_installer_package),
+                    rationale = stringResource(AppsR.string.general_info_rationale_installer_package),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.installSourceChain.initiatingPackage?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_install_initiator),
+                    label = stringResource(AppsR.string.general_info_install_initiator),
                     value = value.value,
-                    rationale = stringResource(R.string.general_info_rationale_install_initiator),
+                    rationale = stringResource(AppsR.string.general_info_rationale_install_initiator),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.installSourceChain.originatingPackage?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_install_originator),
+                    label = stringResource(AppsR.string.general_info_install_originator),
                     value = value.value,
-                    rationale = stringResource(R.string.general_info_rationale_install_originator),
+                    rationale = stringResource(AppsR.string.general_info_rationale_install_originator),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.firstInstallTime?.let { instant ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_first_installed),
+                    label = stringResource(AppsR.string.general_info_first_installed),
                     value = formatTimestamp(instant),
-                    rationale = stringResource(R.string.general_info_rationale_first_installed),
+                    rationale = stringResource(AppsR.string.general_info_rationale_first_installed),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.lastUpdateTime?.let { instant ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_last_updated),
+                    label = stringResource(AppsR.string.general_info_last_updated),
                     value = formatTimestamp(instant),
-                    rationale = stringResource(R.string.general_info_rationale_last_updated),
+                    rationale = stringResource(AppsR.string.general_info_rationale_last_updated),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.lastUsedTime?.let { instant ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_last_used),
+                    label = stringResource(AppsR.string.general_info_last_used),
                     value = formatTimestamp(instant),
-                    rationale = stringResource(R.string.general_info_rationale_last_used),
+                    rationale = stringResource(AppsR.string.general_info_rationale_last_used),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
         }
 
-        SectionCard(title = stringResource(R.string.general_info_section_storage)) {
+        SectionCard(title = stringResource(AppsR.string.general_info_section_storage)) {
             state.apkDirectory?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_apk_directory),
+                    label = stringResource(AppsR.string.general_info_apk_directory),
                     value = value,
-                    rationale = stringResource(R.string.general_info_rationale_apk_directory),
+                    rationale = stringResource(AppsR.string.general_info_rationale_apk_directory),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             state.dataDirectory?.let { value ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_data_directory),
+                    label = stringResource(AppsR.string.general_info_data_directory),
                     value = value,
-                    rationale = stringResource(R.string.general_info_rationale_data_directory),
+                    rationale = stringResource(AppsR.string.general_info_rationale_data_directory),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
             }
             InfoRowItem(
-                label = stringResource(R.string.general_info_install_location),
+                label = stringResource(AppsR.string.general_info_install_location),
                 value = state.installLocation,
-                rationale = stringResource(R.string.general_info_rationale_install_location),
+                rationale = stringResource(AppsR.string.general_info_rationale_install_location),
                 onShowRationale = { rationaleRow = it },
                 onCopy = onCopy,
             )
             InfoRowItem(
-                label = stringResource(R.string.general_info_apk_size),
+                label = stringResource(AppsR.string.general_info_apk_size),
                 value = state.apkSize.formatted(),
-                rationale = stringResource(R.string.general_info_rationale_apk_size),
+                rationale = stringResource(AppsR.string.general_info_rationale_apk_size),
                 onShowRationale = { rationaleRow = it },
                 onCopy = onCopy,
             )
             if (state.installedSplitsCount > 0) {
                 NavigableInfoRowItem(
-                    label = stringResource(R.string.general_info_split_apks),
+                    label = stringResource(AppsR.string.general_info_split_apks),
                     value = pluralStringResource(
-                        R.plurals.general_info_split_apks_value,
+                        AppsR.plurals.general_info_split_apks_value,
                         state.installedSplitsCount,
                         state.installedSplitsCount,
                     ),
@@ -362,9 +365,9 @@ private fun LoadedContent(
             }
             state.totalSize?.let { size ->
                 InfoRowItem(
-                    label = stringResource(R.string.general_info_total_size),
+                    label = stringResource(AppsR.string.general_info_total_size),
                     value = size.formatted(),
-                    rationale = stringResource(R.string.general_info_rationale_total_size),
+                    rationale = stringResource(AppsR.string.general_info_rationale_total_size),
                     onShowRationale = { rationaleRow = it },
                     onCopy = onCopy,
                 )
@@ -397,61 +400,61 @@ private fun SecuritySettingsSection(
     modifier: Modifier = Modifier,
 ) {
     SectionCard(
-        title = stringResource(R.string.general_info_section_security),
+        title = stringResource(AppsR.string.general_info_section_security),
         modifier = modifier,
     ) {
         InfoRowItem(
-            label = stringResource(R.string.general_info_debug_access),
+            label = stringResource(AppsR.string.general_info_debug_access),
             value = stringResource(
                 if (state.isDebuggable) {
-                    R.string.general_info_enabled
+                    AppsR.string.general_info_enabled
                 } else {
-                    R.string.general_info_disabled
+                    AppsR.string.general_info_disabled
                 },
             ),
             rationale = stringResource(
                 if (state.isDebuggable) {
-                    R.string.general_info_rationale_debug_access_enabled
+                    AppsR.string.general_info_rationale_debug_access_enabled
                 } else {
-                    R.string.general_info_rationale_debug_access_disabled
+                    AppsR.string.general_info_rationale_debug_access_disabled
                 },
             ),
             onShowRationale = onShowRationale,
             onCopy = onCopy,
         )
         InfoRowItem(
-            label = stringResource(R.string.general_info_app_data_backup),
+            label = stringResource(AppsR.string.general_info_app_data_backup),
             value = stringResource(
                 if (state.allowsBackup) {
-                    R.string.general_info_allowed
+                    AppsR.string.general_info_allowed
                 } else {
-                    R.string.general_info_disabled
+                    AppsR.string.general_info_disabled
                 },
             ),
             rationale = stringResource(
                 if (state.allowsBackup) {
-                    R.string.general_info_rationale_backup_allowed
+                    AppsR.string.general_info_rationale_backup_allowed
                 } else {
-                    R.string.general_info_rationale_backup_blocked
+                    AppsR.string.general_info_rationale_backup_blocked
                 },
             ),
             onShowRationale = onShowRationale,
             onCopy = onCopy,
         )
         InfoRowItem(
-            label = stringResource(R.string.general_info_unencrypted_traffic),
+            label = stringResource(AppsR.string.general_info_unencrypted_traffic),
             value = stringResource(
                 if (state.usesCleartextTraffic) {
-                    R.string.general_info_allowed
+                    AppsR.string.general_info_allowed
                 } else {
-                    R.string.general_info_disabled
+                    AppsR.string.general_info_disabled
                 },
             ),
             rationale = stringResource(
                 if (state.usesCleartextTraffic) {
-                    R.string.general_info_rationale_cleartext_allowed
+                    AppsR.string.general_info_rationale_cleartext_allowed
                 } else {
-                    R.string.general_info_rationale_cleartext_blocked
+                    AppsR.string.general_info_rationale_cleartext_blocked
                 },
             ),
             onShowRationale = onShowRationale,
@@ -469,30 +472,30 @@ private fun NativeLibrariesSection(
     modifier: Modifier = Modifier,
 ) {
     SectionCard(
-        title = stringResource(R.string.general_info_section_native_libraries),
+        title = stringResource(AppsR.string.general_info_section_native_libraries),
         modifier = modifier,
     ) {
         val abisValue = if (state.nativeLibraryAbis.isNotEmpty()) {
             state.nativeLibraryAbis.joinToString()
         } else {
-            stringResource(R.string.general_info_native_library_abis_none)
+            stringResource(AppsR.string.general_info_native_library_abis_none)
         }
         val abisRationale = buildString {
-            append(stringResource(R.string.general_info_rationale_native_library_abis))
+            append(stringResource(AppsR.string.general_info_rationale_native_library_abis))
             append(' ')
             append(
                 stringResource(
-                    R.string.general_info_native_library_device_support,
+                    AppsR.string.general_info_native_library_device_support,
                     state.deviceSupportedAbis.joinToString(),
                 ),
             )
             if (state.isNativeLibraryDeviceIncompatible) {
                 append(' ')
-                append(stringResource(R.string.general_info_native_library_incompatible))
+                append(stringResource(AppsR.string.general_info_native_library_incompatible))
             }
         }
         InfoRowItem(
-            label = stringResource(R.string.general_info_native_library_abis),
+            label = stringResource(AppsR.string.general_info_native_library_abis),
             value = abisValue,
             rationale = abisRationale,
             onShowRationale = onShowRationale,
@@ -501,12 +504,12 @@ private fun NativeLibrariesSection(
 
         val fileCount = state.nativeLibraryNames.size
         val filesValue = if (fileCount > 0) {
-            pluralStringResource(R.plurals.general_info_native_library_file_count, fileCount, fileCount)
+            pluralStringResource(AppsR.plurals.general_info_native_library_file_count, fileCount, fileCount)
         } else {
-            stringResource(R.string.general_info_native_library_files_none)
+            stringResource(AppsR.string.general_info_native_library_files_none)
         }
         NavigableInfoRowItem(
-            label = stringResource(R.string.general_info_native_library_files),
+            label = stringResource(AppsR.string.general_info_native_library_files),
             value = filesValue,
             onClick = onNavigateToNativeLibraries,
             onCopy = onCopy,
@@ -598,33 +601,3 @@ private fun sampleGeneralInfoState() = GeneralInfoState.Loaded(
     isNativeLibraryDeviceIncompatible = false,
     installedSplitsCount = 3,
 )
-
-@Composable
-private fun AppSource.displayName(): String = when (this) {
-    AppSource.GooglePlay -> stringResource(R.string.general_info_install_source_google_play)
-    AppSource.SamsungGalaxyStore -> stringResource(R.string.general_info_install_source_samsung_galaxy_store)
-    AppSource.AmazonAppstore -> stringResource(R.string.general_info_install_source_amazon_appstore)
-    AppSource.HuaweiAppGallery -> stringResource(R.string.general_info_install_source_huawei_app_gallery)
-    AppSource.XiaomiGetApps -> stringResource(R.string.general_info_install_source_xiaomi_get_apps)
-    AppSource.FDroid -> stringResource(R.string.general_info_install_source_fdroid)
-    AppSource.AuroraStore -> stringResource(R.string.general_info_install_source_aurora_store)
-    AppSource.Sideloaded -> stringResource(R.string.general_info_install_source_sideloaded)
-    AppSource.LocalInstall -> stringResource(R.string.general_info_install_source_local_install)
-    AppSource.SystemPreinstalled -> stringResource(R.string.general_info_install_source_system)
-    AppSource.Unknown -> stringResource(R.string.general_info_install_source_unknown)
-}
-
-@Composable
-private fun AppSource.installSourceRationale(): String = when (this) {
-    AppSource.GooglePlay -> stringResource(R.string.general_info_rationale_install_source_google_play)
-    AppSource.SamsungGalaxyStore -> stringResource(R.string.general_info_rationale_install_source_samsung_galaxy_store)
-    AppSource.AmazonAppstore -> stringResource(R.string.general_info_rationale_install_source_amazon_appstore)
-    AppSource.HuaweiAppGallery -> stringResource(R.string.general_info_rationale_install_source_huawei_app_gallery)
-    AppSource.XiaomiGetApps -> stringResource(R.string.general_info_rationale_install_source_xiaomi_get_apps)
-    AppSource.FDroid -> stringResource(R.string.general_info_rationale_install_source_fdroid)
-    AppSource.AuroraStore -> stringResource(R.string.general_info_rationale_install_source_aurora_store)
-    AppSource.Sideloaded -> stringResource(R.string.general_info_rationale_install_source_sideloaded)
-    AppSource.LocalInstall -> stringResource(R.string.general_info_rationale_install_source_local_install)
-    AppSource.SystemPreinstalled -> stringResource(R.string.general_info_rationale_install_source_system)
-    AppSource.Unknown -> stringResource(R.string.general_info_rationale_install_source_unknown)
-}

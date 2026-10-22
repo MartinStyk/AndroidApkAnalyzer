@@ -40,8 +40,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificatePrincipal
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificateTrustLevel
+import sk.styk.martin.apkanalyzer.core.apps.signing.CertificateValidity
 import sk.styk.martin.apkanalyzer.core.apps.signing.SignatureAlgorithmAssessment
 import sk.styk.martin.apkanalyzer.core.apps.signing.SigningSchemeVersion
+import sk.styk.martin.apkanalyzer.core.apps.signing.displayLine
+import sk.styk.martin.apkanalyzer.core.apps.signing.explanationRes
+import sk.styk.martin.apkanalyzer.core.apps.signing.labelRes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Chip
@@ -64,6 +68,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import java.util.Locale
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Composable
 internal fun CertificatesScreen(
@@ -106,14 +111,14 @@ private fun CertificatesContent(
             .background(AppTheme.colors.background),
     ) {
         Toolbar(
-            title = stringResource(R.string.certificates_title),
+            title = stringResource(AppsR.string.certificates_title),
             onBack = onBack,
         )
         when (state) {
             CertificatesState.Loading -> SectionLoading()
 
             CertificatesState.Error -> SectionError(
-                message = stringResource(R.string.certificates_error),
+                message = stringResource(AppsR.string.certificates_error),
                 onRetry = { onAction(CertificatesAction.Retry) },
             )
 
@@ -142,9 +147,9 @@ private fun LoadedContent(
                 item(key = "current-certificates-header") {
                     CertificateGroupHeader(
                         title = if (state.currentCertificates.size == 1) {
-                            stringResource(R.string.certificates_current_certificate)
+                            stringResource(AppsR.string.certificates_current_certificate)
                         } else {
-                            stringResource(R.string.certificates_current_certificates)
+                            stringResource(AppsR.string.certificates_current_certificates)
                         },
                     )
                 }
@@ -159,7 +164,7 @@ private fun LoadedContent(
                     hasMultipleSigners = state.hasMultipleSigners,
                     signingSchemeVersions = state.signingSchemeVersions,
                     label = if (state.currentCertificates.size > 1) {
-                        stringResource(R.string.certificates_signer_position, index + 1, state.currentCertificates.size)
+                        stringResource(AppsR.string.certificates_signer_position, index + 1, state.currentCertificates.size)
                     } else {
                         null
                     },
@@ -170,9 +175,9 @@ private fun LoadedContent(
             if (state.pastCertificates.isNotEmpty()) {
                 item(key = "signing-history-header") {
                     CertificateGroupHeader(
-                        title = stringResource(R.string.certificates_history),
+                        title = stringResource(AppsR.string.certificates_history),
                         description = pluralStringResource(
-                            R.plurals.certificates_history_description,
+                            AppsR.plurals.certificates_history_description,
                             state.pastCertificates.size,
                             state.pastCertificates.size,
                         ),
@@ -185,9 +190,9 @@ private fun LoadedContent(
                 key = { _, certificate -> certificate.certificateHashSha256 },
             ) { index, certificate ->
                 val role = if (index == state.pastCertificates.lastIndex) {
-                    stringResource(R.string.certificates_original_signing_key)
+                    stringResource(AppsR.string.certificates_original_signing_key)
                 } else {
-                    stringResource(R.string.certificates_previous_signing_key)
+                    stringResource(AppsR.string.certificates_previous_signing_key)
                 }
                 CertificateCard(
                     certificate = certificate,
@@ -195,7 +200,7 @@ private fun LoadedContent(
                     label = if (state.pastCertificates.size == 1) {
                         role
                     } else {
-                        stringResource(R.string.certificates_card_position, role, index + 1, state.pastCertificates.size)
+                        stringResource(AppsR.string.certificates_card_position, role, index + 1, state.pastCertificates.size)
                     },
                     onCopy = { label, value -> onAction(CertificatesAction.CopyValue(label, value)) },
                     onShowRationale = { rationaleRow = it },
@@ -223,12 +228,12 @@ private fun CertificateCard(
     hasMultipleSigners: Boolean = false,
     signingSchemeVersions: List<SigningSchemeVersion>? = null,
 ) {
-    val serialLabel = stringResource(R.string.certificates_serial)
-    val selfSignedLabel = stringResource(R.string.certificates_self_signed)
+    val serialLabel = stringResource(AppsR.string.certificates_serial)
+    val selfSignedLabel = stringResource(AppsR.string.certificates_self_signed)
     val selfSignedInfo = InfoRow(
         label = selfSignedLabel,
-        value = stringResource(R.string.certificates_self_signed_value),
-        rationale = stringResource(R.string.certificates_self_signed_explanation),
+        value = stringResource(AppsR.string.certificates_self_signed_value),
+        rationale = stringResource(AppsR.string.certificates_self_signed_explanation),
     )
 
     Column(
@@ -247,7 +252,7 @@ private fun CertificateCard(
             DebugBanner()
         }
         SectionCard(
-            title = stringResource(R.string.certificates_signer),
+            title = stringResource(AppsR.string.certificates_signer),
             status = selfSignedLabel.takeIf { certificate.isSelfSigned },
             onClickStatus = { onShowRationale(selfSignedInfo) }.takeIf { certificate.isSelfSigned },
             onLongClickStatus = { onCopy(selfSignedLabel, selfSignedLabel) }.takeIf { certificate.isSelfSigned },
@@ -257,7 +262,7 @@ private fun CertificateCard(
                 onCopy = onCopy,
             )
         }
-        SectionCard(title = stringResource(R.string.certificates_details)) {
+        SectionCard(title = stringResource(AppsR.string.certificates_details)) {
             ValiditySection(
                 certificate = certificate,
                 onShowRationale = onShowRationale,
@@ -284,11 +289,11 @@ private fun CertificateCard(
                 label = serialLabel,
                 value = certificate.serialNumber,
                 onCopy = onCopy,
-                rationale = stringResource(R.string.certificates_serial_explanation),
+                rationale = stringResource(AppsR.string.certificates_serial_explanation),
                 onShowRationale = onShowRationale,
             )
         }
-        SectionCard(title = stringResource(R.string.certificates_certificate_fingerprints)) {
+        SectionCard(title = stringResource(AppsR.string.certificates_certificate_fingerprints)) {
             FingerprintSection(
                 certificate = certificate,
                 onCopy = onCopy,
@@ -344,13 +349,13 @@ private fun DebugBanner(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.width(12.dp))
         Column {
             Text(
-                text = stringResource(R.string.certificates_debug_title),
+                text = stringResource(AppsR.string.certificates_debug_title),
                 style = AppTheme.typography.titleSmall,
                 color = AppTheme.colors.onSurface,
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
-                text = stringResource(R.string.certificates_debug_description),
+                text = stringResource(AppsR.string.certificates_debug_description),
                 style = AppTheme.typography.bodySmall,
                 color = AppTheme.colors.onSurface,
             )
@@ -366,21 +371,21 @@ private fun SignerSection(
 ) {
     val subjectFields = listOfNotNull(
         certificate.subject.organization?.takeIf { it.isNotBlank() }?.let {
-            stringResource(R.string.certificates_organization) to it
+            stringResource(AppsR.string.certificates_organization) to it
         },
         certificate.subject.name?.takeIf { it.isNotBlank() }?.let {
-            stringResource(R.string.certificates_name) to it
+            stringResource(AppsR.string.certificates_name) to it
         },
         certificate.subject.country?.takeIf { it.isNotBlank() }?.let {
-            stringResource(R.string.certificates_country) to it
+            stringResource(AppsR.string.certificates_country) to it
         },
     )
 
     Column(modifier = modifier.fillMaxWidth()) {
         if (subjectFields.isEmpty()) {
             InfoFact(
-                label = stringResource(R.string.certificates_name),
-                value = stringResource(R.string.certificates_unknown_signer),
+                label = stringResource(AppsR.string.certificates_name),
+                value = stringResource(AppsR.string.certificates_unknown_signer),
                 onCopy = onCopy,
             )
         } else {
@@ -390,8 +395,8 @@ private fun SignerSection(
         }
         if (!certificate.isSelfSigned) {
             InfoFact(
-                label = stringResource(R.string.certificates_issuer),
-                value = certificate.issuer.toDisplayName() ?: stringResource(R.string.certificates_unknown_signer),
+                label = stringResource(AppsR.string.certificates_issuer),
+                value = certificate.issuer.displayLine ?: stringResource(AppsR.string.certificates_unknown_signer),
                 onCopy = onCopy,
             )
         }
@@ -405,17 +410,9 @@ private fun ValiditySection(
     onCopy: (label: String, value: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val status = when (certificate.validity) {
-        CertificateValidity.Valid -> stringResource(R.string.certificates_valid)
-        CertificateValidity.Expired -> stringResource(R.string.certificates_expired)
-        CertificateValidity.NotYetValid -> stringResource(R.string.certificates_not_yet_valid)
-    }
-    val validityLabel = stringResource(R.string.certificates_validity)
-    val validityRationale = when (certificate.validity) {
-        CertificateValidity.Valid -> stringResource(R.string.certificates_valid_explanation)
-        CertificateValidity.Expired -> stringResource(R.string.certificates_expired_explanation)
-        CertificateValidity.NotYetValid -> stringResource(R.string.certificates_not_yet_valid_explanation)
-    }
+    val status = stringResource(certificate.validity.labelRes)
+    val validityLabel = stringResource(AppsR.string.certificates_validity)
+    val validityRationale = stringResource(certificate.validity.explanationRes)
     val dateFormatter = remember {
         DateTimeFormatter
             .ofLocalizedDate(FormatStyle.MEDIUM)
@@ -423,7 +420,7 @@ private fun ValiditySection(
             .withZone(ZoneId.systemDefault())
     }
     val dateRange = stringResource(
-        R.string.certificates_date_range,
+        AppsR.string.certificates_date_range,
         dateFormatter.format(certificate.validFrom),
         dateFormatter.format(certificate.validUntil),
     )
@@ -474,19 +471,19 @@ private fun SigningSection(
     modifier: Modifier = Modifier,
 ) {
     val signerState = if (hasMultipleSigners) {
-        stringResource(R.string.certificates_multiple_signers)
+        stringResource(AppsR.string.certificates_multiple_signers)
     } else {
-        stringResource(R.string.certificates_single_signer)
+        stringResource(AppsR.string.certificates_single_signer)
     }
     val signerRationale = if (hasMultipleSigners) {
-        stringResource(R.string.certificates_multiple_signers_explanation)
+        stringResource(AppsR.string.certificates_multiple_signers_explanation)
     } else {
-        stringResource(R.string.certificates_single_signer_explanation)
+        stringResource(AppsR.string.certificates_single_signer_explanation)
     }
 
     Column(modifier = modifier.fillMaxWidth()) {
         InfoFact(
-            label = stringResource(R.string.certificates_current_signers),
+            label = stringResource(AppsR.string.certificates_current_signers),
             value = signerState,
             rationale = signerRationale,
             onShowRationale = onShowRationale,
@@ -515,33 +512,17 @@ private fun SchemeFact(
     onCopy: (label: String, value: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val label = stringResource(R.string.certificates_scheme)
-    val value = schemeVersionLabels(versions).joinToString(", ")
+    val label = stringResource(AppsR.string.certificates_scheme)
+    val value = versions.map { stringResource(it.labelRes) }.joinToString(", ")
 
     InfoFact(
         label = label,
         value = value,
         onCopy = onCopy,
-        rationale = stringResource(R.string.certificates_scheme_explanation),
+        rationale = stringResource(AppsR.string.certificates_scheme_explanation),
         onShowRationale = onShowRationale,
         modifier = modifier,
     )
-}
-
-@Composable
-private fun schemeVersionLabels(versions: List<SigningSchemeVersion>): List<String> {
-    val v1 = stringResource(R.string.certificates_scheme_v1)
-    val v2 = stringResource(R.string.certificates_scheme_v2)
-    val v3 = stringResource(R.string.certificates_scheme_v3)
-    val v31 = stringResource(R.string.certificates_scheme_v3_1)
-    return versions.map {
-        when (it) {
-            SigningSchemeVersion.V1 -> v1
-            SigningSchemeVersion.V2 -> v2
-            SigningSchemeVersion.V3 -> v3
-            SigningSchemeVersion.V3_1 -> v31
-        }
-    }
 }
 
 @Composable
@@ -595,33 +576,9 @@ private fun AlgorithmFact(
     onCopy: (label: String, value: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val label = stringResource(R.string.certificates_algorithm)
-    val assessmentLabel = when (assessment) {
-        SignatureAlgorithmAssessment.ModernDigest -> stringResource(R.string.certificates_algorithm_strong)
-
-        SignatureAlgorithmAssessment.WeakSha1Digest,
-        SignatureAlgorithmAssessment.WeakMd5Digest,
-        SignatureAlgorithmAssessment.WeakMd2Digest,
-        -> stringResource(R.string.certificates_algorithm_weak)
-
-        SignatureAlgorithmAssessment.Unknown -> stringResource(R.string.certificates_algorithm_unknown)
-    }
-    val rationale = when (assessment) {
-        SignatureAlgorithmAssessment.ModernDigest ->
-            stringResource(R.string.certificates_algorithm_strong_explanation, algorithm)
-
-        SignatureAlgorithmAssessment.WeakSha1Digest ->
-            stringResource(R.string.certificates_algorithm_sha1_explanation, algorithm)
-
-        SignatureAlgorithmAssessment.WeakMd5Digest ->
-            stringResource(R.string.certificates_algorithm_md5_explanation, algorithm)
-
-        SignatureAlgorithmAssessment.WeakMd2Digest ->
-            stringResource(R.string.certificates_algorithm_md2_explanation, algorithm)
-
-        SignatureAlgorithmAssessment.Unknown ->
-            stringResource(R.string.certificates_algorithm_unknown_explanation, algorithm)
-    }
+    val label = stringResource(AppsR.string.certificates_algorithm)
+    val assessmentLabel = stringResource(assessment.labelRes)
+    val rationale = stringResource(assessment.explanationRes, algorithm)
     val algorithmInfo = InfoRow(label, algorithm, rationale)
 
     Row(
@@ -682,7 +639,7 @@ private fun FingerprintSection(
     modifier: Modifier = Modifier,
 ) {
     var publicKeyExpanded by rememberSaveable(certificate.certificateHashSha256) { mutableStateOf(false) }
-    val copyDescription = stringResource(R.string.certificates_copy, stringResource(R.string.certificates_fingerprint))
+    val copyDescription = stringResource(R.string.certificates_copy, stringResource(AppsR.string.certificates_fingerprint))
 
     Column(modifier = modifier.fillMaxWidth()) {
         FingerprintBoxes(
@@ -702,7 +659,7 @@ private fun FingerprintSection(
                 .heightIn(min = 48.dp),
         ) {
             Text(
-                text = stringResource(R.string.certificates_public_key_fingerprints),
+                text = stringResource(AppsR.string.certificates_public_key_fingerprints),
                 style = AppTheme.typography.titleSmall,
                 color = AppTheme.colors.onSurface,
                 modifier = Modifier.weight(1f),
@@ -742,9 +699,9 @@ private fun FingerprintBoxes(
     onCopy: (label: String, value: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val sha256Label = stringResource(R.string.certificates_sha256)
-    val sha1Label = stringResource(R.string.certificates_sha1)
-    val md5Label = stringResource(R.string.certificates_md5)
+    val sha256Label = stringResource(AppsR.string.certificates_sha256)
+    val sha1Label = stringResource(AppsR.string.certificates_sha1)
+    val md5Label = stringResource(AppsR.string.certificates_md5)
 
     Column(
         verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -788,18 +745,12 @@ private fun EmptyContent(modifier: Modifier = Modifier) {
         )
         Spacer(modifier = Modifier.height(12.dp))
         Text(
-            text = stringResource(R.string.certificates_empty),
+            text = stringResource(AppsR.string.certificates_empty),
             style = AppTheme.typography.bodyLarge,
             color = AppTheme.colors.onBackground,
         )
     }
 }
-
-private fun CertificatePrincipal.toDisplayName(): String? = listOfNotNull(
-    organization?.takeIf { it.isNotBlank() },
-    name?.takeIf { it.isNotBlank() },
-    country?.takeIf { it.isNotBlank() },
-).distinct().takeIf { it.isNotEmpty() }?.joinToString(" · ")
 
 @Preview
 @Composable

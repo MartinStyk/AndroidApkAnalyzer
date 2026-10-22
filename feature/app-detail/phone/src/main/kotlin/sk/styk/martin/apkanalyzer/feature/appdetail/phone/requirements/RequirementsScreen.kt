@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -37,6 +38,12 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.Feature
 import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.FeatureAvailability
+import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.RequirementItem
+import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.RequirementSection
+import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.explanationRes
+import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.label
+import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.labelRes
+import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.missingText
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
@@ -49,6 +56,7 @@ import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.ListSectionHeader
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionError
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionLoading
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Composable
 internal fun RequirementsScreen(
@@ -91,14 +99,14 @@ private fun RequirementsContent(
             .background(AppTheme.colors.background),
     ) {
         Toolbar(
-            title = stringResource(R.string.requirements_title),
+            title = stringResource(AppsR.string.requirements_title),
             onBack = onBack,
         )
         when (state) {
             is RequirementsState.Loading -> SectionLoading()
 
             is RequirementsState.Error -> SectionError(
-                message = stringResource(R.string.requirements_error),
+                message = stringResource(AppsR.string.requirements_error),
                 onRetry = { onAction(RequirementsAction.Retry) },
             )
 
@@ -137,7 +145,7 @@ private fun LoadedContent(
             item(key = section.isRequired) {
                 ListSectionHeader(
                     title = stringResource(
-                        R.string.requirements_section_header,
+                        AppsR.string.requirements_section_header,
                         stringResource(section.labelRes).uppercase(),
                         section.requirements.size,
                     ),
@@ -159,7 +167,7 @@ private fun LoadedContent(
         RequirementDetailBottomSheet(
             item = detailItem,
 
-            label = detailItem.label(),
+            label = detailItem.label(LocalResources.current),
             onCopy = { label, value -> onAction(RequirementsAction.CopyValue(label, value)) },
             onDismiss = { detailIdentifier = null },
         )
@@ -185,7 +193,7 @@ private fun MissingSummary(missingRequiredCount: Int, modifier: Modifier = Modif
         )
         Spacer(modifier = Modifier.width(12.dp))
         Text(
-            text = pluralStringResource(R.plurals.requirements_missing_summary, missingRequiredCount, missingRequiredCount),
+            text = pluralStringResource(AppsR.plurals.requirements_missing_summary, missingRequiredCount, missingRequiredCount),
             style = AppTheme.typography.bodyMedium,
             color = AppTheme.colors.onSurface,
         )
@@ -199,7 +207,7 @@ private fun RequirementRow(
     onLongClick: (label: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val label = item.label()
+    val label = item.label(LocalResources.current)
     val showIdentifier = label != item.identifier
 
     Row(
@@ -248,19 +256,7 @@ private fun RequirementRow(
 @Composable
 private fun MissingMarker(item: RequirementItem, modifier: Modifier = Modifier) {
     Text(
-        text = when {
-            item is RequirementItem.OpenGlEs && item.deviceVersionName != null ->
-                stringResource(R.string.requirements_missing_version, item.versionName, item.deviceVersionName)
-
-            item is RequirementItem.Hardware && item.isVersionMiss ->
-                stringResource(
-                    R.string.requirements_missing_version,
-                    requirementVersionName(item.name, item.requiredVersion),
-                    requirementVersionName(item.name, checkNotNull(item.deviceVersion)),
-                )
-
-            else -> stringResource(R.string.requirements_missing)
-        },
+        text = item.missingText(LocalResources.current),
         style = AppTheme.typography.labelMedium,
         color = if (item.isRequired) AppTheme.colors.warning else AppTheme.colors.onSurfaceVariant,
         textAlign = TextAlign.End,
@@ -278,26 +274,12 @@ private fun EmptyContent(modifier: Modifier = Modifier) {
             .padding(horizontal = 32.dp),
     ) {
         Text(
-            text = stringResource(R.string.requirements_empty),
+            text = stringResource(AppsR.string.requirements_empty),
             style = AppTheme.typography.bodyLarge,
             color = AppTheme.colors.onBackground,
             textAlign = TextAlign.Center,
         )
     }
-}
-
-@Composable
-private fun RequirementItem.label(): String = when (this) {
-    is RequirementItem.Hardware -> {
-        val name = labelRes?.let { stringResource(it) } ?: name
-        if (requiredVersion == Feature.VERSION_UNSPECIFIED) {
-            name
-        } else {
-            stringResource(R.string.requirements_label_with_version, name, requirementVersionName(identifier, requiredVersion))
-        }
-    }
-
-    is RequirementItem.OpenGlEs -> stringResource(R.string.requirements_open_gl_es, versionName)
 }
 
 private const val MISSING_SUMMARY_KEY = "missing_summary"

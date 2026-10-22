@@ -54,6 +54,7 @@ import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionError
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionLoading
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Composable
 internal fun ManifestScreen(
@@ -106,14 +107,14 @@ private fun ManifestContent(
             modifier = Modifier.fillMaxSize(),
         ) {
             Toolbar(
-                title = stringResource(R.string.manifest_title),
+                title = stringResource(AppsR.string.manifest_title),
                 onBack = onBack,
             )
             when (state) {
                 ManifestState.Loading -> SectionLoading()
 
                 ManifestState.Error -> SectionError(
-                    message = stringResource(R.string.manifest_error),
+                    message = stringResource(AppsR.string.manifest_error),
                     onRetry = { onAction(ManifestAction.Retry) },
                 )
 
@@ -169,7 +170,7 @@ private fun ManifestLoadedContent(
         )
         Text(
             text = if (state.query.isBlank()) {
-                pluralStringResource(R.plurals.manifest_line_count, state.lineCount, state.lineCount)
+                pluralStringResource(AppsR.plurals.manifest_line_count, state.lineCount, state.lineCount)
             } else {
                 pluralStringResource(R.plurals.manifest_match_count, state.matchCount, state.matchCount, state.lineCount)
             },
@@ -180,7 +181,7 @@ private fun ManifestLoadedContent(
         if (state.additionalInstalledSplits > 0) {
             Text(
                 text = pluralStringResource(
-                    R.plurals.manifest_base_split_note,
+                    AppsR.plurals.manifest_base_split_note,
                     state.additionalInstalledSplits,
                     state.additionalInstalledSplits,
                 ),

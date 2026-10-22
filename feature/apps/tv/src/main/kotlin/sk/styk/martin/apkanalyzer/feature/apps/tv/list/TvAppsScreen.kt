@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
@@ -27,6 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.tooling.preview.Devices
@@ -40,22 +42,25 @@ import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.common.model.megabytes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.AppCard
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.AppCardWidth
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Button
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.ConfirmDialog
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SectionHeader
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SelectableListItem
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SidePanel
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.apps.tv.R
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.RestorableFocus
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.TvAppCard
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.TvAppCardWidth
 import sk.styk.martin.apkanalyzer.feature.apps.tv.components.TvAppItem
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.rememberRestorableFocus
 import java.text.DateFormat
 import java.time.Instant
 import java.util.Date
+import sk.styk.martin.apkanalyzer.feature.apps.api.R as AppsApiR
 
 @Composable
 internal fun TvAppsScreen(
@@ -172,72 +177,97 @@ private fun TvAppsContent(state: TvAppsState, onAction: (TvAppsAction) -> Unit) 
                 defaultKey = apps.apps.firstOrNull()?.let { installedCardKey(it.packageName) } ?: SEARCH_KEY,
             )
 
-            LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = TvAppCardWidth),
-                modifier = Modifier.fillMaxSize(),
-                contentPadding = PaddingValues(horizontal = 48.dp, vertical = 32.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-            ) {
-                item(key = SEARCH_KEY, span = { GridItemSpan(maxLineSpan) }) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                        Button(
-                            onClick = { onAction(TvAppsAction.SearchClicked) },
-                            label = stringResource(R.string.tv_apps_search),
-                            leadingIcon = ApkAnalyzerIcons.Search,
-                            modifier = cardFocus.modifierFor(SEARCH_KEY),
-                        )
-                        Button(
-                            onClick = { onAction(TvAppsAction.SortClicked) },
-                            label = stringResource(R.string.tv_apps_sort_button, state.sortType.label()),
-                            leadingIcon = if (state.sortAscending) ApkAnalyzerIcons.SortAscending else ApkAnalyzerIcons.SortDescending,
-                            modifier = cardFocus.modifierFor(SORT_KEY),
-                        )
-                        Button(
-                            onClick = { onAction(TvAppsAction.FiltersClicked) },
-                            label = if (state.activeFilterCount > 0) {
-                                stringResource(R.string.tv_apps_filters_active, state.activeFilterCount)
-                            } else {
-                                stringResource(R.string.tv_apps_filters)
-                            },
-                            leadingIcon = ApkAnalyzerIcons.Filter,
-                            modifier = cardFocus.modifierFor(FILTERS_KEY),
-                        )
-                        if (state.activeFilterCount > 0) {
-                            Button(
-                                onClick = { onAction(TvAppsAction.ClearFilters) },
-                                label = stringResource(R.string.tv_apps_clear_filters),
-                                modifier = cardFocus.modifierFor(CLEAR_FILTERS_KEY),
-                            )
-                        }
-                    }
-                }
-                if (state.recents.isNotEmpty()) {
-                    item(key = RECENTS_KEY, span = { GridItemSpan(maxLineSpan) }) {
-                        RecentsSection(recents = state.recents, cardFocus = cardFocus, onAction = onAction)
-                    }
-                }
-                item(key = INSTALLED_HEADER_KEY, span = { GridItemSpan(maxLineSpan) }) {
-                    SectionTitle(text = stringResource(R.string.tv_apps_installed))
-                }
-                if (apps.apps.isEmpty() && state.activeFilterCount > 0) {
-                    item(key = NO_MATCH_KEY, span = { GridItemSpan(maxLineSpan) }) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 48.dp, end = 48.dp, top = 27.dp, bottom = 8.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                ) {
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(text = stringResource(AppsApiR.string.apps), style = AppTheme.typography.headlineSmall)
                         Text(
-                            text = stringResource(R.string.tv_apps_no_filter_match),
-                            style = AppTheme.typography.titleMedium,
+                            text = pluralStringResource(R.plurals.tv_apps_count, apps.apps.size, apps.apps.size),
+                            style = AppTheme.typography.bodyMedium,
                             color = AppTheme.colors.onSurfaceVariant,
                         )
                     }
-                }
-                items(items = apps.apps, key = { it.packageName.value }) { app ->
-                    TvAppCard(
-                        app = app,
-                        onClick = { onAction(TvAppsAction.AppClicked(app.packageName)) },
-                        description = app.sortValue(state.sortType),
-                        modifier = cardFocus.modifierFor(installedCardKey(app.packageName)),
+                    Button(
+                        onClick = { onAction(TvAppsAction.SearchClicked) },
+                        label = stringResource(R.string.tv_apps_search),
+                        leadingIcon = ApkAnalyzerIcons.Search,
+                        modifier = Modifier.restorableFocus(cardFocus, SEARCH_KEY),
                     )
+                    Button(
+                        onClick = { onAction(TvAppsAction.SortClicked) },
+                        label = stringResource(R.string.tv_apps_sort_button, state.sortType.label()),
+                        leadingIcon = if (state.sortAscending) ApkAnalyzerIcons.SortAscending else ApkAnalyzerIcons.SortDescending,
+                        modifier = Modifier.restorableFocus(cardFocus, SORT_KEY),
+                    )
+                    Button(
+                        onClick = { onAction(TvAppsAction.FiltersClicked) },
+                        label = if (state.activeFilterCount > 0) {
+                            stringResource(R.string.tv_apps_filters_active, state.activeFilterCount)
+                        } else {
+                            stringResource(R.string.tv_apps_filters)
+                        },
+                        leadingIcon = ApkAnalyzerIcons.Filter,
+                        modifier = Modifier.restorableFocus(cardFocus, FILTERS_KEY),
+                    )
+                    if (state.activeFilterCount > 0) {
+                        Button(
+                            onClick = { onAction(TvAppsAction.ClearFilters) },
+                            label = stringResource(R.string.tv_apps_clear_filters),
+                            modifier = Modifier.restorableFocus(cardFocus, CLEAR_FILTERS_KEY),
+                        )
+                    }
                 }
+                AppGrid(state = state, apps = apps.apps, cardFocus = cardFocus, onAction = onAction)
             }
+        }
+    }
+}
+
+@Composable
+private fun AppGrid(
+    state: TvAppsState,
+    apps: List<TvAppItem>,
+    cardFocus: RestorableFocus,
+    onAction: (TvAppsAction) -> Unit,
+) {
+    LazyVerticalGrid(
+        columns = GridCells.Adaptive(minSize = AppCardWidth),
+        modifier = Modifier.fillMaxSize(),
+        contentPadding = PaddingValues(start = 48.dp, end = 48.dp, top = 12.dp, bottom = 27.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        if (state.recents.isNotEmpty()) {
+            item(key = RECENTS_KEY, span = { GridItemSpan(maxLineSpan) }) {
+                RecentsSection(recents = state.recents, cardFocus = cardFocus, onAction = onAction)
+            }
+        }
+        item(key = INSTALLED_HEADER_KEY, span = { GridItemSpan(maxLineSpan) }) {
+            SectionTitle(text = stringResource(R.string.tv_apps_installed))
+        }
+        if (apps.isEmpty() && state.activeFilterCount > 0) {
+            item(key = NO_MATCH_KEY, span = { GridItemSpan(maxLineSpan) }) {
+                Text(
+                    text = stringResource(R.string.tv_apps_no_filter_match),
+                    style = AppTheme.typography.titleMedium,
+                    color = AppTheme.colors.onSurfaceVariant,
+                )
+            }
+        }
+        items(items = apps, key = { it.packageName.value }) { app ->
+            AppCard(
+                packageName = app.packageName,
+                applicationName = app.applicationName,
+                onClick = { onAction(TvAppsAction.AppClicked(app.packageName)) },
+                description = app.sortValue(state.sortType),
+                modifier = Modifier.restorableFocus(cardFocus, installedCardKey(app.packageName)),
+            )
         }
     }
 }
@@ -258,14 +288,15 @@ private fun RecentsSection(
         LazyRow(
             state = rowState,
             modifier = Modifier.bleedHorizontally(FocusBleed),
-            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(horizontal = FocusBleed, vertical = 12.dp),
         ) {
             items(items = recents, key = { it.packageName.value }) { app ->
-                TvAppCard(
-                    app = app,
+                AppCard(
+                    packageName = app.packageName,
+                    applicationName = app.applicationName,
                     onClick = { onAction(TvAppsAction.AppClicked(app.packageName)) },
-                    modifier = cardFocus.modifierFor(recentCardKey(app.packageName)).width(TvAppCardWidth),
+                    modifier = Modifier.restorableFocus(cardFocus, recentCardKey(app.packageName)).width(AppCardWidth),
                 )
             }
         }
@@ -274,11 +305,7 @@ private fun RecentsSection(
 
 @Composable
 private fun SectionTitle(text: String) {
-    Text(
-        text = text,
-        style = AppTheme.typography.titleLarge,
-        modifier = Modifier.padding(top = 8.dp),
-    )
+    SectionHeader(text = text, modifier = Modifier.padding(top = 8.dp))
 }
 
 @Composable

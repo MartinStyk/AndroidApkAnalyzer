@@ -30,7 +30,7 @@ dependencies {
 
     implementation(projects.feature.apps.tv)
     implementation(projects.feature.appDetail.tv)
-    implementation(projects.feature.browse.api)
+    implementation(projects.feature.browse.tv)
 
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.lifecycle.process)

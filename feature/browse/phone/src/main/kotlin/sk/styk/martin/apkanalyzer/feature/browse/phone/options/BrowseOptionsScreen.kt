@@ -32,6 +32,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseOption
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseSubAttribute
+import sk.styk.martin.apkanalyzer.core.appindex.browse.cardLabelRes
+import sk.styk.martin.apkanalyzer.core.appindex.browse.isSearchable
+import sk.styk.martin.apkanalyzer.core.appindex.browse.subAttributes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.HashBox
@@ -46,12 +52,8 @@ import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.collapsingHea
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.rememberCollapsingHeaderState
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
-import sk.styk.martin.apkanalyzer.feature.browse.phone.R
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.BrowseSubAttribute
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.cardLabelRes
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.subAttributes
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
 import sk.styk.martin.apkanalyzer.feature.browse.phone.title
+import sk.styk.martin.apkanalyzer.core.appindex.R as AppIndexR
 
 @Composable
 internal fun BrowseOptionsScreen(
@@ -102,7 +104,7 @@ private fun BrowseOptionsContent(
 
             is BrowseOptionsState.Loaded -> BrowseOptionsList(
                 dimension = dimension,
-                showSearch = dimension != BrowseDimension.InstallSource,
+                showSearch = dimension.isSearchable,
                 state = state,
                 onAction = onAction,
             )
@@ -137,7 +139,7 @@ private fun BrowseOptionsList(
             if (showSearch) {
                 SearchBarActive(
                     query = state.query,
-                    placeholder = pluralStringResource(R.plurals.browse_options_filter_hint, state.totalOptions, state.totalOptions),
+                    placeholder = pluralStringResource(AppIndexR.plurals.browse_options_filter_hint, state.totalOptions, state.totalOptions),
                     sharedElementKey = null,
                     onQueryChange = { onAction(BrowseOptionsAction.ChangeQuery(it)) },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
@@ -146,7 +148,7 @@ private fun BrowseOptionsList(
             if (subAttributes.isNotEmpty()) {
                 val selected = state.subAttribute ?: subAttributes.first()
                 SelectorChip(
-                    sheetTitle = stringResource(R.string.browse_sub_attribute_sheet_title),
+                    sheetTitle = stringResource(AppIndexR.string.browse_sub_attribute_sheet_title),
                     options = subAttributes,
                     selected = selected,
                     label = { stringResource(it.labelRes) },
@@ -173,7 +175,7 @@ private fun BrowseOptionsList(
             }
         } else {
             Text(
-                text = stringResource(R.string.browse_options_empty_query, state.query),
+                text = stringResource(AppIndexR.string.browse_options_empty_query, state.query),
                 style = AppTheme.typography.bodyLarge,
                 color = AppTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
@@ -264,7 +266,7 @@ private fun OptionTrailingContent(count: Int, modifier: Modifier = Modifier) {
     ) {
         Spacer(modifier = Modifier.width(8.dp))
         Text(
-            text = pluralStringResource(R.plurals.browse_apps_count, count, count),
+            text = pluralStringResource(AppIndexR.plurals.browse_apps_count, count, count),
             style = AppTheme.typography.labelMedium,
             color = AppTheme.colors.primary,
         )
@@ -307,12 +309,14 @@ private fun BrowseOptionsCertificatePreview() {
                         label = "A1:B2:C3:D4:E5:F6:A7:B8:C9:D0:E1:F2:A3:B4:C5:D6:E7:F8:A9:B0:C1:D2:E3:F4:A5:B6:C7:D8:E9:F0:A1:B2",
                         algorithm = BrowseSubAttribute.CertificateSha256,
                         count = 12,
+                        publisher = "Google LLC",
                     ),
                     BrowseOption.CertificateHash(
                         key = "f9e8d7c6b5a4938271605f4e3d2c1b0a99887766554433221100ffeeddccbbaa",
                         label = "F9:E8:D7:C6:B5:A4:93:82:71:60:5F:4E:3D:2C:1B:0A:99:88:77:66:55:44:33:22:11:00:FF:EE:DD:CC:BB:AA",
                         algorithm = BrowseSubAttribute.CertificateSha256,
                         count = 3,
+                        publisher = "Netflix, Inc.",
                     ),
                 ),
             ),

@@ -5,16 +5,22 @@
 Top-level "Browse by attribute" destination. Users choose a dimension, choose one of its buckets, then
 view the live apps in that bucket before navigating to app detail.
 
-The API module exposes the top-level navigation key and tab label. Implementation code uses the
-package `sk.styk.martin.apkanalyzer.feature.browse.phone`.
+The API module exposes the top-level navigation key and tab label. The phone implementation uses the
+package `sk.styk.martin.apkanalyzer.feature.browse.phone`; the TV one uses
+`sk.styk.martin.apkanalyzer.feature.browse.tv`.
 
 ## Package Map
 
-* The root implementation package owns dimension models, the hub, shared labeling, and bucket
-  normalization.
+Both `phone` and `tv` share the same layout:
+
+* The root package owns the hub (dimension cards) and the dimension icons.
 * `options/` owns searchable bucket lists and dimension-specific row presentation.
-* `apps/` owns the searchable app list for one bucket.
+* `apps/` owns the searchable app list for one bucket and its bucket detail.
 * `navigation/` owns internal option and bucket destinations.
+
+Phone-only: `BrowseAnalytics`, which TV does not track. On TV the bucket detail sits in a side panel
+next to the app grid instead of behind an info button, and certificate buckets show the fingerprint
+there because the title is the algorithm name.
 
 ## Data and Navigation Semantics
 
@@ -29,8 +35,8 @@ flows whose public contracts do not fail. Do not invent an error state without f
 real failure source.
 
 Normalize dimension keys for navigation, but preserve the raw key separately from the friendly
-label. Permission and SDK labels use core resolvers; enum-backed dimensions use this feature's
-localized resources outside Compose.
+label. Labeling, bucket lookup, and bucket detail live in `core:app-index` `browse/`, shared by the
+phone and TV modules; neither module recreates them.
 
 Certificate identity supports SHA-256, SHA-1, and MD5 bucket views. Unknown certificate subject
 attributes use an explicit sentinel rather than a nullable navigation parameter.
