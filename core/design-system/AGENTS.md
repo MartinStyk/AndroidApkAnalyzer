@@ -56,7 +56,7 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
   `ApkAnalyzerTvTypography` pins sizes about an eighth below TV Material, matching the Google TV home
   screen, plus a `monospace` style for fingerprints and hashes. Change sizes there, not by picking a
   smaller role: components keep semantic roles (a card title is `titleMedium`, a fact value
-  `titleMedium` beside a `bodyLarge` label). Screen titles use `headlineSmall` with a `bodyMedium` subtitle.
+  `titleMedium` beside a `bodyMedium` label). Screen titles use `headlineSmall` with a `bodyMedium` subtitle.
 * `components/` - thin wrappers over TV Material components, styled with the palette. Prefer a TV
   Material component over a hand-built layout. `ScreenSurface` (root background and text color),
   `NavigationDrawer` (TV Material's modal drawer; it reserves the collapsed rail's width so content
