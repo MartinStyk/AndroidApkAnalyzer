@@ -140,7 +140,7 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
             state.insights.indices.forEach { add(insightKey(it)) }
             addAll(SECTION_KEYS)
         },
-        defaultKey = if (canOpenAppInfo) APP_INFO_KEY else PLAY_STORE_KEY,
+        defaultKey = GENERAL_INFO_KEY,
     )
 
     Row(
