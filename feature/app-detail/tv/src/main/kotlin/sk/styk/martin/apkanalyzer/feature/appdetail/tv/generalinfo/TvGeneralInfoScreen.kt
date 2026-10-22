@@ -290,7 +290,7 @@ private fun TvGeneralInfoContentPreview() {
                 lastUpdateTime = Instant.parse("2026-09-28T10:15:30Z"),
                 lastUsedTime = null,
                 apkDirectory = "/data/app/com.google.android.youtube.tv/base.apk",
-                dataDirectory = "/data/user/0/com.google.android.youtube.tv",
+                dataDirectory = "/example/user/0/com.google.android.youtube.tv",
                 installLocation = "AUTO",
                 apkSize = 92.megabytes,
                 totalSize = 184.megabytes,

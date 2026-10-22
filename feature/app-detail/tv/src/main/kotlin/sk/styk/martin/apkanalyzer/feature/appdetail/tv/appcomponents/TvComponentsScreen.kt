@@ -17,7 +17,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
@@ -47,6 +46,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.InfoListItem
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
@@ -153,7 +153,7 @@ private fun LoadedContent(
                     highlighted = item.isUnprotected,
                     leadingIcon = item.kind.icon,
                     trailingIcon = if (item.isLaunchable) ApkAnalyzerIcons.PlayArrow else null,
-                    modifier = focus.modifierFor(item.key).onFocusChanged {
+                    modifier = Modifier.restorableFocus(focus, item.key).onFocusChanged {
                         if (it.isFocused) selectedKey = item.key
                     },
                 )
@@ -178,7 +178,7 @@ private fun ScopeChips(
                 selected = option.scope == state.scope,
                 onClick = { onAction(TvComponentsAction.SelectScope(option.scope)) },
                 label = stringResource(R.string.tv_label_count, option.scope.label(), option.count),
-                modifier = focus.modifierFor(scopeKey(option.scope)),
+                modifier = Modifier.restorableFocus(focus, scopeKey(option.scope)),
             )
         }
     }

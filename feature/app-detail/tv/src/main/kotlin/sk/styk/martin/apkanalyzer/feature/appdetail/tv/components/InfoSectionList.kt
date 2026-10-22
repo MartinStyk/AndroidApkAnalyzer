@@ -15,6 +15,7 @@ import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.InfoListItem
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 
 @Composable
@@ -65,7 +66,7 @@ internal fun InfoSectionList(
                     trailingIcon = if (leadsSomewhere(row)) ApkAnalyzerIcons.ChevronRight else null,
                     highlighted = row.highlighted,
                     leadingIcon = row.icon,
-                    modifier = focus.modifierFor(row.key).onFocusChanged {
+                    modifier = Modifier.restorableFocus(focus, row.key).onFocusChanged {
                         if (it.isFocused) selectedKey = row.key
                     },
                 )

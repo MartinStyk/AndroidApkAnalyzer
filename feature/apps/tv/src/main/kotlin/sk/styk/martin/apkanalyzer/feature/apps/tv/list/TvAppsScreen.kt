@@ -52,6 +52,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SidePanel
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.apps.tv.R
@@ -196,13 +197,13 @@ private fun TvAppsContent(state: TvAppsState, onAction: (TvAppsAction) -> Unit) 
                         onClick = { onAction(TvAppsAction.SearchClicked) },
                         label = stringResource(R.string.tv_apps_search),
                         leadingIcon = ApkAnalyzerIcons.Search,
-                        modifier = cardFocus.modifierFor(SEARCH_KEY),
+                        modifier = Modifier.restorableFocus(cardFocus, SEARCH_KEY),
                     )
                     Button(
                         onClick = { onAction(TvAppsAction.SortClicked) },
                         label = stringResource(R.string.tv_apps_sort_button, state.sortType.label()),
                         leadingIcon = if (state.sortAscending) ApkAnalyzerIcons.SortAscending else ApkAnalyzerIcons.SortDescending,
-                        modifier = cardFocus.modifierFor(SORT_KEY),
+                        modifier = Modifier.restorableFocus(cardFocus, SORT_KEY),
                     )
                     Button(
                         onClick = { onAction(TvAppsAction.FiltersClicked) },
@@ -212,13 +213,13 @@ private fun TvAppsContent(state: TvAppsState, onAction: (TvAppsAction) -> Unit) 
                             stringResource(R.string.tv_apps_filters)
                         },
                         leadingIcon = ApkAnalyzerIcons.Filter,
-                        modifier = cardFocus.modifierFor(FILTERS_KEY),
+                        modifier = Modifier.restorableFocus(cardFocus, FILTERS_KEY),
                     )
                     if (state.activeFilterCount > 0) {
                         Button(
                             onClick = { onAction(TvAppsAction.ClearFilters) },
                             label = stringResource(R.string.tv_apps_clear_filters),
-                            modifier = cardFocus.modifierFor(CLEAR_FILTERS_KEY),
+                            modifier = Modifier.restorableFocus(cardFocus, CLEAR_FILTERS_KEY),
                         )
                     }
                 }
@@ -265,7 +266,7 @@ private fun AppGrid(
                 applicationName = app.applicationName,
                 onClick = { onAction(TvAppsAction.AppClicked(app.packageName)) },
                 description = app.sortValue(state.sortType),
-                modifier = cardFocus.modifierFor(installedCardKey(app.packageName)),
+                modifier = Modifier.restorableFocus(cardFocus, installedCardKey(app.packageName)),
             )
         }
     }
@@ -295,7 +296,7 @@ private fun RecentsSection(
                     packageName = app.packageName,
                     applicationName = app.applicationName,
                     onClick = { onAction(TvAppsAction.AppClicked(app.packageName)) },
-                    modifier = cardFocus.modifierFor(recentCardKey(app.packageName)).width(AppCardWidth),
+                    modifier = Modifier.restorableFocus(cardFocus, recentCardKey(app.packageName)).width(AppCardWidth),
                 )
             }
         }

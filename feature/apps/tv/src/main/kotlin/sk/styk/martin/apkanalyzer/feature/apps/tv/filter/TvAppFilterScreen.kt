@@ -32,6 +32,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SectionHeader
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.apps.tv.R
@@ -74,7 +75,7 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                 selected = option.selected,
                 onClick = { onAction(TvAppFilterAction.SourceToggled(option.value)) },
                 label = stringResource(R.string.tv_filter_option_count, option.value.label(), option.appCount),
-                modifier = focus.modifierFor(sourceKey(option.value)),
+                modifier = Modifier.restorableFocus(focus, sourceKey(option.value)),
             )
         }
         chipSection(
@@ -86,7 +87,7 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                 selected = option.selected,
                 onClick = { onAction(TvAppFilterAction.QuickFilterToggled(option.value)) },
                 label = option.value.label(),
-                modifier = focus.modifierFor(quickFilterKey(option.value)),
+                modifier = Modifier.restorableFocus(focus, quickFilterKey(option.value)),
             )
         }
         chipSection(
@@ -99,14 +100,14 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                     selected = option.selected,
                     onClick = { onAction(TvAppFilterAction.QuickFilterToggled(value)) },
                     label = value.label(),
-                    modifier = focus.modifierFor(quickFilterKey(value)),
+                    modifier = Modifier.restorableFocus(focus, quickFilterKey(value)),
                 )
 
                 is ActivityQuickFilter -> FilterChip(
                     selected = option.selected,
                     onClick = { onAction(TvAppFilterAction.ActivityFilterToggled(value)) },
                     label = value.label(),
-                    modifier = focus.modifierFor(activityKey(value)),
+                    modifier = Modifier.restorableFocus(focus, activityKey(value)),
                 )
             }
         }
@@ -119,7 +120,7 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                 selected = option.selected,
                 onClick = { onAction(TvAppFilterAction.PermissionPresetToggled(option.value)) },
                 label = option.value.label(),
-                modifier = focus.modifierFor(presetKey(option.value)),
+                modifier = Modifier.restorableFocus(focus, presetKey(option.value)),
             )
         }
         chipSection(
@@ -134,7 +135,7 @@ private fun TvAppFilterContent(state: TvAppFilterState, onAction: (TvAppFilterAc
                 selected = option.selected,
                 onClick = { onAction(TvAppFilterAction.SdkVersionToggled(option.sdk)) },
                 label = stringResource(R.string.tv_filter_option_count, versionLabel, option.appCount),
-                modifier = focus.modifierFor(sdkKey(option.sdk)),
+                modifier = Modifier.restorableFocus(focus, sdkKey(option.sdk)),
             )
         }
     }
@@ -159,7 +160,7 @@ private fun Header(
             Button(
                 onClick = { onAction(TvAppFilterAction.ClearAll) },
                 label = stringResource(R.string.tv_filter_clear_all),
-                modifier = focus.modifierFor(CLEAR_KEY),
+                modifier = Modifier.restorableFocus(focus, CLEAR_KEY),
             )
         }
     }

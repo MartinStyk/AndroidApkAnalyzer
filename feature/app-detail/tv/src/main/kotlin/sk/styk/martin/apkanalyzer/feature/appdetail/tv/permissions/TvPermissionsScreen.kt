@@ -33,6 +33,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.FilterChip
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.InfoListItem
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.tv.R
@@ -107,7 +108,7 @@ private fun LoadedContent(
                             selected = option.scope == state.scope,
                             onClick = { onAction(TvPermissionsAction.SelectScope(option.scope)) },
                             label = stringResource(R.string.tv_label_count, stringResource(option.scope.labelRes), option.count),
-                            modifier = focus.modifierFor(scopeKey(option.scope)),
+                            modifier = Modifier.restorableFocus(focus, scopeKey(option.scope)),
                         )
                     }
                 }
@@ -142,7 +143,7 @@ private fun LoadedContent(
                     onClick = {},
                     highlighted = item.isGrantedDangerous,
                     leadingIcon = permissionIcon(item.name, item.groupName),
-                    modifier = focus.modifierFor(permissionKey(item.name)).onFocusChanged {
+                    modifier = Modifier.restorableFocus(focus, permissionKey(item.name)).onFocusChanged {
                         if (it.isFocused) selectedName = item.name
                     },
                 )

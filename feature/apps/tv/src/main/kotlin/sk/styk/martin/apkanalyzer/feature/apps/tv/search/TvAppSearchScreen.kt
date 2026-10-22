@@ -39,6 +39,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SearchField
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.apps.tv.R
 import sk.styk.martin.apkanalyzer.feature.apps.tv.components.TvAppItem
@@ -89,7 +90,7 @@ private fun TvAppSearchContent(state: TvAppSearchState, onAction: (TvAppSearchAc
             modifier = Modifier
                 .padding(horizontal = 48.dp)
                 .fillMaxWidth()
-                .then(focus.modifierFor(FIELD_KEY)),
+                .then(Modifier.restorableFocus(focus, FIELD_KEY)),
             onSearch = {
                 if (state.query.isNotBlank() && state.results.isNotEmpty()) firstResultFocusRequester.requestFocus()
             },
@@ -138,7 +139,7 @@ private fun LazyGridScope.historySection(
             applicationName = item.app.applicationName,
             onClick = { onAction(TvAppSearchAction.HistoryItemClicked(item.app.packageName)) },
             description = stringResource(R.string.tv_search_history_query, item.query),
-            modifier = focus.modifierFor(historyKey(item.app.packageName)),
+            modifier = Modifier.restorableFocus(focus, historyKey(item.app.packageName)),
         )
     }
 }
@@ -167,7 +168,7 @@ private fun LazyGridScope.resultsSection(
             packageName = app.packageName,
             applicationName = app.applicationName,
             onClick = { onAction(TvAppSearchAction.ResultClicked(app.packageName)) },
-            modifier = focus.modifierFor(resultKey(app.packageName))
+            modifier = Modifier.restorableFocus(focus, resultKey(app.packageName))
                 .then(if (index == 0) Modifier.focusRequester(firstResultFocusRequester) else Modifier),
         )
     }

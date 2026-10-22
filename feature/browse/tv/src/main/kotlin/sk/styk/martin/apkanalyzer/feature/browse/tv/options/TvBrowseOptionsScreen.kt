@@ -40,6 +40,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SearchField
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.browse.tv.bucketIcon
@@ -123,7 +124,7 @@ private fun LoadedContent(
                     option = option,
                     icon = dimension.bucketIcon(option.key),
                     onClick = { onAction(TvBrowseOptionsAction.SelectOption(option)) },
-                    modifier = focus.modifierFor(optionKey(option)),
+                    modifier = Modifier.restorableFocus(focus, optionKey(option)),
                 )
             }
         }
@@ -144,7 +145,7 @@ private fun Controls(
                 query = state.query,
                 onQueryChange = { onAction(TvBrowseOptionsAction.ChangeQuery(it)) },
                 placeholder = pluralStringResource(AppIndexR.plurals.browse_options_filter_hint, state.totalOptions, state.totalOptions),
-                modifier = focus.modifierFor(SEARCH_KEY).fillMaxWidth(),
+                modifier = Modifier.restorableFocus(focus, SEARCH_KEY).fillMaxWidth(),
             )
         }
         if (state.subAttributes.isNotEmpty()) {
@@ -158,7 +159,7 @@ private fun Controls(
                         selected = subAttribute == state.subAttribute,
                         onClick = { onAction(TvBrowseOptionsAction.SelectSubAttribute(subAttribute)) },
                         label = stringResource(subAttribute.labelRes),
-                        modifier = focus.modifierFor(subAttributeKey(subAttribute)),
+                        modifier = Modifier.restorableFocus(focus, subAttributeKey(subAttribute)),
                     )
                 }
             }

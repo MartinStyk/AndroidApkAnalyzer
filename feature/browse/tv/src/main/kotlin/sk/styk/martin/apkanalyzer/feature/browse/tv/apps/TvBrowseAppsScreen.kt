@@ -49,6 +49,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SearchField
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Tag
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.browse.tv.R
 import sk.styk.martin.apkanalyzer.feature.browse.tv.bucketIcon
@@ -156,7 +157,7 @@ private fun LoadedContent(
                     query = state.query,
                     onQueryChange = { onAction(TvBrowseAppsAction.ChangeQuery(it)) },
                     placeholder = pluralStringResource(AppIndexR.plurals.browse_apps_filter_hint, state.totalApps, state.totalApps),
-                    modifier = focus.modifierFor(SEARCH_KEY).fillMaxWidth(),
+                    modifier = Modifier.restorableFocus(focus, SEARCH_KEY).fillMaxWidth(),
                 )
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(minSize = AppCardWidth),
@@ -183,7 +184,7 @@ private fun LoadedContent(
                             packageName = app.packageName,
                             applicationName = app.applicationName,
                             onClick = { onAction(TvBrowseAppsAction.SelectApp(app.packageName)) },
-                            modifier = focus.modifierFor(app.packageName.value),
+                            modifier = Modifier.restorableFocus(focus, app.packageName.value),
                         )
                     }
                 }

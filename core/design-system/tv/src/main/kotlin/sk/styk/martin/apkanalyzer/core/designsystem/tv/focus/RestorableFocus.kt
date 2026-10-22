@@ -16,14 +16,14 @@ import androidx.compose.ui.focus.onFocusChanged
 
 @Stable
 class RestorableFocus internal constructor(
-    private val restoreKey: String,
-    private val restoreFocusRequester: FocusRequester,
-    private val onFocusKey: (String) -> Unit,
-) {
-    fun modifierFor(key: String): Modifier = Modifier
-        .then(if (key == restoreKey) Modifier.focusRequester(restoreFocusRequester) else Modifier)
-        .onFocusChanged { if (it.isFocused) onFocusKey(key) }
-}
+    internal val restoreKey: String,
+    internal val restoreFocusRequester: FocusRequester,
+    internal val onFocusKey: (String) -> Unit,
+)
+
+fun Modifier.restorableFocus(focus: RestorableFocus, key: String): Modifier = this
+    .then(if (key == focus.restoreKey) Modifier.focusRequester(focus.restoreFocusRequester) else Modifier)
+    .onFocusChanged { if (it.isFocused) focus.onFocusKey(key) }
 
 @Composable
 fun rememberRestorableFocus(

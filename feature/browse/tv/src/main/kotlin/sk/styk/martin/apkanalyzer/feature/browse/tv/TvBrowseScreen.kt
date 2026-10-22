@@ -31,6 +31,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.InfoCard
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.browse.tv.components.BrowseLoading
 import sk.styk.martin.apkanalyzer.core.appindex.R as AppIndexR
@@ -87,7 +88,7 @@ private fun LoadedContent(state: TvBrowseState.Loaded, onAction: (TvBrowseAction
             DimensionCard(
                 summary = summary,
                 onClick = { onAction(TvBrowseAction.SelectDimension(summary.dimension)) },
-                modifier = focus.modifierFor(summary.dimension.name).height(CardHeight),
+                modifier = Modifier.restorableFocus(focus, summary.dimension.name).height(CardHeight),
             )
         }
     }

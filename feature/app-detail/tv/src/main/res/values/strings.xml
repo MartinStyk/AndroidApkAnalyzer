@@ -35,6 +35,12 @@
     <string name="tv_app_detail_stat_requested">Requested</string>
     <string name="tv_app_detail_ratio">%1$d/%2$d</string>
     <string name="tv_app_detail_api_level">API %1$d</string>
-    <string name="tv_app_detail_required_count">%1$d required</string>
-    <string name="tv_app_detail_optional_count">%1$d optional</string>
+    <plurals name="tv_app_detail_required_count">
+        <item quantity="one">%1$d required</item>
+        <item quantity="other">%1$d required</item>
+    </plurals>
+    <plurals name="tv_app_detail_optional_count">
+        <item quantity="one">%1$d optional</item>
+        <item quantity="other">%1$d optional</item>
+    </plurals>
 </resources>

@@ -28,6 +28,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -65,6 +66,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Tag
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.MinimalFocusScroll
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.restorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.tv.appcomponents.icon
@@ -161,14 +163,14 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
                     onClick = { onAction(TvAppDetailAction.OpenAppInfo) },
                     label = stringResource(R.string.tv_app_detail_action_app_info),
                     leadingIcon = ApkAnalyzerIcons.Settings,
-                    modifier = focus.modifierFor(APP_INFO_KEY).fillMaxWidth(),
+                    modifier = Modifier.restorableFocus(focus, APP_INFO_KEY).fillMaxWidth(),
                 )
             }
             Button(
                 onClick = { onAction(TvAppDetailAction.OpenPlayStore) },
                 label = stringResource(R.string.tv_app_detail_action_play_store),
                 leadingIcon = ApkAnalyzerIcons.PlayArrow,
-                modifier = focus.modifierFor(PLAY_STORE_KEY).fillMaxWidth(),
+                modifier = Modifier.restorableFocus(focus, PLAY_STORE_KEY).fillMaxWidth(),
             )
         }
         LazyVerticalGrid(
@@ -181,26 +183,36 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             item(key = GENERAL_INFO_KEY) {
-                GeneralInfoCard(state = state, onClick = { onAction(TvAppDetailAction.OpenGeneralInfo) }, modifier = focus.modifierFor(GENERAL_INFO_KEY))
+                GeneralInfoCard(state = state, onClick = {
+                    onAction(TvAppDetailAction.OpenGeneralInfo)
+                }, modifier = Modifier.restorableFocus(focus, GENERAL_INFO_KEY))
             }
             item(key = PERMISSIONS_KEY) {
-                PermissionsCard(state = state, onClick = { onAction(TvAppDetailAction.OpenPermissions) }, modifier = focus.modifierFor(PERMISSIONS_KEY))
+                PermissionsCard(state = state, onClick = {
+                    onAction(TvAppDetailAction.OpenPermissions)
+                }, modifier = Modifier.restorableFocus(focus, PERMISSIONS_KEY))
             }
             item(key = COMPONENTS_KEY) {
-                ComponentsCard(state = state, onClick = { onAction(TvAppDetailAction.OpenComponents) }, modifier = focus.modifierFor(COMPONENTS_KEY))
+                ComponentsCard(state = state, onClick = {
+                    onAction(TvAppDetailAction.OpenComponents)
+                }, modifier = Modifier.restorableFocus(focus, COMPONENTS_KEY))
             }
             item(key = CERTIFICATES_KEY) {
-                CertificatesCard(state = state, onClick = { onAction(TvAppDetailAction.OpenCertificates) }, modifier = focus.modifierFor(CERTIFICATES_KEY))
+                CertificatesCard(state = state, onClick = {
+                    onAction(TvAppDetailAction.OpenCertificates)
+                }, modifier = Modifier.restorableFocus(focus, CERTIFICATES_KEY))
             }
             item(key = REQUIREMENTS_KEY) {
-                RequirementsCard(state = state, onClick = { onAction(TvAppDetailAction.OpenRequirements) }, modifier = focus.modifierFor(REQUIREMENTS_KEY))
+                RequirementsCard(state = state, onClick = {
+                    onAction(TvAppDetailAction.OpenRequirements)
+                }, modifier = Modifier.restorableFocus(focus, REQUIREMENTS_KEY))
             }
             item(key = MANIFEST_KEY) {
                 SectionCard(
                     onClick = { onAction(TvAppDetailAction.OpenManifest) },
                     title = stringResource(AppsR.string.manifest_title),
                     icon = ApkAnalyzerIcons.File,
-                    modifier = focus.modifierFor(MANIFEST_KEY),
+                    modifier = Modifier.restorableFocus(focus, MANIFEST_KEY),
                 ) {
                     CardLine(text = stringResource(R.string.tv_app_detail_manifest_description))
                 }
@@ -215,7 +227,7 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
                         title = insight.label(LocalResources.current),
                         icon = ApkAnalyzerIcons.Warning,
                         tone = InfoCardTone.Warning,
-                        modifier = focus.modifierFor(insightKey(index)).height(InsightCardHeight),
+                        modifier = Modifier.restorableFocus(focus, insightKey(index)).height(InsightCardHeight),
                     )
                 }
             }
@@ -373,10 +385,16 @@ private fun FactLine(
             style = AppTheme.typography.bodyMedium,
             color = AppTheme.colors.onSurfaceVariant,
             maxLines = 1,
+        )
+        Text(
+            text = value,
+            style = AppTheme.typography.titleMedium,
+            color = if (dimmed) AppTheme.colors.onSurfaceVariant else valueColor,
+            maxLines = 1,
             overflow = TextOverflow.Ellipsis,
+            textAlign = TextAlign.End,
             modifier = Modifier.weight(1f),
         )
-        Text(text = value, style = AppTheme.typography.titleMedium, color = if (dimmed) AppTheme.colors.onSurfaceVariant else valueColor, maxLines = 1)
     }
 }
 
@@ -440,9 +458,9 @@ private fun RequirementsCard(
             color = if (hasMissing) AppTheme.colors.warning else AppTheme.colors.onSurface,
             maxLines = 2,
         )
-        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-            Tag(label = stringResource(R.string.tv_app_detail_required_count, state.requiredFeaturesCount))
-            Tag(label = stringResource(R.string.tv_app_detail_optional_count, state.optionalFeaturesCount))
+        FlowRow(horizontalArrangement = Arrangement.spacedBy(8.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            Tag(label = pluralStringResource(R.plurals.tv_app_detail_required_count, state.requiredFeaturesCount, state.requiredFeaturesCount))
+            Tag(label = pluralStringResource(R.plurals.tv_app_detail_optional_count, state.optionalFeaturesCount, state.optionalFeaturesCount))
         }
     }
 }
