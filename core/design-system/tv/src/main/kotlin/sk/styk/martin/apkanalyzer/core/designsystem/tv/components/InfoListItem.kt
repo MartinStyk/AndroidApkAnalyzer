@@ -12,7 +12,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.tv.material3.Glow
 import androidx.tv.material3.Icon
 import androidx.tv.material3.ListItemDefaults
 import androidx.tv.material3.LocalContentColor
@@ -42,9 +41,6 @@ fun InfoListItem(
             contentColor = AppTheme.colors.onSurface,
             focusedContainerColor = AppTheme.colors.onSurface,
             focusedContentColor = AppTheme.colors.surface,
-        ),
-        glow = ListItemDefaults.glow(
-            focusedGlow = Glow(elevationColor = AppTheme.colors.primary.copy(alpha = FOCUS_GLOW_ALPHA), elevation = FocusGlowElevation),
         ),
         scale = ListItemDefaults.scale(focusedScale = 1.02f),
         headlineContent = {
