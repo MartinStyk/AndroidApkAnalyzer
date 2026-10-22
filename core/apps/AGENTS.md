@@ -31,11 +31,20 @@ models, implementation, and private analysis helpers together.
   lists so both order apps identically. Which options a screen offers stays with the screen.
 * `filtering/` - `AppFilterState`, the `filterBy` predicate, permission presets, quick filters, and
   the in-memory `AppFilterRepository` both app lists filter through.
+* `insight/` - the "Worth knowing" evaluator and the app badges, with their labels. Phone and TV
+  app detail both read them, so a finding shows identically on both.
 * `search/` - `List<InstalledApp>.search(query)`, the fuzzy name-and-package matcher both search
   screens use.
 
 Keep the Hilt bindings grouped by these domains. A new independent repository family earns its own
 domain package; do not return to flat `analysis/`, `model/`, or `util/` grab-bags.
+
+Shared presentation text lives next to its domain, in `*Text.kt` files with the strings in this
+module's `res/`: labels and explanations for install sources, certificates, components, device
+requirements, split APKs, and the General info fields. Both app-detail UIs (phone and TV) use them,
+so every explanation is written and translated once. Requirement sectioning (`requirements`) and
+native-library grouping (`groupedByLibrary`) live here for the same reason. Screen chrome that only
+one app shows stays in that feature module.
 
 ## Repository and Cache Boundaries
 

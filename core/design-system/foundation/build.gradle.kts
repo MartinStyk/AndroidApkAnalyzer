@@ -11,6 +11,8 @@ android {
 dependencies {
     implementation(libs.androidx.compose.material.icons.extended)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.navigation3.ui)
+    implementation(libs.androidx.palette)
     implementation(libs.coil.core)
     implementation(libs.coil.compose)
     implementation(projects.core.common)

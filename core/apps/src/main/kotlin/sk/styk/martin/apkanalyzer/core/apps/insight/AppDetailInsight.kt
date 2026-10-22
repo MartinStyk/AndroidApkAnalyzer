@@ -1,8 +1,6 @@
-package sk.styk.martin.apkanalyzer.feature.appdetail.phone.insight
+package sk.styk.martin.apkanalyzer.core.apps.insight
 
-import androidx.compose.runtime.Immutable
-
-internal enum class SensitiveAccess {
+enum class SensitiveAccess {
     BackgroundLocation,
     Messages,
     CallHistory,
@@ -10,8 +8,7 @@ internal enum class SensitiveAccess {
     Calendar,
 }
 
-@Immutable
-internal sealed interface AppDetailInsight {
+sealed interface AppDetailInsight {
     data object Debuggable : AppDetailInsight
     data object DebugCertificate : AppDetailInsight
     data object CertificateNotYetValid : AppDetailInsight

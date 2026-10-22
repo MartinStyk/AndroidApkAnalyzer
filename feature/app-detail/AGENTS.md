@@ -13,7 +13,7 @@ files. Implementation code uses the package
 
 * The root implementation package owns the hub State/Action/Event/ViewModel and input adapters.
 * `components/` owns interaction and loading/error UI shared across detail sections.
-* `insight/` owns the feature-level "Worth knowing" policy.
+* The "Worth knowing" insight policy and the badges live in `core:apps` `insight/`, shared with TV.
 * `generalinfo/`, `permissions/`, `appcomponents/`, `certificates/`, `requirements/`, `manifest/`,
   `splitapks/`, and `nativelibraries/` each own one detail destination.
 * `navigation/` owns the feature entry provider and internal destination keys.
@@ -23,9 +23,30 @@ assisted injection and seed ViewModel state exactly once.
 
 ## TV Module
 
-`feature/app-detail/tv` (package `sk.styk.martin.apkanalyzer.feature.appdetail.tv`) handles
-`AppDetailNavKey` on TV. It currently shows the app's icon, name, package, and version, and records
-the app as recently viewed exactly like the phone hub does. It never depends on `phone`.
+`feature/app-detail/tv` (package `sk.styk.martin.apkanalyzer.feature.appdetail.tv`) presents the same
+data as the phone: a hub (header, App info and Play Store, "Worth knowing", and one card per section)
+plus General info, Permissions, Components, Certificates, Device requirements, Native libraries,
+Split APKs, and the manifest. It never depends on `phone`.
+
+* Every rule and explanation both apps show lives in core: `core:apps` (`insight/`, `signing/`,
+  `components/`, `devicefeatures/`, `packaging/`, `installsource/` text files and their strings) and
+  `core:app-permissions` `detail/`. Each app keeps only its own screen text. Add a new explanation
+  there, not in either feature module, so both apps stay translated and agree with each other.
+* The hub and every section sit on an `AccentBackdrop` tinted by the app icon's color. Hub cards show
+  data (stats, a protection-level bar, the fingerprint in a `CodeBox`) rather than sentences, and use
+  the warning tone only when the card's own predicate flags a problem.
+* Every row carries the same icon the phone uses for that thing; the pane repeats it with a status
+  chip and puts identifiers and hashes in a `CodeBox`. Empty sections use `SectionEmpty`, which keeps
+  the header and backdrop.
+* Sections use `components/ListDetailScaffold` (via `InfoSectionList` for plain rows): focusing a row
+  shows its explanation in the pane, so OK does nothing unless the row leads to another screen
+  (chevron). This replaces the phone's tap-to-explain sheets; TV has no copy action.
+* The pane becomes focusable only when its content overflows, so Right enters it and Up/Down scroll.
+* Left out on TV: AI summary (no on-device model), APK/icon export (no document picker), copy/share,
+  and text search inside sections. Launchable components start on OK (the row shows a play icon instead
+  of a chevron), using the same `isLaunchable` predicates from `core:apps` as the phone.
+* Empty and retry-less error states take focus themselves so the remote never falls through to the
+  side menu.
 
 ## Cross-Cutting Interaction Rules
 

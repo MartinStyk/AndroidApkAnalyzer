@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.feature.appdetail.phone.insight
+package sk.styk.martin.apkanalyzer.core.apps.insight
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -9,7 +9,7 @@ import sk.styk.martin.apkanalyzer.core.common.model.isSideloaded
 import java.time.Duration
 import java.time.Instant
 
-internal object AppDetailInsightEvaluator {
+object AppDetailInsightEvaluator {
 
     fun evaluate(
         appDetail: AppDetail,

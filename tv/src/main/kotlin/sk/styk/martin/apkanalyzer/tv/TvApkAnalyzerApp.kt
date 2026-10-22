@@ -66,7 +66,7 @@ internal fun TvApkAnalyzerApp(onBackAtRoot: () -> Unit) {
                 entries = navigationState.toEntries(
                     entryProvider {
                         tvAppEntries(navigator)
-                        tvAppDetailEntries()
+                        tvAppDetailEntries(navigator)
                         entry<BrowseNavKey> { DestinationTitle(title = browseTitle) }
                     },
                 ),

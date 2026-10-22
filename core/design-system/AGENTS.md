@@ -25,15 +25,19 @@ only exception, for shell-level `Scaffold` and theme plumbing.
   `LocalApkAnalyzerColors` and `LocalApkAnalyzerTypography`, because phone and TV read at different
   distances and size text differently. Reading `AppTheme` outside a device theme throws.
 * `icons/` - `ApkAnalyzerIcons`; `icons/app/` registers the Coil `ImageLoader` that renders an
-  `AppReference` as its package icon.
+  `AppReference` as its package icon. `rememberAppAccentColor` samples that icon with AndroidX
+  Palette for screens tinted by the app. `permissionIcon` and `requirementIcon` map Android
+  permission and feature names to icons for both apps; they key on names, so they need no domain
+  types.
 * `res/mipmap-*` - the launcher icon both apps reference as `@mipmap/ic_launcher`.
+* `animation/` - Navigation 3 transition metadata (`slideFromEndEntryMetadata`, `bottomEntryMetadata`)
+  shared by both apps, so a screen pushed on phone and its TV counterpart move the same way.
 
 ## phone
 
 * `theme/` - `ApkAnalyzerTheme`, which provides the phone values for `AppTheme`, plus the Material3
   color schemes, the phone type scale, and shapes.
 * `components/` - reusable UI primitives and composed controls.
-* `animation/` - Navigation 3 transition metadata.
 * `modifier/` and `lazylist/` - shared interaction, layout, and list behavior.
 
 Search `components/` by composable name before adding or calling a component. The notable naming
@@ -59,7 +63,14 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
   description line), `FilterChip`, `ConfirmDialog` (focus starts on the confirm button), `Button`,
   `SearchField`, `SidePanel` (an end-aligned panel over the dimmed screen, for options that belong
   to the current screen), `SelectableListItem` (a TV `ListItem` with a check, or a caller-supplied icon and supporting
-  line, when selected), `Text`.
+  line, when selected), `InfoCard` (a focusable card with title, icon, free content, and a warning
+  tone that tints the whole card), `InfoListItem` (a label/value row with an optional leading icon
+  and a chevron when it leads somewhere), `Tag` (a non-focusable fact), `Stat` (a large value over
+  a label), `SegmentedBar` and `SegmentedBarLegend` (proportions with a dot legend), `CodeBox`
+  (monospace value for hashes and identifiers), `AccentBackdrop` (a soft radial glow in the app's color with a fine grain
+  that hides banding on dark screens, usually from `rememberAppAccentColor`), `AppCard` (an installed app's icon, name, and package, with
+  `AppCardWidth` for grids), `ScrollablePanel` (a surface for explanations that becomes focusable
+  only when its content overflows, then scrolls on Up/Down), `Icon`, `Text`.
 * `SearchField` is built on `BasicTextField` because TV Material has no text field. A text field
   swallows D-pad Up/Down for cursor movement, which traps remote users; it hands those keys back to
   focus navigation and keeps Left/Right for the cursor.
@@ -70,6 +81,11 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
 * `modifier/` - `bleedHorizontally` lets a horizontal row extend past the screen margins so a
   focused item's scale and border are not clipped at the row edges; pair it with matching
   horizontal content padding.
+* `focus/` - `rememberRestorableFocus` gives a screen keyed focus restoration: give each focusable a
+  stable key that carries its section, list the keys currently on screen so a vanished item falls
+  back to the default, and it retries until something on the screen actually has focus.
+  `MinimalFocusScroll` replaces TV's default pivot scrolling with "scroll only as far as needed",
+  for screens like the app-detail hub whose header must stay visible while focus is on its buttons.
 * TV Material marks some components experimental (`FilterChip` in 1.1.0). Opt in only inside the
   wrapper here, never in a feature, so an API change touches one file.
 

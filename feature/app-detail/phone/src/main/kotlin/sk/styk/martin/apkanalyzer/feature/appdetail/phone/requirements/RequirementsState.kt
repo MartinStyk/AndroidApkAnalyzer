@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.feature.appdetail.phone.requirements
 
 import androidx.compose.runtime.Immutable
-import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.FeatureAvailability
+import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.RequirementSection
 
 @Immutable
 sealed interface RequirementsState {
@@ -14,38 +14,4 @@ sealed interface RequirementsState {
     }
 
     data object Error : RequirementsState
-}
-
-@Immutable
-data class RequirementSection(val isRequired: Boolean, val requirements: List<RequirementItem>)
-
-@Immutable
-sealed interface RequirementItem {
-    val identifier: String
-    val isRequired: Boolean
-    val availability: FeatureAvailability
-
-    @Immutable
-    data class Hardware(
-        val name: String,
-        val requiredVersion: Int,
-        val deviceVersion: Int?,
-        override val isRequired: Boolean,
-        override val availability: FeatureAvailability,
-    ) : RequirementItem {
-        override val identifier: String
-            get() = name
-
-        val isVersionMiss: Boolean
-            get() = availability == FeatureAvailability.Missing && deviceVersion != null
-    }
-
-    @Immutable
-    data class OpenGlEs(
-        val versionName: String,
-        val deviceVersionName: String?,
-        override val identifier: String,
-        override val isRequired: Boolean,
-        override val availability: FeatureAvailability,
-    ) : RequirementItem
 }

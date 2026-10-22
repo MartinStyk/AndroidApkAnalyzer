@@ -39,6 +39,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.apps.packaging.NativeLibraryItem
+import sk.styk.martin.apkanalyzer.core.apps.packaging.NativeLibraryVariant
 import sk.styk.martin.apkanalyzer.core.common.model.kilobytes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
@@ -57,6 +59,7 @@ import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionError
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SectionLoading
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Composable
 internal fun NativeLibrariesScreen(
@@ -98,14 +101,14 @@ private fun NativeLibrariesContent(
             .background(AppTheme.colors.background),
     ) {
         Toolbar(
-            title = stringResource(R.string.nativelibraries_title),
+            title = stringResource(AppsR.string.nativelibraries_title),
             onBack = { onAction(NativeLibrariesAction.Back) },
         )
         when (state) {
             NativeLibrariesState.Loading -> SectionLoading()
 
             NativeLibrariesState.Error -> SectionError(
-                message = stringResource(R.string.nativelibraries_error),
+                message = stringResource(AppsR.string.nativelibraries_error),
                 onRetry = { onAction(NativeLibrariesAction.Retry) },
             )
 
@@ -145,13 +148,13 @@ private fun NativeLibrariesLoadedContent(
                 .collapsingHeader(collapsingState),
         ) {
             Text(
-                text = pluralStringResource(R.plurals.nativelibraries_heading, state.totalCount, state.totalCount),
+                text = pluralStringResource(AppsR.plurals.nativelibraries_heading, state.totalCount, state.totalCount),
                 style = AppTheme.typography.titleSmall,
                 color = AppTheme.colors.onBackground,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
             )
             Text(
-                text = stringResource(R.string.nativelibraries_explanation),
+                text = stringResource(AppsR.string.nativelibraries_explanation),
                 style = AppTheme.typography.bodySmall,
                 color = AppTheme.colors.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 20.dp, vertical = 4.dp),
@@ -207,7 +210,7 @@ private fun NativeLibraryRow(
     onCopy: (label: String, value: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val copyLabel = stringResource(R.string.nativelibraries_title)
+    val copyLabel = stringResource(AppsR.string.nativelibraries_title)
     Column(
         verticalArrangement = Arrangement.spacedBy(6.dp),
         modifier = modifier
@@ -254,7 +257,7 @@ private fun NativeLibraryRow(
         }
         if (!item.isDeviceCompatible) {
             Tag(
-                text = stringResource(R.string.nativelibraries_not_supported),
+                text = stringResource(AppsR.string.nativelibraries_not_supported),
                 icon = ApkAnalyzerIcons.Warning,
             )
         }
@@ -276,7 +279,7 @@ private fun EmptyNativeLibraries(
     ) {
         Text(
             text = if (totalCount == 0 || query.isBlank()) {
-                stringResource(R.string.nativelibraries_empty)
+                stringResource(AppsR.string.nativelibraries_empty)
             } else {
                 stringResource(R.string.nativelibraries_empty_query, query)
             },

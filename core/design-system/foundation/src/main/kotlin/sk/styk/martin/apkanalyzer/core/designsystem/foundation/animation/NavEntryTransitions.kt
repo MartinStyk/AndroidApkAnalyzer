@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.core.designsystem.phone.animation
+package sk.styk.martin.apkanalyzer.core.designsystem.foundation.animation
 
 import androidx.compose.animation.EnterTransition
 import androidx.compose.animation.ExitTransition
@@ -14,8 +14,8 @@ import androidx.compose.animation.slideOutVertically
 import androidx.compose.animation.togetherWith
 import androidx.navigation3.ui.NavDisplay
 
-internal const val NAV_DURATION_STANDARD = 350
-internal const val NAV_DURATION_FADE = 50
+const val NAV_DURATION_STANDARD = 350
+const val NAV_DURATION_FADE = 50
 
 fun bottomEntryMetadata(): Map<String, Any> = NavDisplay.transitionSpec {
     slideInVertically(tween(NAV_DURATION_STANDARD, easing = LinearOutSlowInEasing)) { it } +

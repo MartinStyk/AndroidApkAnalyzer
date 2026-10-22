@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.core.apkfiles.TemporaryApkManager
 import sk.styk.martin.apkanalyzer.core.apppermissions.PermissionLabelProvider
-import sk.styk.martin.apkanalyzer.core.apps.AppClassificationThresholds
 import sk.styk.martin.apkanalyzer.core.apps.AppDetailRepository
 import sk.styk.martin.apkanalyzer.core.apps.UnparsableApkFileException
 import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.DeviceFeatures
@@ -30,24 +29,20 @@ import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.DeviceFeaturesReposit
 import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.Feature
 import sk.styk.martin.apkanalyzer.core.apps.devicefeatures.FeatureAvailability
 import sk.styk.martin.apkanalyzer.core.apps.export.AppExportManager
+import sk.styk.martin.apkanalyzer.core.apps.insight.AppDetailBadgeEvaluator
+import sk.styk.martin.apkanalyzer.core.apps.insight.AppDetailInsight
+import sk.styk.martin.apkanalyzer.core.apps.insight.AppDetailInsightEvaluator
 import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
 import sk.styk.martin.apkanalyzer.core.common.clipboard.ClipboardManager
 import sk.styk.martin.apkanalyzer.core.common.clipboard.CopyResult
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.core.common.logger.Logger
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
-import sk.styk.martin.apkanalyzer.core.common.model.AppSource
 import sk.styk.martin.apkanalyzer.core.common.review.ReviewEligibilityTracker
 import sk.styk.martin.apkanalyzer.core.userpreferences.recentlyviewed.RecentlyViewedAppsRepository
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.ApkFileLifetime
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.AppDetailBadge
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.insight.AppDetailInsight
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.insight.AppDetailInsightEvaluator
-import java.time.Duration
 import java.time.Instant
-import kotlin.time.Duration.Companion.days
-import kotlin.time.toJavaDuration
 
 private const val TAG = "AppDetailViewModel"
 
@@ -296,7 +291,7 @@ internal class AppDetailViewModel @AssistedInject constructor(
             source.value = detailResult.fold(
                 onSuccess = { detail ->
                     analytics.track(AppDetailAnalyticsEvent.Opened(appReference))
-                    AppDetailSource.Ready(detail.toLoadedState(deviceFeatures).withComputedBadges(Instant.now()))
+                    AppDetailSource.Ready(detail.toLoadedState(deviceFeatures))
                 },
                 onFailure = { AppDetailSource.Error(canRetry = it !is UnparsableApkFileException) },
             )
@@ -306,24 +301,6 @@ internal class AppDetailViewModel @AssistedInject constructor(
         }
     }
 
-    private fun AppDetailState.Loaded.withComputedBadges(now: Instant): AppDetailState.Loaded = copy(
-        badges = buildList {
-            val effectiveSize = totalSize ?: apkSize
-            if (effectiveSize >= AppClassificationThresholds.LARGE_SIZE) add(AppDetailBadge.Large)
-            if (isSystemApp) add(AppDetailBadge.System)
-            firstInstallTime?.let { installTime ->
-                if (installTime.isAfter(now.minus(AppClassificationThresholds.RECENT_PERIOD))) add(AppDetailBadge.RecentlyInstalled)
-            }
-            lastUpdateTime?.let { updateTime ->
-                if (updateTime.isAfter(now.minus(AppClassificationThresholds.RECENT_PERIOD))) add(AppDetailBadge.RecentlyUpdated)
-            }
-            lastUsedTime?.let { lastUsed ->
-                if (lastUsed.isAfter(now.minus(AppClassificationThresholds.RECENTLY_USED_DAYS.days.toJavaDuration()))) add(AppDetailBadge.RecentlyUsed)
-            }
-            if (source == AppSource.GooglePlay) add(AppDetailBadge.GooglePlay)
-        }.take(MAX_BADGES),
-    )
-
     private fun AppDetail.toLoadedState(deviceFeatures: DeviceFeatures): AppDetailState.Loaded {
         val dangerousPermissions = permissions.used.filter { it.isDangerous }
         val relevantDangerousPermissions = when (analysisMode) {
@@ -331,9 +308,10 @@ internal class AppDetailViewModel @AssistedInject constructor(
             AppDetail.AnalysisMode.ApkFile -> dangerousPermissions
         }
         val currentCertificate = signing.currentCertificates.firstOrNull()
+        val now = Instant.now()
         val insights = AppDetailInsightEvaluator.evaluate(
             appDetail = this,
-            now = Instant.now(),
+            now = now,
             deviceSdk = Build.VERSION.SDK_INT,
         )
         return AppDetailState.Loaded(
@@ -402,6 +380,7 @@ internal class AppDetailViewModel @AssistedInject constructor(
             lastUsedTime = info.lastUsedTime,
             installedSplitsCount = info.installedSplits.size,
             usesCleartextTraffic = info.usesCleartextTraffic,
+            badges = AppDetailBadgeEvaluator.evaluate(info, now).take(MAX_BADGES),
             insights = insights,
         )
     }

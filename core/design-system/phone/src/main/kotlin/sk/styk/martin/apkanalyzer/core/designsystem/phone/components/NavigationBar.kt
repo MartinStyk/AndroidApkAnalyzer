@@ -60,10 +60,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavKey
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.launch
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.animation.NAV_DURATION_STANDARD
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.R
-import sk.styk.martin.apkanalyzer.core.designsystem.phone.animation.NAV_DURATION_STANDARD
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import kotlin.math.roundToInt
 

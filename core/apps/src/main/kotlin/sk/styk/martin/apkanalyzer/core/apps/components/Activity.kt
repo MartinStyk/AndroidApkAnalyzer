@@ -15,3 +15,6 @@ data class Activity(
 
 val Activity.isExternallyReachableWithoutPermission: Boolean
     get() = isExported && isLauncher != true && permission.isNullOrBlank()
+
+val Activity.isLaunchable: Boolean
+    get() = isExported && permission.isNullOrBlank()

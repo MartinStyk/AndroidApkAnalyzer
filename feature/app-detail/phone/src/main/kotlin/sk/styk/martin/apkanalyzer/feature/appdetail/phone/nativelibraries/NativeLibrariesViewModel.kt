@@ -18,11 +18,11 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import sk.styk.martin.apkanalyzer.core.apps.packaging.NativeLibrariesRepository
-import sk.styk.martin.apkanalyzer.core.apps.packaging.NativeLibraryFile
+import sk.styk.martin.apkanalyzer.core.apps.packaging.NativeLibraryItem
+import sk.styk.martin.apkanalyzer.core.apps.packaging.groupedByLibrary
 import sk.styk.martin.apkanalyzer.core.common.clipboard.ClipboardManager
 import sk.styk.martin.apkanalyzer.core.common.clipboard.CopyResult
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
-import sk.styk.martin.apkanalyzer.core.common.model.bytes
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.toAppReference
 
@@ -83,7 +83,7 @@ internal class NativeLibrariesViewModel @AssistedInject constructor(
             source.value = withContext(dispatcherProvider.default()) {
                 nativeLibrariesRepository.nativeLibraries(appDetailInput.toAppReference()).fold(
                     onSuccess = { libraries ->
-                        val items = libraries.files.toItems(Build.SUPPORTED_ABIS.toSet())
+                        val items = libraries.files.groupedByLibrary(Build.SUPPORTED_ABIS.toSet())
                         NativeLibrariesSource.Ready(items)
                     },
                     onFailure = { NativeLibrariesSource.Error },
@@ -109,17 +109,3 @@ private fun NativeLibraryItem.matches(query: String): Boolean {
     if (query.isBlank()) return true
     return name.contains(query, ignoreCase = true) || abis.any { it.contains(query, ignoreCase = true) }
 }
-
-private fun List<NativeLibraryFile>.toItems(deviceAbis: Set<String>): List<NativeLibraryItem> = groupBy { it.name }
-    .map { (name, files) ->
-        val abis = files.map { it.abi }.distinct().sorted()
-        NativeLibraryItem(
-            name = name,
-            abis = abis,
-            totalSize = files.fold(0.bytes) { acc, file -> acc + file.size },
-            isDeviceCompatible = abis.any { it in deviceAbis },
-            variants = files.sortedBy { it.abi }
-                .map { NativeLibraryVariant(abi = it.abi, size = it.size, containingApkFileName = it.containingApkFileName) },
-        )
-    }
-    .sortedBy { it.name.lowercase() }

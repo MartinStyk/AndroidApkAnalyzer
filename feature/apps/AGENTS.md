@@ -63,7 +63,7 @@ it hides the row while filters are active, so everything on screen matches the f
   and date ranges are reduced to the quick options because picking ranges with a remote is
   impractical. Usage-based options appear only with usage access, since without it every app's
   last-used time is unknown and the results would be wrong.
-* Every TV screen restores focus through `rememberRestorableFocus` in `components/`: give each
+* Every TV screen restores focus through `rememberRestorableFocus` from `core:design-system:tv`: give each
   focusable a stable key that carries its section, and list the keys currently on screen so a
   vanished item falls back to the default instead of requesting focus on nothing.
 

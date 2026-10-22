@@ -16,13 +16,14 @@ import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
 import sk.styk.martin.apkanalyzer.core.apps.signing.Certificate
 import sk.styk.martin.apkanalyzer.core.apps.signing.SigningSchemeRepository
 import sk.styk.martin.apkanalyzer.core.apps.signing.SigningSchemeVersion
+import sk.styk.martin.apkanalyzer.core.apps.signing.toFingerprint
+import sk.styk.martin.apkanalyzer.core.apps.signing.validityAt
 import sk.styk.martin.apkanalyzer.core.common.clipboard.ClipboardManager
 import sk.styk.martin.apkanalyzer.core.common.clipboard.CopyResult
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.toAppReference
 import java.time.Instant
-import java.util.Locale
 
 @HiltViewModel(assistedFactory = CertificatesViewModel.Factory::class)
 internal class CertificatesViewModel @AssistedInject constructor(
@@ -103,11 +104,5 @@ private fun Certificate.toCertificateItem(now: Instant) = CertificateItem(
     subject = subject,
     trustLevel = trustLevel,
     isSelfSigned = isSelfSigned,
-    validity = when {
-        now.isBefore(validFrom) -> CertificateValidity.NotYetValid
-        now.isAfter(validUntil) -> CertificateValidity.Expired
-        else -> CertificateValidity.Valid
-    },
+    validity = validityAt(now),
 )
-
-private fun String.toFingerprint(): String = uppercase(Locale.ROOT).chunked(2).joinToString(":")

@@ -17,15 +17,16 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import sk.styk.martin.apkanalyzer.core.apppermissions.PermissionLabelProvider
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.GrantState
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.PermissionItem
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.PermissionItemMapper
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.PermissionScope
 import sk.styk.martin.apkanalyzer.core.apps.AppDetailRepository
 import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
-import sk.styk.martin.apkanalyzer.core.apps.permissions.Permission
 import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionLevel
 import sk.styk.martin.apkanalyzer.core.common.clipboard.ClipboardManager
 import sk.styk.martin.apkanalyzer.core.common.clipboard.CopyResult
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
-import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.toAppReference
 
@@ -35,8 +36,7 @@ internal class PermissionsViewModel @AssistedInject constructor(
     private val appDetailRepository: AppDetailRepository,
     private val dispatcherProvider: DispatcherProvider,
     private val clipboardManager: ClipboardManager,
-    private val permissionLabelProvider: PermissionLabelProvider,
-    private val permissionDescriptionProvider: PermissionDescriptionProvider,
+    private val permissionItemMapper: PermissionItemMapper,
 ) : ViewModel() {
 
     @AssistedFactory
@@ -104,48 +104,10 @@ internal class PermissionsViewModel @AssistedInject constructor(
         }
     }
 
-    private fun AppDetail.toSource(): PermissionsSource.Ready {
-        val reportsGrantState = appDetailInput is AppDetailInput.InstalledPackage
-        return PermissionsSource.Ready(
-            requested = permissions.used
-                .map { used ->
-                    used.permissionData.toItem(
-                        analysedPackage = info.packageName,
-                        grantState = when {
-                            !reportsGrantState -> null
-                            used.isGranted -> GrantState.Granted
-                            else -> GrantState.NotGranted
-                        },
-                    )
-                }
-                .mergeDuplicatesByName()
-                .sortedBy { it.label.lowercase() },
-            defined = permissions.defined
-                .map { it.toItem(analysedPackage = info.packageName, grantState = null) }
-                .mergeDuplicatesByName()
-                .sortedBy { it.label.lowercase() },
-        )
-    }
-
-    private fun Permission.toItem(analysedPackage: PackageName, grantState: GrantState?) = PermissionItem(
-        name = name,
-        label = permissionLabelProvider.getLabel(name),
-        description = permissionDescriptionProvider.describe(this),
-        groupName = details?.groupName,
-        protectionLevel = details?.protectionLevel,
-        protectionFlags = details?.protectionFlags.orEmpty().toList(),
-        grantState = grantState,
-        declaringPackage = details?.declaringPackage,
-        isSelfDeclared = details?.declaringPackage == analysedPackage,
+    private fun AppDetail.toSource() = PermissionsSource.Ready(
+        requested = permissionItemMapper.requested(this),
+        defined = permissionItemMapper.defined(this),
     )
-}
-
-private fun List<PermissionItem>.mergeDuplicatesByName(): List<PermissionItem> =
-    groupBy { it.name }.values.map { duplicates -> duplicates.reduce(::moreClassified) }
-
-private fun moreClassified(a: PermissionItem, b: PermissionItem): PermissionItem = when {
-    (a.protectionLevel == null) != (b.protectionLevel == null) -> if (a.protectionLevel != null) a else b
-    else -> a
 }
 
 private sealed interface PermissionsSource {

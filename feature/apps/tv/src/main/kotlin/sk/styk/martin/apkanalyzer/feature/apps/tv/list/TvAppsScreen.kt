@@ -40,19 +40,19 @@ import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.common.model.megabytes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.AppCard
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.AppCardWidth
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Button
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.ConfirmDialog
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SelectableListItem
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SidePanel
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.apps.tv.R
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.RestorableFocus
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.TvAppCard
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.TvAppCardWidth
 import sk.styk.martin.apkanalyzer.feature.apps.tv.components.TvAppItem
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.rememberRestorableFocus
 import java.text.DateFormat
 import java.time.Instant
 import java.util.Date
@@ -173,7 +173,7 @@ private fun TvAppsContent(state: TvAppsState, onAction: (TvAppsAction) -> Unit) 
             )
 
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = TvAppCardWidth),
+                columns = GridCells.Adaptive(minSize = AppCardWidth),
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(horizontal = 48.dp, vertical = 32.dp),
                 horizontalArrangement = Arrangement.spacedBy(20.dp),
@@ -230,8 +230,9 @@ private fun TvAppsContent(state: TvAppsState, onAction: (TvAppsAction) -> Unit) 
                     }
                 }
                 items(items = apps.apps, key = { it.packageName.value }) { app ->
-                    TvAppCard(
-                        app = app,
+                    AppCard(
+                        packageName = app.packageName,
+                        applicationName = app.applicationName,
                         onClick = { onAction(TvAppsAction.AppClicked(app.packageName)) },
                         description = app.sortValue(state.sortType),
                         modifier = cardFocus.modifierFor(installedCardKey(app.packageName)),
@@ -262,10 +263,11 @@ private fun RecentsSection(
             contentPadding = PaddingValues(horizontal = FocusBleed, vertical = 12.dp),
         ) {
             items(items = recents, key = { it.packageName.value }) { app ->
-                TvAppCard(
-                    app = app,
+                AppCard(
+                    packageName = app.packageName,
+                    applicationName = app.applicationName,
                     onClick = { onAction(TvAppsAction.AppClicked(app.packageName)) },
-                    modifier = cardFocus.modifierFor(recentCardKey(app.packageName)).width(TvAppCardWidth),
+                    modifier = cardFocus.modifierFor(recentCardKey(app.packageName)).width(AppCardWidth),
                 )
             }
         }

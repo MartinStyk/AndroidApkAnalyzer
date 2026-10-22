@@ -19,13 +19,16 @@ import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.core.apps.AppDetailRepository
 import sk.styk.martin.apkanalyzer.core.apps.components.Activity
 import sk.styk.martin.apkanalyzer.core.apps.components.BroadcastReceiver
+import sk.styk.martin.apkanalyzer.core.apps.components.ComponentFlag
 import sk.styk.martin.apkanalyzer.core.apps.components.ComponentIntentFilter
 import sk.styk.martin.apkanalyzer.core.apps.components.ComponentIntentFilterKey
 import sk.styk.martin.apkanalyzer.core.apps.components.ComponentKind
 import sk.styk.martin.apkanalyzer.core.apps.components.ContentProvider
 import sk.styk.martin.apkanalyzer.core.apps.components.Service
+import sk.styk.martin.apkanalyzer.core.apps.components.flags
 import sk.styk.martin.apkanalyzer.core.apps.components.hasUnguardedPathPermission
 import sk.styk.martin.apkanalyzer.core.apps.components.isExternallyReachableWithoutPermission
+import sk.styk.martin.apkanalyzer.core.apps.components.isLaunchable
 import sk.styk.martin.apkanalyzer.core.apps.intentfilters.IntentFiltersRepository
 import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
 import sk.styk.martin.apkanalyzer.core.common.clipboard.ClipboardManager
@@ -178,7 +181,7 @@ private fun Activity.toItem(canLaunch: Boolean, intentFilters: List<ComponentInt
     isExported = isExported,
     isGuarded = !permission.isNullOrBlank(),
     isUnprotected = isExternallyReachableWithoutPermission,
-    isLaunchable = canLaunch && isExported && permission.isNullOrBlank(),
+    isLaunchable = canLaunch && isLaunchable,
     flags = emptyImmutableFlags,
     intentFilters = intentFilters?.toItems(),
     details = ComponentDetails.ActivityDetails(
@@ -199,12 +202,7 @@ private fun Service.toItem(intentFilters: List<ComponentIntentFilter>?) = Compon
     isGuarded = !permission.isNullOrBlank(),
     isUnprotected = isExternallyReachableWithoutPermission,
     isLaunchable = false,
-    flags = buildList {
-        if (isStopWithTask) add(ComponentFlag.StopWithTask)
-        if (isSingleUser) add(ComponentFlag.SingleUser)
-        if (isIsolatedProcess) add(ComponentFlag.IsolatedProcess)
-        if (isExternalService) add(ComponentFlag.ExternalService)
-    },
+    flags = flags,
     intentFilters = intentFilters?.toItems(),
     details = ComponentDetails.ServiceDetails(permission = permission),
 )
@@ -217,7 +215,7 @@ private fun BroadcastReceiver.toItem(canLaunch: Boolean, intentFilters: List<Com
     isExported = isExported,
     isGuarded = !permission.isNullOrBlank(),
     isUnprotected = isExternallyReachableWithoutPermission,
-    isLaunchable = canLaunch && isExported && permission.isNullOrBlank(),
+    isLaunchable = canLaunch && isLaunchable,
     flags = emptyImmutableFlags,
     intentFilters = intentFilters?.toItems(),
     details = ComponentDetails.ReceiverDetails(permission = permission),

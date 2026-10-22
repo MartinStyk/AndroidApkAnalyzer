@@ -1,4 +1,4 @@
-package sk.styk.martin.apkanalyzer.feature.apps.tv.components
+package sk.styk.martin.apkanalyzer.core.designsystem.tv.focus
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -15,7 +15,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 
 @Stable
-internal class RestorableFocus(
+class RestorableFocus internal constructor(
     private val restoreKey: String,
     private val restoreFocusRequester: FocusRequester,
     private val onFocusKey: (String) -> Unit,
@@ -26,7 +26,7 @@ internal class RestorableFocus(
 }
 
 @Composable
-internal fun rememberRestorableFocus(
+fun rememberRestorableFocus(
     availableKeys: Set<String>,
     defaultKey: String,
     onFirstFocus: () -> Unit = {},

@@ -18,6 +18,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.GrantState
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.PermissionItem
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.explanationRes
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.grantExplanationRes
+import sk.styk.martin.apkanalyzer.core.apppermissions.detail.labelRes
 import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionFlag
 import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionLevel
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
@@ -27,10 +32,8 @@ import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.DetailField
-
-private const val UNDEFINED_PERMISSION_GROUP = "android.permission-group.UNDEFINED"
+import sk.styk.martin.apkanalyzer.core.apppermissions.R as PermissionsR
 
 @Composable
 internal fun PermissionDetailBottomSheet(
@@ -68,42 +71,42 @@ internal fun PermissionDetailBottomSheet(
             }
             Spacer(modifier = Modifier.height(12.dp))
             DetailField(
-                label = stringResource(R.string.permissions_detail_full_name),
+                label = stringResource(PermissionsR.string.permissions_detail_full_name),
                 value = item.name,
                 onCopy = onCopy,
             )
             item.declaringPackage?.let { declaringPackage ->
                 DetailField(
-                    label = stringResource(R.string.permissions_detail_declared_by),
+                    label = stringResource(PermissionsR.string.permissions_detail_declared_by),
                     value = declaringPackage.value,
                     onCopy = onCopy,
                 )
             }
-            item.groupName?.takeIf { it != UNDEFINED_PERMISSION_GROUP }?.let { group ->
+            item.displayGroupName?.let { group ->
                 DetailField(
-                    label = stringResource(R.string.permissions_detail_group),
+                    label = stringResource(PermissionsR.string.permissions_detail_group),
                     value = group,
                     onCopy = onCopy,
                 )
             }
 
-            SheetSection(title = stringResource(R.string.permissions_detail_section_status)) {
+            SheetSection(title = stringResource(PermissionsR.string.permissions_detail_section_status)) {
                 item.grantState?.let { grantState ->
                     DetailField(
-                        label = stringResource(R.string.permissions_detail_grant_state),
+                        label = stringResource(PermissionsR.string.permissions_detail_grant_state),
                         value = stringResource(grantState.labelRes),
                         explanation = item.grantExplanationRes?.let { stringResource(it) },
                         onCopy = onCopy,
                     )
                 }
                 DetailField(
-                    label = stringResource(R.string.permissions_detail_protection_level),
+                    label = stringResource(PermissionsR.string.permissions_detail_protection_level),
                     value = stringResource(item.protectionLevel.labelRes),
                     explanation = stringResource(item.protectionLevel.explanationRes),
                     onCopy = onCopy,
                 )
                 if (item.protectionFlags.isNotEmpty()) {
-                    LabelledBlock(label = stringResource(R.string.permissions_detail_extra_rules)) {
+                    LabelledBlock(label = stringResource(PermissionsR.string.permissions_detail_extra_rules)) {
                         item.protectionFlags.forEach { flag ->
                             Text(
                                 text = stringResource(flag.explanationRes),

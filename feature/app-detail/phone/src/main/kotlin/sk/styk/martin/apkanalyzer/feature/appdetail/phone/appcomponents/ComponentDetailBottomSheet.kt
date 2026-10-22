@@ -21,8 +21,12 @@ import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import sk.styk.martin.apkanalyzer.core.apps.components.ComponentFlag
 import sk.styk.martin.apkanalyzer.core.apps.components.IntentFilterDataRuleType
 import sk.styk.martin.apkanalyzer.core.apps.components.ProviderPathMatchType
+import sk.styk.martin.apkanalyzer.core.apps.components.explanationRes
+import sk.styk.martin.apkanalyzer.core.apps.components.exportedExplanationRes
+import sk.styk.martin.apkanalyzer.core.apps.components.labelRes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.BottomSheet
@@ -30,8 +34,8 @@ import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.DetailField
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 @Suppress("CyclomaticComplexMethod")
 @Composable
@@ -65,44 +69,37 @@ internal fun ComponentDetailBottomSheet(
             }
             Spacer(modifier = Modifier.height(12.dp))
             DetailField(
-                label = stringResource(R.string.components_detail_full_name),
+                label = stringResource(AppsR.string.components_detail_full_name),
                 value = item.name,
                 onCopy = onCopy,
             )
 
-            SheetSection(title = stringResource(R.string.components_detail_section_reachability)) {
+            SheetSection(title = stringResource(AppsR.string.components_detail_section_reachability)) {
                 DetailField(
-                    label = stringResource(R.string.components_detail_exported),
-                    value = stringResource(if (item.isExported) R.string.components_exported_yes else R.string.components_exported_no),
-                    explanation = stringResource(
-                        when {
-                            item.isLauncher -> R.string.components_exported_launcher_explanation
-                            item.isUnprotected -> R.string.components_exported_unprotected_explanation
-                            item.isExported -> R.string.components_exported_guarded_explanation
-                            else -> R.string.components_exported_no_explanation
-                        },
-                    ),
+                    label = stringResource(AppsR.string.components_detail_exported),
+                    value = stringResource(if (item.isExported) AppsR.string.components_exported_yes else AppsR.string.components_exported_no),
+                    explanation = stringResource(exportedExplanationRes(item.isExported, item.isLauncher, item.isUnprotected)),
                     onCopy = onCopy,
                 )
                 when (val details = item.details) {
                     is ComponentDetails.ActivityDetails -> details.permission?.let {
-                        DetailField(label = stringResource(R.string.components_detail_permission), value = it, onCopy = onCopy)
+                        DetailField(label = stringResource(AppsR.string.components_detail_permission), value = it, onCopy = onCopy)
                     }
 
                     is ComponentDetails.ServiceDetails -> details.permission?.let {
-                        DetailField(label = stringResource(R.string.components_detail_permission), value = it, onCopy = onCopy)
+                        DetailField(label = stringResource(AppsR.string.components_detail_permission), value = it, onCopy = onCopy)
                     }
 
                     is ComponentDetails.ReceiverDetails -> details.permission?.let {
-                        DetailField(label = stringResource(R.string.components_detail_permission), value = it, onCopy = onCopy)
+                        DetailField(label = stringResource(AppsR.string.components_detail_permission), value = it, onCopy = onCopy)
                     }
 
                     is ComponentDetails.ProviderDetails -> {
                         details.readPermission?.let {
-                            DetailField(label = stringResource(R.string.components_detail_read_permission), value = it, onCopy = onCopy)
+                            DetailField(label = stringResource(AppsR.string.components_detail_read_permission), value = it, onCopy = onCopy)
                         }
                         details.writePermission?.let {
-                            DetailField(label = stringResource(R.string.components_detail_write_permission), value = it, onCopy = onCopy)
+                            DetailField(label = stringResource(AppsR.string.components_detail_write_permission), value = it, onCopy = onCopy)
                         }
                     }
                 }
@@ -110,9 +107,9 @@ internal fun ComponentDetailBottomSheet(
 
             val providerDetails = item.details as? ComponentDetails.ProviderDetails
             if (providerDetails != null && providerDetails.pathPermissions.isNotEmpty()) {
-                SheetSection(title = stringResource(R.string.components_detail_section_path_permissions)) {
+                SheetSection(title = stringResource(AppsR.string.components_detail_section_path_permissions)) {
                     Text(
-                        text = stringResource(R.string.components_detail_path_permissions_explanation),
+                        text = stringResource(AppsR.string.components_detail_path_permissions_explanation),
                         style = AppTheme.typography.bodySmall,
                         color = AppTheme.colors.onSurfaceVariant,
                     )
@@ -120,19 +117,19 @@ internal fun ComponentDetailBottomSheet(
                     providerDetails.pathPermissions.forEachIndexed { index, pathPermission ->
                         if (index > 0) Spacer(modifier = Modifier.height(12.dp))
                         DetailField(
-                            label = stringResource(R.string.components_detail_path_permission_path),
+                            label = stringResource(AppsR.string.components_detail_path_permission_path),
                             value = pathPermission.path,
                             explanation = stringResource(pathPermission.matchType.explanationRes),
                             onCopy = onCopy,
                         )
                         DetailField(
-                            label = stringResource(R.string.components_detail_read_permission),
-                            value = pathPermission.readPermission ?: stringResource(R.string.components_detail_path_permission_open),
+                            label = stringResource(AppsR.string.components_detail_read_permission),
+                            value = pathPermission.readPermission ?: stringResource(AppsR.string.components_detail_path_permission_open),
                             onCopy = onCopy,
                         )
                         DetailField(
-                            label = stringResource(R.string.components_detail_write_permission),
-                            value = pathPermission.writePermission ?: stringResource(R.string.components_detail_path_permission_open),
+                            label = stringResource(AppsR.string.components_detail_write_permission),
+                            value = pathPermission.writePermission ?: stringResource(AppsR.string.components_detail_path_permission_open),
                             onCopy = onCopy,
                         )
                     }
@@ -141,9 +138,9 @@ internal fun ComponentDetailBottomSheet(
 
             val intentFilters = item.intentFilters
             if (!intentFilters.isNullOrEmpty()) {
-                SheetSection(title = stringResource(R.string.components_detail_section_intent_filters)) {
+                SheetSection(title = stringResource(AppsR.string.components_detail_section_intent_filters)) {
                     Text(
-                        text = stringResource(R.string.components_detail_intent_filters_explanation),
+                        text = stringResource(AppsR.string.components_detail_intent_filters_explanation),
                         style = AppTheme.typography.bodySmall,
                         color = AppTheme.colors.onSurfaceVariant,
                     )
@@ -158,13 +155,13 @@ internal fun ComponentDetailBottomSheet(
                     ) {
                         Column(modifier = Modifier.weight(1f)) {
                             Text(
-                                text = stringResource(R.string.components_detail_intent_filters_open),
+                                text = stringResource(AppsR.string.components_detail_intent_filters_open),
                                 style = AppTheme.typography.titleSmall,
                                 color = AppTheme.colors.onSurface,
                             )
                             Text(
                                 text = pluralStringResource(
-                                    R.plurals.components_intent_filter_count,
+                                    AppsR.plurals.components_intent_filter_count,
                                     intentFilters.size,
                                     intentFilters.size,
                                 ),
@@ -181,9 +178,9 @@ internal fun ComponentDetailBottomSheet(
                     }
                 }
             } else if (intentFilters == null) {
-                SheetSection(title = stringResource(R.string.components_detail_section_intent_filters)) {
+                SheetSection(title = stringResource(AppsR.string.components_detail_section_intent_filters)) {
                     Text(
-                        text = stringResource(R.string.components_detail_intent_filters_unavailable),
+                        text = stringResource(AppsR.string.components_detail_intent_filters_unavailable),
                         style = AppTheme.typography.bodyMedium,
                         color = AppTheme.colors.onSurfaceVariant,
                     )
@@ -198,30 +195,30 @@ internal fun ComponentDetailBottomSheet(
                     ) ||
                 (details is ComponentDetails.ProviderDetails && details.authority != null)
             if (hasTypeDetails) {
-                SheetSection(title = stringResource(R.string.components_detail_section_details)) {
+                SheetSection(title = stringResource(AppsR.string.components_detail_section_details)) {
                     when (details) {
                         is ComponentDetails.ActivityDetails -> {
                             if (item.isLauncher) {
                                 DetailField(
-                                    label = stringResource(R.string.components_detail_launcher),
-                                    value = stringResource(R.string.components_flag_enabled),
-                                    explanation = stringResource(R.string.components_detail_launcher_explanation),
+                                    label = stringResource(AppsR.string.components_detail_launcher),
+                                    value = stringResource(AppsR.string.components_flag_enabled),
+                                    explanation = stringResource(AppsR.string.components_detail_launcher_explanation),
                                     onCopy = onCopy,
                                 )
                             }
                             details.label?.let {
-                                DetailField(label = stringResource(R.string.components_detail_label), value = it, onCopy = onCopy)
+                                DetailField(label = stringResource(AppsR.string.components_detail_label), value = it, onCopy = onCopy)
                             }
                             details.targetActivity?.let {
-                                DetailField(label = stringResource(R.string.components_detail_target_activity), value = it, onCopy = onCopy)
+                                DetailField(label = stringResource(AppsR.string.components_detail_target_activity), value = it, onCopy = onCopy)
                             }
                             details.parentName?.let {
-                                DetailField(label = stringResource(R.string.components_detail_parent), value = it, onCopy = onCopy)
+                                DetailField(label = stringResource(AppsR.string.components_detail_parent), value = it, onCopy = onCopy)
                             }
                         }
 
                         is ComponentDetails.ProviderDetails -> details.authority?.let {
-                            DetailField(label = stringResource(R.string.components_detail_authority), value = it, onCopy = onCopy)
+                            DetailField(label = stringResource(AppsR.string.components_detail_authority), value = it, onCopy = onCopy)
                         }
 
                         else -> Unit
@@ -229,7 +226,7 @@ internal fun ComponentDetailBottomSheet(
                     item.flags.forEach { flag ->
                         DetailField(
                             label = stringResource(flag.labelRes),
-                            value = stringResource(R.string.components_flag_enabled),
+                            value = stringResource(AppsR.string.components_flag_enabled),
                             explanation = stringResource(flag.explanationRes),
                             onCopy = onCopy,
                         )

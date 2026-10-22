@@ -39,6 +39,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -47,6 +48,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.apps.insight.AppDetailInsight
+import sk.styk.martin.apkanalyzer.core.apps.insight.SensitiveAccess
+import sk.styk.martin.apkanalyzer.core.apps.insight.label
 import sk.styk.martin.apkanalyzer.core.apps.model.AppDetail
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificatePrincipal
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificateTrustLevel
@@ -55,6 +59,8 @@ import sk.styk.martin.apkanalyzer.core.common.model.AppSource
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.common.model.megabytes
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.permissionIcon
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.requirementIcon
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.Icon
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.components.LabeledHashBox
@@ -72,14 +78,11 @@ import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.AppDetailTo
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.AppSummaryBottomSheet
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.SplitApkExportBottomSheet
 import sk.styk.martin.apkanalyzer.feature.appdetail.phone.components.aisummary.AiSummaryCard
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.insight.AppDetailInsight
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.insight.SensitiveAccess
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.permissions.permissionIcon
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.requirements.requirementIcon
 import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.Date
 import java.util.Locale
+import sk.styk.martin.apkanalyzer.core.apps.R as AppsR
 
 private const val APK_MIME_TYPE = "application/vnd.android.package-archive"
 private const val ICON_MIME_TYPE = "image/png"
@@ -357,7 +360,7 @@ private fun WorthKnowingRow(
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            text = insight.label(),
+            text = insight.label(LocalResources.current),
             style = AppTheme.typography.bodyMedium,
             color = AppTheme.colors.onSurface,
             modifier = Modifier.weight(1f),
@@ -367,38 +370,6 @@ private fun WorthKnowingRow(
             tint = AppTheme.colors.onSurfaceVariant,
             modifier = Modifier.size(20.dp),
         )
-    }
-}
-
-@Composable
-private fun AppDetailInsight.label(): String = when (this) {
-    AppDetailInsight.Debuggable -> stringResource(R.string.app_detail_insight_debuggable)
-
-    AppDetailInsight.DebugCertificate -> stringResource(R.string.app_detail_insight_debug_certificate)
-
-    AppDetailInsight.CertificateNotYetValid -> stringResource(R.string.app_detail_insight_certificate_not_yet_valid)
-
-    AppDetailInsight.Sideloaded -> stringResource(R.string.app_detail_insight_sideloaded)
-
-    is AppDetailInsight.OutdatedTargetSdk -> pluralStringResource(
-        R.plurals.app_detail_insight_outdated_target,
-        apiLevelGap,
-        targetSdk,
-        apiLevelGap,
-    )
-
-    is AppDetailInsight.Unused -> pluralStringResource(
-        R.plurals.app_detail_insight_unused,
-        monthsSinceLastUsed,
-        monthsSinceLastUsed,
-    )
-
-    is AppDetailInsight.SensitivePermission -> when (access) {
-        SensitiveAccess.BackgroundLocation -> stringResource(R.string.app_detail_insight_background_location)
-        SensitiveAccess.Messages -> stringResource(R.string.app_detail_insight_messages)
-        SensitiveAccess.CallHistory -> stringResource(R.string.app_detail_insight_call_history)
-        SensitiveAccess.Contacts -> stringResource(R.string.app_detail_insight_contacts)
-        SensitiveAccess.Calendar -> stringResource(R.string.app_detail_insight_calendar)
     }
 }
 
@@ -483,12 +454,12 @@ private fun OverviewSection(
                 label = stringResource(R.string.app_detail_target_sdk),
                 value = when {
                     state.targetSdkVersion != null && state.targetSdkLabel != null ->
-                        stringResource(R.string.app_detail_sdk_version, state.targetSdkVersion, state.targetSdkLabel)
+                        stringResource(AppsR.string.app_detail_sdk_version, state.targetSdkVersion, state.targetSdkLabel)
 
                     state.targetSdkVersion != null ->
-                        stringResource(R.string.app_detail_sdk_version_no_label, state.targetSdkVersion)
+                        stringResource(AppsR.string.app_detail_sdk_version_no_label, state.targetSdkVersion)
 
-                    else -> stringResource(R.string.app_detail_unknown)
+                    else -> stringResource(AppsR.string.app_detail_unknown)
                 },
                 valueColor = if (state.isTargetSdkOutdated) AppTheme.colors.warning else AppTheme.colors.onBackground,
                 modifier = Modifier.weight(1f),
@@ -496,7 +467,7 @@ private fun OverviewSection(
             OverviewGridCell(
                 label = stringResource(R.string.app_detail_updated),
                 value = state.lastUpdateTime?.let { formatTimestamp(it) }
-                    ?: stringResource(R.string.app_detail_unknown),
+                    ?: stringResource(AppsR.string.app_detail_unknown),
                 modifier = Modifier.weight(1f),
             )
         }

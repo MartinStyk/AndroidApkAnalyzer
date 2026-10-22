@@ -3,15 +3,10 @@ package sk.styk.martin.apkanalyzer.feature.appdetail.phone.certificates
 import androidx.compose.runtime.Immutable
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificatePrincipal
 import sk.styk.martin.apkanalyzer.core.apps.signing.CertificateTrustLevel
+import sk.styk.martin.apkanalyzer.core.apps.signing.CertificateValidity
 import sk.styk.martin.apkanalyzer.core.apps.signing.SignatureAlgorithmAssessment
 import sk.styk.martin.apkanalyzer.core.apps.signing.SigningSchemeVersion
 import java.time.Instant
-
-internal enum class CertificateValidity {
-    Valid,
-    Expired,
-    NotYetValid,
-}
 
 @Immutable
 internal data class CertificateItem(

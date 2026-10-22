@@ -1,14 +1,14 @@
-package sk.styk.martin.apkanalyzer.feature.appdetail.phone.permissions
+package sk.styk.martin.apkanalyzer.core.apppermissions.detail
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import sk.styk.martin.apkanalyzer.core.apppermissions.R
 import sk.styk.martin.apkanalyzer.core.apps.permissions.Permission
-import sk.styk.martin.apkanalyzer.feature.appdetail.phone.R
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-internal class PermissionDescriptionProvider @Inject constructor(@ApplicationContext private val context: Context) {
+class PermissionDescriptionProvider @Inject constructor(@ApplicationContext private val context: Context) {
 
     fun describe(permission: Permission): String? = curatedDescriptions[permission.name]?.let(context::getString)
         ?: permission.details?.description?.takeIf { it.isNotBlank() }

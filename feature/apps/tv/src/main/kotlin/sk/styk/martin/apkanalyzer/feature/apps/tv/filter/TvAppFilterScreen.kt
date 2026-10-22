@@ -28,11 +28,11 @@ import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Button
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.FilterChip
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.apps.tv.R
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.RestorableFocus
-import sk.styk.martin.apkanalyzer.feature.apps.tv.components.rememberRestorableFocus
 
 @Composable
 internal fun TvAppFilterScreen(viewModel: TvAppFilterViewModel = hiltViewModel()) {

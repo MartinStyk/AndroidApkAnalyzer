@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.feature.appdetail.phone.nativelibraries
 
 import androidx.compose.runtime.Immutable
-import sk.styk.martin.apkanalyzer.core.common.model.AppSize
+import sk.styk.martin.apkanalyzer.core.apps.packaging.NativeLibraryItem
 
 @Immutable
 internal sealed interface NativeLibrariesState {
@@ -18,19 +18,3 @@ internal sealed interface NativeLibrariesState {
         val hasResults: Boolean get() = items.isNotEmpty()
     }
 }
-
-@Immutable
-internal data class NativeLibraryItem(
-    val name: String,
-    val abis: List<String>,
-    val totalSize: AppSize,
-    val isDeviceCompatible: Boolean,
-    val variants: List<NativeLibraryVariant>,
-)
-
-@Immutable
-internal data class NativeLibraryVariant(
-    val abi: String,
-    val size: AppSize,
-    val containingApkFileName: String,
-)
