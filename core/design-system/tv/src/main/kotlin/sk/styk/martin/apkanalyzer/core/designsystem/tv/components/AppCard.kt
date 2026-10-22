@@ -8,9 +8,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -20,6 +18,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.layout
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -33,6 +32,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.AppIcon
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.rememberAppAccentColor
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
+import kotlin.math.roundToInt
 import androidx.tv.material3.Card as TvMaterialCard
 
 val AppCardWidth: Dp = 180.dp
@@ -53,7 +53,7 @@ fun AppCard(
     )
     TvMaterialCard(
         onClick = onClick,
-        modifier = modifier.aspectRatio(TILE_ASPECT_RATIO),
+        modifier = modifier.minAspectRatio(TILE_ASPECT_RATIO),
         shape = CardDefaults.shape(shape = CardShape),
         colors = CardDefaults.colors(
             containerColor = AppTheme.colors.surface,
@@ -71,9 +71,10 @@ fun AppCard(
     ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
+                .fillMaxWidth()
                 .background(Brush.linearGradient(listOf(accent.copy(alpha = TINT_START_ALPHA), accent.copy(alpha = TINT_END_ALPHA))))
                 .padding(12.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Row(verticalAlignment = Alignment.Top) {
                 AppIcon(source = reference, size = 36.dp)
@@ -96,8 +97,7 @@ fun AppCard(
                     }
                 }
             }
-            Spacer(modifier = Modifier.weight(1f))
-            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+            Column(modifier = Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(2.dp)) {
                 Text(text = applicationName, style = AppTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 Text(
                     text = packageName.value,
@@ -109,6 +109,12 @@ fun AppCard(
             }
         }
     }
+}
+
+private fun Modifier.minAspectRatio(ratio: Float) = layout { measurable, constraints ->
+    val minHeight = if (constraints.hasBoundedWidth) (constraints.maxWidth / ratio).roundToInt() else 0
+    val placeable = measurable.measure(constraints.copy(minHeight = maxOf(constraints.minHeight, minHeight.coerceAtMost(constraints.maxHeight))))
+    layout(placeable.width, placeable.height) { placeable.place(0, 0) }
 }
 
 private val CardShape = RoundedCornerShape(12.dp)
