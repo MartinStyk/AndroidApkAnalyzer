@@ -23,8 +23,7 @@ depends on `app`, `core:design-system:phone`, Material3, a feature `phone` modul
 `TvApkAnalyzerApp.kt` is the assembly point for the TV Navigation 3 host and the side menu. Its
 top-level destinations reuse the feature `api` NavKeys and tab labels, so a destination has the same
 key and name on phone and TV. Each feature registers its TV screens through a `tv<Feature>Entries`
-function in its `feature/*/tv/navigation/` package; a top-level destination without a TV module yet
-renders only its title.
+function in its `feature/*/tv/navigation/` package and wires it into the `entryProvider` there.
 
 ## Manifest Contracts
 

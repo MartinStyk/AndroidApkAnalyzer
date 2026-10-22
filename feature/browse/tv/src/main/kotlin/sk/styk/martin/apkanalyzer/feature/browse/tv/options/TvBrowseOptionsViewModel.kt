@@ -1,0 +1,104 @@
+package sk.styk.martin.apkanalyzer.feature.browse.tv.options
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
+import sk.styk.martin.apkanalyzer.core.appindex.AppIndexRepository
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimensionLabeler
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseOption
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseSubAttribute
+import sk.styk.martin.apkanalyzer.core.appindex.browse.browseOptions
+import sk.styk.martin.apkanalyzer.core.appindex.browse.matches
+import sk.styk.martin.apkanalyzer.core.appindex.browse.subAttributes
+import sk.styk.martin.apkanalyzer.core.appindex.browse.subAttributesOrDefault
+import sk.styk.martin.apkanalyzer.core.appindex.model.AppIndexStatus
+import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
+
+@HiltViewModel(assistedFactory = TvBrowseOptionsViewModel.Factory::class)
+internal class TvBrowseOptionsViewModel @AssistedInject constructor(
+    @Assisted private val dimension: BrowseDimension,
+    appIndexRepository: AppIndexRepository,
+    private val labeler: BrowseDimensionLabeler,
+    dispatcherProvider: DispatcherProvider,
+) : ViewModel() {
+
+    @AssistedFactory
+    interface Factory {
+        fun create(dimension: BrowseDimension): TvBrowseOptionsViewModel
+    }
+
+    private val narrowing = MutableStateFlow(Narrowing())
+
+    private val source = appIndexRepository.index()
+        .map { status ->
+            when (status) {
+                AppIndexStatus.Loading -> OptionsSource.Loading
+
+                is AppIndexStatus.Data -> OptionsSource.Ready(
+                    dimension.subAttributesOrDefault().associateWith { status.index.browseOptions(dimension, it, labeler) },
+                )
+            }
+        }
+        .flowOn(dispatcherProvider.io())
+
+    val state: StateFlow<TvBrowseOptionsState> = combine(source, narrowing) { source, narrowing ->
+        when (source) {
+            OptionsSource.Loading -> TvBrowseOptionsState.Loading
+            is OptionsSource.Ready -> source.narrowedBy(narrowing, dimension.subAttributes())
+        }
+    }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), TvBrowseOptionsState.Loading)
+
+    private val eventChannel = Channel<TvBrowseOptionsEvent>(Channel.BUFFERED)
+    val events = eventChannel.receiveAsFlow()
+
+    fun onAction(action: TvBrowseOptionsAction) {
+        when (action) {
+            is TvBrowseOptionsAction.ChangeQuery -> narrowing.update { it.copy(query = action.query) }
+
+            is TvBrowseOptionsAction.SelectSubAttribute -> narrowing.update { it.copy(subAttribute = action.subAttribute) }
+
+            is TvBrowseOptionsAction.SelectOption -> eventChannel.trySend(
+                TvBrowseOptionsEvent.NavigateToApps(
+                    bucketKey = action.option.key,
+                    bucketLabel = action.option.label,
+                    subAttribute = (state.value as? TvBrowseOptionsState.Loaded)?.subAttribute,
+                ),
+            )
+        }
+    }
+}
+
+private data class Narrowing(val query: String = "", val subAttribute: BrowseSubAttribute? = null)
+
+private sealed interface OptionsSource {
+    data object Loading : OptionsSource
+
+    data class Ready(val optionsBySubAttribute: Map<BrowseSubAttribute?, List<BrowseOption>>) : OptionsSource
+}
+
+private fun OptionsSource.Ready.narrowedBy(narrowing: Narrowing, subAttributes: List<BrowseSubAttribute>): TvBrowseOptionsState.Loaded {
+    val subAttribute = narrowing.subAttribute?.takeIf { it in optionsBySubAttribute } ?: optionsBySubAttribute.keys.firstOrNull()
+    val allOptions = optionsBySubAttribute[subAttribute].orEmpty()
+    return TvBrowseOptionsState.Loaded(
+        query = narrowing.query,
+        subAttribute = subAttribute,
+        subAttributes = subAttributes,
+        totalOptions = allOptions.size,
+        options = allOptions.filter { it.matches(narrowing.query) },
+    )
+}

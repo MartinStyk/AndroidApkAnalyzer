@@ -34,7 +34,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseBucketDetail
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseSubAttribute
 import sk.styk.martin.apkanalyzer.core.apps.permissions.ProtectionLevel
+import sk.styk.martin.apkanalyzer.core.apps.signing.CertificatePrincipal
+import sk.styk.martin.apkanalyzer.core.apps.signing.CertificateValidity
 import sk.styk.martin.apkanalyzer.core.apps.signing.SignatureAlgorithmAssessment
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
@@ -55,8 +60,8 @@ import sk.styk.martin.apkanalyzer.core.designsystem.phone.modifier.rememberColla
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.ApkAnalyzerTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.phone.theme.Shapes
 import sk.styk.martin.apkanalyzer.feature.browse.phone.R
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.BrowseSubAttribute
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
+import java.time.Instant
+import sk.styk.martin.apkanalyzer.core.appindex.R as AppIndexR
 
 @Composable
 internal fun BrowseAppsScreen(
@@ -195,7 +200,7 @@ private fun CertificateDetailContent(detail: BrowseBucketDetail.Certificate, mod
         Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
             Chip(label = stringResource(detail.algorithmAssessment.labelRes), variant = detail.algorithmAssessment.chipVariant())
             if (detail.isSelfSigned) {
-                Chip(label = stringResource(R.string.browse_certificate_self_signed), variant = ChipVariant.Default)
+                Chip(label = stringResource(AppIndexR.string.browse_certificate_self_signed), variant = ChipVariant.Default)
             }
         }
         Spacer(modifier = Modifier.height(12.dp))
@@ -207,7 +212,7 @@ private fun CertificateDetailContent(detail: BrowseBucketDetail.Certificate, mod
         if (detail.isSelfSigned) {
             Spacer(modifier = Modifier.height(12.dp))
             Text(
-                text = stringResource(R.string.browse_certificate_self_signed_explanation),
+                text = stringResource(AppIndexR.string.browse_certificate_self_signed_explanation),
                 style = AppTheme.typography.bodyMedium,
                 color = AppTheme.colors.onSurfaceVariant,
             )
@@ -291,7 +296,7 @@ private fun BrowseAppsList(
         ) {
             SearchBarActive(
                 query = state.query,
-                placeholder = pluralStringResource(R.plurals.browse_apps_filter_hint, state.totalApps, state.totalApps),
+                placeholder = pluralStringResource(AppIndexR.plurals.browse_apps_filter_hint, state.totalApps, state.totalApps),
                 sharedElementKey = null,
                 onQueryChange = { onAction(BrowseAppsAction.ChangeQuery(it)) },
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
@@ -315,7 +320,7 @@ private fun BrowseAppsList(
             }
         } else {
             Text(
-                text = stringResource(R.string.browse_apps_empty_query, state.query),
+                text = stringResource(AppIndexR.string.browse_apps_empty_query, state.query),
                 style = AppTheme.typography.bodyLarge,
                 color = AppTheme.colors.onBackground,
                 textAlign = TextAlign.Center,
@@ -419,6 +424,11 @@ private fun BrowseBucketDetailCertificatePreview() {
                 algorithm = "SHA1withRSA",
                 algorithmAssessment = SignatureAlgorithmAssessment.WeakSha1Digest,
                 isSelfSigned = true,
+                subject = CertificatePrincipal(name = "Android", organization = "Android", country = "US"),
+                issuer = CertificatePrincipal(name = "Android", organization = "Android", country = "US"),
+                validFrom = Instant.parse("2008-02-29T01:33:46Z"),
+                validUntil = Instant.parse("2035-07-17T01:33:46Z"),
+                validity = CertificateValidity.Valid,
             ),
             onDismiss = {},
         )

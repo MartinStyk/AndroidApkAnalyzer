@@ -1,9 +1,9 @@
 package sk.styk.martin.apkanalyzer.feature.browse.phone
 
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimension
 import sk.styk.martin.apkanalyzer.core.common.analytics.AnalyticsEvent
 import sk.styk.martin.apkanalyzer.core.common.analytics.AnalyticsParameterName
 import sk.styk.martin.apkanalyzer.core.common.analytics.AnalyticsTracker
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
 import javax.inject.Inject
 
 internal class BrowseAnalytics @Inject constructor(private val analyticsTracker: AnalyticsTracker) {

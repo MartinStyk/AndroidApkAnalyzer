@@ -1,12 +1,9 @@
-package sk.styk.martin.apkanalyzer.feature.browse.phone.domain
+package sk.styk.martin.apkanalyzer.core.appindex.browse
 
 import androidx.annotation.StringRes
-import kotlinx.serialization.Serializable
-import sk.styk.martin.apkanalyzer.feature.browse.phone.R
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.R
 
-@Serializable
-internal enum class BrowseSubAttribute(@StringRes val labelRes: Int) {
+enum class BrowseSubAttribute(@StringRes val labelRes: Int) {
     CertificateSha256(R.string.browse_certificate_attribute_sha256),
     CertificateSha1(R.string.browse_certificate_attribute_sha1),
     CertificateMd5(R.string.browse_certificate_attribute_md5),
@@ -14,7 +11,7 @@ internal enum class BrowseSubAttribute(@StringRes val labelRes: Int) {
     CertificateCountry(R.string.browse_certificate_attribute_country),
 }
 
-internal fun BrowseDimension.subAttributes(): List<BrowseSubAttribute> = when (this) {
+fun BrowseDimension.subAttributes(): List<BrowseSubAttribute> = when (this) {
     BrowseDimension.SigningCertificate -> listOf(
         BrowseSubAttribute.CertificateSha256,
         BrowseSubAttribute.CertificateSha1,
@@ -32,7 +29,7 @@ internal fun BrowseDimension.subAttributes(): List<BrowseSubAttribute> = when (t
     -> listOf()
 }
 
-internal val BrowseSubAttribute?.isCertificateHash: Boolean
+val BrowseSubAttribute?.isCertificateHash: Boolean
     get() = when (this) {
         BrowseSubAttribute.CertificateSha256,
         BrowseSubAttribute.CertificateSha1,
@@ -46,7 +43,7 @@ internal val BrowseSubAttribute?.isCertificateHash: Boolean
     }
 
 @get:StringRes
-internal val BrowseSubAttribute.cardLabelRes: Int
+val BrowseSubAttribute.cardLabelRes: Int
     get() = when (this) {
         BrowseSubAttribute.CertificateSha256 -> R.string.browse_certificate_hash_sha256
 

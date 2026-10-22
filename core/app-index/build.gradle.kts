@@ -5,11 +5,10 @@ plugins {
 
 android {
     namespace = "sk.styk.martin.apkanalyzer.core.appindex"
-
-    androidResources.enable = false
 }
 
 dependencies {
+    implementation(projects.core.appPermissions)
     implementation(projects.core.apps)
     implementation(projects.core.common)
 }

@@ -1,17 +1,16 @@
-package sk.styk.martin.apkanalyzer.feature.browse.phone.domain
+package sk.styk.martin.apkanalyzer.core.appindex.browse
 
 import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
+import sk.styk.martin.apkanalyzer.core.appindex.R
 import sk.styk.martin.apkanalyzer.core.apppermissions.PermissionLabelProvider
 import sk.styk.martin.apkanalyzer.core.apps.model.AppCategory
 import sk.styk.martin.apkanalyzer.core.apps.sdkversion.SdkVersionResolver
 import sk.styk.martin.apkanalyzer.core.common.model.AppSource
-import sk.styk.martin.apkanalyzer.feature.browse.phone.R
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
 import java.util.Locale
 import javax.inject.Inject
 
-internal class BrowseDimensionLabeler @Inject constructor(
+class BrowseDimensionLabeler @Inject constructor(
     @ApplicationContext private val context: Context,
     private val permissionLabelProvider: PermissionLabelProvider,
     private val sdkVersionResolver: SdkVersionResolver,

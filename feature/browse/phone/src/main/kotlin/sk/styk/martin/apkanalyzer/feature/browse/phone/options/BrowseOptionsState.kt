@@ -1,7 +1,8 @@
 package sk.styk.martin.apkanalyzer.feature.browse.phone.options
 
 import androidx.compose.runtime.Immutable
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.BrowseSubAttribute
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseOption
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseSubAttribute
 
 @Immutable
 internal sealed interface BrowseOptionsState {
@@ -15,27 +16,4 @@ internal sealed interface BrowseOptionsState {
         val totalOptions: Int,
         val options: List<BrowseOption>,
     ) : BrowseOptionsState
-}
-
-@Immutable
-internal sealed interface BrowseOption {
-    val key: String
-    val label: String
-    val count: Int
-
-    @Immutable
-    data class Labeled(
-        override val key: String,
-        override val label: String,
-        val rawIdentifier: String?,
-        override val count: Int,
-    ) : BrowseOption
-
-    @Immutable
-    data class CertificateHash(
-        override val key: String,
-        override val label: String,
-        val algorithm: BrowseSubAttribute,
-        override val count: Int,
-    ) : BrowseOption
 }

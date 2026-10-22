@@ -1,7 +1,7 @@
 package sk.styk.martin.apkanalyzer.feature.browse.phone
 
 import androidx.compose.runtime.Immutable
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimensionSummary
 
 @Immutable
 internal sealed interface BrowseState {
@@ -9,12 +9,5 @@ internal sealed interface BrowseState {
     data object Loading : BrowseState
 
     @Immutable
-    data class Loaded(val totalApps: Int, val dimensions: List<DimensionSummary>) : BrowseState
+    data class Loaded(val totalApps: Int, val dimensions: List<BrowseDimensionSummary>) : BrowseState
 }
-
-@Immutable
-internal data class DimensionSummary(
-    val dimension: BrowseDimension,
-    val optionCount: Int,
-    val topLabels: List<String>,
-)

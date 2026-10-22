@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tv_browse_loading">Scanning installed apps…</string>
+    <string name="tv_browse_permission_about">About this permission</string>
+    <string name="tv_browse_certificate_about">About this certificate</string>
+    <string name="tv_browse_no_apps">No apps on this device match anymore.</string>
+    <string name="tv_browse_label_list">%1$s · %2$s</string>
+</resources>

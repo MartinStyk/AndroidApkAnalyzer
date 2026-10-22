@@ -17,17 +17,17 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import sk.styk.martin.apkanalyzer.core.appindex.AppIndexRepository
-import sk.styk.martin.apkanalyzer.core.appindex.model.AppAttributeIndex
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimension
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseDimensionLabeler
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseOption
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseSubAttribute
+import sk.styk.martin.apkanalyzer.core.appindex.browse.browseOptions
+import sk.styk.martin.apkanalyzer.core.appindex.browse.matches
+import sk.styk.martin.apkanalyzer.core.appindex.browse.subAttributesOrDefault
 import sk.styk.martin.apkanalyzer.core.appindex.model.AppIndexStatus
 import sk.styk.martin.apkanalyzer.core.common.coroutines.DispatcherProvider
 import sk.styk.martin.apkanalyzer.feature.browse.phone.BrowseAnalytics
 import sk.styk.martin.apkanalyzer.feature.browse.phone.BrowseAnalyticsEvent
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.BrowseDimensionLabeler
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.BrowseSubAttribute
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.bucketsFor
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.isCertificateHash
-import sk.styk.martin.apkanalyzer.feature.browse.phone.domain.subAttributes
-import sk.styk.martin.apkanalyzer.feature.browse.phone.model.BrowseDimension
 
 @HiltViewModel(assistedFactory = BrowseOptionsViewModel.Factory::class)
 internal class BrowseOptionsViewModel @AssistedInject constructor(
@@ -43,8 +43,7 @@ internal class BrowseOptionsViewModel @AssistedInject constructor(
         fun create(dimension: BrowseDimension): BrowseOptionsViewModel
     }
 
-    private val subAttributes: List<BrowseSubAttribute?> =
-        dimension.subAttributes().takeIf { it.isNotEmpty() } ?: listOf(null)
+    private val subAttributes: List<BrowseSubAttribute?> = dimension.subAttributesOrDefault()
 
     private val narrowing = MutableStateFlow(Narrowing())
 
@@ -87,30 +86,9 @@ internal class BrowseOptionsViewModel @AssistedInject constructor(
         AppIndexStatus.Loading -> OptionsSource.Loading
 
         is AppIndexStatus.Data -> OptionsSource.Ready(
-            optionsBySubAttribute = subAttributes.associateWith { subAttribute -> index.buildOptions(subAttribute) },
+            optionsBySubAttribute = subAttributes.associateWith { subAttribute -> index.browseOptions(dimension, subAttribute, labeler) },
         )
     }
-
-    private fun AppAttributeIndex.buildOptions(subAttribute: BrowseSubAttribute?): List<BrowseOption> = bucketsFor(dimension, subAttribute)
-        .map { (key, packages) ->
-            val label = labeler.label(dimension, key, subAttribute)
-            if (subAttribute.isCertificateHash) {
-                BrowseOption.CertificateHash(
-                    key = key,
-                    label = label,
-                    algorithm = requireNotNull(subAttribute),
-                    count = packages.size,
-                )
-            } else {
-                BrowseOption.Labeled(
-                    key = key,
-                    label = label,
-                    rawIdentifier = labeler.rawIdentifier(dimension, key, subAttribute),
-                    count = packages.size,
-                )
-            }
-        }
-        .sortedWith(compareByDescending<BrowseOption> { it.count }.thenBy { it.label })
 }
 
 private data class Narrowing(val query: String = "", val subAttribute: BrowseSubAttribute? = null)
@@ -133,8 +111,3 @@ private fun OptionsSource.Ready.narrowedBy(narrowing: Narrowing): BrowseOptionsS
         options = filtered,
     )
 }
-
-private fun BrowseOption.matches(query: String): Boolean = query.isBlank() ||
-    key.contains(query, ignoreCase = true) ||
-    label.contains(query, ignoreCase = true) ||
-    (this as? BrowseOption.Labeled)?.rawIdentifier?.contains(query, ignoreCase = true) == true
