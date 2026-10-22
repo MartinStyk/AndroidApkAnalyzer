@@ -92,9 +92,9 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
 
 * Every interactive component must be reachable and operable with a D-pad alone; touch is not
   required on TV.
-* Focused cards get a thin accent border and a slight lift, no glow (`FocusStyle.kt`); list rows rely
-  on their filled focus state alone. Keep focus quiet: reuse these values for a new focusable card
-  rather than adding a stronger effect.
+* Focused cards get a thin accent border and a slight lift, no glow (`FocusStyle.kt`); list rows get
+  the same border over a `surfaceVariant` fill rather than an inverted white block. Keep focus quiet:
+  reuse these values for a new focusable card or row rather than adding a stronger effect.
 * Previews use `@Preview(device = Devices.TV_1080p)` and wrap content in `ApkAnalyzerTvTheme`.
 
 ## Shared Component Rules
