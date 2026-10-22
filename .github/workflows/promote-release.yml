@@ -10,6 +10,18 @@ on:
         description: 'Percentage of production users to receive the update (1-100)'
         required: false
         default: '100'
+  workflow_call:
+    inputs:
+      version:
+        type: string
+        required: true
+      rollout-percentage:
+        type: string
+        required: false
+        default: '100'
+      form-factor:
+        type: string
+        required: true
 
 run-name: Promote ${{ inputs.version }} to production (${{ inputs.rollout-percentage }}%)
 
@@ -19,6 +31,11 @@ permissions:
 jobs:
   promote:
     runs-on: ubuntu-latest
+    env:
+      FORM_FACTOR: ${{ inputs.form-factor || 'phone' }}
+      MODULE: ${{ inputs.form-factor == 'tv' && 'tv' || 'app' }}
+      TESTING_TRACK: ${{ inputs.form-factor == 'tv' && 'tv:Beta TV' || 'beta' }}
+      PRODUCTION_TRACK: ${{ inputs.form-factor == 'tv' && 'tv:production' || 'production' }}
 
     steps:
       - uses: actions/checkout@v7
@@ -40,11 +57,11 @@ jobs:
           ACCESS_TOKEN: ${{ steps.auth.outputs.access_token }}
           VERSION: ${{ inputs.version }}
         run: |
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
-          TARGET_VERSION_CODE=$((MAJOR * 10000 + MINOR * 100 + PATCH))
+          TARGET_VERSION_CODE=$(bash .github/scripts/version-code.sh "${VERSION%.tv}" "$FORM_FACTOR")
           echo "version-code=$TARGET_VERSION_CODE" >> "$GITHUB_OUTPUT"
 
           BASE="https://androidpublisher.googleapis.com/androidpublisher/v3/applications/sk.styk.martin.apkanalyzer"
+          PRODUCTION_TRACK_PATH=$(jq -rn --arg track "$PRODUCTION_TRACK" '$track | @uri')
 
           TRACK_BODY_FILE=$(mktemp)
           cleanup() {
@@ -63,7 +80,7 @@ jobs:
             exit 1
           fi
 
-          TRACK_STATUS=$(curl -sS -o "$TRACK_BODY_FILE" -w "%{http_code}" -H "Authorization: Bearer $ACCESS_TOKEN" "$BASE/edits/$EDIT_ID/tracks/production")
+          TRACK_STATUS=$(curl -sS -o "$TRACK_BODY_FILE" -w "%{http_code}" -H "Authorization: Bearer $ACCESS_TOKEN" "$BASE/edits/$EDIT_ID/tracks/$PRODUCTION_TRACK_PATH")
 
           if [ "$TRACK_STATUS" -eq 404 ]; then
             PROD_VERSION_CODE=""
@@ -73,7 +90,7 @@ jobs:
             PROD_VERSION_CODE=$(echo "$PROD_RELEASE" | jq -r '.versionCodes[0] // empty')
             PROD_RELEASE_STATUS=$(echo "$PROD_RELEASE" | jq -r '.status // empty')
           else
-            echo "::error::Failed to read production track. HTTP status: $TRACK_STATUS"
+            echo "::error::Failed to read $PRODUCTION_TRACK track. HTTP status: $TRACK_STATUS"
             echo "::error::Response: $(cat "$TRACK_BODY_FILE")"
             exit 1
           fi
@@ -86,10 +103,10 @@ jobs:
               exit 1
             fi
             echo "Production's in-progress release (version code $PROD_VERSION_CODE) matches the target; adjusting its rollout percentage."
-            echo "from-track=production" >> "$GITHUB_OUTPUT"
+            echo "from-track=$PRODUCTION_TRACK" >> "$GITHUB_OUTPUT"
           else
-            echo "Promoting version code $TARGET_VERSION_CODE fresh from beta."
-            echo "from-track=beta" >> "$GITHUB_OUTPUT"
+            echo "Promoting version code $TARGET_VERSION_CODE fresh from $TESTING_TRACK."
+            echo "from-track=$TESTING_TRACK" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Promote Play Store release to production
@@ -104,15 +121,15 @@ jobs:
             exit 1
           fi
 
-          if [ "$FROM_TRACK" = "production" ]; then
-            TRACK_ARGS=(--update production)
+          if [ "$FROM_TRACK" = "$PRODUCTION_TRACK" ]; then
+            TRACK_ARGS=(--update "$PRODUCTION_TRACK")
           else
-            TRACK_ARGS=(--from-track "$FROM_TRACK" --promote-track production)
+            TRACK_ARGS=(--from-track "$FROM_TRACK" --promote-track "$PRODUCTION_TRACK")
           fi
 
           if [ "$ROLLOUT_PERCENTAGE" -eq 100 ]; then
-            ./gradlew :app:promoteArtifact "${TRACK_ARGS[@]}" --version-code "$VERSION_CODE" --release-status completed
+            ./gradlew ":$MODULE:promoteArtifact" "${TRACK_ARGS[@]}" --version-code "$VERSION_CODE" --release-status completed
           else
             USER_FRACTION=$(awk "BEGIN { printf \"%.2f\", $ROLLOUT_PERCENTAGE / 100 }")
-            ./gradlew :app:promoteArtifact "${TRACK_ARGS[@]}" --version-code "$VERSION_CODE" --release-status inProgress --user-fraction "$USER_FRACTION"
+            ./gradlew ":$MODULE:promoteArtifact" "${TRACK_ARGS[@]}" --version-code "$VERSION_CODE" --release-status inProgress --user-fraction "$USER_FRACTION"
           fi
