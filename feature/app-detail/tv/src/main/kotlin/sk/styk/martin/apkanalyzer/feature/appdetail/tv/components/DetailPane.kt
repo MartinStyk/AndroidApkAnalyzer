@@ -43,11 +43,11 @@ internal fun DetailPane(
             if (isCodeValue) {
                 CodeBox(text = value)
             } else {
-                Text(text = value, style = AppTheme.typography.titleLarge)
+                Text(text = value, style = AppTheme.typography.titleMedium)
             }
         }
         if (explanation != null) {
-            Text(text = explanation, style = AppTheme.typography.bodyLarge, color = AppTheme.colors.onSurfaceVariant)
+            Text(text = explanation, style = AppTheme.typography.bodyMedium, color = AppTheme.colors.onSurfaceVariant)
         }
         content()
     }
