@@ -67,7 +67,7 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
   line, when selected), `InfoCard` (a focusable card with title, icon, free content, and a warning
   tone that tints the whole card), `InfoListItem` (a label/value row with an optional leading icon
   and a chevron when it leads somewhere), `Tag` (a non-focusable fact), `SegmentedBar` and `SegmentedBarLegend` (proportions with a dot legend), `CodeBox`
-  (monospace value for hashes and identifiers), `AccentBackdrop` (a soft radial glow in the app's color with a fine grain
+  (monospace value for hashes and identifiers; `compact` for cards), `AccentBackdrop` (a soft radial glow in the app's color with a fine grain
   that hides banding on dark screens, usually from `rememberAppAccentColor`), `AppCard` (an installed app's icon, name, and package, with
   `AppCardWidth` for grids), `ScrollablePanel` (a surface for explanations that becomes focusable
   only when its content overflows, then scrolls on Up/Down), `IconBadge` (an icon in a tinted circle, the phone's icon

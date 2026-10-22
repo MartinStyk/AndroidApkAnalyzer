@@ -22,21 +22,27 @@ fun CodeBox(
     modifier: Modifier = Modifier,
     label: String? = null,
     maxLines: Int = Int.MAX_VALUE,
+    compact: Boolean = false,
 ) {
+    val style = if (compact) {
+        AppTheme.typography.monospace.copy(fontSize = AppTheme.typography.bodySmall.fontSize, lineHeight = AppTheme.typography.bodySmall.lineHeight)
+    } else {
+        AppTheme.typography.monospace
+    }
     Column(modifier = modifier.fillMaxWidth(), verticalArrangement = Arrangement.spacedBy(6.dp)) {
         if (label != null) {
             Text(text = label, style = AppTheme.typography.labelLarge, color = AppTheme.colors.onSurfaceVariant)
         }
         Text(
             text = text,
-            style = AppTheme.typography.monospace,
+            style = style,
             color = AppTheme.colors.onSurface,
             maxLines = maxLines,
             overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .fillMaxWidth()
                 .background(color = AppTheme.colors.surfaceVariant, shape = CodeShape)
-                .padding(horizontal = 16.dp, vertical = 12.dp),
+                .padding(horizontal = if (compact) 10.dp else 16.dp, vertical = if (compact) 8.dp else 12.dp),
         )
     }
 }

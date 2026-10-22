@@ -411,7 +411,7 @@ private fun CertificatesCard(
                 overflow = TextOverflow.Ellipsis,
             )
         }
-        state.sha256Fingerprint?.let { CodeBox(text = it, maxLines = 2) }
+        state.sha256Fingerprint?.let { CodeBox(text = it, maxLines = 3, compact = true) }
     }
 }
 
