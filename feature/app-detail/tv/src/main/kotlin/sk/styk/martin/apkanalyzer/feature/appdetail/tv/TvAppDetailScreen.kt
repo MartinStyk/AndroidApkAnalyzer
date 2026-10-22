@@ -15,11 +15,14 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalResources
@@ -31,6 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import kotlinx.coroutines.launch
 import sk.styk.martin.apkanalyzer.core.apppermissions.detail.labelRes
 import sk.styk.martin.apkanalyzer.core.apps.components.ComponentKind
 import sk.styk.martin.apkanalyzer.core.apps.components.sectionLabelRes
@@ -138,9 +142,12 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
         },
         defaultKey = if (canOpenAppInfo) APP_INFO_KEY else PLAY_STORE_KEY,
     )
+    val gridState = rememberLazyGridState()
+    val coroutineScope = rememberCoroutineScope()
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(SECTION_COLUMNS),
+        state = gridState,
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 48.dp, vertical = 36.dp),
         horizontalArrangement = Arrangement.spacedBy(24.dp),
@@ -149,7 +156,10 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
         fullWidthItem(key = "header") {
             Column(verticalArrangement = Arrangement.spacedBy(32.dp)) {
                 Header(state = state)
-                Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    modifier = Modifier.onFocusChanged { if (it.hasFocus) coroutineScope.launch { gridState.animateScrollToItem(0) } },
+                ) {
                     if (canOpenAppInfo) {
                         Button(
                             onClick = { onAction(TvAppDetailAction.OpenAppInfo) },
