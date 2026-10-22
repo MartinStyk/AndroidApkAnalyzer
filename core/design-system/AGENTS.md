@@ -70,7 +70,8 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
   (monospace value for hashes and identifiers), `AccentBackdrop` (a soft radial glow in the app's color with a fine grain
   that hides banding on dark screens, usually from `rememberAppAccentColor`), `AppCard` (an installed app's icon, name, and package, with
   `AppCardWidth` for grids), `ScrollablePanel` (a surface for explanations that becomes focusable
-  only when its content overflows, then scrolls on Up/Down), `Icon`, `Text`.
+  only when its content overflows, then scrolls on Up/Down), `IconBadge` (an icon in a tinted circle, the phone's icon
+  treatment; use it instead of a bare icon on cards, rows, and headers), `Icon`, `Text`.
 * `SearchField` is built on `BasicTextField` because TV Material has no text field. A text field
   swallows D-pad Up/Down for cursor movement, which traps remote users; it hands those keys back to
   focus navigation and keeps Left/Right for the cursor.
@@ -91,6 +92,8 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
 
 * Every interactive component must be reachable and operable with a D-pad alone; touch is not
   required on TV.
+* Focused cards and rows glow in their accent color with a thin border (`FocusStyle.kt`). Use the
+  same values for a new focusable surface so focus looks the same everywhere.
 * Previews use `@Preview(device = Devices.TV_1080p)` and wrap content in `ApkAnalyzerTvTheme`.
 
 ## Shared Component Rules

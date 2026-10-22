@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Border
 import androidx.tv.material3.CardDefaults
-import androidx.tv.material3.Icon
+import androidx.tv.material3.Glow
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
@@ -55,10 +55,11 @@ fun InfoCard(
         ),
         border = CardDefaults.border(
             focusedBorder = Border(
-                border = BorderStroke(width = 2.dp, color = accent),
+                border = BorderStroke(width = FocusBorderWidth, color = accent.copy(alpha = FOCUS_BORDER_ALPHA)),
                 shape = CardShape,
             ),
         ),
+        glow = CardDefaults.glow(focusedGlow = Glow(elevationColor = accent.copy(alpha = FOCUS_GLOW_ALPHA), elevation = FocusGlowElevation)),
         scale = CardDefaults.scale(focusedScale = 1.04f),
     ) {
         Column(
@@ -67,9 +68,9 @@ fun InfoCard(
                 .padding(20.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 if (icon != null) {
-                    Icon(imageVector = icon, contentDescription = null, tint = accent, modifier = Modifier.size(24.dp))
+                    IconBadge(icon = icon, tint = accent)
                 }
                 Text(
                     text = title,

@@ -12,6 +12,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Glow
 import androidx.tv.material3.Icon
 import androidx.tv.material3.ListItemDefaults
 import androidx.tv.material3.LocalContentColor
@@ -42,6 +43,9 @@ fun InfoListItem(
             focusedContainerColor = AppTheme.colors.onSurface,
             focusedContentColor = AppTheme.colors.surface,
         ),
+        glow = ListItemDefaults.glow(
+            focusedGlow = Glow(elevationColor = AppTheme.colors.primary.copy(alpha = FOCUS_GLOW_ALPHA), elevation = FocusGlowElevation),
+        ),
         scale = ListItemDefaults.scale(focusedScale = 1.02f),
         headlineContent = {
             Text(text = label, style = AppTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
@@ -57,12 +61,7 @@ fun InfoListItem(
         },
         leadingContent = leadingIcon?.let { icon ->
             {
-                Icon(
-                    imageVector = icon,
-                    contentDescription = null,
-                    tint = if (highlighted) AppTheme.colors.warning else iconTint,
-                    modifier = Modifier.size(28.dp),
-                )
+                IconBadge(icon = icon, tint = if (highlighted) AppTheme.colors.warning else iconTint)
             }
         },
         trailingContent = trailingIcon?.let { icon ->

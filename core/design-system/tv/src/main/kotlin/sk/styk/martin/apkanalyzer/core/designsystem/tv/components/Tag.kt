@@ -26,7 +26,7 @@ fun Tag(
 ) {
     Row(
         modifier = modifier
-            .background(color = AppTheme.colors.surfaceVariant, shape = TagShape)
+            .background(color = AppTheme.colors.primaryContainer, shape = TagShape)
             .padding(horizontal = 12.dp, vertical = 6.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),

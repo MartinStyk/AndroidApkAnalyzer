@@ -14,6 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Border
 import androidx.tv.material3.CardDefaults
+import androidx.tv.material3.Glow
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.AppIcon
@@ -73,9 +74,12 @@ fun WideCard(
         ),
         border = CardDefaults.border(
             focusedBorder = Border(
-                border = BorderStroke(width = 2.dp, color = AppTheme.colors.primary),
+                border = BorderStroke(width = FocusBorderWidth, color = AppTheme.colors.primary.copy(alpha = FOCUS_BORDER_ALPHA)),
                 shape = CardShape,
             ),
+        ),
+        glow = CardDefaults.glow(
+            focusedGlow = Glow(elevationColor = AppTheme.colors.primary.copy(alpha = FOCUS_GLOW_ALPHA), elevation = FocusGlowElevation),
         ),
         scale = CardDefaults.scale(focusedScale = 1.05f),
         contentPadding = PaddingValues(16.dp),
