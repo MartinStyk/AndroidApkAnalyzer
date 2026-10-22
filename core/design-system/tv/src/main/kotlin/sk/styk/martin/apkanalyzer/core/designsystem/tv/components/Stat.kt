@@ -22,7 +22,7 @@ fun Stat(
     valueColor: Color = AppTheme.colors.onSurface,
 ) {
     Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(2.dp)) {
-        Text(text = value, style = AppTheme.typography.headlineMedium, color = valueColor, maxLines = 1)
+        Text(text = value, style = AppTheme.typography.headlineSmall, color = valueColor, maxLines = 1)
         Text(
             text = label,
             style = AppTheme.typography.labelLarge,

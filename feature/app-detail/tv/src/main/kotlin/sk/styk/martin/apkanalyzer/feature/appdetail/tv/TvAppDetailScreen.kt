@@ -221,11 +221,11 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
 @Composable
 private fun Header(state: TvAppDetailState.Loaded) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(36.dp)) {
-        AppIcon(source = state.appReference, size = 144.dp)
+        AppIcon(source = state.appReference, size = 112.dp)
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             Text(
                 text = state.appName,
-                style = AppTheme.typography.displayMedium,
+                style = AppTheme.typography.headlineLarge,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
             )

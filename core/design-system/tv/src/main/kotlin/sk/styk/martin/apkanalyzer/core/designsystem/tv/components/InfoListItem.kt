@@ -44,12 +44,12 @@ fun InfoListItem(
         ),
         scale = ListItemDefaults.scale(focusedScale = 1.02f),
         headlineContent = {
-            Text(text = label, style = AppTheme.typography.titleSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(text = label, style = AppTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
         },
         supportingContent = {
             Text(
                 text = value,
-                style = AppTheme.typography.bodyLarge,
+                style = AppTheme.typography.bodyMedium,
                 color = if (highlighted) AppTheme.colors.warning else LocalContentColor.current.copy(alpha = 0.8f),
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,

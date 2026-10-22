@@ -146,7 +146,7 @@ private fun Header(
 ) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(24.dp)) {
         Column {
-            Text(text = stringResource(R.string.tv_filter_title), style = AppTheme.typography.headlineMedium)
+            Text(text = stringResource(R.string.tv_filter_title), style = AppTheme.typography.headlineSmall)
             Text(
                 text = pluralStringResource(R.plurals.tv_filter_matching, state.matchingAppCount, state.matchingAppCount),
                 style = AppTheme.typography.bodyLarge,

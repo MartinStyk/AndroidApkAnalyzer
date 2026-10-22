@@ -84,7 +84,7 @@ private fun LoadedContent(state: TvManifestState.Loaded) {
             .padding(horizontal = 48.dp, vertical = 27.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
-        Text(text = stringResource(AppsR.string.manifest_title), style = AppTheme.typography.headlineMedium)
+        Text(text = stringResource(AppsR.string.manifest_title), style = AppTheme.typography.headlineSmall)
         Text(
             text = pluralStringResource(AppsR.plurals.manifest_line_count, state.lines.size, state.lines.size),
             style = AppTheme.typography.titleMedium,

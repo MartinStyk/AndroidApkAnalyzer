@@ -42,7 +42,7 @@ internal fun BrowseHeader(
             Icon(imageVector = icon, tint = AppTheme.colors.primary, modifier = Modifier.size(32.dp))
         }
         Column {
-            Text(text = title, style = AppTheme.typography.headlineMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+            Text(text = title, style = AppTheme.typography.headlineSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Text(
                 text = subtitle,
                 style = AppTheme.typography.titleMedium,

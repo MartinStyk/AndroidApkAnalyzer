@@ -75,7 +75,7 @@ private fun LoadedContent(state: TvBrowseState.Loaded, onAction: (TvBrowseAction
     ) {
         item(key = HEADER_KEY, span = { GridItemSpan(maxLineSpan) }) {
             Column(modifier = Modifier.padding(bottom = 8.dp)) {
-                Text(text = stringResource(BrowseApiR.string.browse), style = AppTheme.typography.headlineLarge)
+                Text(text = stringResource(BrowseApiR.string.browse), style = AppTheme.typography.headlineSmall)
                 Text(
                     text = pluralStringResource(AppIndexR.plurals.browse_subtitle, state.totalApps, state.totalApps),
                     style = AppTheme.typography.titleMedium,

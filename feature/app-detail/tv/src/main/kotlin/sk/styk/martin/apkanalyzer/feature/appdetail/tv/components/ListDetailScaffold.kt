@@ -50,7 +50,7 @@ internal fun <T> ListDetailScaffold(
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                     AppIcon(source = appReference, size = 56.dp)
                     Column {
-                        Text(text = title, style = AppTheme.typography.headlineMedium)
+                        Text(text = title, style = AppTheme.typography.headlineSmall)
                         Text(
                             text = subtitle,
                             style = AppTheme.typography.titleMedium,
