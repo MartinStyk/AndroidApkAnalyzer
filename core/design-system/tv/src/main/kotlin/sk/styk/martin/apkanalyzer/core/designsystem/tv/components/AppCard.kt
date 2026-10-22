@@ -1,20 +1,41 @@
 package sk.styk.martin.apkanalyzer.core.designsystem.tv.components
 
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Border
+import androidx.tv.material3.CardDefaults
 import sk.styk.martin.apkanalyzer.core.common.model.AppReference
 import sk.styk.martin.apkanalyzer.core.common.model.PackageName
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.AppIcon
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.rememberAppAccentColor
+import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
+import androidx.tv.material3.Card as TvMaterialCard
 
-val AppCardWidth: Dp = 280.dp
+val AppCardWidth: Dp = 180.dp
 
 @Composable
 fun AppCard(
@@ -24,21 +45,79 @@ fun AppCard(
     modifier: Modifier = Modifier,
     description: String? = null,
 ) {
-    WideCard(
-        onClick = onClick,
-        image = {
-            AppIcon(
-                source = AppReference.InstalledPackage(packageName),
-                size = 48.dp,
-                modifier = Modifier.padding(end = 16.dp),
-            )
-        },
-        title = applicationName,
-        subtitle = packageName.value,
-        description = description,
-        modifier = modifier.fillMaxWidth(),
+    val reference = remember(packageName) { AppReference.InstalledPackage(packageName) }
+    val accent by animateColorAsState(
+        targetValue = rememberAppAccentColor(reference) ?: AppTheme.colors.surfaceVariant,
+        animationSpec = tween(durationMillis = TINT_FADE_DURATION),
+        label = "appCardTint",
     )
+    TvMaterialCard(
+        onClick = onClick,
+        modifier = modifier.aspectRatio(TILE_ASPECT_RATIO),
+        shape = CardDefaults.shape(shape = CardShape),
+        colors = CardDefaults.colors(
+            containerColor = AppTheme.colors.surface,
+            contentColor = AppTheme.colors.onSurface,
+            focusedContainerColor = AppTheme.colors.surfaceVariant,
+            focusedContentColor = AppTheme.colors.onSurface,
+        ),
+        border = CardDefaults.border(
+            focusedBorder = Border(
+                border = BorderStroke(width = FocusBorderWidth, color = AppTheme.colors.primary),
+                shape = CardShape,
+            ),
+        ),
+        scale = CardDefaults.scale(focusedScale = 1.05f),
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Brush.linearGradient(listOf(accent.copy(alpha = TINT_START_ALPHA), accent.copy(alpha = TINT_END_ALPHA))))
+                .padding(12.dp),
+        ) {
+            Row(verticalAlignment = Alignment.Top) {
+                AppIcon(source = reference, size = 36.dp)
+                Box(
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(start = 8.dp),
+                    contentAlignment = Alignment.TopEnd,
+                ) {
+                    if (description != null) {
+                        Text(
+                            text = description,
+                            style = AppTheme.typography.labelMedium,
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis,
+                            modifier = Modifier
+                                .background(color = AppTheme.colors.background.copy(alpha = PILL_ALPHA), shape = PillShape)
+                                .padding(horizontal = 6.dp, vertical = 2.dp),
+                        )
+                    }
+                }
+            }
+            Spacer(modifier = Modifier.weight(1f))
+            Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
+                Text(text = applicationName, style = AppTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                Text(
+                    text = packageName.value,
+                    style = AppTheme.typography.bodySmall,
+                    color = AppTheme.colors.onSurfaceVariant,
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                )
+            }
+        }
+    }
 }
+
+private val CardShape = RoundedCornerShape(12.dp)
+private val PillShape = RoundedCornerShape(6.dp)
+private const val TILE_ASPECT_RATIO = 16f / 9f
+private const val TINT_START_ALPHA = 0.34f
+private const val TINT_END_ALPHA = 0.08f
+private const val PILL_ALPHA = 0.55f
+private const val TINT_FADE_DURATION = 400
 
 @Preview(device = Devices.TV_1080p, showBackground = true, backgroundColor = 0xFF000000)
 @Composable

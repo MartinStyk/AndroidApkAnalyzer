@@ -2,6 +2,10 @@
 <resources>
     <string name="tv_apps_recently_viewed">Recently viewed</string>
     <string name="tv_apps_installed">Installed apps</string>
+    <plurals name="tv_apps_count">
+        <item quantity="one">%1$d app</item>
+        <item quantity="other">%1$d apps</item>
+    </plurals>
     <string name="tv_apps_loading">Loading apps…</string>
     <string name="tv_apps_search">Search apps</string>
     <string name="tv_search_placeholder">Search by app or package name</string>

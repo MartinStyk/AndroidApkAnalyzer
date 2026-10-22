@@ -43,8 +43,9 @@ it hides the row while filters are active, so everything on screen matches the f
   the side menu. Card keys carry their section (`recent:` / `installed:`) because one app can appear
   in both.
 * Selecting an app opens `AppDetailNavKey`, the same key the phone uses.
-* Sorting lives in a side panel opened from the Sort button next to Search and Filters, keeping the
-  grid one tap from the top row. Each row has three states: off, then its natural direction on the
+* The list has a fixed header (title, app count, Search, Sort, Filters) above a scrolling grid of
+  `AppCard` tiles tinted with each app's color; when sorted by anything but name, each tile shows its
+  sort value. Sorting lives in a side panel opened from the Sort button. Each row has three states: off, then its natural direction on the
   first press (name and target SDK ascending, sizes and dates largest/newest first), then reversed on
   every further press, so changing direction never means scrolling to a separate control. Every dialog or panel on the screen is one `TvAppsOverlay` value, so two can
   never show at once.

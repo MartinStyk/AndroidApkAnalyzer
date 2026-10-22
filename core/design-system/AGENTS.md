@@ -60,16 +60,15 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
 * `components/` - thin wrappers over TV Material components, styled with the palette. Prefer a TV
   Material component over a hand-built layout. `ScreenSurface` (root background and text color),
   `NavigationDrawer` (TV Material's modal drawer; it reserves the collapsed rail's width so content
-  never sits under it), `WideCard` (`WideClassicCard`: image start, title, subtitle, and an accent
-  description line), `FilterChip`, `ConfirmDialog` (focus starts on the confirm button), `Button`,
+  never sits under it),  `FilterChip`, `ConfirmDialog` (focus starts on the confirm button), `Button`,
   `SearchField`, `SidePanel` (an end-aligned panel over the dimmed screen, for options that belong
   to the current screen), `SelectableListItem` (a TV `ListItem` with a check, or a caller-supplied icon and supporting
   line, when selected), `InfoCard` (a focusable card with title, icon, free content, and a warning
   tone that tints the whole card), `InfoListItem` (a label/value row with an optional leading icon
   and a chevron when it leads somewhere), `Tag` (a non-focusable fact), `SegmentedBar` and `SegmentedBarLegend` (proportions with a dot legend), `CodeBox`
   (monospace value for hashes and identifiers; `compact` for cards), `AccentBackdrop` (a soft radial glow in the app's color with a fine grain
-  that hides banding on dark screens, usually from `rememberAppAccentColor`), `AppCard` (an installed app's icon, name, and package, with
-  `AppCardWidth` for grids), `ScrollablePanel` (a surface for explanations that becomes focusable
+  that hides banding on dark screens, usually from `rememberAppAccentColor`), `AppCard` (a 16:9 app tile tinted with the app's color: icon, an
+  optional value pill such as the sort value, name and package; `AppCardWidth` is its grid minimum), `ScrollablePanel` (a surface for explanations that becomes focusable
   only when its content overflows, then scrolls on Up/Down), `IconBadge` (an icon in a tinted circle, the phone's icon
   treatment; use it instead of a bare icon on cards, rows, and headers), `Icon`, `Text`.
 * `SearchField` is built on `BasicTextField` because TV Material has no text field. A text field
