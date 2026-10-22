@@ -32,6 +32,8 @@ Split APKs, and the manifest. It never depends on `phone`.
   `components/`, `devicefeatures/`, `packaging/`, `installsource/` text files and their strings) and
   `core:app-permissions` `detail/`. Each app keeps only its own screen text. Add a new explanation
   there, not in either feature module, so both apps stay translated and agree with each other.
+* The hub is a hero header (icon, name, badges, App info and Play Store) followed by horizontal
+  rows: "Worth knowing" and "Details". Focusing the action row scrolls back to the hero.
 * The hub and every section sit on an `AccentBackdrop` tinted by the app icon's color. Hub cards show
   data (stats, a protection-level bar, the fingerprint in a `CodeBox`) rather than sentences, and use
   the warning tone only when the card's own predicate flags a problem.

@@ -10,12 +10,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyGridScope
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.itemsIndexed
-import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListScope
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -66,6 +65,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Tag
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.MinimalFocusScroll
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
 import sk.styk.martin.apkanalyzer.feature.appdetail.tv.components.SectionError
@@ -142,23 +142,21 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
         },
         defaultKey = if (canOpenAppInfo) APP_INFO_KEY else PLAY_STORE_KEY,
     )
-    val gridState = rememberLazyGridState()
+    val listState = rememberLazyListState()
     val coroutineScope = rememberCoroutineScope()
 
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(SECTION_COLUMNS),
-        state = gridState,
+    LazyColumn(
+        state = listState,
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(horizontal = 48.dp, vertical = 36.dp),
-        horizontalArrangement = Arrangement.spacedBy(24.dp),
-        verticalArrangement = Arrangement.spacedBy(24.dp),
+        verticalArrangement = Arrangement.spacedBy(32.dp),
     ) {
-        fullWidthItem(key = "header") {
-            Column(verticalArrangement = Arrangement.spacedBy(32.dp)) {
+        item(key = "header") {
+            Column(verticalArrangement = Arrangement.spacedBy(28.dp)) {
                 Header(state = state)
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(16.dp),
-                    modifier = Modifier.onFocusChanged { if (it.hasFocus) coroutineScope.launch { gridState.animateScrollToItem(0) } },
+                    modifier = Modifier.onFocusChanged { if (it.hasFocus) coroutineScope.launch { listState.animateScrollToItem(0) } },
                 ) {
                     if (canOpenAppInfo) {
                         Button(
@@ -178,43 +176,74 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
             }
         }
         if (state.insights.isNotEmpty()) {
-            sectionTitle(key = "insights-title", title = R.string.tv_app_detail_worth_knowing)
-            itemsIndexed(state.insights, key = { index, _ -> insightKey(index) }) { index, insight ->
-                InfoCard(
-                    onClick = { onAction(TvAppDetailAction.OpenInsight(insight)) },
-                    title = insight.label(LocalResources.current),
-                    icon = ApkAnalyzerIcons.Warning,
-                    tone = InfoCardTone.Warning,
-                    modifier = focus.modifierFor(insightKey(index)).height(InsightCardHeight),
-                )
+            item(key = "insights") {
+                CardRow(title = stringResource(R.string.tv_app_detail_worth_knowing)) {
+                    itemsIndexed(state.insights, key = { index, _ -> insightKey(index) }) { index, insight ->
+                        InfoCard(
+                            onClick = { onAction(TvAppDetailAction.OpenInsight(insight)) },
+                            title = insight.label(LocalResources.current),
+                            icon = ApkAnalyzerIcons.Warning,
+                            tone = InfoCardTone.Warning,
+                            modifier = focus.modifierFor(insightKey(index)).size(width = InsightCardWidth, height = InsightCardHeight),
+                        )
+                    }
+                }
             }
         }
-        sectionTitle(key = "details-title", title = R.string.tv_app_detail_details)
-        item(key = GENERAL_INFO_KEY) {
-            GeneralInfoCard(state = state, onClick = { onAction(TvAppDetailAction.OpenGeneralInfo) }, modifier = focus.modifierFor(GENERAL_INFO_KEY))
-        }
-        item(key = PERMISSIONS_KEY) {
-            PermissionsCard(state = state, onClick = { onAction(TvAppDetailAction.OpenPermissions) }, modifier = focus.modifierFor(PERMISSIONS_KEY))
-        }
-        item(key = COMPONENTS_KEY) {
-            ComponentsCard(state = state, onClick = { onAction(TvAppDetailAction.OpenComponents) }, modifier = focus.modifierFor(COMPONENTS_KEY))
-        }
-        item(key = CERTIFICATES_KEY) {
-            CertificatesCard(state = state, onClick = { onAction(TvAppDetailAction.OpenCertificates) }, modifier = focus.modifierFor(CERTIFICATES_KEY))
-        }
-        item(key = REQUIREMENTS_KEY) {
-            RequirementsCard(state = state, onClick = { onAction(TvAppDetailAction.OpenRequirements) }, modifier = focus.modifierFor(REQUIREMENTS_KEY))
-        }
-        item(key = MANIFEST_KEY) {
-            SectionCard(
-                onClick = { onAction(TvAppDetailAction.OpenManifest) },
-                title = stringResource(AppsR.string.manifest_title),
-                icon = ApkAnalyzerIcons.File,
-                modifier = focus.modifierFor(MANIFEST_KEY),
-            ) {
-                CardLine(text = stringResource(R.string.tv_app_detail_manifest_description))
+        item(key = "details") {
+            CardRow(title = stringResource(R.string.tv_app_detail_details)) {
+                item(key = GENERAL_INFO_KEY) {
+                    GeneralInfoCard(
+                        state = state,
+                        onClick = { onAction(TvAppDetailAction.OpenGeneralInfo) },
+                        modifier = focus.modifierFor(GENERAL_INFO_KEY),
+                    )
+                }
+                item(key = PERMISSIONS_KEY) {
+                    PermissionsCard(state = state, onClick = { onAction(TvAppDetailAction.OpenPermissions) }, modifier = focus.modifierFor(PERMISSIONS_KEY))
+                }
+                item(key = COMPONENTS_KEY) {
+                    ComponentsCard(state = state, onClick = { onAction(TvAppDetailAction.OpenComponents) }, modifier = focus.modifierFor(COMPONENTS_KEY))
+                }
+                item(key = CERTIFICATES_KEY) {
+                    CertificatesCard(
+                        state = state,
+                        onClick = { onAction(TvAppDetailAction.OpenCertificates) },
+                        modifier = focus.modifierFor(CERTIFICATES_KEY),
+                    )
+                }
+                item(key = REQUIREMENTS_KEY) {
+                    RequirementsCard(
+                        state = state,
+                        onClick = { onAction(TvAppDetailAction.OpenRequirements) },
+                        modifier = focus.modifierFor(REQUIREMENTS_KEY),
+                    )
+                }
+                item(key = MANIFEST_KEY) {
+                    SectionCard(
+                        onClick = { onAction(TvAppDetailAction.OpenManifest) },
+                        title = stringResource(AppsR.string.manifest_title),
+                        icon = ApkAnalyzerIcons.File,
+                        modifier = focus.modifierFor(MANIFEST_KEY),
+                    ) {
+                        CardLine(text = stringResource(R.string.tv_app_detail_manifest_description))
+                    }
+                }
             }
         }
+    }
+}
+
+@Composable
+private fun CardRow(title: String, content: LazyListScope.() -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        Text(text = title, style = AppTheme.typography.titleLarge)
+        LazyRow(
+            modifier = Modifier.bleedHorizontally(RowBleed),
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            contentPadding = PaddingValues(horizontal = RowBleed, vertical = 12.dp),
+            content = content,
+        )
     }
 }
 
@@ -231,7 +260,7 @@ private fun Header(state: TvAppDetailState.Loaded) {
             )
             Text(
                 text = state.packageName.value,
-                style = AppTheme.typography.titleLarge,
+                style = AppTheme.typography.titleMedium,
                 color = AppTheme.colors.onSurfaceVariant,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -259,7 +288,7 @@ private fun SectionCard(
         title = title,
         icon = icon,
         tone = tone,
-        modifier = modifier.height(CardHeight),
+        modifier = modifier.size(width = CardWidth, height = CardHeight),
     ) {
         Column(modifier = Modifier.padding(top = 10.dp), verticalArrangement = Arrangement.spacedBy(12.dp), content = content)
     }
@@ -464,23 +493,8 @@ private val AppDetailBadge.icon: ImageVector
         AppDetailBadge.RecentlyUsed -> ApkAnalyzerIcons.History
     }
 
-private fun LazyGridScope.fullWidthItem(key: String, content: @Composable () -> Unit) {
-    item(key = key, span = { GridItemSpan(maxLineSpan) }) { content() }
-}
-
-private fun LazyGridScope.sectionTitle(key: String, title: Int) {
-    fullWidthItem(key = key) {
-        Text(
-            text = stringResource(title),
-            style = AppTheme.typography.titleLarge,
-            modifier = Modifier.padding(top = 8.dp),
-        )
-    }
-}
-
 private fun insightKey(index: Int) = "insight:$index"
 
-private const val SECTION_COLUMNS = 3
 private const val APP_INFO_KEY = "action:app-info"
 private const val PLAY_STORE_KEY = "action:play-store"
 private const val GENERAL_INFO_KEY = "section:general-info"
@@ -490,8 +504,11 @@ private const val CERTIFICATES_KEY = "section:certificates"
 private const val REQUIREMENTS_KEY = "section:requirements"
 private const val MANIFEST_KEY = "section:manifest"
 private val SECTION_KEYS = listOf(GENERAL_INFO_KEY, PERMISSIONS_KEY, COMPONENTS_KEY, CERTIFICATES_KEY, REQUIREMENTS_KEY, MANIFEST_KEY)
-private val CardHeight = 256.dp
+private val CardWidth = 300.dp
+private val CardHeight = 232.dp
+private val InsightCardWidth = 300.dp
 private val InsightCardHeight = 140.dp
+private val RowBleed = 16.dp
 
 @Preview(device = Devices.TV_1080p, showBackground = true, backgroundColor = 0xFF000000)
 @Composable
