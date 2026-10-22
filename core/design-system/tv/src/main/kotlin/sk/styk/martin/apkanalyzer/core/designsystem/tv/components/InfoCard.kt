@@ -63,12 +63,12 @@ fun InfoCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(20.dp),
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+            Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(10.dp)) {
                 if (icon != null) {
-                    IconBadge(icon = icon, tint = accent)
+                    IconBadge(icon = icon, tint = accent, size = 28.dp)
                 }
                 Text(
                     text = title,

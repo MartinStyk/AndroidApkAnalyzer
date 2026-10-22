@@ -19,22 +19,36 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 
 internal val ApkAnalyzerTvTypography =
     Typography(
-        displayLarge = TextStyle(fontWeight = FontWeight.Normal, fontSize = 57.sp, lineHeight = 64.sp, letterSpacing = (-0.25).sp),
-        displayMedium = TextStyle(fontWeight = FontWeight.Normal, fontSize = 45.sp, lineHeight = 52.sp, letterSpacing = 0.sp),
-        displaySmall = TextStyle(fontWeight = FontWeight.Normal, fontSize = 36.sp, lineHeight = 44.sp, letterSpacing = 0.sp),
-        headlineLarge = TextStyle(fontWeight = FontWeight.Normal, fontSize = 32.sp, lineHeight = 40.sp, letterSpacing = 0.sp),
-        headlineMedium = TextStyle(fontWeight = FontWeight.Normal, fontSize = 28.sp, lineHeight = 36.sp, letterSpacing = 0.sp),
-        headlineSmall = TextStyle(fontWeight = FontWeight.Normal, fontSize = 24.sp, lineHeight = 32.sp, letterSpacing = 0.sp),
-        titleLarge = TextStyle(fontWeight = FontWeight.Medium, fontSize = 22.sp, lineHeight = 28.sp, letterSpacing = 0.sp),
-        titleMedium = TextStyle(fontWeight = FontWeight.Medium, fontSize = 16.sp, lineHeight = 24.sp, letterSpacing = 0.15.sp),
-        titleSmall = TextStyle(fontWeight = FontWeight.Medium, fontSize = 14.sp, lineHeight = 20.sp, letterSpacing = 0.1.sp),
-        bodyLarge = TextStyle(fontWeight = FontWeight.Normal, fontSize = 16.sp, lineHeight = 24.sp, letterSpacing = 0.5.sp),
-        bodyMedium = TextStyle(fontWeight = FontWeight.Normal, fontSize = 14.sp, lineHeight = 20.sp, letterSpacing = 0.25.sp),
-        bodySmall = TextStyle(fontWeight = FontWeight.Normal, fontSize = 12.sp, lineHeight = 16.sp, letterSpacing = 0.4.sp),
-        labelLarge = TextStyle(fontWeight = FontWeight.Medium, fontSize = 14.sp, lineHeight = 20.sp, letterSpacing = 0.1.sp),
-        labelMedium = TextStyle(fontWeight = FontWeight.Medium, fontSize = 12.sp, lineHeight = 16.sp, letterSpacing = 0.5.sp),
-        labelSmall = TextStyle(fontWeight = FontWeight.Medium, fontSize = 11.sp, lineHeight = 16.sp, letterSpacing = 0.sp),
+        displayLarge = tvStyle(FontWeight.Normal, size = 57f, lineHeight = 64f, letterSpacing = -0.25f),
+        displayMedium = tvStyle(FontWeight.Normal, size = 45f, lineHeight = 52f, letterSpacing = 0f),
+        displaySmall = tvStyle(FontWeight.Normal, size = 36f, lineHeight = 44f, letterSpacing = 0f),
+        headlineLarge = tvStyle(FontWeight.Normal, size = 32f, lineHeight = 40f, letterSpacing = 0f),
+        headlineMedium = tvStyle(FontWeight.Normal, size = 28f, lineHeight = 36f, letterSpacing = 0f),
+        headlineSmall = tvStyle(FontWeight.Normal, size = 24f, lineHeight = 32f, letterSpacing = 0f),
+        titleLarge = tvStyle(FontWeight.Medium, size = 22f, lineHeight = 28f, letterSpacing = 0f),
+        titleMedium = tvStyle(FontWeight.Medium, size = 16f, lineHeight = 24f, letterSpacing = 0.15f),
+        titleSmall = tvStyle(FontWeight.Medium, size = 14f, lineHeight = 20f, letterSpacing = 0.1f),
+        bodyLarge = tvStyle(FontWeight.Normal, size = 16f, lineHeight = 24f, letterSpacing = 0.5f),
+        bodyMedium = tvStyle(FontWeight.Normal, size = 14f, lineHeight = 20f, letterSpacing = 0.25f),
+        bodySmall = tvStyle(FontWeight.Normal, size = 12f, lineHeight = 16f, letterSpacing = 0.4f),
+        labelLarge = tvStyle(FontWeight.Medium, size = 14f, lineHeight = 20f, letterSpacing = 0.1f),
+        labelMedium = tvStyle(FontWeight.Medium, size = 12f, lineHeight = 16f, letterSpacing = 0.5f),
+        labelSmall = tvStyle(FontWeight.Medium, size = 11f, lineHeight = 16f, letterSpacing = 0f),
     )
+
+private fun tvStyle(
+    weight: FontWeight,
+    size: Float,
+    lineHeight: Float,
+    letterSpacing: Float,
+) = TextStyle(
+    fontWeight = weight,
+    fontSize = (size * TV_TYPE_SCALE).sp,
+    lineHeight = (lineHeight * TV_TYPE_SCALE).sp,
+    letterSpacing = letterSpacing.sp,
+)
+
+private const val TV_TYPE_SCALE = 0.875f
 
 internal fun Typography.toApkAnalyzerTypographyStyles() = ApkAnalyzerTypographyStyles(
     displayLarge = displayLarge,

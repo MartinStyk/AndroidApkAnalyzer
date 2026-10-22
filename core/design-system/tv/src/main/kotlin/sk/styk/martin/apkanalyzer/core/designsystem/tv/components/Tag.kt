@@ -27,12 +27,12 @@ fun Tag(
     Row(
         modifier = modifier
             .background(color = AppTheme.colors.primaryContainer, shape = TagShape)
-            .padding(horizontal = 12.dp, vertical = 6.dp),
+            .padding(horizontal = 10.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         if (icon != null) {
-            Icon(imageVector = icon, contentDescription = null, tint = AppTheme.colors.primary, modifier = Modifier.size(16.dp))
+            Icon(imageVector = icon, contentDescription = null, tint = AppTheme.colors.primary, modifier = Modifier.size(14.dp))
         }
         Text(text = label, style = AppTheme.typography.labelLarge, color = AppTheme.colors.onSurface, maxLines = 2)
     }

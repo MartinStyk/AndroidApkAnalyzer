@@ -53,9 +53,10 @@ exception is `InactiveSearchBar`, which lives in `SearchBarInactive.kt`.
 
 * `theme/` - `ApkAnalyzerTvTheme`, which provides the TV values for `AppTheme`. TV is dark-only by
   product decision, following Google's TV guidance; do not add a light palette or a theme setting.
-  `ApkAnalyzerTvTypography` is pinned explicitly to the TV Material default sizes, which are already
-  tuned for viewing across a room, plus a `monospace` style for fingerprints and hashes. Screen titles
-  use `headlineSmall`; reserve the larger styles for the one hero line on a page.
+  `ApkAnalyzerTvTypography` is the TV Material scale multiplied by `TV_TYPE_SCALE` (0.875), which
+  matches the Google TV home screen, plus a `monospace` style for fingerprints and hashes. Adjust the
+  overall size there, not by picking a smaller role: components keep semantic roles (a number is a
+  headline, a card title a title). Screen titles use `headlineSmall`.
 * `components/` - thin wrappers over TV Material components, styled with the palette. Prefer a TV
   Material component over a hand-built layout. `ScreenSurface` (root background and text color),
   `NavigationDrawer` (TV Material's modal drawer; it reserves the collapsed rail's width so content
