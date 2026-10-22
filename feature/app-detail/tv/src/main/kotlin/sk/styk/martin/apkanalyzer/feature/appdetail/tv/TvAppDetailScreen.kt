@@ -1,13 +1,17 @@
 package sk.styk.martin.apkanalyzer.feature.appdetail.tv
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,6 +19,7 @@ import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -68,6 +73,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableF
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.modifier.bleedHorizontally
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 import sk.styk.martin.apkanalyzer.feature.appdetail.api.AppDetailInput
+import sk.styk.martin.apkanalyzer.feature.appdetail.tv.appcomponents.icon
 import sk.styk.martin.apkanalyzer.feature.appdetail.tv.components.SectionError
 import sk.styk.martin.apkanalyzer.feature.appdetail.tv.components.SectionLoading
 import sk.styk.martin.apkanalyzer.feature.appdetail.tv.components.formatDate
@@ -378,16 +384,68 @@ private fun ComponentsCard(
 ) {
     SectionCard(onClick = onClick, title = stringResource(AppsR.string.components_title), icon = ApkAnalyzerIcons.Widgets, modifier = modifier) {
         ComponentKind.entries.chunked(2).forEach { kinds ->
-            StatRow {
+            Row {
                 kinds.forEach { kind ->
-                    Stat(
-                        value = (state.componentCounts[kind] ?: 0).toString(),
+                    ComponentTile(
+                        icon = kind.icon,
                         label = stringResource(kind.sectionLabelRes),
+                        count = state.componentCounts[kind] ?: 0,
                         modifier = Modifier.weight(1f),
                     )
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun ComponentTile(
+    icon: ImageVector,
+    label: String,
+    count: Int,
+    modifier: Modifier = Modifier,
+) {
+    val present = count > 0
+    Column(modifier = modifier, horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Box {
+            Box(
+                modifier = Modifier
+                    .size(40.dp)
+                    .background(color = AppTheme.colors.onSurface.copy(alpha = TILE_CIRCLE_ALPHA), shape = CircleShape),
+                contentAlignment = Alignment.Center,
+            ) {
+                Icon(
+                    imageVector = icon,
+                    tint = if (present) AppTheme.colors.onSurface else AppTheme.colors.onSurfaceVariant,
+                    modifier = Modifier.size(22.dp),
+                )
+            }
+            Box(
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .offset(x = 6.dp, y = (-4).dp)
+                    .defaultMinSize(minWidth = 20.dp, minHeight = 20.dp)
+                    .background(
+                        color = if (present) AppTheme.colors.primary else AppTheme.colors.onSurface.copy(alpha = TILE_CIRCLE_ALPHA),
+                        shape = CircleShape,
+                    )
+                    .padding(horizontal = 5.dp),
+                contentAlignment = Alignment.Center,
+            ) {
+                Text(
+                    text = count.toString(),
+                    style = AppTheme.typography.labelSmall,
+                    color = if (present) AppTheme.colors.onPrimary else AppTheme.colors.onSurfaceVariant,
+                )
+            }
+        }
+        Text(
+            text = label,
+            style = AppTheme.typography.labelMedium,
+            color = if (present) AppTheme.colors.onSurface else AppTheme.colors.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis,
+        )
     }
 }
 
@@ -504,6 +562,7 @@ private const val CERTIFICATES_KEY = "section:certificates"
 private const val REQUIREMENTS_KEY = "section:requirements"
 private const val MANIFEST_KEY = "section:manifest"
 private val SECTION_KEYS = listOf(GENERAL_INFO_KEY, PERMISSIONS_KEY, COMPONENTS_KEY, CERTIFICATES_KEY, REQUIREMENTS_KEY, MANIFEST_KEY)
+private const val TILE_CIRCLE_ALPHA = 0.08f
 private val CardWidth = 300.dp
 private val CardHeight = 232.dp
 private val InsightCardWidth = 300.dp

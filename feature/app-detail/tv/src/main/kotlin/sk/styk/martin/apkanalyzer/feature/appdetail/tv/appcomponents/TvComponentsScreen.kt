@@ -358,14 +358,6 @@ private fun TvComponentScope.label(): String = when (this) {
     is TvComponentScope.Only -> stringResource(kind.sectionLabelRes)
 }
 
-private val ComponentKind.icon: ImageVector
-    get() = when (this) {
-        ComponentKind.Activity -> ApkAnalyzerIcons.ComponentActivity
-        ComponentKind.Service -> ApkAnalyzerIcons.ComponentService
-        ComponentKind.Receiver -> ApkAnalyzerIcons.ComponentReceiver
-        ComponentKind.Provider -> ApkAnalyzerIcons.ComponentProvider
-    }
-
 private val TvComponentItem.hasTypeDetails: Boolean
     get() = isLauncher || label != null || targetActivity != null || parentName != null || authority != null || flags.isNotEmpty()
 
