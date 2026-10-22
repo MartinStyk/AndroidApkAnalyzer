@@ -78,7 +78,7 @@ private fun LoadedContent(state: TvBrowseState.Loaded, onAction: (TvBrowseAction
                 Text(text = stringResource(BrowseApiR.string.browse), style = AppTheme.typography.headlineSmall)
                 Text(
                     text = pluralStringResource(AppIndexR.plurals.browse_subtitle, state.totalApps, state.totalApps),
-                    style = AppTheme.typography.titleMedium,
+                    style = AppTheme.typography.bodyMedium,
                     color = AppTheme.colors.onSurfaceVariant,
                 )
             }
@@ -103,6 +103,7 @@ private fun DimensionCard(
         onClick = onClick,
         title = stringResource(summary.dimension.titleRes),
         icon = summary.dimension.icon,
+        stackedHeader = true,
         modifier = modifier,
     ) {
         Text(

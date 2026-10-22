@@ -25,6 +25,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.rememberApp
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.AccentBackdrop
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.InfoListItem
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SectionHeader
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.theme.ApkAnalyzerTvTheme
 
@@ -53,7 +54,7 @@ internal fun <T> ListDetailScaffold(
                         Text(text = title, style = AppTheme.typography.headlineSmall)
                         Text(
                             text = subtitle,
-                            style = AppTheme.typography.titleMedium,
+                            style = AppTheme.typography.bodyMedium,
                             color = AppTheme.colors.onSurfaceVariant,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
@@ -83,12 +84,7 @@ internal fun <T> ListDetailScaffold(
 
 @Composable
 internal fun ListSectionHeader(text: String, modifier: Modifier = Modifier) {
-    Text(
-        text = text,
-        style = AppTheme.typography.titleSmall,
-        color = AppTheme.colors.primary,
-        modifier = modifier.padding(start = 16.dp, top = 20.dp, bottom = 6.dp),
-    )
+    SectionHeader(text = text, modifier = modifier.padding(start = 16.dp, top = 20.dp, bottom = 6.dp))
 }
 
 private const val LIST_WEIGHT = 0.55f

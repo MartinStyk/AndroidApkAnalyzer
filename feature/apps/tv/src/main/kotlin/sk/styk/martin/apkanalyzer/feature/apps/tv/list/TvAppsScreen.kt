@@ -46,6 +46,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.AppCard
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.AppCardWidth
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Button
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.ConfirmDialog
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SectionHeader
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SelectableListItem
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SidePanel
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
@@ -303,11 +304,7 @@ private fun RecentsSection(
 
 @Composable
 private fun SectionTitle(text: String) {
-    Text(
-        text = text,
-        style = AppTheme.typography.titleMedium,
-        modifier = Modifier.padding(top = 8.dp),
-    )
+    SectionHeader(text = text, modifier = Modifier.padding(top = 8.dp))
 }
 
 @Composable

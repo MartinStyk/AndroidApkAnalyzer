@@ -58,6 +58,7 @@ import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.CodeBox
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Icon
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.InfoCard
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.InfoCardTone
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SectionHeader
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SegmentedBar
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SegmentedBarLegend
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Tag
@@ -206,11 +207,7 @@ private fun LoadedContent(state: TvAppDetailState.Loaded, onAction: (TvAppDetail
             }
             if (state.insights.isNotEmpty()) {
                 item(key = "insights-title", span = { GridItemSpan(maxLineSpan) }) {
-                    Text(
-                        text = stringResource(R.string.tv_app_detail_worth_knowing),
-                        style = AppTheme.typography.titleMedium,
-                        modifier = Modifier.padding(top = 8.dp),
-                    )
+                    SectionHeader(text = stringResource(R.string.tv_app_detail_worth_knowing), modifier = Modifier.padding(top = 8.dp))
                 }
                 itemsIndexed(state.insights, key = { index, _ -> insightKey(index) }) { index, insight ->
                     InfoCard(

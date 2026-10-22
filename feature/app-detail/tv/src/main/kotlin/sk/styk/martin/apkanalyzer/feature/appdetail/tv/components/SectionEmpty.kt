@@ -52,7 +52,7 @@ internal fun SectionEmpty(
                     Text(text = title, style = AppTheme.typography.headlineSmall)
                     Text(
                         text = subtitle,
-                        style = AppTheme.typography.titleMedium,
+                        style = AppTheme.typography.bodyMedium,
                         color = AppTheme.colors.onSurfaceVariant,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,

@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
@@ -27,6 +28,7 @@ import sk.styk.martin.apkanalyzer.core.common.model.AppSource
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.theme.AppTheme
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Button
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.FilterChip
+import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.SectionHeader
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.components.Text
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.RestorableFocus
 import sk.styk.martin.apkanalyzer.core.designsystem.tv.focus.rememberRestorableFocus
@@ -149,7 +151,7 @@ private fun Header(
             Text(text = stringResource(R.string.tv_filter_title), style = AppTheme.typography.headlineSmall)
             Text(
                 text = pluralStringResource(R.plurals.tv_filter_matching, state.matchingAppCount, state.matchingAppCount),
-                style = AppTheme.typography.bodyLarge,
+                style = AppTheme.typography.bodyMedium,
                 color = AppTheme.colors.onSurfaceVariant,
             )
         }
@@ -172,7 +174,7 @@ private fun <T> LazyListScope.chipSection(
     if (options.isEmpty()) return
     item(key = key) {
         Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
-            Text(text = stringResource(titleRes), style = AppTheme.typography.titleLarge)
+            SectionHeader(text = stringResource(titleRes), modifier = Modifier.padding(top = 8.dp))
             LazyRow(
                 modifier = Modifier.bleedHorizontally(FocusBleed),
                 horizontalArrangement = Arrangement.spacedBy(12.dp),

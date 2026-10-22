@@ -34,7 +34,7 @@ internal fun BrowseHeader(
             Text(text = title, style = AppTheme.typography.headlineSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Text(
                 text = subtitle,
-                style = AppTheme.typography.titleMedium,
+                style = AppTheme.typography.bodyMedium,
                 color = AppTheme.colors.onSurfaceVariant,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
