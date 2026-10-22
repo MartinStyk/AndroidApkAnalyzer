@@ -322,8 +322,7 @@ private fun PermissionsCard(
     SectionCard(
         onClick = onClick,
         title = stringResource(PermissionsR.string.permissions_title),
-        icon = if (highlighted) ApkAnalyzerIcons.DangerousPermissions else ApkAnalyzerIcons.Permissions,
-        tone = if (highlighted) InfoCardTone.Warning else InfoCardTone.Default,
+        icon = ApkAnalyzerIcons.Permissions,
         modifier = modifier,
     ) {
         if (state.totalPermissionsCount == 0) {
