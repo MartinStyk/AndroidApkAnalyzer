@@ -1,16 +1,27 @@
 ---
 name: store-listing-carousel
-description: Maintain the Apk Analyzer Play Store screenshot carousel templates (docs/store/graphics/carousel_template.html and carousel_template_dark.html) and export their frames as upload-ready PNGs (docs/store/graphics/phone-screenshots/day and night). Covers two independent workflows — editing (swap in new screenshots after a UI change, refresh light/dark, add/remove/reorder a frame) and exporting (render the current frames to individual PNGs for Play Store upload) — either can run without the other. Triggered by phrases like "update the carousel", "refresh the store screenshots", "new Play Store screenshots", "carousel template", "export store screenshots", "generate store images", "render the carousel to PNGs" — even if the user doesn't name this skill explicitly.
+description: Maintain the Apk Analyzer Play Store screenshot carousel templates — phone (docs/store/graphics/carousel_template.html and carousel_template_dark.html) and Android TV (carousel_template_tv.html) — and export their frames as upload-ready PNGs (docs/store/graphics/phone-screenshots/day and night, docs/store/graphics/tv-screenshots). Covers two independent workflows — editing (swap in new screenshots after a UI change, refresh light/dark, add/remove/reorder a frame) and exporting (render the current frames to individual PNGs for Play Store upload) — either can run without the other. Triggered by phrases like "update the carousel", "refresh the store screenshots", "new Play Store screenshots", "TV store screenshots", "carousel template", "export store screenshots", "generate store images", "render the carousel to PNGs" — even if the user doesn't name this skill explicitly.
 ---
 
 # Store Listing Carousel
 
-Maintains the two Apk Analyzer Play Store screenshot carousels —
-`docs/store/graphics/carousel_template.html` (light) and `carousel_template_dark.html` (dark) — each
-a single self-contained HTML file with 8 phone-frame "slides." Every frame shows a real app
-screenshot behind a styled device frame, with a themed background, a headline, and a shared
-"skyline" motif (rounded-arch + antenna dots, derived from the app icon) that ties all frames into
-one visual system.
+Maintains the Apk Analyzer Play Store screenshot carousels. Each is a single self-contained HTML
+file with 8 "slides." Every frame shows a real app screenshot inside a styled device frame, with a
+themed background, a headline, and a shared "skyline" motif (rounded-arch + antenna dots, derived
+from the app icon) that ties all frames into one visual system.
+
+| Template | Device | Frame (CSS) | Export size | Export folder |
+|---|---|---|---|---|
+| `carousel_template.html` | phone, light | `360×640` portrait | `1080×1920` | `phone-screenshots/day/` |
+| `carousel_template_dark.html` | phone, dark | `360×640` portrait | `1080×1920` | `phone-screenshots/night/` |
+| `carousel_template_tv.html` | Android TV | `800×450` landscape | `1920×1080` | `tv-screenshots/` |
+
+All paths are under `docs/store/graphics/`. The phone and TV carousels share the theme palette and
+skyline motif but not the layout. The phone frames put the headline above a portrait phone. The TV
+frames put the headline on the left and a TV bezel (`.tv` / `.tv-screen`) on the right. The TV
+carousel has a single template, because TV screenshots always use the dark theme. TV-specific
+differences are collected in [Android TV carousel](#android-tv-carousel). Everything else in this
+skill applies to all three templates.
 
 This skill covers two independent workflows that share the same templates but don't depend on each
 other — run either one without the other:
@@ -23,8 +34,8 @@ other — run either one without the other:
   ready for Play Store upload. It's read-only against the templates — it never edits them, and doesn't
   require having just run the edit workflow first.
 
-Both files render at CSS scale (`.frame` is `360×640`) — that's a review resolution, not the upload
-resolution produced by the export workflow.
+The templates render at CSS scale, which is for review only. The export workflow produces the
+upload resolution.
 
 ## Before touching anything
 
@@ -41,13 +52,14 @@ whenever you add, remove, or reorder a frame — a previous edit left them out o
 6,4,5`), which silently broke the invariant this skill relies on; that's now fixed, so don't
 reintroduce the drift.
 
-Do not restructure the shared CSS system (`.frame`, `.device`, `.screen`, `.skyline`, `.headtext`,
-theme classes) unless asked. The job is almost always: swap screenshots in, keep everything else.
+Do not restructure the shared CSS system (`.frame`, `.device`/`.screen` on phone, `.tv`/`.tv-screen`
+on TV, `.skyline`, `.headtext`, theme classes) unless asked. The job is almost always: swap screenshots in, keep everything else.
 
 ## The 8-frame map
 
-Current locked structure for both templates. Preserve this order and theme unless the user asks to
-change it — Play Store allows up to 8 screenshots, and this set is already at that cap.
+This is the locked structure for both phone templates. The TV template has its own map in
+[Android TV carousel](#android-tv-carousel). Preserve this order and these themes unless the user
+asks to change them. Play Store allows up to 8 screenshots, and this set is already at that cap.
 
 | # | Feature | Theme class | Headline | Eyebrow | `alt` text |
 |---|---------|-------------|----------|---------|------------|
@@ -254,14 +266,76 @@ each side between 320 px and 3,840 px. The frames are natively 9:16 (`360×640` 
 falls out automatically as long as you scale both dimensions together — never crop to force the
 ratio.
 
-This environment has no headless HTML-to-PNG renderer (no Puppeteer/Playwright, no ImageMagick —
-`convert` on `PATH` resolves to the Windows disk-conversion utility, not ImageMagick) and no
-Python/PIL. Rendering goes through the `claude-in-chrome` browser tools plus PowerShell's built-in
-`System.Drawing` for the pixel work — load the chrome tools once via
+There are two ways to render. Use [headless Chrome](#preferred-headless-chrome) first. It needs no
+browser extension, has no screen-size limit, and produces each frame in a single capture. Fall back
+to the [`claude-in-chrome` slice-and-stitch path](#fallback-claude-in-chrome-slice-and-stitch) only
+if headless Chrome isn't installed.
+
+### Preferred: headless Chrome
+
+Chrome is at `C:\Program Files\Google\Chrome\Application\chrome.exe`, and Edge's `msedge.exe` takes
+the same flags. Headless mode loads `file://` URLs directly and renders at any window size, so the
+viewport-clamp and `file://` problems described in the fallback don't apply here.
+
+For each frame, write a scratch copy of the template with one extra `<style>` block injected before
+`</body>`. The block:
+
+- zeroes the body padding;
+- zooms the page so the frame fills the window exactly;
+- squares off the frame's rounded corners and removes its drop shadow. Otherwise the corners of the
+  export show the dark `#292929` page background. The phone exports from the fallback path still
+  have this defect.
+- hides every other frame.
+
+Then screenshot the copy at the export size. Never edit the template itself:
+
+```powershell
+$sp = "<scratchpad>\carousel"   # session scratchpad, not the repo
+New-Item -ItemType Directory -Force $sp | Out-Null
+$template = "docs/store/graphics/carousel_template_tv.html"
+$out = "docs/store/graphics/tv-screenshots"
+$zoom = 2.4; $w = 1920; $h = 1080          # TV: 800×450 × 2.4. Phone: zoom 3, 1080×1920
+$slugs = '01-installed-apps','02-app-detail','03-permissions','04-certificates',
+         '05-components','06-browse-attribute','07-permission-browser','08-drill-down'
+
+$html = [IO.File]::ReadAllText((Resolve-Path $template))
+$style = "<style>body{padding:0!important;zoom:$zoom}.strip{gap:0;padding:0;overflow:visible}" +
+         ".frame{border-radius:0;box-shadow:none}.strip>.frame:not(:nth-of-type(N)){display:none}</style></body>"
+$chrome = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+for ($n = 1; $n -le $slugs.Count; $n++) {
+    $page = "$sp\frame$n.html"
+    [IO.File]::WriteAllText($page, $html.Replace('</body>', $style.Replace('N', "$n")), (New-Object System.Text.UTF8Encoding($false)))
+    $dest = Join-Path (Resolve-Path $out) "$($slugs[$n-1]).png"
+    & $chrome --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=1 `
+        --window-size=$w,$h --virtual-time-budget=5000 "--user-data-dir=$sp\profile" `
+        "--screenshot=$dest" "file:///$($page.Replace('\','/'))" 2>$null | Out-Null
+}
+Remove-Item -Recurse -Force $sp
+```
+
+- `--virtual-time-budget=5000` gives the Google Fonts stylesheet time to load. If a headline
+  renders in a fallback system font, raise the budget.
+- A separate `--user-data-dir` keeps headless Chrome away from the user's running browser profile.
+- `.frame:nth-of-type(N)` counts the `.frame` divs, which are the only element children of `.strip`.
+  The `<!-- FRAME -->` comments don't affect the count.
+
+The TV run was verified end to end with this exact recipe on 2026-10-23. The phone values (zoom 3,
+`1080×1920`) follow the same arithmetic but haven't been run through this path yet. Check the first
+phone export before trusting the rest.
+
+QA is the same as [step 8 of the fallback](#8-qa-before-calling-it-done), except there's no stitch
+seam to check. Also confirm that a corner pixel matches the frame's theme background and not
+`#292929`.
+
+### Fallback: `claude-in-chrome` slice-and-stitch
+
+This path drives the user's real Chrome through the `claude-in-chrome` browser tools and uses
+PowerShell's built-in `System.Drawing` for the pixel work. It needs the extension to be connected.
+Load the chrome tools once via
 `ToolSearch("select:mcp__claude-in-chrome__tabs_context_mcp,mcp__claude-in-chrome__navigate,mcp__claude-in-chrome__computer,mcp__claude-in-chrome__javascript_tool,mcp__claude-in-chrome__browser_batch,mcp__claude-in-chrome__tabs_create_mcp,mcp__claude-in-chrome__tabs_close_mcp")`
 before starting.
 
-### Why this isn't a single screenshot per frame
+#### Why this isn't a single screenshot per frame
 
 Two constraints, discovered by testing this pipeline directly rather than assumed:
 
@@ -275,7 +349,7 @@ Two constraints, discovered by testing this pipeline directly rather than assume
    viewport can ever show at once*, on any normal monitor. The fix is to capture each frame in two
    vertical slices and stitch them — not to hunt for a bigger window.
 
-### 1. Serve the templates directory over local HTTP
+#### 1. Serve the templates directory over local HTTP
 
 ```bash
 node -e "
@@ -303,7 +377,7 @@ curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1:8743/carousel_template
 Kill the `node` process (matched by the port in its command line) once every export is done — don't
 leave a stray server running past this session.
 
-### 2. Open a tab and measure the real viewport
+#### 2. Open a tab and measure the real viewport
 
 ```
 tabs_context_mcp { createIfEmpty: true }
@@ -314,7 +388,7 @@ javascript_tool -> window.innerWidth, window.innerHeight (after the page has set
 Don't hardcode a prior session's viewport height — screen resolution and OS chrome differ by
 machine. This session measured `1920×957`; recompute per session.
 
-### 3. Isolate one frame at a fixed, padding-free origin
+#### 3. Isolate one frame at a fixed, padding-free origin
 
 For each frame index `i` (0–7, in the [8-frame map](#the-8-frame-map) order), navigate fresh and run:
 
@@ -330,7 +404,7 @@ With every sibling hidden, the flex `.strip` collapses to just the one visible f
 `body` padding is zeroed — always lands at exactly `(0, 0)` regardless of which frame it is. Verify
 this once with `getBoundingClientRect()`; after that it's safe to assume without re-querying.
 
-### 4. Picking the zoom factor
+#### 4. Picking the zoom factor
 
 The two-slice budget is `2 × innerHeight` (each slice can be at most `innerHeight` tall). At
 `innerHeight = 957`, that's `1914`. Pick a zoom so `640 × zoom` sits comfortably under that budget —
@@ -338,7 +412,7 @@ The two-slice budget is `2 × innerHeight` (each slice can be at most `innerHeig
 last verified against. Recompute against the actual measured `innerHeight` rather than reusing `2.9`
 blindly: `zoom ≤ (2 × innerHeight × 0.97) / 640`.
 
-### 5. Capture slice 1 (top)
+#### 5. Capture slice 1 (top)
 
 ```
 computer.zoom { tabId, action: "zoom", region: [0, 0, frameWidth, innerHeight], save_to_disk: true }
@@ -349,7 +423,7 @@ frequently times out (`CDP sendCommand "Page.captureScreenshot" timed out after 
 succeeds immediately on retry — this happened repeatedly during testing and is not a sign anything is
 actually wrong. Only escalate to the user if a *retry* also fails.
 
-### 6. Scroll and capture slice 2 (bottom)
+#### 6. Scroll and capture slice 2 (bottom)
 
 ```javascript
 window.scrollTo(0, innerHeight);   // e.g. scrollTo(0, 957)
@@ -360,7 +434,7 @@ Then capture region `[0, 0, frameWidth, frameHeight - innerHeight]` (e.g. `[0, 0
 scrolling by exactly the first slice's height aligns the frame's remaining content to viewport `y=0`
 with no gap and no overlap — no need to eyeball or fudge an offset.
 
-### 7. Stitch the two slices
+#### 7. Stitch the two slices
 
 ```powershell
 Add-Type -AssemblyName System.Drawing
@@ -387,7 +461,7 @@ statement first, as shown above.
 template, `.../night/<slug>.png` for the dark one, using the slug from the
 [8-frame map](#the-8-frame-map).
 
-### 8. QA before calling it done
+#### 8. QA before calling it done
 
 - [ ] All 8 day files and all 8 night files exist, named per the 8-frame map's slugs
 - [ ] No visible seam at the slice boundary (open one and check where the stitch line falls —
@@ -397,6 +471,67 @@ template, `.../night/<slug>.png` for the dark one, using the slug from the
 
 Tell the user which frames were exported and to which folders — this workflow doesn't touch the
 templates, so there's nothing to report there.
+
+## Android TV carousel
+
+`carousel_template_tv.html` is one dark-stage template with 8 landscape frames. Each frame is
+`800×450` (16:9), with the headline block on the left and a TV bezel on the right.
+
+### TV frame map
+
+| # | Feature | Theme class | Headline | Eyebrow | `alt` text | Export slug |
+|---|---------|-------------|----------|---------|------------|-------------|
+| 1 | Installed apps | `theme-teal` | "Every app on / your TV, in / one list." | installed apps | `Installed apps list with search, sort and filters` | `01-installed-apps` |
+| 2 | App detail | `theme-cream` | "See exactly / what's inside." | full inspection | `App detail overview with permissions, components and certificate cards` | `02-app-detail` |
+| 3 | Permissions | `theme-tealLight` | "Every permission, / plainly explained." | permission audit | `Permissions list with detail panel for the microphone permission` | `03-permissions` |
+| 4 | Certificates | `theme-clay` | "Verify who / really signed it." | signing & trust | `Signing certificate details with algorithm strength explained` | `04-certificates` |
+| 5 | Components | `theme-browse` | "Every component, / and who can / reach it." | components | `Components list with reachability details and launch action` | `05-components` |
+| 6 | Browse by attribute | `theme-teal` | "Flip the question / around." | browse by attribute | `Browse screen grouping apps by signer, target version and install source` | `06-browse-attribute` |
+| 7 | Permission browser | `theme-cream` | "Find apps by / permission." | permission browser | `Permissions index with the apps that request a selected permission` | `07-permission-browser` |
+| 8 | Drill down | `theme-tealLight` | "See every app / that holds it." | drill down | `App grid for the Post Notifications permission` | `08-drill-down` |
+
+### Editing the TV template — what differs from Workflow A
+
+- **One pass, not two.** There is no light or dark variant.
+- **No status-bar crop.** A TV capture (`adb exec-out screencap -p`, `1920×1080`) has no status bar
+  or notch, so skip steps 2–4 of Workflow A. The `.tv-screen` box is exactly 16:9, which means a
+  full-frame capture fills it with no gap and no seam.
+- **Embed as JPEG, downscaled to `1600×900`.** The TV images are `data:image/jpeg`, not PNG, which
+  keeps the template at about 1.5 MB. A screenshot shows at about 450 CSS px wide and about
+  1,070 px in the 2.4× export, so 1600 px wide is more than enough:
+
+  ```powershell
+  Add-Type -AssemblyName System.Drawing
+  $src = [System.Drawing.Image]::FromFile($rawPath)
+  $bmp = New-Object System.Drawing.Bitmap(1600, 900)
+  $g = [System.Drawing.Graphics]::FromImage($bmp)
+  $g.InterpolationMode = [System.Drawing.Drawing2D.InterpolationMode]::HighQualityBicubic
+  $g.DrawImage($src, 0, 0, 1600, 900)
+  $codec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object MimeType -eq 'image/jpeg'
+  $params = New-Object System.Drawing.Imaging.EncoderParameters(1)
+  $params.Param[0] = New-Object System.Drawing.Imaging.EncoderParameter([System.Drawing.Imaging.Encoder]::Quality, [long]88)
+  $bmp.Save($jpegPath, $codec, $params)
+  $g.Dispose(); $bmp.Dispose(); $src.Dispose()
+  ```
+
+- **Step 5's regex must match JPEG.** Use
+  `'(?s)(<img class="real-shot" src="data:image/jpeg;base64,)([^"]+)(" alt="([^"]+)">)'` and key
+  `$altToFile` on the `alt` text from the TV frame map.
+- **Headlines can run to 3 lines.** The left column (`.headtext`) is 270 CSS px wide. Check that a
+  new headline doesn't collide with the bezel or the skyline.
+- **Raw captures don't belong in `tv-screenshots/`.** That folder is the export output. Keep raw
+  `adb` captures in the session scratchpad. Once they're embedded in the template, they're no
+  longer needed.
+
+### Exporting the TV template
+
+Use [headless Chrome](#preferred-headless-chrome) at zoom `2.4` and window `1920×1080`. That gives
+an `800×450` frame at 2.4×, which is exactly 1920×1080. Write the output to `tv-screenshots/` using
+the slugs above. Play Store TV screenshots must be landscape 16:9, and this size meets that.
+
+If you fall back to the `claude-in-chrome` path, a 1080-px-tall frame is still taller than a typical
+`~957`-px viewport, so it needs two slices as well. Use `zoom ≤ (2 × innerHeight × 0.97) / 450`, and
+don't count on hitting exactly 1920×1080.
 
 ## Adding, removing, or reordering a frame
 
@@ -421,6 +556,11 @@ templates, so there's nothing to report there.
   for swapping content into a locked design, not iterating the design itself.
 - Editing only one of the two templates when a change (theme color, headline, frame order) should
   apply to both light and dark.
+- (Export) Capturing a frame with its `border-radius` and `box-shadow` still on. The four corners
+  then show the page's dark stage background. Square them off at export time and leave the
+  template alone.
+- (TV) Reusing the phone regex (`data:image/png`) on the TV template. It matches nothing, and the
+  replace "succeeds" without changing a single frame.
 - (Export) Navigating to the templates via `file://` — the `claude-in-chrome` extension blocks it.
   Serve the directory over local HTTP first.
 - (Export) Treating a single `computer.zoom` timeout as a real failure instead of retrying once —
