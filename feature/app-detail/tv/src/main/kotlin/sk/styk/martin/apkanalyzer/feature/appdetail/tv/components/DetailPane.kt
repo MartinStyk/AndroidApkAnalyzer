@@ -61,15 +61,15 @@ private fun PaneHeader(
     highlighted: Boolean,
 ) {
     val accent = if (highlighted) AppTheme.colors.warning else AppTheme.colors.primary
-    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(14.dp)) {
         if (icon != null) {
             Box(
                 modifier = Modifier
-                    .size(52.dp)
+                    .size(40.dp)
                     .background(color = accent.copy(alpha = ICON_BACKGROUND_ALPHA), shape = CircleShape),
                 contentAlignment = Alignment.Center,
             ) {
-                Icon(imageVector = icon, tint = accent, modifier = Modifier.size(28.dp))
+                Icon(imageVector = icon, tint = accent, modifier = Modifier.size(22.dp))
             }
         }
         Column(verticalArrangement = Arrangement.spacedBy(6.dp)) {
