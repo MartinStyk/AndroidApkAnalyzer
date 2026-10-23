@@ -13,19 +13,25 @@ package `sk.styk.martin.apkanalyzer.feature.browse.phone`; the TV one uses
 
 Both `phone` and `tv` share the same layout:
 
-* The root package owns the hub (dimension cards) and the dimension icons.
+* The root package owns the hub and the dimension icons. The phone hub shows one card per dimension;
+  the TV hub shows one row per dimension with its top options as tiles (certificates grouped by
+  publisher), ranked user apps first for the icons, and a "See all" tile.
 * `options/` owns searchable bucket lists and dimension-specific row presentation.
 * `apps/` owns the searchable app list for one bucket and its bucket detail.
 * `navigation/` owns internal option and bucket destinations.
 
-Phone-only: `BrowseAnalytics`, which TV does not track. On TV the bucket detail sits in a side panel
-next to the app grid instead of behind an info button, and certificate buckets show the fingerprint
-there because the title is the algorithm name.
+Phone-only: `BrowseAnalytics`, which TV does not track. On TV the options screen is a list beside a
+preview pane that follows focus (the option's apps and bucket detail), so users browse by moving focus
+and click only to open the full app grid. Search sits behind a header button rather than an
+always-visible field. The bucket detail also sits in a side panel next to the app grid instead of
+behind an info button, and certificate buckets show the fingerprint there because the title is the
+publisher.
 
 ## Data and Navigation Semantics
 
-The navigation depth is hub -> options -> apps -> app detail. Internal keys carry the dimension and
-raw bucket identity, not a package list.
+The navigation depth is hub -> options -> apps -> app detail; on TV a hub tile skips straight to apps,
+while its "See all" tile opens options. Internal keys carry the dimension and raw bucket identity,
+not a package list.
 
 The apps screen recombines the live index with installed apps. Uninstalling an app while viewing a
 bucket must update the list, and navigation state must remain small.

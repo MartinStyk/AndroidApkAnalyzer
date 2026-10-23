@@ -5,4 +5,10 @@
     <string name="tv_browse_certificate_about">About this certificate</string>
     <string name="tv_browse_no_apps">No apps on this device match anymore.</string>
     <string name="tv_browse_label_list">%1$s · %2$s</string>
+    <string name="tv_browse_search">Search</string>
+    <string name="tv_browse_see_all">See all</string>
+    <plurals name="tv_browse_more_apps">
+        <item quantity="one">+%1$d more app</item>
+        <item quantity="other">+%1$d more apps</item>
+    </plurals>
 </resources>

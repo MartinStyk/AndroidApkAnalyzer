@@ -3,6 +3,8 @@ package sk.styk.martin.apkanalyzer.feature.browse.tv.components
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -23,14 +25,15 @@ internal fun BrowseHeader(
     title: String,
     subtitle: String,
     modifier: Modifier = Modifier,
+    actions: @Composable RowScope.() -> Unit = {},
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.spacedBy(20.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
     ) {
         IconBadge(icon = icon, size = 56.dp)
-        Column {
+        Column(modifier = Modifier.weight(1f)) {
             Text(text = title, style = AppTheme.typography.headlineSmall, maxLines = 1, overflow = TextOverflow.Ellipsis)
             Text(
                 text = subtitle,
@@ -40,6 +43,7 @@ internal fun BrowseHeader(
                 overflow = TextOverflow.Ellipsis,
             )
         }
+        actions()
     }
 }
 

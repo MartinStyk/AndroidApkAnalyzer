@@ -13,7 +13,12 @@ import sk.styk.martin.apkanalyzer.feature.browse.tv.options.TvBrowseOptionsScree
 
 fun EntryProviderScope<NavKey>.tvBrowseEntries(navigator: Navigator) {
     entry<BrowseNavKey> {
-        TvBrowseScreen(onOpenDimension = { dimension -> navigator.navigate(TvBrowseOptionsNavKey(dimension)) })
+        TvBrowseScreen(
+            onOpenDimension = { dimension -> navigator.navigate(TvBrowseOptionsNavKey(dimension)) },
+            onOpenOption = { dimension, bucketKey, bucketLabel, subAttribute ->
+                navigator.navigate(TvBrowseAppsNavKey(dimension, bucketKey, bucketLabel, subAttribute))
+            },
+        )
     }
 
     entry<TvBrowseOptionsNavKey>(metadata = slideFromEndEntryMetadata()) { key ->
