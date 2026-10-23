@@ -1,5 +1,6 @@
 package sk.styk.martin.apkanalyzer.core.designsystem.tv.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -8,6 +9,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Border
 import androidx.tv.material3.Icon
 import androidx.tv.material3.ListItemDefaults
 import sk.styk.martin.apkanalyzer.core.designsystem.foundation.icons.ApkAnalyzerIcons
@@ -38,8 +40,11 @@ fun SelectableListItem(
             contentColor = AppTheme.colors.onSurface,
             selectedContainerColor = AppTheme.colors.primaryContainer,
             selectedContentColor = AppTheme.colors.primary,
-            focusedContainerColor = AppTheme.colors.onSurface,
-            focusedContentColor = AppTheme.colors.surface,
+            focusedContainerColor = AppTheme.colors.surfaceVariant,
+            focusedContentColor = AppTheme.colors.onSurface,
+        ),
+        border = ListItemDefaults.border(
+            focusedBorder = Border(border = BorderStroke(width = FocusBorderWidth, color = AppTheme.colors.primary)),
         ),
         headlineContent = {
             Text(text = label, style = AppTheme.typography.titleMedium, maxLines = 1)

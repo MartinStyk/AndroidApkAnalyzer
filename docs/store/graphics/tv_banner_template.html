@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>TV Banner</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500&display=block">
+<style>
+  :root{
+    --teal-deep:#006766;
+    --teal-deep-2:#004f4e;
+    --teal-pale:#B2EBEA;
+    --icon-box:360px;
+    --icon-x:85px;
+    --icon-y:157px;
+    --name-x:388px;
+    --name-baseline:350px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{width:1280px; height:720px; overflow:hidden; background:var(--teal-deep-2);}
+  .banner{
+    position:relative;
+    width:1280px;
+    height:720px;
+    background:
+      radial-gradient(ellipse 55% 60% at 50% 44%, rgba(134,212,210,.10), transparent 70%),
+      linear-gradient(135deg, var(--teal-deep) 0%, var(--teal-deep-2) 55%, #00302f 100%);
+    overflow:hidden;
+  }
+  .wave{position:absolute; left:0; right:0; bottom:0; height:230px;}
+  .wave svg{width:100%; height:100%; display:block;}
+  .dot{position:absolute; border-radius:50%; background:var(--teal-pale);}
+  .icon{
+    position:absolute;
+    left:var(--icon-x);
+    top:var(--icon-y);
+    width:var(--icon-box);
+    height:var(--icon-box);
+  }
+  .name{
+    position:absolute;
+    left:var(--name-x);
+    top:calc(var(--name-baseline) - 124px);
+    height:124px;
+    display:flex;
+    align-items:flex-end;
+    font-family:'IBM Plex Sans',system-ui,sans-serif;
+    font-size:124px;
+    line-height:0;
+    letter-spacing:-.02em;
+    word-spacing:-.06em;
+    color:#fff;
+    font-kerning:normal;
+    white-space:nowrap;
+  }
+  .name b{font-weight:500;}
+  .name span{font-weight:400; color:var(--teal-pale);}
+</style>
+</head>
+<body>
+<div class="banner">
+  <div class="wave"><svg viewBox="0 0 800 150" preserveAspectRatio="none"><path d="M0,150 L0,95 Q70,50 150,88 Q230,126 300,70 Q380,14 460,66 Q540,118 620,60 Q700,10 800,62 L800,150 Z" fill="rgba(134,212,210,0.07)"/></svg></div>
+  <div class="dot" style="left:330px; top:243px; width:8px; height:8px; opacity:.6;"></div>
+  <div class="dot" style="left:345px; top:227px; width:6px; height:6px; opacity:.35;"></div>
+  <img class="icon" src="../../../core/design-system/foundation/src/main/res/mipmap-xxxhdpi/ic_launcher_foreground.png" alt="">
+  <div class="name"><b>Apk</b>&nbsp;<span>Analyzer</span></div>
+</div>
+</body>
+</html>

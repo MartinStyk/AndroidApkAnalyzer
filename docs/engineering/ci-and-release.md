@@ -46,18 +46,37 @@ supplies the version name, the version code, and the release notes.
 |---|---|
 | `check-tag` | Fails with a remediation message if the tag annotation is empty — a lightweight tag can't provide release notes. The annotation body becomes the GitHub release body |
 | `verify` | Repeats the CI gates against the release variant (`lintRelease` rather than `lintDebug`) |
-| `build-release` | Derives `versionCode` from the tag, decodes the signing keystore, runs `bundleRelease assembleRelease`, and uploads the AAB, APK, and ProGuard `mapping.txt` as separate artifacts |
+| `build-release` | Derives `versionCode` from the tag, decodes the signing keystore, runs `:app:bundleRelease :app:assembleRelease`, and uploads the AAB, APK, and ProGuard `mapping.txt` as separate artifacts |
 | `publish-github-release` | Attaches the APK to a GitHub release named after the tag |
 | `publish-play-store` | Runs `:app:publishBundle --track beta` — new releases always land on **beta**, never production |
 | `distribute-app-distribution` | Sends the release APK to `internal-testers`, tagged with the release notes |
 
 Non-obvious details:
 
-* `versionCode` is `MAJOR * 10000 + MINOR * 100 + PATCH`; the tag itself becomes `version.name`.
+* `versionCode` is `MAJOR * 10000 + MINOR * 100 + PATCH`, plus `10000000` for the TV app because
+  Play requires unique version codes across all tracks of the same application ID. It is computed
+  only by [`version-code.sh`](../../.github/scripts/version-code.sh); the tag itself becomes
+  `version.name`.
 * `build-release` fails outright if any of the four signing secrets is missing, rather than falling
   back to the debug key — a debug-signed release that uploads successfully is worse than a failed
   build.
 * The three publishing jobs run in parallel once `build-release` finishes.
+
+## TV release
+
+The TV app ships on its own schedule. A `MAJOR.MINOR.PATCH` tag releases only the phone app; an
+annotated `MAJOR.MINOR.PATCH.tv` tag starts [`release-tv.yml`](../../.github/workflows/release-tv.yml),
+which releases only the TV app. The jobs mirror the phone release, except:
+
+* `version.name` is the tag without `.tv`, and the version code uses the TV offset.
+* The GitHub release is named `TV <version>` and is never marked as latest, so the latest release
+  stays the phone APK.
+* The bundle goes to `tv:Beta TV` — the closed testing track named "Beta TV" on Play's dedicated
+  Android TV form factor; a custom track's API name is `tv:` plus its exact name — and there is no
+  Firebase App Distribution step.
+
+Promote with `promote-tv-release.yml`, which takes the same inputs as the phone promotion and runs
+`promote-release.yml` from `tv:Beta TV` to `tv:production`.
 
 ## Promotion to production
 

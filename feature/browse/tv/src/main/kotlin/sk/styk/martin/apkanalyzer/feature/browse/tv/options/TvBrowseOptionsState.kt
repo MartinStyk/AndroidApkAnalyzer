@@ -1,8 +1,10 @@
 package sk.styk.martin.apkanalyzer.feature.browse.tv.options
 
 import androidx.compose.runtime.Immutable
+import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseBucketDetail
 import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseOption
 import sk.styk.martin.apkanalyzer.core.appindex.browse.BrowseSubAttribute
+import sk.styk.martin.apkanalyzer.feature.browse.tv.apps.TvBrowseAppItem
 
 @Immutable
 internal sealed interface TvBrowseOptionsState {
@@ -16,5 +18,14 @@ internal sealed interface TvBrowseOptionsState {
         val subAttributes: List<BrowseSubAttribute>,
         val totalOptions: Int,
         val options: List<BrowseOption>,
+        val preview: TvBrowseOptionPreview?,
     ) : TvBrowseOptionsState
 }
+
+@Immutable
+internal data class TvBrowseOptionPreview(
+    val option: BrowseOption,
+    val detail: BrowseBucketDetail?,
+    val apps: List<TvBrowseAppItem>,
+    val totalApps: Int,
+)

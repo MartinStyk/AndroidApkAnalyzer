@@ -33,8 +33,9 @@ function in its `feature/*/tv/navigation/` package and wires it into the `entryP
   Android hides most installed apps from the list; without the second, the TV usage access screen
   never lists the app.
 * The `LEANBACK_LAUNCHER` Activity and `android:banner` are mandatory for the TV home screen.
-  `res/drawable/tv_banner.xml` is a placeholder; Play's TV review expects a 320x180 banner that
-  shows the app name.
+  `res/drawable-xhdpi/tv_banner.png` (640x360, the 320x180dp banner) is exported from
+  `docs/store/graphics/tv_banner_template.html`, the same source as the Play listing banner; change
+  the template and re-export both rather than editing the PNG.
 
 `google-services.json` is a copy of the phone app's file; CI's `fetch-google-services` action writes
 both. `debug.keystore` matches `app`'s so debug builds share one signature.

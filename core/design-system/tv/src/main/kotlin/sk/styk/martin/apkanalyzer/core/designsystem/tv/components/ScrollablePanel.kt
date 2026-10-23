@@ -49,6 +49,7 @@ fun ScrollablePanel(
     resetKey: Any? = null,
     contentPadding: PaddingValues = PaddingValues(28.dp),
     spacing: Dp = 16.dp,
+    onClick: (() -> Unit)? = null,
     content: @Composable ColumnScope.() -> Unit,
 ) {
     val scrollState = rememberScrollState()
@@ -72,6 +73,10 @@ fun ScrollablePanel(
                 .fillMaxWidth()
                 .onFocusChanged { isFocused = it.isFocused }
                 .onPreviewKeyEvent { event ->
+                    if (onClick != null && event.key in ClickKeys) {
+                        if (event.type == KeyEventType.KeyUp) onClick()
+                        return@onPreviewKeyEvent true
+                    }
                     if (event.type != KeyEventType.KeyDown) return@onPreviewKeyEvent false
                     val step = when (event.key) {
                         Key.DirectionDown -> if (scrollState.canScrollForward) SCROLL_STEP else return@onPreviewKeyEvent false
@@ -81,7 +86,7 @@ fun ScrollablePanel(
                     coroutineScope.launch { scrollState.animateScrollBy(step) }
                     true
                 }
-                .focusable(enabled = scrollState.maxValue > 0)
+                .focusable(enabled = onClick != null || scrollState.maxValue > 0)
                 .verticalScroll(scrollState)
                 .padding(contentPadding),
             verticalArrangement = Arrangement.spacedBy(spacing),
@@ -103,6 +108,7 @@ fun ScrollablePanel(
 
 private val PanelShape = RoundedCornerShape(16.dp)
 private const val SCROLL_STEP = 240f
+private val ClickKeys = setOf(Key.DirectionCenter, Key.Enter, Key.NumPadEnter)
 
 @Preview(device = Devices.TV_1080p, showBackground = true, backgroundColor = 0xFF000000)
 @Composable

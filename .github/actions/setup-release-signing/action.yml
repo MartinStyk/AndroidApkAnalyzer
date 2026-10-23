@@ -1,0 +1,51 @@
+name: Set up release signing
+description: Decodes the release keystore and writes the signing properties Gradle reads, refusing to continue if any signing secret is missing
+
+inputs:
+  sign-key:
+    required: true
+  sign-key-alias:
+    required: true
+  sign-key-store-password:
+    required: true
+  sign-key-password:
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Verify signing secrets are present
+      shell: bash
+      env:
+        SIGN_KEY: ${{ inputs.sign-key }}
+        SIGN_KEY_ALIAS: ${{ inputs.sign-key-alias }}
+        SIGN_KEY_STORE_PASSWORD: ${{ inputs.sign-key-store-password }}
+        SIGN_KEY_PASSWORD: ${{ inputs.sign-key-password }}
+      run: |
+        for name in SIGN_KEY SIGN_KEY_ALIAS SIGN_KEY_STORE_PASSWORD SIGN_KEY_PASSWORD; do
+          if [ -z "${!name}" ]; then
+            echo "::error::Secret $name is empty. Without it the release signingConfig falls back to the debug key, so refusing to build rather than silently shipping a debug-signed release."
+            exit 1
+          fi
+        done
+
+    - name: Decode signing keystore
+      shell: bash
+      env:
+        SIGN_KEY: ${{ inputs.sign-key }}
+      run: echo "$SIGN_KEY" | base64 -d > "$RUNNER_TEMP/release.keystore"
+
+    - name: Write signing properties
+      shell: bash
+      env:
+        SIGN_KEY_ALIAS: ${{ inputs.sign-key-alias }}
+        SIGN_KEY_STORE_PASSWORD: ${{ inputs.sign-key-store-password }}
+        SIGN_KEY_PASSWORD: ${{ inputs.sign-key-password }}
+      run: |
+        mkdir -p "$HOME/.gradle"
+        {
+          echo "signing.storeFile=$RUNNER_TEMP/release.keystore"
+          echo "signing.storePassword=$SIGN_KEY_STORE_PASSWORD"
+          echo "signing.keyAlias=$SIGN_KEY_ALIAS"
+          echo "signing.keyPassword=$SIGN_KEY_PASSWORD"
+        } >> "$HOME/.gradle/gradle.properties"

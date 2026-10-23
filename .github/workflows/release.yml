@@ -79,45 +79,20 @@ jobs:
       - name: Compute versionCode from tag
         id: version
         run: |
-          IFS='.' read -r MAJOR MINOR PATCH <<< "$GITHUB_REF_NAME"
-          echo "code=$((MAJOR * 10000 + MINOR * 100 + PATCH))" >> "$GITHUB_OUTPUT"
+          CODE=$(bash .github/scripts/version-code.sh "$GITHUB_REF_NAME")
+          echo "code=$CODE" >> "$GITHUB_OUTPUT"
 
-      - name: Verify signing secrets are present
-        env:
-          SIGN_KEY: ${{ secrets.SIGN_KEY }}
-          SIGN_KEY_ALIAS: ${{ secrets.SIGN_KEY_ALIAS }}
-          SIGN_KEY_STORE_PASSWORD: ${{ secrets.SIGN_KEY_STORE_PASSWORD }}
-          SIGN_KEY_PASSWORD: ${{ secrets.SIGN_KEY_PASSWORD }}
-        run: |
-          for name in SIGN_KEY SIGN_KEY_ALIAS SIGN_KEY_STORE_PASSWORD SIGN_KEY_PASSWORD; do
-            if [ -z "${!name}" ]; then
-              echo "::error::Secret $name is empty. Without it the release signingConfig falls back to the debug key, so refusing to build rather than silently shipping a debug-signed release."
-              exit 1
-            fi
-          done
-
-      - name: Decode signing keystore
-        env:
-          SIGN_KEY: ${{ secrets.SIGN_KEY }}
-        run: echo "$SIGN_KEY" | base64 -d > "$RUNNER_TEMP/release.keystore"
-
-      - name: Write signing properties
-        env:
-          SIGN_KEY_ALIAS: ${{ secrets.SIGN_KEY_ALIAS }}
-          SIGN_KEY_STORE_PASSWORD: ${{ secrets.SIGN_KEY_STORE_PASSWORD }}
-          SIGN_KEY_PASSWORD: ${{ secrets.SIGN_KEY_PASSWORD }}
-        run: |
-          mkdir -p "$HOME/.gradle"
-          {
-            echo "signing.storeFile=$RUNNER_TEMP/release.keystore"
-            echo "signing.storePassword=$SIGN_KEY_STORE_PASSWORD"
-            echo "signing.keyAlias=$SIGN_KEY_ALIAS"
-            echo "signing.keyPassword=$SIGN_KEY_PASSWORD"
-          } >> "$HOME/.gradle/gradle.properties"
+      - name: Set up release signing
+        uses: ./.github/actions/setup-release-signing
+        with:
+          sign-key: ${{ secrets.SIGN_KEY }}
+          sign-key-alias: ${{ secrets.SIGN_KEY_ALIAS }}
+          sign-key-store-password: ${{ secrets.SIGN_KEY_STORE_PASSWORD }}
+          sign-key-password: ${{ secrets.SIGN_KEY_PASSWORD }}
 
       - name: Build and sign release AAB and APK
         run: |
-          ./gradlew bundleRelease assembleRelease \
+          ./gradlew :app:bundleRelease :app:assembleRelease \
             -Pversion.code=${{ steps.version.outputs.code }} \
             -Pversion.name="$GITHUB_REF_NAME"
 

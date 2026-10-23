@@ -39,7 +39,8 @@ ViewModel and never depends on `phone`. Unlike the phone, TV shows recently view
 because typing with a remote is slow and the row costs only one line above the grid. Like the phone,
 it hides the row while filters are active, so everything on screen matches the filter.
 
-* On entry, focus goes to the last focused card, or the first installed app on first launch, never
+* On entry, focus goes to the last focused card, or on first launch the first recently viewed app
+  (the first installed app when there are none), so nothing scrolls before the user moves; never
   the side menu. Card keys carry their section (`recent:` / `installed:`) because one app can appear
   in both.
 * Selecting an app opens `AppDetailNavKey`, the same key the phone uses.

@@ -53,7 +53,7 @@ fun AppCard(
     )
     TvMaterialCard(
         onClick = onClick,
-        modifier = modifier.minAspectRatio(TILE_ASPECT_RATIO),
+        modifier = modifier,
         shape = CardDefaults.shape(shape = CardShape),
         colors = CardDefaults.colors(
             containerColor = AppTheme.colors.surface,
@@ -72,6 +72,7 @@ fun AppCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
+                .minAspectRatio(TILE_ASPECT_RATIO)
                 .background(Brush.linearGradient(listOf(accent.copy(alpha = TINT_START_ALPHA), accent.copy(alpha = TINT_END_ALPHA))))
                 .padding(12.dp),
             verticalArrangement = Arrangement.SpaceBetween,

@@ -174,7 +174,9 @@ private fun TvAppsContent(state: TvAppsState, onAction: (TvAppsAction) -> Unit) 
                     state.recents.forEach { add(recentCardKey(it.packageName)) }
                     apps.apps.forEach { add(installedCardKey(it.packageName)) }
                 },
-                defaultKey = apps.apps.firstOrNull()?.let { installedCardKey(it.packageName) } ?: SEARCH_KEY,
+                defaultKey = state.recents.firstOrNull()?.let { recentCardKey(it.packageName) }
+                    ?: apps.apps.firstOrNull()?.let { installedCardKey(it.packageName) }
+                    ?: SEARCH_KEY,
             )
 
             Column(modifier = Modifier.fillMaxSize()) {
